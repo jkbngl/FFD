@@ -24,7 +24,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.nttw.ffd"
+    },
+    "android": {
+      "package": "com.nttw.ffd"
     }
   }
 }
