@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, Picker, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, Picker, Button, Alert, TextInput } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createAppContainer } from 'react-navigation';
 import Icon from "react-native-vector-icons/FontAwesome";
 
 export default class App extends React.Component {
+
   render() {
     return (
         <AppContainer />
@@ -43,6 +44,12 @@ class ExploreScreen extends React.Component {
           <Picker.Item label="JavaScript" value="js" />
         </Picker>
 
+        <TextInput
+          style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+          // onChangeText={text => onChangeText(text)}
+          // value={value}
+        />
+
         <Picker
           //selectedValue={this.state.language}
           style={{height: 50, width: 300}}
@@ -53,6 +60,12 @@ class ExploreScreen extends React.Component {
           <Picker.Item label="JavaScript" value="js" />
         </Picker>
 
+        <TextInput
+          style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+          // onChangeText={text => onChangeText(text)}
+          // value={value}
+        />
+
         <Picker
           //selectedValue={this.state.language}
           style={{height: 50, width: 300}}
@@ -62,6 +75,12 @@ class ExploreScreen extends React.Component {
           <Picker.Item label="Select existing or enter new Level 3" value="defaule_none" />
           <Picker.Item label="JavaScript" value="js" />
         </Picker>
+
+        <TextInput
+          style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+          // onChangeText={text => onChangeText(text)}
+          // value={value}
+        />
 
         <Button
           title="Save"
