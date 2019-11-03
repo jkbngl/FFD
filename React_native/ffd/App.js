@@ -1,8 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Picker, Button, Alert } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createAppContainer } from 'react-navigation';
-
 import Icon from "react-native-vector-icons/FontAwesome";
 
 export default class App extends React.Component {
@@ -31,8 +30,44 @@ class HomeScreen extends React.Component {
 class ExploreScreen extends React.Component {
   render() {
     return(
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#d0d0d0'}}>
-        <Text> This is my Explore screen </Text>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Picker
+          //selectedValue={this.state.language}
+          style={{height: 50, width: 300}}
+          
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({language: itemValue})
+          }>
+
+          <Picker.Item label="Select existing or enter new Level 1" value="default_none" />
+          <Picker.Item label="JavaScript" value="js" />
+        </Picker>
+
+        <Picker
+          //selectedValue={this.state.language}
+          style={{height: 50, width: 300}}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({language: itemValue})
+          }>
+          <Picker.Item label="Select existing or enter new Level 2" value="default_none" />
+          <Picker.Item label="JavaScript" value="js" />
+        </Picker>
+
+        <Picker
+          //selectedValue={this.state.language}
+          style={{height: 50, width: 300}}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({language: itemValue})
+          }>
+          <Picker.Item label="Select existing or enter new Level 3" value="defaule_none" />
+          <Picker.Item label="JavaScript" value="js" />
+        </Picker>
+
+        <Button
+          title="Save"
+          color="#081A3F"
+          onPress={() => Alert.alert('Accounts will be saved')}
+        />
       </View>
     );
   }
@@ -80,23 +115,31 @@ const bottomTabNavigator = createBottomTabNavigator(
         )
       }
     },
-    Explore: {
+    Accounts: {
       screen: ExploreScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="comments" size={25} color={tintColor} />
+          <Icon name="user" size={25} color={tintColor} />
         )
       }
     },
-    Notifications: {
+    Budget: {
       screen: NotificationsScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="search" size={25} color={tintColor} />
+          <Icon name="user" size={25} color={tintColor} />
         )
       }
     },
-    Profile: {
+    Actual: {
+      screen: ProfileScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="user" size={25} color={tintColor} />
+        )
+      }
+    },
+    Visualizer: {
       screen: ProfileScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
