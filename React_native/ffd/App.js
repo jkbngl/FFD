@@ -5,8 +5,6 @@ import { createAppContainer } from 'react-navigation';
 import Icon from "react-native-vector-icons/FontAwesome";
 
 export default class App extends React.Component {
-
-
   render() {
     return (
         <AppContainer />
@@ -29,7 +27,7 @@ class HomeScreen extends React.Component {
   }
 }
 
-class ExploreScreen extends React.Component {
+class AccountInput extends React.Component {
   render() {  
     return(
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -93,7 +91,7 @@ class ExploreScreen extends React.Component {
   }
 }
 
-class NotificationsScreen extends React.Component {
+class BudgetInput extends React.Component {
   render() {
     return(
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff'}}>
@@ -152,11 +150,112 @@ class NotificationsScreen extends React.Component {
   }
 }
 
-class ProfileScreen extends React.Component {
+class ActualInput extends React.Component {
   render() {
     return(
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#d0d0d0'}}>
-        <Text> This is my Profile screen </Text>
+      <View style={{flex: .7, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff'}}>
+        <View style={{backgroundColor: 'white', flex: 0.3}} />
+
+        <View style={{
+          flex: 1,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'stretch',
+        }}>
+        
+        <Picker
+          //selectedValue={this.state.language}
+          style={{height: 120, width: 100}}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({language: itemValue})
+          }>
+          <Picker.Item label="Year" value="defaule_none" />
+          <Picker.Item label="2019" value="2019" />
+          <Picker.Item label="2020" value="2020" />
+          <Picker.Item label="2021" value="2021" />
+        </Picker>
+
+        <Picker
+          //selectedValue={this.state.language}
+          style={{height: 120, width: 100}}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({language: itemValue})
+          }>
+          <Picker.Item label="Month" value="defaule_none" />
+          <Picker.Item label="Jan" value="1" />
+          <Picker.Item label="Feb" value="2" />
+          <Picker.Item label="Mar" value="3" />
+          <Picker.Item label="Other" value="-1" />
+        </Picker>
+
+        <Picker
+          //selectedValue={this.state.language}
+          style={{height: 120, width: 100}}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({language: itemValue})
+          }>
+          <Picker.Item label="Day" value="defaule_none" />
+          <Picker.Item label="First" value="1" />
+          <Picker.Item label="Second" value="2" />
+          <Picker.Item label="Third" value="3" />
+          <Picker.Item label="Other" value="-1" />
+        </Picker>
+
+        </View>
+        <TextInput
+          style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+          // onChangeText={text => onChangeText(text)}
+          // value={value}
+        />
+
+        <Picker
+          //selectedValue={this.state.language}
+          style={{height: 50, width: 300}}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({language: itemValue})
+          }>
+          <Picker.Item label="Select Level 1" value="defaule_none" />
+          <Picker.Item label="weekly" value="weekly" />
+          <Picker.Item label="yearly" value="yearly" />
+        </Picker>
+
+        <Picker
+          //selectedValue={this.state.language}
+          style={{height: 50, width: 300}}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({language: itemValue})
+          }>
+          <Picker.Item label="Select or leave empty - Level 2" value="defaule_none" />
+          <Picker.Item label="weekly" value="weekly" />
+          <Picker.Item label="yearly" value="yearly" />
+        </Picker>
+
+        <Picker
+          //selectedValue={this.state.language}
+          style={{height: 50, width: 300}}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({language: itemValue})
+          }>
+          <Picker.Item label="Select or leave empty - Level 3" value="defaule_none" />
+          <Picker.Item label="weekly" value="weekly" />
+          <Picker.Item label="yearly" value="yearly" />
+        </Picker>
+      </View>
+    );
+  }
+}
+
+
+class Visualizer extends React.Component {
+  render() {
+    return(
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={styles.container}>
+        <View style={styles.alternativeLayoutButtonContainer}>
+          <Text>Budget:{"\n"}900</Text>
+          <Text style={{color: 'green'}}>Actual:{"\n"}400</Text>
+        </View>
+      </View>
       </View>
     );
   }
@@ -185,7 +284,7 @@ const bottomTabNavigator = createBottomTabNavigator(
       }
     },
     Accounts: {
-      screen: ExploreScreen,
+      screen: AccountInput,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon name="user" size={25} color={tintColor} />
@@ -193,7 +292,7 @@ const bottomTabNavigator = createBottomTabNavigator(
       }
     },
     Budget: {
-      screen: NotificationsScreen,
+      screen: BudgetInput,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon name="user" size={25} color={tintColor} />
@@ -201,7 +300,7 @@ const bottomTabNavigator = createBottomTabNavigator(
       }
     },
     Actual: {
-      screen: ProfileScreen,
+      screen: ActualInput,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon name="user" size={25} color={tintColor} />
@@ -209,7 +308,7 @@ const bottomTabNavigator = createBottomTabNavigator(
       }
     },
     Visualizer: {
-      screen: ProfileScreen,
+      screen: Visualizer,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon name="user" size={25} color={tintColor} />
