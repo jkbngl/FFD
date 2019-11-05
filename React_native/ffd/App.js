@@ -7,6 +7,7 @@ import { createAppContainer } from 'react-navigation';
 import Icon from "react-native-vector-icons/FontAwesome";
 
 export default class App extends React.Component {
+
   render() {
     return (
         <AppContainer />
@@ -343,6 +344,7 @@ const bottomTabNavigator = createBottomTabNavigator(
     },
     Budget: {
       screen: BudgetInput,
+      screen: ExploreScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon name="user" size={25} color={tintColor} />
@@ -354,11 +356,25 @@ const bottomTabNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon name="user" size={25} color={tintColor} />
+    Budget: {
+      screen: NotificationsScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="user" size={25} color={tintColor} />
+        )
+      }
+    },
+    Actual: {
+      screen: ProfileScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="user" size={25} color={tintColor} />
         )
       }
     },
     Visualizer: {
       screen: VisualizerScreen,
+      screen: ProfileScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon name="user" size={25} color={tintColor} />
