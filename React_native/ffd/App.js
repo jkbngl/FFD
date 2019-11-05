@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Picker, Button, Alert, TextInput } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart} from "react-native-chart-kit";
+import { Dimensions } from "react-native";
 import { createAppContainer } from 'react-navigation';
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -246,16 +248,52 @@ class ActualInput extends React.Component {
 }
 
 
-class Visualizer extends React.Component {
+class VisualizerScreen extends React.Component {
   render() {
     return(
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <View style={styles.container}>
-        <View style={styles.alternativeLayoutButtonContainer}>
-          <Text>Budget:{"\n"}900</Text>
-          <Text style={{color: 'green'}}>Actual:{"\n"}400</Text>
-        </View>
-      </View>
+        <LineChart
+          data={{
+            labels: ["January", "February", "March", "April", "May", "June"],
+            datasets: [
+              {
+                data: [
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100
+                ]
+              }
+            ]
+          }}
+          width={Dimensions.get("window").width} // from react-native
+          height={220}
+          yAxisLabel={"$"}
+          yAxisSuffix={"k"}
+          chartConfig={{
+            backgroundColor: "#e26a00",
+            backgroundGradientFrom: "#fb8c00",
+            backgroundGradientTo: "#ffa726",
+            decimalPlaces: 2, // optional, defaults to 2dp
+            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            style: {
+              borderRadius: 16
+            },
+            propsForDots: {
+              r: "6",
+              strokeWidth: "2",
+              stroke: "#ffa726"
+            }
+          }}
+          bezier
+          style={{
+            marginVertical: 8,
+            borderRadius: 16
+          }}
+          />
       </View>
     );
   }
@@ -308,7 +346,7 @@ const bottomTabNavigator = createBottomTabNavigator(
       }
     },
     Visualizer: {
-      screen: Visualizer,
+      screen: VisualizerScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon name="user" size={25} color={tintColor} />
