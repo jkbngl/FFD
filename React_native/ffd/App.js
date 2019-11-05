@@ -268,8 +268,8 @@ class VisualizerScreen extends React.Component {
               }
             ]
           }}
-          width={Dimensions.get("window").width} // from react-native
-          height={220}
+          width={Dimensions.get("window").width - Dimensions.get("window").width / 10} // from react-native
+          height={Dimensions.get("window").height - Dimensions.get("window").height / 5}
           yAxisLabel={"$"}
           yAxisSuffix={"k"}
           chartConfig={{
