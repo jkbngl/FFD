@@ -147,6 +147,12 @@ class BudgetInput extends React.Component {
           <Picker.Item label="weekly" value="weekly" />
           <Picker.Item label="yearly" value="yearly" />
         </Picker>
+
+        <Button
+          title="Save"
+          color="#081A3F"
+          onPress={() => Alert.alert('Budget will be saved')}
+        />
       </View>
     );
   }
@@ -242,6 +248,12 @@ class ActualInput extends React.Component {
           <Picker.Item label="weekly" value="weekly" />
           <Picker.Item label="yearly" value="yearly" />
         </Picker>
+
+        <Button
+          title="Save"
+          color="#081A3F"
+          onPress={() => Alert.alert('Actuals will be saved')}
+        />
       </View>
     );
   }
