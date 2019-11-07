@@ -1,0 +1,9 @@
+signingConfigs {
+        release {
+            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
+                storeFile file(MYAPP_RELEASE_STORE_FILE)
+                storePassword ffd
+                keyAlias MYAPP_RELEASE_KEY_ALIAS
+                keyPassword ffd
+            }
+        }

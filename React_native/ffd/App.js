@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Picker, Button, Alert, TextInput } from 'react-native';
+import { Header } from 'react-native-elements';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart} from "react-native-chart-kit";
 import { Dimensions } from "react-native";
@@ -20,7 +21,7 @@ class HomeScreen extends React.Component {
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <View style={styles.container}>
         <View style={styles.alternativeLayoutButtonContainer}>
-          <Text>Budget:{"\n"}900</Text>
+          <Text>Budget:{"\n"}800</Text>
           <Text style={{color: 'green'}}>Actual:{"\n"}400</Text>
         </View>
       </View>
@@ -33,6 +34,13 @@ class AccountInput extends React.Component {
   render() {  
     return(
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Header
+          placement="left"
+          leftComponent={{ icon: 'menu', color: '#fff' }}
+          centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+          rightComponent={{ icon: 'home', color: '#fff' }}
+        />
+        
         <Picker
           //selectedValue={this.state.language}
           style={{height: 50, width: 300}}
@@ -96,24 +104,63 @@ class AccountInput extends React.Component {
 class BudgetInput extends React.Component {
   render() {
     return(
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff'}}>
+      <View style={{flex: .7, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff'}}>
+          <StatusBar backgroundColor="blue" barStyle="light-content" />
+
+        <View style={{backgroundColor: 'white', flex: 0.3}} />
+
+        <View style={{
+          flex: 1,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'stretch',
+        }}>
         
         <Picker
           //selectedValue={this.state.language}
-          style={{height: 50, width: 300}}
+          style={{height: 120, width: 100}}
           onValueChange={(itemValue, itemIndex) =>
             this.setState({language: itemValue})
           }>
-          <Picker.Item label="monthly" value="monthly" />
-          <Picker.Item label="weekly" value="weekly" />
-          <Picker.Item label="yearly" value="yearly" />
+          <Picker.Item label="Year" value="defaule_none" />
+          <Picker.Item label="2019" value="2019" />
+          <Picker.Item label="2020" value="2020" />
+          <Picker.Item label="2021" value="2021" />
         </Picker>
 
+        <Picker
+          //selectedValue={this.state.language}
+          style={{height: 120, width: 100}}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({language: itemValue})
+          }>
+          <Picker.Item label="Month" value="defaule_none" />
+          <Picker.Item label="Jan" value="1" />
+          <Picker.Item label="Feb" value="2" />
+          <Picker.Item label="Mar" value="3" />
+          <Picker.Item label="Other" value="-1" />
+        </Picker>
+
+        <Picker
+          //selectedValue={this.state.language}
+          style={{height: 120, width: 100}}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({language: itemValue})
+          }>
+          <Picker.Item label="Day" value="defaule_none" />
+          <Picker.Item label="First" value="1" />
+          <Picker.Item label="Second" value="2" />
+          <Picker.Item label="Third" value="3" />
+          <Picker.Item label="Other" value="-1" />
+        </Picker>
+
+        </View>
         <TextInput
           style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
           // onChangeText={text => onChangeText(text)}
           // value={value}
         />
+
 
         <Picker
           //selectedValue={this.state.language}
