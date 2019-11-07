@@ -34,13 +34,14 @@ class AccountInput extends React.Component {
   render() {  
     return(
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        
         <Header
           placement="left"
-          leftComponent={{ icon: 'menu', color: '#fff' }}
-          centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+          /*leftComponent={{ icon: 'menu', color: '#fff' }}*/
+          centerComponent={{ text: 'FFD - Accounts', style: { color: '#fff' } }}
           rightComponent={{ icon: 'home', color: '#fff' }}
         />
-        
+
         <Picker
           //selectedValue={this.state.language}
           style={{height: 50, width: 300}}
@@ -105,8 +106,6 @@ class BudgetInput extends React.Component {
   render() {
     return(
       <View style={{flex: .7, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff'}}>
-          <StatusBar backgroundColor="blue" barStyle="light-content" />
-
         <View style={{backgroundColor: 'white', flex: 0.3}} />
 
         <View style={{
