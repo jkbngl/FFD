@@ -33,70 +33,74 @@ class HomeScreen extends React.Component {
 class AccountInput extends React.Component {
   render() {  
     return(
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{flex: 1}}>
         
-        <Header
-          placement="left"
-          /*leftComponent={{ icon: 'menu', color: '#fff' }}*/
-          centerComponent={{ text: 'FFD - Accounts', style: { color: '#fff' } }}
-          rightComponent={{ icon: 'home', color: '#fff' }}
-        />
+        <View style={{flex: 1}}>
+          <Header
+            placement="left"
+            /*leftComponent={{ icon: 'menu', color: '#fff' }}*/
+            centerComponent={{ text: 'FFD - Accounts', style: { color: '#fff' } }}
+            rightComponent={{ icon: 'home', color: '#fff' }}
+          />
+        </View>
 
-        <Picker
-          //selectedValue={this.state.language}
-          style={{height: 50, width: 300}}
-          
-          onValueChange={(itemValue, itemIndex) =>
-            this.setState({language: itemValue})
-          }>
+        <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
+          <Picker
+            //selectedValue={this.state.language}
+            style={{height: 50, width: 300}}
 
-          <Picker.Item label="Select existing or enter new Level 1" value="default_none" />
-          <Picker.Item label="JavaScript" value="js" />
-        </Picker>
+            onValueChange={(itemValue, itemIndex) =>
+              this.setState({language: itemValue})
+            }>
 
-        <TextInput
-          style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
-          // onChangeText={text => onChangeText(text)}
-          // value={value}
-        />
+            <Picker.Item label="Select existing or enter new Level 1" value="default_none" />
+            <Picker.Item label="JavaScript" value="js" />
+          </Picker>
 
-        <Picker
-          //selectedValue={this.state.language}
-          style={{height: 50, width: 300}}
-          onValueChange={(itemValue, itemIndex) =>
-            this.setState({language: itemValue})
-          }>
-          <Picker.Item label="Select existing or enter new Level 2" value="default_none" />
-          <Picker.Item label="JavaScript" value="js" />
-        </Picker>
+          <TextInput
+            style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+            // onChangeText={text => onChangeText(text)}
+            // value={value}
+          />
 
-        <TextInput
-          style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
-          // onChangeText={text => onChangeText(text)}
-          // value={value}
-        />
+          <Picker
+            //selectedValue={this.state.language}
+            style={{height: 50, width: 300}}
+            onValueChange={(itemValue, itemIndex) =>
+              this.setState({language: itemValue})
+            }>
+            <Picker.Item label="Select existing or enter new Level 2" value="default_none" />
+            <Picker.Item label="JavaScript" value="js" />
+          </Picker>
 
-        <Picker
-          //selectedValue={this.state.language}
-          style={{height: 50, width: 300}}
-          onValueChange={(itemValue, itemIndex) =>
-            this.setState({language: itemValue})
-          }>
-          <Picker.Item label="Select existing or enter new Level 3" value="defaule_none" />
-          <Picker.Item label="JavaScript" value="js" />
-        </Picker>
+          <TextInput
+            style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+            // onChangeText={text => onChangeText(text)}
+            // value={value}
+          />
 
-        <TextInput
-          style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
-          // onChangeText={text => onChangeText(text)}
-          // value={value}
-        />
+          <Picker
+            //selectedValue={this.state.language}
+            style={{height: 50, width: 300}}
+            onValueChange={(itemValue, itemIndex) =>
+              this.setState({language: itemValue})
+            }>
+            <Picker.Item label="Select existing or enter new Level 3" value="defaule_none" />
+            <Picker.Item label="JavaScript" value="js" />
+          </Picker>
 
-        <Button
-          title="Save"
-          color="#081A3F"
-          onPress={() => Alert.alert('Accounts will be saved')}
-        />
+          <TextInput
+            style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+            // onChangeText={text => onChangeText(text)}
+            // value={value}
+          />
+
+          <Button
+            title="Save"
+            color="#081A3F"
+            onPress={() => Alert.alert('Accounts will be saved')}
+          />
+        </View>
       </View>
     );
   }
