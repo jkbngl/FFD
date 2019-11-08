@@ -109,7 +109,17 @@ class AccountInput extends React.Component {
 class BudgetInput extends React.Component {
   render() {
     return(
-      <View style={{flex: .7, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff'}}>
+      <View style={{flex: .7, backgroundColor: '#fff'}}>
+        
+        <View style={{flex: 1}}>
+          <Header
+            placement="left"
+            /*leftComponent={{ icon: 'menu', color: '#fff' }}*/
+            centerComponent={{ text: 'FFD - Budget', style: { color: '#fff' } }}
+            rightComponent={{ icon: 'home', color: '#fff' }}
+          />
+        </View>
+
         <View style={{backgroundColor: 'white', flex: 0.3}} />
 
         <View style={{
@@ -117,6 +127,7 @@ class BudgetInput extends React.Component {
           flexDirection: 'row',
           justifyContent: 'center',
           alignItems: 'stretch',
+          
         }}>
         
         <Picker
@@ -158,6 +169,11 @@ class BudgetInput extends React.Component {
         </Picker>
 
         </View>
+        
+        <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
+
+
+        
         <TextInput
           style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
           // onChangeText={text => onChangeText(text)}
@@ -203,6 +219,7 @@ class BudgetInput extends React.Component {
           color="#081A3F"
           onPress={() => Alert.alert('Budget will be saved')}
         />
+        </View>
       </View>
     );
   }
