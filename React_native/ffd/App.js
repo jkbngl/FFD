@@ -109,8 +109,8 @@ class AccountInput extends React.Component {
 class BudgetInput extends React.Component {
   render() {
     return(
-      <View style={{flex: .7, backgroundColor: '#fff'}}>
-        
+      <View style={{flex: 1}}>
+                
         <View style={{flex: 1}}>
           <Header
             placement="left"
@@ -171,8 +171,6 @@ class BudgetInput extends React.Component {
         </View>
         
         <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
-
-
         
         <TextInput
           style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
@@ -228,8 +226,16 @@ class BudgetInput extends React.Component {
 class ActualInput extends React.Component {
   render() {
     return(
-      <View style={{flex: .7, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff'}}>
-        <View style={{backgroundColor: 'white', flex: 0.3}} />
+      <View style={{flex: 1}}>
+                
+        <View style={{flex: 1}}>
+          <Header
+            placement="left"
+            /*leftComponent={{ icon: 'menu', color: '#fff' }}*/
+            centerComponent={{ text: 'FFD - Actual', style: { color: '#fff' } }}
+            rightComponent={{ icon: 'home', color: '#fff' }}
+          />
+        </View>   
 
         <View style={{
           flex: 1,
@@ -276,7 +282,12 @@ class ActualInput extends React.Component {
           <Picker.Item label="Other" value="-1" />
         </Picker>
 
-        </View>
+        </View>   
+
+
+        <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
+
+
         <TextInput
           style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
           // onChangeText={text => onChangeText(text)}
@@ -322,6 +333,8 @@ class ActualInput extends React.Component {
           onPress={() => Alert.alert('Actuals will be saved')}
         />
       </View>
+    </View>
+
     );
   }
 }
