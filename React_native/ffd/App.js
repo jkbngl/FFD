@@ -35,7 +35,7 @@ class AccountInput extends React.Component {
     return(
       <View style={{flex: 1}}>
         
-        <View style={{flex: 1}}>
+        <View style={{flex: .2}}>
           <Header
             placement="left"
             /*leftComponent={{ icon: 'menu', color: '#fff' }}*/
@@ -44,62 +44,66 @@ class AccountInput extends React.Component {
           />
         </View>
 
-        <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
-          <Picker
-            //selectedValue={this.state.language}
-            style={{height: 50, width: 300}}
+        <View style={{flex: .8, justifyContent: 'space-around', alignItems: 'center'}}>
+          <View style={{justifyContent: 'center'}}>
+            <Picker
+              //selectedValue={this.state.language}
+              style={{height: 50, width: 300}}
 
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({language: itemValue})
-            }>
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({language: itemValue})
+              }>
 
-            <Picker.Item label="Select existing or enter new Level 1" value="default_none" />
-            <Picker.Item label="JavaScript" value="js" />
-          </Picker>
+              <Picker.Item label="Select existing or enter new Level 1" value="default_none" />
+              <Picker.Item label="JavaScript" value="js" />
+            </Picker>
 
-          <TextInput
-            style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
-            // onChangeText={text => onChangeText(text)}
-            // value={value}
-          />
+            <TextInput
+              style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+              // onChangeText={text => onChangeText(text)}
+              // value={value}
+            />
 
-          <Picker
-            //selectedValue={this.state.language}
-            style={{height: 50, width: 300}}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({language: itemValue})
-            }>
-            <Picker.Item label="Select existing or enter new Level 2" value="default_none" />
-            <Picker.Item label="JavaScript" value="js" />
-          </Picker>
+            <Picker
+              //selectedValue={this.state.language}
+              style={{height: 50, width: 300}}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({language: itemValue})
+              }>
+              <Picker.Item label="Select existing or enter new Level 2" value="default_none" />
+              <Picker.Item label="JavaScript" value="js" />
+            </Picker>
 
-          <TextInput
-            style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
-            // onChangeText={text => onChangeText(text)}
-            // value={value}
-          />
+            <TextInput
+              style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+              // onChangeText={text => onChangeText(text)}
+              // value={value}
+            />
 
-          <Picker
-            //selectedValue={this.state.language}
-            style={{height: 50, width: 300}}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({language: itemValue})
-            }>
-            <Picker.Item label="Select existing or enter new Level 3" value="defaule_none" />
-            <Picker.Item label="JavaScript" value="js" />
-          </Picker>
+            <Picker
+              //selectedValue={this.state.language}
+              style={{height: 50, width: 300}}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({language: itemValue})
+              }>
+              <Picker.Item label="Select existing or enter new Level 3" value="defaule_none" />
+              <Picker.Item label="JavaScript" value="js" />
+            </Picker>
 
-          <TextInput
-            style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
-            // onChangeText={text => onChangeText(text)}
-            // value={value}
-          />
-
-          <Button
-            title="Save"
-            color="#081A3F"
-            onPress={() => Alert.alert('Accounts will be saved')}
-          />
+            <TextInput
+              style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+              // onChangeText={text => onChangeText(text)}
+              // value={value}
+            />
+          </View>
+          
+          <View style={{height: 100, width: 200}}>
+            <Button
+              title="Save"
+              color="#081A3F"
+              onPress={() => Alert.alert('Accounts will be saved')}
+            />
+          </View>
         </View>
       </View>
     );
@@ -278,50 +282,50 @@ class ActualInput extends React.Component {
 
         <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
 
-        <TextInput
-          style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
-          // onChangeText={text => onChangeText(text)}
-          // value={value}
-        />
+          <TextInput
+            style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+            // onChangeText={text => onChangeText(text)}
+            // value={value}
+          />
 
-        <Picker
-          //selectedValue={this.state.language}
-          style={{height: 50, width: 300}}
-          onValueChange={(itemValue, itemIndex) =>
-            this.setState({language: itemValue})
-          }>
-          <Picker.Item label="Select Level 1" value="defaule_none" />
-          <Picker.Item label="weekly" value="weekly" />
-          <Picker.Item label="yearly" value="yearly" />
-        </Picker>
+          <Picker
+            //selectedValue={this.state.language}
+            style={{height: 50, width: 300}}
+            onValueChange={(itemValue, itemIndex) =>
+              this.setState({language: itemValue})
+            }>
+            <Picker.Item label="Select Level 1" value="defaule_none" />
+            <Picker.Item label="weekly" value="weekly" />
+            <Picker.Item label="yearly" value="yearly" />
+          </Picker>
 
-        <Picker
-          //selectedValue={this.state.language}
-          style={{height: 50, width: 300}}
-          onValueChange={(itemValue, itemIndex) =>
-            this.setState({language: itemValue})
-          }>
-          <Picker.Item label="Select or leave empty - Level 2" value="defaule_none" />
-          <Picker.Item label="weekly" value="weekly" />
-          <Picker.Item label="yearly" value="yearly" />
-        </Picker>
+          <Picker
+            //selectedValue={this.state.language}
+            style={{height: 50, width: 300}}
+            onValueChange={(itemValue, itemIndex) =>
+              this.setState({language: itemValue})
+            }>
+            <Picker.Item label="Select or leave empty - Level 2" value="defaule_none" />
+            <Picker.Item label="weekly" value="weekly" />
+            <Picker.Item label="yearly" value="yearly" />
+          </Picker>
 
-        <Picker
-          //selectedValue={this.state.language}
-          style={{height: 50, width: 300}}
-          onValueChange={(itemValue, itemIndex) =>
-            this.setState({language: itemValue})
-          }>
-          <Picker.Item label="Select or leave empty - Level 3" value="defaule_none" />
-          <Picker.Item label="weekly" value="weekly" />
-          <Picker.Item label="yearly" value="yearly" />
-        </Picker>
+          <Picker
+            //selectedValue={this.state.language}
+            style={{height: 50, width: 300}}
+            onValueChange={(itemValue, itemIndex) =>
+              this.setState({language: itemValue})
+            }>
+            <Picker.Item label="Select or leave empty - Level 3" value="defaule_none" />
+            <Picker.Item label="weekly" value="weekly" />
+            <Picker.Item label="yearly" value="yearly" />
+          </Picker>
 
-        <Button
-          title="Save"
-          color="#081A3F"
-          onPress={() => Alert.alert('Actuals will be saved')}
-        />
+          <Button
+            title="Save"
+            color="#081A3F"
+            onPress={() => Alert.alert('Actuals will be saved')}
+          />
       </View>
     </View>
 
@@ -333,49 +337,61 @@ class ActualInput extends React.Component {
 class VisualizerScreen extends React.Component {
   render() {
     return(
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <LineChart
-          data={{
-            labels: ["January", "February", "March", "April", "May", "June"],
-            datasets: [
-              {
-                data: [
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100
-                ]
-              }
-            ]
-          }}
-          width={Dimensions.get("window").width - Dimensions.get("window").width / 10} // from react-native
-          height={Dimensions.get("window").height - Dimensions.get("window").height / 5}
-          yAxisLabel={"$"}
-          yAxisSuffix={"k"}
-          chartConfig={{
-            backgroundColor: "#e26a00",
-            backgroundGradientFrom: "#fb8c00",
-            backgroundGradientTo: "#ffa726",
-            decimalPlaces: 2, // optional, defaults to 2dp
-            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            style: {
-              borderRadius: 16
-            },
-            propsForDots: {
-              r: "6",
-              strokeWidth: "2",
-              stroke: "#ffa726"
-            }
-          }}
-          bezier
-          style={{
-            marginVertical: 8,
-            borderRadius: 16
-          }}
+      <View style={{flex: 1}}>
+        <View style={{flex: .5}}>
+          <Header
+            placement="left"
+            /*leftComponent={{ icon: 'menu', color: '#fff' }}*/
+            centerComponent={{ text: 'FFD - Budget', style: { color: '#fff' } }}
+            rightComponent={{ icon: 'home', color: '#fff' }}
           />
+        </View>
+        
+        
+        <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
+          <LineChart
+            data={{
+              labels: ["January", "February", "March", "April", "May", "June"],
+              datasets: [
+                {
+                  data: [
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100,
+                    Math.random() * 100
+                  ]
+                }
+              ]
+            }}
+            width={Dimensions.get("window").width - Dimensions.get("window").width / 10} // from react-native
+            height={Dimensions.get("window").height - Dimensions.get("window").height / 3}
+            yAxisLabel={"$"}
+            yAxisSuffix={"k"}
+            chartConfig={{
+              backgroundColor: "#e26a00",
+              backgroundGradientFrom: "#fb8c00",
+              backgroundGradientTo: "#ffa726",
+              decimalPlaces: 2, // optional, defaults to 2dp
+              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              style: {
+                borderRadius: 16
+              },
+              propsForDots: {
+                r: "6",
+                strokeWidth: "2",
+                stroke: "#ffa726"
+              }
+            }}
+            bezier
+            style={{
+              marginVertical: 8,
+              borderRadius: 16
+            }}
+            />
+        </View>
       </View>
     );
   }
