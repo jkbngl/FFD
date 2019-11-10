@@ -18,13 +18,21 @@ export default class App extends React.Component {
 class HomeScreen extends React.Component {
   render() {
     return(
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <View style={styles.container}>
-        <View style={styles.alternativeLayoutButtonContainer}>
-          <Text>Budget:{"\n"}800</Text>
-          <Text style={{color: 'green'}}>Actual:{"\n"}400</Text>
+      <View style={{flex: 1}}>
+        <View style={{flex: .2}}>
+          <Header
+            placement="left"
+            /*leftComponent={{ icon: 'menu', color: '#fff' }}*/
+            centerComponent={{ text: 'FFD - Home', style: { color: '#fff' } }}
+            rightComponent={{ icon: 'home', color: '#fff' }}
+          />
         </View>
-      </View>
+        <View style={styles.container}>
+          <View style={styles.alternativeLayoutButtonContainer}>
+            <Text>Budget:{"\n"}800</Text>
+            <Text style={{color: 'green'}}>Actual:{"\n"}400</Text>
+          </View>
+        </View>
       </View>
     );
   }
@@ -405,7 +413,8 @@ const styles = StyleSheet.create({
   alternativeLayoutButtonContainer: {
     margin: 5,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-around',
+    alignItems: 'center'
   }
 });
 
