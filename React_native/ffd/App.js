@@ -231,106 +231,107 @@ class ActualInput extends React.Component {
   render() {
     return(
       <View style={{flex: 1}}>
-        <View style={{flex: 1}}>
+        <View style={{flex: .2}}>
           <Header
             placement="left"
             /*leftComponent={{ icon: 'menu', color: '#fff' }}*/
-            centerComponent={{ text: 'FFD - Actual', style: { color: '#fff' } }}
+            centerComponent={{ text: 'FFD - Actuals', style: { color: '#fff' } }}
             rightComponent={{ icon: 'home', color: '#fff' }}
           />
-        </View>   
+        </View>
 
-        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'stretch',}}>
-          <Picker
-            //selectedValue={this.state.language}
-            style={{height: 120, width: 100}}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({language: itemValue})
-            }>
-            <Picker.Item label="Year" value="defaule_none" />
-            <Picker.Item label="2019" value="2019" />
-            <Picker.Item label="2020" value="2020" />
-            <Picker.Item label="2021" value="2021" />
-          </Picker>
+        <View style={{flex: .8, justifyContent: 'space-around', alignItems: 'center'}}>
+          <View style={{flexDirection: 'row'}}>
+            <Picker
+              //selectedValue={this.state.language}
+              style={{height: 120, width: 100}}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({language: itemValue})
+              }>
+              <Picker.Item label="Year" value="defaule_none" />
+              <Picker.Item label="2019" value="2019" />
+              <Picker.Item label="2020" value="2020" />
+              <Picker.Item label="2021" value="2021" />
+            </Picker>
 
-          <Picker
-            //selectedValue={this.state.language}
-            style={{height: 120, width: 100}}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({language: itemValue})
-            }>
-            <Picker.Item label="Month" value="defaule_none" />
-            <Picker.Item label="Jan" value="1" />
-            <Picker.Item label="Feb" value="2" />
-            <Picker.Item label="Mar" value="3" />
-            <Picker.Item label="Other" value="-1" />
-          </Picker>
+            <Picker
+              //selectedValue={this.state.language}
+              style={{height: 120, width: 100}}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({language: itemValue})
+              }>
+              <Picker.Item label="Month" value="defaule_none" />
+              <Picker.Item label="Jan" value="1" />
+              <Picker.Item label="Feb" value="2" />
+              <Picker.Item label="Mar" value="3" />
+              <Picker.Item label="Other" value="-1" />
+            </Picker>
 
-          <Picker
-            //selectedValue={this.state.language}
-            style={{height: 120, width: 100}}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({language: itemValue})
-            }>
-            <Picker.Item label="Day" value="defaule_none" />
-            <Picker.Item label="First" value="1" />
-            <Picker.Item label="Second" value="2" />
-            <Picker.Item label="Third" value="3" />
-            <Picker.Item label="Other" value="-1" />
-          </Picker>
+            <Picker
+              //selectedValue={this.state.language}
+              style={{height: 120, width: 100}}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({language: itemValue})
+              }>
+              <Picker.Item label="Day" value="defaule_none" />
+              <Picker.Item label="First" value="1" />
+              <Picker.Item label="Second" value="2" />
+              <Picker.Item label="Third" value="3" />
+              <Picker.Item label="Other" value="-1" />
+            </Picker>
 
-        </View>   
+          </View>
+        
+          <View style={{flex: 1.7}}>
+            <TextInput
+              style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+              // onChangeText={text => onChangeText(text)}
+              // value={value}
+            />
 
-
-        <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
-
-          <TextInput
-            style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
-            // onChangeText={text => onChangeText(text)}
-            // value={value}
-          />
-
-          <Picker
-            //selectedValue={this.state.language}
-            style={{height: 50, width: 300}}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({language: itemValue})
-            }>
-            <Picker.Item label="Select Level 1" value="defaule_none" />
-            <Picker.Item label="weekly" value="weekly" />
-            <Picker.Item label="yearly" value="yearly" />
-          </Picker>
-
-          <Picker
-            //selectedValue={this.state.language}
-            style={{height: 50, width: 300}}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({language: itemValue})
-            }>
-            <Picker.Item label="Select or leave empty - Level 2" value="defaule_none" />
-            <Picker.Item label="weekly" value="weekly" />
-            <Picker.Item label="yearly" value="yearly" />
-          </Picker>
-
-          <Picker
-            //selectedValue={this.state.language}
-            style={{height: 50, width: 300}}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({language: itemValue})
-            }>
-            <Picker.Item label="Select or leave empty - Level 3" value="defaule_none" />
-            <Picker.Item label="weekly" value="weekly" />
-            <Picker.Item label="yearly" value="yearly" />
-          </Picker>
-
-          <Button
-            title="Save"
-            color="#081A3F"
-            onPress={() => Alert.alert('Actuals will be saved')}
-          />
+            <Picker
+              //selectedValue={this.state.language}
+              style={{height: 50, width: 300}}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({language: itemValue})
+              }>
+              <Picker.Item label="Select Level 1" value="defaule_none" />
+              <Picker.Item label="weekly" value="weekly" />
+              <Picker.Item label="yearly" value="yearly" />
+            </Picker>
+            
+            <Picker
+              //selectedValue={this.state.language}
+              style={{height: 50, width: 300}}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({language: itemValue})
+              }>
+              <Picker.Item label="Select or leave empty - Level 2" value="defaule_none" />
+              <Picker.Item label="weekly" value="weekly" />
+              <Picker.Item label="yearly" value="yearly" />
+            </Picker>
+            
+            <Picker
+              //selectedValue={this.state.language}
+              style={{height: 50, width: 300}}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({language: itemValue})
+              }>
+              <Picker.Item label="Select or leave empty - Level 3" value="defaule_none" />
+              <Picker.Item label="weekly" value="weekly" />
+              <Picker.Item label="yearly" value="yearly" />
+            </Picker>
+            
+          </View>
+          <View style={{flex: 1, height: 100, width: 200}}>
+              <Button
+                title="Save"
+                color="#081A3F"
+                onPress={() => Alert.alert('Actual will be saved')}
+              />
+            </View>
+        </View>
       </View>
-    </View>
-
     );
   }
 }
