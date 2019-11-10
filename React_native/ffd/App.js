@@ -227,9 +227,17 @@ class BudgetInput extends React.Component {
   }
 }
 
+
 class ActualInput extends React.Component {
+  state = {
+    year: '2019',
+    month: '01',
+    day: '01'
+  };
+  
   render() {
     return(
+      
       <View style={{flex: 1}}>
         <View style={{flex: .2}}>
           <Header
@@ -243,11 +251,12 @@ class ActualInput extends React.Component {
         <View style={{flex: .8, justifyContent: 'space-around', alignItems: 'center'}}>
           <View style={{flexDirection: 'row'}}>
             <Picker
-              //selectedValue={this.state.language}
+              selectedValue={this.state.year}
               style={{height: 120, width: 100}}
               onValueChange={(itemValue, itemIndex) =>
                 this.setState({language: itemValue})
-              }>
+              }
+              >
               <Picker.Item label="Year" value="defaule_none" />
               <Picker.Item label="2019" value="2019" />
               <Picker.Item label="2020" value="2020" />
@@ -255,7 +264,7 @@ class ActualInput extends React.Component {
             </Picker>
 
             <Picker
-              //selectedValue={this.state.language}
+              selectedValue={this.state.month}
               style={{height: 120, width: 100}}
               onValueChange={(itemValue, itemIndex) =>
                 this.setState({language: itemValue})
@@ -268,7 +277,7 @@ class ActualInput extends React.Component {
             </Picker>
 
             <Picker
-              //selectedValue={this.state.language}
+              selectedValue={this.state.day}
               style={{height: 120, width: 100}}
               onValueChange={(itemValue, itemIndex) =>
                 this.setState({language: itemValue})
