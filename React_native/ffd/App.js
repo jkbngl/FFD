@@ -231,10 +231,15 @@ class BudgetInput extends React.Component {
 class ActualInput extends React.Component {
   state = {
     year: '2019',
-    month: '01',
-    day: '01'
+    month: '11',
+    day: '10',
+    level1: 'default_none',
+    level2: 'default_none',
+    level3: 'default_none',
   };
   
+  // const [value, onChangeText] = React.useState('Useless Placeholder');
+
   render() {
     return(
       
@@ -254,7 +259,7 @@ class ActualInput extends React.Component {
               selectedValue={this.state.year}
               style={{height: 120, width: 100}}
               onValueChange={(itemValue, itemIndex) =>
-                this.setState({language: itemValue})
+                this.setState({year: itemValue})
               }
               >
               <Picker.Item label="Year" value="defaule_none" />
@@ -267,7 +272,7 @@ class ActualInput extends React.Component {
               selectedValue={this.state.month}
               style={{height: 120, width: 100}}
               onValueChange={(itemValue, itemIndex) =>
-                this.setState({language: itemValue})
+                this.setState({month: itemValue})
               }>
               <Picker.Item label="Month" value="defaule_none" />
               <Picker.Item label="Jan" value="1" />
@@ -280,7 +285,7 @@ class ActualInput extends React.Component {
               selectedValue={this.state.day}
               style={{height: 120, width: 100}}
               onValueChange={(itemValue, itemIndex) =>
-                this.setState({language: itemValue})
+                this.setState({day: itemValue})
               }>
               <Picker.Item label="Day" value="defaule_none" />
               <Picker.Item label="First" value="1" />
@@ -299,10 +304,10 @@ class ActualInput extends React.Component {
             />
 
             <Picker
-              //selectedValue={this.state.language}
+              selectedValue={this.state.level1}
               style={{height: 50, width: 300}}
               onValueChange={(itemValue, itemIndex) =>
-                this.setState({language: itemValue})
+                this.setState({level1: itemValue})
               }>
               <Picker.Item label="Select Level 1" value="defaule_none" />
               <Picker.Item label="weekly" value="weekly" />
@@ -310,10 +315,10 @@ class ActualInput extends React.Component {
             </Picker>
             
             <Picker
-              //selectedValue={this.state.language}
+              selectedValue={this.state.level2}
               style={{height: 50, width: 300}}
               onValueChange={(itemValue, itemIndex) =>
-                this.setState({language: itemValue})
+                this.setState({level2: itemValue})
               }>
               <Picker.Item label="Select or leave empty - Level 2" value="defaule_none" />
               <Picker.Item label="weekly" value="weekly" />
@@ -321,10 +326,10 @@ class ActualInput extends React.Component {
             </Picker>
             
             <Picker
-              //selectedValue={this.state.language}
+              selectedValue={this.state.level3}
               style={{height: 50, width: 300}}
               onValueChange={(itemValue, itemIndex) =>
-                this.setState({language: itemValue})
+                this.setState({level3: itemValue})
               }>
               <Picker.Item label="Select or leave empty - Level 3" value="defaule_none" />
               <Picker.Item label="weekly" value="weekly" />
@@ -336,7 +341,14 @@ class ActualInput extends React.Component {
               <Button
                 title="Save"
                 color="#081A3F"
-                onPress={() => Alert.alert('Actual will be saved')}
+                onPress={() => Alert.alert('Actual will be saved for date: ' + this.state.year + "." 
+                                                                             + this.state.month + "." 
+                                                                             + this.state.day + "." 
+                                         + ', levels: ' + this.state.level1 + "."
+                                                        + this.state.level2 + "."
+                                                        + this.state.level3 + "."
+                                         + 'value: '
+                                         )}
               />
             </View>
         </View>
