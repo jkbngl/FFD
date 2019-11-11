@@ -179,7 +179,7 @@ class BudgetInput extends React.Component {
           <View style={{flex: 1.7}}>
             <TextInput
               style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
-              placeholder="Enter the value of your budget, e.g. 5!"
+              placeholder="Enter the value of your budget, e.g. 10!"
               // onChangeText={text => onChangeText(text)}
               // value={value}
             />
@@ -235,8 +235,8 @@ class BudgetInput extends React.Component {
 class ActualInput extends React.Component {
   state = {
     year: '2019',
-    month: '11',
-    day: '10',
+    month: 'Jan',
+    day: 'First',
     level1: 'default_none',
     level2: 'default_none',
     level3: 'default_none',
@@ -304,6 +304,9 @@ class ActualInput extends React.Component {
             <TextInput
               style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
               placeholder="Enter the value of your actual, e.g. 5!"
+              ref= {(el) => { this.actual = el; }}
+              onChangeText={(actual) => this.setState({actual})}
+              value={this.state.actual}          
               // onChangeText={text => onChangeText(text)}
               // value={value}
             />
@@ -346,14 +349,23 @@ class ActualInput extends React.Component {
               <Button
                 title="Save"
                 color="#081A3F"
-                onPress={() => Alert.alert('Actual will be saved for date: ' + this.state.year + "." 
-                                                                             + this.state.month + "." 
-                                                                             + this.state.day + "." 
-                                         + ', levels: ' + this.state.level1 + "."
-                                                        + this.state.level2 + "."
-                                                        + this.state.level3 + "."
-                                         + 'value: '
-                                         )}
+                onPress={() => Alert.alert(
+                  'Actual saved',
+                  "Date: " + this.state.year + "." 
+                  + this.state.month + "." 
+                  + this.state.day + "\n" 
+                  + "Account: "+ this.state.level1 + "."
+                  + this.state.level2 + "." 
+                  + this.state.level3 + "\n"
+                  + "Value: " + this.state.actual,
+                  [
+                  {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                  {text: 'OK', onPress: () => console.log('OK Pressed')},
+                  ], 
+                  { cancelable: false }
+                  )
+                }                  
               />
             </View>
         </View>
