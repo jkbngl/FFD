@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, Picker, Button, Alert, TextInput } from 'react-native';
 import { Header } from 'react-native-elements';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -68,6 +68,7 @@ class AccountInput extends React.Component {
 
             <TextInput
               style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+              placeholder="Enter the name of the level 1 here, e.g. Car!"
               // onChangeText={text => onChangeText(text)}
               // value={value}
             />
@@ -84,6 +85,7 @@ class AccountInput extends React.Component {
 
             <TextInput
               style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+              placeholder="Enter the name of the level 2 here, e.g. Repairs!"
               // onChangeText={text => onChangeText(text)}
               // value={value}
             />
@@ -100,6 +102,7 @@ class AccountInput extends React.Component {
 
             <TextInput
               style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+              placeholder="Enter the name of the level 3 here, e.g. brakes!"
               // onChangeText={text => onChangeText(text)}
               // value={value}
             />
@@ -238,11 +241,11 @@ class ActualInput extends React.Component {
     level3: 'default_none',
   };
   
-  // const [value, onChangeText] = React.useState('Useless Placeholder');
 
   render() {
+
     return(
-      
+
       <View style={{flex: 1}}>
         <View style={{flex: .2}}>
           <Header
