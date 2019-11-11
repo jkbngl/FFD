@@ -67,7 +67,7 @@ class AccountInput extends React.Component {
             </Picker>
 
             <TextInput
-              style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+              style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
               placeholder="Enter the name of the level 1 here, e.g. Car!"
               // onChangeText={text => onChangeText(text)}
               // value={value}
@@ -84,7 +84,7 @@ class AccountInput extends React.Component {
             </Picker>
 
             <TextInput
-              style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+              style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
               placeholder="Enter the name of the level 2 here, e.g. Repairs!"
               // onChangeText={text => onChangeText(text)}
               // value={value}
@@ -101,8 +101,8 @@ class AccountInput extends React.Component {
             </Picker>
 
             <TextInput
-              style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
-              placeholder="Enter the name of the level 3 here, e.g. brakes!"
+              style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
+              placeholder="Enter the name of the level 3 here, e.g. Brakes!"
               // onChangeText={text => onChangeText(text)}
               // value={value}
             />
