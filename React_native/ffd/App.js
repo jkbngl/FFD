@@ -39,6 +39,15 @@ class HomeScreen extends React.Component {
 }
 
 class AccountInput extends React.Component {
+  state = {
+    level1: 'default_none',
+    level2: 'default_none',
+    level3: 'default_none',
+    level1_new: 'default_none',
+    level2_new: 'default_none',
+    level3_new: 'default_none',
+  };
+
   render() {  
     return(
       <View style={{flex: 1}}>
@@ -55,29 +64,28 @@ class AccountInput extends React.Component {
         <View style={{flex: .8, justifyContent: 'space-around', alignItems: 'center'}}>
           <View style={{justifyContent: 'center'}}>
             <Picker
-              //selectedValue={this.state.language}
+              selectedValue={this.state.level1}
               style={{height: 50, width: 300}}
-
               onValueChange={(itemValue, itemIndex) =>
-                this.setState({language: itemValue})
+                this.setState({level1: itemValue})
               }>
-
               <Picker.Item label="Select existing or enter new Level 1" value="default_none" />
               <Picker.Item label="JavaScript" value="js" />
             </Picker>
 
             <TextInput
               style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
-              placeholder="Enter the name of the level 1 here, e.g. Car!"
-              // onChangeText={text => onChangeText(text)}
-              // value={value}
+              placeholder="Enter the name of your new level 1!"
+              ref= {(el) => { this.level1_new = el; }}
+              onChangeText={(level1_new) => this.setState({level1_new})}
+              //value={this.state.level1_new}          
             />
 
             <Picker
-              //selectedValue={this.state.language}
+              selectedValue={this.state.level2}
               style={{height: 50, width: 300}}
               onValueChange={(itemValue, itemIndex) =>
-                this.setState({language: itemValue})
+                this.setState({level2: itemValue})
               }>
               <Picker.Item label="Select existing or enter new Level 2" value="default_none" />
               <Picker.Item label="JavaScript" value="js" />
@@ -85,16 +93,18 @@ class AccountInput extends React.Component {
 
             <TextInput
               style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
-              placeholder="Enter the name of the level 2 here, e.g. Repairs!"
-              // onChangeText={text => onChangeText(text)}
-              // value={value}
+              placeholder="Enter the name of your new level 2!"
+              ref= {(el) => { this.level2_new = el; }}
+              onChangeText={(level2_new) => this.setState({level2_new})}
+              //value={this.state.level2_new}          
             />
 
+
             <Picker
-              //selectedValue={this.state.language}
+              selectedValue={this.state.level3}
               style={{height: 50, width: 300}}
               onValueChange={(itemValue, itemIndex) =>
-                this.setState({language: itemValue})
+                this.setState({level3: itemValue})
               }>
               <Picker.Item label="Select existing or enter new Level 3" value="defaule_none" />
               <Picker.Item label="JavaScript" value="js" />
@@ -102,18 +112,35 @@ class AccountInput extends React.Component {
 
             <TextInput
               style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
-              placeholder="Enter the name of the level 3 here, e.g. Brakes!"
-              // onChangeText={text => onChangeText(text)}
-              // value={value}
+              placeholder="Enter the name of your new level 3!"
+              ref= {(el) => { this.level3_new = el; }}
+              onChangeText={(level3_new) => this.setState({level3_new})}
+              //value={this.state.level3_new}          
             />
+
           </View>
           
           <View style={{height: 100, width: 200}}>
-            <Button
-              title="Save"
-              color="#081A3F"
-              onPress={() => Alert.alert('Accounts will be saved')}
-            />
+          <Button
+                title="Save"
+                color="#081A3F"
+                onPress={() => Alert.alert(
+                  'Accounts saved',
+                  "Existing Account: "+ this.state.level1 + "."
+                  + this.state.level2 + "." 
+                  + this.state.level3 + "\n"
+                  + "New Account: "+ this.state.level1_new + "."
+                  + this.state.level2_new + "." 
+                  + this.state.level3_new + "\n",
+                  [
+                  //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                  {text: 'OK', onPress: () => console.log('OK Pressed')},
+                  ], 
+                  { cancelable: false }
+                  )
+                }                  
+              />
           </View>
         </View>
       </View>
