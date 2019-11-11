@@ -178,7 +178,8 @@ class BudgetInput extends React.Component {
         
           <View style={{flex: 1.7}}>
             <TextInput
-              style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+              style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
+              placeholder="Enter the value of your budget, e.g. 5!"
               // onChangeText={text => onChangeText(text)}
               // value={value}
             />
@@ -301,7 +302,8 @@ class ActualInput extends React.Component {
         
           <View style={{flex: 1.7}}>
             <TextInput
-              style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+              style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
+              placeholder="Enter the value of your actual, e.g. 5!"
               // onChangeText={text => onChangeText(text)}
               // value={value}
             />
