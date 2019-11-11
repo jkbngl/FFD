@@ -122,6 +122,15 @@ class AccountInput extends React.Component {
 }
 
 class BudgetInput extends React.Component {
+  state = {
+    year: '2019',
+    month: 'Jan',
+    day: 'First',
+    level1: 'default_none',
+    level2: 'default_none',
+    level3: 'default_none',
+  };
+  
   render() {
     return(
       <View style={{flex: 1}}>
@@ -136,12 +145,12 @@ class BudgetInput extends React.Component {
 
         <View style={{flex: .8, justifyContent: 'space-around', alignItems: 'center'}}>
           <View style={{flexDirection: 'row'}}>
-            <Picker
-              //selectedValue={this.state.language}
+          <Picker
+              selectedValue={this.state.year}
               style={{height: 120, width: 100}}
               onValueChange={(itemValue, itemIndex) =>
-                this.setState({language: itemValue})
-              }>
+                this.setState({year: itemValue})
+              }              >
               <Picker.Item label="Year" value="defaule_none" />
               <Picker.Item label="2019" value="2019" />
               <Picker.Item label="2020" value="2020" />
@@ -149,10 +158,10 @@ class BudgetInput extends React.Component {
             </Picker>
 
             <Picker
-              //selectedValue={this.state.language}
+              selectedValue={this.state.month}
               style={{height: 120, width: 100}}
               onValueChange={(itemValue, itemIndex) =>
-                this.setState({language: itemValue})
+                this.setState({month: itemValue})
               }>
               <Picker.Item label="Month" value="defaule_none" />
               <Picker.Item label="Jan" value="1" />
@@ -162,10 +171,10 @@ class BudgetInput extends React.Component {
             </Picker>
 
             <Picker
-              //selectedValue={this.state.language}
+              selectedValue={this.state.day}
               style={{height: 120, width: 100}}
               onValueChange={(itemValue, itemIndex) =>
-                this.setState({language: itemValue})
+                this.setState({day: itemValue})
               }>
               <Picker.Item label="Day" value="defaule_none" />
               <Picker.Item label="First" value="1" />
@@ -177,18 +186,19 @@ class BudgetInput extends React.Component {
           </View>
         
           <View style={{flex: 1.7}}>
-            <TextInput
+          <TextInput
               style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
-              placeholder="Enter the value of your budget, e.g. 10!"
-              // onChangeText={text => onChangeText(text)}
-              // value={value}
+              placeholder="Enter the value of your budget, e.g. 5!"
+              ref= {(el) => { this.budget = el; }}
+              onChangeText={(budget) => this.setState({budget})}
+              value={this.state.budget}          
             />
 
             <Picker
-              //selectedValue={this.state.language}
+              selectedValue={this.state.level1}
               style={{height: 50, width: 300}}
               onValueChange={(itemValue, itemIndex) =>
-                this.setState({language: itemValue})
+                this.setState({level1: itemValue})
               }>
               <Picker.Item label="Select Level 1" value="defaule_none" />
               <Picker.Item label="weekly" value="weekly" />
@@ -196,10 +206,10 @@ class BudgetInput extends React.Component {
             </Picker>
             
             <Picker
-              //selectedValue={this.state.language}
+              selectedValue={this.state.level2}
               style={{height: 50, width: 300}}
               onValueChange={(itemValue, itemIndex) =>
-                this.setState({language: itemValue})
+                this.setState({level2: itemValue})
               }>
               <Picker.Item label="Select or leave empty - Level 2" value="defaule_none" />
               <Picker.Item label="weekly" value="weekly" />
@@ -207,10 +217,10 @@ class BudgetInput extends React.Component {
             </Picker>
             
             <Picker
-              //selectedValue={this.state.language}
+              selectedValue={this.state.level3}
               style={{height: 50, width: 300}}
               onValueChange={(itemValue, itemIndex) =>
-                this.setState({language: itemValue})
+                this.setState({level3: itemValue})
               }>
               <Picker.Item label="Select or leave empty - Level 3" value="defaule_none" />
               <Picker.Item label="weekly" value="weekly" />
@@ -219,10 +229,26 @@ class BudgetInput extends React.Component {
             
           </View>
           <View style={{flex: 1, height: 100, width: 200}}>
-              <Button
+          <Button
                 title="Save"
                 color="#081A3F"
-                onPress={() => Alert.alert('Budget will be saved')}
+                onPress={() => Alert.alert(
+                  'Budget saved',
+                  "Date: " + this.state.year + "." 
+                  + this.state.month + "." 
+                  + this.state.day + "\n" 
+                  + "Account: "+ this.state.level1 + "."
+                  + this.state.level2 + "." 
+                  + this.state.level3 + "\n"
+                  + "Value: " + this.state.budget,
+                  [
+                  //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                  {text: 'OK', onPress: () => console.log('OK Pressed')},
+                  ], 
+                  { cancelable: false }
+                  )
+                }                  
               />
             </View>
         </View>
@@ -264,8 +290,7 @@ class ActualInput extends React.Component {
               style={{height: 120, width: 100}}
               onValueChange={(itemValue, itemIndex) =>
                 this.setState({year: itemValue})
-              }
-              >
+              }              >
               <Picker.Item label="Year" value="defaule_none" />
               <Picker.Item label="2019" value="2019" />
               <Picker.Item label="2020" value="2020" />
@@ -307,8 +332,6 @@ class ActualInput extends React.Component {
               ref= {(el) => { this.actual = el; }}
               onChangeText={(actual) => this.setState({actual})}
               value={this.state.actual}          
-              // onChangeText={text => onChangeText(text)}
-              // value={value}
             />
 
             <Picker
@@ -359,7 +382,7 @@ class ActualInput extends React.Component {
                   + this.state.level3 + "\n"
                   + "Value: " + this.state.actual,
                   [
-                  {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                  //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
                   {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                   {text: 'OK', onPress: () => console.log('OK Pressed')},
                   ], 
