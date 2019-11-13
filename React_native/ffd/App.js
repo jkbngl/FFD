@@ -75,7 +75,7 @@ class AccountInput extends React.Component {
 
             <TextInput
               style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
-              placeholder="Enter the name of your new level 1!"
+              placeholder="Enter the name of your new level 1, e.g. Car!"
               ref= {(el) => { this.level1_new = el; }}
               onChangeText={(level1_new) => this.setState({level1_new})}
               //value={this.state.level1_new}          
@@ -93,7 +93,7 @@ class AccountInput extends React.Component {
 
             <TextInput
               style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
-              placeholder="Enter the name of your new level 2!"
+              placeholder="Enter the name of your new level 2, e.g. Repairs!"
               ref= {(el) => { this.level2_new = el; }}
               onChangeText={(level2_new) => this.setState({level2_new})}
               //value={this.state.level2_new}          
@@ -106,7 +106,7 @@ class AccountInput extends React.Component {
               onValueChange={(itemValue, itemIndex) =>
                 this.setState({level3: itemValue})
               }>
-              <Picker.Item label="Select existing or enter new Level 3" value="defaule_none" />
+              <Picker.Item label="Select existing or enter new Level 3, e.g. Motor" value="defaule_none" />
               <Picker.Item label="JavaScript" value="js" />
             </Picker>
 
