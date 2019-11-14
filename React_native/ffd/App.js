@@ -6,6 +6,9 @@ import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, Stacke
 import { Dimensions } from "react-native";
 import { createAppContainer } from 'react-navigation';
 import Icon from "react-native-vector-icons/FontAwesome";
+//import CardView from 'react-native-cardview';
+
+
 
 export default class App extends React.Component {
   render() {
@@ -16,6 +19,12 @@ export default class App extends React.Component {
 }
 
 class HomeScreen extends React.Component {
+  state = {
+    year: '2019',
+    month: 'Jan',
+    day: 'First'
+  };
+
   render() {
     return(
       <View style={{flex: 1}}>
@@ -27,10 +36,63 @@ class HomeScreen extends React.Component {
             rightComponent={{ icon: 'home', color: '#fff' }}
           />
         </View>
+
+        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <Picker
+            selectedValue={this.state.year}
+            style={{height: 120, width: 100}}
+            onValueChange={(itemValue, itemIndex) =>
+              this.setState({year: itemValue})
+            }              >
+            <Picker.Item label="Year" value="defaule_none" />
+            <Picker.Item label="2019" value="2019" />
+            <Picker.Item label="2020" value="2020" />
+            <Picker.Item label="2021" value="2021" />
+          </Picker>
+
+          <Picker
+            selectedValue={this.state.month}
+            style={{height: 120, width: 100}}
+            onValueChange={(itemValue, itemIndex) =>
+              this.setState({month: itemValue})
+            }>
+            <Picker.Item label="Month" value="defaule_none" />
+            <Picker.Item label="Jan" value="1" />
+            <Picker.Item label="Feb" value="2" />
+            <Picker.Item label="Mar" value="3" />
+            <Picker.Item label="Other" value="-1" />
+          </Picker>
+
+          <Picker
+            selectedValue={this.state.day}
+            style={{height: 120, width: 100}}
+            onValueChange={(itemValue, itemIndex) =>
+              this.setState({day: itemValue})
+            }>
+            <Picker.Item label="Day" value="defaule_none" />
+            <Picker.Item label="First" value="1" />
+            <Picker.Item label="Second" value="2" />
+            <Picker.Item label="Third" value="3" />
+            <Picker.Item label="Other" value="-1" />
+          </Picker>
+
+        </View>
+
         <View style={styles.container}>
           <View style={styles.alternativeLayoutButtonContainer}>
-            <Text>Budget:{"\n"}800</Text>
-            <Text style={{color: 'green'}}>Actual:{"\n"}400</Text>
+            <Text style={styles.box}>Budget:{"\n"}800</Text>
+            <Text style={styles.box}>Actual:{"\n"}400</Text>
+            {/*  
+            <CardView
+                cardElevation={2}
+                cardMaxElevation={2}
+                cornerRadius={5}>
+              <Text>
+                Elevation 0
+              </Text>
+            </CardView>
+            */}
+
           </View>
         </View>
       </View>
@@ -46,6 +108,10 @@ class AccountInput extends React.Component {
     level1_new: 'default_none',
     level2_new: 'default_none',
     level3_new: 'default_none',
+  };
+
+  payload = { 
+    employees : [] 
   };
 
   render() {  
@@ -106,13 +172,13 @@ class AccountInput extends React.Component {
               onValueChange={(itemValue, itemIndex) =>
                 this.setState({level3: itemValue})
               }>
-              <Picker.Item label="Select existing or enter new Level 3, e.g. Motor" value="defaule_none" />
+              <Picker.Item label="Select existing or enter new Level 3" value="defaule_none" />
               <Picker.Item label="JavaScript" value="js" />
             </Picker>
 
             <TextInput
               style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
-              placeholder="Enter the name of your new level 3!"
+              placeholder="Enter the name of your new level 3, e.g. Motor!"
               ref= {(el) => { this.level3_new = el; }}
               onChangeText={(level3_new) => this.setState({level3_new})}
               //value={this.state.level3_new}          
@@ -135,7 +201,7 @@ class AccountInput extends React.Component {
                   [
                   //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
                   {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                  {text: 'OK', onPress: () => console.log('OK Pressed')},
+                  {text: 'OK', onPress: () => Alert.alert(state)},
                   ], 
                   { cancelable: false }
                   )
@@ -215,7 +281,7 @@ class BudgetInput extends React.Component {
           <View style={{flex: 1.7}}>
           <TextInput
               style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
-              placeholder="Enter the value of your budget, e.g. 5!"
+              placeholder="Enter the value of your budget, e.g. 50!"
               ref= {(el) => { this.budget = el; }}
               onChangeText={(budget) => this.setState({budget})}
               value={this.state.budget}          
@@ -355,7 +421,7 @@ class ActualInput extends React.Component {
           <View style={{flex: 1.7}}>
             <TextInput
               style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
-              placeholder="Enter the value of your actual, e.g. 5!"
+              placeholder="Enter the value of your actual, e.g. 20!"
               ref= {(el) => { this.actual = el; }}
               onChangeText={(actual) => this.setState({actual})}
               value={this.state.actual}          
@@ -498,6 +564,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center'
+  },
+  box:
+  {
+    //color: 'green',   // debug test
+    elevation:4,
+    shadowOffset: { width: 5, height: 5 },
+    shadowColor: "grey",
+    shadowOpacity: 0.5,
+    shadowRadius: 10  
   }
 });
 
