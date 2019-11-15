@@ -115,9 +115,8 @@ class AccountInput extends React.Component {
   };
 
   handleClick() {
-    console.log('Click happened');
+    console.log('___WORKED___');
   }
-
 
   render() {  
     return(
@@ -195,7 +194,8 @@ class AccountInput extends React.Component {
           <Button
                 title="Save"
                 color="#081A3F"
-                //onPress={this.handleClick}
+                onPress={() => this.handleClick()}
+                /*
                 onPress={() => Alert.alert(
                   'Accounts saved',
                   "Existing Account: "+ this.state.level1 + "."
@@ -211,7 +211,8 @@ class AccountInput extends React.Component {
                   ], 
                   { cancelable: false }
                   )
-                }                  
+                }  
+                */                
               />
           </View>
         </View>
