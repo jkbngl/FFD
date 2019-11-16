@@ -133,22 +133,17 @@ class AccountInput extends React.Component {
 
     Alert.alert("test")
 
-    data=[
-      {"name":"nani"},
+    your_array_from_fetch=[
+      {"name":"test"},
       {"name":"banani"},
       {"name":"jakob"}
-    ];
+    ];    
+
+    this.setState({ data: your_array_from_fetch });
 
   }
 
   render() {  
-
-    var data=[
-      {"name":"stephen"},
-      {"name":"kate"},
-      {"name":"michael"}
-    ]
-
     return(
       <View style={{flex: 1}}>
         
@@ -170,7 +165,7 @@ class AccountInput extends React.Component {
                 this.setState({level1: itemValue})
               }>
               {
-                 data.map((item) =>{
+                 this.state.data.map((item) =>{
                    return(
                    <Picker.Item  label={item.name} value={item.name} key={item.name}/>
                    );
