@@ -115,8 +115,10 @@ class AccountInput extends React.Component {
   };
 
   handleClick() {
-    console.log('___WORKED___');
+    console.log('Click happened');
   }
+
+  
 
   render() {  
     return(
@@ -191,6 +193,7 @@ class AccountInput extends React.Component {
           </View>
           
           <View style={{height: 100, width: 200}}>
+          <button onClick={() => this.handleClick()}>Click Me</button>;
           <Button
                 title="Save"
                 color="#081A3F"
