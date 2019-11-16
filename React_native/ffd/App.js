@@ -110,23 +110,44 @@ class AccountInput extends React.Component {
     level3_new: 'default_none',
   };
 
-  payload = { 
-    employees : [] 
-  };
-
-  handleClick() {
-    console.log('Click happened');
+  constructor(props) {
+    super(props);
+    this.state = {
+       data : []
+    };
+  
+  }
+  
+  componentDidMount() {
+    your_array_from_fetch=[
+      {"name":"nani"},
+      {"name":"banani"},
+      {"name":"jakob"}
+    ];     
+    
+    this.setState({ data: your_array_from_fetch });
+     
   }
 
-  
+  handleClick() {
+
+    Alert.alert("test")
+
+    data=[
+      {"name":"nani"},
+      {"name":"banani"},
+      {"name":"jakob"}
+    ];
+
+  }
 
   render() {  
 
-    const data=[
-      {"name":"stephen"},
-      {"name":"kate"},
-      {"name":"michael"}
-    ]
+    //var data=[
+    //  {"name":"stephen"},
+    //  {"name":"kate"},
+    //  {"name":"michael"}
+    //]
 
     return(
       <View style={{flex: 1}}>
@@ -171,8 +192,13 @@ class AccountInput extends React.Component {
               onValueChange={(itemValue, itemIndex) =>
                 this.setState({level2: itemValue})
               }>
-              <Picker.Item label="Select existing or enter new Level 2" value="default_none" />
-              <Picker.Item label="JavaScript" value="js" />
+              {
+                 data.map((item) =>{
+                   return(
+                   <Picker.Item  label={item.name} value={item.name} key={item.name}/>
+                   );
+                 })
+               }
             </Picker>
 
             <TextInput
