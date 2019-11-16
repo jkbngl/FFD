@@ -121,6 +121,13 @@ class AccountInput extends React.Component {
   
 
   render() {  
+
+    const data=[
+      {"name":"stephen"},
+      {"name":"kate"},
+      {"name":"michael"}
+    ]
+
     return(
       <View style={{flex: 1}}>
         
@@ -141,8 +148,13 @@ class AccountInput extends React.Component {
               onValueChange={(itemValue, itemIndex) =>
                 this.setState({level1: itemValue})
               }>
-              <Picker.Item label="Select existing or enter new Level 1" value="default_none" />
-              <Picker.Item label="JavaScript" value="js" />
+              {
+                 data.map((item) =>{
+                   return(
+                   <Picker.Item  label={item.name} value={item.name} key={item.name}/>
+                   );
+                 })
+               }
             </Picker>
 
             <TextInput
