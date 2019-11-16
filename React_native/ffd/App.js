@@ -143,11 +143,11 @@ class AccountInput extends React.Component {
 
   render() {  
 
-    //var data=[
-    //  {"name":"stephen"},
-    //  {"name":"kate"},
-    //  {"name":"michael"}
-    //]
+    var data=[
+      {"name":"stephen"},
+      {"name":"kate"},
+      {"name":"michael"}
+    ]
 
     return(
       <View style={{flex: 1}}>
@@ -193,7 +193,7 @@ class AccountInput extends React.Component {
                 this.setState({level2: itemValue})
               }>
               {
-                 data.map((item) =>{
+                 this.state.data.map((item) =>{
                    return(
                    <Picker.Item  label={item.name} value={item.name} key={item.name}/>
                    );
