@@ -119,6 +119,7 @@ class AccountInput extends React.Component {
   }
   
   componentDidMount() {
+    // Replace with fetch from API
     your_array_from_fetch=[
       {"name":"nani"},
       {"name":"banani"},
@@ -131,7 +132,34 @@ class AccountInput extends React.Component {
 
   handleClick() {
 
-    Alert.alert("test")
+    var payload = {}
+
+    Alert.alert(
+      'Accounts saved',
+      "Existing Account: "
+      + this.state.level1 + "."
+      + this.state.level2 + "." 
+      + this.state.level3 + "\n"
+      + "New Account: "
+      + this.state.level1_new + "."
+      + this.state.level2_new + "." 
+      + this.state.level3_new,
+      [
+      //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+      {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+      {text: 'OK', onPress: () => console.log("test")},
+      ], 
+      { cancelable: false }
+    )
+
+    payload.level1 = this.state.level1;
+    payload.level2 = this.state.level2;
+    payload.level3 = this.state.level3;
+    payload.level1_new = this.state.level1_new;
+    payload.level1_new = this.state.level1_new;
+    payload.level1_new = this.state.level1_new;
+
+    Alert.alert("json parsed payload", JSON.stringify(payload));
 
     your_array_from_fetch=[
       {"name":"test"},
@@ -149,6 +177,7 @@ class AccountInput extends React.Component {
         
         <View style={{flex: .2}}>
           <Header
+            statusBarProps={{ barStyle: 'light-content' }}
             placement="left"
             /*leftComponent={{ icon: 'menu', color: '#fff' }}*/
             centerComponent={{ text: 'FFD - Accounts', style: { color: '#fff' } }}
