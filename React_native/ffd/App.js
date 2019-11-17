@@ -117,17 +117,38 @@ class AccountInput extends React.Component {
     };
   
   }
+
+  
   
   componentDidMount() {
-    // Replace with fetch from API
-    your_array_from_fetch=[
-      {"name":"nani"},
-      {"name":"banani"},
-      {"name":"jakob"}
-    ];     
+    var request = new XMLHttpRequest();
+    var data;
+
+    request.onreadystatechange = (e) => {
+      if (request.readyState !== 4) {
+        return;
+      }
     
-    this.setState({ data: your_array_from_fetch });
-     
+      if (request.status === 200) {
+        data = request.responseText;
+
+        console.log(data);
+    
+        // Replace with fetch from API
+        your_array_from_fetch=[
+          {"name":"nani"},
+          {"name":"banani"},
+          {"name":"jakob"}
+        ];     
+        
+        this.setState({ data: your_array_from_fetch });    
+      } else {
+        console.warn('error');
+      }
+    };
+
+    request.open('GET', 'https://facebook.github.io/react-native/movies.json');
+    request.send();
   }
 
   handleClick() {
