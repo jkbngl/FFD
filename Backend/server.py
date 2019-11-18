@@ -1,6 +1,8 @@
 from flask import render_template
 import connexion
 
+options = {"swagger_ui": True}
+
 # Create the application instance
 app = connexion.App(__name__, specification_dir='./')
 
