@@ -66,6 +66,8 @@ def read():
     postgreSQL_select_Query = "select * from tp_plan"
     cursor.execute(postgreSQL_select_Query)
     mobile_records = cursor.fetchall() 
+    cursor.close()
+    connection.close()
 
     return mobile_records
 
