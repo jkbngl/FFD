@@ -26,8 +26,8 @@ PEOPLE = {
 
 def connect():
     try:
-        connection = psycopg2.connect(user = <user>,
-                                      password = <password>,
+        connection = psycopg2.connect(user = "postgres",
+                                      password = "test",
                                       host = "192.168.0.20",
                                       port = "5432",
                                       database = "postgres")

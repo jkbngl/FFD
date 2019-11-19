@@ -118,8 +118,6 @@ class AccountInput extends React.Component {
   
   }
 
-  
-  
   componentDidMount() {
     var request = new XMLHttpRequest();
     var data;
@@ -132,7 +130,8 @@ class AccountInput extends React.Component {
       if (request.status === 200) {
         data = request.responseText;
 
-        console.log(data);
+        Alert.alert(data);
+        console.log('error');
     
         // Replace with fetch from API
         your_array_from_fetch=[
@@ -143,11 +142,11 @@ class AccountInput extends React.Component {
         
         this.setState({ data: your_array_from_fetch });    
       } else {
-        console.warn('error');
+        console.warn('error - http_code: ' + request.status);
       }
     };
 
-    request.open('GET', 'https://facebook.github.io/react-native/movies.json');
+    request.open('GET', 'http://192.168.0.20:5000/api/people');
     request.send();
   }
 
