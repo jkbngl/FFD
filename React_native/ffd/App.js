@@ -450,6 +450,7 @@ class ActualInput extends React.Component {
     level1: 'default_none',
     level2: 'default_none',
     level3: 'default_none',
+    costtype: 'default_none'
   };
   
 
@@ -509,7 +510,7 @@ class ActualInput extends React.Component {
 
           </View>
         
-          <View style={{flex: 1.7}}>
+          <View style={{flex: 2}}>
             <TextInput
               style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
               placeholder="Enter the value of your actual, e.g. 20!"
@@ -551,7 +552,20 @@ class ActualInput extends React.Component {
               <Picker.Item label="yearly" value="yearly" />
             </Picker>
             
+            <Picker
+              selectedValue={this.state.costtype}
+              style={{alignSelf: "flex-end", height: 50, width: 150}}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({costtype: itemValue})
+              }>
+              <Picker.Item label="Select type" value="defaule_none" />
+              <Picker.Item label="fixed" value="fixed" />
+              <Picker.Item label="variable" value="variable" />
+            </Picker>  
+
           </View>
+                    
+
           <View style={{flex: 1, height: 100, width: 200}}>
               <Button
                 title="Save"
