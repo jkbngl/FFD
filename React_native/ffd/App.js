@@ -578,7 +578,9 @@ class ActualInput extends React.Component {
                   + "Account: "+ this.state.level1 + "."
                   + this.state.level2 + "." 
                   + this.state.level3 + "\n"
-                  + "Value: " + this.state.actual,
+                  + "Value: " + this.state.actual + "\n"
+                  + "CostType: "+ this.state.costtype + "."
+                  ,
                   [
                   //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
                   {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
