@@ -510,7 +510,7 @@ class ActualInput extends React.Component {
 
           </View>
         
-          <View style={{flex: 2}}>
+          <View style={{flex: 2.5}}>
             <TextInput
               style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
               placeholder="Enter the value of your actual, e.g. 20!"
@@ -551,10 +551,10 @@ class ActualInput extends React.Component {
               <Picker.Item label="weekly" value="weekly" />
               <Picker.Item label="yearly" value="yearly" />
             </Picker>
-            
+
             <Picker
               selectedValue={this.state.costtype}
-              style={{alignSelf: "flex-end", height: 50, width: 150}}
+              style={{alignSelf: "flex-end", height: 50, width: 150, marginTop: 20}}
               onValueChange={(itemValue, itemIndex) =>
                 this.setState({costtype: itemValue})
               }>
@@ -564,9 +564,8 @@ class ActualInput extends React.Component {
               <Picker.Item label="invest - e.g. books" value="invest" />
               <Picker.Item label="fun - e.g. cocktails" value="fun" />
             </Picker>  
-
           </View>
-                    
+
 
           <View style={{flex: 1, height: 100, width: 200}}>
               <Button
