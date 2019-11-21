@@ -727,7 +727,7 @@ const bottomTabNavigator = createBottomTabNavigator(
       }
     },
     Admin: {
-      screen: ActualInput,
+      screen: AccountInput,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon name="user" size={25} color={tintColor} />
