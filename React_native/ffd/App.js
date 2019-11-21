@@ -554,13 +554,13 @@ class ActualInput extends React.Component {
 
             <Picker
               selectedValue={this.state.costtype}
-              style={{alignSelf: "flex-end", height: 50, width: 150, marginTop: 20}}
+              style={{alignSelf: "flex-end", height: 50, width: 150, marginTop: 15}}
               onValueChange={(itemValue, itemIndex) =>
                 this.setState({costtype: itemValue})
               }>
               <Picker.Item label="Select type" value="defaule_none" />
               <Picker.Item label="fixed - e.g. rent" value="fixed" />
-              <Picker.Item label="variable - e,g, gas" value="variable" />
+              <Picker.Item label="variable - e.g. gas" value="variable" />
               <Picker.Item label="invest - e.g. books" value="invest" />
               <Picker.Item label="fun - e.g. cocktails" value="fun" />
             </Picker>  
