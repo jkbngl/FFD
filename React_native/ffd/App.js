@@ -726,6 +726,14 @@ const bottomTabNavigator = createBottomTabNavigator(
         )
       }
     },
+    Admin: {
+      screen: ActualInput,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="user" size={25} color={tintColor} />
+        )
+      }
+    },
   },
   {
     initialRouteName: 'Home',
