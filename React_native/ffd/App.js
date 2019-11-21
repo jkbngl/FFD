@@ -706,7 +706,7 @@ const bottomTabNavigator = createBottomTabNavigator(
       screen: BudgetInput,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="user" size={25} color={tintColor} />
+          <Icon name="ios-admin" size={25} color={tintColor} />
         )
       }
     },
@@ -730,7 +730,7 @@ const bottomTabNavigator = createBottomTabNavigator(
       screen: AccountInput,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="user" size={25} color={tintColor} />
+          <Icon name="android-settings" size={25} color={tintColor} />
         )
       }
     },
