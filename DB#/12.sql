@@ -3,4 +3,12 @@ CREATE SCHEMA ffd
 
 select * from ffd.cost_types;
 
-insert into ffd.cost_types (name, created, update, create_by, updated_by) values ('fun', now(), null, 'jakob.engl', null)
+insert into ffd.cost_types (name, created, updated, created_by, updated_by) values ('invest', now(), null, 'jakob.engl', null);
+
+
+ALTER TABLE ffd.cost_types
+RENAME update TO updated;
+
+ALTER TABLE ffd.cost_types
+RENAME create_by TO created_by;
+
