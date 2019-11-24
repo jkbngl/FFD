@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Picker, Button, Alert, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Picker, Button, Alert, TextInput, Dimensions } from 'react-native';
 import { Header } from 'react-native-elements';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart} from "react-native-chart-kit";
-import { Dimensions } from "react-native";
 import { createAppContainer } from 'react-navigation';
 import Icon from "react-native-vector-icons/FontAwesome";
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
+import { TabView, SceneMap } from 'react-native-tab-view';
+
+
 //import CardView from 'react-native-cardview';
 
 
@@ -100,6 +103,16 @@ class HomeScreen extends React.Component {
   }
 }
 
+const FirstRoute = () => (
+  <View style={[styles.scene, { backgroundColor: '#ff4081' }]} />
+);
+ 
+const SecondRoute = () => (
+  <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />
+);
+
+ 
+
 class Admin extends React.Component {
   state = {
     level1: 'default_none',
@@ -108,6 +121,11 @@ class Admin extends React.Component {
     level1_new: 'default_none',
     level2_new: 'default_none',
     level3_new: 'default_none',
+    index: 0,
+    routes: [
+      { key: 'first', title: 'First' },
+      { key: 'second', title: 'Second' },
+    ],
   };
 
   constructor(props) {
@@ -191,6 +209,24 @@ class Admin extends React.Component {
 
   }
 
+  /*render() {
+    return (
+      <View style={{flex: 1}}>
+        <TabView
+          navigationState={this.state}
+          renderScene={SceneMap({
+            first: FirstRoute,
+            second: SecondRoute,
+          })}
+          onIndexChange={index => this.setState({ index })}
+          initialLayout={{ width: Dimensions.get('window').width }}
+        />
+      </View>
+    );
+  }
+  */
+
+  
   render() {  
     return(
       <View style={{flex: 1}}>
@@ -199,7 +235,7 @@ class Admin extends React.Component {
           <Header
             statusBarProps={{ barStyle: 'light-content' }}
             placement="left"
-            /*leftComponent={{ icon: 'menu', color: '#fff' }}*/
+            //leftComponent={{ icon: 'menu', color: '#fff' }}
             centerComponent={{ text: 'FFD - Admin', style: { color: '#fff' } }}
             rightComponent={{ icon: 'home', color: '#fff' }}
           />
@@ -291,24 +327,24 @@ class Admin extends React.Component {
                 title="Save"
                 color="#081A3F"
                 onPress={() => this.handleClick()}
-                /*
-                onPress={() => Alert.alert(
-                  'Accounts saved',
-                  "Existing Account: "+ this.state.level1 + "."
-                  + this.state.level2 + "." 
-                  + this.state.level3 + "\n"
-                  + "New Account: "+ this.state.level1_new + "."
-                  + this.state.level2_new + "." 
-                  + this.state.level3_new + "\n",
-                  [
-                  //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-                  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                  {text: 'OK', onPress: () => Alert.alert("test")},
-                  ], 
-                  { cancelable: false }
-                  )
-                }  
-                */                
+                
+                //onPress={() => Alert.alert(
+                //  'Accounts saved',
+                //  "Existing Account: "+ this.state.level1 + "."
+                //  + this.state.level2 + "." 
+                //  + this.state.level3 + "\n"
+                //  + "New Account: "+ this.state.level1_new + "."
+                //  + this.state.level2_new + "." 
+                //  + this.state.level3_new + "\n",
+                //  [
+                //  //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                //  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                //  {text: 'OK', onPress: () => Alert.alert("test")},
+                //  ], 
+                //  { cancelable: false }
+                //  )
+                //}  
+                
               />
           </View>
         </View>
@@ -706,6 +742,9 @@ const styles = StyleSheet.create({
     shadowColor: "grey",
     shadowOpacity: 0.5,
     shadowRadius: 10  
+  },
+  scene: {
+    flex: 1,
   }
 });
 
@@ -744,6 +783,17 @@ const bottomTabNavigator = createBottomTabNavigator(
         )
       }
     },
+    /*
+    TabScreen: {
+      screen: TabScreen,
+      navigationOptions: {
+        headerStyle: {
+          backgroundColor: '#633689',
+        },
+        headerTintColor: '#FFFFFF',
+        title: 'TabExample',
+      },
+    },*/  
     Admin: {
       screen: Admin,
       navigationOptions: {
@@ -752,7 +802,7 @@ const bottomTabNavigator = createBottomTabNavigator(
           <Icon name="user" size={25} color={tintColor} />
         )
       }
-    },
+    },    // Remove this komma is not needed anymore
   },
   {
     initialRouteName: 'Home',
@@ -763,3 +813,29 @@ const bottomTabNavigator = createBottomTabNavigator(
 );
 
 const AppContainer = createAppContainer(bottomTabNavigator);
+
+/*const TabScreen = createMaterialTopTabNavigator(
+  {
+    Settings: { screen: SecondPage },
+  },
+  {
+    tabBarPosition: 'top',
+    swipeEnabled: true,
+    animationEnabled: true,
+    tabBarOptions: {
+      activeTintColor: '#FFFFFF',
+      inactiveTintColor: '#F8F8F8',
+      style: {
+        backgroundColor: '#633689',
+      },
+      labelStyle: {
+        textAlign: 'center',
+      },
+      indicatorStyle: {
+        borderBottomColor: '#87B56A',
+        borderBottomWidth: 2,
+      },
+    },
+  }
+);
+*/
