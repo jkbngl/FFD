@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+//import React, { Component } from 'react';
 import { StyleSheet, Text, View, Picker, Button, Alert, TextInput, Dimensions } from 'react-native';
 import { Header } from 'react-native-elements';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -114,6 +115,7 @@ const SecondRoute = () => (
  
 
 class Admin extends React.Component {
+  
   state = {
     level1: 'default_none',
     level2: 'default_none',
@@ -124,17 +126,17 @@ class Admin extends React.Component {
     index: 0,
     routes: [
       { key: 'first', title: 'First' },
-      { key: 'second', title: 'Second' },
-    ],
+      { key: 'second', title: 'Second' }
+    ]
   };
 
-  constructor(props) {
+  /*constructor(props) {
     super(props);
     this.state = {
        data : []
     };
-  
   }
+  */
 
   componentDidMount() {
     var request = new XMLHttpRequest();
@@ -209,7 +211,7 @@ class Admin extends React.Component {
 
   }
 
-  /*render() {
+  render() {
     return (
       <View style={{flex: 1}}>
         <TabView
@@ -224,10 +226,10 @@ class Admin extends React.Component {
       </View>
     );
   }
-  */
+  
 
   
-  render() {  
+  /*render() {  
     return(
       <View style={{flex: 1}}>
         
@@ -351,6 +353,7 @@ class Admin extends React.Component {
       </View>
     );
   }
+  */
 }
 
 class BudgetInput extends React.Component {
