@@ -100,7 +100,7 @@ class HomeScreen extends React.Component {
   }
 }
 
-class AccountInput extends React.Component {
+class Admin extends React.Component {
   state = {
     level1: 'default_none',
     level2: 'default_none',
@@ -200,7 +200,7 @@ class AccountInput extends React.Component {
             statusBarProps={{ barStyle: 'light-content' }}
             placement="left"
             /*leftComponent={{ icon: 'menu', color: '#fff' }}*/
-            centerComponent={{ text: 'FFD - Accounts', style: { color: '#fff' } }}
+            centerComponent={{ text: 'FFD - Admin', style: { color: '#fff' } }}
             rightComponent={{ icon: 'home', color: '#fff' }}
           />
         </View>
@@ -719,14 +719,6 @@ const bottomTabNavigator = createBottomTabNavigator(
         )
       }
     },
-    Accounts: {
-      screen: AccountInput,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <Icon name="user" size={25} color={tintColor} />
-        )
-      }
-    },
     Budget: {
       screen: BudgetInput,
       navigationOptions: {
@@ -753,7 +745,7 @@ const bottomTabNavigator = createBottomTabNavigator(
       }
     },
     Admin: {
-      screen: AccountInput,
+      screen: Admin,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           //<Icon name="android-settings" size={25} color={tintColor} />
