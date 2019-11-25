@@ -218,28 +218,24 @@ class Admin extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
-        {/* <View style={{flex: .3}}>*/}
-          <Header
-            placement="left"
-            /*leftComponent={{ icon: 'menu', color: '#fff' }}*/
-            centerComponent={{ text: 'FFD - Admin', style: { color: '#fff' } }}
-            rightComponent={{ icon: 'home', color: '#fff' }}
-          />
-        {/* </View>*/}
+      <View style={{flex: 1, backgroundColor: '#081A3F'}}>
+        <Header
+          placement="left"
+          /*leftComponent={{ icon: 'menu', color: '#fff' }}*/
+          centerComponent={{ text: 'FFD - Admin', style: { color: '#fff' } }}
+          rightComponent={{ icon: 'home', color: '#fff' }}
+        />
 
-        {/* <View style={{flex: 2}}>*/}
-          <TabView
-            navigationState={this.state}
-            renderScene={SceneMap({
-              first: FirstRoute,
-              second: SecondRoute,
-              third: ThirdRoute,
-            })}
-            onIndexChange={index => this.setState({ index })}
-            initialLayout={{ width: Dimensions.get('window').width, height: 100}}
-          />
-        {/* </View>*/}
+        <TabView
+          navigationState={this.state}
+          renderScene={SceneMap({
+            first: FirstRoute,
+            second: SecondRoute,
+            third: ThirdRoute,
+          })}
+          onIndexChange={index => this.setState({ index })}
+          initialLayout={{ width: Dimensions.get('window').width, height: 100}}
+        />
       </View>
     );
   }
@@ -809,7 +805,13 @@ const bottomTabNavigator = createBottomTabNavigator(
         tabBarIcon: ({ tintColor }) => (
           //<Icon name="android-settings" size={25} color={tintColor} />
           <Icon name="user" size={25} color={tintColor} />
-        )
+        ),
+        header: {
+          style: {
+              elevation: 0,       //remove shadow on Android
+              shadowOpacity: 0,   //remove shadow on iOS
+          }
+        }
       }
     },    // Remove this komma is not needed anymore
   },
