@@ -105,11 +105,15 @@ class HomeScreen extends React.Component {
 }
 
 const FirstRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#ff4081' }]} />
-);
+    <View style={[styles.scene, { backgroundColor: '#081A3F' }]} />
+  );
  
 const SecondRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />
+  <View style={[styles.scene, { backgroundColor: '#eb6e3d' }]} />
+);
+
+const ThirdRoute = () => (
+  <View style={[styles.scene, { backgroundColor: '#081A3F' }]} />
 );
 
  
@@ -126,7 +130,8 @@ class Admin extends React.Component {
     index: 0,
     routes: [
       { key: 'first', title: 'First' },
-      { key: 'second', title: 'Second' }
+      { key: 'second', title: 'Second' },
+      { key: 'third', title: 'Third' }
     ]
   };
 
@@ -219,9 +224,10 @@ class Admin extends React.Component {
           renderScene={SceneMap({
             first: FirstRoute,
             second: SecondRoute,
+            third: ThirdRoute,
           })}
           onIndexChange={index => this.setState({ index })}
-          initialLayout={{ width: Dimensions.get('window').width }}
+          //initialLayout={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height}}
         />
       </View>
     );
@@ -695,7 +701,7 @@ class VisualizerScreen extends React.Component {
               ]
             }}
             width={Dimensions.get("window").width - Dimensions.get("window").width / 10} // from react-native
-            height={Dimensions.get("window").height - Dimensions.get("window").height / 3}
+            height={Dimensions.get("window").height - Dimensions.get("window").height / 5}
             yAxisLabel={"$"}
             yAxisSuffix={"k"}
             chartConfig={{
@@ -786,17 +792,6 @@ const bottomTabNavigator = createBottomTabNavigator(
         )
       }
     },
-    /*
-    TabScreen: {
-      screen: TabScreen,
-      navigationOptions: {
-        headerStyle: {
-          backgroundColor: '#633689',
-        },
-        headerTintColor: '#FFFFFF',
-        title: 'TabExample',
-      },
-    },*/  
     Admin: {
       screen: Admin,
       navigationOptions: {
