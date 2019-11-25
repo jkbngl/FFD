@@ -129,9 +129,9 @@ class Admin extends React.Component {
     level3_new: 'default_none',
     index: 0,
     routes: [
-      { key: 'first', title: 'First' },
-      { key: 'second', title: 'Second' },
-      { key: 'third', title: 'Third' }
+      { key: 'first', title: 'General' },
+      { key: 'second', title: 'Accounts' },
+      { key: 'third', title: 'Cost Types' }
     ]
   };
 
@@ -219,16 +219,27 @@ class Admin extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <TabView
-          navigationState={this.state}
-          renderScene={SceneMap({
-            first: FirstRoute,
-            second: SecondRoute,
-            third: ThirdRoute,
-          })}
-          onIndexChange={index => this.setState({ index })}
-          //initialLayout={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height}}
-        />
+        {/* <View style={{flex: .3}}>*/}
+          <Header
+            placement="left"
+            /*leftComponent={{ icon: 'menu', color: '#fff' }}*/
+            centerComponent={{ text: 'FFD - Admin', style: { color: '#fff' } }}
+            rightComponent={{ icon: 'home', color: '#fff' }}
+          />
+        {/* </View>*/}
+
+        {/* <View style={{flex: 2}}>*/}
+          <TabView
+            navigationState={this.state}
+            renderScene={SceneMap({
+              first: FirstRoute,
+              second: SecondRoute,
+              third: ThirdRoute,
+            })}
+            onIndexChange={index => this.setState({ index })}
+            initialLayout={{ width: Dimensions.get('window').width, height: 100}}
+          />
+        {/* </View>*/}
       </View>
     );
   }
