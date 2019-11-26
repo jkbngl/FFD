@@ -105,20 +105,130 @@ class HomeScreen extends React.Component {
 }
 
 const FirstRoute = () => (
-    <View style={[styles.scene, { backgroundColor: '#fff' }]} > 
-      <Picker
-        //selectedValue={this.state.language}
-        style={{height: 50, width: 100}}
-        onValueChange={(itemValue, itemIndex) =>
-          this.setState({language: itemValue})
-        }>
-        <Picker.Item label="Java" value="java" />
+  
+  <View style={{flex: 1, backgroundColor: '#fff' }}>
+    <View style={{flex: .8, justifyContent: 'space-around', alignItems: 'center', marginTop: 10}}>
+      <View style={{justifyContent: 'center'}}>
+        <Picker
+          //selectedValue={this.state.level1}
+          style={{height: 50, width: 300}}
+          //onValueChange={(itemValue, itemIndex) =>
+          //  this.setState({level1: itemValue})
+          //}
+        >
+        <Picker.Item label="Select existing or enter new Level 1" value="defaule_none" />
         <Picker.Item label="JavaScript" value="js" />
-      </Picker>
+        {/*  {this.state.data.map((item) =>{
+               return(
+                 <Picker.Item  label={item.name} value={item.name} key={item.name}/>
+               );
+             })
+           }
+        */}
+        </Picker>
+
+        <TextInput
+          style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
+          placeholder="Enter the name of your new level 1, e.g. Car!"
+          ref= {(el) => { this.level1_new = el; }}
+          //onChangeText={(level1_new) => this.setState({level1_new})}
+          //value={this.state.level1_new}          
+        />
+
+        <Picker
+          //selectedValue={this.state.level2}
+          style={{height: 50, width: 300}}
+          //onValueChange={(itemValue, itemIndex) =>
+          //  this.setState({level2: itemValue})
+          //}
+          >
+          <Picker.Item label="Select existing or enter new Level 2" value="defaule_none" />
+          <Picker.Item label="JavaScript" value="js" />
+          {/*
+          {
+             this.state.data.map((item) =>{
+               return(
+               <Picker.Item  label={item.name} value={item.name} key={item.name}/>
+               );
+             })
+           }
+          */}
+        </Picker>
+
+        <TextInput
+          style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
+          placeholder="Enter the name of your new level 2, e.g. Repairs!"
+          ref= {(el) => { this.level2_new = el; }}
+          //onChangeText={(level2_new) => this.setState({level2_new})}
+          //value={this.state.level2_new}          
+        />
+
+
+        <Picker
+          //selectedValue={this.state.level3}
+          style={{height: 50, width: 300}}
+          //onValueChange={(itemValue, itemIndex) =>
+          //  this.setState({level3: itemValue})
+          //}
+          >
+          <Picker.Item label="Select existing or enter new Level 3" value="defaule_none" />
+          <Picker.Item label="JavaScript" value="js" />
+        </Picker>
+
+        <TextInput
+          style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
+          placeholder="Enter the name of your new level 3, e.g. Motor!"
+          ref= {(el) => { this.level3_new = el; }}
+          //onChangeText={(level3_new) => this.setState({level3_new})}
+          //value={this.state.level3_new}          
+        />
+
+        <Picker
+          //selectedValue={this.state.costtype}
+          style={{alignSelf: "flex-end", height: 50, width: 150, marginTop: 35}}
+          //onValueChange={(itemValue, itemIndex) =>
+          //  this.setState({costtype: itemValue})
+          //}
+          >
+          <Picker.Item label="Select type" value="defaule_none" />
+          <Picker.Item label="fixed - e.g. rent" value="fixed" />
+          <Picker.Item label="variable - e.g. gas" value="variable" />
+          <Picker.Item label="invest - e.g. books" value="invest" />
+          <Picker.Item label="fun - e.g. cocktails" value="fun" />
+        </Picker>  
+      </View>
+    
+      <View style={{height: 100, width: 200}}>
+      <Button
+            title="Save"
+            color="#081A3F"
+            //onPress={() => this.handleClick()}
+
+            //onPress={() => Alert.alert(
+            //  'Accounts saved',
+            //  "Existing Account: "+ this.state.level1 + "."
+            //  + this.state.level2 + "." 
+            //  + this.state.level3 + "\n"
+            //  + "New Account: "+ this.state.level1_new + "."
+            //  + this.state.level2_new + "." 
+            //  + this.state.level3_new + "\n",
+            //  [
+            //  //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+            //  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            //  {text: 'OK', onPress: () => Alert.alert("test")},
+            //  ], 
+            //  { cancelable: false }
+            //  )
+            //}  
+
+          />
+      </View>
     </View>
-  );
+  </View>  
+);
  
 const SecondRoute = () => (
+  
   <View style={[styles.scene, { backgroundColor: '#fff' }]} />
 );
 
