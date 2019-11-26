@@ -202,7 +202,7 @@ const FirstRoute = () => (
             style={styles.button}
             onPress={this.onPress}
             >
-            <Text> Save </Text>
+            <Text style={{color: '#fff'}}> Save </Text>
           </TouchableOpacity>
           
             {/*onPress={() => this.handleClick()}
@@ -889,8 +889,7 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     backgroundColor: '#081A3F',
-    color: '#fff',
-    width: "50%",
+    width: "75%",
     padding: 10
   }
 });
