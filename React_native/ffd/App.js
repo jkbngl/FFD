@@ -1,6 +1,6 @@
 import * as React from 'react';
 //import React, { Component } from 'react';
-import { StyleSheet, Text, View, Picker, Button, Alert, TextInput, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Picker, Button, Alert, TextInput, Dimensions, TouchableOpacity } from 'react-native';
 import { Header } from 'react-native-elements';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart} from "react-native-chart-kit";
@@ -107,7 +107,7 @@ class HomeScreen extends React.Component {
 const FirstRoute = () => (
   
   <View style={{flex: 1, backgroundColor: '#fff' }}>
-    <View style={{flex: .8, justifyContent: 'space-around', alignItems: 'center', marginTop: 10}}>
+    <View style={{flex: .8, justifyContent: 'space-around', alignItems: 'center', marginTop: 100}}>
       <View style={{justifyContent: 'center'}}>
         <Picker
           //selectedValue={this.state.level1}
@@ -196,13 +196,16 @@ const FirstRoute = () => (
           <Picker.Item label="invest - e.g. books" value="invest" />
           <Picker.Item label="fun - e.g. cocktails" value="fun" />
         </Picker>  
-      </View>
-    
-      <View style={{height: 100, width: 200}}>
-      <Button
-            title="Save"
-            color="#081A3F"
-            //onPress={() => this.handleClick()}
+
+        <View style={{justifyContent: "center", alignItems: "center"}}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={this.onPress}
+            >
+            <Text> Save </Text>
+          </TouchableOpacity>
+          
+            {/*onPress={() => this.handleClick()}
 
             //onPress={() => Alert.alert(
             //  'Accounts saved',
@@ -220,8 +223,9 @@ const FirstRoute = () => (
             //  { cancelable: false }
             //  )
             //}  
-
-          />
+          ///>
+        */}
+        </View>
       </View>
     </View>
   </View>  
@@ -881,6 +885,13 @@ const styles = StyleSheet.create({
   },
   scene: {
     flex: 1,
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#081A3F',
+    color: '#fff',
+    width: "50%",
+    padding: 10
   }
 });
 
