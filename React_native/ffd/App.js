@@ -105,7 +105,7 @@ class HomeScreen extends React.Component {
 }
 
 const FirstRoute = () => (
-    <View style={[styles.scene, { backgroundColor: '#081A3F' }]} > 
+    <View style={[styles.scene, { backgroundColor: '#fff' }]} > 
       <Picker
         //selectedValue={this.state.language}
         style={{height: 50, width: 100}}
@@ -119,11 +119,11 @@ const FirstRoute = () => (
   );
  
 const SecondRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#eb6e3d' }]} />
+  <View style={[styles.scene, { backgroundColor: '#fff' }]} />
 );
 
 const ThirdRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#081A3F' }]} />
+  <View style={[styles.scene, { backgroundColor: '#fff' }]} />
 );
 
  
