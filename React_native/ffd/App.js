@@ -107,7 +107,7 @@ class HomeScreen extends React.Component {
 const FirstRoute = () => (
   
   <View style={{flex: 1, backgroundColor: '#fff' }}>
-    <View style={{flex: .8, justifyContent: 'space-around', alignItems: 'center', marginTop: 100}}>
+    <View style={{flex: .8, justifyContent: 'space-around', alignItems: 'center', marginTop: 40}}>
       <View style={{justifyContent: 'center'}}>
         <Picker
           //selectedValue={this.state.level1}
@@ -185,7 +185,7 @@ const FirstRoute = () => (
 
         <Picker
           //selectedValue={this.state.costtype}
-          style={{alignSelf: "flex-end", height: 50, width: 150, marginTop: 35}}
+          style={{alignSelf: "flex-end", height: 50, width: 150}}
           //onValueChange={(itemValue, itemIndex) =>
           //  this.setState({costtype: itemValue})
           //}
@@ -197,7 +197,7 @@ const FirstRoute = () => (
           <Picker.Item label="fun - e.g. cocktails" value="fun" />
         </Picker>  
 
-        <View style={{justifyContent: "center", alignItems: "center"}}>
+        <View style={{justifyContent: "center", alignItems: "center", marginTop: 35}}>
           <TouchableOpacity
             style={styles.button}
             onPress={this.onPress}
