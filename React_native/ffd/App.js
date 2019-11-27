@@ -105,7 +105,10 @@ class HomeScreen extends React.Component {
 }
 
 const FirstRoute = () => (
-  
+  <View style={[styles.scene, { backgroundColor: '#fff' }]} />
+);
+ 
+const SecondRoute = () => (
   <View style={{flex: 1, backgroundColor: '#fff' }}>
     <View style={{flex: .8, justifyContent: 'space-around', alignItems: 'center', marginTop: 40}}>
       <View style={{justifyContent: 'center'}}>
@@ -202,7 +205,7 @@ const FirstRoute = () => (
             style={styles.button}
             onPress={this.onPress}
             >
-            <Text style={{color: '#fff'}}> Save </Text>
+            <Text style={{color: '#fff'}}> Save - {this.state/*.level1*/} </Text>
           </TouchableOpacity>
           
             {/*onPress={() => this.handleClick()}
@@ -228,12 +231,7 @@ const FirstRoute = () => (
         </View>
       </View>
     </View>
-  </View>  
-);
- 
-const SecondRoute = () => (
-  
-  <View style={[styles.scene, { backgroundColor: '#fff' }]} />
+  </View>
 );
 
 const ThirdRoute = () => (
