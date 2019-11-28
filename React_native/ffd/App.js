@@ -1,7 +1,7 @@
 import * as React from 'react';
 //import React, { Component } from 'react';
 import { StyleSheet, Text, View, Picker, Button, Alert, TextInput, Dimensions, TouchableOpacity } from 'react-native';
-import { Header } from 'react-native-elements';
+import { Header, CheckBox } from 'react-native-elements';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart} from "react-native-chart-kit";
 import { createAppContainer } from 'react-navigation';
@@ -105,7 +105,28 @@ class HomeScreen extends React.Component {
 }
 
 const FirstRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#fff' }]} />
+  <View style={{flex: 1, justifyContent: 'space-around'}}>
+    <CheckBox
+      title='Levels'
+      //checked={this.state.checked}
+    />
+
+    <CheckBox
+      center
+      title='Level 1'
+      //checked={this.state.checked}
+    />
+    <CheckBox
+      center
+      title='Level 2'
+      //checked={this.state.checked}
+    />
+    <CheckBox
+      center
+      title='Level 3'
+      //checked={this.state.checked}
+    />
+  </View>
 );
  
 const SecondRoute = () => (
