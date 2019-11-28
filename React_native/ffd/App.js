@@ -106,26 +106,34 @@ class HomeScreen extends React.Component {
 
 const FirstRoute = () => (
   <View style={{flex: 1, justifyContent: 'space-around'}}>
-    <CheckBox
-      title='Levels'
-      //checked={this.state.checked}
-    />
+    <View style={{flex: 1, flexDirection: 'column'}}>
+      <CheckBox
+        title='Levels'
+        //checked={this.state.checked}
+      />
 
-    <CheckBox
-      center
-      title='Level 1'
-      //checked={this.state.checked}
-    />
-    <CheckBox
-      center
-      title='Level 2'
-      //checked={this.state.checked}
-    />
-    <CheckBox
-      center
-      title='Level 3'
-      //checked={this.state.checked}
-    />
+      <CheckBox
+        center
+        title='Level 1'
+        //checked={this.state.checked}
+      />
+      <CheckBox
+        center
+        title='Level 2'
+        //checked={this.state.checked}
+      />
+      <CheckBox
+        center
+        title='Level 3'
+        //checked={this.state.checked}
+      />
+    </View>
+    <View style={{flex: 1, flexDirection: 'column'}}>
+      <CheckBox
+        title='Cost Types'
+        //checked={this.state.checked}
+      />
+    </View>
   </View>
 );
  
