@@ -238,12 +238,19 @@ const SecondRoute = () => (
           <Picker.Item label="fun - e.g. cocktails" value="fun" />
         </Picker>  
 
-        <View style={{justifyContent: "center", alignItems: "center", marginTop: 35}}>
+        <View style={{alignItems: "center", marginTop: 35}}>
           <TouchableOpacity
-            style={styles.button}
+            style={styles.approveButton}
             onPress={this.onPress}
             >
             <Text style={{color: '#fff'}}> Save - {this.state/*.level1*/} </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.declineButton}
+            onPress={this.onPress}
+            >
+            <Text style={{color: '#fff'}}> Remove selected - {this.state/*.level1*/} </Text>
           </TouchableOpacity>
           
             {/*onPress={() => this.handleClick()}
@@ -922,9 +929,15 @@ const styles = StyleSheet.create({
   scene: {
     flex: 1,
   },
-  button: {
+  approveButton: {
     alignItems: 'center',
-    backgroundColor: '#081A3F',
+    backgroundColor: '#005005',
+    width: "75%",
+    padding: 10
+  },
+  declineButton: {
+    alignItems: 'center',
+    backgroundColor: '#7f0000',
     width: "75%",
     padding: 10
   }
