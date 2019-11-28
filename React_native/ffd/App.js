@@ -1,7 +1,7 @@
 import * as React from 'react';
 //import React, { Component } from 'react';
 import { StyleSheet, Text, View, Picker, Button, Alert, TextInput, Dimensions, TouchableOpacity } from 'react-native';
-import { Header, CheckBox } from 'react-native-elements';
+import { Header, CheckBox, Divider } from 'react-native-elements';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart} from "react-native-chart-kit";
 import { createAppContainer } from 'react-navigation';
@@ -106,7 +106,11 @@ class HomeScreen extends React.Component {
 
 const FirstRoute = () => (
   <View style={{flex: 1, justifyContent: 'space-around'}}>
-    <View style={{flex: 1, flexDirection: 'column'}}>
+    <View style={{flex: 1, justifyContent: 'center'}}>
+      
+      {/*<Text h2 style={{color: "white", alignItems: "center", fontSize: 40}}>Level Configuration</Text>
+      <Text h4 style={{color: "white", alignItems: "center", fontSize: 20}}>Disable the whole idea of levels, or remove 2nd or 3rd level</Text>*/}
+
       <CheckBox
         title='Levels'
         //checked={this.state.checked}
@@ -128,7 +132,12 @@ const FirstRoute = () => (
         //checked={this.state.checked}
       />
     </View>
+
+
     <View style={{flex: 1, flexDirection: 'column'}}>
+      <Text h2>Cost Types Configuration</Text>
+      <Text h4>Disable the whole concept of cost types and work with levels only</Text>
+
       <CheckBox
         title='Cost Types'
         //checked={this.state.checked}
