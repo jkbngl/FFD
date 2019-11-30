@@ -150,6 +150,8 @@ const SecondRoute = () => (
   <View style={{flex: 1, backgroundColor: '#fff' }}>
     <View style={{flex: .8, justifyContent: 'space-around', alignItems: 'center', marginTop: 40}}>
       <View style={{justifyContent: 'center'}}>
+        {/*
+        }
         <Picker
           //selectedValue={this.state.level1}
           style={{height: 50, width: 300}}
@@ -159,6 +161,8 @@ const SecondRoute = () => (
         >
         <Picker.Item label="Select existing or enter new Level 1" value="defaule_none" />
         <Picker.Item label="JavaScript" value="js" />
+        */}
+        
         {/*  {this.state.data.map((item) =>{
                return(
                  <Picker.Item  label={item.name} value={item.name} key={item.name}/>
@@ -166,7 +170,10 @@ const SecondRoute = () => (
              })
            }
          */}
+        
+        {/*
         </Picker>
+        */}
        
 
         {/*
@@ -177,12 +184,14 @@ const SecondRoute = () => (
           //onChangeText={(level1_new) => this.setState({level1_new})}
           //value={this.state.level1_new}          
         />
-        */}
-        <Input
-          placeholder='INPUT WITH ICON'
-          style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
-          leftIcon={{ type: 'font-awesome', name: 'chevron-left' }}
-        />
+       */}
+        <View style = {styles.campusInputView}> 
+          <Input
+            containerStyle = {styles.campusInputContainer}
+            inputStyle = {styles.campusInput}
+            placeholder = 'KAIST v2'
+          />
+        </View> 
 
         <Picker
           //selectedValue={this.state.level2}
@@ -948,6 +957,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#7f0000',
     width: "75%",
     padding: 10
+  },
+  campusInputView: {
+    //flex: 1,
+    justifyContent:"center",
+    alignItems:"center"
+  },
+  campusInputContainer: {
+    alignItems: 'stretch', 
+    paddingHorizontal: 0
+  },
+  campusInput: {
+    //flex: 1,
+    paddingVertical: 0,
   }
 });
 
