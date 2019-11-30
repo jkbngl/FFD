@@ -1,7 +1,7 @@
 import * as React from 'react';
 //import React, { Component } from 'react';
 import { StyleSheet, Text, View, Picker, Button, Alert, TextInput, Dimensions, TouchableOpacity } from 'react-native';
-import { Header, CheckBox, Divider } from 'react-native-elements';
+import { Header, CheckBox, Input } from 'react-native-elements';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart} from "react-native-chart-kit";
 import { createAppContainer } from 'react-navigation';
@@ -165,15 +165,23 @@ const SecondRoute = () => (
                );
              })
            }
-        */}
+         */}
         </Picker>
+       
 
+        {/*
         <TextInput
           style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
           placeholder="Enter the name of your new level 1, e.g. Car!"
           ref= {(el) => { this.level1_new = el; }}
           //onChangeText={(level1_new) => this.setState({level1_new})}
           //value={this.state.level1_new}          
+        />
+        */}
+        <Input
+          placeholder='INPUT WITH ICON'
+          style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
+          leftIcon={{ type: 'font-awesome', name: 'chevron-left' }}
         />
 
         <Picker
