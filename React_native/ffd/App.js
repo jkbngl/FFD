@@ -8,6 +8,7 @@ import { createAppContainer } from 'react-navigation';
 import Icon from "react-native-vector-icons/FontAwesome";
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { TabView, SceneMap } from 'react-native-tab-view';
+import { Dropdown } from 'react-native-material-dropdown';
 
 
 //import CardView from 'react-native-cardview';
@@ -162,7 +163,12 @@ const SecondRoute = () => (
         <Picker.Item label="Select existing or enter new Level 1" value="defaule_none" />
         <Picker.Item label="JavaScript" value="js" />
         */}
-        
+
+         <Dropdown
+          label='Favorite Fruit'
+          data={Admin.dropdowndata}
+        />
+
         {/*  {this.state.data.map((item) =>{
                return(
                  <Picker.Item  label={item.name} value={item.name} key={item.name}/>
@@ -401,6 +407,13 @@ class Admin extends React.Component {
   }
 
   render() {
+    let dropdowndata = [{
+      value: 'Banana',
+    }, {
+      value: 'Mango',
+    }, {
+      value: 'Pear',
+    }];
     return (
       <View style={{flex: 1, backgroundColor: '#081A3F'}}>
         <Header
