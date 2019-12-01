@@ -9,7 +9,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { Dropdown } from 'react-native-material-dropdown';
-
+import { TextField, FilledTextField, OutlinedTextField } from 'react-native-material-textfield';
 
 //import CardView from 'react-native-cardview';
 
@@ -105,7 +105,7 @@ class HomeScreen extends React.Component {
   }
 }
 
-const FirstRoute = () => (
+const FirstRoute = (args) => (
   <View style={{flex: 1, justifyContent: 'space-around'}}>
     <View style={{flex: 1, justifyContent: 'center'}}>
       
@@ -163,12 +163,13 @@ const SecondRoute = () => (
         <Picker.Item label="Select existing or enter new Level 1" value="defaule_none" />
         <Picker.Item label="JavaScript" value="js" />
         */}
-
-         <Dropdown
-          label='Favorite Fruit'
-          data={Admin.dropdowndata}
-        />
-
+        
+        <View style={{marginTop: 20}}>
+          <Dropdown
+            label='Select existing or enter a new Level 1 below'
+            data={Admin.dropdowndata}
+          />
+        </View>
         {/*  {this.state.data.map((item) =>{
                return(
                  <Picker.Item  label={item.name} value={item.name} key={item.name}/>
@@ -190,7 +191,7 @@ const SecondRoute = () => (
           //onChangeText={(level1_new) => this.setState({level1_new})}
           //value={this.state.level1_new}          
         />
-       */}
+       
         <View style = {styles.campusInputView}> 
           <Input
             containerStyle = {styles.campusInputContainer}
@@ -198,6 +199,15 @@ const SecondRoute = () => (
             placeholder = 'KAIST v2'
           />
         </View> 
+        */}
+        <TextField
+          label='Enter the name of your new level 2, e.g. Repairs!'
+          keyboardType='phone-pad'
+          //formatText={this.formatText}
+          //onSubmitEditing={this.onSubmit}
+          //ref={this.fieldRef}
+        />
+
 
         <Picker
           //selectedValue={this.state.level2}
@@ -309,7 +319,16 @@ const ThirdRoute = () => (
  
 
 class Admin extends React.Component {
-  
+  /*
+  let dropdowndata = [{
+    value: 'Banana',
+  }, {
+    value: 'Mango',
+  }, {
+    value: 'Pear',
+  }];
+  */
+
   state = {
     level1: 'default_none',
     level2: 'default_none',
@@ -407,13 +426,6 @@ class Admin extends React.Component {
   }
 
   render() {
-    let dropdowndata = [{
-      value: 'Banana',
-    }, {
-      value: 'Mango',
-    }, {
-      value: 'Pear',
-    }];
     return (
       <View style={{flex: 1, backgroundColor: '#081A3F'}}>
         <Header
@@ -983,6 +995,7 @@ const styles = StyleSheet.create({
   campusInput: {
     //flex: 1,
     paddingVertical: 0,
+    fontFamily: 'Helvetica',
   }
 });
 
