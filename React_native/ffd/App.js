@@ -203,6 +203,19 @@ const SecondRoute = () => (
           //ref={this.fieldRef}
         />
 
+        <Dropdown
+          label='3 - Select existing or enter new Level 3 below'
+          data={dropdowndata}
+          containerStyle={{alignSelf: "flex-end", height: 50, width: 150}}
+          /*
+            Select type
+            fixed - e.g. rent
+            variable - e.g. gas
+            invest - e.g. books
+            fun - e.g. cocktails
+           */
+        />
+
         {/*
         }
         <Picker
@@ -297,7 +310,7 @@ const SecondRoute = () => (
           //onChangeText={(level3_new) => this.setState({level3_new})}
           //value={this.state.level3_new}          
         />
-        */}
+        
         <Picker
           //selectedValue={this.state.costtype}
           style={{alignSelf: "flex-end", height: 50, width: 150}}
@@ -311,7 +324,9 @@ const SecondRoute = () => (
           <Picker.Item label="invest - e.g. books" value="invest" />
           <Picker.Item label="fun - e.g. cocktails" value="fun" />
         </Picker>  
+        */}
 
+        
         <View style={{alignItems: "center", justifyContent: 'space-around', marginTop: 5}}>
           <TouchableOpacity
             style={styles.approveButton}
