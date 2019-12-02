@@ -146,11 +146,60 @@ const FirstRoute = (args) => (
     </View>
   </View>
 );
- 
+
+const dropdowndata = [
+  { value: 'Upgrade' },
+  { value: 'Settings' },
+  { value: 'About' },
+  { value: 'Sign out' }
+];
+
 const SecondRoute = () => (
   <View style={{flex: 1, backgroundColor: '#fff' }}>
-    <View style={{flex: .8, justifyContent: 'space-around', alignItems: 'center', marginTop: 40}}>
-      <View style={{justifyContent: 'center'}}>
+    <View style={{flex: .8, alignItems: 'center', marginTop: 40}}>
+      <View>
+        
+        <View style={{marginTop: 20}}>
+          <Dropdown
+            label='1 - Select existing or enter a new Level 1 below'
+            data={dropdowndata}
+          />
+        </View>
+        
+        <TextField
+          label='Enter the name of your new level 1, e.g. Car!'
+          keyboardType='phone-pad'
+          //formatText={this.formatText}
+          //onSubmitEditing={this.onSubmit}
+          //ref={this.fieldRef}
+        />
+
+        <Dropdown
+          label='2 - Select existing or enter new Level 2 below'
+          data={Admin.dropdowndata}
+        />
+        
+        <TextField
+          label='Enter the name of your new level 2, e.g. Repairs!'
+          //keyboardType='phone-pad'
+          //formatText={this.formatText}
+          //onSubmitEditing={this.onSubmit}
+          //ref={this.fieldRef}
+        />
+
+        <Dropdown
+          label='3 - Select existing or enter new Level 3 below'
+          data={Admin.dropdowndata}
+        />
+        
+        <TextField
+          label='Enter the name of your new level 3, e.g. Motor!'
+          //keyboardType='phone-pad'
+          //formatText={this.formatText}
+          //onSubmitEditing={this.onSubmit}
+          //ref={this.fieldRef}
+        />
+
         {/*
         }
         <Picker
@@ -164,12 +213,7 @@ const SecondRoute = () => (
         <Picker.Item label="JavaScript" value="js" />
         */}
         
-        <View style={{marginTop: 20}}>
-          <Dropdown
-            label='Select existing or enter a new Level 1 below'
-            data={Admin.dropdowndata}
-          />
-        </View>
+        
         {/*  {this.state.data.map((item) =>{
                return(
                  <Picker.Item  label={item.name} value={item.name} key={item.name}/>
@@ -199,14 +243,8 @@ const SecondRoute = () => (
             placeholder = 'KAIST v2'
           />
         </View> 
-        */}
-        <TextField
-          label='Enter the name of your new level 2, e.g. Repairs!'
-          keyboardType='phone-pad'
-          //formatText={this.formatText}
-          //onSubmitEditing={this.onSubmit}
-          //ref={this.fieldRef}
-        />
+        
+        
 
 
         <Picker
@@ -218,7 +256,7 @@ const SecondRoute = () => (
           >
           <Picker.Item label="Select existing or enter new Level 2" value="defaule_none" />
           <Picker.Item label="JavaScript" value="js" />
-          {/*
+          
           {
              this.state.data.map((item) =>{
                return(
@@ -226,7 +264,7 @@ const SecondRoute = () => (
                );
              })
            }
-          */}
+          
         </Picker>
 
         <TextInput
@@ -256,7 +294,7 @@ const SecondRoute = () => (
           //onChangeText={(level3_new) => this.setState({level3_new})}
           //value={this.state.level3_new}          
         />
-
+        */}
         <Picker
           //selectedValue={this.state.costtype}
           style={{alignSelf: "flex-end", height: 50, width: 150}}
