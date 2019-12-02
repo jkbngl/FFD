@@ -156,19 +156,18 @@ const dropdowndata = [
 
 const SecondRoute = () => (
   <View style={{flex: 1, backgroundColor: '#fff' }}>
-    <View style={{flex: .8, alignItems: 'center', marginTop: 40}}>
+    <View style={{flex: .8, alignItems: 'center'}}>
       <View>
-        
-        <View style={{marginTop: 20}}>
-          <Dropdown
-            label='1 - Select existing or enter a new Level 1 below'
-            data={dropdowndata}
-          />
-        </View>
+        <Dropdown
+          label='1 - Select existing or enter a new Level 1 below'
+          data={dropdowndata}
+          containerStyle={styles.admininput}
+        />
         
         <TextField
           label='Enter the name of your new level 1, e.g. Car!'
-          keyboardType='phone-pad'
+          containerStyle={styles.admininput}
+          //keyboardType='phone-pad'
           //formatText={this.formatText}
           //onSubmitEditing={this.onSubmit}
           //ref={this.fieldRef}
@@ -176,11 +175,13 @@ const SecondRoute = () => (
 
         <Dropdown
           label='2 - Select existing or enter new Level 2 below'
-          data={Admin.dropdowndata}
+          data={dropdowndata}
+          containerStyle={styles.admininput}
         />
         
         <TextField
           label='Enter the name of your new level 2, e.g. Repairs!'
+          containerStyle={styles.admininput}
           //keyboardType='phone-pad'
           //formatText={this.formatText}
           //onSubmitEditing={this.onSubmit}
@@ -189,11 +190,13 @@ const SecondRoute = () => (
 
         <Dropdown
           label='3 - Select existing or enter new Level 3 below'
-          data={Admin.dropdowndata}
+          data={dropdowndata}
+          containerStyle={styles.admininput}
         />
         
         <TextField
           label='Enter the name of your new level 3, e.g. Motor!'
+          containerStyle={styles.admininput}
           //keyboardType='phone-pad'
           //formatText={this.formatText}
           //onSubmitEditing={this.onSubmit}
@@ -309,7 +312,7 @@ const SecondRoute = () => (
           <Picker.Item label="fun - e.g. cocktails" value="fun" />
         </Picker>  
 
-        <View style={{alignItems: "center", justifyContent: 'space-around', marginTop: 35}}>
+        <View style={{alignItems: "center", justifyContent: 'space-around', marginTop: 15}}>
           <TouchableOpacity
             style={styles.approveButton}
             onPress={this.onPress}
@@ -1034,6 +1037,10 @@ const styles = StyleSheet.create({
     //flex: 1,
     paddingVertical: 0,
     fontFamily: 'Helvetica',
+  },
+  admininput:{
+    width: Dimensions.get('window').width * .75,
+    height: 60
   }
 });
 
