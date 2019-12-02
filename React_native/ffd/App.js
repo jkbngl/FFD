@@ -312,7 +312,7 @@ const SecondRoute = () => (
           <Picker.Item label="fun - e.g. cocktails" value="fun" />
         </Picker>  
 
-        <View style={{alignItems: "center", justifyContent: 'space-around', marginTop: 15}}>
+        <View style={{alignItems: "center", justifyContent: 'space-around', marginTop: 5}}>
           <TouchableOpacity
             style={styles.approveButton}
             onPress={this.onPress}
@@ -321,7 +321,7 @@ const SecondRoute = () => (
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={[{marginTop: 20}, styles.declineButton]}
+            style={[{marginTop: 10}, styles.declineButton]}
             onPress={this.onPress}
             >
             <Text style={{color: '#fff'}}> Remove selected - {this.state/*.level1*/} </Text>
