@@ -335,18 +335,18 @@ const SecondRoute = () => (
             style={styles.approveButton}
             onPress={this.onPress}
             >
-            <Text style={{alignSelf:'center', color: '#fff', justifyContent: 'center', alignItems: 'center', }}> {/*Add */}
+            <View style={{ alignItems: 'center', justifyContent: 'center' }} >
               <Ionicons name="ios-add-circle" size={32} color="white" />
-            </Text>
+            </View>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.declineButton}
             onPress={this.onPress}
             >
-            <Text style={{alignSelf:'center', color: '#fff', justifyContent: 'center', alignItems: 'center', }}> {/*Delete */}
+            <View style={{ alignItems: 'center', justifyContent: 'center' }} >
               <Ionicons name="ios-trash" size={32} color="white" />
-            </Text>
+            </View>
           </TouchableOpacity>
           
             {/*onPress={() => this.handleClick()}
