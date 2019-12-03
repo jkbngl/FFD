@@ -154,6 +154,8 @@ const dropdowndata = [
   { value: 'Sign out' }
 ];
 
+
+
 const SecondRoute = () => (
   <View style={{flex: 1, backgroundColor: '#fff' }}>
     <View style={{flex: .8, alignItems: 'center'}}>
@@ -326,8 +328,8 @@ const SecondRoute = () => (
         </Picker>  
         */}
 
-        
-        <View style={{alignItems: "center", justifyContent: 'space-around', marginTop: 5}}>
+
+        <View style={{alignItems: "center", justifyContent: 'space-around'}}>
           <TouchableOpacity
             style={styles.approveButton}
             onPress={this.onPress}
@@ -972,8 +974,8 @@ class VisualizerScreen extends React.Component {
                 }
               ]
             }}
-            width={Dimensions.get("window").width - Dimensions.get("window").width / 10} // from react-native
-            height={Dimensions.get("window").height - Dimensions.get("window").height / 5}
+            width={Dimensions.get("window").width * .9} // from react-native
+            height={Dimensions.get("window").height * .9}
             yAxisLabel={"$"}
             yAxisSuffix={"k"}
             chartConfig={{
