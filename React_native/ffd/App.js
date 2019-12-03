@@ -107,42 +107,50 @@ class HomeScreen extends React.Component {
 }
 
 const FirstRoute = (args) => (
-  <View style={{flex: 1, justifyContent: 'space-around', backgroundColor: '#fff' }}>
-    <View style={{flex: 1, justifyContent: 'center'}}>
-      
+  <View style={{flex: 1, justifyContent: 'space-around', backgroundColor: '#fff', alignItems: 'center' }}>
+    <View style={{flex: 1, justifyContent: 'center', marginTop: 50}}>
       {/*<Text h2 style={{color: "white", alignItems: "center", fontSize: 40}}>Level Configuration</Text>
       <Text h4 style={{color: "white", alignItems: "center", fontSize: 20}}>Disable the whole idea of levels, or remove 2nd or 3rd level</Text>*/}
 
       <CheckBox
         title='Levels'
         //checked={this.state.checked}
+        containerStyle={styles.admininput}
       />
 
       <CheckBox
         center
         title='Level 1'
         //checked={this.state.checked}
+        containerStyle={styles.admininput}
+
       />
       <CheckBox
         center
         title='Level 2'
         //checked={this.state.checked}
+        containerStyle={styles.admininput}
+
       />
       <CheckBox
         center
         title='Level 3'
         //checked={this.state.checked}
+        containerStyle={styles.admininput}
+
       />
     </View>
 
 
-    <View style={{flex: 1, flexDirection: 'column'}}>
-      <Text h2>Cost Types Configuration</Text>
+    <View style={{flex: 1, flexDirection: 'column', marginTop: 50}}>
+      {/*<Text h2>Cost Types Configuration</Text>
       <Text h4>Disable the whole concept of cost types and work with levels only</Text>
+      */}
 
       <CheckBox
         title='Cost Types'
         //checked={this.state.checked}
+        containerStyle={styles.admininput}
       />
     </View>
   </View>
@@ -376,7 +384,67 @@ const SecondRoute = () => (
 );
 
 const ThirdRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#fff' }]} />
+  <View style={{flex: 1, backgroundColor: '#fff' }}>
+    <View style={{flex: .8, alignItems: 'center'}}>
+      <View>
+        <Dropdown
+          label='1 - Select existing or enter a new Level 1 below'
+          data={dropdowndata}
+          containerStyle={styles.admininput}
+        />
+        
+        <TextField
+          label='Enter the name of your new level 1, e.g. Car!'
+          containerStyle={styles.admininput}
+          //keyboardType='phone-pad'
+          //formatText={this.formatText}
+          //onSubmitEditing={this.onSubmit}
+          //ref={this.fieldRef}
+        />
+
+        <View style={{alignItems: "center", justifyContent: 'space-around', flexDirection: "row", marginTop: 30}}>
+          <TouchableOpacity
+            style={styles.approveButton}
+            onPress={this.onPress}
+            >
+            <View style={{ alignItems: 'center', justifyContent: 'center' }} >
+              <Ionicons name="ios-add-circle" size={32} color="white" />
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.declineButton}
+            onPress={this.onPress}
+            >
+            <View style={{ alignItems: 'center', justifyContent: 'center' }} >
+              <Ionicons name="ios-trash" size={32} color="white" />
+            </View>
+          </TouchableOpacity>
+          
+            {/*onPress={() => this.handleClick()}
+
+            //onPress={() => Alert.alert(
+            //  'Accounts saved',
+            //  "Existing Account: "+ this.state.level1 + "."
+            //  + this.state.level2 + "." 
+            //  + this.state.level3 + "\n"
+            //  + "New Account: "+ this.state.level1_new + "."
+            //  + this.state.level2_new + "." 
+            //  + this.state.level3_new + "\n",
+            //  [
+            //  //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+            //  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            //  {text: 'OK', onPress: () => Alert.alert("test")},
+            //  ], 
+            //  { cancelable: false }
+            //  )
+            //}  
+          ///>
+        */}
+        </View>
+      </View>
+    </View>
+  </View>
 );
 
  
