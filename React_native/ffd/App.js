@@ -107,7 +107,7 @@ class HomeScreen extends React.Component {
 }
 
 const FirstRoute = (args) => (
-  <View style={{flex: 1, justifyContent: 'space-around'}}>
+  <View style={{flex: 1, justifyContent: 'space-around', backgroundColor: '#fff' }}>
     <View style={{flex: 1, justifyContent: 'center'}}>
       
       {/*<Text h2 style={{color: "white", alignItems: "center", fontSize: 40}}>Level Configuration</Text>
