@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart} from "react-native-chart-kit";
 import { createAppContainer } from 'react-navigation';
 import Icon from "react-native-vector-icons/FontAwesome";
+import { Ionicons } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { Dropdown } from 'react-native-material-dropdown';
@@ -329,19 +330,23 @@ const SecondRoute = () => (
         */}
 
 
-        <View style={{alignItems: "center", justifyContent: 'space-around'}}>
+        <View style={{alignItems: "center", justifyContent: 'space-around', flexDirection: "row", marginTop: 30}}>
           <TouchableOpacity
             style={styles.approveButton}
             onPress={this.onPress}
             >
-            <Text style={{color: '#fff'}}> Save - {this.state/*.level1*/} </Text>
+            <Text style={{alignSelf:'center', color: '#fff', justifyContent: 'center', alignItems: 'center', }}> {/*Add */}
+              <Ionicons name="ios-add-circle" size={32} color="white" />
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={[{marginTop: 10}, styles.declineButton]}
+            style={styles.declineButton}
             onPress={this.onPress}
             >
-            <Text style={{color: '#fff'}}> Remove selected - {this.state/*.level1*/} </Text>
+            <Text style={{alignSelf:'center', color: '#fff', justifyContent: 'center', alignItems: 'center', }}> {/*Delete */}
+              <Ionicons name="ios-trash" size={32} color="white" />
+            </Text>
           </TouchableOpacity>
           
             {/*onPress={() => this.handleClick()}
@@ -1032,14 +1037,18 @@ const styles = StyleSheet.create({
   approveButton: {
     alignItems: 'center',
     backgroundColor: '#005005',
-    width: "75%",
-    padding: 10
+    width: "40%",
+    height: 60,
+    padding: 10,
+    borderRadius: 50,
   },
   declineButton: {
     alignItems: 'center',
     backgroundColor: '#7f0000',
-    width: "75%",
-    padding: 10
+    width: "40%",
+    height: 60,
+    padding: 10,
+    borderRadius: 50,
   },
   campusInputView: {
     //flex: 1,
@@ -1056,7 +1065,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica',
   },
   admininput:{
-    width: Dimensions.get('window').width * .75,
+    width: Dimensions.get('window').width * .8,
     height: 60
   }
 });
