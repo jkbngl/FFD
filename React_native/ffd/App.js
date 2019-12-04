@@ -152,10 +152,11 @@ const FirstRoute = (args) => (
         //checked={this.state.checked}
         containerStyle={styles.admininput}
       />
+
       <View style={{alignItems: "center", justifyContent: 'space-around', flexDirection: "row", marginTop: 30}}>
           <TouchableOpacity
             style={styles.approveButton}
-            onPress={this.onPress}
+            onPress={() => Alert.alert("saved")}
             >
             <View style={{ alignItems: 'center', justifyContent: 'center' }} >
               <Ionicons name="ios-save" size={32} color="white" />
@@ -164,7 +165,7 @@ const FirstRoute = (args) => (
 
           <TouchableOpacity
             style={styles.declineButton}
-            onPress={this.onPress}
+            onPress={() => Alert.alert("reset")}
             >
             <View style={{ alignItems: 'center', justifyContent: 'center' }} >
               <Ionicons name="ios-rewind" size={32} color="white" />
