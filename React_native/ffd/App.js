@@ -152,6 +152,46 @@ const FirstRoute = (args) => (
         //checked={this.state.checked}
         containerStyle={styles.admininput}
       />
+      <View style={{alignItems: "center", justifyContent: 'space-around', flexDirection: "row", marginTop: 30}}>
+          <TouchableOpacity
+            style={styles.approveButton}
+            onPress={this.onPress}
+            >
+            <View style={{ alignItems: 'center', justifyContent: 'center' }} >
+              <Ionicons name="ios-save" size={32} color="white" />
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.declineButton}
+            onPress={this.onPress}
+            >
+            <View style={{ alignItems: 'center', justifyContent: 'center' }} >
+              <Ionicons name="ios-rewind" size={32} color="white" />
+            </View>
+          </TouchableOpacity>
+          
+            {/*onPress={() => this.handleClick()}
+
+            //onPress={() => Alert.alert(
+            //  'Accounts saved',
+            //  "Existing Account: "+ this.state.level1 + "."
+            //  + this.state.level2 + "." 
+            //  + this.state.level3 + "\n"
+            //  + "New Account: "+ this.state.level1_new + "."
+            //  + this.state.level2_new + "." 
+            //  + this.state.level3_new + "\n",
+            //  [
+            //  //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+            //  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            //  {text: 'OK', onPress: () => Alert.alert("test")},
+            //  ], 
+            //  { cancelable: false }
+            //  )
+            //}  
+          ///>
+        */}
+        </View>
     </View>
   </View>
 );
@@ -384,8 +424,7 @@ const SecondRoute = () => (
 );
 
 const ThirdRoute = () => (
-  const [ counter, setCounter ] = React.useState(0)
-    return (
+  
   <View style={{flex: 1, backgroundColor: '#fff' }}>
     <View style={{flex: .8, alignItems: 'center'}}>
       <View>
@@ -447,7 +486,6 @@ const ThirdRoute = () => (
       </View>
     </View>
   </View>
-  )
 );
 
  
