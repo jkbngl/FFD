@@ -384,6 +384,8 @@ const SecondRoute = () => (
 );
 
 const ThirdRoute = () => (
+  const [ counter, setCounter ] = React.useState(0)
+    return (
   <View style={{flex: 1, backgroundColor: '#fff' }}>
     <View style={{flex: .8, alignItems: 'center'}}>
       <View>
@@ -445,6 +447,7 @@ const ThirdRoute = () => (
       </View>
     </View>
   </View>
+  )
 );
 
  
