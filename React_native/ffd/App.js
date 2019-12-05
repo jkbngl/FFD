@@ -177,7 +177,6 @@ class Admin extends React.Component {
   }
 
   handleClick() {
-
     var payload = {}
 
     Alert.alert(
@@ -215,6 +214,11 @@ class Admin extends React.Component {
 
     this.setState({ data: your_array_from_fetch });
 
+  }
+
+  save_accounts()
+  {
+    console.log("SAVES")
   }
 
   render() {
@@ -327,9 +331,7 @@ class Admin extends React.Component {
               value={this.state.value}
               onChangeText={(value) => {
                 console.log(value); // gives new value OK
-                console.log("BEFORE: " + this.state.level1);
                 this.setState({level1: value});
-                console.log("AFTER: " + this.state.level1);
               }}
             />
             
@@ -499,7 +501,7 @@ class Admin extends React.Component {
             <View style={{alignItems: "center", justifyContent: 'space-around', flexDirection: "row", marginTop: 30}}>
               <TouchableOpacity
                 style={styles.approveButton}
-                onPress={this.onPress}
+                onPress={this.save_accounts}
                 >
                 <View style={{ alignItems: 'center', justifyContent: 'center' }} >
                   <Ionicons name="ios-add-circle" size={32} color="white" />
