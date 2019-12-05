@@ -207,7 +207,7 @@ class Admin extends React.Component {
 
     Alert.alert("json parsed payload", JSON.stringify(payload));
 
-    your_array_from_fetch=[
+    your_array_from_fetch = [
       {"name":"test"},
       {"name":"banani"},
       {"name":"jakob"}
@@ -324,6 +324,13 @@ class Admin extends React.Component {
               label='1 - Select existing or enter a new Level 1 below'
               data={dropdowndata}
               containerStyle={styles.admininput}
+              value={this.state.value}
+              onChangeText={(value) => {
+                console.log(value); // gives new value OK
+                console.log("BEFORE: " + this.state.level1);
+                this.setState({level1: value});
+                console.log("AFTER: " + this.state.level1);
+              }}
             />
             
             <TextField
