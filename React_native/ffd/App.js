@@ -106,390 +106,10 @@ class HomeScreen extends React.Component {
   }
 }
 
-const FirstRoute = (args) => (
-  <View style={{flex: 1, justifyContent: 'space-around', backgroundColor: '#fff', alignItems: 'center' }}>
-    <View style={{flex: 1, justifyContent: 'center', marginTop: 50}}>
-      {/*<Text h2 style={{color: "white", alignItems: "center", fontSize: 40}}>Level Configuration</Text>
-      <Text h4 style={{color: "white", alignItems: "center", fontSize: 20}}>Disable the whole idea of levels, or remove 2nd or 3rd level</Text>*/}
-
-      <CheckBox
-        title='Levels'
-        //checked={this.state.checked}
-        containerStyle={styles.admininput}
-      />
-
-      <CheckBox
-        center
-        title='Level 1'
-        //checked={this.state.checked}
-        containerStyle={styles.admininput}
-
-      />
-      <CheckBox
-        center
-        title='Level 2'
-        //checked={this.state.checked}
-        containerStyle={styles.admininput}
-
-      />
-      <CheckBox
-        center
-        title='Level 3'
-        //checked={this.state.checked}
-        containerStyle={styles.admininput}
-
-      />
-    </View>
-
-
-    <View style={{flex: 1, flexDirection: 'column', marginTop: 50}}>
-      {/*<Text h2>Cost Types Configuration</Text>
-      <Text h4>Disable the whole concept of cost types and work with levels only</Text>
-      */}
-
-      <CheckBox
-        title='Cost Types'
-        //checked={this.state.checked}
-        containerStyle={styles.admininput}
-      />
-
-      <View style={{alignItems: "center", justifyContent: 'space-around', flexDirection: "row", marginTop: 30}}>
-          <TouchableOpacity
-            style={styles.approveButton}
-            onPress={() => Alert.alert("saved")}
-            >
-            <View style={{ alignItems: 'center', justifyContent: 'center' }} >
-              <Ionicons name="ios-save" size={32} color="white" />
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.declineButton}
-            onPress={() => Alert.alert("reset")}
-            >
-            <View style={{ alignItems: 'center', justifyContent: 'center' }} >
-              <Ionicons name="ios-rewind" size={32} color="white" />
-            </View>
-          </TouchableOpacity>
-          
-            {/*onPress={() => this.handleClick()}
-
-            //onPress={() => Alert.alert(
-            //  'Accounts saved',
-            //  "Existing Account: "+ this.state.level1 + "."
-            //  + this.state.level2 + "." 
-            //  + this.state.level3 + "\n"
-            //  + "New Account: "+ this.state.level1_new + "."
-            //  + this.state.level2_new + "." 
-            //  + this.state.level3_new + "\n",
-            //  [
-            //  //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-            //  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-            //  {text: 'OK', onPress: () => Alert.alert("test")},
-            //  ], 
-            //  { cancelable: false }
-            //  )
-            //}  
-          ///>
-        */}
-        </View>
-    </View>
-  </View>
-);
-
-const dropdowndata = [
-  { value: 'Upgrade' },
-  { value: 'Settings' },
-  { value: 'About' },
-  { value: 'Sign out' }
-];
 
 
 
-const SecondRoute = () => (
-  <View style={{flex: 1, backgroundColor: '#fff' }}>
-    <View style={{flex: .8, alignItems: 'center'}}>
-      <View>
-        <Dropdown
-          label='1 - Select existing or enter a new Level 1 below'
-          data={dropdowndata}
-          containerStyle={styles.admininput}
-        />
-        
-        <TextField
-          label='Enter the name of your new level 1, e.g. Car!'
-          containerStyle={styles.admininput}
-          //keyboardType='phone-pad'
-          //formatText={this.formatText}
-          //onSubmitEditing={this.onSubmit}
-          //ref={this.fieldRef}
-        />
 
-        <Dropdown
-          label='2 - Select existing or enter new Level 2 below'
-          data={dropdowndata}
-          containerStyle={styles.admininput}
-        />
-        
-        <TextField
-          label='Enter the name of your new level 2, e.g. Repairs!'
-          containerStyle={styles.admininput}
-          //keyboardType='phone-pad'
-          //formatText={this.formatText}
-          //onSubmitEditing={this.onSubmit}
-          //ref={this.fieldRef}
-        />
-
-        <Dropdown
-          label='3 - Select existing or enter new Level 3 below'
-          data={dropdowndata}
-          containerStyle={styles.admininput}
-        />
-        
-        <TextField
-          label='Enter the name of your new level 3, e.g. Motor!'
-          containerStyle={styles.admininput}
-          //keyboardType='phone-pad'
-          //formatText={this.formatText}
-          //onSubmitEditing={this.onSubmit}
-          //ref={this.fieldRef}
-        />
-
-        <Dropdown
-          label='3 - Select existing or enter new Level 3 below'
-          data={dropdowndata}
-          containerStyle={{alignSelf: "flex-end", height: 50, width: 150}}
-          /*
-            Select type
-            fixed - e.g. rent
-            variable - e.g. gas
-            invest - e.g. books
-            fun - e.g. cocktails
-           */
-        />
-
-        {/*
-        }
-        <Picker
-          //selectedValue={this.state.level1}
-          style={{height: 50, width: 300}}
-          //onValueChange={(itemValue, itemIndex) =>
-          //  this.setState({level1: itemValue})
-          //}
-        >
-        <Picker.Item label="Select existing or enter new Level 1" value="defaule_none" />
-        <Picker.Item label="JavaScript" value="js" />
-        */}
-        
-        
-        {/*  {this.state.data.map((item) =>{
-               return(
-                 <Picker.Item  label={item.name} value={item.name} key={item.name}/>
-               );
-             })
-           }
-         */}
-        
-        {/*
-        </Picker>
-        */}
-       
-
-        {/*
-        <TextInput
-          style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
-          placeholder="Enter the name of your new level 1, e.g. Car!"
-          ref= {(el) => { this.level1_new = el; }}
-          //onChangeText={(level1_new) => this.setState({level1_new})}
-          //value={this.state.level1_new}          
-        />
-       
-        <View style = {styles.campusInputView}> 
-          <Input
-            containerStyle = {styles.campusInputContainer}
-            inputStyle = {styles.campusInput}
-            placeholder = 'KAIST v2'
-          />
-        </View> 
-        
-        
-
-
-        <Picker
-          //selectedValue={this.state.level2}
-          style={{height: 50, width: 300}}
-          //onValueChange={(itemValue, itemIndex) =>
-          //  this.setState({level2: itemValue})
-          //}
-          >
-          <Picker.Item label="Select existing or enter new Level 2" value="defaule_none" />
-          <Picker.Item label="JavaScript" value="js" />
-          
-          {
-             this.state.data.map((item) =>{
-               return(
-               <Picker.Item  label={item.name} value={item.name} key={item.name}/>
-               );
-             })
-           }
-          
-        </Picker>
-
-        <TextInput
-          style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
-          placeholder="Enter the name of your new level 2, e.g. Repairs!"
-          ref= {(el) => { this.level2_new = el; }}
-          //onChangeText={(level2_new) => this.setState({level2_new})}
-          //value={this.state.level2_new}          
-        />
-
-
-        <Picker
-          //selectedValue={this.state.level3}
-          style={{height: 50, width: 300}}
-          //onValueChange={(itemValue, itemIndex) =>
-          //  this.setState({level3: itemValue})
-          //}
-          >
-          <Picker.Item label="Select existing or enter new Level 3" value="defaule_none" />
-          <Picker.Item label="JavaScript" value="js" />
-        </Picker>
-
-        <TextInput
-          style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
-          placeholder="Enter the name of your new level 3, e.g. Motor!"
-          ref= {(el) => { this.level3_new = el; }}
-          //onChangeText={(level3_new) => this.setState({level3_new})}
-          //value={this.state.level3_new}          
-        />
-        
-        <Picker
-          //selectedValue={this.state.costtype}
-          style={{alignSelf: "flex-end", height: 50, width: 150}}
-          //onValueChange={(itemValue, itemIndex) =>
-          //  this.setState({costtype: itemValue})
-          //}
-          >
-          <Picker.Item label="Select type" value="defaule_none" />
-          <Picker.Item label="fixed - e.g. rent" value="fixed" />
-          <Picker.Item label="variable - e.g. gas" value="variable" />
-          <Picker.Item label="invest - e.g. books" value="invest" />
-          <Picker.Item label="fun - e.g. cocktails" value="fun" />
-        </Picker>  
-        */}
-
-
-        <View style={{alignItems: "center", justifyContent: 'space-around', flexDirection: "row", marginTop: 30}}>
-          <TouchableOpacity
-            style={styles.approveButton}
-            onPress={this.onPress}
-            >
-            <View style={{ alignItems: 'center', justifyContent: 'center' }} >
-              <Ionicons name="ios-add-circle" size={32} color="white" />
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.declineButton}
-            onPress={this.onPress}
-            >
-            <View style={{ alignItems: 'center', justifyContent: 'center' }} >
-              <Ionicons name="ios-trash" size={32} color="white" />
-            </View>
-          </TouchableOpacity>
-          
-            {/*onPress={() => this.handleClick()}
-
-            //onPress={() => Alert.alert(
-            //  'Accounts saved',
-            //  "Existing Account: "+ this.state.level1 + "."
-            //  + this.state.level2 + "." 
-            //  + this.state.level3 + "\n"
-            //  + "New Account: "+ this.state.level1_new + "."
-            //  + this.state.level2_new + "." 
-            //  + this.state.level3_new + "\n",
-            //  [
-            //  //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-            //  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-            //  {text: 'OK', onPress: () => Alert.alert("test")},
-            //  ], 
-            //  { cancelable: false }
-            //  )
-            //}  
-          ///>
-        */}
-        </View>
-      </View>
-    </View>
-  </View>
-);
-
-const ThirdRoute = () => (
-  
-  <View style={{flex: 1, backgroundColor: '#fff' }}>
-    <View style={{flex: .8, alignItems: 'center'}}>
-      <View>
-        <Dropdown
-          label='1 - Select existing or enter a new Level 1 below'
-          data={dropdowndata}
-          containerStyle={styles.admininput}
-        />
-        
-        <TextField
-          label='Enter the name of your new level 1, e.g. Car!'
-          containerStyle={styles.admininput}
-          //keyboardType='phone-pad'
-          //formatText={this.formatText}
-          //onSubmitEditing={this.onSubmit}
-          //ref={this.fieldRef}
-        />
-
-        <View style={{alignItems: "center", justifyContent: 'space-around', flexDirection: "row", marginTop: 30}}>
-          <TouchableOpacity
-            style={styles.approveButton}
-            onPress={this.onPress}
-            >
-            <View style={{ alignItems: 'center', justifyContent: 'center' }} >
-              <Ionicons name="ios-add-circle" size={32} color="white" />
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.declineButton}
-            onPress={this.onPress}
-            >
-            <View style={{ alignItems: 'center', justifyContent: 'center' }} >
-              <Ionicons name="ios-trash" size={32} color="white" />
-            </View>
-          </TouchableOpacity>
-          
-            {/*onPress={() => this.handleClick()}
-
-            //onPress={() => Alert.alert(
-            //  'Accounts saved',
-            //  "Existing Account: "+ this.state.level1 + "."
-            //  + this.state.level2 + "." 
-            //  + this.state.level3 + "\n"
-            //  + "New Account: "+ this.state.level1_new + "."
-            //  + this.state.level2_new + "." 
-            //  + this.state.level3_new + "\n",
-            //  [
-            //  //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-            //  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-            //  {text: 'OK', onPress: () => Alert.alert("test")},
-            //  ], 
-            //  { cancelable: false }
-            //  )
-            //}  
-          ///>
-        */}
-        </View>
-      </View>
-    </View>
-  </View>
-);
-
- 
 
 class Admin extends React.Component {
   /*
@@ -501,7 +121,6 @@ class Admin extends React.Component {
     value: 'Pear',
   }];
   */
-
   state = {
     level1: 'default_none',
     level2: 'default_none',
@@ -599,6 +218,387 @@ class Admin extends React.Component {
   }
 
   render() {
+    const dropdowndata = [
+      { value: 'Upgrade' },
+      { value: 'Settings' },
+      { value: 'About' },
+      { value: 'Sign out' }
+    ];
+
+    const FirstRoute = (args) => (
+      <View style={{flex: 1, justifyContent: 'space-around', backgroundColor: '#fff', alignItems: 'center' }}>
+        <View style={{flex: 1, justifyContent: 'center', marginTop: 50}}>
+          {/*<Text h2 style={{color: "white", alignItems: "center", fontSize: 40}}>Level Configuration</Text>
+          <Text h4 style={{color: "white", alignItems: "center", fontSize: 20}}>Disable the whole idea of levels, or remove 2nd or 3rd level</Text>*/}
+    
+          <CheckBox
+            title='Levels'
+            //checked={this.state.checked}
+            containerStyle={styles.admininput}
+          />
+    
+          <CheckBox
+            center
+            title='Level 1'
+            //checked={this.state.checked}
+            containerStyle={styles.admininput}
+    
+          />
+          <CheckBox
+            center
+            title='Level 2'
+            //checked={this.state.checked}
+            containerStyle={styles.admininput}
+    
+          />
+          <CheckBox
+            center
+            title='Level 3'
+            //checked={this.state.checked}
+            containerStyle={styles.admininput}
+    
+          />
+        </View>
+    
+    
+        <View style={{flex: 1, flexDirection: 'column', marginTop: 50}}>
+          {/*<Text h2>Cost Types Configuration</Text>
+          <Text h4>Disable the whole concept of cost types and work with levels only</Text>
+          */}
+    
+          <CheckBox
+            title='Cost Types'
+            //checked={this.state.checked}
+            containerStyle={styles.admininput}
+          />
+    
+          <View style={{alignItems: "center", justifyContent: 'space-around', flexDirection: "row", marginTop: 30}}>
+              <TouchableOpacity
+                style={styles.approveButton}
+                onPress={() => Alert.alert("saved")}
+                >
+                <View style={{ alignItems: 'center', justifyContent: 'center' }} >
+                  <Ionicons name="ios-save" size={32} color="white" />
+                </View>
+              </TouchableOpacity>
+    
+              <TouchableOpacity
+                style={styles.declineButton}
+                onPress={() => Alert.alert("reset")}
+                >
+                <View style={{ alignItems: 'center', justifyContent: 'center' }} >
+                  <Ionicons name="ios-rewind" size={32} color="white" />
+                </View>
+              </TouchableOpacity>
+              
+                {/*onPress={() => this.handleClick()}
+    
+                //onPress={() => Alert.alert(
+                //  'Accounts saved',
+                //  "Existing Account: "+ this.state.level1 + "."
+                //  + this.state.level2 + "." 
+                //  + this.state.level3 + "\n"
+                //  + "New Account: "+ this.state.level1_new + "."
+                //  + this.state.level2_new + "." 
+                //  + this.state.level3_new + "\n",
+                //  [
+                //  //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                //  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                //  {text: 'OK', onPress: () => Alert.alert("test")},
+                //  ], 
+                //  { cancelable: false }
+                //  )
+                //}  
+              ///>
+            */}
+            </View>
+        </View>
+      </View>
+    );
+
+    const SecondRoute = () => (
+      <View style={{flex: 1, backgroundColor: '#fff' }}>
+        <View style={{flex: .8, alignItems: 'center'}}>
+          <View>
+            <Dropdown
+              label='1 - Select existing or enter a new Level 1 below'
+              data={dropdowndata}
+              containerStyle={styles.admininput}
+            />
+            
+            <TextField
+              label='Enter the name of your new level 1, e.g. Car!'
+              containerStyle={styles.admininput}
+              //keyboardType='phone-pad'
+              //formatText={this.formatText}
+              //onSubmitEditing={this.onSubmit}
+              //ref={this.fieldRef}
+            />
+    
+            <Dropdown
+              label='2 - Select existing or enter new Level 2 below'
+              data={dropdowndata}
+              containerStyle={styles.admininput}
+            />
+            
+            <TextField
+              label='Enter the name of your new level 2, e.g. Repairs!'
+              containerStyle={styles.admininput}
+              //keyboardType='phone-pad'
+              //formatText={this.formatText}
+              //onSubmitEditing={this.onSubmit}
+              //ref={this.fieldRef}
+            />
+    
+            <Dropdown
+              label='3 - Select existing or enter new Level 3 below'
+              data={dropdowndata}
+              containerStyle={styles.admininput}
+            />
+            
+            <TextField
+              label='Enter the name of your new level 3, e.g. Motor!'
+              containerStyle={styles.admininput}
+              //keyboardType='phone-pad'
+              //formatText={this.formatText}
+              //onSubmitEditing={this.onSubmit}
+              //ref={this.fieldRef}
+            />
+    
+            <Dropdown
+              label='3 - Select existing or enter new Level 3 below'
+              data={dropdowndata}
+              containerStyle={{alignSelf: "flex-end", height: 50, width: 150}}
+              /*
+                Select type
+                fixed - e.g. rent
+                variable - e.g. gas
+                invest - e.g. books
+                fun - e.g. cocktails
+               */
+            />
+    
+            {/*
+            }
+            <Picker
+              //selectedValue={this.state.level1}
+              style={{height: 50, width: 300}}
+              //onValueChange={(itemValue, itemIndex) =>
+              //  this.setState({level1: itemValue})
+              //}
+            >
+            <Picker.Item label="Select existing or enter new Level 1" value="defaule_none" />
+            <Picker.Item label="JavaScript" value="js" />
+            */}
+            
+            
+            {/*  {this.state.data.map((item) =>{
+                   return(
+                     <Picker.Item  label={item.name} value={item.name} key={item.name}/>
+                   );
+                 })
+               }
+             */}
+            
+            {/*
+            </Picker>
+            */}
+           
+    
+            {/*
+            <TextInput
+              style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
+              placeholder="Enter the name of your new level 1, e.g. Car!"
+              ref= {(el) => { this.level1_new = el; }}
+              //onChangeText={(level1_new) => this.setState({level1_new})}
+              //value={this.state.level1_new}          
+            />
+           
+            <View style = {styles.campusInputView}> 
+              <Input
+                containerStyle = {styles.campusInputContainer}
+                inputStyle = {styles.campusInput}
+                placeholder = 'KAIST v2'
+              />
+            </View> 
+            
+            
+    
+    
+            <Picker
+              //selectedValue={this.state.level2}
+              style={{height: 50, width: 300}}
+              //onValueChange={(itemValue, itemIndex) =>
+              //  this.setState({level2: itemValue})
+              //}
+              >
+              <Picker.Item label="Select existing or enter new Level 2" value="defaule_none" />
+              <Picker.Item label="JavaScript" value="js" />
+              
+              {
+                 this.state.data.map((item) =>{
+                   return(
+                   <Picker.Item  label={item.name} value={item.name} key={item.name}/>
+                   );
+                 })
+               }
+              
+            </Picker>
+    
+            <TextInput
+              style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
+              placeholder="Enter the name of your new level 2, e.g. Repairs!"
+              ref= {(el) => { this.level2_new = el; }}
+              //onChangeText={(level2_new) => this.setState({level2_new})}
+              //value={this.state.level2_new}          
+            />
+    
+    
+            <Picker
+              //selectedValue={this.state.level3}
+              style={{height: 50, width: 300}}
+              //onValueChange={(itemValue, itemIndex) =>
+              //  this.setState({level3: itemValue})
+              //}
+              >
+              <Picker.Item label="Select existing or enter new Level 3" value="defaule_none" />
+              <Picker.Item label="JavaScript" value="js" />
+            </Picker>
+    
+            <TextInput
+              style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
+              placeholder="Enter the name of your new level 3, e.g. Motor!"
+              ref= {(el) => { this.level3_new = el; }}
+              //onChangeText={(level3_new) => this.setState({level3_new})}
+              //value={this.state.level3_new}          
+            />
+            
+            <Picker
+              //selectedValue={this.state.costtype}
+              style={{alignSelf: "flex-end", height: 50, width: 150}}
+              //onValueChange={(itemValue, itemIndex) =>
+              //  this.setState({costtype: itemValue})
+              //}
+              >
+              <Picker.Item label="Select type" value="defaule_none" />
+              <Picker.Item label="fixed - e.g. rent" value="fixed" />
+              <Picker.Item label="variable - e.g. gas" value="variable" />
+              <Picker.Item label="invest - e.g. books" value="invest" />
+              <Picker.Item label="fun - e.g. cocktails" value="fun" />
+            </Picker>  
+            */}
+    
+    
+            <View style={{alignItems: "center", justifyContent: 'space-around', flexDirection: "row", marginTop: 30}}>
+              <TouchableOpacity
+                style={styles.approveButton}
+                onPress={this.onPress}
+                >
+                <View style={{ alignItems: 'center', justifyContent: 'center' }} >
+                  <Ionicons name="ios-add-circle" size={32} color="white" />
+                </View>
+              </TouchableOpacity>
+    
+              <TouchableOpacity
+                style={styles.declineButton}
+                onPress={this.onPress}
+                >
+                <View style={{ alignItems: 'center', justifyContent: 'center' }} >
+                  <Ionicons name="ios-trash" size={32} color="white" />
+                </View>
+              </TouchableOpacity>
+              
+                {/*onPress={() => this.handleClick()}
+    
+                //onPress={() => Alert.alert(
+                //  'Accounts saved',
+                //  "Existing Account: "+ this.state.level1 + "."
+                //  + this.state.level2 + "." 
+                //  + this.state.level3 + "\n"
+                //  + "New Account: "+ this.state.level1_new + "."
+                //  + this.state.level2_new + "." 
+                //  + this.state.level3_new + "\n",
+                //  [
+                //  //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                //  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                //  {text: 'OK', onPress: () => Alert.alert("test")},
+                //  ], 
+                //  { cancelable: false }
+                //  )
+                //}  
+              ///>
+            */}
+            </View>
+          </View>
+        </View>
+      </View>
+    );
+    
+    const ThirdRoute = () => (
+      
+      <View style={{flex: 1, backgroundColor: '#fff' }}>
+        <View style={{flex: .8, alignItems: 'center'}}>
+          <View>
+            <Dropdown
+              label='1 - Select existing or enter a new Level 1 below'
+              data={dropdowndata}
+              containerStyle={styles.admininput}
+            />
+            
+            <TextField
+              label='Enter the name of your new level 1, e.g. Car!'
+              containerStyle={styles.admininput}
+              //keyboardType='phone-pad'
+              //formatText={this.formatText}
+              //onSubmitEditing={this.onSubmit}
+              //ref={this.fieldRef}
+            />
+    
+            <View style={{alignItems: "center", justifyContent: 'space-around', flexDirection: "row", marginTop: 30}}>
+              <TouchableOpacity
+                style={styles.approveButton}
+                onPress={this.onPress}
+                >
+                <View style={{ alignItems: 'center', justifyContent: 'center' }} >
+                  <Ionicons name="ios-add-circle" size={32} color="white" />
+                </View>
+              </TouchableOpacity>
+    
+              <TouchableOpacity
+                style={styles.declineButton}
+                onPress={this.onPress}
+                >
+                <View style={{ alignItems: 'center', justifyContent: 'center' }} >
+                  <Ionicons name="ios-trash" size={32} color="white" />
+                </View>
+              </TouchableOpacity>
+              
+                {/*onPress={() => this.handleClick()}
+    
+                //onPress={() => Alert.alert(
+                //  'Accounts saved',
+                //  "Existing Account: "+ this.state.level1 + "."
+                //  + this.state.level2 + "." 
+                //  + this.state.level3 + "\n"
+                //  + "New Account: "+ this.state.level1_new + "."
+                //  + this.state.level2_new + "." 
+                //  + this.state.level3_new + "\n",
+                //  [
+                //  //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                //  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                //  {text: 'OK', onPress: () => Alert.alert("test")},
+                //  ], 
+                //  { cancelable: false }
+                //  )
+                //}  
+              ///>
+            */}
+            </View>
+          </View>
+        </View>
+      </View>
+    );
+
     return (
       <View style={{flex: 1, backgroundColor: '#081A3F'}}>
         <Header
