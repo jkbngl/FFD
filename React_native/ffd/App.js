@@ -221,6 +221,12 @@ class Admin extends React.Component {
     console.log("SAVES")
   }
 
+  onSubmit = () => {
+    let { current: field } = this.fieldRef;
+ 
+    console.log(field.value());
+  };
+
   render() {
     const dropdowndata = [
       { value: 'Upgrade' },
@@ -340,7 +346,7 @@ class Admin extends React.Component {
               containerStyle={styles.admininput}
               //keyboardType='phone-pad'
               //formatText={this.formatText}
-              //onSubmitEditing={this.onSubmit}
+              onSubmitEditing={this.onSubmit}
               //ref={this.fieldRef}
             />
     
