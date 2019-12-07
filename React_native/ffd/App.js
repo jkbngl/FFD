@@ -883,7 +883,7 @@ class BudgetInput extends React.Component {
               />
 
               <TouchableOpacity
-                style={[marginTop=20, styles.saveButton]}
+                style={styles.saveButton}
                 onPress={() => Alert.alert("saved")}
               >
                 <View style={{ alignItems: 'center', justifyContent: 'center' }} >
@@ -1235,7 +1235,10 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     alignItems: 'center',
+    marginTop: 30,
     backgroundColor: '#081A3F',
+    justifyContent: 'center',
+    alignSelf: 'center',
     width: "80%",
     height: 60,
     padding: 10,
