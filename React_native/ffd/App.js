@@ -380,19 +380,6 @@ class Admin extends React.Component {
               //ref={this.fieldRef}
             />
     
-            <Dropdown
-              label='3 - Select existing or enter new Level 3 below'
-              data={dropdowndata}
-              containerStyle={{alignSelf: "flex-end", height: 50, width: 150}}
-              /*
-                Select type
-                fixed - e.g. rent
-                variable - e.g. gas
-                invest - e.g. books
-                fun - e.g. cocktails
-               */
-            />
-    
             {/*
             }
             <Picker
@@ -788,7 +775,7 @@ class BudgetInput extends React.Component {
           />
         </View>
 
-        <View style={{flex: .8, justifyContent: 'space-around', alignItems: 'center'}}>
+        <View style={{flex: 1, justifyContent: 'space-around', alignItems: 'center'}}>
           <View style={{flexDirection: 'row'}}>
           <Picker
               selectedValue={this.state.year}
@@ -831,14 +818,82 @@ class BudgetInput extends React.Component {
           </View>
         
           <View style={{flex: 2.5}}>
-          <TextInput
+            {/*<TextInput
               style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, textAlign: 'center' }}
               placeholder="Enter the value of your budget, e.g. 50!"
               ref= {(el) => { this.budget = el; }}
               onChangeText={(budget) => this.setState({budget})}
               value={this.state.budget}          
             />
+            */}
+            <TextField
+              label='Enter the value of your budget, e.g. 50!'
+              containerStyle={styles.admininput}
+              //keyboardType='phone-pad'
+              //formatText={this.formatText}
+              onSubmitEditing={this.onSubmit}
+              //ref={this.fieldRef}
+            />
 
+            <View style={{marginTop: 20}}>
+              <Dropdown
+                label='Select Level 1'
+                //data={dropdowndata}
+                containerStyle={styles.admininput}
+                value={this.state.value}
+                onChangeText={(value) => {
+                  console.log(value); // gives new value OK
+                  this.setState({level1: value});
+                }}
+              />
+
+              <Dropdown
+                label='Select or leave empty - Level 2'
+                //data={dropdowndata}
+                containerStyle={styles.admininput}
+                value={this.state.value}
+                onChangeText={(value) => {
+                  console.log(value); // gives new value OK
+                  this.setState({level1: value});
+                }}
+              />
+
+              <Dropdown
+                label='Select or leave empty - Level 3'
+                //data={dropdowndata}
+                containerStyle={styles.admininput}
+                value={this.state.value}
+                onChangeText={(value) => {
+                  console.log(value); // gives new value OK
+                  this.setState({level1: value});
+                }}
+              />
+
+              <Dropdown
+                label='Select costype'
+                //data={dropdowndata}
+                containerStyle={styles.costtypeinput}
+                /*
+                  Select type
+                  fixed - e.g. rent
+                  variable - e.g. gas
+                  invest - e.g. books
+                  fun - e.g. cocktails
+                 */
+              />
+
+              <TouchableOpacity
+                style={[marginTop=20, styles.saveButton]}
+                onPress={() => Alert.alert("saved")}
+              >
+                <View style={{ alignItems: 'center', justifyContent: 'center' }} >
+                  <Ionicons name="ios-save" size={32} color="white" />
+                </View>
+              </TouchableOpacity>
+
+            </View>
+
+            {/*
             <Picker
               selectedValue={this.state.level1}
               style={{height: 50, width: 300}}
@@ -884,10 +939,12 @@ class BudgetInput extends React.Component {
               <Picker.Item label="invest - e.g. books" value="invest" />
               <Picker.Item label="fun - e.g. cocktails" value="fun" />
             </Picker>  
+            */}
             
           </View>
-          <View style={{flex: 1, height: 100, width: 200}}>
-          <Button
+          {/*<View style={{flex: 1, height: 100, width: 200}}>
+            
+              <Button
                 title="Save"
                 color="#081A3F"
                 onPress={() => Alert.alert(
@@ -909,6 +966,7 @@ class BudgetInput extends React.Component {
                 }                  
               />
             </View>
+            */}
         </View>
       </View>
     );
@@ -1175,6 +1233,14 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 50,
   },
+  saveButton: {
+    alignItems: 'center',
+    backgroundColor: '#081A3F',
+    width: "80%",
+    height: 60,
+    padding: 10,
+    borderRadius: 50,
+  },
   campusInputView: {
     //flex: 1,
     justifyContent:"center",
@@ -1192,7 +1258,12 @@ const styles = StyleSheet.create({
   admininput:{
     width: Dimensions.get('window').width * .8,
     height: 60
-  }
+  },
+  costtypeinput: {
+    alignSelf: "flex-end",
+    height: 50,
+    width: 150,
+}
 });
 
 const bottomTabNavigator = createBottomTabNavigator(
