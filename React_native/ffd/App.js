@@ -1146,7 +1146,10 @@ class VisualizerScreen extends React.Component {
         
         
         <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
-          <LineChart
+          <Graph customConfig={{height: 250, width: 200, heights: [12,200,31,61,25, 120, 213, 123, 65], color: '#ff0000'}}/>
+
+          
+          {/*<LineChart
             data={{
               labels: ["January", "February", "March", "April", "May", "June"],
               datasets: [
@@ -1188,6 +1191,7 @@ class VisualizerScreen extends React.Component {
               borderRadius: 16
             }}
             />
+            */}
         </View>
       </View>
     );
