@@ -58,7 +58,7 @@ class HomeScreen extends React.Component {
           />
         </View>
 
-        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+        <View style={{flexDirection: 'row', justifyContent: 'center', flex: 1}}>
           <Picker
             selectedValue={this.state.year}
             style={{height: 120, width: 100}}
@@ -99,8 +99,8 @@ class HomeScreen extends React.Component {
 
         </View>
 
-        <View style={styles.container}>
-          <View style={styles.alternativeLayoutButtonContainer}>
+        <View style={[{flex: 2}, styles.container]}>
+          <View style={styles.horizontalLayout}>
             <CardViewWithIcon
               withBackground={ false }
               //androidIcon={ 'logo-github' }
@@ -1250,7 +1250,7 @@ const styles = StyleSheet.create({
    flex: 1,
    justifyContent: 'center',
   },
-  alternativeLayoutButtonContainer: {
+  horizontalLayout: {
     margin: 5,
     flexDirection: 'row',
     justifyContent: 'space-around',
