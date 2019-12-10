@@ -11,6 +11,8 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { Dropdown } from 'react-native-material-dropdown';
 import { TextField, FilledTextField, OutlinedTextField } from 'react-native-material-textfield';
+import { CardViewWithIcon } from "react-native-simple-card-view";
+
 
 //import CardView from 'react-native-cardview';
 
@@ -32,6 +34,19 @@ class HomeScreen extends React.Component {
   };
 
   render() {
+    const miniCardStyle = { shadowColor: '#000000',
+                            shadowOffsetWidth: 2,
+                            shadowOffsetHeight: 2,
+                            shadowOpacity: 0.1,
+                            shadowRadius: 5,
+                            bgColor: '#ffffff',
+                            padding: 5,
+                            margin: 5,
+                            borderRadius: 3,
+                            elevation: 3,
+                            width: (Dimensions.get("window").width / 2) - 10
+    };
+
     return(
       <View style={{flex: 1}}>
         <View style={{flex: .2}}>
@@ -86,9 +101,37 @@ class HomeScreen extends React.Component {
 
         <View style={styles.container}>
           <View style={styles.alternativeLayoutButtonContainer}>
+            <CardViewWithIcon
+              withBackground={ false }
+              androidIcon={ 'logo-github' }
+              iosIcon={ 'logo-github' }
+              iconHeight={ 30 }
+              iconColor={ '#333' }
+              title={ 'GITHUB' }
+              contentFontSize={ 20 }
+              titleFontSize={ 12 }
+              style={ miniCardStyle }
+              //content={ "Github" }
+              //onPress={ () => this.setState({
+              //         github       : this.state.github + 1
+              //}) }
+            />
+            <CardViewWithIcon
+              withBackground={ false }
+              androidIcon={ 'logo-youtube' }
+              iosIcon={ 'logo-youtube' }
+              iconHeight={ 30 }
+              iconColor={ '#ff0000' }
+              title={ 'YOUTUBE' }
+              contentFontSize={ 10 }
+              titleFontSize={ 12 }
+              style={ miniCardStyle }
+            />
+            
+            {/*
             <Text style={styles.box}>Budget:{"\n"}800</Text>
             <Text style={styles.box}>Actual:{"\n"}400</Text>
-            {/*  
+             
             <CardView
                 cardElevation={2}
                 cardMaxElevation={2}
