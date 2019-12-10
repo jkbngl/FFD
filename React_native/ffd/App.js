@@ -44,7 +44,8 @@ class HomeScreen extends React.Component {
                             margin: 5,
                             borderRadius: 3,
                             elevation: 3,
-                            width: (Dimensions.get("window").width / 2) - 10
+                            //height: (Dimensions.get("height").height / 2) - 50,
+                            width: (Dimensions.get("window").width / 2) - 10,
     };
 
     return(
@@ -57,95 +58,81 @@ class HomeScreen extends React.Component {
             rightComponent={{ icon: 'home', color: '#fff' }}
           />
         </View>
+        
+        <View style={{justifyContent: 'space-around'}}>
+          <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+            <Picker
+              selectedValue={this.state.year}
+              style={{height: 120, width: 100}}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({year: itemValue})
+              }              >
+              <Picker.Item label="Year" value="defaule_none" />
+              <Picker.Item label="2019" value="2019" />
+              <Picker.Item label="2020" value="2020" />
+              <Picker.Item label="2021" value="2021" />
+            </Picker>
 
-        <View style={{flexDirection: 'row', justifyContent: 'center', flex: 1}}>
-          <Picker
-            selectedValue={this.state.year}
-            style={{height: 120, width: 100}}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({year: itemValue})
-            }              >
-            <Picker.Item label="Year" value="defaule_none" />
-            <Picker.Item label="2019" value="2019" />
-            <Picker.Item label="2020" value="2020" />
-            <Picker.Item label="2021" value="2021" />
-          </Picker>
+            <Picker
+              selectedValue={this.state.month}
+              style={{height: 120, width: 100}}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({month: itemValue})
+              }>
+              <Picker.Item label="Month" value="defaule_none" />
+              <Picker.Item label="Jan" value="1" />
+              <Picker.Item label="Feb" value="2" />
+              <Picker.Item label="Mar" value="3" />
+              <Picker.Item label="Other" value="-1" />
+            </Picker>
 
-          <Picker
-            selectedValue={this.state.month}
-            style={{height: 120, width: 100}}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({month: itemValue})
-            }>
-            <Picker.Item label="Month" value="defaule_none" />
-            <Picker.Item label="Jan" value="1" />
-            <Picker.Item label="Feb" value="2" />
-            <Picker.Item label="Mar" value="3" />
-            <Picker.Item label="Other" value="-1" />
-          </Picker>
+            <Picker
+              selectedValue={this.state.day}
+              style={{height: 120, width: 100}}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({day: itemValue})
+              }>
+              <Picker.Item label="Day" value="defaule_none" />
+              <Picker.Item label="First" value="1" />
+              <Picker.Item label="Second" value="2" />
+              <Picker.Item label="Third" value="3" />
+              <Picker.Item label="Other" value="-1" />
+            </Picker>
+          </View>
 
-          <Picker
-            selectedValue={this.state.day}
-            style={{height: 120, width: 100}}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({day: itemValue})
-            }>
-            <Picker.Item label="Day" value="defaule_none" />
-            <Picker.Item label="First" value="1" />
-            <Picker.Item label="Second" value="2" />
-            <Picker.Item label="Third" value="3" />
-            <Picker.Item label="Other" value="-1" />
-          </Picker>
-
-        </View>
-
-        <View style={[{flex: 2}, styles.container]}>
-          <View style={styles.horizontalLayout}>
-            <CardViewWithIcon
-              withBackground={ false }
-              //androidIcon={ 'logo-github' }
-              //iosIcon={ 'logo-github' }
-              androidIcon={ 'md-calculator' }
-              iosIcon={ 'md-calculator' }
-              iconHeight={ 30 }
-              iconColor={ '#333' }
-              title={ 'Budget' }
-              contentFontSize={ 20 }
-              titleFontSize={ 12 }
-              style={ miniCardStyle }
-              //content={ "Github" }
-              //onPress={ () => this.setState({
-              //         github       : this.state.github + 1
-              //}) }
-            />
-            <CardViewWithIcon
-              withBackground={ false }
-              //androidIcon={ 'logo-youtube' }
-              //iosIcon={ 'logo-youtube' }
-              androidIcon={ 'logo-euro' }
-              iosIcon={ 'logo-euro' }
-              iconHeight={ 30 }
-              iconColor={ '#ff0000' }
-              title={ 'Actual' }
-              contentFontSize={ 10 }
-              titleFontSize={ 12 }
-              style={ miniCardStyle }
-            />
-            
-            {/*
-            <Text style={styles.box}>Budget:{"\n"}800</Text>
-            <Text style={styles.box}>Actual:{"\n"}400</Text>
-             
-            <CardView
-                cardElevation={2}
-                cardMaxElevation={2}
-                cornerRadius={5}>
-              <Text>
-                Elevation 0
-              </Text>
-            </CardView>
-            */}
-
+          <View style={{justifyContent: 'center'}}>
+            <View style={styles.horizontalLayout}>
+              <CardViewWithIcon
+                withBackground={ false }
+                //androidIcon={ 'logo-github' }
+                //iosIcon={ 'logo-github' }
+                androidIcon={ 'md-calculator' }
+                iosIcon={ 'md-calculator' }
+                iconHeight={ 30 }
+                iconColor={ '#333' }
+                title={ 'Budget' }
+                contentFontSize={ 20 }
+                titleFontSize={ 12 }
+                style={ miniCardStyle }
+                //content={ "Github" }
+                //onPress={ () => this.setState({
+                //         github       : this.state.github + 1
+                //}) }
+              />
+              <CardViewWithIcon
+                withBackground={ false }
+                //androidIcon={ 'logo-youtube' }
+                //iosIcon={ 'logo-youtube' }
+                androidIcon={ 'logo-euro' }
+                iosIcon={ 'logo-euro' }
+                iconHeight={ 30 }
+                iconColor={ '#ff0000' }
+                title={ 'Actual' }
+                contentFontSize={ 10 }
+                titleFontSize={ 12 }
+                style={ miniCardStyle }
+              />
+            </View>
           </View>
         </View>
       </View>
@@ -1247,7 +1234,6 @@ class VisualizerScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-   flex: 1,
    justifyContent: 'center',
   },
   horizontalLayout: {
