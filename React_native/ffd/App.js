@@ -103,8 +103,10 @@ class HomeScreen extends React.Component {
           <View style={styles.alternativeLayoutButtonContainer}>
             <CardViewWithIcon
               withBackground={ false }
-              androidIcon={ 'logo-github' }
-              iosIcon={ 'logo-github' }
+              //androidIcon={ 'logo-github' }
+              //iosIcon={ 'logo-github' }
+              androidIcon={ 'md-calculator' }
+              iosIcon={ 'md-calculator' }
               iconHeight={ 30 }
               iconColor={ '#333' }
               title={ 'GITHUB' }
@@ -118,8 +120,10 @@ class HomeScreen extends React.Component {
             />
             <CardViewWithIcon
               withBackground={ false }
-              androidIcon={ 'logo-youtube' }
-              iosIcon={ 'logo-youtube' }
+              //androidIcon={ 'logo-youtube' }
+              //iosIcon={ 'logo-youtube' }
+              androidIcon={ 'logo-euro' }
+              iosIcon={ 'logo-euro' }
               iconHeight={ 30 }
               iconColor={ '#ff0000' }
               title={ 'YOUTUBE' }
