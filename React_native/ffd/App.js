@@ -109,7 +109,7 @@ class HomeScreen extends React.Component {
               iosIcon={ 'md-calculator' }
               iconHeight={ 30 }
               iconColor={ '#333' }
-              title={ 'GITHUB' }
+              title={ 'Budget' }
               contentFontSize={ 20 }
               titleFontSize={ 12 }
               style={ miniCardStyle }
@@ -126,7 +126,7 @@ class HomeScreen extends React.Component {
               iosIcon={ 'logo-euro' }
               iconHeight={ 30 }
               iconColor={ '#ff0000' }
-              title={ 'YOUTUBE' }
+              title={ 'Actual' }
               contentFontSize={ 10 }
               titleFontSize={ 12 }
               style={ miniCardStyle }
