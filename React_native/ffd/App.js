@@ -100,7 +100,7 @@ class HomeScreen extends React.Component {
             </Picker>
           </View>
 
-          <View style={{justifyContent: 'center'}}>
+          <View>
             <View style={styles.horizontalLayout}>
               <CardViewWithIcon
                 withBackground={ false }
