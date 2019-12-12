@@ -59,8 +59,8 @@ class HomeScreen extends React.Component {
           />
         </View>
         
-        <View style={{justifyContent: 'space-between', alignItems: 'center'}}>
-          <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{justifyContent: "center", alignItems: "center"}}>
+          <View style={{flexDirection: 'row'}}>
             <Picker
               selectedValue={this.state.year}
               style={{height: 120, width: 100}}
@@ -101,7 +101,7 @@ class HomeScreen extends React.Component {
           </View>
 
           <View>
-            <View style={styles.horizontalLayout}>
+            <View style={{flexDirection: 'row'}}>
               <CardViewWithIcon
                 withBackground={ false }
                 //androidIcon={ 'logo-github' }
@@ -129,7 +129,7 @@ class HomeScreen extends React.Component {
                 iconHeight={ 30 }
                 iconColor={ '#ff0000' }
                 title={ 'Actual' }
-                content={ "500" }
+                content={ '500' }
                 contentFontSize={ 20 }
                 titleFontSize={ 12 }
                 style={ miniCardStyle }
@@ -1182,10 +1182,10 @@ class VisualizerScreen extends React.Component {
         
         
         <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
-          <Graph customConfig={{height: 250, width: 200, heights: [12,200,31,61,25, 120, 213, 123, 65], color: '#ff0000'}}/>
+          {/*<Graph customConfig={{height: 250, width: 200, heights: [12,200,31,61,25, 120, 213, 123, 65], color: '#ff0000'}}/>*/}
 
           
-          {/*<LineChart
+          <LineChart
             data={{
               labels: ["January", "February", "March", "April", "May", "June"],
               datasets: [
@@ -1227,7 +1227,6 @@ class VisualizerScreen extends React.Component {
               borderRadius: 16
             }}
             />
-            */}
         </View>
       </View>
     );
@@ -1239,10 +1238,10 @@ const styles = StyleSheet.create({
    justifyContent: 'center',
   },
   horizontalLayout: {
-    margin: 5,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center'
+    // margin: 5,
+    // flexDirection: 'row',
+    // justifyContent: 'space-around',
+    // alignItems: 'center'
   },
   box:
   {
