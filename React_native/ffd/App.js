@@ -59,8 +59,8 @@ class HomeScreen extends React.Component {
           />
         </View>
         
-        <View style={{justifyContent: 'space-between', marginTop: 200}}>
-          <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+        <View style={{justifyContent: 'space-between', alignItems: 'center'}}>
+          <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
             <Picker
               selectedValue={this.state.year}
               style={{height: 120, width: 100}}
@@ -111,6 +111,7 @@ class HomeScreen extends React.Component {
                 iconHeight={ 30 }
                 iconColor={ '#333' }
                 title={ 'Budget' }
+                content={ "400" }
                 contentFontSize={ 20 }
                 titleFontSize={ 12 }
                 style={ miniCardStyle }
@@ -128,7 +129,8 @@ class HomeScreen extends React.Component {
                 iconHeight={ 30 }
                 iconColor={ '#ff0000' }
                 title={ 'Actual' }
-                contentFontSize={ 10 }
+                content={ "500" }
+                contentFontSize={ 20 }
                 titleFontSize={ 12 }
                 style={ miniCardStyle }
               />
