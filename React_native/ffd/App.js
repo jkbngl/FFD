@@ -59,8 +59,8 @@ class HomeScreen extends React.Component {
           />
         </View>
         
-        <View style={{justifyContent: "center", alignItems: "center"}}>
-          <View style={{flexDirection: 'row'}}>
+        <View style={{justifyContent: "center", alignItems: "center", flexDirection: 'column'}}>
+          <View style={{flexDirection: 'row', marginTop: "40%"}}>
             <Picker
               selectedValue={this.state.year}
               style={{height: 120, width: 100}}
