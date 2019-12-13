@@ -1,6 +1,6 @@
 import * as React from 'react';
 //import React, { Component } from 'react';
-import { StyleSheet, Text, View, Picker, Button, Alert, TextInput, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Picker, Button, Alert, TextInput, Dimensions, TouchableOpacity, Animated  } from 'react-native';
 import { Header, CheckBox, Input } from 'react-native-elements';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart} from "react-native-chart-kit";
@@ -1210,7 +1210,7 @@ class VisualizerScreen extends React.Component {
           >
             {this.renderValue()}
           </TranslateY>
-          
+
           {/*<Graph customConfig={{height: 250, width: 200, heights: [12,200,31,61,25, 120, 213, 123, 65], color: '#ff0000'}}/>
           <LineChart
             data={{
