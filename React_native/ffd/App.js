@@ -1182,9 +1182,36 @@ class VisualizerScreen extends React.Component {
         
         
         <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
-          {/*<Graph customConfig={{height: 250, width: 200, heights: [12,200,31,61,25, 120, 213, 123, 65], color: '#ff0000'}}/>*/}
-
+        <TranslateY
+            style={[styles.graphContainer]}
+            value={graphLayerY}
+            delay={delay}
+          >
+            // Positive column
+            <TranslateY
+              style={styles.positiveColumn}
+              value={positiveY}
+              delay={delay}
+            />
+            // Baseline
+            // ...
+            //
+            // Negative column
+            <TranslateY
+              style={styles.negativeColumn}
+              value={negativeY}
+              delay={delay}
+            />
+          </TranslateY>
+          <TranslateY
+            style={styles.valueLayer}
+            value={valueLayerY}
+            delay={delay + valueDelay}
+          >
+            {this.renderValue()}
+          </TranslateY>
           
+          {/*<Graph customConfig={{height: 250, width: 200, heights: [12,200,31,61,25, 120, 213, 123, 65], color: '#ff0000'}}/>
           <LineChart
             data={{
               labels: ["January", "February", "March", "April", "May", "June"],
@@ -1227,6 +1254,7 @@ class VisualizerScreen extends React.Component {
               borderRadius: 16
             }}
             />
+          */}
         </View>
       </View>
     );
