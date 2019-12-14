@@ -12,10 +12,7 @@ import { TabView, SceneMap } from 'react-native-tab-view';
 import { Dropdown } from 'react-native-material-dropdown';
 import { TextField, FilledTextField, OutlinedTextField } from 'react-native-material-textfield';
 import { CardViewWithIcon } from "react-native-simple-card-view";
-
-
-//import CardView from 'react-native-cardview';
-
+import Chart from 'react-native-chartjs';
 
 
 export default class App extends React.Component {
@@ -1169,6 +1166,44 @@ class ActualInput extends React.Component {
 
 class VisualizerScreen extends React.Component {
   render() {
+    const chartConfiguration = {
+      type: 'bar',
+      data: {
+        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        maintainAspectRatio : false,
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    }; 
+  
     return(
       <View style={{flex: 1}}>
         <View style={{flex: .5}}>
@@ -1182,34 +1217,12 @@ class VisualizerScreen extends React.Component {
         
         
         <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
-        <TranslateY
-            style={[styles.graphContainer]}
-            value={graphLayerY}
-            delay={delay}
-          >
-            // Positive column
-            <TranslateY
-              style={styles.positiveColumn}
-              value={positiveY}
-              delay={delay}
-            />
-            // Baseline
-            // ...
-            //
-            // Negative column
-            <TranslateY
-              style={styles.negativeColumn}
-              value={negativeY}
-              delay={delay}
-            />
-          </TranslateY>
-          <TranslateY
-            style={styles.valueLayer}
-            value={valueLayerY}
-            delay={delay + valueDelay}
-          >
-            {this.renderValue()}
-          </TranslateY>
+          <Chart 
+            chartConfiguration = {
+              chartConfiguration
+            }
+            defaultFontSize={20}
+          />  
 
           {/*<Graph customConfig={{height: 250, width: 200, heights: [12,200,31,61,25, 120, 213, 123, 65], color: '#ff0000'}}/>
           <LineChart
