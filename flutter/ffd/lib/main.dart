@@ -10,10 +10,11 @@ class Destination {
 }
 
 const List<Destination> allDestinations = <Destination>[
-  Destination(0, 'Home', Icons.home, Colors.teal),
-  Destination(1, 'Business', Icons.business, Colors.cyan),
-  Destination(2, 'School', Icons.school, Colors.orange),
-  Destination(3, 'Flight', Icons.flight, Colors.blue)
+  Destination(0, 'Home', Icons.home, Colors.lightBlue),
+  Destination(1, 'Actuals', Icons.business, Colors.green),
+  Destination(2, 'Budget', Icons.school, Colors.orange),
+  Destination(3, 'Visualisation', Icons.flight, Colors.red),
+  Destination(4, 'Admin', Icons.school, Colors.blue)
 ];
 
 class RootPage extends StatelessWidget {
