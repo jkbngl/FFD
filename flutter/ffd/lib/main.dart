@@ -11,9 +11,9 @@ class Destination {
 
 const List<Destination> allDestinations = <Destination>[
   Destination(0, 'Home', Icons.home, Colors.lightBlue),
-  Destination(1, 'Actuals', Icons.business, Colors.green),
-  Destination(2, 'Budget', Icons.school, Colors.orange),
-  Destination(3, 'Visualisation', Icons.flight, Colors.red),
+  Destination(1, 'Actuals', Icons.attach_money, Colors.green),
+  Destination(2, 'Budget', Icons.plus_one, Colors.orange),
+  Destination(3, 'Visualisation', Icons.bubble_chart, Colors.red),
   Destination(4, 'Admin', Icons.school, Colors.blue)
 ];
 
