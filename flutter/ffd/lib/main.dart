@@ -164,6 +164,9 @@ class _DestinationViewState extends State<DestinationView> {
           builder: (BuildContext context) {
             switch(settings.name) {
               case '/':
+                print('The name of the settings is: $settings.name');
+                print('The destination of the widget is: $widget.destination');
+
                 return RootPage(destination: widget.destination);
               case '/list':
                 return ListPage(destination: widget.destination);
