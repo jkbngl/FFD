@@ -12,9 +12,9 @@ class Destination {
 const List<Destination> allDestinations = <Destination>[
   Destination(0, 'Home', Icons.home, Colors.lightBlue),
   Destination(1, 'Actuals', Icons.attach_money, Colors.green),
-  Destination(2, 'Budget', Icons.plus_one, Colors.orange),
+  Destination(2, 'Budget', Icons.account_balance_wallet, Colors.orange),
   Destination(3, 'Visualisation', Icons.bubble_chart, Colors.red),
-  Destination(4, 'Admin', Icons.school, Colors.blue)
+  Destination(4, 'Admin', Icons.account_circle, Colors.blue)
 ];
 
 class RootPage extends StatelessWidget {
@@ -162,10 +162,10 @@ class _DestinationViewState extends State<DestinationView> {
         return MaterialPageRoute(
           settings: settings,
           builder: (BuildContext context) {
-            switch(settings.name) {
-              print('The name of the settings is: $settings.name');
-              print('The destination of the widget is: $widget.destination');
+            print('The name of the settings is: $settings.name');
+            print('The destination of the widget is: $widget.destination');
 
+            switch(settings.name) {
               case '/':
                 return RootPage(destination: widget.destination);
               case '/list':
