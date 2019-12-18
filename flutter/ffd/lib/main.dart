@@ -273,6 +273,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin<HomeP
               currentIndex: _currentIndex,
               onTap: (int index) {
                 setState(() {
+                  print("INDEX SELECETED: $index");
                   _currentIndex = index;
                 });
               },
