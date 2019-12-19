@@ -23,14 +23,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
             Icon(Icons.home, size: 30),
             Icon(Icons.attach_money, size: 30),
             Icon(Icons.compare_arrows, size: 30),
-            Icon(Icons.call_split, size: 30),
-            Icon(Icons.perm_identity, size: 30),
+            Icon(Icons.account_balance_wallet, size: 30),
+            Icon(Icons.settings, size: 30),
           ],
           color: Colors.white,
           buttonBackgroundColor: Colors.white,
           backgroundColor: Colors.blueAccent,
           animationCurve: Curves.easeInOut,
-          animationDuration: Duration(milliseconds: 600),
+          animationDuration: Duration(milliseconds: 250),
           onTap: (index) {
             setState(() {
               _page = index;
