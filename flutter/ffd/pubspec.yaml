@@ -20,6 +20,8 @@ dependencies:
   flutter:
     sdk: flutter
   bottom_navy_bar: ^5.2.0
+  curved_navigation_bar: ^0.3.1 #latest version
+
 
 
   # The following adds the Cupertino Icons font to your application.
