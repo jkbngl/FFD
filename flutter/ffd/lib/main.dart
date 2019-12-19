@@ -30,7 +30,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           buttonBackgroundColor: Colors.white,
           backgroundColor: Colors.blueAccent,
           animationCurve: Curves.easeInOut,
-          animationDuration: Duration(milliseconds: 300),
+          animationDuration: Duration(milliseconds: 600),
           onTap: (index) {
             setState(() {
               _page = index;
