@@ -1,99 +1,90 @@
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+// Flutter code sample for BottomNavigationBar
+
+// This example shows a [BottomNavigationBar] as it is used within a [Scaffold]
+// widget. The [BottomNavigationBar] has three [BottomNavigationBarItem]
+// widgets and the [currentIndex] is set to index 0. The selected item is
+// amber. The `_onItemTapped` function changes the selected item's index
+// and displays a corresponding message in the center of the [Scaffold].
+//
+// ![A scaffold with a bottom navigation bar containing three bottom navigation
+// bar items. The first one is selected.](https://flutter.github.io/assets-for-api-docs/assets/material/bottom_navigation_bar.png)
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
+/// This Widget is the main application widget.
 class MyApp extends StatelessWidget {
+  static const String _title = 'Flutter Code Sample';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      title: _title,
+      home: MyStatefulWidget(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
+class MyStatefulWidget extends StatefulWidget {
+  MyStatefulWidget({Key key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Business',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: School',
+      style: optionStyle,
+    ),
+  ];
 
-  int _currentIndex = 0;
-  PageController _pageController;
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController();
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Nav Bar")),
-      body: SizedBox.expand(
-        child: PageView(
-          controller: _pageController,
-          onPageChanged: (index) {
-            setState(() => _currentIndex = index);
-          },
-          children: <Widget>[
-            Container(color: Colors.blueGrey,),
-            Container(color: Colors.red,),
-            Container(color: Colors.green,),
-            Container(color: Colors.blue,),
-            Container(color: Colors.yellow,),
-          ],
-        ),
+      appBar: AppBar(
+        title: const Text('BottomNavigationBar Sample'),
       ),
-      bottomNavigationBar: BottomNavyBar(
-        selectedIndex: _currentIndex,
-        onItemSelected: (index) {
-          setState(() => _currentIndex = index);
-          _pageController.jumpToPage(index);
-        },
-        items: <BottomNavyBarItem>[
-          BottomNavyBarItem(
-              title: Text('Home'),
-              icon: Icon(Icons.home),
-              activeColor: Colors.lightBlue
-          ),BottomNavyBarItem(
-              title: Text('Actuals'),
-              icon: Icon(Icons.attach_money),
-              activeColor: Colors.orange
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
           ),
-          BottomNavyBarItem(
-              title: Text('Budget'),
-              icon: Icon(Icons.account_balance_wallet),
-            activeColor: Colors.deepPurple,
-
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            title: Text('Business'),
           ),
-          BottomNavyBarItem(
-              title: Text('Visualizer'),
-              icon: Icon(Icons.bubble_chart),
-              activeColor: Colors.red,
-          ),
-          BottomNavyBarItem(
-              title: Text('Settings'),
-              icon: Icon(Icons.settings),
-              activeColor: Colors.green,
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            title: Text('School'),
           ),
         ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
       ),
     );
   }

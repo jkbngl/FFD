@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:ffd/main.dart';
+import 'package:ffd/backup_color_change_on_nav_tab.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
