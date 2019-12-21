@@ -68,23 +68,27 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
-              title: Text('Item One'),
+              title: Text('Home'),
+              icon: Icon(Icons.attach_money),
+              activeColor: Colors.orange
+          ),BottomNavyBarItem(
+              title: Text('Actuals'),
               icon: Icon(Icons.attach_money),
               activeColor: Colors.orange
           ),
           BottomNavyBarItem(
-              title: Text('Item One'),
+              title: Text('Budget'),
               icon: Icon(Icons.account_balance_wallet),
             activeColor: Colors.blue,
 
           ),
           BottomNavyBarItem(
-              title: Text('Item One'),
+              title: Text('Visualizer'),
               icon: Icon(Icons.bubble_chart),
               activeColor: Colors.green,
           ),
           BottomNavyBarItem(
-              title: Text('Item One'),
+              title: Text('Settings'),
               icon: Icon(Icons.settings),
               activeColor: Colors.red,
           ),
