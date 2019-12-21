@@ -57,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(color: Colors.red,),
             Container(color: Colors.green,),
             Container(color: Colors.blue,),
+            Container(color: Colors.yellow,),
           ],
         ),
       ),
@@ -74,12 +75,12 @@ class _MyHomePageState extends State<MyHomePage> {
           ),BottomNavyBarItem(
               title: Text('Actuals'),
               icon: Icon(Icons.attach_money),
-              activeColor: Colors.green
+              activeColor: Colors.orange
           ),
           BottomNavyBarItem(
               title: Text('Budget'),
               icon: Icon(Icons.account_balance_wallet),
-            activeColor: Colors.blue,
+            activeColor: Colors.deepPurple,
 
           ),
           BottomNavyBarItem(
