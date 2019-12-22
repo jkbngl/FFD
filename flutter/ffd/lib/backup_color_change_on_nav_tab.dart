@@ -41,6 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
+  String dropdownValue = 'One';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,11 +76,33 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.all(8.0),
               color: Colors.blue[600],
               alignment: Alignment.center,
-              child: Text('Actuals',
-                  style: Theme.of(context)
-                      .textTheme
-                      .display1
-                      .copyWith(color: Colors.white)),
+              child:  DropdownButton<String>(
+    value: dropdownValue,
+    icon: Icon(Icons.arrow_downward),
+    iconSize: 24,
+    elevation: 16,
+    style: TextStyle(
+    color: Colors.deepPurple
+    ),
+    underline: Container(
+    height: 2,
+    color: Colors.deepPurpleAccent,
+    ),
+    onChanged: (String newValue) {
+    setState(() {
+    dropdownValue = newValue;
+    });
+    },
+    items: <String>['One', 'Two', 'Free', 'Four']
+        .map<DropdownMenuItem<String>>((String value) {
+    return DropdownMenuItem<String>(
+    value: value,
+    child: Text(value),
+    );
+    })
+        .toList(),
+
+                )
             ),
             Container(
               color: Colors.green,
