@@ -69,11 +69,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       .copyWith(color: Colors.white)),
             ),
             Container(
-                constraints: BoxConstraints.expand(
+              constraints: BoxConstraints.expand(
                   height: Theme.of(context).textTheme.display1.fontSize * 1.1 +
                       200.0,
                 ),
-                padding: const EdgeInsets.all(8.0),
+
+                padding: const EdgeInsets.all(30.0),
                 //color: Colors.blue[600],
                 alignment: Alignment.center,
                 child: DropdownButton<String>(
