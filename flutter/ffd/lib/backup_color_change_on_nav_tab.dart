@@ -70,38 +70,39 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Container(
               constraints: BoxConstraints.expand(
-                  height: Theme.of(context).textTheme.display1.fontSize * 1.1 +
-                      200.0,
-                ),
+                height:
+                    Theme.of(context).textTheme.display1.fontSize * 1.1 + 200.0,
+              ),
 
-                padding: const EdgeInsets.all(30.0),
-                //color: Colors.blue[600],
-                alignment: Alignment.center,
-                child: DropdownButton<String>(
-                  value: dropdownValue,
-                  icon: Icon(Icons.arrow_downward),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: TextStyle(color: Colors.deepPurple),
-                  isExpanded: true,
-                  underline: Container(
-                    height: 2,
-                    width: 5000,
-                    color: Colors.deepPurpleAccent,
-                  ),
-                  onChanged: (String newValue) {
-                    setState(() {
-                      dropdownValue = newValue;
-                    });
-                  },
-                  items: <String>['One', 'Two', 'Free', 'Four']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
+              padding: const EdgeInsets.all(30.0),
+              //color: Colors.blue[600],
+              alignment: Alignment.center,
+              //child: Text('Submit'),
+              child: DropdownButton<String>(
+                value: dropdownValue,
+                icon: Icon(Icons.arrow_downward),
+                iconSize: 24,
+                elevation: 16,
+                style: TextStyle(color: Colors.deepPurple),
+                isExpanded: true,
+                underline: Container(
+                  height: 2,
+                  width: 5000,
+                  color: Colors.deepPurpleAccent,
                 ),
+                onChanged: (String newValue) {
+                  setState(() {
+                    dropdownValue = newValue;
+                  });
+                },
+                items: <String>['One', 'Two', 'Free', 'Four']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
             ),
             Container(
               color: Colors.green,
