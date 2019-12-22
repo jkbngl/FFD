@@ -26,7 +26,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   int _currentIndex = 0;
   PageController _pageController;
 
@@ -53,11 +52,33 @@ class _MyHomePageState extends State<MyHomePage> {
             setState(() => _currentIndex = index);
           },
           children: <Widget>[
-            Container(color: Colors.blueGrey,),
-            Container(color: Colors.red,),
-            Container(color: Colors.green,),
-            Container(color: Colors.blue,),
-            Container(color: Colors.yellow,),
+            Container(
+              constraints: BoxConstraints.expand(
+                height:
+                    Theme.of(context).textTheme.display1.fontSize * 1.1 + 200.0,
+              ),
+              padding: const EdgeInsets.all(8.0),
+              color: Colors.blue[600],
+              alignment: Alignment.center,
+              child: Text('Hello World',
+                  style: Theme.of(context)
+                      .textTheme
+                      .display1
+                      .copyWith(color: Colors.white)),
+              transform: Matrix4.rotationZ(0.1),
+            ),
+            Container(
+              color: Colors.red,
+            ),
+            Container(
+              color: Colors.green,
+            ),
+            Container(
+              color: Colors.blue,
+            ),
+            Container(
+              color: Colors.yellow,
+            ),
           ],
         ),
       ),
@@ -71,27 +92,25 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavyBarItem(
               title: Text('Home'),
               icon: Icon(Icons.home),
-              activeColor: Colors.lightBlue
-          ),BottomNavyBarItem(
+              activeColor: Colors.lightBlue),
+          BottomNavyBarItem(
               title: Text('Actuals'),
               icon: Icon(Icons.attach_money),
-              activeColor: Colors.orange
-          ),
+              activeColor: Colors.orange),
           BottomNavyBarItem(
-              title: Text('Budget'),
-              icon: Icon(Icons.account_balance_wallet),
+            title: Text('Budget'),
+            icon: Icon(Icons.account_balance_wallet),
             activeColor: Colors.deepPurple,
-
           ),
           BottomNavyBarItem(
-              title: Text('Visualizer'),
-              icon: Icon(Icons.bubble_chart),
-              activeColor: Colors.red,
+            title: Text('Visualizer'),
+            icon: Icon(Icons.bubble_chart),
+            activeColor: Colors.red,
           ),
           BottomNavyBarItem(
-              title: Text('Settings'),
-              icon: Icon(Icons.settings),
-              activeColor: Colors.green,
+            title: Text('Settings'),
+            icon: Icon(Icons.settings),
+            activeColor: Colors.green,
           ),
         ],
       ),
