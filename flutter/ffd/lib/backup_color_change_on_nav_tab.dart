@@ -99,8 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     builder: (BuildContext context) {
                       // return object of type Dialog
                       return AlertDialog(
-                        title: new Text("Alert Dialog title"),
-                        content: new Text("Alert Dialog body"),
+                        title: new Text("Choosen:"),
+                        content: new Text("Value: " + dropdownValue),
                         actions: <Widget>[
                           // usually buttons at the bottom of the dialog
                           new FlatButton(
