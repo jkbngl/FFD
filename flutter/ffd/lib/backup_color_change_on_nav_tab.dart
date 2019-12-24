@@ -54,83 +54,113 @@ class _MyHomePageState extends State<MyHomePage> {
             setState(() => _currentIndex = index);
           },
           children: <Widget>[
-            Container(
-              constraints: BoxConstraints.expand(
-                height:
-                    Theme.of(context).textTheme.display1.fontSize * 1.1 + 200.0,
-              ),
-              padding: const EdgeInsets.all(8.0),
-              color: Colors.blue[600],
-              alignment: Alignment.center,
-              child: Text('Home',
-                  style: Theme.of(context)
-                      .textTheme
-                      .display1
-                      .copyWith(color: Colors.white)),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text('We move under cover and we move as one'),
+                Text('Through the night, we have one shot to live another day'),
+                Text('We cannot let a stray gunshot give us away'),
+                Text('We will fight up close, seize the moment and stay in it'),
+                Text('It’s either that or meet the business end of a bayonet'),
+                Text('The code word is ‘Rochambeau,’ dig me?'),
+                Text('Rochambeau!', style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 2.0)),
+              ],
             ),
-            Container(
-              constraints: BoxConstraints.expand(
-                height:
-                    Theme.of(context).textTheme.display1.fontSize * 1.1 + 200.0,
-              ),
-
-              padding: const EdgeInsets.all(30.0),
-              //color: Colors.blue[600],
-              alignment: Alignment.center,
-              //child: Text('Submit'),
-              child: DropdownButton<String>(
-                value: dropdownValue,
-                icon: Icon(Icons.arrow_downward),
-                iconSize: 24,
-                elevation: 16,
-                style: TextStyle(color: Colors.deepPurple),
-                isExpanded: true,
-                underline: Container(
-                  height: 2,
-                  width: 5000,
-                  color: Colors.deepPurpleAccent,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text('We move under cover and we move as one'),
+                Text('Through the night, we have one shot to live another day'),
+                Text('We cannot let a stray gunshot give us away'),
+                Text('We will fight up close, seize the moment and stay in it'),
+                Text('It’s either that or meet the business end of a bayonet'),
+                Text('The code word is ‘Rochambeau,’ dig me?'),
+                Text('Rochambeau!', style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 2.0)),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text('We move under cover and we move as one'),
+                Text('Through the night, we have one shot to live another day'),
+                Text('We cannot let a stray gunshot give us away'),
+                Text('We will fight up close, seize the moment and stay in it'),
+                Text('It’s either that or meet the business end of a bayonet'),
+                Text('The code word is ‘Rochambeau,’ dig me?'),
+                Text('Rochambeau!', style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 2.0)),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text('We move under cover and we move as one'),
+                Text('Through the night, we have one shot to live another day'),
+                Text('We cannot let a stray gunshot give us away'),
+                Text('We will fight up close, seize the moment and stay in it'),
+                Text('It’s either that or meet the business end of a bayonet'),
+                Text('The code word is ‘Rochambeau,’ dig me?'),
+                Text('Rochambeau!', style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 2.0)),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                DropdownButton<String>(
+                  value: dropdownValue,
+                  icon: Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: TextStyle(color: Colors.deepPurple),
+                  isExpanded: true,
+                  underline: Container(
+                    height: 2,
+                    width: 5000,
+                    color: Colors.deepPurpleAccent,
+                  ),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      dropdownValue = newValue;
+                    });
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        // return object of type Dialog
+                        return AlertDialog(
+                          title: new Text("Choosen:"),
+                          content: new Text("Value: " + dropdownValue),
+                          actions: <Widget>[
+                            // usually buttons at the bottom of the dialog
+                            new FlatButton(
+                              child: new Text("Close"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  items: <String>['One', 'Two', 'Free', 'Four']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
                 ),
-                onChanged: (String newValue) {
-                  setState(() {
-                    dropdownValue = newValue;
-                  });
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      // return object of type Dialog
-                      return AlertDialog(
-                        title: new Text("Choosen:"),
-                        content: new Text("Value: " + dropdownValue),
-                        actions: <Widget>[
-                          // usually buttons at the bottom of the dialog
-                          new FlatButton(
-                            child: new Text("Close"),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-                items: <String>['One', 'Two', 'Free', 'Four']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-            ),
-            Container(
-              color: Colors.green,
-            ),
-            Container(
-              color: Colors.blue,
-            ),
-            Container(
-              color: Colors.yellow,
+                Text('Through the night, we have one shot to live another day'),
+                Text('We cannot let a stray gunshot give us away'),
+                Text('We will fight up close, seize the moment and stay in it'),
+                Text('It’s either that or meet the business end of a bayonet'),
+                Text('The code word is ‘Rochambeau,’ dig me?'),
+                Text('Rochambeau!', style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 2.0)),
+              ],
             ),
           ],
         ),
