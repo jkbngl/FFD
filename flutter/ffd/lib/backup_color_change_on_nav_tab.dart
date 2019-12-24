@@ -107,8 +107,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 DropdownButton<String>(
                   value: dropdownValue,
