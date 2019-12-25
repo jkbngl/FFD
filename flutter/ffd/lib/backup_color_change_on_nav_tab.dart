@@ -54,12 +54,12 @@ class _MyHomePageState extends State<MyHomePage> {
             setState(() => _currentIndex = index);
           },
           children: <Widget>[
-            Column(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  width: 200,
+                  width: 170,
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: <Widget>[
                         const ListTile(
                           leading: Icon(Icons.album, size: 70),
-                          title: Text('Heart Shaker', style: TextStyle(color: Colors.white)),
+                          title: Text('Actual', style: TextStyle(color: Colors.white)),
                           subtitle: Text('TWICE', style: TextStyle(color: Colors.white)),
                         ),
                         ButtonTheme.bar(
@@ -92,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),Container(
-                  width: 200,
+                  width: 170,
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
