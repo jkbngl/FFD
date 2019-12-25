@@ -482,13 +482,14 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text('VISUALIZER',
-                    style: DefaultTextStyle.of(context)
-                        .style
-                        .apply(fontSizeFactor: 2.0)),Container(
+                Text(
+                  'Visualizer',
+                  style: TextStyle(fontSize: 30),
+                ),
+                Container(
                     child: SfCartesianChart(
                         primaryXAxis: CategoryAxis(), // Initialize category axis.
                         series: <LineSeries<SalesData, String>>[ // Initialize line series.
