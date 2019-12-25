@@ -1,5 +1,7 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -15,6 +17,13 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+class SalesData {
+  SalesData(this.year, this.sales);
+  final String year;
+  final double sales;
+}
+
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -476,11 +485,27 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text('We move under the cover and we move as one'),
                 Text('VISUALIZER',
                     style: DefaultTextStyle.of(context)
                         .style
-                        .apply(fontSizeFactor: 2.0)),
+                        .apply(fontSizeFactor: 2.0)),Container(
+                    child: SfCartesianChart(
+                        primaryXAxis: CategoryAxis(), // Initialize category axis.
+                        series: <LineSeries<SalesData, String>>[ // Initialize line series.
+                          LineSeries<SalesData, String>(
+                              dataSource: [
+                                SalesData('Jan', 35),
+                                SalesData('Feb', 28),
+                                SalesData('Mar', 34),
+                                SalesData('Apr', 32),
+                                SalesData('May', 40)
+                              ],
+                              xValueMapper: (SalesData sales, _) => sales.year,
+                              yValueMapper: (SalesData sales, _) => sales.sales
+                          )
+                        ]
+                    )
+                ),
               ],
             ),
             Column(
