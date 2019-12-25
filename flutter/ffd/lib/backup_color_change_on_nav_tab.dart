@@ -69,7 +69,10 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text('Actual'),
+                Text(
+                  'Actual',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 Container(
                   constraints: BoxConstraints.expand(
                     height: 100,
