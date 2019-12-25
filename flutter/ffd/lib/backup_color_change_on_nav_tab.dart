@@ -58,58 +58,18 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text('We move under cover and we move as one'),
-                Text('Through the night, we have one shot to live another day'),
-                Text('We cannot let a stray gunshot give us away'),
-                Text('We will fight up close, seize the moment and stay in it'),
-                Text('It’s either that or meet the business end of a bayonet'),
                 Text('The code word is ‘Rochambeau,’ dig me?'),
-                Text('Rochambeau!', style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 2.0)),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text('We move under cover and we move as one'),
-                Text('Through the night, we have one shot to live another day'),
-                Text('We cannot let a stray gunshot give us away'),
-                Text('We will fight up close, seize the moment and stay in it'),
-                Text('It’s either that or meet the business end of a bayonet'),
-                Text('The code word is ‘Rochambeau,’ dig me?'),
-                Text('Rochambeau!', style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 2.0)),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text('We move under cover and we move as one'),
-                Text('Through the night, we have one shot to live another day'),
-                Text('We cannot let a stray gunshot give us away'),
-                Text('We will fight up close, seize the moment and stay in it'),
-                Text('It’s either that or meet the business end of a bayonet'),
-                Text('The code word is ‘Rochambeau,’ dig me?'),
-                Text('Rochambeau!', style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 2.0)),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text('We move under cover and we move as one'),
-                Text('Through the night, we have one shot to live another day'),
-                Text('We cannot let a stray gunshot give us away'),
-                Text('We will fight up close, seize the moment and stay in it'),
-                Text('It’s either that or meet the business end of a bayonet'),
-                Text('The code word is ‘Rochambeau,’ dig me?'),
-                Text('Rochambeau!', style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 2.0)),
+                Text('HOME!',
+                    style: DefaultTextStyle.of(context)
+                        .style
+                        .apply(fontSizeFactor: 2.0)),
               ],
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                Text('Actual'),
                 Container(
                   constraints: BoxConstraints.expand(
                     height: 100,
@@ -163,7 +123,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       );
                     }).toList(),
                   ),
-                ),Container(
+                ),
+                Container(
                   constraints: BoxConstraints.expand(
                     height: 100,
                   ),
@@ -216,7 +177,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       );
                     }).toList(),
                   ),
-                ),Container(
+                ),
+                Container(
                   constraints: BoxConstraints.expand(
                     height: 100.0,
                   ),
@@ -270,6 +232,197 @@ class _MyHomePageState extends State<MyHomePage> {
                     }).toList(),
                   ),
                 ),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text('Budget'),
+                Container(
+                  constraints: BoxConstraints.expand(
+                    height: 100,
+                  ),
+
+                  padding: const EdgeInsets.all(30.0),
+                  //color: Colors.blue[600],
+                  alignment: Alignment.center,
+                  //child: Text('Submit'),
+                  child: DropdownButton<String>(
+                    value: dropdownValue,
+                    icon: Icon(Icons.arrow_downward),
+                    iconSize: 24,
+                    elevation: 16,
+                    style: TextStyle(color: Colors.deepPurple),
+                    isExpanded: true,
+                    underline: Container(
+                      height: 2,
+                      width: 5000,
+                      color: Colors.deepPurpleAccent,
+                    ),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        dropdownValue = newValue;
+                      });
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          // return object of type Dialog
+                          return AlertDialog(
+                            title: new Text("Alert Dialog title"),
+                            content: new Text("Alert Dialog body"),
+                            actions: <Widget>[
+                              // usually buttons at the bottom of the dialog
+                              new FlatButton(
+                                child: new Text("Close"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    items: <String>['One', 'Two', 'Free', 'Four']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+                Container(
+                  constraints: BoxConstraints.expand(
+                    height: 100,
+                  ),
+
+                  padding: const EdgeInsets.all(30.0),
+                  //color: Colors.blue[600],
+                  alignment: Alignment.center,
+                  //child: Text('Submit'),
+                  child: DropdownButton<String>(
+                    value: dropdownValue,
+                    icon: Icon(Icons.arrow_downward),
+                    iconSize: 24,
+                    elevation: 16,
+                    style: TextStyle(color: Colors.deepPurple),
+                    isExpanded: true,
+                    underline: Container(
+                      height: 2,
+                      width: 5000,
+                      color: Colors.deepPurpleAccent,
+                    ),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        dropdownValue = newValue;
+                      });
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          // return object of type Dialog
+                          return AlertDialog(
+                            title: new Text("Alert Dialog title"),
+                            content: new Text("Alert Dialog body"),
+                            actions: <Widget>[
+                              // usually buttons at the bottom of the dialog
+                              new FlatButton(
+                                child: new Text("Close"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    items: <String>['One', 'Two', 'Free', 'Four']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+                Container(
+                  constraints: BoxConstraints.expand(
+                    height: 100.0,
+                  ),
+
+                  padding: const EdgeInsets.all(30.0),
+                  //color: Colors.blue[600],
+                  alignment: Alignment.center,
+                  //child: Text('Submit'),
+                  child: DropdownButton<String>(
+                    value: dropdownValue,
+                    icon: Icon(Icons.arrow_downward),
+                    iconSize: 24,
+                    elevation: 16,
+                    style: TextStyle(color: Colors.deepPurple),
+                    isExpanded: true,
+                    underline: Container(
+                      height: 2,
+                      width: 5000,
+                      color: Colors.deepPurpleAccent,
+                    ),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        dropdownValue = newValue;
+                      });
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          // return object of type Dialog
+                          return AlertDialog(
+                            title: new Text("Alert Dialog title"),
+                            content: new Text("Alert Dialog body"),
+                            actions: <Widget>[
+                              // usually buttons at the bottom of the dialog
+                              new FlatButton(
+                                child: new Text("Close"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    items: <String>['One', 'Two', 'Free', 'Four']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text('We move under the cover and we move as one'),
+                Text('VISUALIZER',
+                    style: DefaultTextStyle.of(context)
+                        .style
+                        .apply(fontSizeFactor: 2.0)),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text('We move under the cover and we move as one'),
+                Text('SETTINGS',
+                    style: DefaultTextStyle.of(context)
+                        .style
+                        .apply(fontSizeFactor: 2.0)),
               ],
             ),
           ],
