@@ -241,7 +241,10 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text('Budget'),
+                Text(
+                  'Budget',
+                  style: TextStyle(fontSize: 30),
+                ),
                 Container(
                   constraints: BoxConstraints.expand(
                     height: 100,
