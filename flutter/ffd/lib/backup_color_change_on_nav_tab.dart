@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 Text(
                   'Actual',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 30),
                 ),
                 Container(
                   constraints: BoxConstraints.expand(
