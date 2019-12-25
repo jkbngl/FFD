@@ -55,14 +55,44 @@ class _MyHomePageState extends State<MyHomePage> {
           },
           children: <Widget>[
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text('The code word is ‘Rochambeau,’ dig me?'),
-                Text('HOME!',
-                    style: DefaultTextStyle.of(context)
-                        .style
-                        .apply(fontSizeFactor: 2.0)),
+                Container(
+                  width: 200,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    color: Colors.pink,
+                    elevation: 10,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        const ListTile(
+                          leading: Icon(Icons.album, size: 70),
+                          title: Text('Heart Shaker', style: TextStyle(color: Colors.white)),
+                          subtitle: Text('TWICE', style: TextStyle(color: Colors.white)),
+                        ),
+                        ButtonTheme.bar(
+                          child: ButtonBar(
+                            children: <Widget>[
+                              FlatButton(
+                                child: const Text('Edit', style: TextStyle(color: Colors.white)),
+                                onPressed: () {},
+                              ),
+                              FlatButton(
+                                child: const Text('Delete', style: TextStyle(color: Colors.white)),
+                                onPressed: () {},
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
               ],
             ),
             Column(
