@@ -2,7 +2,6 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -23,7 +22,6 @@ class SalesData {
   final String year;
   final double sales;
 }
-
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -80,18 +78,22 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: <Widget>[
                         const ListTile(
                           leading: Icon(Icons.album, size: 70),
-                          title: Text('Actual', style: TextStyle(color: Colors.white)),
-                          subtitle: Text('TWICE', style: TextStyle(color: Colors.white)),
+                          title: Text('Actual',
+                              style: TextStyle(color: Colors.white)),
+                          subtitle: Text('TWICE',
+                              style: TextStyle(color: Colors.white)),
                         ),
                         ButtonTheme.bar(
                           child: ButtonBar(
                             children: <Widget>[
                               FlatButton(
-                                child: const Text('Edit', style: TextStyle(color: Colors.white)),
+                                child: const Text('Edit',
+                                    style: TextStyle(color: Colors.white)),
                                 onPressed: () {},
                               ),
                               FlatButton(
-                                child: const Text('Delete', style: TextStyle(color: Colors.white)),
+                                child: const Text('Delete',
+                                    style: TextStyle(color: Colors.white)),
                                 onPressed: () {},
                               ),
                             ],
@@ -100,7 +102,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   ),
-                ),Container(
+                ),
+                Container(
                   width: 170,
                   child: Card(
                     shape: RoundedRectangleBorder(
@@ -113,18 +116,22 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: <Widget>[
                         const ListTile(
                           leading: Icon(Icons.album, size: 70),
-                          title: Text('Budget', style: TextStyle(color: Colors.white)),
-                          subtitle: Text('TWICE', style: TextStyle(color: Colors.white)),
+                          title: Text('Budget',
+                              style: TextStyle(color: Colors.white)),
+                          subtitle: Text('TWICE',
+                              style: TextStyle(color: Colors.white)),
                         ),
                         ButtonTheme.bar(
                           child: ButtonBar(
                             children: <Widget>[
                               FlatButton(
-                                child: const Text('Edit', style: TextStyle(color: Colors.white)),
+                                child: const Text('Edit',
+                                    style: TextStyle(color: Colors.white)),
                                 onPressed: () {},
                               ),
                               FlatButton(
-                                child: const Text('Delete', style: TextStyle(color: Colors.white)),
+                                child: const Text('Delete',
+                                    style: TextStyle(color: Colors.white)),
                                 onPressed: () {},
                               ),
                             ],
@@ -134,7 +141,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-
               ],
             ),
             Column(
@@ -164,7 +170,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     underline: Container(
                       height: 2,
                       width: 5000,
-
                       color: Colors.deepPurpleAccent,
                     ),
                     onChanged: (String newValue) {
@@ -177,7 +182,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           // return object of type Dialog
                           return AlertDialog(
                             title: new Text("Alert Dialog title"),
-                            content: new Text("Alert Dialog body: $dropdownValue"),
+                            content:
+                                new Text("Alert Dialog body: $dropdownValue"),
                             actions: <Widget>[
                               // usually buttons at the bottom of the dialog
                               new FlatButton(
@@ -231,7 +237,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           // return object of type Dialog
                           return AlertDialog(
                             title: new Text("Alert Dialog title"),
-                            content: new Text("Alert Dialog body: $dropdownValue"),
+                            content:
+                                new Text("Alert Dialog body: $dropdownValue"),
                             actions: <Widget>[
                               // usually buttons at the bottom of the dialog
                               new FlatButton(
@@ -284,7 +291,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           // return object of type Dialog
                           return AlertDialog(
                             title: new Text("Alert Dialog title"),
-                            content: new Text("Alert Dialog body: $dropdownValue"),
+                            content:
+                                new Text("Alert Dialog body: $dropdownValue"),
                             actions: <Widget>[
                               // usually buttons at the bottom of the dialog
                               new FlatButton(
@@ -316,10 +324,53 @@ class _MyHomePageState extends State<MyHomePage> {
                   alignment: Alignment.center,
                   //child: Text('Submit'),
                   child: Align(
-                  alignment: Alignment.topRight,
-                  child: FlutterLogo(
-                    size: 60,
-                  ),),),
+                    alignment: Alignment.topRight,
+                    child: DropdownButton<String>(
+                      value: dropdownValue,
+                      icon: Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: TextStyle(color: Colors.deepPurple),
+                      //isExpanded: true,
+                      underline: Container(
+                        height: 2,
+                        width: 2000,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      onChanged: (String newValue) {
+                        setState(() {
+                          dropdownValue = newValue;
+                        });
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            // return object of type Dialog
+                            return AlertDialog(
+                              title: new Text("Alert Dialog title"),
+                              content: new Text("Alert Dialog body: $dropdownValue"),
+                              actions: <Widget>[
+                                // usually buttons at the bottom of the dialog
+                                new FlatButton(
+                                  child: new Text("Close"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      items: <String>['One', 'Two', 'Free', 'Four']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
               ],
             ),
             Column(
@@ -361,7 +412,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           // return object of type Dialog
                           return AlertDialog(
                             title: new Text("Alert Dialog title"),
-                            content: new Text("Alert Dialog body: $dropdownValue"),
+                            content:
+                                new Text("Alert Dialog body: $dropdownValue"),
                             actions: <Widget>[
                               // usually buttons at the bottom of the dialog
                               new FlatButton(
@@ -415,7 +467,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           // return object of type Dialog
                           return AlertDialog(
                             title: new Text("Alert Dialog title"),
-                            content: new Text("Alert Dialog body: $dropdownValue"),
+                            content:
+                                new Text("Alert Dialog body: $dropdownValue"),
                             actions: <Widget>[
                               // usually buttons at the bottom of the dialog
                               new FlatButton(
@@ -469,7 +522,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           // return object of type Dialog
                           return AlertDialog(
                             title: new Text("Alert Dialog title"),
-                            content: new Text("Alert Dialog body: $dropdownValue"),
+                            content:
+                                new Text("Alert Dialog body: $dropdownValue"),
                             actions: <Widget>[
                               // usually buttons at the bottom of the dialog
                               new FlatButton(
@@ -504,22 +558,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Container(
                     child: SfCartesianChart(
-                        primaryXAxis: CategoryAxis(), // Initialize category axis.
-                        series: <LineSeries<SalesData, String>>[ // Initialize line series.
-                          LineSeries<SalesData, String>(
-                              dataSource: [
-                                SalesData('Jan', 35),
-                                SalesData('Feb', 28),
-                                SalesData('Mar', 34),
-                                SalesData('Apr', 32),
-                                SalesData('May', 40)
-                              ],
-                              xValueMapper: (SalesData sales, _) => sales.year,
-                              yValueMapper: (SalesData sales, _) => sales.sales
-                          )
-                        ]
-                    )
-                ),
+                        primaryXAxis:
+                            CategoryAxis(), // Initialize category axis.
+                        series: <LineSeries<SalesData, String>>[
+                      // Initialize line series.
+                      LineSeries<SalesData, String>(
+                          dataSource: [
+                            SalesData('Jan', 35),
+                            SalesData('Feb', 28),
+                            SalesData('Mar', 34),
+                            SalesData('Apr', 32),
+                            SalesData('May', 40)
+                          ],
+                          xValueMapper: (SalesData sales, _) => sales.year,
+                          yValueMapper: (SalesData sales, _) => sales.sales)
+                    ])),
               ],
             ),
             Column(
