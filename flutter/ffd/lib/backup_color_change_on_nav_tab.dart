@@ -1,4 +1,5 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -642,16 +643,56 @@ class _MyHomePageState extends State<MyHomePage> {
                     ])),
               ],
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text('We move under the cover and we move as one'),
-                Text('SETTINGS',
-                    style: DefaultTextStyle.of(context)
-                        .style
-                        .apply(fontSizeFactor: 2.0)),
-              ],
+            DefaultTabController(
+              length: 3,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    constraints: BoxConstraints.expand(height: 50),
+                    child: TabBar(tabs: [
+                      Tab(
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: BoxConstraints.expand(),
+                          color: Colors.grey,
+                          child: Text("General"),
+                        ),
+                      ),
+                      Tab(
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: BoxConstraints.expand(),
+                          color: Colors.grey,
+                          child: Text("Accounts"),
+                        ),
+                      ),
+                      Tab(
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: BoxConstraints.expand(),
+                          color: Colors.grey,
+                          child: Text("Costtypes"),
+                        ),
+                      ),
+                    ]),
+                  ),
+                  Expanded(
+                    child: Container(
+                      child: TabBarView(children: [
+                        Container(
+                          child: Text("Home Body"),
+                        ),
+                        Container(
+                          child: Text("Articles Body"),
+                        ),
+                        Container(
+                          child: Text("User Body"),
+                        ),
+                      ]),
+                    ),
+                  )
+                ],
+              ),
             ),
           ],
         ),
