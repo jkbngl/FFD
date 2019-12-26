@@ -347,7 +347,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             // return object of type Dialog
                             return AlertDialog(
                               title: new Text("Alert Dialog title"),
-                              content: new Text("Alert Dialog body: $dropdownValue"),
+                              content:
+                                  new Text("Alert Dialog body: $dropdownValue"),
                               actions: <Widget>[
                                 // usually buttons at the bottom of the dialog
                                 new FlatButton(
@@ -370,18 +371,39 @@ class _MyHomePageState extends State<MyHomePage> {
                       }).toList(),
                     ),
                   ),
-
                 ),
                 ButtonBar(
-                  mainAxisSize: MainAxisSize.min, // this will take space as minimum as posible(to center)
+                  mainAxisSize: MainAxisSize
+                      .min, // this will take space as minimum as posible(to center)
                   children: <Widget>[
                     ButtonTheme(
                       minWidth: 75.0,
                       height: 40.0,
                       child: RaisedButton(
-                      child: Text('Discard'),
-                      color: Colors.grey,
-                      onPressed: () {/** */},
+                        child: Text('Discard'),
+                        color: Colors.grey,
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              // return object of type Dialog
+                              return AlertDialog(
+                                title: new Text("Alert Dialog title"),
+                                content: new Text(
+                                    "Alert Dialog body: $dropdownValue"),
+                                actions: <Widget>[
+                                  // usually buttons at the bottom of the dialog
+                                  new FlatButton(
+                                    child: new Text("Close"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
                       ),
                     ),
                     ButtonTheme(
@@ -390,7 +412,28 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: RaisedButton(
                         child: Text('Save'),
                         color: Colors.green,
-                        onPressed: () {/** */},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              // return object of type Dialog
+                              return AlertDialog(
+                                title: new Text("Alert Dialog title"),
+                                content: new Text(
+                                    "Alert Dialog body: $dropdownValue"),
+                                actions: <Widget>[
+                                  // usually buttons at the bottom of the dialog
+                                  new FlatButton(
+                                    child: new Text("Close"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
                       ),
                     ),
                   ],
