@@ -653,15 +653,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       Tab(
                         child: Container(
                           alignment: Alignment.center,
-                          constraints: BoxConstraints.expand(),
-                          color: Colors.grey,
-                          child: Text("General"),
-                        ),
-                      ),
-                      Tab(
-                        child: Container(
-                          alignment: Alignment.center,
-                          constraints: BoxConstraints.expand(),
+                          //constraints: BoxConstraints.expand(width: 200),
+                          width: 2000,
                           color: Colors.grey,
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -677,7 +670,27 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           constraints: BoxConstraints.expand(),
                           color: Colors.grey,
-                          child: Text("Costtypes"),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(Icons.home),
+                                Text("Accounts", style: TextStyle(color: Colors.black),)
+                              ]),
+                        ),
+                      ),
+                      Tab(
+                        child: Container(
+                          alignment: Alignment.center,
+                          constraints: BoxConstraints.expand(),
+                          color: Colors.grey,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(Icons.home),
+                                Text("Costtypes")
+                              ]),
                         ),
                       ),
                     ]),
