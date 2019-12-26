@@ -370,6 +370,30 @@ class _MyHomePageState extends State<MyHomePage> {
                       }).toList(),
                     ),
                   ),
+
+                ),
+                ButtonBar(
+                  mainAxisSize: MainAxisSize.min, // this will take space as minimum as posible(to center)
+                  children: <Widget>[
+                    ButtonTheme(
+                      minWidth: 75.0,
+                      height: 40.0,
+                      child: RaisedButton(
+                      child: Text('Discard'),
+                      color: Colors.grey,
+                      onPressed: () {/** */},
+                      ),
+                    ),
+                    ButtonTheme(
+                      minWidth: 150.0,
+                      height: 60.0,
+                      child: RaisedButton(
+                        child: Text('Save'),
+                        color: Colors.green,
+                        onPressed: () {/** */},
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
