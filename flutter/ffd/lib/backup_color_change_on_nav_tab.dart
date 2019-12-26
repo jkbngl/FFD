@@ -164,6 +164,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     underline: Container(
                       height: 2,
                       width: 5000,
+
                       color: Colors.deepPurpleAccent,
                     ),
                     onChanged: (String newValue) {
@@ -176,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           // return object of type Dialog
                           return AlertDialog(
                             title: new Text("Alert Dialog title"),
-                            content: new Text("Alert Dialog body"),
+                            content: new Text("Alert Dialog body: $dropdownValue"),
                             actions: <Widget>[
                               // usually buttons at the bottom of the dialog
                               new FlatButton(
@@ -230,7 +231,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           // return object of type Dialog
                           return AlertDialog(
                             title: new Text("Alert Dialog title"),
-                            content: new Text("Alert Dialog body"),
+                            content: new Text("Alert Dialog body: $dropdownValue"),
                             actions: <Widget>[
                               // usually buttons at the bottom of the dialog
                               new FlatButton(
@@ -257,7 +258,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   constraints: BoxConstraints.expand(
                     height: 100.0,
                   ),
-
                   padding: const EdgeInsets.all(30.0),
                   //color: Colors.blue[600],
                   alignment: Alignment.center,
@@ -284,7 +284,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           // return object of type Dialog
                           return AlertDialog(
                             title: new Text("Alert Dialog title"),
-                            content: new Text("Alert Dialog body"),
+                            content: new Text("Alert Dialog body: $dropdownValue"),
                             actions: <Widget>[
                               // usually buttons at the bottom of the dialog
                               new FlatButton(
@@ -307,6 +307,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     }).toList(),
                   ),
                 ),
+                Container(
+                  constraints: BoxConstraints.expand(
+                    height: 100.0,
+                  ),
+                  padding: const EdgeInsets.all(30.0),
+                  //color: Colors.blue[600],
+                  alignment: Alignment.center,
+                  //child: Text('Submit'),
+                  child: Align(
+                  alignment: Alignment.topRight,
+                  child: FlutterLogo(
+                    size: 60,
+                  ),),),
               ],
             ),
             Column(
@@ -348,7 +361,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           // return object of type Dialog
                           return AlertDialog(
                             title: new Text("Alert Dialog title"),
-                            content: new Text("Alert Dialog body"),
+                            content: new Text("Alert Dialog body: $dropdownValue"),
                             actions: <Widget>[
                               // usually buttons at the bottom of the dialog
                               new FlatButton(
@@ -402,7 +415,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           // return object of type Dialog
                           return AlertDialog(
                             title: new Text("Alert Dialog title"),
-                            content: new Text("Alert Dialog body"),
+                            content: new Text("Alert Dialog body: $dropdownValue"),
                             actions: <Widget>[
                               // usually buttons at the bottom of the dialog
                               new FlatButton(
@@ -456,7 +469,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           // return object of type Dialog
                           return AlertDialog(
                             title: new Text("Alert Dialog title"),
-                            content: new Text("Alert Dialog body"),
+                            content: new Text("Alert Dialog body: $dropdownValue"),
                             actions: <Widget>[
                               // usually buttons at the bottom of the dialog
                               new FlatButton(
