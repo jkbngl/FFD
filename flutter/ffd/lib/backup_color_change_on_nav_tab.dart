@@ -663,7 +663,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           alignment: Alignment.center,
                           constraints: BoxConstraints.expand(),
                           color: Colors.grey,
-                          child: Text("Accounts"),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(Icons.home),
+                                Text("General")
+                              ]),
                         ),
                       ),
                       Tab(
@@ -680,13 +686,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Container(
                       child: TabBarView(children: [
                         Container(
-                          child: Text("Home Body"),
+                          child: Text("General Body"),
                         ),
                         Container(
-                          child: Text("Articles Body"),
+                          child: Text("Accounts Body"),
                         ),
                         Container(
-                          child: Text("User Body"),
+                          child: Text("Costtypes Body"),
                         ),
                       ]),
                     ),
