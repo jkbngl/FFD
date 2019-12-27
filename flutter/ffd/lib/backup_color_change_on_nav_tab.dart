@@ -157,11 +157,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   'Actual',
                   style: TextStyle(fontSize: 30),
                 ),
-                TextFormField(
+                Container(
+                  constraints: BoxConstraints.expand(
+                    height: 100,
+                  ),
+
+                  padding: const EdgeInsets.all(30.0),
+                  //color: Colors.blue[600],
+                  alignment: Alignment.center,
+                  //child: Text('Submit'),
+                  child:TextFormField(
                   decoration: InputDecoration(
                       labelText: 'Enter your username'
                   ),
-                ),
+                ),),
                 Container(
                   constraints: BoxConstraints.expand(
                     height: 100,
