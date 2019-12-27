@@ -14,7 +14,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+
+      );
   }
 }
 
@@ -49,12 +50,16 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
+  void onLoad(BuildContext context){
+    print("test");
+  } //callback when layout build done
+
   String dropdownValue = 'One';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Nav Bar")),
+      appBar: AppBar(title: Text("FFD")),
       body: SizedBox.expand(
         child: PageView(
           controller: _pageController,
@@ -750,4 +755,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+
+
 }
