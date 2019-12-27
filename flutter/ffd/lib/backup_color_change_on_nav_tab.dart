@@ -157,6 +157,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   'Actual',
                   style: TextStyle(fontSize: 30),
                 ),
+                TextFormField(
+                  decoration: InputDecoration(
+                      labelText: 'Enter your username'
+                  ),
+                ),
                 Container(
                   constraints: BoxConstraints.expand(
                     height: 100,
