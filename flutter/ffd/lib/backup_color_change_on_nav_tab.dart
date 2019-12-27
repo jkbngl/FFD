@@ -162,13 +162,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 100,
                   ),
 
-                  padding: const EdgeInsets.all(30.0),
+                  padding: const EdgeInsets.only(left: 30.0, top: 0, right: 30, bottom: 0),
                   //color: Colors.blue[600],
                   alignment: Alignment.center,
                   //child: Text('Submit'),
                   child:TextFormField(
                   decoration: InputDecoration(
-                      labelText: 'Enter your username'
+                      labelText: 'Enter your amount'
                   ),
                 ),),
                 Container(
@@ -176,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 100,
                   ),
 
-                  padding: const EdgeInsets.all(30.0),
+                  padding: const EdgeInsets.only(left: 30.0, top: 0, right: 30, bottom: 0),
                   //color: Colors.blue[600],
                   alignment: Alignment.center,
                   //child: Text('Submit'),
@@ -228,10 +228,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Container(
                   constraints: BoxConstraints.expand(
-                    height: 100,
+                    height: 50,
                   ),
-
-                  padding: const EdgeInsets.all(30.0),
+                  padding: const EdgeInsets.only(left: 30.0, top: 0, right: 30, bottom: 0),
                   //color: Colors.blue[600],
                   alignment: Alignment.center,
                   //child: Text('Submit'),
