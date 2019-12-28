@@ -191,13 +191,14 @@ class _MyHomePageState extends State<MyHomePage> {
                      // hintText: 'Enter ur amount',
                       //hintStyle: TextStyle(height: 1.75),
                       labelText: 'Enter your amount',
-                      labelStyle: TextStyle(height: 0.5),//increases the height of cursor
+                      labelStyle: TextStyle(height: 0.5, color: Color(0xff0957FF)),//increases the height of cursor
 
-                      suffixIcon: Icon(Icons.attach_money),
+                      icon: Icon(Icons.attach_money),
+                      //prefixIcon: Icon(Icons.attach_money),
                       //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                      /*enabledBorder: new UnderlineInputBorder(
+                      enabledBorder: new UnderlineInputBorder(
                           borderSide: new BorderSide(color: Color(0xff0957FF))
-                      )*/
+                      )
                     ),
                   ),
                 ),
