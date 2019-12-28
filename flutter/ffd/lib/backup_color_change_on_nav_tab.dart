@@ -186,12 +186,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     icon: Icon(Icons.arrow_downward),
                     iconSize: 24,
                     elevation: 16,
-                    style: TextStyle(color: Colors.deepPurple),
+                    style: TextStyle(color: Color(0xff0957FF)),
                     isExpanded: true,
                     underline: Container(
                       height: 2,
                       width: 5000,
-                      color: Colors.deepPurpleAccent,
+                      color: Color(0xff0957FF),
                     ),
                     onChanged: (String newValue) {
                       setState(() {
@@ -240,12 +240,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     icon: Icon(Icons.arrow_downward),
                     iconSize: 24,
                     elevation: 16,
-                    style: TextStyle(color: Colors.deepPurple),
+                    style: TextStyle(color: Color(0xff0957FF)),
                     isExpanded: true,
                     underline: Container(
                       height: 2,
                       width: 5000,
-                      color: Colors.deepPurpleAccent,
+                      color: Color(0xff0957FF),
                     ),
                     onChanged: (String newValue) {
                       setState(() {
@@ -294,12 +294,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     icon: Icon(Icons.arrow_downward),
                     iconSize: 24,
                     elevation: 16,
-                    style: TextStyle(color: Colors.deepPurple),
+                    style: TextStyle(color: Color(0xff0957FF)),
                     isExpanded: true,
                     underline: Container(
                       height: 2,
                       width: 5000,
-                      color: Colors.deepPurpleAccent,
+                      color: Color(0xff0957FF),
                     ),
                     onChanged: (String newValue) {
                       setState(() {
@@ -350,12 +350,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       icon: Icon(Icons.arrow_downward),
                       iconSize: 24,
                       elevation: 16,
-                      style: TextStyle(color: Colors.deepPurple),
+                      style: TextStyle(color: Color(0xff0957FF)),
                       //isExpanded: true,
                       underline: Container(
                         height: 2,
                         width: 2000,
-                        color: Colors.deepPurpleAccent,
+                        color: Color(0xff0957FF),
                       ),
                       onChanged: (String newValue) {
                         setState(() {
@@ -401,7 +401,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 40.0,
                       child: RaisedButton(
                         child: Text('Discard'),
-                        color: Color(0xffEEEEEE),
+                        color: Color(0xffEEEEEE), // EEEEEE
                         onPressed: () {
                           showDialog(
                             context: context,
@@ -487,7 +487,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     underline: Container(
                       height: 2,
                       width: 5000,
-                      color: Colors.deepPurpleAccent,
+                      color: Color(0xff0957FF),
                     ),
                     onChanged: (String newValue) {
                       setState(() {
@@ -537,12 +537,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     icon: Icon(Icons.arrow_downward),
                     iconSize: 24,
                     elevation: 16,
-                    style: TextStyle(color: Colors.deepPurple),
+                    style: TextStyle(color: Color(0xff0957FF)),
                     isExpanded: true,
                     underline: Container(
                       height: 2,
                       width: 5000,
-                      color: Colors.deepPurpleAccent,
+                      color: Color(0xff0957FF),
                     ),
                     onChanged: (String newValue) {
                       setState(() {
@@ -592,12 +592,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     icon: Icon(Icons.arrow_downward),
                     iconSize: 24,
                     elevation: 16,
-                    style: TextStyle(color: Colors.deepPurple),
+                    style: TextStyle(color: Color(0xff0957FF)),
                     isExpanded: true,
                     underline: Container(
                       height: 2,
                       width: 5000,
-                      color: Colors.deepPurpleAccent,
+                      color: Color(0xff0957FF),
                     ),
                     onChanged: (String newValue) {
                       setState(() {
@@ -753,7 +753,7 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavyBarItem(
             title: Text('Budget'),
             icon: Icon(Icons.account_balance_wallet),
-            activeColor: Colors.deepPurple,
+            activeColor: Color(0xff0957FF),
           ),
           BottomNavyBarItem(
             title: Text('Visualizer'),
