@@ -70,6 +70,11 @@ class _MyHomePageState extends State<MyHomePage> {
   } //callback when layout build done
 
   String dropdownValue = 'One';
+  String level1 = 'Car';
+  String level2 = 'Repairs';
+  String level3 = 'Engine';
+  String costtype = 'Fix';
+
 
   @override
   Widget build(BuildContext context) {
@@ -168,17 +173,25 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text(
+                Container(
+                  constraints: BoxConstraints.expand(
+                    height: 40,
+                  ),
+
+                  padding: const EdgeInsets.only(left: 0.0, top: 10, right: 0, bottom: 0),
+                  //color: Colors.blue[600],
+                  alignment: Alignment.center,
+                  //child: Text('Submit'),
+                  child:Text(
                   'Actual',
                   style: TextStyle(fontSize: 30),
-                ),
+                ),),
                 Container(
                   constraints: BoxConstraints.expand(
                     height: 100,
                   ),
 
-                  padding: const EdgeInsets.only(
-                      left: 30.0, top: 0, right: 30, bottom: 0),
+                  padding: const EdgeInsets.only(left: 30.0, top: 0, right: 30, bottom: 0),
                   //color: Colors.blue[600],
                   alignment: Alignment.center,
                   //child: Text('Submit'),
@@ -186,14 +199,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     keyboardType: TextInputType.number,//keyboard with numbers only will appear to the screen
                     style: TextStyle(height:2),//increases the height of cursor
                     autofocus: true,
-
                     decoration: InputDecoration(
                      // hintText: 'Enter ur amount',
                       //hintStyle: TextStyle(height: 1.75),
                       labelText: 'Enter your amount',
                       labelStyle: TextStyle(height: 0.5, color: Color(0xff0957FF)),//increases the height of cursor
-
-                      icon: Icon(Icons.attach_money),
+                      icon: Icon(Icons.attach_money,   color: Color(0xff0957FF),),
                       //prefixIcon: Icon(Icons.attach_money),
                       //labelStyle: TextStyle(color: Color(0xff0957FF)),
                       enabledBorder: new UnderlineInputBorder(
@@ -213,7 +224,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   alignment: Alignment.center,
                   //child: Text('Submit'),
                   child: DropdownButton<String>(
-                    value: dropdownValue,
+                    value: level1,
                     icon: Icon(Icons.arrow_downward),
                     iconSize: 24,
                     elevation: 16,
@@ -249,7 +260,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                       );
                     },
-                    items: <String>['One', 'Two', 'Free', 'Four']
+                    items: <String>['Car', 'One', 'Two', 'Free', 'Four']
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -268,7 +279,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   alignment: Alignment.center,
                   //child: Text('Submit'),
                   child: DropdownButton<String>(
-                    value: dropdownValue,
+                    value: level2,
                     icon: Icon(Icons.arrow_downward),
                     iconSize: 24,
                     elevation: 16,
@@ -304,59 +315,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                       );
                     },
-                    items: <String>['One', 'Two', 'Free', 'Four']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                ),
-                Container(
-                  constraints: BoxConstraints.expand(
-                    height: 100.0,
-                  ),
-                  padding: const EdgeInsets.all(30.0),
-                  alignment: Alignment.center,
-                  child: DropdownButton<String>(
-                    value: dropdownValue,
-                    icon: Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    style: TextStyle(color: Color(0xff0957FF)),
-                    isExpanded: true,
-                    underline: Container(
-                      height: 2,
-                      width: 5000,
-                      color: Color(0xff0957FF),
-                    ),
-                    onChanged: (String newValue) {
-                      setState(() {
-                        dropdownValue = newValue;
-                      });
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          // return object of type Dialog
-                          return AlertDialog(
-                            title: new Text("Alert Dialog title"),
-                            content:
-                                new Text("Alert Dialog body: $dropdownValue"),
-                            actions: <Widget>[
-                              // usually buttons at the bottom of the dialog
-                              new FlatButton(
-                                child: new Text("Close"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    items: <String>['One', 'Two', 'Free', 'Four']
+                    items: <String>['Repairs', 'One', 'Two', 'Free', 'Four']
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -370,6 +329,59 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 100.0,
                   ),
                   padding: const EdgeInsets.only(
+                    left: 30.0, top: 0, right: 30, bottom: 0),
+                  alignment: Alignment.center,
+                  child: DropdownButton<String>(
+                    value: level3,
+                    icon: Icon(Icons.arrow_downward),
+                    iconSize: 24,
+                    elevation: 16,
+                    style: TextStyle(color: Color(0xff0957FF)),
+                    isExpanded: true,
+                    underline: Container(
+                      height: 2,
+                      width: 5000,
+                      color: Color(0xff0957FF),
+                    ),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        dropdownValue = newValue;
+                      });
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          // return object of type Dialog
+                          return AlertDialog(
+                            title: new Text("Alert Dialog title"),
+                            content:
+                                new Text("Alert Dialog body: $dropdownValue"),
+                            actions: <Widget>[
+                              // usually buttons at the bottom of the dialog
+                              new FlatButton(
+                                child: new Text("Close"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    items: <String>['Engine', 'One', 'Two', 'Free', 'Four']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+                Container(
+                  constraints: BoxConstraints.expand(
+                    height: 50.0,
+                  ),
+                  padding: const EdgeInsets.only(
                       left: 30.0, top: 0, right: 30, bottom: 0),
                   //color: Colors.blue[600],
                   alignment: Alignment.center,
@@ -377,7 +389,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Align(
                     alignment: Alignment.topRight,
                     child: DropdownButton<String>(
-                      value: dropdownValue,
+                      value: costtype,
                       icon: Icon(Icons.arrow_downward),
                       iconSize: 24,
                       elevation: 16,
@@ -413,7 +425,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                         );
                       },
-                      items: <String>['One', 'Two', 'Free', 'Four']
+                      items: <String>['Fix', 'One', 'Two', 'Free', 'Four']
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
