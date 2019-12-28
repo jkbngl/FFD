@@ -184,8 +184,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   //child: Text('Submit'),
                   child: TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'Enter your amount',
-                    ),
+                      labelText: 'Enter your amoaunt',
+                      suffixIcon: Icon(Icons.attach_money),
+                      labelStyle: TextStyle(color: Color(0xff0957FF)),
+                      enabledBorder: new UnderlineInputBorder(
+                          borderSide: new BorderSide(color: Color(0xff0957FF))
+
+                      ),
+                    )
+                    ,
                   ),
                 ),
                 Container(
@@ -304,9 +311,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 100.0,
                   ),
                   padding: const EdgeInsets.all(30.0),
-                  //color: Colors.blue[600],
                   alignment: Alignment.center,
-                  //child: Text('Submit'),
                   child: DropdownButton<String>(
                     value: dropdownValue,
                     icon: Icon(Icons.arrow_downward),
