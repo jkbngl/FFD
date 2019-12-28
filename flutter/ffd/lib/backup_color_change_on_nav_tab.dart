@@ -14,29 +14,25 @@ class MyApp extends StatelessWidget {
         primarySwatch: colorCustom,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
-
-      );
+    );
   }
 }
 
 // To assign primarySwatch a custom color
-Map<int, Color> color =
-{
-  50:Color.fromRGBO(136,14,79, .1),
-  100:Color.fromRGBO(136,14,79, .2),
-  200:Color.fromRGBO(136,14,79, .3),
-  300:Color.fromRGBO(136,14,79, .4),
-  400:Color.fromRGBO(136,14,79, .5),
-  500:Color.fromRGBO(136,14,79, .6),
-  600:Color.fromRGBO(136,14,79, .7),
-  700:Color.fromRGBO(136,14,79, .8),
-  800:Color.fromRGBO(136,14,79, .9),
-  900:Color.fromRGBO(136,14,79, 1),
+Map<int, Color> color = {
+  50: Color.fromRGBO(136, 14, 79, .1),
+  100: Color.fromRGBO(136, 14, 79, .2),
+  200: Color.fromRGBO(136, 14, 79, .3),
+  300: Color.fromRGBO(136, 14, 79, .4),
+  400: Color.fromRGBO(136, 14, 79, .5),
+  500: Color.fromRGBO(136, 14, 79, .6),
+  600: Color.fromRGBO(136, 14, 79, .7),
+  700: Color.fromRGBO(136, 14, 79, .8),
+  800: Color.fromRGBO(136, 14, 79, .9),
+  900: Color.fromRGBO(136, 14, 79, 1),
 };
 
-
 MaterialColor colorCustom = MaterialColor(0xFF0957FF, color);
-
 
 class SalesData {
   SalesData(this.year, this.sales);
@@ -69,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
-  void onLoad(BuildContext context){
+  void onLoad(BuildContext context) {
     print("test");
   } //callback when layout build done
 
@@ -181,22 +177,24 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 100,
                   ),
 
-                  padding: const EdgeInsets.only(left: 30.0, top: 0, right: 30, bottom: 0),
+                  padding: const EdgeInsets.only(
+                      left: 30.0, top: 0, right: 30, bottom: 0),
                   //color: Colors.blue[600],
                   alignment: Alignment.center,
                   //child: Text('Submit'),
-                  child:
-                  TextFormField(
+                  child: TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Enter your amount',
+                    ),
                   ),
-                ),),
+                ),
                 Container(
                   constraints: BoxConstraints.expand(
                     height: 100,
                   ),
 
-                  padding: const EdgeInsets.only(left: 30.0, top: 0, right: 30, bottom: 0),
+                  padding: const EdgeInsets.only(
+                      left: 30.0, top: 0, right: 30, bottom: 0),
                   //color: Colors.blue[600],
                   alignment: Alignment.center,
                   //child: Text('Submit'),
@@ -250,7 +248,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   constraints: BoxConstraints.expand(
                     height: 50,
                   ),
-                  padding: const EdgeInsets.only(left: 30.0, top: 0, right: 30, bottom: 0),
+                  padding: const EdgeInsets.only(
+                      left: 30.0, top: 0, right: 30, bottom: 0),
                   //color: Colors.blue[600],
                   alignment: Alignment.center,
                   //child: Text('Submit'),
@@ -358,7 +357,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   constraints: BoxConstraints.expand(
                     height: 100.0,
                   ),
-                  padding: const EdgeInsets.only(left: 30.0, top: 0, right: 30, bottom: 0),
+                  padding: const EdgeInsets.only(
+                      left: 30.0, top: 0, right: 30, bottom: 0),
                   //color: Colors.blue[600],
                   alignment: Alignment.center,
                   //child: Text('Submit'),
@@ -449,8 +449,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       minWidth: 150.0,
                       height: 60.0,
                       child: RaisedButton(
-                        child: Text('Save'),
-                        color:  Color(0xff0957FF),    //df7599 - 0957FF
+                        child: Text('Save', style: TextStyle(color: Colors.white, fontSize: 17)),
+                        color: Color(0xff0957FF), //df7599 - 0957FF
                         onPressed: () {
                           showDialog(
                             context: context,
@@ -713,7 +713,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Icon(Icons.home),
-                                Text("Accounts", style: TextStyle(color: Colors.black),)
+                                Text(
+                                  "Accounts",
+                                  style: TextStyle(color: Colors.black),
+                                )
                               ]),
                         ),
                       ),
@@ -764,7 +767,7 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavyBarItem(
               title: Text('Home'),
               icon: Icon(Icons.home),
-              activeColor: Colors.lightBlue),
+              activeColor: Color(0xff0957FF)),
           BottomNavyBarItem(
               title: Text('Actuals'),
               icon: Icon(Icons.attach_money),
@@ -772,7 +775,7 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavyBarItem(
             title: Text('Budget'),
             icon: Icon(Icons.account_balance_wallet),
-            activeColor: Color(0xff0957FF),
+            activeColor: Colors.deepPurple,
           ),
           BottomNavyBarItem(
             title: Text('Visualizer'),
@@ -788,7 +791,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
-
-
 }
