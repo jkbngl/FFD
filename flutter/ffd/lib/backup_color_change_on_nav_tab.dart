@@ -401,7 +401,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 40.0,
                       child: RaisedButton(
                         child: Text('Discard'),
-                        color: Colors.grey,
+                        color: Color(0xffEEEEEE),
                         onPressed: () {
                           showDialog(
                             context: context,
@@ -431,7 +431,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 60.0,
                       child: RaisedButton(
                         child: Text('Save'),
-                        color: '#0957FF',
+                        color:  Color(0xff0957FF),    //df7599 - 0957FF
                         onPressed: () {
                           showDialog(
                             context: context,
