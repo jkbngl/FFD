@@ -183,16 +183,22 @@ class _MyHomePageState extends State<MyHomePage> {
                   alignment: Alignment.center,
                   //child: Text('Submit'),
                   child: TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Enter your amoaunt',
-                      suffixIcon: Icon(Icons.attach_money),
-                      labelStyle: TextStyle(color: Color(0xff0957FF)),
-                      enabledBorder: new UnderlineInputBorder(
-                          borderSide: new BorderSide(color: Color(0xff0957FF))
+                    keyboardType: TextInputType.number,//keyboard with numbers only will appear to the screen
+                    style: TextStyle(height:2),//increases the height of cursor
+                    autofocus: true,
 
-                      ),
-                    )
-                    ,
+                    decoration: InputDecoration(
+                     // hintText: 'Enter ur amount',
+                      //hintStyle: TextStyle(height: 1.75),
+                      labelText: 'Enter your amount',
+                      labelStyle: TextStyle(height: 0.5),//increases the height of cursor
+
+                      suffixIcon: Icon(Icons.attach_money),
+                      //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                      /*enabledBorder: new UnderlineInputBorder(
+                          borderSide: new BorderSide(color: Color(0xff0957FF))
+                      )*/
+                    ),
                   ),
                 ),
                 Container(
