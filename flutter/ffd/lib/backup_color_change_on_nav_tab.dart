@@ -87,88 +87,93 @@ class _MyHomePageState extends State<MyHomePage> {
             setState(() => _currentIndex = index);
           },
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  width: 170,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    color: Colors.green,
-                    elevation: 10,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        const ListTile(
-                          leading: Icon(Icons.album, size: 70),
-                          title: Text('Actual',
-                              style: TextStyle(color: Colors.white)),
-                          subtitle: Text('TWICE',
-                              style: TextStyle(color: Colors.white)),
+            Container(
+              color: Color(0xfff9f9f9),
+              //color: Color(0xffffffff),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width * .48,
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
                         ),
-                        ButtonTheme.bar(
-                          child: ButtonBar(
-                            children: <Widget>[
-                              FlatButton(
-                                child: const Text('Edit',
-                                    style: TextStyle(color: Colors.white)),
-                                onPressed: () {},
+                        color: Colors.green,
+                        elevation: 10,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            const ListTile(
+                              leading: Icon(Icons.album, size: 70),
+                              title: Text('Actual',
+                                  style: TextStyle(color: Colors.white)),
+                              subtitle: Text('TWICE',
+                                  style: TextStyle(color: Colors.white)),
+                            ),
+                            ButtonTheme.bar(
+                              child: ButtonBar(
+                                children: <Widget>[
+                                  FlatButton(
+                                    child: const Text('Edit',
+                                        style: TextStyle(color: Colors.white)),
+                                    onPressed: () {},
+                                  ),
+                                  FlatButton(
+                                    child: const Text('Delete',
+                                        style: TextStyle(color: Colors.white)),
+                                    onPressed: () {},
+                                  ),
+                                ],
                               ),
-                              FlatButton(
-                                child: const Text('Delete',
-                                    style: TextStyle(color: Colors.white)),
-                                onPressed: () {},
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-                Container(
-                  width: 170,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    color: Colors.red,
-                    elevation: 10,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        const ListTile(
-                          leading: Icon(Icons.album, size: 70),
-                          title: Text('Budget',
-                              style: TextStyle(color: Colors.white)),
-                          subtitle: Text('TWICE',
-                              style: TextStyle(color: Colors.white)),
+                    Container(
+                      width: MediaQuery.of(context).size.width * .48,
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
                         ),
-                        ButtonTheme.bar(
-                          child: ButtonBar(
-                            children: <Widget>[
-                              FlatButton(
-                                child: const Text('Edit',
-                                    style: TextStyle(color: Colors.white)),
-                                onPressed: () {},
+                        color: Colors.red,
+                        elevation: 10,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            const ListTile(
+                              leading: Icon(Icons.album, size: 70),
+                              title: Text('Budget',
+                                  style: TextStyle(color: Colors.white)),
+                              subtitle: Text('TWICE',
+                                  style: TextStyle(color: Colors.white)),
+                            ),
+                            ButtonTheme.bar(
+                              child: ButtonBar(
+                                children: <Widget>[
+                                  FlatButton(
+                                    child: const Text('Edit',
+                                        style: TextStyle(color: Colors.white)),
+                                    onPressed: () {},
+                                  ),
+                                  FlatButton(
+                                    child: const Text('Delete',
+                                        style: TextStyle(color: Colors.white)),
+                                    onPressed: () {},
+                                  ),
+                                ],
                               ),
-                              FlatButton(
-                                child: const Text('Delete',
-                                    style: TextStyle(color: Colors.white)),
-                                onPressed: () {},
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-              ],
-            ),
+                  ],
+                )
+            )
+            ,
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -216,6 +221,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   constraints: BoxConstraints.expand(
                     height: 100,
+                    //width: MediaQuery.of(context).size.width * .8
                   ),
 
                   padding: const EdgeInsets.only(
@@ -515,7 +521,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   constraints: BoxConstraints.expand(
                     height: 100,
                   ),
-
                   padding: const EdgeInsets.all(30.0),
                   //color: Colors.blue[600],
                   alignment: Alignment.center,
