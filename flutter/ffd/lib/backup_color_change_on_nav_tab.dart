@@ -174,7 +174,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 )
             )
             ,
-            Column(
+      CustomScrollView(
+        slivers: [
+        SliverFillRemaining(
+        hasScrollBody: false,
+        child:Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -509,6 +513,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
+        ),],),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
