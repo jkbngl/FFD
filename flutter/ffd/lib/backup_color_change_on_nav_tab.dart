@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:after_layout/after_layout.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 void main() => runApp(MyApp());
 
@@ -11,11 +13,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'FFD Demo',
       theme: ThemeData(
         primarySwatch: colorCustom,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'FFD Home Page'),
     );
   }
 }
@@ -76,10 +78,18 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
   // callback to change if something in the layout needs to be changed
   void checkForChanges(bool onStartup) {
     print("Checking for changes $onStartup");
+
+  }
+
+  void sendBackend(String type) async
+  {
+    var url = 'https://example.com/whatsit/create';
+    var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
+
     showDialog(
       context: context,
       builder: (context) => new AlertDialog(
-        content: new Text('Checking for changes: $onStartup'),
+        content: new Text('Checking for changes: ${response.statusCode} + ${response.body}'),
         actions: <Widget>[
           new FlatButton(
             child: new Text('DISMISS'),
@@ -88,6 +98,24 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
         ],
       ),
     );
+
+    /*
+    var response2 = await http.read('https://example.com/foobar.txt');
+
+    showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        content: new Text('Checking for changes: $response2'),
+        actions: <Widget>[
+          new FlatButton(
+            child: new Text('DISMISS'),
+            onPressed: () => Navigator.of(context).pop(),
+          )
+        ],
+      ),
+    );
+    */
+
   }
 
   String dropdownValue = 'One';
@@ -515,6 +543,9 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
+                                    sendBackend('Actual');
+
+
                                     // return object of type Dialog
                                     return AlertDialog(
                                       title: new Text("Alert Dialog title"),

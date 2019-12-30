@@ -22,6 +22,8 @@ dependencies:
   bottom_navy_bar: ^5.2.0
   syncfusion_flutter_charts: ^17.3.26
   after_layout: 1.0.7+2
+  http: 0.12.0+2
+
 
 
 
