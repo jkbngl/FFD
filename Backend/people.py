@@ -1,29 +1,11 @@
 from datetime import datetime
 import psycopg2
 from flask import request
+import json
 
 
 def get_timestamp():
     return datetime.now().strftime(("%Y-%m-%d %H:%M:%S"))
-
-# Data to serve with our API
-PEOPLE = {
-    "Farrell": {
-        "fname": "Doug",
-        "lname": "Farrell",
-        "timestamp": get_timestamp()
-    },
-    "Brockman": {
-        "fname": "Kent",
-        "lname": "Brockman",
-        "timestamp": get_timestamp()
-    },
-    "Easter": {
-        "fname": "Bunny",
-        "lname": "Easter",
-        "timestamp": get_timestamp()
-    }
-}
 
 def connect():
     try:
@@ -46,12 +28,12 @@ def connect():
 
     except (Exception, psycopg2.Error) as error :
         print ("Error while connecting to PostgreSQL", error)
-    #finally:
-    #    #closing database connection.
-    #        if(connection):
-    #            cursor.close()
-    #            connection.close()
-    #            print("PostgreSQL connection is closed")
+    finally:
+        #closing database connection.
+        if(connection):
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
 
 # Create a handler for our read (GET) people
 def read():
@@ -76,8 +58,11 @@ def read():
     #return [PEOPLE[key] for key in sorted(PEOPLE.keys())]
 
 def send():
+    data2 = request.form.to_dict()
     data = request.values
-    print(f"RECEIVED DATA: {dir(request)}")
-    
-    return data
+    #data = json.loads(data)
+    #print(type(data))
+    #print(f'RECEIVED DATA: {dir(request)}')
+    data2['color'] = 'green'
+    return data2
 
