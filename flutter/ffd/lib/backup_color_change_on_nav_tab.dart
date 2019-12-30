@@ -2,6 +2,8 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:after_layout/after_layout.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -49,7 +51,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePage> {
   int _currentIndex = 0;
   PageController _pageController;
 
@@ -65,11 +67,28 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
-  void checkForChanges() {
-    print("checking for changes");
-  } //callback when layout build done
+  @override
+  void afterFirstLayout(BuildContext context) {
+    // Calling the same function "after layout" to resolve the issue.
+    checkForChanges(true);
+  }
 
-
+  // callback to change if something in the layout needs to be changed
+  void checkForChanges(bool onStartup) {
+    print("Checking for changes $onStartup");
+    showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        content: new Text('Checking for changes: $onStartup'),
+        actions: <Widget>[
+          new FlatButton(
+            child: new Text('DISMISS'),
+            onPressed: () => Navigator.of(context).pop(),
+          )
+        ],
+      ),
+    );
+  }
 
   String dropdownValue = 'One';
   String level1 = 'Car';
@@ -78,10 +97,12 @@ class _MyHomePageState extends State<MyHomePage> {
   String costtype = 'Fix';
 
 
+
+
   @override
   Widget build(BuildContext context) {
     // Check if something in the settings has been changed, if yes set the vars and widgets accordingly
-    checkForChanges();
+
     return Scaffold(
       appBar: AppBar(title: Text("FFD")),
       body: SizedBox.expand(
@@ -89,6 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
           controller: _pageController,
           onPageChanged: (index) {
             setState(() => _currentIndex = index);
+            checkForChanges(false);
           },
           children: <Widget>[
             Container(
