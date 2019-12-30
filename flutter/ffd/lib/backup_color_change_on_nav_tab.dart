@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
 
   void sendBackend(String type) async
   {
-    var url = 'https://example.com/whatsit/create';
+    var url = 'http://192.168.0.21:5000/api/people';
     var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
 
     showDialog(
@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
     );
 
     /*
-    var response2 = await http.read('https://example.com/foobar.txt');
+    var response2 = await http.read('http://192.168.0.21:5000/api/people');
 
     showDialog(
       context: context,
@@ -115,6 +115,7 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
       ),
     );
     */
+
 
   }
 
