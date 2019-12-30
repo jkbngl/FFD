@@ -1,5 +1,6 @@
 from datetime import datetime
 import psycopg2
+from flask import request
 
 
 def get_timestamp():
@@ -73,3 +74,10 @@ def read():
 
     # Create the list of people from our data
     #return [PEOPLE[key] for key in sorted(PEOPLE.keys())]
+
+def send():
+    data = request.values
+    print(f"RECEIVED DATA: {dir(request)}")
+    
+    return data
+

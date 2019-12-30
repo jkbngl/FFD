@@ -33,3 +33,22 @@ paths:
                   type: "string"
                 timestamp:
                   type: "string"
+    post:
+      operationId: "people.send"
+      tags:
+        - "People"
+      summary: "Send new people to the server supported by the server application"
+      description: "Send new people to the server"
+      responses:
+        200:
+          description: "Successful send people list operation"
+          schema:
+            type: "array"
+            items:
+              properties:
+                fname:
+                  type: "string"
+                lname:
+                  type: "string"
+                timestamp:
+                  type: "string"
