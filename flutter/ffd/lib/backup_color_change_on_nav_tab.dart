@@ -82,20 +82,6 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   void sendBackend(String type) async {
-    showDialog(
-      context: context,
-      builder: (context) => new AlertDialog(
-        content: new Text(
-            'Worked'),
-        actions: <Widget>[
-          new FlatButton(
-            child: new Text('DISMISS'),
-            onPressed: () => Navigator.of(context).pop(),
-          )
-        ],
-      ),
-    );
-
     var url = 'http://192.168.0.21:5000/api/people';
     var response =
         await http.post(url, body: {'actual': myController.text, 'budget': myController2.text, 'color': 'blue'});
