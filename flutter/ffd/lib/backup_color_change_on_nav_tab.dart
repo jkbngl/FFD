@@ -82,9 +82,23 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   void sendBackend(String type) async {
+    showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        content: new Text(
+            'Worked'),
+        actions: <Widget>[
+          new FlatButton(
+            child: new Text('DISMISS'),
+            onPressed: () => Navigator.of(context).pop(),
+          )
+        ],
+      ),
+    );
+
     var url = 'http://192.168.0.21:5000/api/people';
     var response =
-        await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
+        await http.post(url, body: {'actual': myController.text, 'budget': myController2.text, 'color': 'blue'});
 
     showDialog(
       context: context,
@@ -123,6 +137,10 @@ class _MyHomePageState extends State<MyHomePage>
   String level2 = 'Repairs';
   String level3 = 'Engine';
   String costtype = 'Fix';
+
+  final myController = TextEditingController();
+  final myController2 = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -262,6 +280,7 @@ class _MyHomePageState extends State<MyHomePage>
                           style: TextStyle(
                               height: 2), //increases the height of cursor
                           autofocus: true,
+                          controller: myController,
                           decoration: InputDecoration(
                               // hintText: 'Enter ur amount',
                               //hintStyle: TextStyle(height: 1.75),
@@ -628,6 +647,7 @@ class _MyHomePageState extends State<MyHomePage>
                           style: TextStyle(
                               height: 2), //increases the height of cursor
                           autofocus: true,
+                          controller: myController2,
                           decoration: InputDecoration(
                               // hintText: 'Enter ur amount',
                               //hintStyle: TextStyle(height: 1.75),
