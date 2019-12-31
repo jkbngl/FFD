@@ -53,7 +53,8 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>
+    with AfterLayoutMixin<MyHomePage> {
   int _currentIndex = 0;
   PageController _pageController;
 
@@ -78,18 +79,18 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
   // callback to change if something in the layout needs to be changed
   void checkForChanges(bool onStartup) {
     print("Checking for changes $onStartup");
-
   }
 
-  void sendBackend(String type) async
-  {
+  void sendBackend(String type) async {
     var url = 'http://192.168.0.21:5000/api/people';
-    var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
+    var response =
+        await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
 
     showDialog(
       context: context,
       builder: (context) => new AlertDialog(
-        content: new Text('Checking for changes: ${response.statusCode} + ${response.body}'),
+        content: new Text(
+            'Checking for changes: ${response.statusCode} + ${response.body}'),
         actions: <Widget>[
           new FlatButton(
             child: new Text('DISMISS'),
@@ -115,8 +116,6 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
       ),
     );
     */
-
-
   }
 
   String dropdownValue = 'One';
@@ -124,9 +123,6 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
   String level2 = 'Repairs';
   String level3 = 'Engine';
   String costtype = 'Fix';
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -226,14 +222,12 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                       ),
                     ),
                   ],
-                )
-            )
-            ,
+                )),
             CustomScrollView(
               slivers: [
                 SliverFillRemaining(
                   hasScrollBody: false,
-                  child:Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -242,39 +236,49 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                           height: 40,
                         ),
 
-                        padding: const EdgeInsets.only(left: 0.0, top: 10, right: 0, bottom: 0),
+                        padding: const EdgeInsets.only(
+                            left: 0.0, top: 10, right: 0, bottom: 0),
                         //color: Colors.blue[600],
                         alignment: Alignment.center,
                         //child: Text('Submit'),
-                        child:Text(
+                        child: Text(
                           'Actual',
                           style: TextStyle(fontSize: 30),
-                        ),),
+                        ),
+                      ),
                       Container(
                         constraints: BoxConstraints.expand(
                           height: 100,
                         ),
 
-                        padding: const EdgeInsets.only(left: 30.0, top: 0, right: 30, bottom: 0),
+                        padding: const EdgeInsets.only(
+                            left: 30.0, top: 0, right: 30, bottom: 0),
                         //color: Colors.blue[600],
                         alignment: Alignment.center,
                         //child: Text('Submit'),
                         child: TextFormField(
-                          keyboardType: TextInputType.number,//keyboard with numbers only will appear to the screen
-                          style: TextStyle(height:2),//increases the height of cursor
+                          keyboardType: TextInputType
+                              .number, //keyboard with numbers only will appear to the screen
+                          style: TextStyle(
+                              height: 2), //increases the height of cursor
                           autofocus: true,
                           decoration: InputDecoration(
-                            // hintText: 'Enter ur amount',
-                            //hintStyle: TextStyle(height: 1.75),
+                              // hintText: 'Enter ur amount',
+                              //hintStyle: TextStyle(height: 1.75),
                               labelText: 'Enter your amount',
-                              labelStyle: TextStyle(height: 0.5, color: Color(0xff0957FF)),//increases the height of cursor
-                              icon: Icon(Icons.attach_money,   color: Color(0xff0957FF),),
+                              labelStyle: TextStyle(
+                                  height: 0.5,
+                                  color: Color(
+                                      0xff0957FF)), //increases the height of cursor
+                              icon: Icon(
+                                Icons.attach_money,
+                                color: Color(0xff0957FF),
+                              ),
                               //prefixIcon: Icon(Icons.attach_money),
                               //labelStyle: TextStyle(color: Color(0xff0957FF)),
                               enabledBorder: new UnderlineInputBorder(
-                                  borderSide: new BorderSide(color: Color(0xff0957FF))
-                              )
-                          ),
+                                  borderSide: new BorderSide(
+                                      color: Color(0xff0957FF)))),
                         ),
                       ),
                       Container(
@@ -310,8 +314,8 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                                 // return object of type Dialog
                                 return AlertDialog(
                                   title: new Text("Alert Dialog title"),
-                                  content:
-                                  new Text("Alert Dialog body: $dropdownValue"),
+                                  content: new Text(
+                                      "Alert Dialog body: $dropdownValue"),
                                   actions: <Widget>[
                                     // usually buttons at the bottom of the dialog
                                     new FlatButton(
@@ -365,8 +369,8 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                                 // return object of type Dialog
                                 return AlertDialog(
                                   title: new Text("Alert Dialog title"),
-                                  content:
-                                  new Text("Alert Dialog body: $dropdownValue"),
+                                  content: new Text(
+                                      "Alert Dialog body: $dropdownValue"),
                                   actions: <Widget>[
                                     // usually buttons at the bottom of the dialog
                                     new FlatButton(
@@ -380,8 +384,13 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                               },
                             );
                           },
-                          items: <String>['Repairs', 'One', 'Two', 'Free', 'Four']
-                              .map<DropdownMenuItem<String>>((String value) {
+                          items: <String>[
+                            'Repairs',
+                            'One',
+                            'Two',
+                            'Free',
+                            'Four'
+                          ].map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),
@@ -418,8 +427,8 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                                 // return object of type Dialog
                                 return AlertDialog(
                                   title: new Text("Alert Dialog title"),
-                                  content:
-                                  new Text("Alert Dialog body: $dropdownValue"),
+                                  content: new Text(
+                                      "Alert Dialog body: $dropdownValue"),
                                   actions: <Widget>[
                                     // usually buttons at the bottom of the dialog
                                     new FlatButton(
@@ -433,8 +442,13 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                               },
                             );
                           },
-                          items: <String>['Engine', 'One', 'Two', 'Free', 'Four']
-                              .map<DropdownMenuItem<String>>((String value) {
+                          items: <String>[
+                            'Engine',
+                            'One',
+                            'Two',
+                            'Free',
+                            'Four'
+                          ].map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),
@@ -475,8 +489,8 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                                   // return object of type Dialog
                                   return AlertDialog(
                                     title: new Text("Alert Dialog title"),
-                                    content:
-                                    new Text("Alert Dialog body: $dropdownValue"),
+                                    content: new Text(
+                                        "Alert Dialog body: $dropdownValue"),
                                     actions: <Widget>[
                                       // usually buttons at the bottom of the dialog
                                       new FlatButton(
@@ -538,14 +552,15 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                             minWidth: 150.0,
                             height: 60.0,
                             child: RaisedButton(
-                              child: Text('Save', style: TextStyle(color: Colors.white, fontSize: 17)),
+                              child: Text('Save',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 17)),
                               color: Color(0xff0957FF), //df7599 - 0957FF
                               onPressed: () {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
                                     sendBackend('Actual');
-
 
                                     // return object of type Dialog
                                     return AlertDialog(
@@ -571,177 +586,371 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                       ),
                     ],
                   ),
-                ),],),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Budget',
-                  style: TextStyle(fontSize: 30),
                 ),
-                Container(
-                  constraints: BoxConstraints.expand(
-                    height: 100,
-                  ),
-                  padding: const EdgeInsets.all(30.0),
-                  //color: Colors.blue[600],
-                  alignment: Alignment.center,
-                  //child: Text('Submit'),
-                  child: DropdownButton<String>(
-                    value: dropdownValue,
-                    icon: Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    style: TextStyle(color: Colors.deepPurple),
-                    isExpanded: true,
-                    underline: Container(
-                      height: 2,
-                      width: 5000,
-                      color: Color(0xff0957FF),
-                    ),
-                    onChanged: (String newValue) {
-                      setState(() {
-                        dropdownValue = newValue;
-                      });
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          // return object of type Dialog
-                          return AlertDialog(
-                            title: new Text("Alert Dialog title"),
-                            content:
-                            new Text("Alert Dialog body: $dropdownValue"),
-                            actions: <Widget>[
-                              // usually buttons at the bottom of the dialog
-                              new FlatButton(
-                                child: new Text("Close"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    items: <String>['One', 'Two', 'Free', 'Four']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                ),
-                Container(
-                  constraints: BoxConstraints.expand(
-                    height: 100,
-                  ),
+              ],
+            ),
+            CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        constraints: BoxConstraints.expand(
+                          height: 40,
+                        ),
 
-                  padding: const EdgeInsets.all(30.0),
-                  //color: Colors.blue[600],
-                  alignment: Alignment.center,
-                  //child: Text('Submit'),
-                  child: DropdownButton<String>(
-                    value: dropdownValue,
-                    icon: Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    style: TextStyle(color: Color(0xff0957FF)),
-                    isExpanded: true,
-                    underline: Container(
-                      height: 2,
-                      width: 5000,
-                      color: Color(0xff0957FF),
-                    ),
-                    onChanged: (String newValue) {
-                      setState(() {
-                        dropdownValue = newValue;
-                      });
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          // return object of type Dialog
-                          return AlertDialog(
-                            title: new Text("Alert Dialog title"),
-                            content:
-                            new Text("Alert Dialog body: $dropdownValue"),
-                            actions: <Widget>[
-                              // usually buttons at the bottom of the dialog
-                              new FlatButton(
-                                child: new Text("Close"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    items: <String>['One', 'Two', 'Free', 'Four']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                ),
-                Container(
-                  constraints: BoxConstraints.expand(
-                    height: 100.0,
-                  ),
+                        padding: const EdgeInsets.only(
+                            left: 0.0, top: 10, right: 0, bottom: 0),
+                        //color: Colors.blue[600],
+                        alignment: Alignment.center,
+                        //child: Text('Submit'),
+                        child: Text(
+                          'Budget',
+                          style: TextStyle(fontSize: 30),
+                        ),
+                      ),
+                      Container(
+                        constraints: BoxConstraints.expand(
+                          height: 100,
+                        ),
 
-                  padding: const EdgeInsets.all(30.0),
-                  //color: Colors.blue[600],
-                  alignment: Alignment.center,
-                  //child: Text('Submit'),
-                  child: DropdownButton<String>(
-                    value: dropdownValue,
-                    icon: Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    style: TextStyle(color: Color(0xff0957FF)),
-                    isExpanded: true,
-                    underline: Container(
-                      height: 2,
-                      width: 5000,
-                      color: Color(0xff0957FF),
-                    ),
-                    onChanged: (String newValue) {
-                      setState(() {
-                        dropdownValue = newValue;
-                      });
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          // return object of type Dialog
-                          return AlertDialog(
-                            title: new Text("Alert Dialog title"),
-                            content:
-                            new Text("Alert Dialog body: $dropdownValue"),
-                            actions: <Widget>[
-                              // usually buttons at the bottom of the dialog
-                              new FlatButton(
-                                child: new Text("Close"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
+                        padding: const EdgeInsets.only(
+                            left: 30.0, top: 0, right: 30, bottom: 0),
+                        //color: Colors.blue[600],
+                        alignment: Alignment.center,
+                        //child: Text('Submit'),
+                        child: TextFormField(
+                          keyboardType: TextInputType
+                              .number, //keyboard with numbers only will appear to the screen
+                          style: TextStyle(
+                              height: 2), //increases the height of cursor
+                          autofocus: true,
+                          decoration: InputDecoration(
+                              // hintText: 'Enter ur amount',
+                              //hintStyle: TextStyle(height: 1.75),
+                              labelText: 'Enter your amount',
+                              labelStyle: TextStyle(
+                                  height: 0.5,
+                                  color: Color(
+                                      0xff0957FF)), //increases the height of cursor
+                              icon: Icon(
+                                Icons.attach_money,
+                                color: Color(0xff0957FF),
                               ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    items: <String>['One', 'Two', 'Free', 'Four']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+                              //prefixIcon: Icon(Icons.attach_money),
+                              //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                              enabledBorder: new UnderlineInputBorder(
+                                  borderSide: new BorderSide(
+                                      color: Color(0xff0957FF)))),
+                        ),
+                      ),
+                      Container(
+                        constraints: BoxConstraints.expand(
+                          height: 100,
+                          //width: MediaQuery.of(context).size.width * .8
+                        ),
+
+                        padding: const EdgeInsets.only(
+                            left: 30.0, top: 0, right: 30, bottom: 0),
+                        //color: Colors.blue[600],
+                        alignment: Alignment.center,
+                        //child: Text('Submit'),
+                        child: DropdownButton<String>(
+                          value: level1,
+                          icon: Icon(Icons.arrow_downward),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: TextStyle(color: Color(0xff0957FF)),
+                          isExpanded: true,
+                          underline: Container(
+                            height: 2,
+                            width: 5000,
+                            color: Color(0xff0957FF),
+                          ),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              dropdownValue = newValue;
+                            });
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                // return object of type Dialog
+                                return AlertDialog(
+                                  title: new Text("Alert Dialog title"),
+                                  content: new Text(
+                                      "Alert Dialog body: $dropdownValue"),
+                                  actions: <Widget>[
+                                    // usually buttons at the bottom of the dialog
+                                    new FlatButton(
+                                      child: new Text("Close"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          items: <String>['Car', 'One', 'Two', 'Free', 'Four']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      Container(
+                        constraints: BoxConstraints.expand(
+                          height: 50,
+                        ),
+                        padding: const EdgeInsets.only(
+                            left: 30.0, top: 0, right: 30, bottom: 0),
+                        //color: Colors.blue[600],
+                        alignment: Alignment.center,
+                        //child: Text('Submit'),
+                        child: DropdownButton<String>(
+                          value: level2,
+                          icon: Icon(Icons.arrow_downward),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: TextStyle(color: Color(0xff0957FF)),
+                          isExpanded: true,
+                          underline: Container(
+                            height: 2,
+                            width: 5000,
+                            color: Color(0xff0957FF),
+                          ),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              dropdownValue = newValue;
+                            });
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                // return object of type Dialog
+                                return AlertDialog(
+                                  title: new Text("Alert Dialog title"),
+                                  content: new Text(
+                                      "Alert Dialog body: $dropdownValue"),
+                                  actions: <Widget>[
+                                    // usually buttons at the bottom of the dialog
+                                    new FlatButton(
+                                      child: new Text("Close"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          items: <String>[
+                            'Repairs',
+                            'One',
+                            'Two',
+                            'Free',
+                            'Four'
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      Container(
+                        constraints: BoxConstraints.expand(
+                          height: 100.0,
+                        ),
+                        padding: const EdgeInsets.only(
+                            left: 30.0, top: 0, right: 30, bottom: 0),
+                        alignment: Alignment.center,
+                        child: DropdownButton<String>(
+                          value: level3,
+                          icon: Icon(Icons.arrow_downward),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: TextStyle(color: Color(0xff0957FF)),
+                          isExpanded: true,
+                          underline: Container(
+                            height: 2,
+                            width: 5000,
+                            color: Color(0xff0957FF),
+                          ),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              dropdownValue = newValue;
+                            });
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                // return object of type Dialog
+                                return AlertDialog(
+                                  title: new Text("Alert Dialog title"),
+                                  content: new Text(
+                                      "Alert Dialog body: $dropdownValue"),
+                                  actions: <Widget>[
+                                    // usually buttons at the bottom of the dialog
+                                    new FlatButton(
+                                      child: new Text("Close"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          items: <String>[
+                            'Engine',
+                            'One',
+                            'Two',
+                            'Free',
+                            'Four'
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      Container(
+                        constraints: BoxConstraints.expand(
+                          height: 50.0,
+                        ),
+                        padding: const EdgeInsets.only(
+                            left: 30.0, top: 0, right: 30, bottom: 0),
+                        //color: Colors.blue[600],
+                        alignment: Alignment.center,
+                        //child: Text('Submit'),
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: DropdownButton<String>(
+                            value: costtype,
+                            icon: Icon(Icons.arrow_downward),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: TextStyle(color: Color(0xff0957FF)),
+                            //isExpanded: true,
+                            underline: Container(
+                              height: 2,
+                              width: 2000,
+                              color: Color(0xff0957FF),
+                            ),
+                            onChanged: (String newValue) {
+                              setState(() {
+                                dropdownValue = newValue;
+                              });
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  // return object of type Dialog
+                                  return AlertDialog(
+                                    title: new Text("Alert Dialog title"),
+                                    content: new Text(
+                                        "Alert Dialog body: $dropdownValue"),
+                                    actions: <Widget>[
+                                      // usually buttons at the bottom of the dialog
+                                      new FlatButton(
+                                        child: new Text("Close"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            items: <String>['Fix', 'One', 'Two', 'Free', 'Four']
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                      ButtonBar(
+                        mainAxisSize: MainAxisSize
+                            .min, // this will take space as minimum as posible(to center)
+                        children: <Widget>[
+                          ButtonTheme(
+                            minWidth: 75.0,
+                            height: 40.0,
+                            child: RaisedButton(
+                              child: Text('Discard'),
+                              color: Color(0xffEEEEEE), // EEEEEE
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    // return object of type Dialog
+                                    return AlertDialog(
+                                      title: new Text("Alert Dialog title"),
+                                      content: new Text(
+                                          "Alert Dialog body: $dropdownValue"),
+                                      actions: <Widget>[
+                                        // usually buttons at the bottom of the dialog
+                                        new FlatButton(
+                                          child: new Text("Close"),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                          ButtonTheme(
+                            minWidth: 150.0,
+                            height: 60.0,
+                            child: RaisedButton(
+                              child: Text('Save',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 17)),
+                              color: Color(0xff0957FF), //df7599 - 0957FF
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    sendBackend('Budget');
+
+                                    // return object of type Dialog
+                                    return AlertDialog(
+                                      title: new Text("Alert Dialog title"),
+                                      content: new Text(
+                                          "Alert Dialog body: $dropdownValue"),
+                                      actions: <Widget>[
+                                        // usually buttons at the bottom of the dialog
+                                        new FlatButton(
+                                          child: new Text("Close"),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -757,20 +966,20 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                 Container(
                     child: SfCartesianChart(
                         primaryXAxis:
-                        CategoryAxis(), // Initialize category axis.
+                            CategoryAxis(), // Initialize category axis.
                         series: <LineSeries<SalesData, String>>[
-                          // Initialize line series.
-                          LineSeries<SalesData, String>(
-                              dataSource: [
-                                SalesData('Jan', 35),
-                                SalesData('Feb', 28),
-                                SalesData('Mar', 34),
-                                SalesData('Apr', 32),
-                                SalesData('May', 40)
-                              ],
-                              xValueMapper: (SalesData sales, _) => sales.year,
-                              yValueMapper: (SalesData sales, _) => sales.sales)
-                        ])),
+                      // Initialize line series.
+                      LineSeries<SalesData, String>(
+                          dataSource: [
+                            SalesData('Jan', 35),
+                            SalesData('Feb', 28),
+                            SalesData('Mar', 34),
+                            SalesData('Apr', 32),
+                            SalesData('May', 40)
+                          ],
+                          xValueMapper: (SalesData sales, _) => sales.year,
+                          yValueMapper: (SalesData sales, _) => sales.sales)
+                    ])),
               ],
             ),
             DefaultTabController(
