@@ -149,7 +149,11 @@ class _MyHomePageState extends State<MyHomePage>
             checkForChanges(false);
           },
           children: <Widget>[
-            Container(
+        CustomScrollView(
+        slivers: [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: Container(
                 color: Color(0xfff9f9f9),
                 //color: Color(0xffffffff),
                 child: Row(
@@ -234,7 +238,7 @@ class _MyHomePageState extends State<MyHomePage>
                     ),
                   ],
                 )
-            ),
+            ),),],),
             CustomScrollView(
               slivers: [
                 SliverFillRemaining(
