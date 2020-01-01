@@ -84,7 +84,14 @@ class _MyHomePageState extends State<MyHomePage>
   void sendBackend(String type) async {
     var url = 'http://192.168.0.21:5000/api/people';
     var response =
-        await http.post(url, body: {'actual': myController.text, 'budget': myController2.text, 'level1': level1, 'level2': level2, 'level3': level3, 'color': 'blue'});
+        await http.post(url, body: {'actual': actualTextFieldController.text
+                                  , 'budget': budgetTextFieldController.text
+                                  , 'level1': level1
+                                  , 'level2': level2
+                                  , 'level3': level3
+                                  , 'color': 'blue'
+                                  , 'type': type
+        });
 
     showDialog(
       context: context,
@@ -124,8 +131,8 @@ class _MyHomePageState extends State<MyHomePage>
   String level3 = 'Engine';
   String costtype = 'Fix';
 
-  final myController = TextEditingController();
-  final myController2 = TextEditingController();
+  final actualTextFieldController = TextEditingController();
+  final budgetTextFieldController = TextEditingController();
 
 
   @override
@@ -266,7 +273,7 @@ class _MyHomePageState extends State<MyHomePage>
                           style: TextStyle(
                               height: 2), //increases the height of cursor
                           autofocus: true,
-                          controller: myController,
+                          controller: actualTextFieldController,
                           decoration: InputDecoration(
                               // hintText: 'Enter ur amount',
                               //hintStyle: TextStyle(height: 1.75),
@@ -530,7 +537,7 @@ class _MyHomePageState extends State<MyHomePage>
                               child: Text('Discard'),
                               color: Color(0xffEEEEEE), // EEEEEE
                               onPressed: () {
-                                myController.text = '';
+                                actualTextFieldController.text = '';
                                 /*
                                 showDialog(
                                   context: context,
@@ -636,7 +643,7 @@ class _MyHomePageState extends State<MyHomePage>
                           style: TextStyle(
                               height: 2), //increases the height of cursor
                           autofocus: true,
-                          controller: myController2,
+                          controller: budgetTextFieldController,
                           decoration: InputDecoration(
                               // hintText: 'Enter ur amount',
                               //hintStyle: TextStyle(height: 1.75),
@@ -900,7 +907,7 @@ class _MyHomePageState extends State<MyHomePage>
                               child: Text('Discard'),
                               color: Color(0xffEEEEEE), // EEEEEE
                               onPressed: () {
-                                myController2.text = '';
+                                budgetTextFieldController.text = '';
 
                                 /*
                                 showDialog(
