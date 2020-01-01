@@ -233,7 +233,8 @@ class _MyHomePageState extends State<MyHomePage>
                       ),
                     ),
                   ],
-                )),
+                )
+            ),
             CustomScrollView(
               slivers: [
                 SliverFillRemaining(
