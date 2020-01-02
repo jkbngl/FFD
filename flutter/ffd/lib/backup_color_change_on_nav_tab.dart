@@ -95,7 +95,8 @@ class _MyHomePageState extends State<MyHomePage>
                                   , 'level3': level3
                                   , 'color': 'blue'
                                   , 'type': type
-        });
+        }
+        );
 
 
 
@@ -104,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage>
       context: context,
       builder: (context) => new AlertDialog(
         content: new Text(
-            'Checking for changes: ${response.statusCode} + \n ${response.body}'),
+            'response from server: ${response.statusCode} + \n ${response.body}'),
         actions: <Widget>[
           new FlatButton(
             child: new Text('DISMISS'),
