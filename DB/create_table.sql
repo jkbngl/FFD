@@ -1,5 +1,5 @@
 CREATE SCHEMA ffd
-    CREATE TABLE user_dim (
+CREATE TABLE ffd.user_dim (
         id SERIAL PRIMARY KEY
       , name text
       , created date
@@ -8,7 +8,7 @@ CREATE SCHEMA ffd
       , updated_by text
     );
 
-    CREATE TABLE group_dim (
+    CREATE TABLE ffd.group_dim (
         id SERIAL PRIMARY KEY
       , name text
       , created date
@@ -17,7 +17,7 @@ CREATE SCHEMA ffd
       , updated_by text
     );
 
-    CREATE TABLE company_dim (
+    CREATE TABLE ffd.company_dim (
         id SERIAL PRIMARY KEY
       , name text
       , created date
@@ -26,85 +26,85 @@ CREATE SCHEMA ffd
       , updated_by text
     );
 
-    CREATE TABLE user_in_group (
-        user_fk numeric REFERENCES user_dim(id),
-      , group_fk numeric REFERENCES group_dim(id)
+    CREATE TABLE ffd.user_in_group (
+        user_fk integer REFERENCES ffd.user_dim(id)
+      , group_fk integer REFERENCES ffd.group_dim(id)
       , created date
       , updated date
       , created_by text
       , updated_by text
     );
 
-    CREATE TABLE user_in_company (
-        user_fk numeric REFERENCES user_dim(id),
-      , company_fk numeric REFERENCES company_dim(id)
+    CREATE TABLE ffd.user_in_company (
+        user_fk integer REFERENCES ffd.user_dim(id)
+      , company_fk integer REFERENCES ffd.company_dim(id)
       , created date
       , updated date
       , created_by text
       , updated_by text
     );
     
-    CREATE TABLE costtype_dim (
+    CREATE TABLE ffd.costtype_dim (
         id SERIAL PRIMARY KEY
       , name text
-      , user_fk numeric REFERENCES user_dim(id),
-      , group_fk numeric REFERENCES group_dim(id)
-      , company_fk numeric REFERENCES company_dim(id)
+      , user_fk integer REFERENCES ffd.user_dim(id)
+      , group_fk integer REFERENCES ffd.group_dim(id)
+      , company_fk integer REFERENCES ffd.company_dim(id)
       , created date
       , updated date
       , created_by text
       , updated_by text
     );
 
-    CREATE TABLE account_dim (
+    CREATE TABLE ffd.account_dim (
         id SERIAL PRIMARY KEY
       , name text
-      , level_type numeric
-      , user_fk numeric REFERENCES user_dim(id),
-      , group_fk numeric REFERENCES group_dim(id)
-      , company_fk numeric REFERENCES company_dim(id)
+      , level_type integer
+      , user_fk integer REFERENCES ffd.user_dim(id)
+      , group_fk integer REFERENCES ffd.group_dim(id)
+      , company_fk integer REFERENCES ffd.company_dim(id)
       , created date
       , updated date
       , created_by text
       , updated_by text
     );
 
-    CREATE TABLE act_data (
+    CREATE TABLE ffd.act_data (
         id SERIAL PRIMARY KEY
-      , amount numeric
+      , amount integer
       , comment text
-      , date date
-      , year numeric
-      , month numeric
-      , day numeric
-      , level_type numeric
-      , level1_fk numeric REFERENCES account_dim(id)
-      , level2_fk numeric REFERENCES account_dim(id)
-      , level3_fk numeric REFERENCES account_dim(id)
-      , costtype_fk numeric REFERENCES costtype_dim(id)
-      , user_fk numeric REFERENCES user_dim(id),
-      , group_fk numeric REFERENCES group_dim(id)
+      , data_date date
+      , year integer
+      , month integer
+      , day integer
+      , level_type integer
+      , level1_fk integer REFERENCES ffd.account_dim(id)
+      , level2_fk integer REFERENCES ffd.account_dim(id)
+      , level3_fk integer REFERENCES ffd.account_dim(id)
+      , costtype_fk integer REFERENCES ffd.costtype_dim(id)
+      , user_fk integer REFERENCES ffd.user_dim(id)
+      , group_fk integer REFERENCES ffd.group_dim(id)
       , created date
       , updated date
       , created_by text
       , updated_by text
     );
 
-    CREATE TABLE act_data (
+    CREATE TABLE ffd.bdg_data (
         id SERIAL PRIMARY KEY
-      , amount numeric
+      , amount integer
       , comment text
-      , date date
-      , year numeric
-      , month numeric
-      , day numeric
-      , level_type numeric
-      , level1_fk numeric REFERENCES account_dim(id)
-      , level2_fk numeric REFERENCES account_dim(id)
-      , level3_fk numeric REFERENCES account_dim(id)
-      , costtype_fk numeric REFERENCES costtype_dim(id)
-      , user_fk numeric REFERENCES user_dim(id),
-      , group_fk numeric REFERENCES group_dim(id)
+      , data_date date
+      , year integer
+      , month integer
+      , day integer
+      , level_type integer
+      , level1_fk integer REFERENCES ffd.account_dim(id)
+      , level2_fk integer REFERENCES ffd.account_dim(id)
+      , level3_fk integer REFERENCES ffd.account_dim(id)
+      , costtype_fk integer REFERENCES ffd.costtype_dim(id)
+      , user_fk integer REFERENCES ffd.user_dim(id)
+      , group_fk integer REFERENCES ffd.group_dim(id)
       , created date
       , updated date
       , created_by text
@@ -114,7 +114,7 @@ CREATE SCHEMA ffd
 
 
 
-insert into ffd.costtype_dim (name, created, updated, created_by, updated_by) values ('invest', now(), null, 'jakob.engl', null);
+-- insert into ffd.costtype_dim (name, created, updated, created_by, updated_by) values ('invest', now(), null, 'jakob.engl', null);
 
 
 
