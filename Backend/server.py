@@ -3,6 +3,8 @@ from flask_cors import CORS
 from connexion.resolver import RestyResolver
 import connexion
 
+
+# http://192.168.0.21:5000/api/ui/#/
 options = {"swagger_ui": True}
 
 # Create the application instance

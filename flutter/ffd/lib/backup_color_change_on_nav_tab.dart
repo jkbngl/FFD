@@ -82,7 +82,11 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   void sendBackend(String type) async {
+
     var url = 'http://192.168.0.21:5000/api/people';
+
+    print("SENDING TO BACKEND - url: $url");
+
     var response =
         await http.post(url, body: {'actual': actualTextFieldController.text
                                   , 'budget': budgetTextFieldController.text
@@ -93,11 +97,14 @@ class _MyHomePageState extends State<MyHomePage>
                                   , 'type': type
         });
 
+
+
+
     showDialog(
       context: context,
       builder: (context) => new AlertDialog(
         content: new Text(
-            'Checking for changes: ${response.statusCode} + ${response.body}'),
+            'Checking for changes: ${response.statusCode} + \n ${response.body}'),
         actions: <Widget>[
           new FlatButton(
             child: new Text('DISMISS'),
