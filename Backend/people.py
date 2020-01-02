@@ -10,9 +10,9 @@ def get_timestamp():
 def connect():
     try:
         connection = psycopg2.connect(user = "postgres",
-                                      password = "test",
-                                      host = "192.168.0.20",
-                                      port = "5432",
+                                      password = "dhjihdfjdksfhdfhsdfj",
+                                      host = "192.168.0.21",
+                                      port = "5433",
                                       database = "postgres")
         
         # Print PostgreSQL Connection properties
@@ -28,12 +28,6 @@ def connect():
 
     except (Exception, psycopg2.Error) as error :
         print ("Error while connecting to PostgreSQL", error)
-    finally:
-        #closing database connection.
-        if(connection):
-            cursor.close()
-            connection.close()
-            print("PostgreSQL connection is closed")
 
 # Create a handler for our read (GET) people
 def read():
@@ -46,7 +40,7 @@ def read():
     connection = connect()
     cursor = connection.cursor()
 
-    postgreSQL_select_Query = "select * from tp_plan"
+    postgreSQL_select_Query = "select * from ffd.costtype_dim"
     cursor.execute(postgreSQL_select_Query)
     mobile_records = cursor.fetchall() 
     cursor.close()
@@ -59,10 +53,17 @@ def read():
 
 def send():
     data2 = request.form.to_dict()
-    data = request.values
+
+    #data = request.values
     #data = json.loads(data)
     #print(type(data))
     #print(f'RECEIVED DATA: {dir(request)}')
+    connection = connect()
+    cursor = connection.cursor()
+    command = f"INSERT INTO ffd.costtype_dim (id, name) VALUES (1, {data2['actual']})"
+    print(command)
+    cursor.execute(command)
+    connection.commit()
     data2['color'] = 'green'
     return data2
 
