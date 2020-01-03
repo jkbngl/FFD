@@ -1749,6 +1749,21 @@
 										},
 										{
 											"_type": "ERDColumnView",
+											"_id": "AAAAAAFva/POtszTw0Q=",
+											"_parent": {
+												"$ref": "AAAAAAFvZzlvIQydxY0="
+											},
+											"model": {
+												"$ref": "AAAAAAFva/POn8zQgwE="
+											},
+											"font": "Arial;13;0",
+											"left": 589,
+											"top": 906,
+											"width": 95.86083984375,
+											"height": 13
+										},
+										{
+											"_type": "ERDColumnView",
 											"_id": "AAAAAAFvaBYWBw3xThM=",
 											"_parent": {
 												"$ref": "AAAAAAFvZzlvIQydxY0="
@@ -1758,7 +1773,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 589,
-											"top": 906,
+											"top": 921,
 											"width": 95.86083984375,
 											"height": 13
 										},
@@ -1773,7 +1788,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 589,
-											"top": 921,
+											"top": 936,
 											"width": 95.86083984375,
 											"height": 13
 										},
@@ -1788,7 +1803,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 589,
-											"top": 936,
+											"top": 951,
 											"width": 95.86083984375,
 											"height": 13
 										},
@@ -1803,7 +1818,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 589,
-											"top": 951,
+											"top": 966,
 											"width": 95.86083984375,
 											"height": 13
 										}
@@ -1812,14 +1827,14 @@
 									"left": 584,
 									"top": 871,
 									"width": 105.86083984375,
-									"height": 98
+									"height": 113
 								}
 							],
 							"font": "Arial;13;0",
 							"left": 584,
 							"top": 848,
 							"width": 105.86083984375,
-							"height": 121,
+							"height": 136,
 							"nameLabel": {
 								"$ref": "AAAAAAFvZzlvIQycLJ4="
 							},
@@ -1892,6 +1907,21 @@
 										},
 										{
 											"_type": "ERDColumnView",
+											"_id": "AAAAAAFva/QCZszf+QY=",
+											"_parent": {
+												"$ref": "AAAAAAFvZzwOWA0SKsc="
+											},
+											"model": {
+												"$ref": "AAAAAAFva/QCLszcwTc="
+											},
+											"font": "Arial;13;0",
+											"left": 989,
+											"top": 858,
+											"width": 95.86083984375,
+											"height": 13
+										},
+										{
+											"_type": "ERDColumnView",
 											"_id": "AAAAAAFvZzxIWw0sDik=",
 											"_parent": {
 												"$ref": "AAAAAAFvZzwOWA0SKsc="
@@ -1901,7 +1931,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 989,
-											"top": 858,
+											"top": 873,
 											"width": 95.86083984375,
 											"height": 13
 										},
@@ -1916,7 +1946,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 989,
-											"top": 873,
+											"top": 888,
 											"width": 95.86083984375,
 											"height": 13
 										},
@@ -1931,7 +1961,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 989,
-											"top": 888,
+											"top": 903,
 											"width": 95.86083984375,
 											"height": 13
 										}
@@ -1940,14 +1970,14 @@
 									"left": 984,
 									"top": 823,
 									"width": 105.86083984375,
-									"height": 83
+									"height": 98
 								}
 							],
 							"font": "Arial;13;0",
 							"left": 984,
 							"top": 800,
 							"width": 105.86083984375,
-							"height": 106,
+							"height": 121,
 							"nameLabel": {
 								"$ref": "AAAAAAFvZzwOWA0RaF0="
 							},
@@ -3263,6 +3293,15 @@
 						},
 						{
 							"_type": "ERDColumn",
+							"_id": "AAAAAAFva/POn8zQgwE=",
+							"_parent": {
+								"$ref": "AAAAAAFvZzlvIQyZKxI="
+							},
+							"name": "comment",
+							"length": 0
+						},
+						{
+							"_type": "ERDColumn",
 							"_id": "AAAAAAFvaBYVvw3u62k=",
 							"_parent": {
 								"$ref": "AAAAAAFvZzlvIQyZKxI="
@@ -3383,6 +3422,15 @@
 								"$ref": "AAAAAAFvZzwOWA0OeOw="
 							},
 							"name": "name",
+							"length": 0
+						},
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAFva/QCLszcwTc=",
+							"_parent": {
+								"$ref": "AAAAAAFvZzwOWA0OeOw="
+							},
+							"name": "comment",
 							"length": 0
 						},
 						{
