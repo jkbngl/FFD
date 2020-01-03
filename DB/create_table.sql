@@ -56,6 +56,7 @@ CREATE TABLE ffd.user_dim (
     CREATE TABLE ffd.costtype_dim (
         id SERIAL PRIMARY KEY
       , name text
+      , comment text
       , user_fk integer DEFAULT -1 REFERENCES ffd.user_dim(id) 
       , group_fk integer DEFAULT -1 REFERENCES ffd.group_dim(id) 
       , company_fk integer DEFAULT -1 REFERENCES ffd.company_dim(id) 
@@ -68,6 +69,7 @@ CREATE TABLE ffd.user_dim (
     CREATE TABLE ffd.account_dim (
         id SERIAL PRIMARY KEY
       , name text
+      , comment text
       , level_type integer
       , user_fk integer DEFAULT -1 REFERENCES ffd.user_dim(id) 
       , group_fk integer DEFAULT -1 REFERENCES  ffd.group_dim(id)
