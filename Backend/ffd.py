@@ -30,23 +30,24 @@ def connect():
         print ("Error while connecting to PostgreSQL", error)
 
 # Create a handler for our read (GET) people
-def read():
+def read(user):
     """
-    This function responds to a request for /api/people
-    with the complete lists of people
+    This function responds to a request for /api/ffd/<user>
+    with the complete lists of accounts for the user
 
-    :return:        sorted list of people
+    :return:        list of accounts
     """
+    print(f"USERNAME: {user}")
     connection = connect()
     cursor = connection.cursor()
 
-    postgreSQL_select_Query = "select * from ffd.account_dim"
+    postgreSQL_select_Query = f"select * from ffd.account_dim where user_fk = {user}"
     cursor.execute(postgreSQL_select_Query)
-    mobile_records = cursor.fetchall() 
+    reords = cursor.fetchall() 
     cursor.close()
     connection.close()
 
-    return mobile_records
+    return reords
 
     # Create the list of people from our data
     #return [PEOPLE[key] for key in sorted(PEOPLE.keys())]
@@ -74,7 +75,7 @@ def send():
 def send_actual(data):
     connection = connect()
     cursor = connection.cursor()
-    command = f"INSERT INTO ffd.act_data (amount) VALUES (1, {data2['actual']})"
+    command = f"INSERT INTO ffd.act_data (amount) VALUES (1, {data['actual']})"
     print(command)
     cursor.execute(command)
     connection.commit()

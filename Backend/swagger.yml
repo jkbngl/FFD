@@ -13,20 +13,13 @@ basePath: "/api"
 
 # Paths supported by the server application
 paths:
-  /ffd:
+  /ffd/accounts/<user>:
     get:
       operationId: "ffd.read"
       tags:
         - "Accounts"
       summary: "Returns the list of accounts accounts"
       description: "Read the list of accounts"
-      #parameters:
-      #  - in: path
-      #    name: user
-      #    schema:
-      #      type: integer
-      #    required: true
-      #    description: Numeric ID of the user to get
       responses:
         200:
           description: "Successful read the list of accounts"
@@ -42,6 +35,7 @@ paths:
                   type: "integer"
                 comment:
                   type: "string"
+  /ffd/:
     post:
       operationId: "ffd.send"
       tags:
