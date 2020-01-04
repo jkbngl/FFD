@@ -13,42 +13,69 @@ basePath: "/api"
 
 # Paths supported by the server application
 paths:
-  /people:
+  /ffd:
     get:
-      operationId: "people.read"
+      operationId: "ffd.read"
       tags:
-        - "People"
-      summary: "The people data structure supported by the server application"
-      description: "Read the list of people"
+        - "Accounts"
+      summary: "Returns the list of accounts accounts"
+      description: "Read the list of accounts"
+      #parameters:
+      #  - in: path
+      #    name: user
+      #    schema:
+      #      type: integer
+      #    required: true
+      #    description: Numeric ID of the user to get
       responses:
         200:
-          description: "Successful read people list operation"
+          description: "Successful read the list of accounts"
           schema:
             type: "array"
             items:
               properties:
-                fname:
+                id:
+                  type: "integer"
+                name:
                   type: "string"
-                lname:
-                  type: "string"
-                timestamp:
+                type:
+                  type: "integer"
+                comment:
                   type: "string"
     post:
-      operationId: "people.send"
+      operationId: "ffd.send"
       tags:
-        - "People"
-      summary: "Send new people to the server supported by the server application"
-      description: "Send new people to the server"
+        - "Actual Budget"
+      summary: "Send new actuals and budgets to the server"
+      description: "Send new actuals and budgets to the server"
       responses:
         200:
-          description: "Successful send people list operation"
+          description: "Successful send actuals and budgets"
           schema:
             type: "array"
             items:
               properties:
-                fname:
+                type:
                   type: "string"
-                lname:
+                userid:
+                  type: "integer"
+                groupid:
+                  type: "integer"
+                amount:
+                  type: "integer"
+                comment:
                   type: "string"
-                timestamp:
-                  type: "string"
+                level1:
+                  type: "integer"
+                level2:
+                  type: "integer"
+                level3:
+                  type: "integer"
+                costtype:
+                  type: "integer"
+                year:
+                  type: "integer"
+                month:
+                  type: "integer"
+                day:
+                  type: "integer"

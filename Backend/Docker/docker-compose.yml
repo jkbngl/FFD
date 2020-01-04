@@ -4,6 +4,8 @@ services:
   ffd_api:
     build: .
     image: ffd_api:0.0.1
+    volumes:
+      - ./app:/usr/src/app
     ports:
       - "5000:5000"
     container_name: ffd_api

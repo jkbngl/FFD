@@ -40,7 +40,7 @@ def read():
     connection = connect()
     cursor = connection.cursor()
 
-    postgreSQL_select_Query = "select * from ffd.costtype_dim"
+    postgreSQL_select_Query = "select * from ffd.account_dim"
     cursor.execute(postgreSQL_select_Query)
     mobile_records = cursor.fetchall() 
     cursor.close()
@@ -52,19 +52,31 @@ def read():
     #return [PEOPLE[key] for key in sorted(PEOPLE.keys())]
 
 def send():
-    data2 = request.form.to_dict()
+    """
+    This function responds to a request for /api/ffd
+    it is the entry point for all functionality
+    This function reads the type of the call and assigns the correct function
+
+    :return:        None
+    """
+
+    data = request.form.to_dict()
+
+    if data['type'].lower() == 'actual':
+        send_actual(data)
+        
 
     #data = request.values
-    #data = json.loads(data)
-    #print(type(data))
     #print(f'RECEIVED DATA: {dir(request)}')
+    data['status'] = 'success'
+    return data
+
+def send_actual(data):
     connection = connect()
     cursor = connection.cursor()
-    #command = f"INSERT INTO ffd.costtype_dim (id, name) VALUES (-1, {data2['actual']})"
-    command = "select * from ffd.costtype_dim"
+    command = f"INSERT INTO ffd.act_data (amount) VALUES (1, {data2['actual']})"
     print(command)
     cursor.execute(command)
     connection.commit()
-    data2['color'] = 'green'
-    return data2
+
 
