@@ -1703,7 +1703,7 @@
 									"font": "Arial;13;1",
 									"left": 584,
 									"top": 853,
-									"width": 105.86083984375,
+									"width": 126.8017578125,
 									"height": 13,
 									"text": "account_dim"
 								},
@@ -1729,7 +1729,7 @@
 											"font": "Arial;13;0",
 											"left": 589,
 											"top": 876,
-											"width": 95.86083984375,
+											"width": 116.8017578125,
 											"height": 13
 										},
 										{
@@ -1744,7 +1744,7 @@
 											"font": "Arial;13;0",
 											"left": 589,
 											"top": 891,
-											"width": 95.86083984375,
+											"width": 116.8017578125,
 											"height": 13
 										},
 										{
@@ -1759,7 +1759,7 @@
 											"font": "Arial;13;0",
 											"left": 589,
 											"top": 906,
-											"width": 95.86083984375,
+											"width": 116.8017578125,
 											"height": 13
 										},
 										{
@@ -1774,7 +1774,22 @@
 											"font": "Arial;13;0",
 											"left": 589,
 											"top": 921,
-											"width": 95.86083984375,
+											"width": 116.8017578125,
+											"height": 13
+										},
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAFvddh3cMz0t9k=",
+											"_parent": {
+												"$ref": "AAAAAAFvZzlvIQydxY0="
+											},
+											"model": {
+												"$ref": "AAAAAAFvddh3BMzxhyc="
+											},
+											"font": "Arial;13;0",
+											"left": 589,
+											"top": 936,
+											"width": 116.8017578125,
 											"height": 13
 										},
 										{
@@ -1788,8 +1803,8 @@
 											},
 											"font": "Arial;13;0",
 											"left": 589,
-											"top": 936,
-											"width": 95.86083984375,
+											"top": 951,
+											"width": 116.8017578125,
 											"height": 13
 										},
 										{
@@ -1803,8 +1818,8 @@
 											},
 											"font": "Arial;13;0",
 											"left": 589,
-											"top": 951,
-											"width": 95.86083984375,
+											"top": 966,
+											"width": 116.8017578125,
 											"height": 13
 										},
 										{
@@ -1818,23 +1833,23 @@
 											},
 											"font": "Arial;13;0",
 											"left": 589,
-											"top": 966,
-											"width": 95.86083984375,
+											"top": 981,
+											"width": 116.8017578125,
 											"height": 13
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 584,
 									"top": 871,
-									"width": 105.86083984375,
-									"height": 113
+									"width": 126.8017578125,
+									"height": 128
 								}
 							],
 							"font": "Arial;13;0",
 							"left": 584,
 							"top": 848,
-							"width": 105.86083984375,
-							"height": 136,
+							"width": 126.8017578125,
+							"height": 151,
 							"nameLabel": {
 								"$ref": "AAAAAAFvZzlvIQycLJ4="
 							},
@@ -2101,7 +2116,7 @@
 										"$ref": "AAAAAAFvZz5b5Q2ctXM="
 									},
 									"font": "Arial;13;0",
-									"left": 714,
+									"left": 735,
 									"top": 887,
 									"height": 13,
 									"alpha": 0.5235987755982988,
@@ -2136,7 +2151,7 @@
 								"$ref": "AAAAAAFvZzlvIQybXdY="
 							},
 							"lineStyle": 2,
-							"points": "689:908;936:908;936:713",
+							"points": "710:908;936:908;936:713",
 							"nameLabel": {
 								"$ref": "AAAAAAFvZz5b5Q2dIEA="
 							},
@@ -2316,8 +2331,8 @@
 								"$ref": "AAAAAAFvZtjOwPYxFxw="
 							},
 							"font": "Arial;13;0",
-							"left": 280,
-							"top": 192,
+							"left": 296,
+							"top": 184,
 							"width": 161,
 							"height": 116,
 							"text": "no company in the data tables because it needs always to be entered by some kind of user or group in a company, a chart of account might be managed by a company though"
@@ -3307,6 +3322,15 @@
 								"$ref": "AAAAAAFvZzlvIQyZKxI="
 							},
 							"name": "level_type",
+							"length": 0
+						},
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAFvddh3BMzxhyc=",
+							"_parent": {
+								"$ref": "AAAAAAFvZzlvIQyZKxI="
+							},
+							"name": "parent_account",
 							"length": 0
 						},
 						{
