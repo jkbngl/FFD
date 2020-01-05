@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:after_layout/after_layout.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 void main() => runApp(MyApp());
 
@@ -82,11 +83,28 @@ class _MyHomePageState extends State<MyHomePage>
     var accountLevel2 = await http.read('http://192.168.0.21:5000/api/ffd/accounts/2');
     var accountLevel3 = await http.read('http://192.168.0.21:5000/api/ffd/accounts/3');
 
+    var parsedAccountLevel1 = json.decode(accountLevel1);
+    var parsedAccountLevel2 = json.decode(accountLevel2);
+    var parsedAccountLevel3 = json.decode(accountLevel3);
+
+    var keyValueAccountLevel1 = new Map();
+
+    //var alias = parsedAccountLevel1[0]['name'];
+
+    int i = 0;
+
+    for (var prop in parsedAccountLevel1) {
+      keyValueAccountLevel1[i] = prop['name'];
+      i++;
+    }
+
+
+
     showDialog(
       context: context,
       builder: (context) => new AlertDialog(
         content: new Text(
-            'All available Accounts: \n $accountLevel1 \n $accountLevel2 \n $accountLevel3'),
+            'All available Accounts: $keyValueAccountLevel1'),
         actions: <Widget>[
           new FlatButton(
             child: new Text('DISMISS'),
@@ -134,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage>
         ],
       ),
     );
-    */
+
 
 
     var response2 = await http.read('http://192.168.0.21:5000/api/ffd/accounts');
@@ -150,8 +168,10 @@ class _MyHomePageState extends State<MyHomePage>
           )
         ],
       ),
-    );
+    );*/
   }
+
+
 
   String dropdownValue = 'UN_';
   String level1 = 'CAR';
