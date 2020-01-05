@@ -75,8 +75,26 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   // callback to change if something in the layout needs to be changed
-  void checkForChanges(bool onStartup) {
+  void checkForChanges(bool onStartup) async {
     print("Checking for changes $onStartup");
+
+    var accountLevel1 = await http.read('http://192.168.0.21:5000/api/ffd/accounts/1');
+    var accountLevel2 = await http.read('http://192.168.0.21:5000/api/ffd/accounts/2');
+    var accountLevel3 = await http.read('http://192.168.0.21:5000/api/ffd/accounts/3');
+
+    showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        content: new Text(
+            'All available Accounts: \n $accountLevel1 \n $accountLevel2 \n $accountLevel3'),
+        actions: <Widget>[
+          new FlatButton(
+            child: new Text('DISMISS'),
+            onPressed: () => Navigator.of(context).pop(),
+          )
+        ],
+      ),
+    );
   }
 
   void sendBackend(String type
@@ -135,10 +153,10 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  String dropdownValue = 'One';
-  String level1 = 'UNDEFINED';
-  String level2 = 'UNDEFINED';
-  String level3 = 'UNDEFINED';
+  String dropdownValue = 'UN_';
+  String level1 = 'CAR';
+  String level2 = 'REPAIRS';
+  String level3 = 'ENGINE';
   String costtype = 'Fix';
 
   var level1Values = {
@@ -335,7 +353,7 @@ class _MyHomePageState extends State<MyHomePage>
                         alignment: Alignment.center,
                         //child: Text('Submit'),
                         child: DropdownButton<String>(
-                          value: "TEST",
+                          value: level1,
                           icon: Icon(Icons.arrow_downward),
                           iconSize: 24,
                           elevation: 16,
@@ -348,7 +366,7 @@ class _MyHomePageState extends State<MyHomePage>
                           ),
                           onChanged: (String newValue) {
                             setState(() {
-                              dropdownValue = newValue;
+                              level1 = newValue;
                             });
                             showDialog(
                               context: context,
@@ -357,7 +375,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 return AlertDialog(
                                   title: new Text("Alert Dialog title"),
                                   content: new Text(
-                                      "Alert Dialog body: $dropdownValue"),
+                                      "Alert Dialog body: $level1"),
                                   actions: <Widget>[
                                     // usually buttons at the bottom of the dialog
                                     new FlatButton(
@@ -371,13 +389,14 @@ class _MyHomePageState extends State<MyHomePage>
                               },
                             );
                           },
-                          items: <String>['Car', 'One', 'Two', 'Free', 'Four']
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
+                          items: level1Values.entries
+                              .map<DropdownMenuItem<String>>(
+                                  (MapEntry<String, String> e) => DropdownMenuItem<String>(
+                                value: e.value, // e.key
+                                child: Text(e.value),
+                              ))
+                              .toList(),
+
                         ),
                       ),
                       Container(
@@ -403,7 +422,7 @@ class _MyHomePageState extends State<MyHomePage>
                           ),
                           onChanged: (String newValue) {
                             setState(() {
-                              dropdownValue = newValue;
+                              level2 = newValue;
                             });
                             showDialog(
                               context: context,
@@ -412,7 +431,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 return AlertDialog(
                                   title: new Text("Alert Dialog title"),
                                   content: new Text(
-                                      "Alert Dialog body: $dropdownValue"),
+                                      "Alert Dialog body: $level2"),
                                   actions: <Widget>[
                                     // usually buttons at the bottom of the dialog
                                     new FlatButton(
@@ -426,18 +445,13 @@ class _MyHomePageState extends State<MyHomePage>
                               },
                             );
                           },
-                          items: <String>[
-                            'Repairs',
-                            'One',
-                            'Two',
-                            'Free',
-                            'Four'
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
+                          items: level2Values.entries
+                              .map<DropdownMenuItem<String>>(
+                                  (MapEntry<String, String> e) => DropdownMenuItem<String>(
+                                value: e.value,
+                                child: Text(e.value),
+                              ))
+                              .toList(),
                         ),
                       ),
                       Container(
@@ -461,7 +475,7 @@ class _MyHomePageState extends State<MyHomePage>
                           ),
                           onChanged: (String newValue) {
                             setState(() {
-                              dropdownValue = newValue;
+                              level3 = newValue;
                             });
                             showDialog(
                               context: context,
@@ -470,7 +484,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 return AlertDialog(
                                   title: new Text("Alert Dialog title"),
                                   content: new Text(
-                                      "Alert Dialog body: $dropdownValue"),
+                                      "Alert Dialog body: $level3"),
                                   actions: <Widget>[
                                     // usually buttons at the bottom of the dialog
                                     new FlatButton(
@@ -484,18 +498,13 @@ class _MyHomePageState extends State<MyHomePage>
                               },
                             );
                           },
-                          items: <String>[
-                            'Engine',
-                            'One',
-                            'Two',
-                            'Free',
-                            'Four'
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
+                          items: level3Values.entries
+                              .map<DropdownMenuItem<String>>(
+                                  (MapEntry<String, String> e) => DropdownMenuItem<String>(
+                                value: e.value,
+                                child: Text(e.value),
+                              ))
+                              .toList(),
                         ),
                       ),
                       Container(
@@ -523,7 +532,7 @@ class _MyHomePageState extends State<MyHomePage>
                             ),
                             onChanged: (String newValue) {
                               setState(() {
-                                dropdownValue = newValue;
+                                costtype = newValue;
                               });
                               showDialog(
                                 context: context,
@@ -532,7 +541,7 @@ class _MyHomePageState extends State<MyHomePage>
                                   return AlertDialog(
                                     title: new Text("Alert Dialog title"),
                                     content: new Text(
-                                        "Alert Dialog body: $dropdownValue"),
+                                        "Alert Dialog body: $costtype"),
                                     actions: <Widget>[
                                       // usually buttons at the bottom of the dialog
                                       new FlatButton(
@@ -727,7 +736,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 return AlertDialog(
                                   title: new Text("Alert Dialog title"),
                                   content: new Text(
-                                      "Alert Dialog body: $dropdownValue"),
+                                      "Alert Dialog body: $level1"),
                                   actions: <Widget>[
                                     // usually buttons at the bottom of the dialog
                                     new FlatButton(
@@ -744,7 +753,7 @@ class _MyHomePageState extends State<MyHomePage>
                           items: level1Values.entries
                             .map<DropdownMenuItem<String>>(
                               (MapEntry<String, String> e) => DropdownMenuItem<String>(
-                                value: e.key,
+                                value: e.value,
                                 child: Text(e.value),
                               )
                             )
@@ -774,7 +783,7 @@ class _MyHomePageState extends State<MyHomePage>
                           ),
                           onChanged: (String newValue) {
                             setState(() {
-                              dropdownValue = newValue;
+                              level2 = newValue;
                             });
                             showDialog(
                               context: context,
@@ -783,7 +792,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 return AlertDialog(
                                   title: new Text("Alert Dialog title"),
                                   content: new Text(
-                                      "Alert Dialog body: $dropdownValue"),
+                                      "Alert Dialog body: $level2"),
                                   actions: <Widget>[
                                     // usually buttons at the bottom of the dialog
                                     new FlatButton(
@@ -797,18 +806,13 @@ class _MyHomePageState extends State<MyHomePage>
                               },
                             );
                           },
-                          items: <String>[
-                            'Repairs',
-                            'One',
-                            'Two',
-                            'Free',
-                            'Four'
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
+                          items: level2Values.entries
+                            .map<DropdownMenuItem<String>>(
+                            (MapEntry<String, String> e) => DropdownMenuItem<String>(
+                      value: e.value,
+                        child: Text(e.value),
+                      ))
+        .toList(),
                         ),
                       ),
                       Container(
@@ -832,7 +836,7 @@ class _MyHomePageState extends State<MyHomePage>
                           ),
                           onChanged: (String newValue) {
                             setState(() {
-                              dropdownValue = newValue;
+                              level3 = newValue;
                             });
                             showDialog(
                               context: context,
@@ -841,7 +845,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 return AlertDialog(
                                   title: new Text("Alert Dialog title"),
                                   content: new Text(
-                                      "Alert Dialog body: $dropdownValue"),
+                                      "Alert Dialog body: $level3"),
                                   actions: <Widget>[
                                     // usually buttons at the bottom of the dialog
                                     new FlatButton(
@@ -855,18 +859,13 @@ class _MyHomePageState extends State<MyHomePage>
                               },
                             );
                           },
-                          items: <String>[
-                            'Engine',
-                            'One',
-                            'Two',
-                            'Free',
-                            'Four'
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
+                          items: level3Values.entries
+                              .map<DropdownMenuItem<String>>(
+                                  (MapEntry<String, String> e) => DropdownMenuItem<String>(
+                                value: e.value,
+                                child: Text(e.value),
+                              ))
+                              .toList(),
                         ),
                       ),
                       Container(
@@ -894,7 +893,7 @@ class _MyHomePageState extends State<MyHomePage>
                             ),
                             onChanged: (String newValue) {
                               setState(() {
-                                dropdownValue = newValue;
+                                costtype = newValue;
                               });
                               showDialog(
                                 context: context,
@@ -903,7 +902,7 @@ class _MyHomePageState extends State<MyHomePage>
                                   return AlertDialog(
                                     title: new Text("Alert Dialog title"),
                                     content: new Text(
-                                        "Alert Dialog body: $dropdownValue"),
+                                        "Alert Dialog body: $costtype"),
                                     actions: <Widget>[
                                       // usually buttons at the bottom of the dialog
                                       new FlatButton(
@@ -948,7 +947,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     return AlertDialog(
                                       title: new Text("Alert Dialog title"),
                                       content: new Text(
-                                          "Alert Dialog body: $dropdownValue"),
+                                          "Alert Dialog body: costtype"),
                                       actions: <Widget>[
                                         // usually buttons at the bottom of the dialog
                                         new FlatButton(
@@ -978,7 +977,6 @@ class _MyHomePageState extends State<MyHomePage>
                                   context: context,
                                   builder: (BuildContext context) {
                                     sendBackend('budget');
-
                                     // return object of type Dialog
                                     return AlertDialog(
                                       title: new Text("Alert Dialog title"),
