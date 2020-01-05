@@ -8,6 +8,7 @@ drop table ffd.account_dim;
 drop table ffd.act_data;
 drop table ffd.bdg_data;
 
+
 CREATE TABLE ffd.user_dim (
         id SERIAL PRIMARY KEY
       , name text
@@ -71,6 +72,7 @@ CREATE TABLE ffd.user_dim (
       , name text
       , comment text
       , level_type integer
+      , parent_account integer
       , user_fk integer DEFAULT -1 REFERENCES ffd.user_dim(id) 
       , group_fk integer DEFAULT -1 REFERENCES  ffd.group_dim(id)
       , company_fk integer DEFAULT -1 REFERENCES ffd.company_dim(id)
@@ -79,6 +81,7 @@ CREATE TABLE ffd.user_dim (
       , created_by text DEFAULT 'UNDEFINED'
       , updated_by text DEFAULT 'UNDEFINED'
     );
+
 
     CREATE TABLE ffd.act_data (
         id SERIAL PRIMARY KEY
