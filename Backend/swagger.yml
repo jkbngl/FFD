@@ -13,7 +13,7 @@ basePath: "/api"
 
 # Paths supported by the server application
 paths:
-  /ffd/accounts/<user>:
+  /ffd/accounts/<level_type>:
     get:
       operationId: "ffd.read"
       tags:

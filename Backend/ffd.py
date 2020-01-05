@@ -1,5 +1,6 @@
 from datetime import datetime
 import psycopg2
+import psycopg2.extras
 from flask import request
 import json
 
@@ -30,24 +31,40 @@ def connect():
         print ("Error while connecting to PostgreSQL", error)
 
 # Create a handler for our read (GET) people
-def read(user):
+def read(level_type):
     """
-    This function responds to a request for /api/ffd/<user>
+    This function responds to a request for /api/ffd/level_type
     with the complete lists of accounts for the user
 
     :return:        list of accounts
     """
-    print(f"USERNAME: {user}")
-    connection = connect()
-    cursor = connection.cursor()
+    data = []
 
-    postgreSQL_select_Query = f"select * from ffd.account_dim where user_fk = {user}"
-    cursor.execute(postgreSQL_select_Query)
-    reords = cursor.fetchall() 
+    connection = connect()
+    cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
+
+
+    query = f"select  * from    ffd.account_dim where   level_type = {level_type}"
+
+    cursor.execute(query)
+    record = cursor.fetchall()
+    columnnames = [desc[0] for desc in cursor.description]
+
+
+    for row in record:
+        cache = {}
+
+        for columnname in columnnames:
+            cache[columnname] = row[columnname]
+
+        data.append(cache)
+        
     cursor.close()
     connection.close()
 
-    return reords
+    return data
+    #return dir(cursor)
+    #return cursor.description
 
     # Create the list of people from our data
     #return [PEOPLE[key] for key in sorted(PEOPLE.keys())]
