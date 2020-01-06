@@ -91,7 +91,6 @@ CREATE TABLE ffd.user_dim (
       , year integer
       , month integer
       , day integer
-      , level_type integer
       , level1_fk integer DEFAULT -1 REFERENCES ffd.account_dim(id)
       , level2_fk integer DEFAULT -1 REFERENCES ffd.account_dim(id)
       , level3_fk integer DEFAULT -1 REFERENCES ffd.account_dim(id)
@@ -112,7 +111,6 @@ CREATE TABLE ffd.user_dim (
       , year integer
       , month integer
       , day integer
-      , level_type integer
       , level1_fk integer DEFAULT -1 REFERENCES ffd.account_dim(id)
       , level2_fk integer DEFAULT -1 REFERENCES ffd.account_dim(id)
       , level3_fk integer DEFAULT -1 REFERENCES ffd.account_dim(id)
