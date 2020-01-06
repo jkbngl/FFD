@@ -43,6 +43,14 @@ class SalesData {
   final double sales;
 }
 
+class KeyValueObject{
+  const KeyValueObject(this.id,this.name);
+
+  final String name;
+  final int id;
+}
+
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -168,7 +176,6 @@ class _MyHomePageState extends State<MyHomePage>
     String level3Local;
     int amount;
 
-
     if(type.toLowerCase() == 'actual') {
       level1Local = level1Actual;
       level2Local = level2Actual;
@@ -226,9 +233,6 @@ class _MyHomePageState extends State<MyHomePage>
     );*/
   }
 
-
-
-  String dropdownValue = 'UNDEFINED';
   String level1Actual = 'UNDEFINED';
   String level1Budget = 'UNDEFINED';
 
@@ -463,7 +467,7 @@ class _MyHomePageState extends State<MyHomePage>
                               .map<DropdownMenuItem<String>>(
                                   (MapEntry<String, String> e) => DropdownMenuItem<String>(
                                 value: e.value, // e.key
-                                child: Text(e.value),
+                                child: Text(e.value,),
                               ))
                               .toList(),
 
@@ -566,7 +570,6 @@ class _MyHomePageState extends State<MyHomePage>
                             iconSize: 24,
                             elevation: 16,
                             style: TextStyle(color: Color(0xff0957FF)),
-                            //isExpanded: true,
                             underline: Container(
                               height: 2,
                               width: 2000,
@@ -576,26 +579,6 @@ class _MyHomePageState extends State<MyHomePage>
                               setState(() {
                                 costtype = newValue;
                               });
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  // return object of type Dialog
-                                  return AlertDialog(
-                                    title: new Text("Alert Dialog title"),
-                                    content: new Text(
-                                        "Alert Dialog body: $costtype"),
-                                    actions: <Widget>[
-                                      // usually buttons at the bottom of the dialog
-                                      new FlatButton(
-                                        child: new Text("Close"),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
                             },
                             items: costtypesValues.entries
                                 .map<DropdownMenuItem<String>>(
@@ -619,28 +602,6 @@ class _MyHomePageState extends State<MyHomePage>
                               color: Color(0xffEEEEEE), // EEEEEE
                               onPressed: () {
                                 actualTextFieldController.text = '';
-                                /*
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    // return object of type Dialog
-                                    return AlertDialog(
-                                      title: new Text("Alert Dialog title"),
-                                      content: new Text(
-                                          "Alert Dialog body: $dropdownValue"),
-                                      actions: <Widget>[
-                                        // usually buttons at the bottom of the dialog
-                                        new FlatButton(
-                                          child: new Text("Close"),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                                */
                               },
                             ),
                           ),
@@ -874,26 +835,6 @@ class _MyHomePageState extends State<MyHomePage>
                               setState(() {
                                 costtype = newValue;
                               });
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  // return object of type Dialog
-                                  return AlertDialog(
-                                    title: new Text("Alert Dialog title"),
-                                    content: new Text(
-                                        "Alert Dialog body: $costtype"),
-                                    actions: <Widget>[
-                                      // usually buttons at the bottom of the dialog
-                                      new FlatButton(
-                                        child: new Text("Close"),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
                             },
                             items: costtypesValues.entries
                                 .map<DropdownMenuItem<String>>(
