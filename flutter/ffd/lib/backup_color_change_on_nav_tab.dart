@@ -82,10 +82,13 @@ class _MyHomePageState extends State<MyHomePage>
     var accountLevel1 = await http.read('http://192.168.0.21:5000/api/ffd/accounts/1');
     var accountLevel2 = await http.read('http://192.168.0.21:5000/api/ffd/accounts/2');
     var accountLevel3 = await http.read('http://192.168.0.21:5000/api/ffd/accounts/3');
+    var costTypes = await http.read('http://192.168.0.21:5000/api/ffd/costtypes/');
 
     var parsedAccountLevel1 = json.decode(accountLevel1);
     var parsedAccountLevel2 = json.decode(accountLevel2);
     var parsedAccountLevel3 = json.decode(accountLevel3);
+    var parsedCostTypes = json.decode(costTypes);
+
 
     int i = 0;
 
@@ -99,6 +102,9 @@ class _MyHomePageState extends State<MyHomePage>
     level2Budget = parsedAccountLevel2[0]['name'];
     level3Actual = parsedAccountLevel3[0]['name'];
     level3Budget = parsedAccountLevel3[0]['name'];
+
+    costtype = parsedCostTypes[0]['name'];
+
 
     for (var account in parsedAccountLevel1) {
       //level1Values.
@@ -117,6 +123,13 @@ class _MyHomePageState extends State<MyHomePage>
 
     for (var account in parsedAccountLevel3) {
       level3Values[i.toString()] = account['name'];
+      i++;
+    }
+
+    i = 0;
+
+    for (var costtype in parsedCostTypes) {
+      costtypesValues[i.toString()] = costtype['name'];
       i++;
     }
 
@@ -207,7 +220,7 @@ class _MyHomePageState extends State<MyHomePage>
   String level3Actual = 'UNDEFINED';
   String level3Budget = 'UNDEFINED';
 
-  String costtype = 'Fix';
+  String costtype = 'UNDEFINED';
 
   // Are placeholders which are dynamically filled from the DB
   var level1Values = {
@@ -219,6 +232,10 @@ class _MyHomePageState extends State<MyHomePage>
   };
 
   var level3Values = {
+    '1': 'UNDEFINED',
+  };
+
+  var costtypesValues = {
     '1': 'UNDEFINED',
   };
 
@@ -562,13 +579,13 @@ class _MyHomePageState extends State<MyHomePage>
                                 },
                               );
                             },
-                            items: <String>['Fix', 'One', 'Two', 'Free', 'Four']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
+                            items: costtypesValues.entries
+                                .map<DropdownMenuItem<String>>(
+                                    (MapEntry<String, String> e) => DropdownMenuItem<String>(
+                                  value: e.value,
+                                  child: Text(e.value),
+                                ))
+                                .toList(),
                           ),
                         ),
                       ),
@@ -881,13 +898,13 @@ class _MyHomePageState extends State<MyHomePage>
                                 },
                               );
                             },
-                            items: <String>['Fix', 'One', 'Two', 'Free', 'Four']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
+                            items: costtypesValues.entries
+                                .map<DropdownMenuItem<String>>(
+                                    (MapEntry<String, String> e) => DropdownMenuItem<String>(
+                                  value: e.value,
+                                  child: Text(e.value),
+                                ))
+                                .toList(),
                           ),
                         ),
                       ),
