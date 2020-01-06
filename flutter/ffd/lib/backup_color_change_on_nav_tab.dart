@@ -93,7 +93,16 @@ class _MyHomePageState extends State<MyHomePage>
     // level2Values = null;
     // level3Values = null;
 
+    level1 = parsedAccountLevel1[0]['name'];
+    level2 = parsedAccountLevel2[0]['name'];
+    level3 = parsedAccountLevel3[0]['name'];
+
+    print(level1);
+    print(level2);
+    print(level3);
+
     for (var account in parsedAccountLevel1) {
+      //level1Values.
       level1Values[i.toString()] = account['name'];
       i++;
     }
@@ -113,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage>
     }
 
 
-
+    /*
     showDialog(
       context: context,
       builder: (context) => new AlertDialog(
@@ -127,6 +136,7 @@ class _MyHomePageState extends State<MyHomePage>
         ],
       ),
     );
+    */
 
   }
 
@@ -387,7 +397,7 @@ class _MyHomePageState extends State<MyHomePage>
                         alignment: Alignment.center,
                         //child: Text('Submit'),
                         child: DropdownButton<String>(
-                          //value: level1,
+                          value: level1,
                           hint: Text(
                               "Select a level 1 account",
                             /*style: TextStyle(
@@ -449,7 +459,7 @@ class _MyHomePageState extends State<MyHomePage>
                         alignment: Alignment.center,
                         //child: Text('Submit'),
                         child: DropdownButton<String>(
-                          //value: level2,
+                          value: level2,
                           hint: Text(
                             "Select a level 2 account",
                             /*style: TextStyle(
@@ -508,7 +518,7 @@ class _MyHomePageState extends State<MyHomePage>
                             left: 30.0, top: 0, right: 30, bottom: 0),
                         alignment: Alignment.center,
                         child: DropdownButton<String>(
-                          //value: level3,
+                          value: level3,
                           hint: Text(
                             "Select a level 3 account",
                             /*style: TextStyle(
@@ -787,6 +797,7 @@ class _MyHomePageState extends State<MyHomePage>
                             setState(() {
                               level1 = newValue;
                             });
+
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -828,7 +839,7 @@ class _MyHomePageState extends State<MyHomePage>
                         alignment: Alignment.center,
                         //child: Text('Submit'),
                         child: DropdownButton<String>(
-                          //value: level2,
+                          value: level2,
                           hint: Text(
                             "Select a level 2 account",
                             /*style: TextStyle(
@@ -887,7 +898,7 @@ class _MyHomePageState extends State<MyHomePage>
                             left: 30.0, top: 0, right: 30, bottom: 0),
                         alignment: Alignment.center,
                         child: DropdownButton<String>(
-                          //value: level3,
+                          value: level3,
                           hint: Text(
                             "Select a level 3 account",
                             /*style: TextStyle(
