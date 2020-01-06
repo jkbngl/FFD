@@ -93,13 +93,12 @@ class _MyHomePageState extends State<MyHomePage>
     // level2Values = null;
     // level3Values = null;
 
-    level1 = parsedAccountLevel1[0]['name'];
-    level2 = parsedAccountLevel2[0]['name'];
-    level3 = parsedAccountLevel3[0]['name'];
-
-    print(level1);
-    print(level2);
-    print(level3);
+    level1Actual = parsedAccountLevel1[0]['name'];
+    level1Budget = parsedAccountLevel1[0]['name'];
+    level2Actual = parsedAccountLevel2[0]['name'];
+    level2Budget = parsedAccountLevel2[0]['name'];
+    level3Actual = parsedAccountLevel3[0]['name'];
+    level3Budget = parsedAccountLevel3[0]['name'];
 
     for (var account in parsedAccountLevel1) {
       //level1Values.
@@ -198,10 +197,16 @@ class _MyHomePageState extends State<MyHomePage>
 
 
 
-  String dropdownValue = 'UN_';
-  String level1 = 'CAR';
-  String level2 = 'REPAIRS';
-  String level3 = 'ENGINE';
+  String dropdownValue = 'UNDEFINED';
+  String level1Actual = 'UNDEFINED';
+  String level1Budget = 'UNDEFINED';
+
+  String level2Actual = 'UUNDEFINEDN_';
+  String level2Budget = 'UNDEFINED';
+
+  String level3Actual = 'UNDEFINED';
+  String level3Budget = 'UNDEFINED';
+
   String costtype = 'Fix';
 
   // Are placeholders which are dynamically filled from the DB
@@ -397,7 +402,7 @@ class _MyHomePageState extends State<MyHomePage>
                         alignment: Alignment.center,
                         //child: Text('Submit'),
                         child: DropdownButton<String>(
-                          value: level1,
+                          value: level1Actual,
                           hint: Text(
                               "Select a level 1 account",
                             /*style: TextStyle(
@@ -416,7 +421,7 @@ class _MyHomePageState extends State<MyHomePage>
                           ),
                           onChanged: (String newValue) {
                             setState(() {
-                              level1 = newValue;
+                              level1Actual = newValue;
                             });
                             showDialog(
                               context: context,
@@ -425,7 +430,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 return AlertDialog(
                                   title: new Text("Alert Dialog title"),
                                   content: new Text(
-                                      "Alert Dialog body: $level1"),
+                                      "Alert Dialog body: $level1Actual"),
                                   actions: <Widget>[
                                     // usually buttons at the bottom of the dialog
                                     new FlatButton(
@@ -459,7 +464,7 @@ class _MyHomePageState extends State<MyHomePage>
                         alignment: Alignment.center,
                         //child: Text('Submit'),
                         child: DropdownButton<String>(
-                          value: level2,
+                          value: level2Actual,
                           hint: Text(
                             "Select a level 2 account",
                             /*style: TextStyle(
@@ -478,7 +483,7 @@ class _MyHomePageState extends State<MyHomePage>
                           ),
                           onChanged: (String newValue) {
                             setState(() {
-                              level2 = newValue;
+                              level2Actual = newValue;
                             });
                             showDialog(
                               context: context,
@@ -487,7 +492,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 return AlertDialog(
                                   title: new Text("Alert Dialog title"),
                                   content: new Text(
-                                      "Alert Dialog body: $level2"),
+                                      "Alert Dialog body: $level2Actual"),
                                   actions: <Widget>[
                                     // usually buttons at the bottom of the dialog
                                     new FlatButton(
@@ -518,7 +523,7 @@ class _MyHomePageState extends State<MyHomePage>
                             left: 30.0, top: 0, right: 30, bottom: 0),
                         alignment: Alignment.center,
                         child: DropdownButton<String>(
-                          value: level3,
+                          value: level3Actual,
                           hint: Text(
                             "Select a level 3 account",
                             /*style: TextStyle(
@@ -537,7 +542,7 @@ class _MyHomePageState extends State<MyHomePage>
                           ),
                           onChanged: (String newValue) {
                             setState(() {
-                              level3 = newValue;
+                              level3Actual = newValue;
                             });
                             showDialog(
                               context: context,
@@ -546,7 +551,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 return AlertDialog(
                                   title: new Text("Alert Dialog title"),
                                   content: new Text(
-                                      "Alert Dialog body: $level3"),
+                                      "Alert Dialog body: $level3Actual"),
                                   actions: <Widget>[
                                     // usually buttons at the bottom of the dialog
                                     new FlatButton(
@@ -776,7 +781,7 @@ class _MyHomePageState extends State<MyHomePage>
                         alignment: Alignment.center,
                         //child: Text('Submit'),
                         child: DropdownButton<String>(
-                          value: level1,
+                          value: level1Budget,
                           hint: Text(
                             "Select a level 1 account",
                             /*style: TextStyle(
@@ -795,7 +800,7 @@ class _MyHomePageState extends State<MyHomePage>
                           ),
                           onChanged: (String newValue) {
                             setState(() {
-                              level1 = newValue;
+                              level1Budget = newValue;
                             });
 
                             showDialog(
@@ -805,7 +810,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 return AlertDialog(
                                   title: new Text("Alert Dialog title"),
                                   content: new Text(
-                                      "Alert Dialog body: $level1"),
+                                      "Alert Dialog body: $level1Budget"),
                                   actions: <Widget>[
                                     // usually buttons at the bottom of the dialog
                                     new FlatButton(
@@ -839,7 +844,7 @@ class _MyHomePageState extends State<MyHomePage>
                         alignment: Alignment.center,
                         //child: Text('Submit'),
                         child: DropdownButton<String>(
-                          value: level2,
+                          value: level2Budget,
                           hint: Text(
                             "Select a level 2 account",
                             /*style: TextStyle(
@@ -858,7 +863,7 @@ class _MyHomePageState extends State<MyHomePage>
                           ),
                           onChanged: (String newValue) {
                             setState(() {
-                              level2 = newValue;
+                              level2Budget = newValue;
                             });
                             showDialog(
                               context: context,
@@ -867,7 +872,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 return AlertDialog(
                                   title: new Text("Alert Dialog title"),
                                   content: new Text(
-                                      "Alert Dialog body: $level2"),
+                                      "Alert Dialog body: $level2Budget"),
                                   actions: <Widget>[
                                     // usually buttons at the bottom of the dialog
                                     new FlatButton(
@@ -898,7 +903,7 @@ class _MyHomePageState extends State<MyHomePage>
                             left: 30.0, top: 0, right: 30, bottom: 0),
                         alignment: Alignment.center,
                         child: DropdownButton<String>(
-                          value: level3,
+                          value: level3Budget,
                           hint: Text(
                             "Select a level 3 account",
                             /*style: TextStyle(
@@ -917,7 +922,7 @@ class _MyHomePageState extends State<MyHomePage>
                           ),
                           onChanged: (String newValue) {
                             setState(() {
-                              level3 = newValue;
+                              level3Budget = newValue;
                             });
                             showDialog(
                               context: context,
@@ -926,7 +931,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 return AlertDialog(
                                   title: new Text("Alert Dialog title"),
                                   content: new Text(
-                                      "Alert Dialog body: $level3"),
+                                      "Alert Dialog body: $level3Budget"),
                                   actions: <Widget>[
                                     // usually buttons at the bottom of the dialog
                                     new FlatButton(
