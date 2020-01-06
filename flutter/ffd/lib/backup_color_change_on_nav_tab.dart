@@ -201,7 +201,7 @@ class _MyHomePageState extends State<MyHomePage>
   String level1Actual = 'UNDEFINED';
   String level1Budget = 'UNDEFINED';
 
-  String level2Actual = 'UUNDEFINEDN_';
+  String level2Actual = 'UNDEFINED';
   String level2Budget = 'UNDEFINED';
 
   String level3Actual = 'UNDEFINED';
@@ -423,26 +423,6 @@ class _MyHomePageState extends State<MyHomePage>
                             setState(() {
                               level1Actual = newValue;
                             });
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                // return object of type Dialog
-                                return AlertDialog(
-                                  title: new Text("Alert Dialog title"),
-                                  content: new Text(
-                                      "Alert Dialog body: $level1Actual"),
-                                  actions: <Widget>[
-                                    // usually buttons at the bottom of the dialog
-                                    new FlatButton(
-                                      child: new Text("Close"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
                           },
                           items: level1Values.entries
                               .map<DropdownMenuItem<String>>(
@@ -485,26 +465,6 @@ class _MyHomePageState extends State<MyHomePage>
                             setState(() {
                               level2Actual = newValue;
                             });
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                // return object of type Dialog
-                                return AlertDialog(
-                                  title: new Text("Alert Dialog title"),
-                                  content: new Text(
-                                      "Alert Dialog body: $level2Actual"),
-                                  actions: <Widget>[
-                                    // usually buttons at the bottom of the dialog
-                                    new FlatButton(
-                                      child: new Text("Close"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
                           },
                           items: level2Values.entries
                               .map<DropdownMenuItem<String>>(
@@ -544,26 +504,6 @@ class _MyHomePageState extends State<MyHomePage>
                             setState(() {
                               level3Actual = newValue;
                             });
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                // return object of type Dialog
-                                return AlertDialog(
-                                  title: new Text("Alert Dialog title"),
-                                  content: new Text(
-                                      "Alert Dialog body: $level3Actual"),
-                                  actions: <Widget>[
-                                    // usually buttons at the bottom of the dialog
-                                    new FlatButton(
-                                      child: new Text("Close"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
                           },
                           items: level3Values.entries
                               .map<DropdownMenuItem<String>>(
@@ -802,27 +742,6 @@ class _MyHomePageState extends State<MyHomePage>
                             setState(() {
                               level1Budget = newValue;
                             });
-
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                // return object of type Dialog
-                                return AlertDialog(
-                                  title: new Text("Alert Dialog title"),
-                                  content: new Text(
-                                      "Alert Dialog body: $level1Budget"),
-                                  actions: <Widget>[
-                                    // usually buttons at the bottom of the dialog
-                                    new FlatButton(
-                                      child: new Text("Close"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
                           },
                           items: level1Values.entries
                             .map<DropdownMenuItem<String>>(
@@ -865,26 +784,6 @@ class _MyHomePageState extends State<MyHomePage>
                             setState(() {
                               level2Budget = newValue;
                             });
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                // return object of type Dialog
-                                return AlertDialog(
-                                  title: new Text("Alert Dialog title"),
-                                  content: new Text(
-                                      "Alert Dialog body: $level2Budget"),
-                                  actions: <Widget>[
-                                    // usually buttons at the bottom of the dialog
-                                    new FlatButton(
-                                      child: new Text("Close"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
                           },
                           items: level2Values.entries
                             .map<DropdownMenuItem<String>>(
@@ -924,26 +823,6 @@ class _MyHomePageState extends State<MyHomePage>
                             setState(() {
                               level3Budget = newValue;
                             });
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                // return object of type Dialog
-                                return AlertDialog(
-                                  title: new Text("Alert Dialog title"),
-                                  content: new Text(
-                                      "Alert Dialog body: $level3Budget"),
-                                  actions: <Widget>[
-                                    // usually buttons at the bottom of the dialog
-                                    new FlatButton(
-                                      child: new Text("Close"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
                           },
                           items: level3Values.entries
                               .map<DropdownMenuItem<String>>(
