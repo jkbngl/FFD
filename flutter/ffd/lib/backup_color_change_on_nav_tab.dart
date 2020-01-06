@@ -87,14 +87,28 @@ class _MyHomePageState extends State<MyHomePage>
     var parsedAccountLevel2 = json.decode(accountLevel2);
     var parsedAccountLevel3 = json.decode(accountLevel3);
 
-    var keyValueAccountLevel1 = new Map();
-
-    //var alias = parsedAccountLevel1[0]['name'];
-
     int i = 0;
 
-    for (var prop in parsedAccountLevel1) {
-      keyValueAccountLevel1[i] = prop['name'];
+    // level1Values = null;
+    // level2Values = null;
+    // level3Values = null;
+
+    for (var account in parsedAccountLevel1) {
+      level1Values[i.toString()] = account['name'];
+      i++;
+    }
+
+    i = 0;
+
+    for (var account in parsedAccountLevel2) {
+      level2Values[i.toString()] = account['name'];
+      i++;
+    }
+
+    i = 0;
+
+    for (var account in parsedAccountLevel3) {
+      level3Values[i.toString()] = account['name'];
       i++;
     }
 
@@ -104,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage>
       context: context,
       builder: (context) => new AlertDialog(
         content: new Text(
-            'All available Accounts: $keyValueAccountLevel1'),
+            'All available level1Values - Accounts: $level1Values\n All available level2Values - Accounts: $level2Values\n All available level3Values - Accounts: $level3Values\n'),
         actions: <Widget>[
           new FlatButton(
             child: new Text('DISMISS'),
@@ -113,6 +127,7 @@ class _MyHomePageState extends State<MyHomePage>
         ],
       ),
     );
+
   }
 
   void sendBackend(String type
@@ -179,18 +194,17 @@ class _MyHomePageState extends State<MyHomePage>
   String level3 = 'ENGINE';
   String costtype = 'Fix';
 
+  // Are placeholders which are dynamically filled from the DB
   var level1Values = {
-    '1': 'CAR',
-    '2': 'GROCERIES',
-    '3': 'EATING OUT',
+    '1': 'UNDEFINED',
   };
 
   var level2Values = {
-    '1': 'REPAIRS',
+    '1': 'UNDEFINED',
   };
 
   var level3Values = {
-    '1': 'ENGINE',
+    '1': 'UNDEFINED',
   };
 
 
@@ -373,7 +387,13 @@ class _MyHomePageState extends State<MyHomePage>
                         alignment: Alignment.center,
                         //child: Text('Submit'),
                         child: DropdownButton<String>(
-                          value: level1,
+                          //value: level1,
+                          hint: Text(
+                              "Select a level 1 account",
+                            /*style: TextStyle(
+                              color,
+                            ),*/
+                            ),
                           icon: Icon(Icons.arrow_downward),
                           iconSize: 24,
                           elevation: 16,
@@ -429,7 +449,13 @@ class _MyHomePageState extends State<MyHomePage>
                         alignment: Alignment.center,
                         //child: Text('Submit'),
                         child: DropdownButton<String>(
-                          value: level2,
+                          //value: level2,
+                          hint: Text(
+                            "Select a level 2 account",
+                            /*style: TextStyle(
+                              color,
+                            ),*/
+                          ),
                           icon: Icon(Icons.arrow_downward),
                           iconSize: 24,
                           elevation: 16,
@@ -482,7 +508,13 @@ class _MyHomePageState extends State<MyHomePage>
                             left: 30.0, top: 0, right: 30, bottom: 0),
                         alignment: Alignment.center,
                         child: DropdownButton<String>(
-                          value: level3,
+                          //value: level3,
+                          hint: Text(
+                            "Select a level 3 account",
+                            /*style: TextStyle(
+                              color,
+                            ),*/
+                          ),
                           icon: Icon(Icons.arrow_downward),
                           iconSize: 24,
                           elevation: 16,
@@ -735,6 +767,12 @@ class _MyHomePageState extends State<MyHomePage>
                         //child: Text('Submit'),
                         child: DropdownButton<String>(
                           value: level1,
+                          hint: Text(
+                            "Select a level 1 account",
+                            /*style: TextStyle(
+                              color,
+                            ),*/
+                          ),
                           icon: Icon(Icons.arrow_downward),
                           iconSize: 24,
                           elevation: 16,
@@ -790,7 +828,13 @@ class _MyHomePageState extends State<MyHomePage>
                         alignment: Alignment.center,
                         //child: Text('Submit'),
                         child: DropdownButton<String>(
-                          value: level2,
+                          //value: level2,
+                          hint: Text(
+                            "Select a level 2 account",
+                            /*style: TextStyle(
+                              color,
+                            ),*/
+                          ),
                           icon: Icon(Icons.arrow_downward),
                           iconSize: 24,
                           elevation: 16,
@@ -843,7 +887,13 @@ class _MyHomePageState extends State<MyHomePage>
                             left: 30.0, top: 0, right: 30, bottom: 0),
                         alignment: Alignment.center,
                         child: DropdownButton<String>(
-                          value: level3,
+                          //value: level3,
+                          hint: Text(
+                            "Select a level 3 account",
+                            /*style: TextStyle(
+                              color,
+                            ),*/
+                          ),
                           icon: Icon(Icons.arrow_downward),
                           iconSize: 24,
                           elevation: 16,
