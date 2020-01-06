@@ -91,10 +91,10 @@ CREATE TABLE ffd.user_dim (
       , year integer
       , month integer
       , day integer
-      , level1_fk integer DEFAULT -1 REFERENCES ffd.account_dim(id)
-      , level2_fk integer DEFAULT -1 REFERENCES ffd.account_dim(id)
-      , level3_fk integer DEFAULT -1 REFERENCES ffd.account_dim(id)
-      , costtype_fk integer DEFAULT -1 REFERENCES ffd.costtype_dim(id)
+      , level1_fk text DEFAULT 'UNDEFINED' --REFERENCES ffd.account_dim(name)
+      , level2_fk text DEFAULT 'UNDEFINED' --REFERENCES ffd.account_dim(name)
+      , level3_fk text DEFAULT 'UNDEFINED' --REFERENCES ffd.account_dim(name)
+      , costtype_fk text DEFAULT 'UNDEFINED' --REFERENCES ffd.costtype_dim(name)
       , user_fk integer DEFAULT -1 REFERENCES ffd.user_dim(id)
       , group_fk integer DEFAULT -1 REFERENCES ffd.group_dim(id)
       , created date DEFAULT now()
@@ -111,10 +111,10 @@ CREATE TABLE ffd.user_dim (
       , year integer
       , month integer
       , day integer
-      , level1_fk integer DEFAULT -1 REFERENCES ffd.account_dim(id)
-      , level2_fk integer DEFAULT -1 REFERENCES ffd.account_dim(id)
-      , level3_fk integer DEFAULT -1 REFERENCES ffd.account_dim(id)
-      , costtype_fk integer DEFAULT -1 REFERENCES ffd.costtype_dim(id)
+      , level1_fk text DEFAULT 'UNDEFINED' --REFERENCES ffd.account_dim(name)
+      , level2_fk text DEFAULT 'UNDEFINED' --REFERENCES ffd.account_dim(name)
+      , level3_fk text DEFAULT 'UNDEFINED' --REFERENCES ffd.account_dim(name)
+      , costtype_fk text DEFAULT 'UNDEFINED' --REFERENCES ffd.costtype_dim(name)
       , user_fk integer DEFAULT -1 REFERENCES ffd.user_dim(id)
       , group_fk integer DEFAULT -1 REFERENCES ffd.group_dim(id)
       , created date DEFAULT now()
