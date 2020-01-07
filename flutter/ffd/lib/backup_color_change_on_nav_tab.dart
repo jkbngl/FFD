@@ -43,21 +43,20 @@ class SalesData {
   final double sales;
 }
 
-class Account{
+class Account {
   const Account(this.id, this.name, this.parentAccount);
 
-  final String name;
   final int id;
+  final String name;
   final int parentAccount;
 }
 
-class CostType{
+class CostType {
   const CostType(this.id, this.name);
 
-  final String name;
   final int id;
+  final String name;
 }
-
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -68,7 +67,8 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>
+    with AfterLayoutMixin<MyHomePage> {
   int _currentIndex = 0;
   PageController _pageController;
 
@@ -83,7 +83,6 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
 
   String costtype = 'UNDEFINED';
 
-
   // Are placeholders which are dynamically filled from the DB
   Account level1ActualObject;
   Account level1BudgetObject;
@@ -93,14 +92,26 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
   Account level3BudgetObject;
   CostType costtypeObject;
 
-  List<Account> level1ActualAccounts = <Account>[];
-  List<Account> level1BudgetAccounts = <Account>[];
-  List<Account> level2ActualAccounts = <Account>[];
-  List<Account> level2BudgetAccounts = <Account>[];
-  List<Account> level3ActualAccounts = <Account>[];
-  List<Account> level3BudgetAccounts = <Account>[];
-  List<CostType> costTypes= <CostType>[];
-
+  // List has to be filled with 1 default account so that we don't get a null error on startup
+  List<Account> level1ActualAccountsList = <Account>[
+    const Account(-1, 'UNDEFINED', null)
+  ];
+  List<Account> level1BudgetAccountsList = <Account>[
+    const Account(-1, 'UNDEFINED', null)
+  ];
+  List<Account> level2ActualAccountsList = <Account>[
+    const Account(-1, 'UNDEFINED', null)
+  ];
+  List<Account> level2BudgetAccountsList = <Account>[
+    const Account(-1, 'UNDEFINED', null)
+  ];
+  List<Account> level3ActualAccountsList = <Account>[
+    const Account(-1, 'UNDEFINED', null)
+  ];
+  List<Account> level3BudgetAccountsList = <Account>[
+    const Account(-1, 'UNDEFINED', null)
+  ];
+  List<CostType> costTypesList = <CostType>[const CostType(-1, 'UNDEFINED')];
 
   // Are placeholders which are dynamically filled from the DB
   var level1Values = {
@@ -119,7 +130,6 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
     '1': 'UNDEFINED',
   };
 
-
   final actualTextFieldController = TextEditingController();
   final budgetTextFieldController = TextEditingController();
 
@@ -127,6 +137,17 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
   void initState() {
     super.initState();
     _pageController = PageController();
+
+    // Init with a default so that we don't get a null error on startup
+    level1ActualObject = level1ActualAccountsList[0];
+    level1ActualObject = level1BudgetAccountsList[0];
+    level1ActualObject = level2ActualAccountsList[0];
+    level1ActualObject = level2BudgetAccountsList[0];
+    level1ActualObject = level3ActualAccountsList[0];
+    level1ActualObject = level3BudgetAccountsList[0];
+    costtypeObject = costTypesList[0];
+
+    print(level1ActualObject.name);
   }
 
   @override
@@ -141,36 +162,50 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
     checkForChanges(true);
   }
 
-  // callback to change if something in the layout needs to be changed
+  // callback to check if something in the layout needs to be changed
   void checkForChanges(bool onStartup) async {
     print("Checking for changes $onStartup");
 
-    var accountLevel1 = await http.read('http://192.168.0.21:5000/api/ffd/accounts/1');
-    var accountLevel2 = await http.read('http://192.168.0.21:5000/api/ffd/accounts/2');
-    var accountLevel3 = await http.read('http://192.168.0.21:5000/api/ffd/accounts/3');
-    var costTypes = await http.read('http://192.168.0.21:5000/api/ffd/costtypes/');
+    var accountLevel1 =
+        await http.read('http://192.168.0.21:5000/api/ffd/accounts/1');
+    var accountLevel2 =
+        await http.read('http://192.168.0.21:5000/api/ffd/accounts/2');
+    var accountLevel3 =
+        await http.read('http://192.168.0.21:5000/api/ffd/accounts/3');
+    var costTypes =
+        await http.read('http://192.168.0.21:5000/api/ffd/costtypes/');
 
     var parsedAccountLevel1 = json.decode(accountLevel1);
     var parsedAccountLevel2 = json.decode(accountLevel2);
     var parsedAccountLevel3 = json.decode(accountLevel3);
     var parsedCostTypes = json.decode(costTypes);
 
-
-    level1ActualObject = new Account(parsedAccountLevel1[0]['id'], parsedAccountLevel1[0]['name'], parsedAccountLevel1[0]['parentAccount']);
-    level1BudgetObject = new Account(parsedAccountLevel1[0]['id'], parsedAccountLevel1[0]['name'], parsedAccountLevel1[0]['parentAccount']);
-    level2ActualObject = new Account(parsedAccountLevel2[0]['id'], parsedAccountLevel2[0]['name'], parsedAccountLevel2[0]['parentAccount']);
-    level2BudgetObject = new Account(parsedAccountLevel2[0]['id'], parsedAccountLevel2[0]['name'], parsedAccountLevel2[0]['parentAccount']);
-    level3ActualObject = new Account(parsedAccountLevel3[0]['id'], parsedAccountLevel3[0]['name'], parsedAccountLevel3[0]['parentAccount']);
-    level3BudgetObject = new Account(parsedAccountLevel3[0]['id'], parsedAccountLevel3[0]['name'], parsedAccountLevel3[0]['parentAccount']);
-
-    costtypeObject = new CostType(parsedCostTypes[0]['id'], parsedCostTypes[0]['name']);
-
-
-    int i = 0;
-
-    // level1Values = null;
-    // level2Values = null;
-    // level3Values = null;
+    level1ActualObject = new Account(
+        parsedAccountLevel1[0]['id'],
+        parsedAccountLevel1[0]['name'],
+        parsedAccountLevel1[0]['parentAccount']);
+    level1BudgetObject = new Account(
+        parsedAccountLevel1[0]['id'],
+        parsedAccountLevel1[0]['name'],
+        parsedAccountLevel1[0]['parentAccount']);
+    level2ActualObject = new Account(
+        parsedAccountLevel2[0]['id'],
+        parsedAccountLevel2[0]['name'],
+        parsedAccountLevel2[0]['parentAccount']);
+    level2BudgetObject = new Account(
+        parsedAccountLevel2[0]['id'],
+        parsedAccountLevel2[0]['name'],
+        parsedAccountLevel2[0]['parentAccount']);
+    level3ActualObject = new Account(
+        parsedAccountLevel3[0]['id'],
+        parsedAccountLevel3[0]['name'],
+        parsedAccountLevel3[0]['parentAccount']);
+    level3BudgetObject = new Account(
+        parsedAccountLevel3[0]['id'],
+        parsedAccountLevel3[0]['name'],
+        parsedAccountLevel3[0]['parentAccount']);
+    costtypeObject =
+        new CostType(parsedCostTypes[0]['id'], parsedCostTypes[0]['name']);
 
     level1Actual = parsedAccountLevel1[0]['name'];
     level1Budget = parsedAccountLevel1[0]['name'];
@@ -178,9 +213,9 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
     level2Budget = parsedAccountLevel2[0]['name'];
     level3Actual = parsedAccountLevel3[0]['name'];
     level3Budget = parsedAccountLevel3[0]['name'];
-
     costtype = parsedCostTypes[0]['name'];
 
+    int i = 0;
 
     for (var account in parsedAccountLevel1) {
       //level1Values.
@@ -209,7 +244,6 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
       i++;
     }
 
-
     /*
     showDialog(
       context: context,
@@ -225,17 +259,15 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
       ),
     );
     */
-
   }
 
   void sendBackend(String type) async {
-
     var url = 'http://192.168.0.21:5000/api/ffd/';
 
     var params = {
       "doctor_id": "DOC000506",
-      "date_range": "25/03/2019-25/03/2019" ,
-      "clinic_id":"LAD000404"
+      "date_range": "25/03/2019-25/03/2019",
+      "clinic_id": "LAD000404"
     };
 
     // Used to determine between actual and budget
@@ -244,29 +276,28 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
     String level3Local;
     int amount;
 
-    if(type.toLowerCase() == 'actual') {
+    if (type.toLowerCase() == 'actual') {
       level1Local = level1Actual;
       level2Local = level2Actual;
       level3Local = level3Actual;
       amount = int.parse(actualTextFieldController.text);
-    }
-    else if (type.toLowerCase() == 'budget') {
+    } else if (type.toLowerCase() == 'budget') {
       level1Local = level1Budget;
       level2Local = level2Budget;
       level3Local = level3Budget;
       amount = int.parse(budgetTextFieldController.text);
     }
 
-    var body = {'amount': amount.toString()
-      , 'level1': level1Local
-      , 'level2': level2Local
-      , 'level3': level3Local
-      , 'costtype': costtype
-      , 'status': 'IP'
-      , 'user': "1"
-      , 'type': type,
+    var body = {
+      'amount': amount.toString(),
+      'level1': level1Local,
+      'level2': level2Local,
+      'level3': level3Local,
+      'costtype': costtype,
+      'status': 'IP',
+      'user': "1",
+      'type': type,
     };
-
 
     var response = await http.post(url, body: body);
 
@@ -283,7 +314,6 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
         ],
       ),
     );
-
 
     /*var response2 = await http.read('http://192.168.0.21:5000/api/ffd/accounts');
 
@@ -303,8 +333,6 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
 
   @override
   Widget build(BuildContext context) {
-    // Check if something in the settings has been changed, if yes set the vars and widgets accordingly
-
     return Scaffold(
       appBar: AppBar(title: Text("FFD")),
       body: SizedBox.expand(
@@ -312,99 +340,107 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
           controller: _pageController,
           onPageChanged: (index) {
             setState(() => _currentIndex = index);
+
+            // Check if something in the settings has been changed, if yes set the vars and widgets accordingly
             checkForChanges(false);
           },
           children: <Widget>[
-        CustomScrollView(
-        slivers: [
-        SliverFillRemaining(
-          hasScrollBody: false,
-          child: Container(
-                color: Color(0xfff9f9f9),
-                //color: Color(0xffffffff),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width * .48,
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        color: Colors.green,
-                        elevation: 10,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            const ListTile(
-                              leading: Icon(Icons.album, size: 70),
-                              title: Text('Actual',
-                                  style: TextStyle(color: Colors.white)),
-                              subtitle: Text('TWICE',
-                                  style: TextStyle(color: Colors.white)),
-                            ),
-                            ButtonTheme.bar(
-                              child: ButtonBar(
+            CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Container(
+                      color: Color(0xfff9f9f9),
+                      //color: Color(0xffffffff),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            width: MediaQuery.of(context).size.width * .48,
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              color: Colors.green,
+                              elevation: 10,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
-                                  FlatButton(
-                                    child: const Text('Edit',
+                                  const ListTile(
+                                    leading: Icon(Icons.album, size: 70),
+                                    title: Text('Actual',
                                         style: TextStyle(color: Colors.white)),
-                                    onPressed: () {},
+                                    subtitle: Text('TWICE',
+                                        style: TextStyle(color: Colors.white)),
                                   ),
-                                  FlatButton(
-                                    child: const Text('Delete',
-                                        style: TextStyle(color: Colors.white)),
-                                    onPressed: () {},
+                                  ButtonTheme.bar(
+                                    child: ButtonBar(
+                                      children: <Widget>[
+                                        FlatButton(
+                                          child: const Text('Edit',
+                                              style: TextStyle(
+                                                  color: Colors.white)),
+                                          onPressed: () {},
+                                        ),
+                                        FlatButton(
+                                          child: const Text('Delete',
+                                              style: TextStyle(
+                                                  color: Colors.white)),
+                                          onPressed: () {},
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * .48,
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        color: Colors.red,
-                        elevation: 10,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            const ListTile(
-                              leading: Icon(Icons.album, size: 70),
-                              title: Text('Budget',
-                                  style: TextStyle(color: Colors.white)),
-                              subtitle: Text('TWICE',
-                                  style: TextStyle(color: Colors.white)),
-                            ),
-                            ButtonTheme.bar(
-                              child: ButtonBar(
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * .48,
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              color: Colors.red,
+                              elevation: 10,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
-                                  FlatButton(
-                                    child: const Text('Edit',
+                                  const ListTile(
+                                    leading: Icon(Icons.album, size: 70),
+                                    title: Text('Budget',
                                         style: TextStyle(color: Colors.white)),
-                                    onPressed: () {},
+                                    subtitle: Text('TWICE',
+                                        style: TextStyle(color: Colors.white)),
                                   ),
-                                  FlatButton(
-                                    child: const Text('Delete',
-                                        style: TextStyle(color: Colors.white)),
-                                    onPressed: () {},
+                                  ButtonTheme.bar(
+                                    child: ButtonBar(
+                                      children: <Widget>[
+                                        FlatButton(
+                                          child: const Text('Edit',
+                                              style: TextStyle(
+                                                  color: Colors.white)),
+                                          onPressed: () {},
+                                        ),
+                                        FlatButton(
+                                          child: const Text('Delete',
+                                              style: TextStyle(
+                                                  color: Colors.white)),
+                                          onPressed: () {},
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-            ),),],),
+                          ),
+                        ],
+                      )),
+                ),
+              ],
+            ),
             CustomScrollView(
               slivers: [
                 SliverFillRemaining(
@@ -475,14 +511,14 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                         //color: Colors.blue[600],
                         alignment: Alignment.center,
                         //child: Text('Submit'),
-                        child: DropdownButton<String>(
-                          value: level1Actual,
+                        child: DropdownButton<Account>(
+                          value: level1ActualObject,
                           hint: Text(
-                              "Select a level 1 account",
+                            "Select a level 1 account",
                             /*style: TextStyle(
                               color,
                             ),*/
-                            ),
+                          ),
                           icon: Icon(Icons.arrow_downward),
                           iconSize: 24,
                           elevation: 16,
@@ -493,21 +529,24 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                             width: 5000,
                             color: Color(0xff0957FF),
                           ),
-                          onChanged: (String newValue) {
+                          onChanged: (Account newValue) {
                             setState(() {
-                              level1Actual = newValue;
+                              level1ActualObject = newValue;
                             });
                           },
-                          items: level1Values.entries
-                              .map<DropdownMenuItem<String>>(
-                                  (MapEntry<String, String> e) => DropdownMenuItem<String>(
-                                value: e.value, // e.key
-                                child: Text(e.value,),
-                              ))
-                              .toList(),
-
+                          items:
+                              level1ActualAccountsList.map((Account account) {
+                            return new DropdownMenuItem<Account>(
+                              value: account,
+                              child: new Text(
+                                account.name,
+                                style: new TextStyle(color: Colors.black),
+                              ),
+                            );
+                          }).toList(),
                         ),
                       ),
+                      new Text("selected user name is ${level1ActualObject.name} : and Id is : ${level1ActualObject.id}"),
                       Container(
                         constraints: BoxConstraints.expand(
                           height: 50,
@@ -542,10 +581,11 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                           },
                           items: level2Values.entries
                               .map<DropdownMenuItem<String>>(
-                                  (MapEntry<String, String> e) => DropdownMenuItem<String>(
-                                value: e.value,
-                                child: Text(e.value),
-                              ))
+                                  (MapEntry<String, String> e) =>
+                                      DropdownMenuItem<String>(
+                                        value: e.value,
+                                        child: Text(e.value),
+                                      ))
                               .toList(),
                         ),
                       ),
@@ -581,10 +621,11 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                           },
                           items: level3Values.entries
                               .map<DropdownMenuItem<String>>(
-                                  (MapEntry<String, String> e) => DropdownMenuItem<String>(
-                                value: e.value,
-                                child: Text(e.value),
-                              ))
+                                  (MapEntry<String, String> e) =>
+                                      DropdownMenuItem<String>(
+                                        value: e.value,
+                                        child: Text(e.value),
+                                      ))
                               .toList(),
                         ),
                       ),
@@ -617,10 +658,11 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                             },
                             items: costtypesValues.entries
                                 .map<DropdownMenuItem<String>>(
-                                    (MapEntry<String, String> e) => DropdownMenuItem<String>(
-                                  value: e.value,
-                                  child: Text(e.value),
-                                ))
+                                    (MapEntry<String, String> e) =>
+                                        DropdownMenuItem<String>(
+                                          value: e.value,
+                                          child: Text(e.value),
+                                        ))
                                 .toList(),
                           ),
                         ),
@@ -754,13 +796,13 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                             });
                           },
                           items: level1Values.entries
-                            .map<DropdownMenuItem<String>>(
-                              (MapEntry<String, String> e) => DropdownMenuItem<String>(
-                                value: e.value,
-                                child: Text(e.value),
-                              )
-                            )
-                            .toList(),
+                              .map<DropdownMenuItem<String>>(
+                                  (MapEntry<String, String> e) =>
+                                      DropdownMenuItem<String>(
+                                        value: e.value,
+                                        child: Text(e.value),
+                                      ))
+                              .toList(),
                         ),
                       ),
                       Container(
@@ -796,12 +838,13 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                             });
                           },
                           items: level2Values.entries
-                            .map<DropdownMenuItem<String>>(
-                            (MapEntry<String, String> e) => DropdownMenuItem<String>(
-                      value: e.value,
-                        child: Text(e.value),
-                      ))
-        .toList(),
+                              .map<DropdownMenuItem<String>>(
+                                  (MapEntry<String, String> e) =>
+                                      DropdownMenuItem<String>(
+                                        value: e.value,
+                                        child: Text(e.value),
+                                      ))
+                              .toList(),
                         ),
                       ),
                       Container(
@@ -836,10 +879,11 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                           },
                           items: level3Values.entries
                               .map<DropdownMenuItem<String>>(
-                                  (MapEntry<String, String> e) => DropdownMenuItem<String>(
-                                value: e.value,
-                                child: Text(e.value),
-                              ))
+                                  (MapEntry<String, String> e) =>
+                                      DropdownMenuItem<String>(
+                                        value: e.value,
+                                        child: Text(e.value),
+                                      ))
                               .toList(),
                         ),
                       ),
@@ -873,10 +917,11 @@ class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePag
                             },
                             items: costtypesValues.entries
                                 .map<DropdownMenuItem<String>>(
-                                    (MapEntry<String, String> e) => DropdownMenuItem<String>(
-                                  value: e.value,
-                                  child: Text(e.value),
-                                ))
+                                    (MapEntry<String, String> e) =>
+                                        DropdownMenuItem<String>(
+                                          value: e.value,
+                                          child: Text(e.value),
+                                        ))
                                 .toList(),
                           ),
                         ),
