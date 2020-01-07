@@ -43,8 +43,16 @@ class SalesData {
   final double sales;
 }
 
-class KeyValueObject{
-  const KeyValueObject(this.id,this.name);
+class Account{
+  const Account(this.id, this.name, this.parentAccount);
+
+  final String name;
+  final int id;
+  final int parentAccount;
+}
+
+class CostType{
+  const CostType(this.id, this.name);
 
   final String name;
   final int id;
@@ -60,10 +68,60 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>
-    with AfterLayoutMixin<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with AfterLayoutMixin<MyHomePage> {
   int _currentIndex = 0;
   PageController _pageController;
+
+  String level1Actual = 'UNDEFINED';
+  String level1Budget = 'UNDEFINED';
+
+  String level2Actual = 'UNDEFINED';
+  String level2Budget = 'UNDEFINED';
+
+  String level3Actual = 'UNDEFINED';
+  String level3Budget = 'UNDEFINED';
+
+  String costtype = 'UNDEFINED';
+
+
+  // Are placeholders which are dynamically filled from the DB
+  Account level1ActualObject;
+  Account level1BudgetObject;
+  Account level2ActualObject;
+  Account level2BudgetObject;
+  Account level3ActualObject;
+  Account level3BudgetObject;
+  CostType costtypeObject;
+
+  List<Account> level1ActualAccounts = <Account>[];
+  List<Account> level1BudgetAccounts = <Account>[];
+  List<Account> level2ActualAccounts = <Account>[];
+  List<Account> level2BudgetAccounts = <Account>[];
+  List<Account> level3ActualAccounts = <Account>[];
+  List<Account> level3BudgetAccounts = <Account>[];
+  List<CostType> costTypes= <CostType>[];
+
+
+  // Are placeholders which are dynamically filled from the DB
+  var level1Values = {
+    '1': 'UNDEFINED',
+  };
+
+  var level2Values = {
+    '1': 'UNDEFINED',
+  };
+
+  var level3Values = {
+    '1': 'UNDEFINED',
+  };
+
+  var costtypesValues = {
+    '1': 'UNDEFINED',
+  };
+
+
+  final actualTextFieldController = TextEditingController();
+  final budgetTextFieldController = TextEditingController();
 
   @override
   void initState() {
@@ -96,6 +154,16 @@ class _MyHomePageState extends State<MyHomePage>
     var parsedAccountLevel2 = json.decode(accountLevel2);
     var parsedAccountLevel3 = json.decode(accountLevel3);
     var parsedCostTypes = json.decode(costTypes);
+
+
+    level1ActualObject = new Account(parsedAccountLevel1[0]['id'], parsedAccountLevel1[0]['name'], parsedAccountLevel1[0]['parentAccount']);
+    level1BudgetObject = new Account(parsedAccountLevel1[0]['id'], parsedAccountLevel1[0]['name'], parsedAccountLevel1[0]['parentAccount']);
+    level2ActualObject = new Account(parsedAccountLevel2[0]['id'], parsedAccountLevel2[0]['name'], parsedAccountLevel2[0]['parentAccount']);
+    level2BudgetObject = new Account(parsedAccountLevel2[0]['id'], parsedAccountLevel2[0]['name'], parsedAccountLevel2[0]['parentAccount']);
+    level3ActualObject = new Account(parsedAccountLevel3[0]['id'], parsedAccountLevel3[0]['name'], parsedAccountLevel3[0]['parentAccount']);
+    level3BudgetObject = new Account(parsedAccountLevel3[0]['id'], parsedAccountLevel3[0]['name'], parsedAccountLevel3[0]['parentAccount']);
+
+    costtypeObject = new CostType(parsedCostTypes[0]['id'], parsedCostTypes[0]['name']);
 
 
     int i = 0;
@@ -232,39 +300,6 @@ class _MyHomePageState extends State<MyHomePage>
       ),
     );*/
   }
-
-  String level1Actual = 'UNDEFINED';
-  String level1Budget = 'UNDEFINED';
-
-  String level2Actual = 'UNDEFINED';
-  String level2Budget = 'UNDEFINED';
-
-  String level3Actual = 'UNDEFINED';
-  String level3Budget = 'UNDEFINED';
-
-  String costtype = 'UNDEFINED';
-
-  // Are placeholders which are dynamically filled from the DB
-  var level1Values = {
-    '1': 'UNDEFINED',
-  };
-
-  var level2Values = {
-    '1': 'UNDEFINED',
-  };
-
-  var level3Values = {
-    '1': 'UNDEFINED',
-  };
-
-  var costtypesValues = {
-    '1': 'UNDEFINED',
-  };
-
-
-  final actualTextFieldController = TextEditingController();
-  final budgetTextFieldController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
