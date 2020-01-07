@@ -185,7 +185,12 @@ class _MyHomePageState extends State<MyHomePage>
     for (var account in parsedAccountLevel1) {
       //level1Values.
       level1Values[i.toString()] = account['name'];
-      level1AccountsList.add(new Account(account['id'], account['name'], account['parentAccount']));
+
+      if(!level1AccountsList.contains(new Account(account['id'], account['name'], account['parentAccount'])))
+      {
+        level1AccountsList.add(new Account(account['id'], account['name'], account['parentAccount']));
+      }
+
       i++;
     }
 
@@ -193,7 +198,12 @@ class _MyHomePageState extends State<MyHomePage>
 
     for (var account in parsedAccountLevel2) {
       level2Values[i.toString()] = account['name'];
-      level2AccountsList.add(new Account(account['id'], account['name'], account['parentAccount']));
+
+      if(!level2AccountsList.contains(new Account(account['id'], account['name'], account['parentAccount'])))
+      {
+        level2AccountsList.add(new Account(account['id'], account['name'], account['parentAccount']));
+      }
+
       i++;
     }
 
@@ -201,7 +211,11 @@ class _MyHomePageState extends State<MyHomePage>
 
     for (var account in parsedAccountLevel3) {
       level3Values[i.toString()] = account['name'];
-      level3AccountsList.add(new Account(account['id'], account['name'], account['parentAccount']));
+      
+      if(!level3AccountsList.contains(new Account(account['id'], account['name'], account['parentAccount'])))
+      {
+        level3AccountsList.add(new Account(account['id'], account['name'], account['parentAccount']));
+      }
       i++;
     }
 
@@ -209,7 +223,9 @@ class _MyHomePageState extends State<MyHomePage>
 
     for (var type in parsedCostTypes) {
       costtypesValues[i.toString()] = type['name'];
-      costTypesList.add(new CostType(type['id'], type['name']));
+
+      if(!costTypesList.contains(new CostType(type['id'], type['name'])))
+        costTypesList.add(new CostType(type['id'], type['name']));
 
       i++;
     }
@@ -856,7 +872,7 @@ class _MyHomePageState extends State<MyHomePage>
                             });
                           },
                           items:
-                          level1AccountsList.map((Account account) {
+                          level3AccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
