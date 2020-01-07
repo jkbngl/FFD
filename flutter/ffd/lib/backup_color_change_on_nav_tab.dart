@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage>
   Account level2BudgetObject;
   Account level3ActualObject;
   Account level3BudgetObject;
-  CostType costtypeObject;
+  CostType costTypeObject;
 
   // List has to be filled with 1 default account so that we don't get a null error on startup
   List<Account> level1ActualAccountsList = <Account>[
@@ -140,12 +140,12 @@ class _MyHomePageState extends State<MyHomePage>
 
     // Init with a default so that we don't get a null error on startup
     level1ActualObject = level1ActualAccountsList[0];
-    level1ActualObject = level1BudgetAccountsList[0];
-    level1ActualObject = level2ActualAccountsList[0];
-    level1ActualObject = level2BudgetAccountsList[0];
-    level1ActualObject = level3ActualAccountsList[0];
-    level1ActualObject = level3BudgetAccountsList[0];
-    costtypeObject = costTypesList[0];
+    level1BudgetObject = level1BudgetAccountsList[0];
+    level2ActualObject = level2ActualAccountsList[0];
+    level2BudgetObject = level2BudgetAccountsList[0];
+    level3ActualObject = level3ActualAccountsList[0];
+    level3BudgetObject = level3BudgetAccountsList[0];
+    costTypeObject = costTypesList[0];
 
     print(level1ActualObject.name);
   }
@@ -179,33 +179,6 @@ class _MyHomePageState extends State<MyHomePage>
     var parsedAccountLevel2 = json.decode(accountLevel2);
     var parsedAccountLevel3 = json.decode(accountLevel3);
     var parsedCostTypes = json.decode(costTypes);
-
-    level1ActualObject = new Account(
-        parsedAccountLevel1[0]['id'],
-        parsedAccountLevel1[0]['name'],
-        parsedAccountLevel1[0]['parentAccount']);
-    level1BudgetObject = new Account(
-        parsedAccountLevel1[0]['id'],
-        parsedAccountLevel1[0]['name'],
-        parsedAccountLevel1[0]['parentAccount']);
-    level2ActualObject = new Account(
-        parsedAccountLevel2[0]['id'],
-        parsedAccountLevel2[0]['name'],
-        parsedAccountLevel2[0]['parentAccount']);
-    level2BudgetObject = new Account(
-        parsedAccountLevel2[0]['id'],
-        parsedAccountLevel2[0]['name'],
-        parsedAccountLevel2[0]['parentAccount']);
-    level3ActualObject = new Account(
-        parsedAccountLevel3[0]['id'],
-        parsedAccountLevel3[0]['name'],
-        parsedAccountLevel3[0]['parentAccount']);
-    level3BudgetObject = new Account(
-        parsedAccountLevel3[0]['id'],
-        parsedAccountLevel3[0]['name'],
-        parsedAccountLevel3[0]['parentAccount']);
-    costtypeObject =
-        new CostType(parsedCostTypes[0]['id'], parsedCostTypes[0]['name']);
 
     level1Actual = parsedAccountLevel1[0]['name'];
     level1Budget = parsedAccountLevel1[0]['name'];
