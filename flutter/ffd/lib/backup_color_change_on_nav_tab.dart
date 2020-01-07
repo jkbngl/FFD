@@ -93,23 +93,14 @@ class _MyHomePageState extends State<MyHomePage>
   CostType costTypeObject;
 
   // List has to be filled with 1 default account so that we don't get a null error on startup
-  List<Account> level1ActualAccountsList = <Account>[
+  List<Account> level1AccountsList = <Account>[
     const Account(-1, 'UNDEFINED', null),
     const Account(0, 'DEFINED', null)
   ];
-  List<Account> level1BudgetAccountsList = <Account>[
+  List<Account> level2AccountsList = <Account>[
     const Account(-1, 'UNDEFINED', null)
   ];
-  List<Account> level2ActualAccountsList = <Account>[
-    const Account(-1, 'UNDEFINED', null)
-  ];
-  List<Account> level2BudgetAccountsList = <Account>[
-    const Account(-1, 'UNDEFINED', null)
-  ];
-  List<Account> level3ActualAccountsList = <Account>[
-    const Account(-1, 'UNDEFINED', null)
-  ];
-  List<Account> level3BudgetAccountsList = <Account>[
+  List<Account> level3AccountsList = <Account>[
     const Account(-1, 'UNDEFINED', null)
   ];
   List<CostType> costTypesList = <CostType>[const CostType(-1, 'UNDEFINED')];
@@ -140,12 +131,12 @@ class _MyHomePageState extends State<MyHomePage>
     _pageController = PageController();
 
     // Init with a default so that we don't get a null error on startup
-    level1ActualObject = level1ActualAccountsList[0];
-    level1BudgetObject = level1BudgetAccountsList[0];
-    level2ActualObject = level2ActualAccountsList[0];
-    level2BudgetObject = level2BudgetAccountsList[0];
-    level3ActualObject = level3ActualAccountsList[0];
-    level3BudgetObject = level3BudgetAccountsList[0];
+    level1ActualObject = level1AccountsList[0];
+    level1BudgetObject = level1AccountsList[0];
+    level2ActualObject = level2AccountsList[0];
+    level2BudgetObject = level2AccountsList[0];
+    level3ActualObject = level3AccountsList[0];
+    level3BudgetObject = level3AccountsList[0];
     costTypeObject = costTypesList[0];
 
     print(level1ActualObject.name);
@@ -194,6 +185,7 @@ class _MyHomePageState extends State<MyHomePage>
     for (var account in parsedAccountLevel1) {
       //level1Values.
       level1Values[i.toString()] = account['name'];
+      level1AccountsList.add(new Account(account['id'], account['name'], account['parentAccount']));
       i++;
     }
 
@@ -201,6 +193,7 @@ class _MyHomePageState extends State<MyHomePage>
 
     for (var account in parsedAccountLevel2) {
       level2Values[i.toString()] = account['name'];
+      level2AccountsList.add(new Account(account['id'], account['name'], account['parentAccount']));
       i++;
     }
 
@@ -208,13 +201,16 @@ class _MyHomePageState extends State<MyHomePage>
 
     for (var account in parsedAccountLevel3) {
       level3Values[i.toString()] = account['name'];
+      level3AccountsList.add(new Account(account['id'], account['name'], account['parentAccount']));
       i++;
     }
 
     i = 0;
 
-    for (var types in parsedCostTypes) {
-      costtypesValues[i.toString()] = types['name'];
+    for (var type in parsedCostTypes) {
+      costtypesValues[i.toString()] = type['name'];
+      costTypesList.add(new CostType(type['id'], type['name']));
+
       i++;
     }
 
@@ -509,7 +505,7 @@ class _MyHomePageState extends State<MyHomePage>
                             });
                           },
                           items:
-                              level1ActualAccountsList.map((Account account) {
+                              level1AccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -529,8 +525,8 @@ class _MyHomePageState extends State<MyHomePage>
                         //color: Colors.blue[600],
                         alignment: Alignment.center,
                         //child: Text('Submit'),
-                        child: DropdownButton<String>(
-                          value: level2Actual,
+                        child: DropdownButton<Account>(
+                          value: level2ActualObject,
                           hint: Text(
                             "Select a level 2 account",
                             /*style: TextStyle(
@@ -547,19 +543,21 @@ class _MyHomePageState extends State<MyHomePage>
                             width: 5000,
                             color: Color(0xff0957FF),
                           ),
-                          onChanged: (String newValue) {
+                          onChanged: (Account newValue) {
                             setState(() {
-                              level2Actual = newValue;
+                              level2ActualObject = newValue;
                             });
                           },
-                          items: level2Values.entries
-                              .map<DropdownMenuItem<String>>(
-                                  (MapEntry<String, String> e) =>
-                                      DropdownMenuItem<String>(
-                                        value: e.value,
-                                        child: Text(e.value),
-                                      ))
-                              .toList(),
+                          items:
+                          level2AccountsList.map((Account account) {
+                            return new DropdownMenuItem<Account>(
+                              value: account,
+                              child: new Text(
+                                account.name,
+                                style: new TextStyle(color: Colors.black),
+                              ),
+                            );
+                          }).toList(),
                         ),
                       ),
                       Container(
@@ -569,8 +567,8 @@ class _MyHomePageState extends State<MyHomePage>
                         padding: const EdgeInsets.only(
                             left: 30.0, top: 0, right: 30, bottom: 0),
                         alignment: Alignment.center,
-                        child: DropdownButton<String>(
-                          value: level3Actual,
+                        child: DropdownButton<Account>(
+                          value: level1ActualObject,
                           hint: Text(
                             "Select a level 3 account",
                             /*style: TextStyle(
@@ -587,19 +585,21 @@ class _MyHomePageState extends State<MyHomePage>
                             width: 5000,
                             color: Color(0xff0957FF),
                           ),
-                          onChanged: (String newValue) {
+                          onChanged: (Account newValue) {
                             setState(() {
-                              level3Actual = newValue;
+                              level3ActualObject = newValue;
                             });
                           },
-                          items: level3Values.entries
-                              .map<DropdownMenuItem<String>>(
-                                  (MapEntry<String, String> e) =>
-                                      DropdownMenuItem<String>(
-                                        value: e.value,
-                                        child: Text(e.value),
-                                      ))
-                              .toList(),
+                          items:
+                          level3AccountsList.map((Account account) {
+                            return new DropdownMenuItem<Account>(
+                              value: account,
+                              child: new Text(
+                                account.name,
+                                style: new TextStyle(color: Colors.black),
+                              ),
+                            );
+                          }).toList(),
                         ),
                       ),
                       Container(
@@ -613,8 +613,8 @@ class _MyHomePageState extends State<MyHomePage>
                         //child: Text('Submit'),
                         child: Align(
                           alignment: Alignment.topRight,
-                          child: DropdownButton<String>(
-                            value: costtype,
+                          child: DropdownButton<CostType>(
+                            value: costTypeObject,
                             icon: Icon(Icons.arrow_downward),
                             iconSize: 24,
                             elevation: 16,
@@ -624,19 +624,20 @@ class _MyHomePageState extends State<MyHomePage>
                               width: 2000,
                               color: Color(0xff0957FF),
                             ),
-                            onChanged: (String newValue) {
+                            onChanged: (CostType newValue) {
                               setState(() {
-                                costtype = newValue;
+                                costTypeObject = newValue;
                               });
                             },
-                            items: costtypesValues.entries
-                                .map<DropdownMenuItem<String>>(
-                                    (MapEntry<String, String> e) =>
-                                        DropdownMenuItem<String>(
-                                          value: e.value,
-                                          child: Text(e.value),
-                                        ))
-                                .toList(),
+                            items: costTypesList.map((CostType type) {
+                              return new DropdownMenuItem<CostType>(
+                                value: type,
+                                child: new Text(
+                                  type.name,
+                                  style: new TextStyle(color: Colors.black),
+                                ),
+                              );
+                            }).toList(),
                           ),
                         ),
                       ),
@@ -745,8 +746,8 @@ class _MyHomePageState extends State<MyHomePage>
                         //color: Colors.blue[600],
                         alignment: Alignment.center,
                         //child: Text('Submit'),
-                        child: DropdownButton<String>(
-                          value: level1Budget,
+                        child: DropdownButton<Account>(
+                          value: level1BudgetObject,
                           hint: Text(
                             "Select a level 1 account",
                             /*style: TextStyle(
@@ -763,19 +764,21 @@ class _MyHomePageState extends State<MyHomePage>
                             width: 5000,
                             color: Color(0xff0957FF),
                           ),
-                          onChanged: (String newValue) {
+                          onChanged: (Account newValue) {
                             setState(() {
-                              level1Budget = newValue;
+                              level1BudgetObject = newValue;
                             });
                           },
-                          items: level1Values.entries
-                              .map<DropdownMenuItem<String>>(
-                                  (MapEntry<String, String> e) =>
-                                      DropdownMenuItem<String>(
-                                        value: e.value,
-                                        child: Text(e.value),
-                                      ))
-                              .toList(),
+                          items:
+                          level1AccountsList.map((Account account) {
+                            return new DropdownMenuItem<Account>(
+                              value: account,
+                              child: new Text(
+                                account.name,
+                                style: new TextStyle(color: Colors.black),
+                              ),
+                            );
+                          }).toList(),
                         ),
                       ),
                       Container(
@@ -787,8 +790,8 @@ class _MyHomePageState extends State<MyHomePage>
                         //color: Colors.blue[600],
                         alignment: Alignment.center,
                         //child: Text('Submit'),
-                        child: DropdownButton<String>(
-                          value: level2Budget,
+                        child: DropdownButton<Account>(
+                          value: level2BudgetObject,
                           hint: Text(
                             "Select a level 2 account",
                             /*style: TextStyle(
@@ -805,19 +808,21 @@ class _MyHomePageState extends State<MyHomePage>
                             width: 5000,
                             color: Color(0xff0957FF),
                           ),
-                          onChanged: (String newValue) {
+                          onChanged: (Account newValue) {
                             setState(() {
-                              level2Budget = newValue;
+                              level1ActualObject = newValue;
                             });
                           },
-                          items: level2Values.entries
-                              .map<DropdownMenuItem<String>>(
-                                  (MapEntry<String, String> e) =>
-                                      DropdownMenuItem<String>(
-                                        value: e.value,
-                                        child: Text(e.value),
-                                      ))
-                              .toList(),
+                          items:
+                          level2AccountsList.map((Account account) {
+                            return new DropdownMenuItem<Account>(
+                              value: account,
+                              child: new Text(
+                                account.name,
+                                style: new TextStyle(color: Colors.black),
+                              ),
+                            );
+                          }).toList(),
                         ),
                       ),
                       Container(
@@ -827,8 +832,8 @@ class _MyHomePageState extends State<MyHomePage>
                         padding: const EdgeInsets.only(
                             left: 30.0, top: 0, right: 30, bottom: 0),
                         alignment: Alignment.center,
-                        child: DropdownButton<String>(
-                          value: level3Budget,
+                        child: DropdownButton<Account>(
+                          value: level3BudgetObject,
                           hint: Text(
                             "Select a level 3 account",
                             /*style: TextStyle(
@@ -845,19 +850,21 @@ class _MyHomePageState extends State<MyHomePage>
                             width: 5000,
                             color: Color(0xff0957FF),
                           ),
-                          onChanged: (String newValue) {
+                          onChanged: (Account newValue) {
                             setState(() {
-                              level3Budget = newValue;
+                              level3BudgetObject = newValue;
                             });
                           },
-                          items: level3Values.entries
-                              .map<DropdownMenuItem<String>>(
-                                  (MapEntry<String, String> e) =>
-                                      DropdownMenuItem<String>(
-                                        value: e.value,
-                                        child: Text(e.value),
-                                      ))
-                              .toList(),
+                          items:
+                          level1AccountsList.map((Account account) {
+                            return new DropdownMenuItem<Account>(
+                              value: account,
+                              child: new Text(
+                                account.name,
+                                style: new TextStyle(color: Colors.black),
+                              ),
+                            );
+                          }).toList(),
                         ),
                       ),
                       Container(
@@ -871,8 +878,8 @@ class _MyHomePageState extends State<MyHomePage>
                         //child: Text('Submit'),
                         child: Align(
                           alignment: Alignment.topRight,
-                          child: DropdownButton<String>(
-                            value: costtype,
+                          child: DropdownButton<CostType>(
+                            value: costTypeObject,
                             icon: Icon(Icons.arrow_downward),
                             iconSize: 24,
                             elevation: 16,
@@ -883,19 +890,20 @@ class _MyHomePageState extends State<MyHomePage>
                               width: 2000,
                               color: Color(0xff0957FF),
                             ),
-                            onChanged: (String newValue) {
+                            onChanged: (CostType newValue) {
                               setState(() {
-                                costtype = newValue;
+                                costTypeObject = newValue;
                               });
                             },
-                            items: costtypesValues.entries
-                                .map<DropdownMenuItem<String>>(
-                                    (MapEntry<String, String> e) =>
-                                        DropdownMenuItem<String>(
-                                          value: e.value,
-                                          child: Text(e.value),
-                                        ))
-                                .toList(),
+                            items: costTypesList.map((CostType type) {
+                              return new DropdownMenuItem<CostType>(
+                                value: type,
+                                child: new Text(
+                                  type.name,
+                                  style: new TextStyle(color: Colors.black),
+                                ),
+                              );
+                            }).toList(),
                           ),
                         ),
                       ),
