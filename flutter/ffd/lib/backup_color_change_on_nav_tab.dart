@@ -94,7 +94,8 @@ class _MyHomePageState extends State<MyHomePage>
 
   // List has to be filled with 1 default account so that we don't get a null error on startup
   List<Account> level1ActualAccountsList = <Account>[
-    const Account(-1, 'UNDEFINED', null)
+    const Account(-1, 'UNDEFINED', null),
+    const Account(0, 'DEFINED', null)
   ];
   List<Account> level1BudgetAccountsList = <Account>[
     const Account(-1, 'UNDEFINED', null)
@@ -519,7 +520,6 @@ class _MyHomePageState extends State<MyHomePage>
                           }).toList(),
                         ),
                       ),
-                      new Text("selected user name is ${level1ActualObject.name} : and Id is : ${level1ActualObject.id}"),
                       Container(
                         constraints: BoxConstraints.expand(
                           height: 50,
