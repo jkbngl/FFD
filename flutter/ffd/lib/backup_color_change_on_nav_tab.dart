@@ -72,17 +72,6 @@ class _MyHomePageState extends State<MyHomePage>
   int _currentIndex = 0;
   PageController _pageController;
 
-  String level1Actual = 'UNDEFINED';
-  String level1Budget = 'UNDEFINED';
-
-  String level2Actual = 'UNDEFINED';
-  String level2Budget = 'UNDEFINED';
-
-  String level3Actual = 'UNDEFINED';
-  String level3Budget = 'UNDEFINED';
-
-  String costtype = 'UNDEFINED';
-
   // Are placeholders which are dynamically filled from the DB
   Account level1ActualObject;
   Account level1BudgetObject;
@@ -90,7 +79,8 @@ class _MyHomePageState extends State<MyHomePage>
   Account level2BudgetObject;
   Account level3ActualObject;
   Account level3BudgetObject;
-  CostType costTypeObject;
+  CostType costTypeObjectActual;
+  CostType costTypeObjectBudget;
 
   // List has to be filled with 1 default account so that we don't get a null error on startup
   List<Account> level1AccountsList = <Account>[
@@ -105,22 +95,6 @@ class _MyHomePageState extends State<MyHomePage>
   ];
   List<CostType> costTypesList = <CostType>[const CostType(-1, 'UNDEFINED')];
 
-  // Are placeholders which are dynamically filled from the DB
-  var level1Values = {
-    '1': 'UNDEFINED',
-  };
-
-  var level2Values = {
-    '1': 'UNDEFINED',
-  };
-
-  var level3Values = {
-    '1': 'UNDEFINED',
-  };
-
-  var costtypesValues = {
-    '1': 'UNDEFINED',
-  };
 
   final actualTextFieldController = TextEditingController();
   final budgetTextFieldController = TextEditingController();
@@ -137,9 +111,8 @@ class _MyHomePageState extends State<MyHomePage>
     level2BudgetObject = level2AccountsList[0];
     level3ActualObject = level3AccountsList[0];
     level3BudgetObject = level3AccountsList[0];
-    costTypeObject = costTypesList[0];
-
-    print(level1ActualObject.name);
+    costTypeObjectActual = costTypesList[0];
+    costTypeObjectBudget = costTypesList[0];
   }
 
   @override
@@ -171,21 +144,9 @@ class _MyHomePageState extends State<MyHomePage>
     var parsedAccountLevel2 = json.decode(accountLevel2);
     var parsedAccountLevel3 = json.decode(accountLevel3);
     var parsedCostTypes = json.decode(costTypes);
-
-    level1Actual = parsedAccountLevel1[0]['name'];
-    level1Budget = parsedAccountLevel1[0]['name'];
-    level2Actual = parsedAccountLevel2[0]['name'];
-    level2Budget = parsedAccountLevel2[0]['name'];
-    level3Actual = parsedAccountLevel3[0]['name'];
-    level3Budget = parsedAccountLevel3[0]['name'];
-    costtype = parsedCostTypes[0]['name'];
-
     int i = 0;
 
     for (var account in parsedAccountLevel1) {
-      //level1Values.
-      level1Values[i.toString()] = account['name'];
-
       if(!level1AccountsList.contains(new Account(account['id'], account['name'], account['parentAccount'])))
       {
         level1AccountsList.add(new Account(account['id'], account['name'], account['parentAccount']));
@@ -197,7 +158,6 @@ class _MyHomePageState extends State<MyHomePage>
     i = 0;
 
     for (var account in parsedAccountLevel2) {
-      level2Values[i.toString()] = account['name'];
 
       if(!level2AccountsList.contains(new Account(account['id'], account['name'], account['parentAccount'])))
       {
@@ -210,8 +170,6 @@ class _MyHomePageState extends State<MyHomePage>
     i = 0;
 
     for (var account in parsedAccountLevel3) {
-      level3Values[i.toString()] = account['name'];
-      
       if(!level3AccountsList.contains(new Account(account['id'], account['name'], account['parentAccount'])))
       {
         level3AccountsList.add(new Account(account['id'], account['name'], account['parentAccount']));
@@ -222,10 +180,13 @@ class _MyHomePageState extends State<MyHomePage>
     i = 0;
 
     for (var type in parsedCostTypes) {
-      costtypesValues[i.toString()] = type['name'];
+      CostType itemToAdd = new CostType(type['id'], type['name']);
 
-      if(!costTypesList.contains(new CostType(type['id'], type['name'])))
-        costTypesList.add(new CostType(type['id'], type['name']));
+      CostType existingItem = costTypesList.firstWhere((itemToCheck) => itemToCheck.id == itemToAdd.id, orElse: () => null);
+
+      if(existingItem != null) {
+        costTypesList.add(itemToAdd);
+      }
 
       i++;
     }
@@ -263,14 +224,14 @@ class _MyHomePageState extends State<MyHomePage>
     int amount;
 
     if (type.toLowerCase() == 'actual') {
-      level1Local = level1Actual;
-      level2Local = level2Actual;
-      level3Local = level3Actual;
+      level1Local = level1ActualObject.name;
+      level2Local = level2ActualObject.name;
+      level3Local = level3ActualObject.name;
       amount = int.parse(actualTextFieldController.text);
     } else if (type.toLowerCase() == 'budget') {
-      level1Local = level1Budget;
-      level2Local = level2Budget;
-      level3Local = level3Budget;
+      level1Local = level1BudgetObject.name;
+      level2Local = level2BudgetObject.name;
+      level3Local = level3BudgetObject.name;
       amount = int.parse(budgetTextFieldController.text);
     }
 
@@ -279,7 +240,8 @@ class _MyHomePageState extends State<MyHomePage>
       'level1': level1Local,
       'level2': level2Local,
       'level3': level3Local,
-      'costtype': costtype,
+      'costtypeActual': costTypeObjectActual.name,
+      'costtypeBudget': costTypeObjectBudget.name,
       'status': 'IP',
       'user': "1",
       'type': type,
@@ -630,7 +592,7 @@ class _MyHomePageState extends State<MyHomePage>
                         child: Align(
                           alignment: Alignment.topRight,
                           child: DropdownButton<CostType>(
-                            value: costTypeObject,
+                            value: costTypeObjectActual,
                             icon: Icon(Icons.arrow_downward),
                             iconSize: 24,
                             elevation: 16,
@@ -642,7 +604,7 @@ class _MyHomePageState extends State<MyHomePage>
                             ),
                             onChanged: (CostType newValue) {
                               setState(() {
-                                costTypeObject = newValue;
+                                costTypeObjectActual = newValue;
                               });
                             },
                             items: costTypesList.map((CostType type) {
@@ -895,7 +857,7 @@ class _MyHomePageState extends State<MyHomePage>
                         child: Align(
                           alignment: Alignment.topRight,
                           child: DropdownButton<CostType>(
-                            value: costTypeObject,
+                            value: costTypeObjectBudget,
                             icon: Icon(Icons.arrow_downward),
                             iconSize: 24,
                             elevation: 16,
@@ -908,7 +870,7 @@ class _MyHomePageState extends State<MyHomePage>
                             ),
                             onChanged: (CostType newValue) {
                               setState(() {
-                                costTypeObject = newValue;
+                                costTypeObjectBudget = newValue;
                               });
                             },
                             items: costTypesList.map((CostType type) {
