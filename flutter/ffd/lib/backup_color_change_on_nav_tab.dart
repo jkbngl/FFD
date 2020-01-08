@@ -144,18 +144,13 @@ class _MyHomePageState extends State<MyHomePage>
     var parsedAccountLevel2 = json.decode(accountLevel2);
     var parsedAccountLevel3 = json.decode(accountLevel3);
     var parsedCostTypes = json.decode(costTypes);
-    int i = 0;
 
     for (var account in parsedAccountLevel1) {
       if(!level1AccountsList.contains(new Account(account['id'], account['name'], account['parentAccount'])))
       {
         level1AccountsList.add(new Account(account['id'], account['name'], account['parentAccount']));
       }
-
-      i++;
     }
-
-    i = 0;
 
     for (var account in parsedAccountLevel2) {
 
@@ -163,32 +158,28 @@ class _MyHomePageState extends State<MyHomePage>
       {
         level2AccountsList.add(new Account(account['id'], account['name'], account['parentAccount']));
       }
-
-      i++;
     }
 
-    i = 0;
-
     for (var account in parsedAccountLevel3) {
+
       if(!level3AccountsList.contains(new Account(account['id'], account['name'], account['parentAccount'])))
       {
         level3AccountsList.add(new Account(account['id'], account['name'], account['parentAccount']));
       }
-      i++;
     }
 
-    i = 0;
-
     for (var type in parsedCostTypes) {
-      CostType itemToAdd = new CostType(type['id'], type['name']);
+      CostType typeToAdd = new CostType(type['id'], type['name']);
 
-      CostType existingItem = costTypesList.firstWhere((itemToCheck) => itemToCheck.id == itemToAdd.id, orElse: () => null);
+      CostType existingItem = costTypesList.firstWhere((itemToCheck) => itemToCheck.id == typeToAdd.id, orElse: () => null);
+
+      print(typeToAdd.name);
+      print(existingItem);
+
 
       if(existingItem != null) {
-        costTypesList.add(itemToAdd);
+        costTypesList.add(typeToAdd);
       }
-
-      i++;
     }
 
     /*
@@ -488,7 +479,6 @@ class _MyHomePageState extends State<MyHomePage>
                               value: account,
                               child: new Text(
                                 account.name,
-                                style: new TextStyle(color: Colors.black),
                               ),
                             );
                           }).toList(),
@@ -532,7 +522,6 @@ class _MyHomePageState extends State<MyHomePage>
                               value: account,
                               child: new Text(
                                 account.name,
-                                style: new TextStyle(color: Colors.black),
                               ),
                             );
                           }).toList(),
@@ -574,7 +563,6 @@ class _MyHomePageState extends State<MyHomePage>
                               value: account,
                               child: new Text(
                                 account.name,
-                                style: new TextStyle(color: Colors.black),
                               ),
                             );
                           }).toList(),
@@ -612,7 +600,6 @@ class _MyHomePageState extends State<MyHomePage>
                                 value: type,
                                 child: new Text(
                                   type.name,
-                                  style: new TextStyle(color: Colors.black),
                                 ),
                               );
                             }).toList(),
@@ -753,7 +740,6 @@ class _MyHomePageState extends State<MyHomePage>
                               value: account,
                               child: new Text(
                                 account.name,
-                                style: new TextStyle(color: Colors.black),
                               ),
                             );
                           }).toList(),
@@ -797,7 +783,6 @@ class _MyHomePageState extends State<MyHomePage>
                               value: account,
                               child: new Text(
                                 account.name,
-                                style: new TextStyle(color: Colors.black),
                               ),
                             );
                           }).toList(),
@@ -839,7 +824,6 @@ class _MyHomePageState extends State<MyHomePage>
                               value: account,
                               child: new Text(
                                 account.name,
-                                style: new TextStyle(color: Colors.black),
                               ),
                             );
                           }).toList(),
@@ -878,7 +862,6 @@ class _MyHomePageState extends State<MyHomePage>
                                 value: type,
                                 child: new Text(
                                   type.name,
-                                  style: new TextStyle(color: Colors.black),
                                 ),
                               );
                             }).toList(),
