@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage>
   int _currentIndex = 0;
   PageController _pageController;
 
-  // Are placeholders which are dynamically filled from the DB
+  // Effective objects which are displayed as value in dropdown and send to backend on SAVE
   Account level1ActualObject;
   Account level1BudgetObject;
   Account level2ActualObject;
@@ -82,17 +82,25 @@ class _MyHomePageState extends State<MyHomePage>
   CostType costTypeObjectActual;
   CostType costTypeObjectBudget;
 
-  // List has to be filled with 1 default account so that we don't get a null error on startup
+  // Json objects which are fetched from API
+  var level1AccountsJson;
+  var level2AccountsJson;
+  var level3AccountsJson;
+  var costTypesJson;
+
+  // List has to be filled with 1 default account so that we don't get a null error on startup - Lists with all values for dropdown
   List<Account> level1AccountsList = <Account>[
-    const Account(-1, 'UNDEFINED', null),
-    const Account(0, 'DEFINED', null)
+    const Account(-99, 'UNDEFINED', null),
   ];
+
   List<Account> level2AccountsList = <Account>[
-    const Account(-1, 'UNDEFINED', null)
+    const Account(-99, 'UNDEFINED', null)
   ];
+
   List<Account> level3AccountsList = <Account>[
-    const Account(-1, 'UNDEFINED', null)
+    const Account(-99, 'UNDEFINED', null)
   ];
+
   List<CostType> costTypesList = <CostType>[const CostType(-1, 'UNDEFINED')];
 
 
@@ -127,10 +135,52 @@ class _MyHomePageState extends State<MyHomePage>
     checkForChanges(true);
   }
 
+  Future<String> fetchAccounts(bool force, int level) async
+  {
+    switch (level) {
+      case 1:
+        if(force)
+        {
+          level1AccountsJson = await http.read('http://192.168.0.21:5000/api/ffd/accounts/1');
+          level1AccountsJson = json.decode(level1AccountsJson);
+        }
+
+        return level1AccountsJson;
+      case 2:
+        if(force)
+        {
+          level2AccountsJson = await http.read('http://192.168.0.21:5000/api/ffd/accounts/2');
+          level2AccountsJson = json.decode(level2AccountsJson);
+        }
+
+        return level2AccountsJson;
+      case 3:
+        if(force)
+        {
+          level3AccountsJson = await http.read('http://192.168.0.21:5000/api/ffd/accounts/3');
+          level3AccountsJson  = json.decode(level3AccountsJson );
+        }
+
+        return level3AccountsJson;
+    }
+  }
+
+  Future<String> fetchCostTypes(bool force) async
+  {
+    if(force)
+    {
+      costTypesJson = await http.read('http://192.168.0.21:5000/api/ffd/costtypes');
+      costTypesJson  = json.decode(costTypesJson );
+    }
+
+    return costTypesJson;
+  }
+
   // callback to check if something in the layout needs to be changed
-  void checkForChanges(bool onStartup) async {
+  void checkForChanges(bool onStartup) {
     print("Checking for changes $onStartup");
 
+    /*
     var accountLevel1 =
         await http.read('http://192.168.0.21:5000/api/ffd/accounts/1');
     var accountLevel2 =
@@ -139,15 +189,17 @@ class _MyHomePageState extends State<MyHomePage>
         await http.read('http://192.168.0.21:5000/api/ffd/accounts/3');
     var costTypes =
         await http.read('http://192.168.0.21:5000/api/ffd/costtypes/');
+     */
 
-    var parsedAccountLevel1 = json.decode(accountLevel1);
-    var parsedAccountLevel2 = json.decode(accountLevel2);
-    var parsedAccountLevel3 = json.decode(accountLevel3);
-    var parsedCostTypes = json.decode(costTypes);
+
+    // TODO CHANGE true : true to true : false -> needs only to be true on startup and when a new account or costType has been added in the admin
+    var parsedAccountLevel1 = fetchAccounts(onStartup ? true : true, 1);
+    var parsedAccountLevel2 = fetchAccounts(onStartup ? true : true, 2);
+    var parsedAccountLevel3 = fetchAccounts(onStartup ? true : true, 3);
+    var parsedCostTypes = fetchCostTypes(onStartup ? true : true);
 
     Account accountToAdd;
     CostType typeToAdd;
-
 
     for (var account in parsedAccountLevel1) {
       accountToAdd = new Account(account['id'], account['name'], account['parentAccount']);
@@ -200,6 +252,11 @@ class _MyHomePageState extends State<MyHomePage>
       ),
     );
     */
+  }
+
+  void fillLists()
+  {
+
   }
 
   void sendBackend(String type) async {
@@ -538,7 +595,7 @@ class _MyHomePageState extends State<MyHomePage>
                             left: 30.0, top: 0, right: 30, bottom: 0),
                         alignment: Alignment.center,
                         child: DropdownButton<Account>(
-                          value: level1ActualObject,
+                          value: level3ActualObject,
                           hint: Text(
                             "Select a level 3 account",
                             /*style: TextStyle(
@@ -777,7 +834,7 @@ class _MyHomePageState extends State<MyHomePage>
                           ),
                           onChanged: (Account newValue) {
                             setState(() {
-                              level1ActualObject = newValue;
+                              level2BudgetObject = newValue;
                             });
                           },
                           items:
