@@ -145,39 +145,42 @@ class _MyHomePageState extends State<MyHomePage>
     var parsedAccountLevel3 = json.decode(accountLevel3);
     var parsedCostTypes = json.decode(costTypes);
 
+    Account accountToAdd;
+    CostType typeToAdd;
+
+
     for (var account in parsedAccountLevel1) {
-      if(!level1AccountsList.contains(new Account(account['id'], account['name'], account['parentAccount'])))
-      {
-        level1AccountsList.add(new Account(account['id'], account['name'], account['parentAccount']));
+      accountToAdd = new Account(account['id'], account['name'], account['parentAccount']);
+      Account existingItem = level1AccountsList.firstWhere((itemToCheck) => itemToCheck.id == accountToAdd.id, orElse: () => null);
+
+      if(existingItem == null) {
+        level1AccountsList.add(accountToAdd);
       }
     }
 
     for (var account in parsedAccountLevel2) {
+      accountToAdd = new Account(account['id'], account['name'], account['parentAccount']);
+      Account existingItem = level2AccountsList.firstWhere((itemToCheck) => itemToCheck.id == accountToAdd.id, orElse: () => null);
 
-      if(!level2AccountsList.contains(new Account(account['id'], account['name'], account['parentAccount'])))
-      {
-        level2AccountsList.add(new Account(account['id'], account['name'], account['parentAccount']));
+      if(existingItem == null) {
+        level2AccountsList.add(accountToAdd);
       }
     }
 
     for (var account in parsedAccountLevel3) {
+      accountToAdd = new Account(account['id'], account['name'], account['parentAccount']);
+      Account existingItem = level3AccountsList.firstWhere((itemToCheck) => itemToCheck.id == accountToAdd.id, orElse: () => null);
 
-      if(!level3AccountsList.contains(new Account(account['id'], account['name'], account['parentAccount'])))
-      {
-        level3AccountsList.add(new Account(account['id'], account['name'], account['parentAccount']));
+      if(existingItem == null) {
+        level3AccountsList.add(accountToAdd);
       }
     }
 
     for (var type in parsedCostTypes) {
-      CostType typeToAdd = new CostType(type['id'], type['name']);
-
+      typeToAdd = new CostType(type['id'], type['name']);
       CostType existingItem = costTypesList.firstWhere((itemToCheck) => itemToCheck.id == typeToAdd.id, orElse: () => null);
 
-      print(typeToAdd.name);
-      print(existingItem);
-
-
-      if(existingItem != null) {
+      if(existingItem == null) {
         costTypesList.add(typeToAdd);
       }
     }
