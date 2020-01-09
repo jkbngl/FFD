@@ -194,22 +194,6 @@ class _MyHomePageState extends State<MyHomePage>
         costTypesList.add(typeToAdd);
       }
     }
-
-    /*
-    showDialog(
-      context: context,
-      builder: (context) => new AlertDialog(
-        content: new Text(
-            'All available level1Values - Accounts: $level1Values\n All available level2Values - Accounts: $level2Values\n All available level3Values - Accounts: $level3Values\n'),
-        actions: <Widget>[
-          new FlatButton(
-            child: new Text('DISMISS'),
-            onPressed: () => Navigator.of(context).pop(),
-          )
-        ],
-      ),
-    );
-    */
   }
 
   void sendBackend(String type) async {
@@ -266,21 +250,12 @@ class _MyHomePageState extends State<MyHomePage>
         ],
       ),
     );
+  }
 
-    /*var response2 = await http.read('http://192.168.0.21:5000/api/ffd/accounts');
-
-    showDialog(
-      context: context,
-      builder: (context) => new AlertDialog(
-        content: new Text('Checking for changes: $response2'),
-        actions: <Widget>[
-          new FlatButton(
-            child: new Text('DISMISS'),
-            onPressed: () => Navigator.of(context).pop(),
-          )
-        ],
-      ),
-    );*/
+  arrangeAccounts(int level, String type)
+  {
+    print(level);
+    print(type);
   }
 
   @override
@@ -485,6 +460,8 @@ class _MyHomePageState extends State<MyHomePage>
                             setState(() {
                               level1ActualObject = newValue;
                             });
+
+                            arrangeAccounts(1, 'actual');
                           },
                           items: level1AccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
@@ -527,6 +504,8 @@ class _MyHomePageState extends State<MyHomePage>
                             setState(() {
                               level2ActualObject = newValue;
                             });
+
+                            arrangeAccounts(2, 'actual');
                           },
                           items: level2AccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
@@ -567,6 +546,8 @@ class _MyHomePageState extends State<MyHomePage>
                             setState(() {
                               level3ActualObject = newValue;
                             });
+
+                            arrangeAccounts(3, 'actual');
                           },
                           items: level3AccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
@@ -604,6 +585,8 @@ class _MyHomePageState extends State<MyHomePage>
                               setState(() {
                                 costTypeObjectActual = newValue;
                               });
+
+                              arrangeAccounts(0, 'costtypes');
                             },
                             items: costTypesList.map((CostType type) {
                               return new DropdownMenuItem<CostType>(
@@ -743,6 +726,8 @@ class _MyHomePageState extends State<MyHomePage>
                             setState(() {
                               level1BudgetObject = newValue;
                             });
+
+                            arrangeAccounts(1, 'budget');
                           },
                           items: level1AccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
@@ -785,6 +770,8 @@ class _MyHomePageState extends State<MyHomePage>
                             setState(() {
                               level2BudgetObject = newValue;
                             });
+
+                            arrangeAccounts(2, 'budget');
                           },
                           items: level2AccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
@@ -825,6 +812,8 @@ class _MyHomePageState extends State<MyHomePage>
                             setState(() {
                               level3BudgetObject = newValue;
                             });
+
+                            arrangeAccounts(3, 'budget');
                           },
                           items: level3AccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
@@ -863,6 +852,8 @@ class _MyHomePageState extends State<MyHomePage>
                               setState(() {
                                 costTypeObjectBudget = newValue;
                               });
+
+                              arrangeAccounts(0, 'costtpyes');
                             },
                             items: costTypesList.map((CostType type) {
                               return new DropdownMenuItem<CostType>(
