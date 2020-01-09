@@ -160,7 +160,7 @@ class _MyHomePageState extends State<MyHomePage>
     CostType typeToAdd;
 
     for (var account in parsedAccountLevel1) {
-      accountToAdd = new Account(account['id'], account['name'], account['parentAccount']);
+      accountToAdd = new Account(account['id'], account['name'], account['parent_account']);
       Account existingItem = level1AccountsList.firstWhere((itemToCheck) => itemToCheck.id == accountToAdd.id, orElse: () => null);
 
       if(existingItem == null) {
@@ -169,8 +169,11 @@ class _MyHomePageState extends State<MyHomePage>
     }
 
     for (var account in parsedAccountLevel2) {
-      accountToAdd = new Account(account['id'], account['name'], account['parentAccount']);
+      accountToAdd = new Account(account['id'], account['name'], account['parent_account']);
       Account existingItem = level2AccountsList.firstWhere((itemToCheck) => itemToCheck.id == accountToAdd.id, orElse: () => null);
+
+      if(account['name'] == 'GAS')
+        print(account['parent_account']);
 
       if(existingItem == null) {
         level2AccountsList.add(accountToAdd);
@@ -178,7 +181,7 @@ class _MyHomePageState extends State<MyHomePage>
     }
 
     for (var account in parsedAccountLevel3) {
-      accountToAdd = new Account(account['id'], account['name'], account['parentAccount']);
+      accountToAdd = new Account(account['id'], account['name'], account['parent_account']);
       Account existingItem = level3AccountsList.firstWhere((itemToCheck) => itemToCheck.id == accountToAdd.id, orElse: () => null);
 
       if(existingItem == null) {
@@ -256,6 +259,17 @@ class _MyHomePageState extends State<MyHomePage>
   {
     print(level);
     print(type);
+    print("-----------------");
+    print("level1: ${level1ActualObject.id}");
+    print("level2: ${level2ActualObject.id}");
+    print("level3: ${level3ActualObject.id}");
+    print("-----");
+    print("level1: ${level1BudgetObject.id}");
+    print("level2: ${level2BudgetObject.id}");
+    print("level3: ${level3BudgetObject.id}");
+    print("-----------------");
+    print(level2AccountsList[2].parentAccount.toString());
+
   }
 
   @override
