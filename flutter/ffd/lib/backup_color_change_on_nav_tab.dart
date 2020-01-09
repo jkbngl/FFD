@@ -67,7 +67,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>
+class _MyHomePageState extends State<MyHomePage> 
     with AfterLayoutMixin<MyHomePage> {
   int _currentIndex = 0;
   PageController _pageController;
@@ -142,7 +142,6 @@ class _MyHomePageState extends State<MyHomePage>
         if(force)
         {
           level1AccountsJson = await http.read('http://192.168.0.21:5000/api/ffd/accounts/1');
-          level1AccountsJson = json.decode(level1AccountsJson);
         }
 
         return level1AccountsJson;
@@ -150,7 +149,6 @@ class _MyHomePageState extends State<MyHomePage>
         if(force)
         {
           level2AccountsJson = await http.read('http://192.168.0.21:5000/api/ffd/accounts/2');
-          level2AccountsJson = json.decode(level2AccountsJson);
         }
 
         return level2AccountsJson;
@@ -158,26 +156,29 @@ class _MyHomePageState extends State<MyHomePage>
         if(force)
         {
           level3AccountsJson = await http.read('http://192.168.0.21:5000/api/ffd/accounts/3');
-          level3AccountsJson  = json.decode(level3AccountsJson );
         }
 
         return level3AccountsJson;
     }
+
+    //return "-1";
   }
 
-  Future<String> fetchCostTypes(bool force) async
+  Future<List<dynamic>> fetchCostTypes(bool force) async
   {
     if(force)
     {
       costTypesJson = await http.read('http://192.168.0.21:5000/api/ffd/costtypes');
-      costTypesJson  = json.decode(costTypesJson );
+      print(costTypesJson);
+      //costTypesJson = json.decode(costTypesJson);
     }
 
     return costTypesJson;
   }
 
-  // callback to check if something in the layout needs to be changed
-  void checkForChanges(bool onStartup) {
+
+  // callback to check if something in the layout needs to be changed, e.g. remove a level
+  void checkForChanges(bool onStartup) async  {
     print("Checking for changes $onStartup");
 
     /*
@@ -191,15 +192,32 @@ class _MyHomePageState extends State<MyHomePage>
         await http.read('http://192.168.0.21:5000/api/ffd/costtypes/');
      */
 
-
-    // TODO CHANGE true : true to true : false -> needs only to be true on startup and when a new account or costType has been added in the admin
-    var parsedAccountLevel1 = fetchAccounts(onStartup ? true : true, 1);
-    var parsedAccountLevel2 = fetchAccounts(onStartup ? true : true, 2);
-    var parsedAccountLevel3 = fetchAccounts(onStartup ? true : true, 3);
-    var parsedCostTypes = fetchCostTypes(onStartup ? true : true);
+    // TODO CHANGE true : true to true : false -> (IN THE FUTURE) needs only to be true on startup and when a new account or costType has been added in the admin
+    var parsedAccountLevel1 = await fetchAccounts(onStartup ? true : true, 1);
+    var parsedAccountLevel2 = await fetchAccounts(onStartup ? true : true, 2);
+    var parsedAccountLevel3 = await fetchAccounts(onStartup ? true : true, 3);
+    //var parsedCostTypes = await fetchCostTypes(onStartup ? true : true);
 
     Account accountToAdd;
     CostType typeToAdd;
+
+
+    for(var i = 0; i < parsedAccountLevel1.length; i++)
+    {
+      print(parsedAccountLevel1[0]);
+      var account = parsedAccountLevel1;
+
+      print(account);
+
+      //accountToAdd = new Account(account["id"], account['name'], account['parentAccount']);
+      //Account existingItem = level1AccountsList.firstWhere((itemToCheck) => itemToCheck.id == accountToAdd.id, orElse: () => null);
+
+      //if(existingItem == null) {
+      //  level1AccountsList.add(accountToAdd);
+      //}
+    }
+
+    /*
 
     for (var account in parsedAccountLevel1) {
       accountToAdd = new Account(account['id'], account['name'], account['parentAccount']);
@@ -236,6 +254,8 @@ class _MyHomePageState extends State<MyHomePage>
         costTypesList.add(typeToAdd);
       }
     }
+
+    */
 
     /*
     showDialog(
