@@ -67,10 +67,13 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> 
+class _MyHomePageState extends State<MyHomePage>
     with AfterLayoutMixin<MyHomePage> {
   int _currentIndex = 0;
   PageController _pageController;
+
+  // Bool which defined if accounts and costtypes needs to be refetched or can be cached
+  bool fetchAccountsAndCostTypes = false;
 
   // Effective objects which are displayed as value in dropdown and send to backend on SAVE
   Account level1ActualObject;
@@ -103,7 +106,6 @@ class _MyHomePageState extends State<MyHomePage>
 
   List<CostType> costTypesList = <CostType>[const CostType(-1, 'UNDEFINED')];
 
-
   final actualTextFieldController = TextEditingController();
   final budgetTextFieldController = TextEditingController();
 
@@ -132,92 +134,30 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   void afterFirstLayout(BuildContext context) {
     // Calling the same function "after layout" to resolve the issue.
-    checkForChanges(true);
+    checkForChanges(true, fetchAccountsAndCostTypes);
   }
 
-  Future<String> fetchAccounts(bool force, int level) async
-  {
-    switch (level) {
-      case 1:
-        if(force)
-        {
-          level1AccountsJson = await http.read('http://192.168.0.21:5000/api/ffd/accounts/1');
-        }
-
-        return level1AccountsJson;
-      case 2:
-        if(force)
-        {
-          level2AccountsJson = await http.read('http://192.168.0.21:5000/api/ffd/accounts/2');
-        }
-
-        return level2AccountsJson;
-      case 3:
-        if(force)
-        {
-          level3AccountsJson = await http.read('http://192.168.0.21:5000/api/ffd/accounts/3');
-        }
-
-        return level3AccountsJson;
-    }
-
-    //return "-1";
-  }
-
-  Future<List<dynamic>> fetchCostTypes(bool force) async
-  {
-    if(force)
-    {
-      costTypesJson = await http.read('http://192.168.0.21:5000/api/ffd/costtypes');
-      print(costTypesJson);
-      //costTypesJson = json.decode(costTypesJson);
-    }
-
-    return costTypesJson;
-  }
-
-
-  // callback to check if something in the layout needs to be changed, e.g. remove a level
-  void checkForChanges(bool onStartup) async  {
+  void checkForChanges(bool onStartup, bool fetch) async {
     print("Checking for changes $onStartup");
 
-    /*
-    var accountLevel1 =
-        await http.read('http://192.168.0.21:5000/api/ffd/accounts/1');
-    var accountLevel2 =
-        await http.read('http://192.168.0.21:5000/api/ffd/accounts/2');
-    var accountLevel3 =
-        await http.read('http://192.168.0.21:5000/api/ffd/accounts/3');
-    var costTypes =
-        await http.read('http://192.168.0.21:5000/api/ffd/costtypes/');
-     */
+    if (fetch || onStartup) {
+      level1AccountsJson =
+          await http.read('http://192.168.0.21:5000/api/ffd/accounts/1');
+      level2AccountsJson =
+          await http.read('http://192.168.0.21:5000/api/ffd/accounts/2');
+      level3AccountsJson =
+          await http.read('http://192.168.0.21:5000/api/ffd/accounts/3');
+      costTypesJson =
+          await http.read('http://192.168.0.21:5000/api/ffd/costtypes/');
+    }
 
-    // TODO CHANGE true : true to true : false -> (IN THE FUTURE) needs only to be true on startup and when a new account or costType has been added in the admin
-    var parsedAccountLevel1 = await fetchAccounts(onStartup ? true : true, 1);
-    var parsedAccountLevel2 = await fetchAccounts(onStartup ? true : true, 2);
-    var parsedAccountLevel3 = await fetchAccounts(onStartup ? true : true, 3);
-    //var parsedCostTypes = await fetchCostTypes(onStartup ? true : true);
+    var parsedAccountLevel1 = json.decode(level1AccountsJson);
+    var parsedAccountLevel2 = json.decode(level2AccountsJson);
+    var parsedAccountLevel3 = json.decode(level3AccountsJson);
+    var parsedCostTypes = json.decode(costTypesJson);
 
     Account accountToAdd;
     CostType typeToAdd;
-
-
-    for(var i = 0; i < parsedAccountLevel1.length; i++)
-    {
-      print(parsedAccountLevel1[0]);
-      var account = parsedAccountLevel1;
-
-      print(account);
-
-      //accountToAdd = new Account(account["id"], account['name'], account['parentAccount']);
-      //Account existingItem = level1AccountsList.firstWhere((itemToCheck) => itemToCheck.id == accountToAdd.id, orElse: () => null);
-
-      //if(existingItem == null) {
-      //  level1AccountsList.add(accountToAdd);
-      //}
-    }
-
-    /*
 
     for (var account in parsedAccountLevel1) {
       accountToAdd = new Account(account['id'], account['name'], account['parentAccount']);
@@ -255,8 +195,6 @@ class _MyHomePageState extends State<MyHomePage>
       }
     }
 
-    */
-
     /*
     showDialog(
       context: context,
@@ -272,11 +210,6 @@ class _MyHomePageState extends State<MyHomePage>
       ),
     );
     */
-  }
-
-  void fillLists()
-  {
-
   }
 
   void sendBackend(String type) async {
@@ -361,7 +294,7 @@ class _MyHomePageState extends State<MyHomePage>
             setState(() => _currentIndex = index);
 
             // Check if something in the settings has been changed, if yes set the vars and widgets accordingly
-            checkForChanges(false);
+            checkForChanges(false, fetchAccountsAndCostTypes);
           },
           children: <Widget>[
             CustomScrollView(
@@ -553,8 +486,7 @@ class _MyHomePageState extends State<MyHomePage>
                               level1ActualObject = newValue;
                             });
                           },
-                          items:
-                              level1AccountsList.map((Account account) {
+                          items: level1AccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -596,8 +528,7 @@ class _MyHomePageState extends State<MyHomePage>
                               level2ActualObject = newValue;
                             });
                           },
-                          items:
-                          level2AccountsList.map((Account account) {
+                          items: level2AccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -637,8 +568,7 @@ class _MyHomePageState extends State<MyHomePage>
                               level3ActualObject = newValue;
                             });
                           },
-                          items:
-                          level3AccountsList.map((Account account) {
+                          items: level3AccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -814,8 +744,7 @@ class _MyHomePageState extends State<MyHomePage>
                               level1BudgetObject = newValue;
                             });
                           },
-                          items:
-                          level1AccountsList.map((Account account) {
+                          items: level1AccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -857,8 +786,7 @@ class _MyHomePageState extends State<MyHomePage>
                               level2BudgetObject = newValue;
                             });
                           },
-                          items:
-                          level2AccountsList.map((Account account) {
+                          items: level2AccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -898,8 +826,7 @@ class _MyHomePageState extends State<MyHomePage>
                               level3BudgetObject = newValue;
                             });
                           },
-                          items:
-                          level3AccountsList.map((Account account) {
+                          items: level3AccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
