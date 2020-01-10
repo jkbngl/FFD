@@ -30,27 +30,63 @@ def connect():
     except (Exception, psycopg2.Error) as error :
         print ("Error while connecting to PostgreSQL", error)
 
-# Create a handler for our read (GET) people
-def read(level_type):
+def readAccounts(level_type):
     """
     This function responds to a request for /api/ffd/level_type
     with the complete lists of accounts for the user
 
     :return:        list of accounts
     """
+
+    # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
     data = []
 
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-
-    query = f"select  * from    ffd.account_dim where   level_type = {level_type}"
+    query = f"select * from ffd.account_dim where level_type = {level_type} order by id asc"
 
     cursor.execute(query)
     record = cursor.fetchall()
+    # fetch the column names from the cursror
     columnnames = [desc[0] for desc in cursor.description]
 
+    # Create from the value array a key value object
+    for row in record:
+        cache = {}
 
+        for columnname in columnnames:
+            cache[columnname] = row[columnname]
+
+        data.append(cache)
+        
+    cursor.close()
+    connection.close()
+
+    return data
+
+def readCosttypes():
+    """
+    This function responds to a request for /api/ffd/level_type
+    with the complete lists of accounts for the user
+
+    :return:        list of accounts
+    """
+
+    # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
+    data = []
+
+    connection = connect()
+    cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
+
+    query = f"select * from ffd.costtype_dim"
+
+    cursor.execute(query)
+    record = cursor.fetchall()
+    # fetch the column names from the cursror
+    columnnames = [desc[0] for desc in cursor.description]
+
+    # Create from the value array a key value object
     for row in record:
         cache = {}
 
@@ -81,7 +117,9 @@ def send():
     data = request.form.to_dict()
 
     if data['type'].lower() == 'actual':
-        send_actual(data)
+        sendActual(data)
+    elif data['type'].lower() == 'budget':
+        sendBudget(data)
         
 
     #data = request.values
@@ -89,12 +127,26 @@ def send():
     data['status'] = 'success'
     return data
 
-def send_actual(data):
+def sendActual(data):
     connection = connect()
     cursor = connection.cursor()
-    command = f"INSERT INTO ffd.act_data (amount) VALUES (1, {data['actual']})"
+    command = f"INSERT INTO ffd.act_data (amount, level1_fk, level2_fk, level3_fk, costtype_fk, user_fk) \
+                                  VALUES ({data['amount']}, '{data['level1']}', '{data['level2']}', '{data['level3']}', '{data['costtype']}', {data['user']})"
     print(command)
+    print(data)
     cursor.execute(command)
     connection.commit()
+    cursor.close()
+    connection.close()
 
-
+def sendBudget(data):
+    connection = connect()
+    cursor = connection.cursor()
+    command = f"INSERT INTO ffd.bdg_data (amount, level1_fk, level2_fk, level3_fk, costtype_fk, user_fk) \
+                                  VALUES ({data['amount']}, '{data['level1']}', '{data['level2']}', '{data['level3']}', '{data['costtype']}', {data['user']})"
+    print(command)
+    print(data)
+    cursor.execute(command)
+    connection.commit()
+    cursor.close()
+    connection.close()
