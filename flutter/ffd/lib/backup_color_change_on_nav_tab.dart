@@ -97,14 +97,14 @@ class _MyHomePageState extends State<MyHomePage>
   ];
 
   List<Account> level2AccountsList = <Account>[
-    const Account(-99, 'UNDEFINED', null)
+    const Account(-100, 'UNDEFINED', null)
   ];
 
   List<Account> level3AccountsList = <Account>[
-    const Account(-99, 'UNDEFINED', null)
+    const Account(-101, 'UNDEFINED', null)
   ];
 
-  List<CostType> costTypesList = <CostType>[const CostType(-1, 'UNDEFINED')];
+  List<CostType> costTypesList = <CostType>[const CostType(-99, 'UNDEFINED')];
 
   final actualTextFieldController = TextEditingController();
   final budgetTextFieldController = TextEditingController();
