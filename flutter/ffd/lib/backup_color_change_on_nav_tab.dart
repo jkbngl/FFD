@@ -275,8 +275,16 @@ class _MyHomePageState extends State<MyHomePage>
 
   arrangeAccounts(int level, String type)
   {
+    Account empty = new Account(-199, 'DUMMY', -199);
+    print(level1ActualObject.name);
+
+
     if(level == 1)
     {
+      var account = level2AccountsList.firstWhere((o) => o.parentAccount == level1ActualObject.id, orElse: () => empty);
+
+      print(level1ActualObject.name);
+      print(account.id);
       //level2AccountsList.retainWhere((account) => account.parentAccount == level1ActualObject.id);
     }
   }
@@ -483,6 +491,8 @@ class _MyHomePageState extends State<MyHomePage>
                             setState(() {
                               level1ActualObject = newValue;
                             });
+
+                            print(level1ActualObject.name);
 
                             arrangeAccounts(1, 'actual');
                           },
