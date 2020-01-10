@@ -275,18 +275,20 @@ class _MyHomePageState extends State<MyHomePage>
 
   arrangeAccounts(int level, String type)
   {
-    // Dummy account
+    // Refresh accounts lists, needed because the accounts are cleared from account list and when another level1 or 2 are selected the list only has the level2 and 3 accounts from the other level1 or 2
     checkForChanges(false, true);
 
     if(level == 1)
     {
-      level2ActualObject = level2AccountsList.firstWhere((o) => o.parentAccount == level1ActualObject.id, orElse: () => level2AccountsList[0]);
+      level2ActualObject = level2AccountsList.firstWhere((account) => account.parentAccount == level1ActualObject.id, orElse: () => level2AccountsList[0]);
       level2AccountsList.retainWhere((account) => account.parentAccount == level1ActualObject.id || account.id < 0);
+      level3ActualObject = level3AccountsList.firstWhere((account) => account.parentAccount == level2ActualObject.id, orElse: () => level3AccountsList[0]);
+      level3AccountsList.retainWhere((account) => account.parentAccount == level2ActualObject.id || account.id < 0);
     }
     else if(level == 2)
     {
-      level3ActualObject = level3AccountsList.firstWhere((o) => o.parentAccount == level2ActualObject.id, orElse: () => level3AccountsList[0]);
-      level3AccountsList.retainWhere((account) => account.parentAccount == level1ActualObject.id || account.id < 0);
+      level3ActualObject = level3AccountsList.firstWhere((account) => account.parentAccount == level2ActualObject.id, orElse: () => level3AccountsList[0]);
+      level3AccountsList.retainWhere((account) => account.parentAccount == level2ActualObject.id || account.id < 0);
     }
   }
 
