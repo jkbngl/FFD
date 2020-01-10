@@ -280,14 +280,20 @@ class _MyHomePageState extends State<MyHomePage>
 
     if(level == 1)
     {
+      // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
       level2ActualObject = level2AccountsList.firstWhere((account) => account.parentAccount == level1ActualObject.id, orElse: () => level2AccountsList[0]);
+      // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
       level2AccountsList.retainWhere((account) => account.parentAccount == level1ActualObject.id || account.id < 0);
+
+      // Same as above for level3
       level3ActualObject = level3AccountsList.firstWhere((account) => account.parentAccount == level2ActualObject.id, orElse: () => level3AccountsList[0]);
       level3AccountsList.retainWhere((account) => account.parentAccount == level2ActualObject.id || account.id < 0);
     }
     else if(level == 2)
     {
+      // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
       level3ActualObject = level3AccountsList.firstWhere((account) => account.parentAccount == level2ActualObject.id, orElse: () => level3AccountsList[0]);
+      // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
       level3AccountsList.retainWhere((account) => account.parentAccount == level2ActualObject.id || account.id < 0);
     }
   }
