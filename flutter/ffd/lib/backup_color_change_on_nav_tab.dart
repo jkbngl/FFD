@@ -281,10 +281,8 @@ class _MyHomePageState extends State<MyHomePage>
 
     if(level == 1)
     {
-      var account = level2AccountsList.firstWhere((o) => o.parentAccount == level1ActualObject.id, orElse: () => empty);
+      level2ActualObject = level2AccountsList.firstWhere((o) => o.parentAccount == level1ActualObject.id, orElse: () => empty);
 
-      print(level1ActualObject.name);
-      print(account.id);
       //level2AccountsList.retainWhere((account) => account.parentAccount == level1ActualObject.id);
     }
   }
