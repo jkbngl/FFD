@@ -276,6 +276,7 @@ class _MyHomePageState extends State<MyHomePage>
   arrangeAccounts(int level, String type)
   {
     // Dummy account
+    checkForChanges(false, true);
 
     if(level == 1)
     {
