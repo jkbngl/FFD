@@ -212,17 +212,32 @@ class _MyHomePageState extends State<MyHomePage>
     String level1Local;
     String level2Local;
     String level3Local;
+    int level1LocalId;
+    int level2LocalId;
+    int level3LocalId;
+    String costTypeLocal;
+    int costTypeLocalId;
     int amount;
 
     if (type.toLowerCase() == 'actual') {
       level1Local = level1ActualObject.name;
       level2Local = level2ActualObject.name;
       level3Local = level3ActualObject.name;
+      level1LocalId = level1ActualObject.id;
+      level2LocalId = level2ActualObject.id;
+      level3LocalId = level3ActualObject.id;
+      costTypeLocal = costTypeObjectActual.name;
+      costTypeLocalId = costTypeObjectActual.id;
       amount = int.parse(actualTextFieldController.text);
     } else if (type.toLowerCase() == 'budget') {
       level1Local = level1BudgetObject.name;
       level2Local = level2BudgetObject.name;
       level3Local = level3BudgetObject.name;
+      level1LocalId = level1BudgetObject.id;
+      level2LocalId = level2BudgetObject.id;
+      level3LocalId = level3BudgetObject.id;
+      costTypeLocal = costTypeObjectBudget.name;
+      costTypeLocalId = costTypeObjectBudget.id;
       amount = int.parse(budgetTextFieldController.text);
     }
 
@@ -231,8 +246,11 @@ class _MyHomePageState extends State<MyHomePage>
       'level1': level1Local,
       'level2': level2Local,
       'level3': level3Local,
-      'costtypeActual': costTypeObjectActual.name,
-      'costtypeBudget': costTypeObjectBudget.name,
+      'level1id': level1LocalId.toString(),
+      'level2id': level2LocalId.toString(),
+      'level3id': level3LocalId.toString(),
+      'costtype': costTypeLocal,
+      'costtypeid': costTypeLocalId.toString(),
       'status': 'IP',
       'user': "1",
       'type': type,
@@ -257,19 +275,10 @@ class _MyHomePageState extends State<MyHomePage>
 
   arrangeAccounts(int level, String type)
   {
-    print(level);
-    print(type);
-    print("-----------------");
-    print("level1: ${level1ActualObject.id}");
-    print("level2: ${level2ActualObject.id}");
-    print("level3: ${level3ActualObject.id}");
-    print("-----");
-    print("level1: ${level1BudgetObject.id}");
-    print("level2: ${level2BudgetObject.id}");
-    print("level3: ${level3BudgetObject.id}");
-    print("-----------------");
-    print(level2AccountsList[2].parentAccount.toString());
-
+    if(level == 1)
+    {
+      //level2AccountsList.retainWhere((account) => account.parentAccount == level1ActualObject.id);
+    }
   }
 
   @override
