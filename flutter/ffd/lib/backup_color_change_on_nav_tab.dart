@@ -5,6 +5,8 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:after_layout/after_layout.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -67,6 +69,11 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+const String MIN_DATETIME = '2010-05-12';
+const String MAX_DATETIME = '2021-11-25';
+const String INIT_DATETIME = '2019-05-17';
+
+
 class _MyHomePageState extends State<MyHomePage>
     with AfterLayoutMixin<MyHomePage> {
   int _currentIndex = 0;
@@ -109,6 +116,8 @@ class _MyHomePageState extends State<MyHomePage>
   final actualTextFieldController = TextEditingController();
   final budgetTextFieldController = TextEditingController();
 
+  DateTime _dateTime;
+
   @override
   void initState() {
     super.initState();
@@ -123,6 +132,8 @@ class _MyHomePageState extends State<MyHomePage>
     level3BudgetObject = level3AccountsList[0];
     costTypeObjectActual = costTypesList[0];
     costTypeObjectBudget = costTypesList[0];
+
+    _dateTime = DateTime.parse(INIT_DATETIME);
   }
 
   @override
@@ -431,19 +442,28 @@ class _MyHomePageState extends State<MyHomePage>
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                  Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[Text(
-                      'Actual',
-                      style: TextStyle(fontSize: 30),
-                    ),Text(
-                      'Actual',
-                      style: TextStyle(fontSize: 30),
-                    ),Text(
-                      'Actual',
-                      style: TextStyle(fontSize: 30),
-                    ),]),
+                  DatePickerWidget(
+                  minDateTime: DateTime.parse(MIN_DATETIME),
+              maxDateTime: DateTime.parse(MAX_DATETIME),
+              initialDateTime: DateTime.parse(INIT_DATETIME),
+              //dateFormat: DATE_FORMAT,
+              pickerTheme: DateTimePickerTheme(
+                backgroundColor: Colors.white,
+                cancelTextStyle: TextStyle(color: Colors.white),
+                confirmTextStyle: TextStyle(color: Colors.black),
+                itemTextStyle: TextStyle(color: Color(
+                    0xff0957FF)),
+                pickerHeight: 300.0,
+                titleHeight: 24.0,
+                itemHeight: 30.0,
+              ),
+              onChange: (dateTime, selectedIndex) {
+                setState(() {
+                  _dateTime = dateTime;
+                });
+              },
+            ),
+
                       Container(
                         constraints: BoxConstraints.expand(
                           height: 40,
@@ -459,7 +479,6 @@ class _MyHomePageState extends State<MyHomePage>
                           style: TextStyle(fontSize: 30),
                         ),
                       ),
-
                       Container(
                         constraints: BoxConstraints.expand(
                           height: 100,
