@@ -71,6 +71,8 @@ class MyHomePage extends StatefulWidget {
 const String MIN_DATETIME = '2019-01-01';
 const String MAX_DATETIME = '2022-12-31';
 const String INIT_DATETIME = '2020-01-01';
+String _format = 'yyyy-MMMM';
+
 
 class _MyHomePageState extends State<MyHomePage>
     with AfterLayoutMixin<MyHomePage> {
@@ -342,6 +344,7 @@ class _MyHomePageState extends State<MyHomePage>
       initialDateTime: dateTimeActual,  // Doesn't matter if it is the actual or budget because its just the init, which is always the same
       onClose: () => print("----- onClose -----"),
       onCancel: () => print('onCancel'),
+      dateFormat: _format,
       onChange: (dateTime, List<int> index) {
         setState(() {
           if(type == 'actual')
