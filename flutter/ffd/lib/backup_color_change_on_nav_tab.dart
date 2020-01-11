@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -72,7 +71,6 @@ class MyHomePage extends StatefulWidget {
 const String MIN_DATETIME = '2010-05-12';
 const String MAX_DATETIME = '2021-11-25';
 const String INIT_DATETIME = '2019-05-17';
-
 
 class _MyHomePageState extends State<MyHomePage>
     with AfterLayoutMixin<MyHomePage> {
@@ -324,6 +322,33 @@ class _MyHomePageState extends State<MyHomePage>
     }
   }
 
+  /// Display date picker.
+  void _showDatePicker() {
+    DatePicker.showDatePicker(
+      context,
+      pickerTheme: DateTimePickerTheme(
+        showTitle: true,
+        confirm: Text('Save', style: TextStyle(color: Color(0xff0957FF))),
+        cancel: Text('Cancel', style: TextStyle(color: Colors.black)),
+      ),
+      minDateTime: DateTime.parse(MIN_DATETIME),
+      maxDateTime: DateTime.parse(MAX_DATETIME),
+      initialDateTime: _dateTime,
+      onClose: () => print("----- onClose -----"),
+      onCancel: () => print('onCancel'),
+      onChange: (dateTime, List<int> index) {
+        setState(() {
+          _dateTime = dateTime;
+        });
+      },
+      onConfirm: (dateTime, List<int> index) {
+        setState(() {
+          _dateTime = dateTime;
+        });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -442,28 +467,22 @@ class _MyHomePageState extends State<MyHomePage>
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                  DatePickerWidget(
-                  minDateTime: DateTime.parse(MIN_DATETIME),
-              maxDateTime: DateTime.parse(MAX_DATETIME),
-              initialDateTime: DateTime.parse(INIT_DATETIME),
-              //dateFormat: DATE_FORMAT,
-              pickerTheme: DateTimePickerTheme(
-                backgroundColor: Colors.white,
-                cancelTextStyle: TextStyle(color: Colors.white),
-                confirmTextStyle: TextStyle(color: Colors.black),
-                itemTextStyle: TextStyle(color: Color(
-                    0xff0957FF)),
-                pickerHeight: 300.0,
-                titleHeight: 24.0,
-                itemHeight: 30.0,
-              ),
-              onChange: (dateTime, selectedIndex) {
-                setState(() {
-                  _dateTime = dateTime;
-                });
-              },
-            ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'Select a different date   ',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                            FloatingActionButton(
+                              onPressed: _showDatePicker,
+                              tooltip: 'Select a different date',
+                              child: Icon(Icons.date_range),
+                              backgroundColor: Color(0xff0957FF),
 
+                            )
+                          ]),
                       Container(
                         constraints: BoxConstraints.expand(
                           height: 40,
