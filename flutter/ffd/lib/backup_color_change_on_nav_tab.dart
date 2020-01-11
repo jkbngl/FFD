@@ -503,7 +503,7 @@ class _MyHomePageState extends State<MyHomePage>
                               backgroundColor: Color(0xff0957FF),
                             ),
                             Text(
-                                'Choosen: ${dateTimeActual.year.toString()}-${dateTimeActual.month.toString().padLeft(2, '0')}-${dateTimeActual.day.toString()}')
+                                'Choosen: ${dateTimeActual.year.toString()}-${dateTimeActual.month.toString().padLeft(2, '0')}')
                           ]),
 
                       Container(
