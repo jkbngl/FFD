@@ -69,7 +69,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 const String MIN_DATETIME = '2019-01-01';
-const String MAX_DATETIME = '2022-12-31';
+const String MAX_DATETIME = '2030-12-31';
 const String INIT_DATETIME = '2020-01-01';
 String _format = 'yyyy-MMMM';
 
@@ -229,55 +229,26 @@ class _MyHomePageState extends State<MyHomePage>
   void sendBackend(String type) async {
     var url = 'http://192.168.0.21:5000/api/ffd/';
 
+    // Are here in case needed sometimes later
     var params = {
       "doctor_id": "DOC000506",
       "date_range": "25/03/2019-25/03/2019",
       "clinic_id": "LAD000404"
     };
 
-    // Used to determine between actual and budget
-    String level1Local;
-    String level2Local;
-    String level3Local;
-    int level1LocalId;
-    int level2LocalId;
-    int level3LocalId;
-    String costTypeLocal;
-    int costTypeLocalId;
-    int amount;
-
-    if (type.toLowerCase() == 'actual') {
-      level1Local = level1ActualObject.name;
-      level2Local = level2ActualObject.name;
-      level3Local = level3ActualObject.name;
-      level1LocalId = level1ActualObject.id;
-      level2LocalId = level2ActualObject.id;
-      level3LocalId = level3ActualObject.id;
-      costTypeLocal = costTypeObjectActual.name;
-      costTypeLocalId = costTypeObjectActual.id;
-      amount = int.parse(actualTextFieldController.text);
-    } else if (type.toLowerCase() == 'budget') {
-      level1Local = level1BudgetObject.name;
-      level2Local = level2BudgetObject.name;
-      level3Local = level3BudgetObject.name;
-      level1LocalId = level1BudgetObject.id;
-      level2LocalId = level2BudgetObject.id;
-      level3LocalId = level3BudgetObject.id;
-      costTypeLocal = costTypeObjectBudget.name;
-      costTypeLocalId = costTypeObjectBudget.id;
-      amount = int.parse(budgetTextFieldController.text);
-    }
-
     var body = {
-      'amount': amount.toString(),
-      'level1': level1Local,
-      'level2': level2Local,
-      'level3': level3Local,
-      'level1id': level1LocalId.toString(),
-      'level2id': level2LocalId.toString(),
-      'level3id': level3LocalId.toString(),
-      'costtype': costTypeLocal,
-      'costtypeid': costTypeLocalId.toString(),
+      'amount': type == 'actual' ? actualTextFieldController.text : budgetTextFieldController.text,
+      'level1': type == 'actual' ? level1ActualObject.name : level1BudgetObject.name,
+      'level2': type == 'actual' ? level2ActualObject.name : level2BudgetObject.name,
+      'level3': type == 'actual' ? level3ActualObject.name : level3BudgetObject.name,
+      'level1id': type == 'actual' ? level1ActualObject.id.toString() : level1BudgetObject.id.toString(),
+      'level2id': type == 'actual' ? level2ActualObject.id.toString() : level2BudgetObject.id.toString(),
+      'level3id': type == 'actual' ? level3ActualObject.id.toString() : level3BudgetObject.id.toString(),
+      'costtype': type == 'actual' ? costTypeObjectActual.name : costTypeObjectBudget.name,
+      'costtypeid': type == 'actual' ? costTypeObjectActual.id.toString() : costTypeObjectBudget.id.toString(),
+      'date': type == 'actual' ? dateTimeActual.toString() : dateTimeBudget.toString(),
+      'year': type == 'actual' ? dateTimeActual.year.toString() : dateTimeBudget.year.toString(),
+      'month': type == 'actual' ? dateTimeActual.month.toString() : dateTimeBudget.month.toString(),
       'status': 'IP',
       'user': "1",
       'type': type,
@@ -337,7 +308,7 @@ class _MyHomePageState extends State<MyHomePage>
       pickerTheme: DateTimePickerTheme(
         showTitle: true,
         confirm: Text('Save', style: TextStyle(color: Color(0xff0957FF))),
-        cancel: Text('Cancel', style: TextStyle(color: Colors.black)),
+        cancel: Text('Cancel', style: TextStyle(color: Colors.grey)),
       ),
       minDateTime: DateTime.parse(MIN_DATETIME),
       maxDateTime: DateTime.parse(MAX_DATETIME),

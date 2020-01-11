@@ -130,8 +130,8 @@ def send():
 def sendActual(data):
     connection = connect()
     cursor = connection.cursor()
-    command = f"INSERT INTO ffd.act_data (amount, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk) \
-                                  VALUES ({data['amount']}, '{data['level1']}', {data['level1id']}, '{data['level2']}', {data['level2id']}, '{data['level3']}', {data['level3id']} \
+    command = f"INSERT INTO ffd.act_data (amount, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk) \
+                                  VALUES ({data['amount']}, '{data['date']}', {data['year']}, {data['month']}, '{data['level1']}', {data['level1id']}, '{data['level2']}', {data['level2id']}, '{data['level3']}', {data['level3id']} \
                                   , '{data['costtype']}', {data['costtypeid']}, {data['user']})"
     print(command)
     cursor.execute(command)
@@ -142,8 +142,8 @@ def sendActual(data):
 def sendBudget(data):
     connection = connect()
     cursor = connection.cursor()
-    command = f"INSERT INTO ffd.bdg_data (amount, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk) \
-                                  VALUES ({data['amount']}, '{data['level1']}', {data['level1id']}, '{data['level2']}', {data['level2id']}, '{data['level3']}', {data['level3id']} \
+    command = f"INSERT INTO ffd.bdg_data (amount, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk) \
+                                  VALUES ({data['amount']}, '{data['date']}', {data['year']}, {data['month']}, '{data['level1']}', {data['level1id']}, '{data['level2']}', {data['level2id']}, '{data['level3']}', {data['level3id']} \
                                   , '{data['costtype']}', {data['costtypeid']}, {data['user']})"
     print(command)
     cursor.execute(command)
