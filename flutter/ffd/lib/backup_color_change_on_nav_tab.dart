@@ -68,9 +68,9 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-const String MIN_DATETIME = '2010-05-12';
-const String MAX_DATETIME = '2021-11-25';
-const String INIT_DATETIME = '2019-05-17';
+const String MIN_DATETIME = '2019-01-01';
+const String MAX_DATETIME = '2022-12-31';
+const String INIT_DATETIME = '2020-01-01';
 
 class _MyHomePageState extends State<MyHomePage>
     with AfterLayoutMixin<MyHomePage> {
@@ -115,7 +115,9 @@ class _MyHomePageState extends State<MyHomePage>
   final budgetTextFieldController = TextEditingController();
 
   // Datetime object for selecting the date when the actual/ budget should be saved
-  DateTime _dateTime;
+  DateTime dateTimeActual;
+  DateTime dateTimeBudget;
+
 
   var appBarTitleText = new Text("FFD v2");
 
@@ -134,7 +136,8 @@ class _MyHomePageState extends State<MyHomePage>
     costTypeObjectActual = costTypesList[0];
     costTypeObjectBudget = costTypesList[0];
 
-    _dateTime = DateTime.parse(INIT_DATETIME);
+    dateTimeActual = DateTime.parse(INIT_DATETIME);
+    dateTimeBudget = DateTime.parse(INIT_DATETIME);
   }
 
   @override
@@ -326,7 +329,7 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   /// Display date picker.
-  void _showDatePicker() {
+  void _showDatePicker(String type) {
     DatePicker.showDatePicker(
       context,
       pickerTheme: DateTimePickerTheme(
@@ -336,17 +339,30 @@ class _MyHomePageState extends State<MyHomePage>
       ),
       minDateTime: DateTime.parse(MIN_DATETIME),
       maxDateTime: DateTime.parse(MAX_DATETIME),
-      initialDateTime: _dateTime,
+      initialDateTime: dateTimeActual,  // Doesn't matter if it is the actual or budget because its just the init, which is always the same
       onClose: () => print("----- onClose -----"),
       onCancel: () => print('onCancel'),
       onChange: (dateTime, List<int> index) {
         setState(() {
-          _dateTime = dateTime;
+          if(type == 'actual')
+          {
+            dateTimeActual = dateTime;
+          }
+          else{
+            dateTimeBudget = dateTime;
+          }
+
         });
       },
       onConfirm: (dateTime, List<int> index) {
         setState(() {
-          _dateTime = dateTime;
+          if(type == 'actual')
+          {
+            dateTimeActual = dateTime;
+          }
+          else{
+            dateTimeBudget = dateTime;
+          }
         });
       },
     );
@@ -507,13 +523,13 @@ class _MyHomePageState extends State<MyHomePage>
                               style: TextStyle(fontSize: 15),
                             ),
                             FloatingActionButton(
-                              onPressed: _showDatePicker,
+                              onPressed: () => _showDatePicker('actual'),
                               tooltip: 'Select a different date',
                               child: Icon(Icons.date_range),
                               backgroundColor: Color(0xff0957FF),
                             ),
                             Text(
-                                'Choosen: ${_dateTime.year.toString()}-${_dateTime.month.toString().padLeft(2, '0')}-${_dateTime.day.toString()}')
+                                'Choosen: ${dateTimeActual.year.toString()}-${dateTimeActual.month.toString().padLeft(2, '0')}-${dateTimeActual.day.toString()}')
                           ]),
 
                       Container(
@@ -769,21 +785,23 @@ class _MyHomePageState extends State<MyHomePage>
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Container(
-                        constraints: BoxConstraints.expand(
-                          height: 40,
-                        ),
-
-                        padding: const EdgeInsets.only(
-                            left: 0.0, top: 10, right: 0, bottom: 0),
-                        //color: Colors.blue[600],
-                        alignment: Alignment.center,
-                        //child: Text('Submit'),
-                        child: Text(
-                          'Budget',
-                          style: TextStyle(fontSize: 30),
-                        ),
-                      ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'Select a different date',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                            FloatingActionButton(
+                              onPressed: () => _showDatePicker('budget'),
+                              tooltip: 'Select a different date',
+                              child: Icon(Icons.date_range),
+                              backgroundColor: Color(0xff0957FF),
+                            ),
+                            Text(
+                                'Choosen: ${dateTimeBudget.year.toString()}-${dateTimeBudget.month.toString().padLeft(2, '0')}-${dateTimeBudget.day.toString()}')
+                          ]),
                       Container(
                         constraints: BoxConstraints.expand(
                           height: 100,
