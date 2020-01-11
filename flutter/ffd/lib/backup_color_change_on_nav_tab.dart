@@ -160,40 +160,50 @@ class _MyHomePageState extends State<MyHomePage>
     CostType typeToAdd;
 
     for (var account in parsedAccountLevel1) {
-      accountToAdd = new Account(account['id'], account['name'], account['parent_account']);
-      Account existingItem = level1AccountsList.firstWhere((itemToCheck) => itemToCheck.id == accountToAdd.id, orElse: () => null);
+      accountToAdd = new Account(
+          account['id'], account['name'], account['parent_account']);
+      Account existingItem = level1AccountsList.firstWhere(
+          (itemToCheck) => itemToCheck.id == accountToAdd.id,
+          orElse: () => null);
 
-      if(existingItem == null) {
+      if (existingItem == null) {
         level1AccountsList.add(accountToAdd);
       }
     }
 
     for (var account in parsedAccountLevel2) {
-      accountToAdd = new Account(account['id'], account['name'], account['parent_account']);
-      Account existingItem = level2AccountsList.firstWhere((itemToCheck) => itemToCheck.id == accountToAdd.id, orElse: () => null);
+      accountToAdd = new Account(
+          account['id'], account['name'], account['parent_account']);
+      Account existingItem = level2AccountsList.firstWhere(
+          (itemToCheck) => itemToCheck.id == accountToAdd.id,
+          orElse: () => null);
 
-      if(account['name'] == 'GAS')
-        print(account['parent_account']);
+      if (account['name'] == 'GAS') print(account['parent_account']);
 
-      if(existingItem == null) {
+      if (existingItem == null) {
         level2AccountsList.add(accountToAdd);
       }
     }
 
     for (var account in parsedAccountLevel3) {
-      accountToAdd = new Account(account['id'], account['name'], account['parent_account']);
-      Account existingItem = level3AccountsList.firstWhere((itemToCheck) => itemToCheck.id == accountToAdd.id, orElse: () => null);
+      accountToAdd = new Account(
+          account['id'], account['name'], account['parent_account']);
+      Account existingItem = level3AccountsList.firstWhere(
+          (itemToCheck) => itemToCheck.id == accountToAdd.id,
+          orElse: () => null);
 
-      if(existingItem == null) {
+      if (existingItem == null) {
         level3AccountsList.add(accountToAdd);
       }
     }
 
     for (var type in parsedCostTypes) {
       typeToAdd = new CostType(type['id'], type['name']);
-      CostType existingItem = costTypesList.firstWhere((itemToCheck) => itemToCheck.id == typeToAdd.id, orElse: () => null);
+      CostType existingItem = costTypesList.firstWhere(
+          (itemToCheck) => itemToCheck.id == typeToAdd.id,
+          orElse: () => null);
 
-      if(existingItem == null) {
+      if (existingItem == null) {
         costTypesList.add(typeToAdd);
       }
     }
@@ -273,28 +283,33 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  arrangeAccounts(int level, String type)
-  {
+  arrangeAccounts(int level, String type) {
     // Refresh accounts lists, needed because the accounts are cleared from account list and when another level1 or 2 are selected the list only has the level2 and 3 accounts from the other level1 or 2
     checkForChanges(false, true);
 
-    if(level == 1)
-    {
+    if (level == 1) {
       // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
-      level2ActualObject = level2AccountsList.firstWhere((account) => account.parentAccount == level1ActualObject.id, orElse: () => level2AccountsList[0]);
+      level2ActualObject = level2AccountsList.firstWhere(
+          (account) => account.parentAccount == level1ActualObject.id,
+          orElse: () => level2AccountsList[0]);
       // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
-      level2AccountsList.retainWhere((account) => account.parentAccount == level1ActualObject.id || account.id < 0);
+      level2AccountsList.retainWhere((account) =>
+          account.parentAccount == level1ActualObject.id || account.id < 0);
 
       // Same as above for level3
-      level3ActualObject = level3AccountsList.firstWhere((account) => account.parentAccount == level2ActualObject.id, orElse: () => level3AccountsList[0]);
-      level3AccountsList.retainWhere((account) => account.parentAccount == level2ActualObject.id || account.id < 0);
-    }
-    else if(level == 2)
-    {
+      level3ActualObject = level3AccountsList.firstWhere(
+          (account) => account.parentAccount == level2ActualObject.id,
+          orElse: () => level3AccountsList[0]);
+      level3AccountsList.retainWhere((account) =>
+          account.parentAccount == level2ActualObject.id || account.id < 0);
+    } else if (level == 2) {
       // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
-      level3ActualObject = level3AccountsList.firstWhere((account) => account.parentAccount == level2ActualObject.id, orElse: () => level3AccountsList[0]);
+      level3ActualObject = level3AccountsList.firstWhere(
+          (account) => account.parentAccount == level2ActualObject.id,
+          orElse: () => level3AccountsList[0]);
       // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
-      level3AccountsList.retainWhere((account) => account.parentAccount == level2ActualObject.id || account.id < 0);
+      level3AccountsList.retainWhere((account) =>
+          account.parentAccount == level2ActualObject.id || account.id < 0);
     }
   }
 
@@ -431,6 +446,118 @@ class _MyHomePageState extends State<MyHomePage>
                           style: TextStyle(fontSize: 30),
                         ),
                       ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+                      DropdownButton<Account>(
+                        value: level1ActualObject,
+                        hint: Text(
+                          "Select a level 1 account",
+                          /*style: TextStyle(
+                              color,
+                            ),*/
+                        ),
+                        icon: Icon(Icons.arrow_downward),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: TextStyle(color: Color(0xff0957FF)),
+                        isExpanded: true,
+                        underline: Container(
+                          height: 2,
+                          width: 5000,
+                          color: Color(0xff0957FF),
+                        ),
+                        onChanged: (Account newValue) {
+                          setState(() {
+                            level1ActualObject = newValue;
+                          });
+
+                          print(level1ActualObject.name);
+
+                          arrangeAccounts(1, 'actual');
+                        },
+                        items: level1AccountsList.map((Account account) {
+                          return new DropdownMenuItem<Account>(
+                            value: account,
+                            child: new Text(
+                              account.name,
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      DropdownButton<Account>(
+                        value: level1ActualObject,
+                        hint: Text(
+                          "Select a level 1 account",
+                          /*style: TextStyle(
+                              color,
+                            ),*/
+                        ),
+                        icon: Icon(Icons.arrow_downward),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: TextStyle(color: Color(0xff0957FF)),
+                        isExpanded: true,
+                        underline: Container(
+                          height: 2,
+                          width: 5000,
+                          color: Color(0xff0957FF),
+                        ),
+                        onChanged: (Account newValue) {
+                          setState(() {
+                            level1ActualObject = newValue;
+                          });
+
+                          print(level1ActualObject.name);
+
+                          arrangeAccounts(1, 'actual');
+                        },
+                        items: level1AccountsList.map((Account account) {
+                          return new DropdownMenuItem<Account>(
+                            value: account,
+                            child: new Text(
+                              account.name,
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      DropdownButton<Account>(
+                        value: level1ActualObject,
+                        hint: Text(
+                          "Select a level 1 account",
+                          /*style: TextStyle(
+                              color,
+                            ),*/
+                        ),
+                        icon: Icon(Icons.arrow_downward),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: TextStyle(color: Color(0xff0957FF)),
+                        isExpanded: true,
+                        underline: Container(
+                          height: 2,
+                          width: 5000,
+                          color: Color(0xff0957FF),
+                        ),
+                        onChanged: (Account newValue) {
+                          setState(() {
+                            level1ActualObject = newValue;
+                          });
+
+                          print(level1ActualObject.name);
+
+                          arrangeAccounts(1, 'actual');
+                        },
+                        items: level1AccountsList.map((Account account) {
+                          return new DropdownMenuItem<Account>(
+                            value: account,
+                            child: new Text(
+                              account.name,
+                            ),
+                          );
+                        }).toList(),
+                      )]),
                       Container(
                         constraints: BoxConstraints.expand(
                           height: 100,
