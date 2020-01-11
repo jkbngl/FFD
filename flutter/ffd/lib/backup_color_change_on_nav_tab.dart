@@ -431,6 +431,19 @@ class _MyHomePageState extends State<MyHomePage>
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
+                  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[Text(
+                      'Actual',
+                      style: TextStyle(fontSize: 30),
+                    ),Text(
+                      'Actual',
+                      style: TextStyle(fontSize: 30),
+                    ),Text(
+                      'Actual',
+                      style: TextStyle(fontSize: 30),
+                    ),]),
                       Container(
                         constraints: BoxConstraints.expand(
                           height: 40,
@@ -446,118 +459,7 @@ class _MyHomePageState extends State<MyHomePage>
                           style: TextStyle(fontSize: 30),
                         ),
                       ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-                      DropdownButton<Account>(
-                        value: level1ActualObject,
-                        hint: Text(
-                          "Select a level 1 account",
-                          /*style: TextStyle(
-                              color,
-                            ),*/
-                        ),
-                        icon: Icon(Icons.arrow_downward),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: TextStyle(color: Color(0xff0957FF)),
-                        isExpanded: true,
-                        underline: Container(
-                          height: 2,
-                          width: 5000,
-                          color: Color(0xff0957FF),
-                        ),
-                        onChanged: (Account newValue) {
-                          setState(() {
-                            level1ActualObject = newValue;
-                          });
 
-                          print(level1ActualObject.name);
-
-                          arrangeAccounts(1, 'actual');
-                        },
-                        items: level1AccountsList.map((Account account) {
-                          return new DropdownMenuItem<Account>(
-                            value: account,
-                            child: new Text(
-                              account.name,
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                      DropdownButton<Account>(
-                        value: level1ActualObject,
-                        hint: Text(
-                          "Select a level 1 account",
-                          /*style: TextStyle(
-                              color,
-                            ),*/
-                        ),
-                        icon: Icon(Icons.arrow_downward),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: TextStyle(color: Color(0xff0957FF)),
-                        isExpanded: true,
-                        underline: Container(
-                          height: 2,
-                          width: 5000,
-                          color: Color(0xff0957FF),
-                        ),
-                        onChanged: (Account newValue) {
-                          setState(() {
-                            level1ActualObject = newValue;
-                          });
-
-                          print(level1ActualObject.name);
-
-                          arrangeAccounts(1, 'actual');
-                        },
-                        items: level1AccountsList.map((Account account) {
-                          return new DropdownMenuItem<Account>(
-                            value: account,
-                            child: new Text(
-                              account.name,
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                      DropdownButton<Account>(
-                        value: level1ActualObject,
-                        hint: Text(
-                          "Select a level 1 account",
-                          /*style: TextStyle(
-                              color,
-                            ),*/
-                        ),
-                        icon: Icon(Icons.arrow_downward),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: TextStyle(color: Color(0xff0957FF)),
-                        isExpanded: true,
-                        underline: Container(
-                          height: 2,
-                          width: 5000,
-                          color: Color(0xff0957FF),
-                        ),
-                        onChanged: (Account newValue) {
-                          setState(() {
-                            level1ActualObject = newValue;
-                          });
-
-                          print(level1ActualObject.name);
-
-                          arrangeAccounts(1, 'actual');
-                        },
-                        items: level1AccountsList.map((Account account) {
-                          return new DropdownMenuItem<Account>(
-                            value: account,
-                            child: new Text(
-                              account.name,
-                            ),
-                          );
-                        }).toList(),
-                      )]),
                       Container(
                         constraints: BoxConstraints.expand(
                           height: 100,
