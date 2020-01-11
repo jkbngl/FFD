@@ -114,7 +114,10 @@ class _MyHomePageState extends State<MyHomePage>
   final actualTextFieldController = TextEditingController();
   final budgetTextFieldController = TextEditingController();
 
+  // Datetime object for selecting the date when the actual/ budget should be saved
   DateTime _dateTime;
+
+  var appBarTitleText = new Text("FFD v2");
 
   @override
   void initState() {
@@ -352,12 +355,40 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("FFD")),
+      appBar: AppBar(title: appBarTitleText),
       body: SizedBox.expand(
         child: PageView(
           controller: _pageController,
           onPageChanged: (index) {
             setState(() => _currentIndex = index);
+
+            switch (index) {
+              case 0:
+                {
+                  appBarTitleText = Text('FFD - Home');
+                  break;
+                }
+              case 1:
+                {
+                  appBarTitleText = Text('FFD - Actual');
+                  break;
+                }
+              case 2:
+                {
+                  appBarTitleText = Text('FFD - Budget');
+                  break;
+                }
+              case 3:
+                {
+                  appBarTitleText = Text('FFD - Visualizer');
+                  break;
+                }
+              case 4:
+                {
+                  appBarTitleText = Text('FFD - Settings');
+                  break;
+                }
+            }
 
             // Check if something in the settings has been changed, if yes set the vars and widgets accordingly
             checkForChanges(false, fetchAccountsAndCostTypes);
@@ -480,27 +511,11 @@ class _MyHomePageState extends State<MyHomePage>
                               tooltip: 'Select a different date',
                               child: Icon(Icons.date_range),
                               backgroundColor: Color(0xff0957FF),
-
                             ),
                             Text(
-                                'Choosen: ${_dateTime.year.toString()}-${_dateTime.month.toString().padLeft(2,'0')}-${_dateTime.day.toString()}'
-                            )
+                                'Choosen: ${_dateTime.year.toString()}-${_dateTime.month.toString().padLeft(2, '0')}-${_dateTime.day.toString()}')
                           ]),
-                      Container(
-                        constraints: BoxConstraints.expand(
-                          height: 40,
-                        ),
 
-                        padding: const EdgeInsets.only(
-                            left: 0.0, top: 10, right: 0, bottom: 0),
-                        //color: Colors.blue[600],
-                        alignment: Alignment.center,
-                        //child: Text('Submit'),
-                        child: Text(
-                          'Actual',
-                          style: TextStyle(fontSize: 30),
-                        ),
-                      ),
                       Container(
                         constraints: BoxConstraints.expand(
                           height: 100,
