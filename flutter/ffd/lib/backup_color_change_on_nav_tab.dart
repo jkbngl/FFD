@@ -468,11 +468,11 @@ class _MyHomePageState extends State<MyHomePage>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              'Select a different date   ',
+                              'Select a different date',
                               style: TextStyle(fontSize: 15),
                             ),
                             FloatingActionButton(
@@ -481,6 +481,9 @@ class _MyHomePageState extends State<MyHomePage>
                               child: Icon(Icons.date_range),
                               backgroundColor: Color(0xff0957FF),
 
+                            ),
+                            Text(
+                                'Choosen: ${_dateTime.year.toString()}-${_dateTime.month.toString().padLeft(2,'0')}-${_dateTime.day.toString()}'
                             )
                           ]),
                       Container(
