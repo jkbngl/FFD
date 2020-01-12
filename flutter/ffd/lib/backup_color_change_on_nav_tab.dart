@@ -70,11 +70,22 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-String MIN_DATETIME = (DateTime.now().year - 5).toString() + '-' + DateTime.now().month.toString().padLeft(2, '0') + '-' + DateTime.now().day.toString().padLeft(2, '0');
-String MAX_DATETIME = (DateTime.now().year + 5).toString() + '-' + DateTime.now().month.toString().padLeft(2, '0') + '-' + DateTime.now().day.toString().padLeft(2, '0');
-String INIT_DATETIME = DateTime.now().year.toString() + '-' + DateTime.now().month.toString().padLeft(2, '0') + '-' + DateTime.now().day.toString().padLeft(2, '0');
+String MIN_DATETIME = (DateTime.now().year - 5).toString() +
+    '-' +
+    DateTime.now().month.toString().padLeft(2, '0') +
+    '-' +
+    DateTime.now().day.toString().padLeft(2, '0');
+String MAX_DATETIME = (DateTime.now().year + 5).toString() +
+    '-' +
+    DateTime.now().month.toString().padLeft(2, '0') +
+    '-' +
+    DateTime.now().day.toString().padLeft(2, '0');
+String INIT_DATETIME = DateTime.now().year.toString() +
+    '-' +
+    DateTime.now().month.toString().padLeft(2, '0') +
+    '-' +
+    DateTime.now().day.toString().padLeft(2, '0');
 String _format = 'yyyy-MMMM';
-
 
 class _MyHomePageState extends State<MyHomePage>
     with AfterLayoutMixin<MyHomePage> {
@@ -121,7 +132,6 @@ class _MyHomePageState extends State<MyHomePage>
   // Datetime object for selecting the date when the actual/ budget should be saved
   DateTime dateTimeActual;
   DateTime dateTimeBudget;
-
 
   var appBarTitleText = new Text("FFD v2");
 
@@ -239,18 +249,39 @@ class _MyHomePageState extends State<MyHomePage>
     };
 
     var body = {
-      'amount': type == 'actual' ? actualTextFieldController.text : budgetTextFieldController.text,
-      'level1': type == 'actual' ? level1ActualObject.name : level1BudgetObject.name,
-      'level2': type == 'actual' ? level2ActualObject.name : level2BudgetObject.name,
-      'level3': type == 'actual' ? level3ActualObject.name : level3BudgetObject.name,
-      'level1id': type == 'actual' ? level1ActualObject.id.toString() : level1BudgetObject.id.toString(),
-      'level2id': type == 'actual' ? level2ActualObject.id.toString() : level2BudgetObject.id.toString(),
-      'level3id': type == 'actual' ? level3ActualObject.id.toString() : level3BudgetObject.id.toString(),
-      'costtype': type == 'actual' ? costTypeObjectActual.name : costTypeObjectBudget.name,
-      'costtypeid': type == 'actual' ? costTypeObjectActual.id.toString() : costTypeObjectBudget.id.toString(),
-      'date': type == 'actual' ? dateTimeActual.toString() : dateTimeBudget.toString(),
-      'year': type == 'actual' ? dateTimeActual.year.toString() : dateTimeBudget.year.toString(),
-      'month': type == 'actual' ? dateTimeActual.month.toString() : dateTimeBudget.month.toString(),
+      'amount': type == 'actual'
+          ? actualTextFieldController.text
+          : budgetTextFieldController.text,
+      'level1':
+          type == 'actual' ? level1ActualObject.name : level1BudgetObject.name,
+      'level2':
+          type == 'actual' ? level2ActualObject.name : level2BudgetObject.name,
+      'level3':
+          type == 'actual' ? level3ActualObject.name : level3BudgetObject.name,
+      'level1id': type == 'actual'
+          ? level1ActualObject.id.toString()
+          : level1BudgetObject.id.toString(),
+      'level2id': type == 'actual'
+          ? level2ActualObject.id.toString()
+          : level2BudgetObject.id.toString(),
+      'level3id': type == 'actual'
+          ? level3ActualObject.id.toString()
+          : level3BudgetObject.id.toString(),
+      'costtype': type == 'actual'
+          ? costTypeObjectActual.name
+          : costTypeObjectBudget.name,
+      'costtypeid': type == 'actual'
+          ? costTypeObjectActual.id.toString()
+          : costTypeObjectBudget.id.toString(),
+      'date': type == 'actual'
+          ? dateTimeActual.toString()
+          : dateTimeBudget.toString(),
+      'year': type == 'actual'
+          ? dateTimeActual.year.toString()
+          : dateTimeBudget.year.toString(),
+      'month': type == 'actual'
+          ? dateTimeActual.month.toString()
+          : dateTimeBudget.month.toString(),
       'status': 'IP',
       'user': "1",
       'type': type,
@@ -320,23 +351,18 @@ class _MyHomePageState extends State<MyHomePage>
       dateFormat: _format,
       onChange: (dateTime, List<int> index) {
         setState(() {
-          if(type == 'actual')
-          {
+          if (type == 'actual') {
             dateTimeActual = dateTime;
-          }
-          else{
+          } else {
             dateTimeBudget = dateTime;
           }
-
         });
       },
       onConfirm: (dateTime, List<int> index) {
         setState(() {
-          if(type == 'actual')
-          {
+          if (type == 'actual') {
             dateTimeActual = dateTime;
-          }
-          else{
+          } else {
             dateTimeBudget = dateTime;
           }
         });
@@ -493,22 +519,22 @@ class _MyHomePageState extends State<MyHomePage>
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
-
                           children: <Widget>[
                             Text(
                               'Select the month',
                               style: TextStyle(fontSize: 15),
                             ),
                             FloatingActionButton(
-                              onPressed: () => _showDatePicker('actual', dateTimeActual),
-                              tooltip: 'Select a different date where the booking should be added in',
+                              onPressed: () =>
+                                  _showDatePicker('actual', dateTimeActual),
+                              tooltip:
+                                  'Select a different date where the booking should be added in',
                               child: Icon(Icons.date_range),
                               backgroundColor: Color(0xff0957FF),
                             ),
                             Text(
                                 'Choosen: ${dateTimeActual.year.toString()}-${dateTimeActual.month.toString().padLeft(2, '0')}')
                           ]),
-
                       Container(
                         constraints: BoxConstraints.expand(
                           height: 100,
@@ -771,8 +797,10 @@ class _MyHomePageState extends State<MyHomePage>
                               style: TextStyle(fontSize: 15),
                             ),
                             FloatingActionButton(
-                              onPressed: () => _showDatePicker('budget', dateTimeBudget),
-                              tooltip: 'Select a different date where the booking should be added in',
+                              onPressed: () =>
+                                  _showDatePicker('budget', dateTimeBudget),
+                              tooltip:
+                                  'Select a different date where the booking should be added in',
                               child: Icon(Icons.date_range),
                               backgroundColor: Color(0xff0957FF),
                             ),
@@ -1131,15 +1159,30 @@ class _MyHomePageState extends State<MyHomePage>
                   Expanded(
                     child: Container(
                       child: TabBarView(children: [
-                        Container(
-                          child: Text("General Body"),
-                        ),
-                        Container(
-                          child: Text("Accounts Body"),
-                        ),
-                        Container(
-                          child: Text("Costtypes Body"),
-                        ),
+                        CustomScrollView(slivers: [
+                          SliverFillRemaining(
+                            hasScrollBody: false,
+                            child: Container(
+                              child: Text("General Body"),
+                            ),
+                          )
+                        ]),
+                        CustomScrollView(slivers: [
+                          SliverFillRemaining(
+                            hasScrollBody: false,
+                            child: Container(
+                              child: Text("Accounts Body"),
+                            ),
+                          )
+                        ]),
+                        CustomScrollView(slivers: [
+                          SliverFillRemaining(
+                            hasScrollBody: false,
+                            child: Container(
+                            child: Text("Costtypes Body"),
+                            ),
+                          )
+                        ]),
                       ]),
                     ),
                   )
