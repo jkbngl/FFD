@@ -70,8 +70,8 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-const String MIN_DATETIME = '2019-01-01';
-const String MAX_DATETIME = '2030-12-31';
+String MIN_DATETIME = (DateTime.now().year - 5).toString() + '-' + DateTime.now().month.toString().padLeft(2, '0') + '-' + DateTime.now().day.toString().padLeft(2, '0');
+String MAX_DATETIME = (DateTime.now().year + 5).toString() + '-' + DateTime.now().month.toString().padLeft(2, '0') + '-' + DateTime.now().day.toString().padLeft(2, '0');
 String INIT_DATETIME = DateTime.now().year.toString() + '-' + DateTime.now().month.toString().padLeft(2, '0') + '-' + DateTime.now().day.toString().padLeft(2, '0');
 String _format = 'yyyy-MMMM';
 
