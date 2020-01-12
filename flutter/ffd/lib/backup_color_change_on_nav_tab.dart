@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -70,8 +72,10 @@ class MyHomePage extends StatefulWidget {
 
 const String MIN_DATETIME = '2019-01-01';
 const String MAX_DATETIME = '2030-12-31';
-const String INIT_DATETIME = '2020-01-01';
+String INIT_DATETIME = DateTime.now().year.toString() + '-' + DateTime.now().month.toString() + '-' + DateTime.now().day.toString();
 String _format = 'yyyy-MMMM';
+
+
 
 
 class _MyHomePageState extends State<MyHomePage>
