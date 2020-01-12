@@ -76,8 +76,6 @@ String INIT_DATETIME = DateTime.now().year.toString() + '-' + DateTime.now().mon
 String _format = 'yyyy-MMMM';
 
 
-
-
 class _MyHomePageState extends State<MyHomePage>
     with AfterLayoutMixin<MyHomePage> {
   int _currentIndex = 0;
@@ -306,7 +304,7 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   /// Display date picker.
-  void _showDatePicker(String type) {
+  void _showDatePicker(String type, DateTime actualOrBudget) {
     DatePicker.showDatePicker(
       context,
       pickerTheme: DateTimePickerTheme(
@@ -316,8 +314,8 @@ class _MyHomePageState extends State<MyHomePage>
       ),
       minDateTime: DateTime.parse(MIN_DATETIME),
       maxDateTime: DateTime.parse(MAX_DATETIME),
-      initialDateTime: dateTimeActual,  // Doesn't matter if it is the actual or budget because its just the init, which is always the same
-      onClose: () => print("----- onClose -----"),
+      initialDateTime: actualOrBudget,
+      onClose: () => print("----- onClose $type -----"),
       onCancel: () => print('onCancel'),
       dateFormat: _format,
       onChange: (dateTime, List<int> index) {
@@ -495,14 +493,15 @@ class _MyHomePageState extends State<MyHomePage>
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
+
                           children: <Widget>[
                             Text(
-                              'Select a different date',
+                              'Select the month',
                               style: TextStyle(fontSize: 15),
                             ),
                             FloatingActionButton(
-                              onPressed: () => _showDatePicker('actual'),
-                              tooltip: 'Select a different date',
+                              onPressed: () => _showDatePicker('actual', dateTimeActual),
+                              tooltip: 'Select a different date where the booking should be added in',
                               child: Icon(Icons.date_range),
                               backgroundColor: Color(0xff0957FF),
                             ),
@@ -768,17 +767,17 @@ class _MyHomePageState extends State<MyHomePage>
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              'Select a different date',
+                              'Select the month',
                               style: TextStyle(fontSize: 15),
                             ),
                             FloatingActionButton(
-                              onPressed: () => _showDatePicker('budget'),
-                              tooltip: 'Select a different date',
+                              onPressed: () => _showDatePicker('budget', dateTimeBudget),
+                              tooltip: 'Select a different date where the booking should be added in',
                               child: Icon(Icons.date_range),
                               backgroundColor: Color(0xff0957FF),
                             ),
                             Text(
-                                'Choosen: ${dateTimeBudget.year.toString()}-${dateTimeBudget.month.toString().padLeft(2, '0')}-${dateTimeBudget.day.toString()}')
+                                'Choosen: ${dateTimeBudget.year.toString()}-${dateTimeBudget.month.toString().padLeft(2, '0')}')
                           ]),
                       Container(
                         constraints: BoxConstraints.expand(
