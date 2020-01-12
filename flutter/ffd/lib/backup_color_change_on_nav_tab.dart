@@ -72,7 +72,7 @@ class MyHomePage extends StatefulWidget {
 
 const String MIN_DATETIME = '2019-01-01';
 const String MAX_DATETIME = '2030-12-31';
-String INIT_DATETIME = DateTime.now().year.toString() + '-' + DateTime.now().month.toString() + '-' + DateTime.now().day.toString();
+String INIT_DATETIME = DateTime.now().year.toString() + '-' + DateTime.now().month.toString().padLeft(2, '0') + '-' + DateTime.now().day.toString().padLeft(2, '0');
 String _format = 'yyyy-MMMM';
 
 
