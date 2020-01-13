@@ -133,6 +133,13 @@ class _MyHomePageState extends State<MyHomePage>
   DateTime dateTimeActual;
   DateTime dateTimeBudget;
 
+  // bools loaded from DB to check whether accounts, which account levels and costtypes should be used
+  bool areAccountsActive = true;
+  bool areLevel1AccountsActive = true;
+  bool areLevel2AccountsActive = true;
+  bool areLevel3AccountsActive = true;
+  bool areCostTypesActive = true;
+
   var appBarTitleText = new Text("FFD v2");
 
   @override
@@ -1189,7 +1196,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 children: <Widget>[
                                   Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                          MainAxisAlignment.center,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: <Widget>[
@@ -1198,10 +1205,9 @@ class _MyHomePageState extends State<MyHomePage>
                                         Switch(
                                           value: true,
                                           onChanged: (value) {
-                                            /*setState(() {
-                                  isSwitched = value;
-                                });
-                                */
+                                            setState(() {
+                                              areAccountsActive = value;
+                                            });
                                           },
                                           activeTrackColor: Color(0xffEEEEEE),
                                           activeColor: Color(0xff0957FF),
@@ -1260,7 +1266,7 @@ class _MyHomePageState extends State<MyHomePage>
                                         left: 30.0,
                                         top: 0,
                                         right: 30,
-                                        bottom: 0),
+                                        bottom: 40),
                                     //color: Colors.blue[600],
                                     alignment: Alignment.center,
                                     //child: Text('Submit'),
@@ -1273,14 +1279,11 @@ class _MyHomePageState extends State<MyHomePage>
                                       // autofocus: true,
                                       controller: actualTextFieldController,
                                       decoration: InputDecoration(
-                                          // hintText: 'Enter ur amount',
-                                          //hintStyle: TextStyle(height: 1.75),
-                                          labelText:
+                                          hintText:
                                               'Select an existing or create a new level 1',
-                                          labelStyle: TextStyle(
-                                              height: 0.5,
-                                              color: Color(
-                                                  0xff0957FF)), //increases the height of cursor
+                                          hintStyle: TextStyle(
+                                              height: 1.75,
+                                              color: Color(0xff0957FF)),
                                           /*icon: Icon(
                                             Icons.attach_money,
                                             color: Color(0xff0957FF),
@@ -1294,6 +1297,101 @@ class _MyHomePageState extends State<MyHomePage>
                                                           Color(0xff0957FF)))),
                                     ),
                                   ),
+                                  /*
+                                  Divider(
+
+                                    color: Colors.black,
+                                  ),
+                                  */
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                        left: 30.0,
+                                        top: 0,
+                                        right: 30,
+                                        bottom: 0),
+                                    //color: Colors.blue[600],
+                                    alignment: Alignment.center,
+                                    //child: Text('Submit'),
+                                    child: DropdownButton<Account>(
+                                      value: level1ActualObject,
+                                      hint: Text(
+                                        "Select a level 1 account",
+                                        /*style: TextStyle(
+                              color,
+                            ),*/
+                                      ),
+                                      icon: Icon(Icons.arrow_downward),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      style:
+                                          TextStyle(color: Color(0xff0957FF)),
+                                      isExpanded: true,
+                                      underline: Container(
+                                        height: 2,
+                                        width: 5000,
+                                        color: Color(0xff0957FF),
+                                      ),
+                                      onChanged: (Account newValue) {
+                                        setState(() {
+                                          level1ActualObject = newValue;
+                                        });
+
+                                        print(level1ActualObject.name);
+
+                                        arrangeAccounts(1, 'actual');
+                                      },
+                                      items: level1AccountsList
+                                          .map((Account account) {
+                                        return new DropdownMenuItem<Account>(
+                                          value: account,
+                                          child: new Text(
+                                            account.name,
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                        left: 30.0,
+                                        top: 0,
+                                        right: 30,
+                                        bottom: 40),
+                                    //color: Colors.blue[600],
+                                    alignment: Alignment.center,
+                                    //child: Text('Submit'),
+                                    child: TextFormField(
+                                      keyboardType: TextInputType
+                                          .number, //keyboard with numbers only will appear to the screen
+                                      style: TextStyle(
+                                          height:
+                                              2), //increases the height of cursor
+                                      // autofocus: true,
+                                      controller: actualTextFieldController,
+                                      decoration: InputDecoration(
+                                          hintText:
+                                              'Select an existing or create a new level 2',
+                                          hintStyle: TextStyle(
+                                              height: 1.75,
+                                              color: Color(0xff0957FF)),
+                                          /*icon: Icon(
+                                            Icons.attach_money,
+                                            color: Color(0xff0957FF),
+                                          ),*/
+                                          //prefixIcon: Icon(Icons.attach_money),
+                                          //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                          enabledBorder:
+                                              new UnderlineInputBorder(
+                                                  borderSide: new BorderSide(
+                                                      color:
+                                                          Color(0xff0957FF)))),
+                                    ),
+                                  ),
+                                  /*
+                                  Divider(
+
+                                    color: Colors.black,
+                                  ), */
                                   Container(
                                     padding: const EdgeInsets.only(
                                         left: 30.0,
@@ -1360,102 +1458,11 @@ class _MyHomePageState extends State<MyHomePage>
                                       // autofocus: true,
                                       controller: actualTextFieldController,
                                       decoration: InputDecoration(
-                                          // hintText: 'Enter ur amount',
-                                          //hintStyle: TextStyle(height: 1.75),
-                                          labelText:
-                                              'Select an existing or create a new level 1',
-                                          labelStyle: TextStyle(
-                                              height: 0.5,
-                                              color: Color(
-                                                  0xff0957FF)), //increases the height of cursor
-                                          /*icon: Icon(
-                                            Icons.attach_money,
-                                            color: Color(0xff0957FF),
-                                          ),*/
-                                          //prefixIcon: Icon(Icons.attach_money),
-                                          //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                          enabledBorder:
-                                              new UnderlineInputBorder(
-                                                  borderSide: new BorderSide(
-                                                      color:
-                                                          Color(0xff0957FF)))),
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 30.0,
-                                        top: 0,
-                                        right: 30,
-                                        bottom: 0),
-                                    //color: Colors.blue[600],
-                                    alignment: Alignment.center,
-                                    //child: Text('Submit'),
-                                    child: DropdownButton<Account>(
-                                      value: level1ActualObject,
-                                      hint: Text(
-                                        "Select a level 1 account",
-                                        /*style: TextStyle(
-                              color,
-                            ),*/
-                                      ),
-                                      icon: Icon(Icons.arrow_downward),
-                                      iconSize: 24,
-                                      elevation: 16,
-                                      style:
-                                          TextStyle(color: Color(0xff0957FF)),
-                                      isExpanded: true,
-                                      underline: Container(
-                                        height: 2,
-                                        width: 5000,
-                                        color: Color(0xff0957FF),
-                                      ),
-                                      onChanged: (Account newValue) {
-                                        setState(() {
-                                          level1ActualObject = newValue;
-                                        });
-
-                                        print(level1ActualObject.name);
-
-                                        arrangeAccounts(1, 'actual');
-                                      },
-                                      items: level1AccountsList
-                                          .map((Account account) {
-                                        return new DropdownMenuItem<Account>(
-                                          value: account,
-                                          child: new Text(
-                                            account.name,
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 30.0,
-                                        top: 0,
-                                        right: 30,
-                                        bottom: 0),
-                                    //color: Colors.blue[600],
-                                    alignment: Alignment.center,
-                                    //child: Text('Submit'),
-                                    child: TextFormField(
-                                      keyboardType: TextInputType
-                                          .number, //keyboard with numbers only will appear to the screen
-                                      style: TextStyle(
-                                          height:
-                                              2), //increases the height of cursor
-                                      // autofocus: true,
-                                      controller: actualTextFieldController,
-                                      decoration: InputDecoration(
-                                          // hintText: 'Enter ur amount',
-                                          //hintStyle: TextStyle(height: 1.75),
-                                          labelText:
-                                              'Select an existing or create a new level 1',
-                                          labelStyle: TextStyle(
-                                              height: 0.5,
-                                              color: Color(
-                                                  0xff0957FF)), //increases the height of cursor
+                                          hintText:
+                                              'Select an existing or create a new level 3',
+                                          hintStyle: TextStyle(
+                                              height: 1.75,
+                                              color: Color(0xff0957FF)),
                                           /*icon: Icon(
                                             Icons.attach_money,
                                             color: Color(0xff0957FF),
@@ -1475,7 +1482,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     children: <Widget>[
                                       ButtonTheme(
                                         minWidth: 75.0,
-                                        height: 40.0,
+                                        height: 50.0,
                                         child: RaisedButton(
                                           child: Text('Discard'),
                                           color: Color(0xffEEEEEE), // EEEEEE
@@ -1485,15 +1492,32 @@ class _MyHomePageState extends State<MyHomePage>
                                         ),
                                       ),
                                       ButtonTheme(
+                                        minWidth: 75.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          child: Text('Delete \nSelected',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 17,
+                                              )),
+                                          color: Colors.red, //df7599 - 0957FF
+                                          onPressed: () {
+                                            //sendBackend('actual');
+                                          },
+                                        ),
+                                      ),ButtonTheme(
                                         minWidth: 150.0,
-                                        height: 60.0,
+                                        height: 70.0,
                                         child: RaisedButton(
                                           child: Text('Save',
                                               style: TextStyle(
-                                                  color: Colors.white, fontSize: 17)),
-                                          color: Color(0xff0957FF), //df7599 - 0957FF
+                                                  color: Colors.white,
+                                                  fontSize: 20)),
+                                          color: Color(
+                                              0xff0957FF), //df7599 - 0957FF
                                           onPressed: () {
-                                            sendBackend('actual');
+                                            //sendBackend('actual');
                                           },
                                         ),
                                       ),
@@ -1505,9 +1529,170 @@ class _MyHomePageState extends State<MyHomePage>
                         CustomScrollView(slivers: [
                           SliverFillRemaining(
                             hasScrollBody: false,
-                            child: Container(
-                              child: Text("Costtypes Body"),
-                            ),
+                            child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text("Use Costtypes:",
+                                            style: TextStyle(fontSize: 25)),
+                                        Switch(
+                                          value: true,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              areAccountsActive = value;
+                                            });
+                                          },
+                                          activeTrackColor: Color(0xffEEEEEE),
+                                          activeColor: Color(0xff0957FF),
+                                        ),
+                                      ]),
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                        left: 30.0,
+                                        top: 0,
+                                        right: 30,
+                                        bottom: 0),
+                                    //color: Colors.blue[600],
+                                    alignment: Alignment.center,
+                                    //child: Text('Submit'),
+                                    child: DropdownButton<Account>(
+                                      value: level1ActualObject,
+                                      hint: Text(
+                                        "Select a level 1 account",
+                                        /*style: TextStyle(
+                              color,
+                            ),*/
+                                      ),
+                                      icon: Icon(Icons.arrow_downward),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      style:
+                                          TextStyle(color: Color(0xff0957FF)),
+                                      isExpanded: true,
+                                      underline: Container(
+                                        height: 2,
+                                        width: 5000,
+                                        color: Color(0xff0957FF),
+                                      ),
+                                      onChanged: (Account newValue) {
+                                        setState(() {
+                                          level1ActualObject = newValue;
+                                        });
+
+                                        print(level1ActualObject.name);
+
+                                        arrangeAccounts(1, 'actual');
+                                      },
+                                      items: level1AccountsList
+                                          .map((Account account) {
+                                        return new DropdownMenuItem<Account>(
+                                          value: account,
+                                          child: new Text(
+                                            account.name,
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                        left: 30.0,
+                                        top: 0,
+                                        right: 30,
+                                        bottom: 40),
+                                    //color: Colors.blue[600],
+                                    alignment: Alignment.center,
+                                    //child: Text('Submit'),
+                                    child: TextFormField(
+                                      keyboardType: TextInputType
+                                          .number, //keyboard with numbers only will appear to the screen
+                                      style: TextStyle(
+                                          height:
+                                              2), //increases the height of cursor
+                                      // autofocus: true,
+                                      controller: actualTextFieldController,
+                                      decoration: InputDecoration(
+                                          hintText:
+                                              'Select an existing or create a new level 1',
+                                          hintStyle: TextStyle(
+                                              height: 1.75,
+                                              color: Color(0xff0957FF)),
+                                          /*icon: Icon(
+                                            Icons.attach_money,
+                                            color: Color(0xff0957FF),
+                                          ),*/
+                                          //prefixIcon: Icon(Icons.attach_money),
+                                          //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                          enabledBorder:
+                                              new UnderlineInputBorder(
+                                                  borderSide: new BorderSide(
+                                                      color:
+                                                          Color(0xff0957FF)))),
+                                    ),
+                                  ),
+                                  /*
+                                  Divider(
+
+                                    color: Colors.black,
+                                  ),
+                                  */
+
+                                  ButtonBar(
+                                    mainAxisSize: MainAxisSize
+                                        .min, // this will take space as minimum as posible(to center)
+                                    children: <Widget>[
+                                      ButtonTheme(
+                                        minWidth: 75.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          child: Text('Discard'),
+                                          color: Color(0xffEEEEEE), // EEEEEE
+                                          onPressed: () {
+                                            actualTextFieldController.text = '';
+                                          },
+                                        ),
+                                      ),
+                                      ButtonTheme(
+                                        minWidth: 75.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          child: Text('Delete \nSelected',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 17,
+                                              )),
+                                          color: Colors.red, //df7599 - 0957FF
+                                          onPressed: () {
+                                            //sendBackend('actual');
+                                          },
+                                        ),
+                                      ),ButtonTheme(
+                                        minWidth: 150.0,
+                                        height: 70.0,
+                                        child: RaisedButton(
+                                          child: Text('Save',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20)),
+                                          color: Color(
+                                              0xff0957FF), //df7599 - 0957FF
+                                          onPressed: () {
+                                            //sendBackend('actual');
+                                          },
+                                        ),
+                                      ),
+
+                                    ],
+                                  ),
+                                ]),
                           )
                         ]),
                       ]),
