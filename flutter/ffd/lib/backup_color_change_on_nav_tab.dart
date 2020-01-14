@@ -269,79 +269,76 @@ class _MyHomePageState extends State<MyHomePage>
   void sendBackend(String type) async {
     var url = 'http://192.168.0.21:5000/api/ffd/';
 
-    // Whenever something is added or removed its best to reload the accounts and costTypes
+    // Whenever with the backend is communicated its best to reload the accounts and costtpyes
     if(type.contains('add') || type.contains('delete'))
-      {
-        fetchAccountsAndCostTypes = true;
-      }
+      fetchAccountsAndCostTypes = true;
 
-        // Are here in case needed sometimes later
-        var params = {
-          "doctor_id": "DOC000506",
-          "date_range": "25/03/2019-25/03/2019",
-          "clinic_id": "LAD000404"
-        };
+    // Are here in case needed sometimes later
+    var params = {
+      "doctor_id": "DOC000506",
+      "date_range": "25/03/2019-25/03/2019",
+      "clinic_id": "LAD000404"
+    };
 
-        var body = {
-          'amount': type == 'actual'
-              ? actualTextFieldController.text
-              : budgetTextFieldController.text,
-          'level1':
+    var body = {
+      'amount': type == 'actual'
+          ? actualTextFieldController.text
+          : budgetTextFieldController.text,
+      'level1':
           type == 'actual' ? level1ActualObject.name : level1BudgetObject.name,
-          'level2':
+      'level2':
           type == 'actual' ? level2ActualObject.name : level2BudgetObject.name,
-          'level3':
+      'level3':
           type == 'actual' ? level3ActualObject.name : level3BudgetObject.name,
-          'level1id': type == 'actual'
-              ? level1ActualObject.id.toString()
-              : level1BudgetObject.id.toString(),
-          'level2id': type == 'actual'
-              ? level2ActualObject.id.toString()
-              : level2BudgetObject.id.toString(),
-          'level3id': type == 'actual'
-              ? level3ActualObject.id.toString()
-              : level3BudgetObject.id.toString(),
-          'costtype': type == 'actual'
-              ? costTypeObjectActual.name
-              : costTypeObjectBudget.name,
-          'costtypeid': type == 'actual'
-              ? costTypeObjectActual.id.toString()
-              : costTypeObjectBudget.id.toString(),
-          'date': type == 'actual'
-              ? dateTimeActual.toString()
-              : dateTimeBudget.toString(),
-          'year': type == 'actual'
-              ? dateTimeActual.year.toString()
-              : dateTimeBudget.year.toString(),
-          'month': type == 'actual'
-              ? dateTimeActual.month.toString()
-              : dateTimeBudget.month.toString(),
-          'costtypetoadd': newCostTypeTextFieldController.text,
-          'costtypetoaddcomment': newCostTypeCommentTextFieldController.text,
-          'costtypetodeleteid': costTypeObjectAdmin.id.toString(),
-          'costtypetodelete': costTypeObjectAdmin.name,
+      'level1id': type == 'actual'
+          ? level1ActualObject.id.toString()
+          : level1BudgetObject.id.toString(),
+      'level2id': type == 'actual'
+          ? level2ActualObject.id.toString()
+          : level2BudgetObject.id.toString(),
+      'level3id': type == 'actual'
+          ? level3ActualObject.id.toString()
+          : level3BudgetObject.id.toString(),
+      'costtype': type == 'actual'
+          ? costTypeObjectActual.name
+          : costTypeObjectBudget.name,
+      'costtypeid': type == 'actual'
+          ? costTypeObjectActual.id.toString()
+          : costTypeObjectBudget.id.toString(),
+      'date': type == 'actual'
+          ? dateTimeActual.toString()
+          : dateTimeBudget.toString(),
+      'year': type == 'actual'
+          ? dateTimeActual.year.toString()
+          : dateTimeBudget.year.toString(),
+      'month': type == 'actual'
+          ? dateTimeActual.month.toString()
+          : dateTimeBudget.month.toString(),
+      'costtypetoadd': newCostTypeTextFieldController.text,
+      'costtypetoaddcomment': newCostTypeCommentTextFieldController.text,
+      'costtypetodeleteid': costTypeObjectAdmin.id.toString(),
+      'costtypetodelete': costTypeObjectAdmin.name,
 
-          'status': 'IP',
-          'user': "1",
-          'type': type,
-        };
+      'status': 'IP',
+      'user': "1",
+      'type': type,
+    };
 
-        var response = await http.post(url, body: body);
+    var response = await http.post(url, body: body);
 
-        showDialog(
-          context: context,
-          builder: (context) => new AlertDialog(
-            content: new Text(
-                'sending to server: \n ${response.statusCode} \n ${response.body}'),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text('DISMISS'),
-                onPressed: () => Navigator.of(context).pop(),
-              )
-            ],
-          ),
-        );
-      }
+    showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        content: new Text(
+            'sending to server: \n ${response.statusCode} \n ${response.body}'),
+        actions: <Widget>[
+          new FlatButton(
+            child: new Text('DISMISS'),
+            onPressed: () => Navigator.of(context).pop(),
+          )
+        ],
+      ),
+    );
   }
 
   arrangeAccounts(int level, String type) {
@@ -431,6 +428,7 @@ class _MyHomePageState extends State<MyHomePage>
                 child: new Text('SAVE'),
                 onPressed: () {
                   sendBackend('newcosttypeadd');
+                  Navigator.of(context).pop();
                 },
               ),
             ],
