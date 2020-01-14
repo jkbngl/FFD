@@ -92,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage>
   int _currentIndex = 0;
   PageController _pageController;
 
-  // Bool which defined if accounts and costtypes needs to be refetched or can be cached
+  // Bool which defined if accounts and costTypes needs to be refetched or can be cached
   bool fetchAccountsAndCostTypes = false;
 
   // Effective objects which are displayed as value in dropdown and send to backend on SAVE
@@ -133,13 +133,26 @@ class _MyHomePageState extends State<MyHomePage>
   DateTime dateTimeActual;
   DateTime dateTimeBudget;
 
-  // bools loaded from DB to check whether accounts, which account levels and costtypes should be used
+  // booleans loaded from DB to check whether accounts, which account levels and costTypes should be used
   bool areAccountsActive = true;
   bool areLevel1AccountsActive = true;
   bool areLevel2AccountsActive = true;
   bool areLevel3AccountsActive = true;
   bool areCostTypesActive = true;
 
+  // Controllers used which store the value of the new accounts/ CostTypes added
+  final newLevel1TextFieldController = TextEditingController();
+  final newLevel2TextFieldController = TextEditingController();
+  final newLevel3TextFieldController = TextEditingController();
+  final newCostTypeTextFieldController = TextEditingController();
+
+  // Account and Costtype objedts which are used in the admin page
+  Account level1ObjectAdmin;
+  Account level2ObjectAdmin;
+  Account level3ObjectAdmin;
+  CostType costTypeObjectAdmin;
+
+  // Dynamic title at the top of the screen which is changed depending on which page is selected
   var appBarTitleText = new Text("FFD v2");
 
   @override
@@ -150,12 +163,19 @@ class _MyHomePageState extends State<MyHomePage>
     // Init with a default so that we don't get a null error on startup
     level1ActualObject = level1AccountsList[0];
     level1BudgetObject = level1AccountsList[0];
+    level1ObjectAdmin = level1AccountsList[0];
+
     level2ActualObject = level2AccountsList[0];
     level2BudgetObject = level2AccountsList[0];
+    level2ObjectAdmin = level2AccountsList[0];
+
     level3ActualObject = level3AccountsList[0];
     level3BudgetObject = level3AccountsList[0];
+    level3ObjectAdmin = level3AccountsList[0];
+
     costTypeObjectActual = costTypesList[0];
     costTypeObjectBudget = costTypesList[0];
+    costTypeObjectAdmin = costTypesList[0];
 
     dateTimeActual = DateTime.parse(INIT_DATETIME);
     dateTimeBudget = DateTime.parse(INIT_DATETIME);
@@ -289,6 +309,8 @@ class _MyHomePageState extends State<MyHomePage>
       'month': type == 'actual'
           ? dateTimeActual.month.toString()
           : dateTimeBudget.month.toString(),
+      'costtypetoadd': newCostTypeTextFieldController.text,
+      'costtypetodelete': costTypeObjectAdmin,
       'status': 'IP',
       'user': "1",
       'type': type,
@@ -1271,8 +1293,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     alignment: Alignment.center,
                                     //child: Text('Submit'),
                                     child: TextFormField(
-                                      keyboardType: TextInputType
-                                          .number, //keyboard with numbers only will appear to the screen
+                                      // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
                                       style: TextStyle(
                                           height:
                                               2), //increases the height of cursor
@@ -1361,8 +1382,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     alignment: Alignment.center,
                                     //child: Text('Submit'),
                                     child: TextFormField(
-                                      keyboardType: TextInputType
-                                          .number, //keyboard with numbers only will appear to the screen
+                                      // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
                                       style: TextStyle(
                                           height:
                                               2), //increases the height of cursor
@@ -1450,8 +1470,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     alignment: Alignment.center,
                                     //child: Text('Submit'),
                                     child: TextFormField(
-                                      keyboardType: TextInputType
-                                          .number, //keyboard with numbers only will appear to the screen
+                                      // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
                                       style: TextStyle(
                                           height:
                                               2), //increases the height of cursor
@@ -1506,7 +1525,8 @@ class _MyHomePageState extends State<MyHomePage>
                                             //sendBackend('actual');
                                           },
                                         ),
-                                      ),ButtonTheme(
+                                      ),
+                                      ButtonTheme(
                                         minWidth: 150.0,
                                         height: 70.0,
                                         child: RaisedButton(
@@ -1562,10 +1582,10 @@ class _MyHomePageState extends State<MyHomePage>
                                     //color: Colors.blue[600],
                                     alignment: Alignment.center,
                                     //child: Text('Submit'),
-                                    child: DropdownButton<Account>(
-                                      value: level1ActualObject,
+                                    child: DropdownButton<CostType>(
+                                      value: costTypeObjectAdmin,
                                       hint: Text(
-                                        "Select a level 1 account",
+                                        "Select a costtype to delete",
                                         /*style: TextStyle(
                               color,
                             ),*/
@@ -1581,21 +1601,17 @@ class _MyHomePageState extends State<MyHomePage>
                                         width: 5000,
                                         color: Color(0xff0957FF),
                                       ),
-                                      onChanged: (Account newValue) {
+                                      onChanged: (CostType newValue) {
                                         setState(() {
-                                          level1ActualObject = newValue;
+                                          costTypeObjectAdmin = newValue;
                                         });
-
-                                        print(level1ActualObject.name);
-
-                                        arrangeAccounts(1, 'actual');
                                       },
-                                      items: level1AccountsList
-                                          .map((Account account) {
-                                        return new DropdownMenuItem<Account>(
-                                          value: account,
+                                      items: costTypesList
+                                          .map((CostType costType) {
+                                        return new DropdownMenuItem<CostType>(
+                                          value: costType,
                                           child: new Text(
-                                            account.name,
+                                            costType.name,
                                           ),
                                         );
                                       }).toList(),
@@ -1611,16 +1627,16 @@ class _MyHomePageState extends State<MyHomePage>
                                     alignment: Alignment.center,
                                     //child: Text('Submit'),
                                     child: TextFormField(
-                                      keyboardType: TextInputType
-                                          .number, //keyboard with numbers only will appear to the screen
+                                      // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
                                       style: TextStyle(
                                           height:
                                               2), //increases the height of cursor
                                       // autofocus: true,
-                                      controller: actualTextFieldController,
+                                      controller:
+                                          newCostTypeTextFieldController,
                                       decoration: InputDecoration(
                                           hintText:
-                                              'Select an existing or create a new level 1',
+                                              'Select an existing or create a new Costtype',
                                           hintStyle: TextStyle(
                                               height: 1.75,
                                               color: Color(0xff0957FF)),
@@ -1655,7 +1671,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           child: Text('Discard'),
                                           color: Color(0xffEEEEEE), // EEEEEE
                                           onPressed: () {
-                                            actualTextFieldController.text = '';
+                                            newCostTypeTextFieldController.text = '';
                                           },
                                         ),
                                       ),
@@ -1671,10 +1687,11 @@ class _MyHomePageState extends State<MyHomePage>
                                               )),
                                           color: Colors.red, //df7599 - 0957FF
                                           onPressed: () {
-                                            //sendBackend('actual');
+                                            sendBackend('newcosttypedelete');
                                           },
                                         ),
-                                      ),ButtonTheme(
+                                      ),
+                                      ButtonTheme(
                                         minWidth: 150.0,
                                         height: 70.0,
                                         child: RaisedButton(
@@ -1685,11 +1702,10 @@ class _MyHomePageState extends State<MyHomePage>
                                           color: Color(
                                               0xff0957FF), //df7599 - 0957FF
                                           onPressed: () {
-                                            //sendBackend('actual');
+                                            sendBackend('newcosttypeadd');
                                           },
                                         ),
                                       ),
-
                                     ],
                                   ),
                                 ]),
