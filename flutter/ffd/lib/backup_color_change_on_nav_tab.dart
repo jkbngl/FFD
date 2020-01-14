@@ -310,7 +310,8 @@ class _MyHomePageState extends State<MyHomePage>
           ? dateTimeActual.month.toString()
           : dateTimeBudget.month.toString(),
       'costtypetoadd': newCostTypeTextFieldController.text,
-      'costtypetodelete': costTypeObjectAdmin,
+      'costtypetodeleteid': costTypeObjectAdmin.id.toString(),
+      'costtypetodelete': costTypeObjectAdmin.name,
       'status': 'IP',
       'user': "1",
       'type': type,

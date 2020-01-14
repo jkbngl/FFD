@@ -15,7 +15,7 @@ basePath: "/api"
 paths:
   /ffd/accounts/<level_type>:
     get:
-      operationId: "ffd.read"
+      operationId: "ffd.readAccounts"
       tags:
         - "Accounts"
       summary: "Returns the list of accounts accounts"
@@ -27,14 +27,68 @@ paths:
             type: "array"
             items:
               properties:
-                id:
-                  type: "integer"
-                name:
+                comment: 
                   type: "string"
-                type:
+                company_fk:
                   type: "integer"
-                comment:
+                created: 
                   type: "string"
+                created_by: 
+                  type: "string"
+                group_fk:
+                  type: "integer"
+                id: 
+                  type: "integer"
+                level_type: 
+                  type: "integer"
+                name: 
+                  type: "string"
+                parent_account: 
+                  type: "integer"
+                updated: 
+                  type: "string"
+                updated_by: 
+                  type: "string"
+                user_fk: 
+                  type: "integer"
+  /ffd/costtypes/:
+    get:
+      operationId: "ffd.readCosttypes"
+      tags:
+        - "Costtypes"
+      summary: "Returns the list of costtypes"
+      description: "Read the list of costtypes"
+      responses:
+        200:
+          description: "Successful read the list of costtypes"
+          schema:
+            type: "array"
+            items:
+              properties:
+                comment: 
+                  type: "string"
+                company_fk:
+                  type: "integer"
+                created: 
+                  type: "string"
+                created_by: 
+                  type: "string"
+                group_fk:
+                  type: "integer"
+                id: 
+                  type: "integer"
+                level_type: 
+                  type: "integer"
+                name: 
+                  type: "string"
+                parent_account: 
+                  type: "integer"
+                updated: 
+                  type: "string"
+                updated_by: 
+                  type: "string"
+                user_fk: 
+                  type: "integer"
   /ffd/:
     post:
       operationId: "ffd.send"
