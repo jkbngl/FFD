@@ -145,6 +145,7 @@ class _MyHomePageState extends State<MyHomePage>
   final newLevel2TextFieldController = TextEditingController();
   final newLevel3TextFieldController = TextEditingController();
   final newCostTypeTextFieldController = TextEditingController();
+  final newCostTypeCommentTextFieldController = TextEditingController();
 
   // Account and Costtype objedts which are used in the admin page
   Account level1ObjectAdmin;
@@ -310,8 +311,10 @@ class _MyHomePageState extends State<MyHomePage>
           ? dateTimeActual.month.toString()
           : dateTimeBudget.month.toString(),
       'costtypetoadd': newCostTypeTextFieldController.text,
+      'costtypetoaddcomment': newCostTypeCommentTextFieldController.text,
       'costtypetodeleteid': costTypeObjectAdmin.id.toString(),
       'costtypetodelete': costTypeObjectAdmin.name,
+
       'status': 'IP',
       'user': "1",
       'type': type,
@@ -399,6 +402,35 @@ class _MyHomePageState extends State<MyHomePage>
       },
     );
   }
+
+  _displayDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Enter a comment for your new CostType'),
+            content: TextField(
+              controller: newCostTypeCommentTextFieldController,
+              decoration: InputDecoration(hintText: "comment"),
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('CANCEL'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                child: new Text('SAVE'),
+                onPressed: () {
+                  sendBackend('newcosttypeadd');
+                },
+              ),
+            ],
+          );
+        });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -1703,7 +1735,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           color: Color(
                                               0xff0957FF), //df7599 - 0957FF
                                           onPressed: () {
-                                            sendBackend('newcosttypeadd');
+                                            _displayDialog(context);
                                           },
                                         ),
                                       ),
