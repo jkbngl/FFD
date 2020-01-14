@@ -195,7 +195,10 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   void checkForChanges(bool onStartup, bool fetch) async {
-    print("Checking for changes $onStartup");
+    print("Checking for changes $onStartup - $fetch");
+
+    Account accountToAdd;
+    CostType typeToAdd;
 
     if (fetch || onStartup) {
       level1AccountsJson =
@@ -206,64 +209,63 @@ class _MyHomePageState extends State<MyHomePage>
           await http.read('http://192.168.0.21:5000/api/ffd/accounts/3');
       costTypesJson =
           await http.read('http://192.168.0.21:5000/api/ffd/costtypes/');
-    }
 
-    var parsedAccountLevel1 = json.decode(level1AccountsJson);
-    var parsedAccountLevel2 = json.decode(level2AccountsJson);
-    var parsedAccountLevel3 = json.decode(level3AccountsJson);
-    var parsedCostTypes = json.decode(costTypesJson);
+      var parsedAccountLevel1 = json.decode(level1AccountsJson);
+      var parsedAccountLevel2 = json.decode(level2AccountsJson);
+      var parsedAccountLevel3 = json.decode(level3AccountsJson);
+      var parsedCostTypes = json.decode(costTypesJson);
 
-    Account accountToAdd;
-    CostType typeToAdd;
+      for (var account in parsedAccountLevel1) {
+        accountToAdd = new Account(
+            account['id'], account['name'], account['parent_account']);
+        Account existingItem = level1AccountsList.firstWhere(
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
+            orElse: () => null);
 
-    for (var account in parsedAccountLevel1) {
-      accountToAdd = new Account(
-          account['id'], account['name'], account['parent_account']);
-      Account existingItem = level1AccountsList.firstWhere(
-          (itemToCheck) => itemToCheck.id == accountToAdd.id,
-          orElse: () => null);
+        if (existingItem == null) {
+          level1AccountsList.add(accountToAdd);
+        }
+      }
 
-      if (existingItem == null) {
-        level1AccountsList.add(accountToAdd);
+      for (var account in parsedAccountLevel2) {
+        accountToAdd = new Account(
+            account['id'], account['name'], account['parent_account']);
+        Account existingItem = level2AccountsList.firstWhere(
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
+            orElse: () => null);
+
+        if (account['name'] == 'GAS') print(account['parent_account']);
+
+        if (existingItem == null) {
+          level2AccountsList.add(accountToAdd);
+        }
+      }
+
+      for (var account in parsedAccountLevel3) {
+        accountToAdd = new Account(
+            account['id'], account['name'], account['parent_account']);
+        Account existingItem = level3AccountsList.firstWhere(
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
+            orElse: () => null);
+
+        if (existingItem == null) {
+          level3AccountsList.add(accountToAdd);
+        }
+      }
+
+      for (var type in parsedCostTypes) {
+        typeToAdd = new CostType(type['id'], type['name']);
+        CostType existingItem = costTypesList.firstWhere(
+                (itemToCheck) => itemToCheck.id == typeToAdd.id,
+            orElse: () => null);
+
+        if (existingItem == null) {
+          costTypesList.add(typeToAdd);
+        }
       }
     }
 
-    for (var account in parsedAccountLevel2) {
-      accountToAdd = new Account(
-          account['id'], account['name'], account['parent_account']);
-      Account existingItem = level2AccountsList.firstWhere(
-          (itemToCheck) => itemToCheck.id == accountToAdd.id,
-          orElse: () => null);
-
-      if (account['name'] == 'GAS') print(account['parent_account']);
-
-      if (existingItem == null) {
-        level2AccountsList.add(accountToAdd);
-      }
-    }
-
-    for (var account in parsedAccountLevel3) {
-      accountToAdd = new Account(
-          account['id'], account['name'], account['parent_account']);
-      Account existingItem = level3AccountsList.firstWhere(
-          (itemToCheck) => itemToCheck.id == accountToAdd.id,
-          orElse: () => null);
-
-      if (existingItem == null) {
-        level3AccountsList.add(accountToAdd);
-      }
-    }
-
-    for (var type in parsedCostTypes) {
-      typeToAdd = new CostType(type['id'], type['name']);
-      CostType existingItem = costTypesList.firstWhere(
-          (itemToCheck) => itemToCheck.id == typeToAdd.id,
-          orElse: () => null);
-
-      if (existingItem == null) {
-        costTypesList.add(typeToAdd);
-      }
-    }
+    fetchAccountsAndCostTypes = false;
   }
 
   void sendBackend(String type) async {

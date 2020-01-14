@@ -79,7 +79,7 @@ def readCosttypes():
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-    query = f"select * from ffd.costtype_dim"
+    query = f"select * from ffd.costtype_dim where active = 1"
 
     cursor.execute(query)
     record = cursor.fetchall()
