@@ -287,23 +287,19 @@ class _MyHomePageState extends State<MyHomePage>
           }
         });
 
-        print("-----------  FOLLOWING ITEMS ARE SHOWN ----------- ");
-        costTypesList.forEach((element) {
-          //print(element.id);
-          print(element.name);
-        });
-
-        print("-----------  FOLLOWING ITEMS NEED TO BE REMOVED ----------- ");
+        /*
+        print("REMOVING: ");
         itemsToRemove.forEach((element) {
-          //print(element.id);
           print(element.name);
+          costTypesList.remove(element);
         });
 
-        print("----------- FOLLOWING ITEMS ARE AVAILABLE ----------- ");
-        costTypesListStating.forEach((element) {
-          //print(element.id);
+        print("HAVING: ");
+        costTypesList.forEach((element) {
           print(element.name);
         });
+        
+         */
       }
     }
 
