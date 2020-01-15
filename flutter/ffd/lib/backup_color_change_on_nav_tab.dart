@@ -200,6 +200,9 @@ class _MyHomePageState extends State<MyHomePage>
     Account accountToAdd;
     CostType typeToAdd;
 
+    List<CostType> costTypesListStating = <CostType>[const CostType(-99, 'UNDEFINED')];
+
+
     if (fetch || onStartup) {
       level1AccountsJson =
           await http.read('http://192.168.0.21:5000/api/ffd/accounts/1');
@@ -259,9 +262,48 @@ class _MyHomePageState extends State<MyHomePage>
                 (itemToCheck) => itemToCheck.id == typeToAdd.id,
             orElse: () => null);
 
+        costTypesListStating.add(typeToAdd);
+
         if (existingItem == null) {
           costTypesList.add(typeToAdd);
         }
+
+        List<CostType> itemsToRemove = <CostType>[]; // = costTypesList.where((element) => !costTypesListStating.contains(element));
+        bool remove = true;
+
+        // Loop through all costtypes ever added on runtime, check with the ones added on the last run and add the ones which are not in the new list to another list
+        costTypesList.forEach((element) {
+          remove = true;
+
+          // If an item is not in the staging list and is also not the undefined default account
+          for(int i = 0; i < costTypesListStating.length; i++)
+            if(costTypesListStating[i].id == element.id)
+            {
+              remove = false;
+            }
+
+          if(remove && element.id > 0){
+            itemsToRemove.add(element);
+          }
+        });
+
+        print("-----------  FOLLOWING ITEMS ARE SHOWN ----------- ");
+        costTypesList.forEach((element) {
+          //print(element.id);
+          print(element.name);
+        });
+
+        print("-----------  FOLLOWING ITEMS NEED TO BE REMOVED ----------- ");
+        itemsToRemove.forEach((element) {
+          //print(element.id);
+          print(element.name);
+        });
+
+        print("----------- FOLLOWING ITEMS ARE AVAILABLE ----------- ");
+        costTypesListStating.forEach((element) {
+          //print(element.id);
+          print(element.name);
+        });
       }
     }
 
