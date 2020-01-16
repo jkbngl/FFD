@@ -290,18 +290,13 @@ class _MyHomePageState extends State<MyHomePage>
 
       itemsToRemove.forEach((element) {
         print(element.name);
-        //costTypesList.remove(element);
+        costTypesList.remove(element);
       });
-
-      /*
 
       print("HAVING: ");
       costTypesList.forEach((element) {
         print(element.name);
        });
-
-       */
-
     }
 
     fetchAccountsAndCostTypes = false;
@@ -1766,7 +1761,9 @@ class _MyHomePageState extends State<MyHomePage>
                                               )),
                                           color: Colors.red, //df7599 - 0957FF
                                           onPressed: () {
+                                            // the here selected value was deleted and therefore is no more available, so set it to the first default value to not receive an error
                                             sendBackend('newcosttypedelete');
+                                            costTypeObjectAdmin = costTypesList[0];
                                           },
                                         ),
                                       ),
