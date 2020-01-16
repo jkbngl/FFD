@@ -236,7 +236,7 @@ class _MyHomePageState extends State<MyHomePage>
         Account existingItem = level2AccountsList.firstWhere(
                 (itemToCheck) => itemToCheck.id == accountToAdd.id,
             orElse: () => null);
-        
+
         if (existingItem == null) {
           level2AccountsList.add(accountToAdd);
         }
@@ -265,41 +265,43 @@ class _MyHomePageState extends State<MyHomePage>
         if (existingItem == null) {
           costTypesList.add(typeToAdd);
         }
-
-        List<CostType> itemsToRemove = <CostType>[]; // = costTypesList.where((element) => !costTypesListStating.contains(element));
-        bool remove = true;
-
-        // Loop through all costtypes ever added on runtime, check with the ones added on the last run and add the ones which are not in the new list to another list
-        costTypesList.forEach((element) {
-          remove = true;
-
-          // If an item is not in the staging list and is also not the undefined default account
-          for(int i = 0; i < costTypesListStating.length; i++)
-            if(costTypesListStating[i].id == element.id)
-            {
-              remove = false;
-            }
-
-          if(remove && element.id > 0){
-            itemsToRemove.add(element);
-          }
-        });
-
-
-        print("REMOVING: ");
-        itemsToRemove.forEach((element) {
-          print(element.name);
-          //costTypesList.remove(element);
-        });
-
-        /*
-        print("HAVING: ");
-        costTypesList.forEach((element) {
-          print(element.name);
-        });
-        
-         */
       }
+
+      List<CostType> itemsToRemove = <CostType>[]; // = costTypesList.where((element) => !costTypesListStating.contains(element));
+      bool remove = true;
+
+      // Loop through all costtypes ever added on runtime, check with the ones added on the last run and add the ones which are not in the new list to another list
+      costTypesList.forEach((element) {
+      remove = true;
+
+        // If an item is not in the staging list and is also not the undefined default account
+        for(int i = 0; i < costTypesListStating.length; i++) {
+          if (costTypesListStating[i].id == element.id) {
+            remove = false;
+          }
+        }
+        if(remove && element.id > 0){
+          itemsToRemove.add(element);
+        }
+      });
+
+
+      print("REMOVING: ");
+
+      itemsToRemove.forEach((element) {
+        print(element.name);
+        //costTypesList.remove(element);
+      });
+
+      /*
+
+      print("HAVING: ");
+      costTypesList.forEach((element) {
+        print(element.name);
+       });
+
+       */
+
     }
 
     fetchAccountsAndCostTypes = false;
