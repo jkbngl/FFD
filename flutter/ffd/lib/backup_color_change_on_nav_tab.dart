@@ -236,9 +236,7 @@ class _MyHomePageState extends State<MyHomePage>
         Account existingItem = level2AccountsList.firstWhere(
                 (itemToCheck) => itemToCheck.id == accountToAdd.id,
             orElse: () => null);
-
-        if (account['name'] == 'GAS') print(account['parent_account']);
-
+        
         if (existingItem == null) {
           level2AccountsList.add(accountToAdd);
         }
@@ -287,13 +285,14 @@ class _MyHomePageState extends State<MyHomePage>
           }
         });
 
-        /*
+
         print("REMOVING: ");
         itemsToRemove.forEach((element) {
           print(element.name);
-          costTypesList.remove(element);
+          //costTypesList.remove(element);
         });
 
+        /*
         print("HAVING: ");
         costTypesList.forEach((element) {
           print(element.name);
