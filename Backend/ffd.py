@@ -8,18 +8,18 @@ from configparser import *
 config = ConfigParser()
 config.read('config.ini')
 
-print(config.get('db', 'user'))
-
 def get_timestamp():
     return datetime.now().strftime(("%Y-%m-%d %H:%M:%S"))
 
 def connect():
     try:
+
         connection = psycopg2.connect(user = config.get('db', 'user'),
-                                      password = "dhjihdfjdksfhdfhsdfj",
-                                      host = "192.168.0.21",
-                                      port = "5433",
-                                      database = "postgres")
+                                      password = config.get('db', 'password'),
+                                      host = config.get('db', 'host'),
+                                      port = config.get('db', 'port'),
+                                      database = config.get('db', 'database')
+        )
         
         # Print PostgreSQL Connection properties
         cursor = connection.cursor()
