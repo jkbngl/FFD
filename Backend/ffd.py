@@ -173,8 +173,31 @@ def deleteCostType(data):
 def addCostType(data):
     connection = connect()
     cursor = connection.cursor()
-    command = f"INSERT INTO ffd.costtype_dim (name, comment, user_fk) \
-                                  VALUES ('{data['costtypetoadd'].upper()}', '{data['costtypetoaddcomment']}', {data['user']})"
+    command = f"INSERT INTO ffd.costtype_dim (name, comment, user_fk, group_fk, company_fk) \
+                                  VALUES ('{data['costtypetoadd'].upper()}', '{data['costtypetoaddcomment']}' \
+                                  , {data['user']},  {data['group']},  {data['company']})"
+    print(command)
+    cursor.execute(command)
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+def deleteAccount(data):
+    connection = connect()
+    cursor = connection.cursor()
+    command = f"update ffd.account_dim set active = 0 where id = {data['accounttodeleteid']}"
+    print(command)
+    cursor.execute(command)
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+def addAccount(data):
+    connection = connect()
+    cursor = connection.cursor()
+    command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
+                                  VALUES ('{data['accounttoadd'].upper()}', '{data['accounttoaddcomment']}', {data['leveltypetoadd']}, {data['parentaccountbyaccounttoadd']} \
+                                  , {data['user']},  {data['group']},  {data['company']})"
     print(command)
     cursor.execute(command)
     connection.commit()
