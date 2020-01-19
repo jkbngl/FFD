@@ -314,9 +314,7 @@ class _MyHomePageState extends State<MyHomePage>
 
     // Are here in case needed sometimes later
     var params = {
-      "doctor_id": "DOC000506",
-      "date_range": "25/03/2019-25/03/2019",
-      "clinic_id": "LAD000404"
+      "user": "DOC000506",    // TODO GET FIREBASE USER OBJECT HERE
     };
 
     var body = {
@@ -357,22 +355,30 @@ class _MyHomePageState extends State<MyHomePage>
       'costtypetoaddcomment': newCostTypeCommentTextFieldController.text,
       'costtypetodeleteid': costTypeObjectAdmin.id.toString(),
       'costtypetodelete': costTypeObjectAdmin.name,
-      'accounttodeletelevel1': type == 'newaccountdelete' ? level1AdminObject.id.toString() : null,
-      'accounttodeletelevel2': type == 'newaccountdelete' ? level2AdminObject.id.toString() : null,
-      'accounttodeletelevel3': type == 'newaccountdelete' ? level3AdminObject.id.toString() : null,
+      'accounttodeletelevel1id': type == 'newaccountdelete' ? level1AdminObject.id.toString() : "",
+      'accounttodeletelevel2id': type == 'newaccountdelete' ? level2AdminObject.id.toString() : "",
+      'accounttodeletelevel3id': type == 'newaccountdelete' ? level3AdminObject.id.toString() : "",
+      'accounttodeletelevel1': type == 'newaccountdelete' ? level1AdminObject.name : "",
+      'accounttodeletelevel2': type == 'newaccountdelete' ? level2AdminObject.name : "",
+      'accounttodeletelevel3': type == 'newaccountdelete' ? level3AdminObject.name : "",
       'accounttoaddlevel1': newLevel1TextFieldController.text,
       'accounttoaddlevel2': newLevel2TextFieldController.text,
       'accounttoaddlevel3': newLevel3TextFieldController.text,
-      // not needed for level1 as level1s have no parent
-      // 'accountfornewlevel1parentaccount': level0AdminObject.id.toString(),
       'accountfornewlevel2parentaccount': level1AdminObject.id.toString(),    // ID of the selected level2 object, to match the parentID
       'accountfornewlevel3parentaccount': level2AdminObject.id.toString(),    // ID of the selected level2 object, to match the parentID - not needed for level1 as level1s have no parent
       'status': 'IP',
-      'user': "1",
+      'user': '1',
+      'group': '-1',
+      'company': '-1',
       'type': type,
     };
 
+    print(url);
+    print(body);
+
     var response = await http.post(url, body: body);
+
+    print(response);
 
     showDialog(
       context: context,
@@ -514,14 +520,16 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  _displayDialog(BuildContext context) async {
+  commentInput(BuildContext context, String type, TextEditingController dependingController) async {
+
+
     return showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Enter a comment for your new CostType'),
+            title: Text('Enter a comment for your new ${type == 'costtype' ? 'Cost Type' : 'Account'}'),
             content: TextField(
-              controller: newCostTypeCommentTextFieldController,
+              controller: dependingController,
               decoration: InputDecoration(hintText: "comment"),
             ),
             actions: <Widget>[
@@ -534,7 +542,7 @@ class _MyHomePageState extends State<MyHomePage>
               new FlatButton(
                 child: new Text('SAVE'),
                 onPressed: () {
-                  sendBackend('newcosttypeadd');
+                  sendBackend('new${type}add');
                   Navigator.of(context).pop();
                 },
               ),
@@ -552,6 +560,9 @@ class _MyHomePageState extends State<MyHomePage>
         child: PageView(
           controller: _pageController,
           onPageChanged: (index) {
+            // Check if something in the settings has been changed, if yes set the vars and widgets accordingly
+            checkForChanges(false, fetchAccountsAndCostTypes);
+
             setState(() => _currentIndex = index);
 
             switch (index) {
@@ -581,9 +592,6 @@ class _MyHomePageState extends State<MyHomePage>
                   break;
                 }
             }
-
-            // Check if something in the settings has been changed, if yes set the vars and widgets accordingly
-            checkForChanges(false, fetchAccountsAndCostTypes);
           },
           children: <Widget>[
             CustomScrollView(
@@ -1848,7 +1856,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           color: Color(
                                               0xff0957FF), //df7599 - 0957FF
                                           onPressed: () {
-                                            _displayDialog(context);
+                                            commentInput(context, 'costtype', newCostTypeCommentTextFieldController);
                                           },
                                         ),
                                       ),

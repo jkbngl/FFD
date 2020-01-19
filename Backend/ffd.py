@@ -116,7 +116,7 @@ def send():
     it is the entry point for all functionality
     This function reads the type of the call and assigns the correct function
 
-    :return:        None
+    :return:        the body send, with the changed status
     """
 
     data = request.form.to_dict()
@@ -129,7 +129,12 @@ def send():
         deleteCostType(data)
     elif data['type'].lower() == 'newcosttypeadd':
         addCostType(data)
-        
+    elif data['type'].lower() == 'newaccountpeadd':
+        pass
+        #addCostType(data)
+    elif data['type'].lower() == 'newaccountdelete':
+        deleteAccount(data)
+    
 
     #data = request.values
     #print(f'RECEIVED DATA: {dir(request)}')
@@ -185,8 +190,23 @@ def addCostType(data):
 def deleteAccount(data):
     connection = connect()
     cursor = connection.cursor()
-    command = f"update ffd.account_dim set active = 0 where id = {data['accounttodeleteid']}"
+    
+    # Only delete the max account send, not if 1, 2 and 3 is sent, all three but only the 3
+    # Same if one and two is sent, then only 2
+    # And if only 1 is sent then the account level1
+    accounttodelete = None
+
+    if(int(data['accounttodeletelevel1id']) >= 0 and int(data['accounttodeletelevel2id']) >= 0 and int(data['accounttodeletelevel3id']) >= 0):
+        accounttodelete = data['accounttodeletelevel3id']
+    elif(int(data['accounttodeletelevel1id']) >= 0 and int(data['accounttodeletelevel2id']) >= 0):
+        accounttodelete = data['accounttodeletelevel2id']
+    elif(int(data['accounttodeletelevel1id']) >= 0):
+        accounttodelete = data['accounttodeletelevel1id']
+
+    
+    command = f"update ffd.account_dim set active = 0 where id = {accounttodelete}"
     print(command)
+    
     cursor.execute(command)
     connection.commit()
     cursor.close()
