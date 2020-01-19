@@ -9,6 +9,7 @@ drop table ffd.act_data;
 drop table ffd.bdg_data;
 
 
+
 CREATE TABLE ffd.user_dim (
         id SERIAL PRIMARY KEY
       , name text
@@ -61,6 +62,7 @@ CREATE TABLE ffd.user_dim (
       , user_fk integer DEFAULT -1 REFERENCES ffd.user_dim(id) 
       , group_fk integer DEFAULT -1 REFERENCES ffd.group_dim(id) 
       , company_fk integer DEFAULT -1 REFERENCES ffd.company_dim(id) 
+      , active integer DEFAULT 1
       , created date DEFAULT now()
       , updated date DEFAULT now()
       , created_by text DEFAULT 'UNDEFINED'
@@ -76,6 +78,7 @@ CREATE TABLE ffd.user_dim (
       , user_fk integer DEFAULT -1 REFERENCES ffd.user_dim(id) 
       , group_fk integer DEFAULT -1 REFERENCES  ffd.group_dim(id)
       , company_fk integer DEFAULT -1 REFERENCES ffd.company_dim(id)
+      , active integer DEFAULT 1
       , created date DEFAULT now()
       , updated date DEFAULT now()
       , created_by text DEFAULT 'UNDEFINED'
