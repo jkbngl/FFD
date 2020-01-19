@@ -151,9 +151,9 @@ class _MyHomePageState extends State<MyHomePage>
   final newCostTypeCommentTextFieldController = TextEditingController();
 
   // Account and Costtype objedts which are used in the admin page
-  Account level1ObjectAdmin;
-  Account level2ObjectAdmin;
-  Account level3ObjectAdmin;
+  Account level1AdminObject;
+  Account level2AdminObject;
+  Account level3AdminObject;
   CostType costTypeObjectAdmin;
 
   // Dynamic title at the top of the screen which is changed depending on which page is selected
@@ -167,15 +167,15 @@ class _MyHomePageState extends State<MyHomePage>
     // Init with a default so that we don't get a null error on startup
     level1ActualObject = level1AccountsList[0];
     level1BudgetObject = level1AccountsList[0];
-    level1ObjectAdmin = level1AccountsList[0];
+    level1AdminObject = level1AccountsList[0];
 
     level2ActualObject = level2AccountsList[0];
     level2BudgetObject = level2AccountsList[0];
-    level2ObjectAdmin = level2AccountsList[0];
+    level2AdminObject = level2AccountsList[0];
 
     level3ActualObject = level3AccountsList[0];
     level3BudgetObject = level3AccountsList[0];
-    level3ObjectAdmin = level3AccountsList[0];
+    level3AdminObject = level3AccountsList[0];
 
     costTypeObjectActual = costTypesList[0];
     costTypeObjectBudget = costTypesList[0];
@@ -357,7 +357,16 @@ class _MyHomePageState extends State<MyHomePage>
       'costtypetoaddcomment': newCostTypeCommentTextFieldController.text,
       'costtypetodeleteid': costTypeObjectAdmin.id.toString(),
       'costtypetodelete': costTypeObjectAdmin.name,
-
+      'accounttodeletelevel1': type == 'newaccountdelete' ? level1AdminObject.id.toString() : null,
+      'accounttodeletelevel2': type == 'newaccountdelete' ? level2AdminObject.id.toString() : null,
+      'accounttodeletelevel3': type == 'newaccountdelete' ? level3AdminObject.id.toString() : null,
+      'accounttoaddlevel1': newLevel1TextFieldController.text,
+      'accounttoaddlevel2': newLevel2TextFieldController.text,
+      'accounttoaddlevel3': newLevel3TextFieldController.text,
+      // not needed for level1 as level1s have no parent
+      // 'accountfornewlevel1parentaccount': level0AdminObject.id.toString(),
+      'accountfornewlevel2parentaccount': level1AdminObject.id.toString(),    // ID of the selected level2 object, to match the parentID
+      'accountfornewlevel3parentaccount': level2AdminObject.id.toString(),    // ID of the selected level2 object, to match the parentID - not needed for level1 as level1s have no parent
       'status': 'IP',
       'user': "1",
       'type': type,
@@ -419,6 +428,23 @@ class _MyHomePageState extends State<MyHomePage>
         level3AccountsList.retainWhere((account) =>
         account.parentAccount == level2BudgetObject.id || account.id < 0);
       }
+      else if(type == 'admin')
+      {
+        level2AdminObject = level2AccountsList.firstWhere(
+                (account) => account.parentAccount == level1AdminObject.id,
+            orElse: () => level2AccountsList[0]);
+
+        // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
+        level2AccountsList.retainWhere((account) =>
+        account.parentAccount == level1AdminObject.id || account.id < 0);
+
+        // Same as above for level3
+        level3AdminObject = level3AccountsList.firstWhere(
+                (account) => account.parentAccount == level2AdminObject.id,
+            orElse: () => level3AccountsList[0]);
+        level3AccountsList.retainWhere((account) =>
+        account.parentAccount == level2AdminObject.id || account.id < 0);
+      }
     } else if (level == 2) {
 
       if(type == 'actual')
@@ -439,6 +465,15 @@ class _MyHomePageState extends State<MyHomePage>
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3AccountsList.retainWhere((account) =>
         account.parentAccount == level2BudgetObject.id || account.id < 0);
+      }
+      else if(type == 'admin'){
+        // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
+        level3AdminObject = level3AccountsList.firstWhere(
+                (account) => account.parentAccount == level2AdminObject.id,
+            orElse: () => level3AccountsList[0]);
+        // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
+        level3AccountsList.retainWhere((account) =>
+        account.parentAccount == level2AdminObject.id || account.id < 0);
       }
     }
   }
@@ -871,7 +906,8 @@ class _MyHomePageState extends State<MyHomePage>
                                 costTypeObjectActual = newValue;
                               });
 
-                              arrangeAccounts(0, 'costtypes');
+                              // TODO check if needed
+                              //arrangeAccounts(0, 'costtypes');
                             },
                             items: costTypesList.map((CostType type) {
                               return new DropdownMenuItem<CostType>(
@@ -1142,7 +1178,8 @@ class _MyHomePageState extends State<MyHomePage>
                                 costTypeObjectBudget = newValue;
                               });
 
-                              arrangeAccounts(0, 'costtpyes');
+                              // TODO check if needed
+                              // arrangeAccounts(0, 'costtpyes');
                             },
                             items: costTypesList.map((CostType type) {
                               return new DropdownMenuItem<CostType>(
@@ -1355,7 +1392,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     alignment: Alignment.center,
                                     //child: Text('Submit'),
                                     child: DropdownButton<Account>(
-                                      value: level1ObjectAdmin,
+                                      value: level1AdminObject,
                                       hint: Text(
                                         "Select a level 1 account",
                                         /*style: TextStyle(
@@ -1375,7 +1412,7 @@ class _MyHomePageState extends State<MyHomePage>
                                       ),
                                       onChanged: (Account newValue) {
                                         setState(() {
-                                          level1ObjectAdmin = newValue;
+                                          level1AdminObject = newValue;
                                         });
 
                                         arrangeAccounts(1, 'admin');
@@ -1442,7 +1479,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     alignment: Alignment.center,
                                     //child: Text('Submit'),
                                     child: DropdownButton<Account>(
-                                      value: level2ObjectAdmin,
+                                      value: level2AdminObject,
                                       hint: Text(
                                         "Select a level 2 account",
                                         /*style: TextStyle(
@@ -1462,7 +1499,7 @@ class _MyHomePageState extends State<MyHomePage>
                                       ),
                                       onChanged: (Account newValue) {
                                         setState(() {
-                                          level2ObjectAdmin = newValue;
+                                          level2AdminObject = newValue;
                                         });
 
                                         arrangeAccounts(2, 'admin');
@@ -1528,7 +1565,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     alignment: Alignment.center,
                                     //child: Text('Submit'),
                                     child: DropdownButton<Account>(
-                                      value: level3ObjectAdmin,
+                                      value: level3AdminObject,
                                       hint: Text(
                                         "Select a level 3 account",
                                         /*style: TextStyle(
@@ -1548,7 +1585,7 @@ class _MyHomePageState extends State<MyHomePage>
                                       ),
                                       onChanged: (Account newValue) {
                                         setState(() {
-                                          level3ObjectAdmin = newValue;
+                                          level3AdminObject = newValue;
                                         });
 
                                         arrangeAccounts(3, 'admin');
