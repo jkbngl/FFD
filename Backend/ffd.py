@@ -129,7 +129,7 @@ def send():
         deleteCostType(data)
     elif data['type'].lower() == 'newcosttypeadd':
         addCostType(data)
-    elif data['type'].lower() == 'newaccountpeadd':
+    elif data['type'].lower() == 'newaccountadd':
         pass
         #addCostType(data)
     elif data['type'].lower() == 'newaccountdelete':

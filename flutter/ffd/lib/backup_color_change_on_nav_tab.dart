@@ -520,7 +520,7 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  commentInput(BuildContext context, String type, TextEditingController dependingController) async {
+  commentInput(BuildContext context, String type, TextEditingController dependingController, int level) async {
 
 
     return showDialog(
@@ -1688,8 +1688,26 @@ class _MyHomePageState extends State<MyHomePage>
                                           color: Color(
                                               0xff0957FF), //df7599 - 0957FF
                                           onPressed: () {
-                                            sendBackend('newaccounttoadd');
-                                          },
+                                            if(newAccountLevel1CommentTextFieldController.text.length > 0) {
+                                              commentInput(context, 'account',
+                                                  newCostTypeCommentTextFieldController,
+                                                  1);
+                                            }
+
+                                            if(newAccountLevel2CommentTextFieldController.text.length > 0)
+                                            {
+                                              commentInput(context, 'account',
+                                                  newCostTypeCommentTextFieldController,
+                                                  2);
+                                            }
+
+                                            if(newAccountLevel3CommentTextFieldController.text.length > 0)
+                                            {
+                                              commentInput(context, 'account',
+                                                  newCostTypeCommentTextFieldController,
+                                                  3);
+                                            }
+                                            },
                                         ),
                                       ),
                                     ],
@@ -1856,7 +1874,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           color: Color(
                                               0xff0957FF), //df7599 - 0957FF
                                           onPressed: () {
-                                            commentInput(context, 'costtype', newCostTypeCommentTextFieldController);
+                                            commentInput(context, 'costtype', newCostTypeCommentTextFieldController, 0);
                                           },
                                         ),
                                       ),
