@@ -67,6 +67,10 @@ CREATE TABLE ffd.user_dim (
       , updated date DEFAULT now()
       , created_by text DEFAULT 'UNDEFINED'
       , updated_by text DEFAULT 'UNDEFINED'
+      , CONSTRAINT costtype_user_uq UNIQUE (name, user_fk)
+	  , CONSTRAINT costtype_group_uq UNIQUE (name, group_fk)
+      , CONSTRAINT costtype_company_uq UNIQUE (name, company_fk)
+
     );
 
     CREATE TABLE ffd.account_dim (
@@ -83,7 +87,11 @@ CREATE TABLE ffd.user_dim (
       , updated date DEFAULT now()
       , created_by text DEFAULT 'UNDEFINED'
       , updated_by text DEFAULT 'UNDEFINED'
+      , CONSTRAINT account_user_uq UNIQUE (name, level_type, user_fk)
+	  , CONSTRAINT account_group_uq UNIQUE (name, level_type, group_fk)
+      , CONSTRAINT account_company_uq UNIQUE (name, level_type, company_fk)
     );
+   
 
 
     CREATE TABLE ffd.act_data (
