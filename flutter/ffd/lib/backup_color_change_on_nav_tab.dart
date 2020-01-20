@@ -532,7 +532,7 @@ class _MyHomePageState extends State<MyHomePage>
     }
     else if(type == 'account')
     {
-      dependingController = newAccountLevel1CommentTextFieldController;
+      dependingController = newLevel1TextFieldController;
     }
 
     // When a costType is added or a new level1 was entered, if no level1 is entered it might still be the case the a new level2 was entered with a linked level1 account
