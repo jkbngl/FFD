@@ -318,6 +318,7 @@ class _MyHomePageState extends State<MyHomePage>
     };
 
     var body = {
+      'type': type,
       'amount': type == 'actual'
           ? actualTextFieldController.text
           : budgetTextFieldController.text,
@@ -370,7 +371,6 @@ class _MyHomePageState extends State<MyHomePage>
       'user': '1',
       'group': '-1',
       'company': '-1',
-      'type': type,
     };
 
     print(url);
@@ -520,10 +520,10 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  commentInput(BuildContext context, String type, TextEditingController dependingController, int level) async {
+  commentInput(BuildContext context, String type, TextEditingController dependingController, TextEditingController dependingController2, TextEditingController dependingController3) async {
 
 
-    return showDialog(
+    showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
@@ -542,13 +542,82 @@ class _MyHomePageState extends State<MyHomePage>
               new FlatButton(
                 child: new Text('SAVE'),
                 onPressed: () {
-                  sendBackend('new${type}add');
+                  // Send directly to backend if a costtype should be added or no additional level2 was entered which has to be saved in the Backend -> DB
+                  if(type != 'account' || dependingController2.text.length <= 0){
+                    sendBackend('new${type}add');
+                  }
+
                   Navigator.of(context).pop();
                 },
               ),
             ],
           );
         });
+
+    print((dependingController2 != null ).toString() + " - " + (dependingController2.text.length > 0).toString());
+
+    if(dependingController2 != null && dependingController2.text.length > 0){
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Enter a comment for your new ${type == 'costtype' ? 'Cost Type' : 'Account'}'),
+              content: TextField(
+                controller: dependingController2,
+                decoration: InputDecoration(hintText: "comment"),
+              ),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text('CANCEL'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                new FlatButton(
+                  child: new Text('SAVE'),
+                  onPressed: () {
+                    // Send directly to backend if no additional level3 was entered which has to be saved in the Backend -> DB
+                    if(dependingController3.text.length <= 0){
+                      sendBackend('new${type}add');
+                    }
+
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          });
+    }
+
+    if(dependingController3 != null && dependingController3.text.length > 0){
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Enter a comment for your new ${type == 'costtype' ? 'Cost Type' : 'Account'}'),
+              content: TextField(
+                controller: dependingController2,
+                decoration: InputDecoration(hintText: "comment"),
+              ),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text('CANCEL'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                new FlatButton(
+                  child: new Text('SAVE'),
+                  onPressed: () {
+                    sendBackend('new${type}add');
+
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          });
+    }
   }
 
 
@@ -1688,25 +1757,12 @@ class _MyHomePageState extends State<MyHomePage>
                                           color: Color(
                                               0xff0957FF), //df7599 - 0957FF
                                           onPressed: () {
-                                            if(newAccountLevel1CommentTextFieldController.text.length > 0) {
                                               commentInput(context, 'account',
-                                                  newCostTypeCommentTextFieldController,
-                                                  1);
-                                            }
+                                                  newLevel1TextFieldController,
+                                                  newLevel2TextFieldController,
+                                                  newLevel3TextFieldController
+                                              );
 
-                                            if(newAccountLevel2CommentTextFieldController.text.length > 0)
-                                            {
-                                              commentInput(context, 'account',
-                                                  newCostTypeCommentTextFieldController,
-                                                  2);
-                                            }
-
-                                            if(newAccountLevel3CommentTextFieldController.text.length > 0)
-                                            {
-                                              commentInput(context, 'account',
-                                                  newCostTypeCommentTextFieldController,
-                                                  3);
-                                            }
                                             },
                                         ),
                                       ),
@@ -1874,7 +1930,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           color: Color(
                                               0xff0957FF), //df7599 - 0957FF
                                           onPressed: () {
-                                            commentInput(context, 'costtype', newCostTypeCommentTextFieldController, 0);
+                                            commentInput(context, 'costtype', newCostTypeCommentTextFieldController, null, null);
                                           },
                                         ),
                                       ),
