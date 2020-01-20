@@ -196,12 +196,12 @@ def deleteAccount(data):
     # And if only 1 is sent then the account level1
     accounttodelete = None
 
-    if(int(data['accounttodeletelevel1id']) >= 0 and int(data['accounttodeletelevel2id']) >= 0 and int(data['accounttodeletelevel3id']) >= 0):
-        accounttodelete = data['accounttodeletelevel3id']
-    elif(int(data['accounttodeletelevel1id']) >= 0 and int(data['accounttodeletelevel2id']) >= 0):
-        accounttodelete = data['accounttodeletelevel2id']
-    elif(int(data['accounttodeletelevel1id']) >= 0):
-        accounttodelete = data['accounttodeletelevel1id']
+    if(int(data['adminaccountlevel1id']) >= 0 and int(data['adminaccountlevel2id']) >= 0 and int(data['adminaccountlevel3id']) >= 0):
+        accounttodelete = data['adminaccountlevel3id']
+    elif(int(data['adminaccountlevel1id']) >= 0 and int(data['adminaccountlevel2id']) >= 0):
+        accounttodelete = data['adminaccountlevel2id']
+    elif(int(data['adminaccountlevel1id']) >= 0):
+        accounttodelete = data['adminaccountlevel1id']
 
     
     command = f"update ffd.account_dim set active = 0 where id = {accounttodelete}"
