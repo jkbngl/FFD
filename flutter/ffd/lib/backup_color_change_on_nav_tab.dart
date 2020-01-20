@@ -365,6 +365,9 @@ class _MyHomePageState extends State<MyHomePage>
       'accounttoaddlevel1': newLevel1TextFieldController.text,
       'accounttoaddlevel2': newLevel2TextFieldController.text,
       'accounttoaddlevel3': newLevel3TextFieldController.text,
+      'accounttoaddlevel1comment': newAccountLevel1CommentTextFieldController.text,
+      'accounttoaddlevel2comment': newAccountLevel2CommentTextFieldController.text,
+      'accounttoaddlevel3comment': newAccountLevel3CommentTextFieldController.text,
       'accountfornewlevel2parentaccount': level1AdminObject.id.toString(),    // ID of the selected level2 object, to match the parentID
       'accountfornewlevel3parentaccount': level2AdminObject.id.toString(),    // ID of the selected level2 object, to match the parentID - not needed for level1 as level1s have no parent
       'status': 'IP',
@@ -523,45 +526,47 @@ class _MyHomePageState extends State<MyHomePage>
   commentInput(BuildContext context, String type, TextEditingController dependingController, TextEditingController dependingController2, TextEditingController dependingController3) async {
 
 
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Enter a comment for your new ${type == 'costtype' ? 'Cost Type' : 'Account'}'),
-            content: TextField(
-              controller: dependingController,
-              decoration: InputDecoration(hintText: "comment"),
-            ),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text('CANCEL'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+    // When a costType is added or a new level1 was entered, if no level1 is entered it might still be the case the a new level2 was entered with a linked level1 account
+    if(type == 'costtype' || dependingController.text.length > 0 )
+    {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Enter a comment for your new ${type == 'costtype' ? 'Cost Type' : 'Account'}'),
+              content: TextField(
+                controller: dependingController,
+                decoration: InputDecoration(hintText: "comment"),
               ),
-              new FlatButton(
-                child: new Text('SAVE'),
-                onPressed: () {
-                  // Send directly to backend if a costtype should be added or no additional level2 was entered which has to be saved in the Backend -> DB
-                  if(type != 'account' || dependingController2.text.length <= 0){
-                    sendBackend('new${type}add');
-                  }
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text('CANCEL'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                new FlatButton(
+                  child: new Text('SAVE'),
+                  onPressed: () {
+                    // Send directly to backend if a costtype should be added or no additional level2 was entered which has to be saved in the Backend -> DB
+                    if(type != 'account' || dependingController2.text.length <= 0){
+                      sendBackend('new${type}add');
+                    }
 
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        });
-
-    print((dependingController2 != null ).toString() + " - " + (dependingController2.text.length > 0).toString());
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          });
+    }
 
     if(dependingController2 != null && dependingController2.text.length > 0){
       showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('Enter a comment for your new ${type == 'costtype' ? 'Cost Type' : 'Account'}'),
+              title: Text('Enter a comment for your new Account Level 2'),
               content: TextField(
                 controller: dependingController2,
                 decoration: InputDecoration(hintText: "comment"),
@@ -594,7 +599,7 @@ class _MyHomePageState extends State<MyHomePage>
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('Enter a comment for your new ${type == 'costtype' ? 'Cost Type' : 'Account'}'),
+              title: Text('Enter a comment for your new Account Level 3'),
               content: TextField(
                 controller: dependingController2,
                 decoration: InputDecoration(hintText: "comment"),
