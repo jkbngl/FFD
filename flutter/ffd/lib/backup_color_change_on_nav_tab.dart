@@ -403,9 +403,9 @@ class _MyHomePageState extends State<MyHomePage>
     checkForChanges(false, true);
 
     if (level == 1) {
-      // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
       if(type == 'actual')
       {
+        // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level2ActualObject = level2AccountsList.firstWhere(
                 (account) => account.parentAccount == level1ActualObject.id,
             orElse: () => level2AccountsList[0]);
@@ -439,9 +439,8 @@ class _MyHomePageState extends State<MyHomePage>
       }
       else if(type == 'admin')
       {
-        level2AdminObject = level2AccountsList.firstWhere(
-                (account) => account.parentAccount == level1AdminObject.id,
-            orElse: () => level2AccountsList[0]);
+        // For the admin, don't auto set the first matching parent account, as this might be confusing when I want to add a new account
+        level2AdminObject = level2AccountsList[0];
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level2AccountsList.retainWhere((account) =>
@@ -476,10 +475,8 @@ class _MyHomePageState extends State<MyHomePage>
         account.parentAccount == level2BudgetObject.id || account.id < 0);
       }
       else if(type == 'admin'){
-        // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
-        level3AdminObject = level3AccountsList.firstWhere(
-                (account) => account.parentAccount == level2AdminObject.id,
-            orElse: () => level3AccountsList[0]);
+        // For the admin, don't auto set the first matching parent account, as this might be confusing when I want to add a new account
+        level3AdminObject = level3AccountsList[0];
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3AccountsList.retainWhere((account) =>
         account.parentAccount == level2AdminObject.id || account.id < 0);
