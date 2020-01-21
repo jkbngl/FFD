@@ -271,6 +271,7 @@ class _MyHomePageState extends State<MyHomePage>
       });
 
       accountsListStating.clear();
+      accountsToRemove.clear();
 
       for (var account in parsedAccountLevel2) {
         accountToAdd = new Account(
@@ -314,6 +315,7 @@ class _MyHomePageState extends State<MyHomePage>
       });
 
       accountsListStating.clear();
+      accountsToRemove.clear();
 
       for (var account in parsedAccountLevel3) {
         accountToAdd = new Account(
@@ -357,8 +359,7 @@ class _MyHomePageState extends State<MyHomePage>
       });
 
       accountsListStating.clear();
-
-
+      accountsToRemove.clear();
 
       for (var type in parsedCostTypes) {
         typeToAdd = new CostType(type['id'], type['name']);
@@ -656,10 +657,12 @@ class _MyHomePageState extends State<MyHomePage>
                 new FlatButton(
                   child: new Text('SAVE'),
                   onPressed: () {
-                    // Send directly to backend if a costtype should be added or no additional level2 was entered which has to be saved in the Backend -> DB
-                    print((type != 'account').toString() + " - " + (dependingController2.text.length <= 0).toString());
-
-                    if(type != 'account' || dependingController2.text.length <= 0){
+                    if(type != 'account')
+                    {
+                      sendBackend('new${type}add');
+                    }
+                    else if(dependingController2.text.length <= 0)
+                    {
                       sendBackend('new${type}add');
                     }
 
@@ -2045,7 +2048,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           color: Color(
                                               0xff0957FF), //df7599 - 0957FF
                                           onPressed: () {
-                                            commentInput(context, 'costtype', newCostTypeCommentTextFieldController, null, null);
+                                            commentInput(context, 'costtype', newCostTypeTextFieldController, null, null);
                                           },
                                         ),
                                       ),
