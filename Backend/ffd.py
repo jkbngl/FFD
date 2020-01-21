@@ -130,8 +130,7 @@ def send():
     elif data['type'].lower() == 'newcosttypeadd':
         addCostType(data)
     elif data['type'].lower() == 'newaccountadd':
-        pass
-        #addCostType(data)
+        data = addAccount(data)
     elif data['type'].lower() == 'newaccountdelete':
         deleteAccount(data)
     
@@ -215,11 +214,49 @@ def deleteAccount(data):
 def addAccount(data):
     connection = connect()
     cursor = connection.cursor()
-    command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
-                                  VALUES ('{data['accounttoadd'].upper()}', '{data['accounttoaddcomment']}', {data['leveltypetoadd']}, {data['parentaccountbyaccounttoadd']} \
+    
+    # If a name for a new level1 aacount was sent, enter a new level1 account
+    if(data['accounttoaddlevel1']):
+        command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
+                                  VALUES ('{data['accounttoaddlevel1'].upper()}', '{data['accounttoaddlevel1comment']}', 1, null \
                                   , {data['user']},  {data['group']},  {data['company']})"
-    print(command)
-    cursor.execute(command)
-    connection.commit()
+        print(command)
+        cursor.execute(command)
+        connection.commit()
+
+    # Check if a parent account for a new level2 was sent and a level2 account name, if yes create a new level2 account
+    if(int(data['accountfornewlevel2parentaccount']) > 0 and data['accounttoaddlevel2']):
+        command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
+                                  VALUES ('{data['accounttoaddlevel2'].upper()}', '{data['accounttoaddlevel2comment']}', 2, {data['accountfornewlevel2parentaccount']} \
+                                  , {data['user']},  {data['group']},  {data['company']})"
+        print(command)
+        cursor.execute(command)
+        connection.commit()
+    elif(int(data['accountfornewlevel2parentaccount']) < 0 and data['accounttoaddlevel2']): # If no parent account for the new level2 was sent but a name for a new account
+        
+        if(data['accounttoaddlevel1']): # Check if a name for a level1 was sent, get the id of that and set this account as the parent
+            query = f"select id from ffd.account_dim where level_type = 1 and name = '{data['accounttoaddlevel1'].upper()}'"
+
+            cursor.execute(query)
+            record = cursor.fetchall()
+            command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
+                                  VALUES ('{data['accounttoaddlevel2'].upper()}', '{data['accounttoaddlevel2comment']}', 2, {record[0][0]} \
+                                  , {data['user']},  {data['group']},  {data['company']})"
+            print(command)
+            cursor.execute(command)
+            connection.commit()
+        
+    
+    # Check if a parent account for a new level3 was sent and a level3 account name, if yes create a new level3 account with the matching parent account
+    if(int(data['accountfornewlevel3parentaccount']) > 0 and data['accounttoaddlevel3']):
+        command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
+                                  VALUES ('{data['accounttoaddlevel3'].upper()}', '{data['accounttoaddlevel3comment']}', 3, {data['accountfornewlevel3parentaccount']} \
+                                  , {data['user']},  {data['group']},  {data['company']})"
+        print(command)
+        cursor.execute(command)
+        connection.commit()
+
     cursor.close()
     connection.close()
+
+    return data
