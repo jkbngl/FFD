@@ -535,14 +535,16 @@ class _MyHomePageState extends State<MyHomePage>
       dependingController = newLevel1TextFieldController;
     }
 
+    print("1 " + (type == 'costtype').toString() + " - " + (dependingController.text.length > 0).toString());
+
     // When a costType is added or a new level1 was entered, if no level1 is entered it might still be the case the a new level2 was entered with a linked level1 account
     if(type == 'costtype' || dependingController.text.length > 0 )
     {
-      showDialog(
+      await showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('Enter a comment for your new ${type == 'costtype' ? 'Cost Type' : 'Account'}'),
+              title: Text('Enter a comment for your new ${type == 'costtype' ? 'Cost Type' : 'Account Level 1'}'),
               content: TextField(
                 controller: dependingController,
                 decoration: InputDecoration(hintText: "comment"),
@@ -558,6 +560,8 @@ class _MyHomePageState extends State<MyHomePage>
                   child: new Text('SAVE'),
                   onPressed: () {
                     // Send directly to backend if a costtype should be added or no additional level2 was entered which has to be saved in the Backend -> DB
+                    print((type != 'account').toString() + " - " + (dependingController2.text.length <= 0).toString());
+
                     if(type != 'account' || dependingController2.text.length <= 0){
                       sendBackend('new${type}add');
                     }
@@ -571,7 +575,7 @@ class _MyHomePageState extends State<MyHomePage>
     }
 
     if(dependingController2 != null && dependingController2.text.length > 0){
-      showDialog(
+      await showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
