@@ -203,8 +203,14 @@ class _MyHomePageState extends State<MyHomePage>
     Account accountToAdd;
     CostType typeToAdd;
 
-    List<CostType> itemsToRemove = <CostType>[]; // = costTypesList.where((element) => !costTypesListStating.contains(element));
+    List<CostType> costTypesToRemove = <CostType>[];
+    List<Account> accountsToRemove = <Account>[];
+
+    List<Account> accountsListStating = <Account>[const Account(-99, 'UNDEFINED', null)];
     List<CostType> costTypesListStating = <CostType>[const CostType(-99, 'UNDEFINED')];
+
+    bool remove = true;
+
 
 
     if (fetch || onStartup) {
@@ -225,14 +231,46 @@ class _MyHomePageState extends State<MyHomePage>
       for (var account in parsedAccountLevel1) {
         accountToAdd = new Account(
             account['id'], account['name'], account['parent_account']);
+
         Account existingItem = level1AccountsList.firstWhere(
                 (itemToCheck) => itemToCheck.id == accountToAdd.id,
             orElse: () => null);
+
+        accountsListStating.add(accountToAdd);
 
         if (existingItem == null) {
           level1AccountsList.add(accountToAdd);
         }
       }
+
+      // Loop through all level1 accounts ever added on runtime, check with the ones added on the last run and add the ones which are not in the new list to another list
+      level1AccountsList.forEach((element) {
+        remove = true;
+
+        // If an item is not in the staging list and is also not the undefined default account
+        for(int i = 0; i < accountsListStating.length; i++) {
+          if (accountsListStating[i].id == element.id) {
+            remove = false;
+          }
+        }
+        if(remove && element.id > 0){
+          accountsToRemove.add(element);
+        }
+      });
+
+
+      print("REMOVING (ACCOUNTLEVEL1): ");
+      accountsToRemove.forEach((element) {
+        print(element.name);
+        level1AccountsList.remove(element);
+      });
+
+      print("HAVING (ACCOUNTLEVEL1): ");
+      level1AccountsList.forEach((element) {
+        print(element.name);
+      });
+
+      accountsListStating.clear();
 
       for (var account in parsedAccountLevel2) {
         accountToAdd = new Account(
@@ -241,10 +279,41 @@ class _MyHomePageState extends State<MyHomePage>
                 (itemToCheck) => itemToCheck.id == accountToAdd.id,
             orElse: () => null);
 
+        accountsListStating.add(accountToAdd);
+
         if (existingItem == null) {
           level2AccountsList.add(accountToAdd);
         }
       }
+
+      // Loop through all level1 accounts ever added on runtime, check with the ones added on the last run and add the ones which are not in the new list to another list
+      level2AccountsList.forEach((element) {
+        remove = true;
+
+        // If an item is not in the staging list and is also not the undefined default account
+        for(int i = 0; i < accountsListStating.length; i++) {
+          if (accountsListStating[i].id == element.id) {
+            remove = false;
+          }
+        }
+        if(remove && element.id > 0){
+          accountsToRemove.add(element);
+        }
+      });
+
+
+      print("REMOVING (ACCOUNTLEVEL2): ");
+      accountsToRemove.forEach((element) {
+        print(element.name);
+        level2AccountsList.remove(element);
+      });
+
+      print("HAVING (ACCOUNTLEVEL1): ");
+      level2AccountsList.forEach((element) {
+        print(element.name);
+      });
+
+      accountsListStating.clear();
 
       for (var account in parsedAccountLevel3) {
         accountToAdd = new Account(
@@ -253,10 +322,43 @@ class _MyHomePageState extends State<MyHomePage>
                 (itemToCheck) => itemToCheck.id == accountToAdd.id,
             orElse: () => null);
 
+        accountsListStating.add(accountToAdd);
+
         if (existingItem == null) {
           level3AccountsList.add(accountToAdd);
         }
       }
+
+      // Loop through all level1 accounts ever added on runtime, check with the ones added on the last run and add the ones which are not in the new list to another list
+      level3AccountsList.forEach((element) {
+        remove = true;
+
+        // If an item is not in the staging list and is also not the undefined default account
+        for(int i = 0; i < accountsListStating.length; i++) {
+          if (accountsListStating[i].id == element.id) {
+            remove = false;
+          }
+        }
+        if(remove && element.id > 0){
+          accountsToRemove.add(element);
+        }
+      });
+
+
+      print("REMOVING (ACCOUNTLEVEL3): ");
+      accountsToRemove.forEach((element) {
+        print(element.name);
+        level3AccountsList.remove(element);
+      });
+
+      print("HAVING (ACCOUNTLEVEL3): ");
+      level3AccountsList.forEach((element) {
+        print(element.name);
+      });
+
+      accountsListStating.clear();
+
+
 
       for (var type in parsedCostTypes) {
         typeToAdd = new CostType(type['id'], type['name']);
@@ -271,8 +373,6 @@ class _MyHomePageState extends State<MyHomePage>
         }
       }
 
-      bool remove = true;
-
       // Loop through all costtypes ever added on runtime, check with the ones added on the last run and add the ones which are not in the new list to another list
       costTypesList.forEach((element) {
       remove = true;
@@ -284,22 +384,21 @@ class _MyHomePageState extends State<MyHomePage>
           }
         }
         if(remove && element.id > 0){
-          itemsToRemove.add(element);
+          costTypesToRemove.add(element);
         }
       });
 
 
-      print("REMOVING: ");
-
-      itemsToRemove.forEach((element) {
+      print("REMOVING (COSTTYPE: ");
+      costTypesToRemove.forEach((element) {
         print(element.name);
         costTypesList.remove(element);
       });
 
-      print("HAVING: ");
+      print("HAVING (COSTTYPES): ");
       costTypesList.forEach((element) {
         print(element.name);
-       });
+      });
     }
 
     fetchAccountsAndCostTypes = false;
@@ -470,6 +569,7 @@ class _MyHomePageState extends State<MyHomePage>
         level3BudgetObject = level3AccountsList.firstWhere(
                 (account) => account.parentAccount == level2BudgetObject.id,
             orElse: () => level3AccountsList[0]);
+        // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3AccountsList.retainWhere((account) =>
         account.parentAccount == level2BudgetObject.id || account.id < 0);
