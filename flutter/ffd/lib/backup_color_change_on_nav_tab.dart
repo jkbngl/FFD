@@ -1916,6 +1916,17 @@ class _MyHomePageState extends State<MyHomePage>
                                           color: Colors.red, //df7599 - 0957FF
                                           onPressed: () {
                                             sendBackend('newaccountdelete');
+
+                                            if(level3AdminObject.id > 0)
+                                            {
+                                              level3AdminObject = level3AdminAccountsList[0];
+                                            } else if(level2AdminObject.id > 0)
+                                            {
+                                              level2AdminObject = level2AdminAccountsList[0];
+                                            } else if(level1AdminObject.id > 0)
+                                            {
+                                              level1AdminObject = level1AdminAccountsList[0];
+                                            }
                                           },
                                         ),
                                       ),
