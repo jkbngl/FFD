@@ -1484,7 +1484,7 @@ class _MyHomePageState extends State<MyHomePage>
                           alignment: Alignment.center,
                           //constraints: BoxConstraints.expand(width: 200),
                           width: 2000,
-                          color: Color(0xff0957FF),
+                          color: Color(0xff003680),
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -1504,7 +1504,7 @@ class _MyHomePageState extends State<MyHomePage>
                         child: Container(
                           alignment: Alignment.center,
                           constraints: BoxConstraints.expand(),
-                          color: Colors.red,
+                          color: Color(0xff73D700),
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -1524,7 +1524,7 @@ class _MyHomePageState extends State<MyHomePage>
                         child: Container(
                           alignment: Alignment.center,
                           constraints: BoxConstraints.expand(),
-                          color: Colors.deepPurple,
+                          color: Color(0xffDB002A),
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
