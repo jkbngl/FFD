@@ -115,12 +115,41 @@ class _MyHomePageState extends State<MyHomePage>
   List<Account> level1AccountsList = <Account>[
     const Account(-99, 'UNDEFINED', null),
   ];
+  List<Account> level1ActualAccountsList = <Account>[
+    const Account(-99, 'UNDEFINED', null),
+  ];
+  List<Account> level1BudgetAccountsList = <Account>[
+    const Account(-99, 'UNDEFINED', null),
+  ];
+  List<Account> level1AdminAccountsList = <Account>[
+    const Account(-99, 'UNDEFINED', null),
+  ];
+
 
   List<Account> level2AccountsList = <Account>[
     const Account(-100, 'UNDEFINED', null)
   ];
+  List<Account> level2ActualAccountsList = <Account>[
+    const Account(-100, 'UNDEFINED', null)
+  ];
+  List<Account> level2BudgetAccountsList = <Account>[
+    const Account(-100, 'UNDEFINED', null)
+  ];
+  List<Account> level2AdminAccountsList = <Account>[
+    const Account(-100, 'UNDEFINED', null)
+  ];
+
 
   List<Account> level3AccountsList = <Account>[
+    const Account(-101, 'UNDEFINED', null)
+  ];
+  List<Account> level3ActualAccountsList = <Account>[
+    const Account(-101, 'UNDEFINED', null)
+  ];
+  List<Account> level3BudgetAccountsList = <Account>[
+    const Account(-101, 'UNDEFINED', null)
+  ];
+  List<Account> level3AdminAccountsList = <Account>[
     const Account(-101, 'UNDEFINED', null)
   ];
 
@@ -240,6 +269,9 @@ class _MyHomePageState extends State<MyHomePage>
 
         if (existingItem == null) {
           level1AccountsList.add(accountToAdd);
+          level1ActualAccountsList.add(accountToAdd);
+          level1BudgetAccountsList.add(accountToAdd);
+          level1AdminAccountsList.add(accountToAdd);
         }
       }
 
@@ -263,6 +295,10 @@ class _MyHomePageState extends State<MyHomePage>
       accountsToRemove.forEach((element) {
         print(element.name);
         level1AccountsList.remove(element);
+
+        level1ActualAccountsList.remove(element);
+        level1BudgetAccountsList.remove(element);
+        level1AdminAccountsList.remove(element);
       });
 
       print("HAVING (ACCOUNTLEVEL1): ");
@@ -284,6 +320,10 @@ class _MyHomePageState extends State<MyHomePage>
 
         if (existingItem == null) {
           level2AccountsList.add(accountToAdd);
+          level2ActualAccountsList.add(accountToAdd);
+          level2BudgetAccountsList.add(accountToAdd);
+          level2AdminAccountsList.add(accountToAdd);
+
         }
       }
 
@@ -307,6 +347,11 @@ class _MyHomePageState extends State<MyHomePage>
       accountsToRemove.forEach((element) {
         print(element.name);
         level2AccountsList.remove(element);
+
+        level2ActualAccountsList.remove(element);
+        level2BudgetAccountsList.remove(element);
+        level2AdminAccountsList.remove(element);
+
       });
 
       print("HAVING (ACCOUNTLEVEL1): ");
@@ -328,6 +373,11 @@ class _MyHomePageState extends State<MyHomePage>
 
         if (existingItem == null) {
           level3AccountsList.add(accountToAdd);
+
+          level3ActualAccountsList.add(accountToAdd);
+          level3BudgetAccountsList.add(accountToAdd);
+          level3AdminAccountsList.add(accountToAdd);
+
         }
       }
 
@@ -351,6 +401,11 @@ class _MyHomePageState extends State<MyHomePage>
       accountsToRemove.forEach((element) {
         print(element.name);
         level3AccountsList.remove(element);
+
+        level3ActualAccountsList.remove(element);
+        level3BudgetAccountsList.remove(element);
+        level3AdminAccountsList.remove(element);
+
       });
 
       print("HAVING (ACCOUNTLEVEL3): ");
@@ -506,51 +561,51 @@ class _MyHomePageState extends State<MyHomePage>
       if(type == 'actual')
       {
         // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
-        level2ActualObject = level2AccountsList.firstWhere(
+        level2ActualObject = level2ActualAccountsList.firstWhere(
                 (account) => account.parentAccount == level1ActualObject.id,
-            orElse: () => level2AccountsList[0]);
+            orElse: () => level2ActualAccountsList[0]);
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
-        level2AccountsList.retainWhere((account) =>
+        level2ActualAccountsList.retainWhere((account) =>
         account.parentAccount == level1ActualObject.id || account.id < 0);
 
         // Same as above for level3
-        level3ActualObject = level3AccountsList.firstWhere(
+        level3ActualObject = level3ActualAccountsList.firstWhere(
                 (account) => account.parentAccount == level2ActualObject.id,
-            orElse: () => level3AccountsList[0]);
-        level3AccountsList.retainWhere((account) =>
+            orElse: () => level3ActualAccountsList[0]);
+        level3ActualAccountsList.retainWhere((account) =>
         account.parentAccount == level2ActualObject.id || account.id < 0);
       }
       else if(type == 'budget')
       {
-        level2BudgetObject = level2AccountsList.firstWhere(
+        level2BudgetObject = level2BudgetAccountsList.firstWhere(
                 (account) => account.parentAccount == level1BudgetObject.id,
-            orElse: () => level2AccountsList[0]);
+            orElse: () => level2BudgetAccountsList[0]);
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
-        level2AccountsList.retainWhere((account) =>
+        level2BudgetAccountsList.retainWhere((account) =>
         account.parentAccount == level1BudgetObject.id || account.id < 0);
 
         // Same as above for level3
-        level3BudgetObject = level3AccountsList.firstWhere(
+        level3BudgetObject = level3BudgetAccountsList.firstWhere(
                 (account) => account.parentAccount == level2BudgetObject.id,
-            orElse: () => level3AccountsList[0]);
-        level3AccountsList.retainWhere((account) =>
+            orElse: () => level3BudgetAccountsList[0]);
+        level3BudgetAccountsList.retainWhere((account) =>
         account.parentAccount == level2BudgetObject.id || account.id < 0);
       }
       else if(type == 'admin')
       {
         // For the admin, don't auto set the first matching parent account, as this might be confusing when I want to add a new account
-        level2AdminObject = level2AccountsList[0];
+        level2AdminObject = level2AdminAccountsList[0];
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
-        level2AccountsList.retainWhere((account) =>
+        level2AdminAccountsList.retainWhere((account) =>
         account.parentAccount == level1AdminObject.id || account.id < 0);
 
         // Same as above for level3
-        level3AdminObject = level3AccountsList.firstWhere(
+        level3AdminObject = level3AdminAccountsList.firstWhere(
                 (account) => account.parentAccount == level2AdminObject.id,
-            orElse: () => level3AccountsList[0]);
-        level3AccountsList.retainWhere((account) =>
+            orElse: () => level3AdminAccountsList[0]);
+        level3AdminAccountsList.retainWhere((account) =>
         account.parentAccount == level2AdminObject.id || account.id < 0);
       }
     } else if (level == 2) {
@@ -558,28 +613,28 @@ class _MyHomePageState extends State<MyHomePage>
       if(type == 'actual')
       {
         // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
-        level3ActualObject = level3AccountsList.firstWhere(
+        level3ActualObject = level3ActualAccountsList.firstWhere(
                 (account) => account.parentAccount == level2ActualObject.id,
-            orElse: () => level3AccountsList[0]);
+            orElse: () => level3ActualAccountsList[0]);
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
-        level3AccountsList.retainWhere((account) =>
+        level3ActualAccountsList.retainWhere((account) =>
         account.parentAccount == level2ActualObject.id || account.id < 0);
       }
       else if(type == 'budget'){
         // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
-        level3BudgetObject = level3AccountsList.firstWhere(
+        level3BudgetObject = level3BudgetAccountsList.firstWhere(
                 (account) => account.parentAccount == level2BudgetObject.id,
-            orElse: () => level3AccountsList[0]);
+            orElse: () => level3BudgetAccountsList[0]);
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
-        level3AccountsList.retainWhere((account) =>
+        level3BudgetAccountsList.retainWhere((account) =>
         account.parentAccount == level2BudgetObject.id || account.id < 0);
       }
       else if(type == 'admin'){
         // For the admin, don't auto set the first matching parent account, as this might be confusing when I want to add a new account
-        level3AdminObject = level3AccountsList[0];
+        level3AdminObject = level3AdminAccountsList[0];
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
-        level3AccountsList.retainWhere((account) =>
+        level3AdminAccountsList.retainWhere((account) =>
         account.parentAccount == level2AdminObject.id || account.id < 0);
       }
     }
@@ -978,7 +1033,7 @@ class _MyHomePageState extends State<MyHomePage>
 
                             arrangeAccounts(1, 'actual');
                           },
-                          items: level1AccountsList.map((Account account) {
+                          items: level1ActualAccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -1022,7 +1077,7 @@ class _MyHomePageState extends State<MyHomePage>
 
                             arrangeAccounts(2, 'actual');
                           },
-                          items: level2AccountsList.map((Account account) {
+                          items: level2ActualAccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -1064,7 +1119,7 @@ class _MyHomePageState extends State<MyHomePage>
 
                             arrangeAccounts(3, 'actual');
                           },
-                          items: level3AccountsList.map((Account account) {
+                          items: level3ActualAccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -1249,7 +1304,7 @@ class _MyHomePageState extends State<MyHomePage>
 
                             arrangeAccounts(1, 'budget');
                           },
-                          items: level1AccountsList.map((Account account) {
+                          items: level1BudgetAccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -1293,7 +1348,7 @@ class _MyHomePageState extends State<MyHomePage>
 
                             arrangeAccounts(2, 'budget');
                           },
-                          items: level2AccountsList.map((Account account) {
+                          items: level2BudgetAccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -1335,7 +1390,7 @@ class _MyHomePageState extends State<MyHomePage>
 
                             arrangeAccounts(3, 'budget');
                           },
-                          items: level3AccountsList.map((Account account) {
+                          items: level3BudgetAccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -1612,7 +1667,7 @@ class _MyHomePageState extends State<MyHomePage>
 
                                         arrangeAccounts(1, 'admin');
                                       },
-                                      items: level1AccountsList
+                                      items: level1AdminAccountsList
                                           .map((Account account) {
                                         return new DropdownMenuItem<Account>(
                                           value: account,
@@ -1699,7 +1754,7 @@ class _MyHomePageState extends State<MyHomePage>
 
                                         arrangeAccounts(2, 'admin');
                                       },
-                                      items: level2AccountsList
+                                      items: level2AdminAccountsList
                                           .map((Account account) {
                                         return new DropdownMenuItem<Account>(
                                           value: account,
@@ -1785,7 +1840,7 @@ class _MyHomePageState extends State<MyHomePage>
 
                                         arrangeAccounts(3, 'admin');
                                       },
-                                      items: level3AccountsList
+                                      items: level3AdminAccountsList
                                           .map((Account account) {
                                         return new DropdownMenuItem<Account>(
                                           value: account,
