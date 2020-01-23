@@ -557,18 +557,6 @@ class _MyHomePageState extends State<MyHomePage>
     // Refresh accounts lists, needed because the accounts are cleared from account list and when another level1 or 2 are selected the list only has the level2 and 3 accounts from the other level1 or 2
     checkForChanges(false, true);
 
-    print(level1ActualObject.id);
-    print("########");
-
-    level2ActualAccountsList.forEach((element) {
-      print(element.name);
-      print(element.id);
-      print(element.parentAccount);
-    });
-
-    print("####--####");
-
-
     if (level == 1) {
       if(type == 'actual')
       {
