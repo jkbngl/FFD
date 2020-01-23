@@ -291,9 +291,9 @@ class _MyHomePageState extends State<MyHomePage>
       });
 
 
-      print("REMOVING (ACCOUNTLEVEL1): ");
+      //print("REMOVING (ACCOUNTLEVEL1): ");
       accountsToRemove.forEach((element) {
-        print(element.name);
+        //print(element.name);
         level1AccountsList.remove(element);
 
         level1ActualAccountsList.remove(element);
@@ -301,9 +301,9 @@ class _MyHomePageState extends State<MyHomePage>
         level1AdminAccountsList.remove(element);
       });
 
-      print("HAVING (ACCOUNTLEVEL1): ");
+      //print("HAVING (ACCOUNTLEVEL1): ");
       level1AccountsList.forEach((element) {
-        print(element.name);
+        //print(element.name);
       });
 
       accountsListStating.clear();
@@ -343,9 +343,9 @@ class _MyHomePageState extends State<MyHomePage>
       });
 
 
-      print("REMOVING (ACCOUNTLEVEL2): ");
+      //print("REMOVING (ACCOUNTLEVEL2): ");
       accountsToRemove.forEach((element) {
-        print(element.name);
+        //print(element.name);
         level2AccountsList.remove(element);
 
         level2ActualAccountsList.remove(element);
@@ -354,9 +354,9 @@ class _MyHomePageState extends State<MyHomePage>
 
       });
 
-      print("HAVING (ACCOUNTLEVEL1): ");
+      //print("HAVING (ACCOUNTLEVEL1): ");
       level2AccountsList.forEach((element) {
-        print(element.name);
+        //print(element.name);
       });
 
       accountsListStating.clear();
@@ -397,9 +397,9 @@ class _MyHomePageState extends State<MyHomePage>
       });
 
 
-      print("REMOVING (ACCOUNTLEVEL3): ");
+      //print("REMOVING (ACCOUNTLEVEL3): ");
       accountsToRemove.forEach((element) {
-        print(element.name);
+        //print(element.name);
         level3AccountsList.remove(element);
 
         level3ActualAccountsList.remove(element);
@@ -408,9 +408,9 @@ class _MyHomePageState extends State<MyHomePage>
 
       });
 
-      print("HAVING (ACCOUNTLEVEL3): ");
+      //print("HAVING (ACCOUNTLEVEL3): ");
       level3AccountsList.forEach((element) {
-        print(element.name);
+        //print(element.name);
       });
 
       accountsListStating.clear();
@@ -445,15 +445,15 @@ class _MyHomePageState extends State<MyHomePage>
       });
 
 
-      print("REMOVING (COSTTYPE: ");
+      //print("REMOVING (COSTTYPE: ");
       costTypesToRemove.forEach((element) {
-        print(element.name);
+        //print(element.name);
         costTypesList.remove(element);
       });
 
-      print("HAVING (COSTTYPES): ");
+      //print("HAVING (COSTTYPES): ");
       costTypesList.forEach((element) {
-        print(element.name);
+        //print(element.name);
       });
     }
 
@@ -557,6 +557,18 @@ class _MyHomePageState extends State<MyHomePage>
     // Refresh accounts lists, needed because the accounts are cleared from account list and when another level1 or 2 are selected the list only has the level2 and 3 accounts from the other level1 or 2
     checkForChanges(false, true);
 
+    print(level1ActualObject.id);
+    print("########");
+
+    level2ActualAccountsList.forEach((element) {
+      print(element.name);
+      print(element.id);
+      print(element.parentAccount);
+    });
+
+    print("####--####");
+
+
     if (level == 1) {
       if(type == 'actual')
       {
@@ -564,15 +576,25 @@ class _MyHomePageState extends State<MyHomePage>
         level2ActualObject = level2ActualAccountsList.firstWhere(
                 (account) => account.parentAccount == level1ActualObject.id,
             orElse: () => level2ActualAccountsList[0]);
+
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level2ActualAccountsList.retainWhere((account) =>
         account.parentAccount == level1ActualObject.id || account.id < 0);
+
+        // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
+        level2AccountsList.retainWhere((account) =>
+        account.parentAccount == level1ActualObject.id || account.id < 0);
+
 
         // Same as above for level3
         level3ActualObject = level3ActualAccountsList.firstWhere(
                 (account) => account.parentAccount == level2ActualObject.id,
             orElse: () => level3ActualAccountsList[0]);
+
         level3ActualAccountsList.retainWhere((account) =>
+        account.parentAccount == level2ActualObject.id || account.id < 0);
+        // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
+        level3AccountsList.retainWhere((account) =>
         account.parentAccount == level2ActualObject.id || account.id < 0);
       }
       else if(type == 'budget')
