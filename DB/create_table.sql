@@ -95,7 +95,7 @@ CREATE TABLE ffd.user_dim (
 
     CREATE TABLE ffd.act_data (
         id SERIAL PRIMARY KEY
-      , amount integer
+      , amount NUMERIC
       , comment text
       , data_date date
       , year integer
@@ -119,7 +119,7 @@ CREATE TABLE ffd.user_dim (
 
     CREATE TABLE ffd.bdg_data (
         id SERIAL PRIMARY KEY
-      , amount integer
+      , amount NUMERIC
       , comment text
       , data_date date
       , year integer
