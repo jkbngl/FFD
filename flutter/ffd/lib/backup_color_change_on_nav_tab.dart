@@ -685,13 +685,13 @@ class _MyHomePageState extends State<MyHomePage>
     }
     else if(type == 'account')
     {
-      dependingController = newLevel1TextFieldController;
+      dependingController = newAccountLevel1CommentTextFieldController;
     }
 
     print("1 " + (type == 'costtype').toString() + " - " + (dependingController.text.length > 0).toString());
 
     // When a costType is added or a new level1 was entered, if no level1 is entered it might still be the case the a new level2 was entered with a linked level1 account
-    if(type == 'costtype' || dependingController.text.length > 0 )
+    if(type == 'costtype' || newLevel1TextFieldController.text.length > 0 )
     {
       await showDialog(
           context: context,
