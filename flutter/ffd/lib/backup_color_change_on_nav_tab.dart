@@ -607,12 +607,22 @@ class _MyHomePageState extends State<MyHomePage>
         level2BudgetAccountsList.retainWhere((account) =>
         account.parentAccount == level1BudgetObject.id || account.id < 0);
 
+        // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
+        level2AccountsList.retainWhere((account) =>
+        account.parentAccount == level1BudgetObject.id || account.id < 0);
+
+
         // Same as above for level3
         level3BudgetObject = level3BudgetAccountsList.firstWhere(
                 (account) => account.parentAccount == level2BudgetObject.id,
             orElse: () => level3BudgetAccountsList[0]);
+
         level3BudgetAccountsList.retainWhere((account) =>
         account.parentAccount == level2BudgetObject.id || account.id < 0);
+
+        // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
+        level3AccountsList.retainWhere((account) =>
+        account.parentAccount == level1BudgetObject.id || account.id < 0);
       }
       else if(type == 'admin')
       {
@@ -623,11 +633,21 @@ class _MyHomePageState extends State<MyHomePage>
         level2AdminAccountsList.retainWhere((account) =>
         account.parentAccount == level1AdminObject.id || account.id < 0);
 
+        // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
+        level2AccountsList.retainWhere((account) =>
+        account.parentAccount == level1AdminObject.id || account.id < 0);
+
+
         // Same as above for level3
         level3AdminObject = level3AdminAccountsList.firstWhere(
                 (account) => account.parentAccount == level2AdminObject.id,
             orElse: () => level3AdminAccountsList[0]);
+
         level3AdminAccountsList.retainWhere((account) =>
+        account.parentAccount == level2AdminObject.id || account.id < 0);
+
+        // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
+        level3AccountsList.retainWhere((account) =>
         account.parentAccount == level2AdminObject.id || account.id < 0);
       }
     } else if (level == 2) {
@@ -638,8 +658,13 @@ class _MyHomePageState extends State<MyHomePage>
         level3ActualObject = level3ActualAccountsList.firstWhere(
                 (account) => account.parentAccount == level2ActualObject.id,
             orElse: () => level3ActualAccountsList[0]);
+
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3ActualAccountsList.retainWhere((account) =>
+        account.parentAccount == level2ActualObject.id || account.id < 0);
+
+        // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
+        level3AccountsList.retainWhere((account) =>
         account.parentAccount == level2ActualObject.id || account.id < 0);
       }
       else if(type == 'budget'){
@@ -651,12 +676,21 @@ class _MyHomePageState extends State<MyHomePage>
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3BudgetAccountsList.retainWhere((account) =>
         account.parentAccount == level2BudgetObject.id || account.id < 0);
+
+        // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
+        level3AccountsList.retainWhere((account) =>
+        account.parentAccount == level1BudgetObject.id || account.id < 0);
       }
       else if(type == 'admin'){
         // For the admin, don't auto set the first matching parent account, as this might be confusing when I want to add a new account
         level3AdminObject = level3AdminAccountsList[0];
+
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3AdminAccountsList.retainWhere((account) =>
+        account.parentAccount == level2AdminObject.id || account.id < 0);
+
+        // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
+        level3AccountsList.retainWhere((account) =>
         account.parentAccount == level2AdminObject.id || account.id < 0);
       }
     }
