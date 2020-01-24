@@ -320,9 +320,13 @@ class _MyHomePageState extends State<MyHomePage>
 
         if (existingItem == null) {
           level2AccountsList.add(accountToAdd);
-          level2ActualAccountsList.add(accountToAdd);
-          level2BudgetAccountsList.add(accountToAdd);
-          level2AdminAccountsList.add(accountToAdd);
+
+          if(level1ActualObject.id > 0) {
+            level2ActualAccountsList.add(accountToAdd);
+          }
+            level2BudgetAccountsList.add(accountToAdd);
+            level2AdminAccountsList.add(accountToAdd);
+          }
 
         }
       }
