@@ -1267,6 +1267,10 @@ class _MyHomePageState extends State<MyHomePage>
                               color: Color(0xffEEEEEE), // EEEEEE
                               onPressed: () {
                                 actualTextFieldController.text = '';
+
+                                setState(() {
+                                  costTypeObjectActual = costTypesList[0];
+                                });
                               },
                             ),
                           ),
@@ -1539,7 +1543,9 @@ class _MyHomePageState extends State<MyHomePage>
                               color: Color(0xffEEEEEE), // EEEEEE
                               onPressed: () {
                                 budgetTextFieldController.text = '';
-
+                                setState(() {
+                                  costTypeObjectBudget = costTypesList[0];
+                                });
                                 /*
                                 showDialog(
                                   context: context,
@@ -2211,6 +2217,10 @@ class _MyHomePageState extends State<MyHomePage>
                                           onPressed: () {
                                             newCostTypeTextFieldController
                                                 .text = '';
+
+                                            setState(() {
+                                              costTypeObjectAdmin = costTypesList[0];
+                                            });
                                           },
                                         ),
                                       ),
