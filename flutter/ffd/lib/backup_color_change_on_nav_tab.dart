@@ -554,7 +554,8 @@ class _MyHomePageState extends State<MyHomePage>
   arrangeAccounts(int level, String type) async {
     // Refresh accounts lists, needed because the accounts are cleared from account list and when another level1 or 2 are selected the list only has the level2 and 3 accounts from the other level1 or 2
 
-    await checkForChanges(false, true);   // This await makes a difference and is important
+    await checkForChanges(
+        false, true); // This await makes a difference and is important
 
 //    print("HAVING (level2ActualAccountsList): and trying to find childs for: ${level1ActualObject.name} - ${level1ActualObject.id} ");
 //    level2ActualAccountsList.forEach((element) {
@@ -723,7 +724,6 @@ class _MyHomePageState extends State<MyHomePage>
       TextEditingController dependingController,
       TextEditingController dependingController2,
       TextEditingController dependingController3) async {
-
     // cache the name of the entered level1 or costtype to display it in the title of the comment dialog
     var level1OrCostTypeName = dependingController.text;
 
@@ -743,20 +743,23 @@ class _MyHomePageState extends State<MyHomePage>
       await showDialog(
           context: context,
           builder: (context) {
-            return AlertDialog( //Enter a comment for '
+            return AlertDialog(
+              //Enter a comment for '
               title: Center(
                 child: RichText(
                   text: TextSpan(
                       text: 'Enter a comment for ',
                       style: TextStyle(
-                          color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
                       children: <TextSpan>[
-                        TextSpan(text: '$level1OrCostTypeName',
-                            style: TextStyle(
-                                color: Color(0xFF0957FF), fontSize: 18),
+                        TextSpan(
+                          text: '$level1OrCostTypeName',
+                          style:
+                              TextStyle(color: Color(0xFF0957FF), fontSize: 18),
                         )
-                      ]
-                  ),
+                      ]),
                 ),
               ),
               content: TextField(
@@ -797,14 +800,16 @@ class _MyHomePageState extends State<MyHomePage>
                   text: TextSpan(
                       text: 'Enter a comment for ',
                       style: TextStyle(
-                          color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
                       children: <TextSpan>[
-                        TextSpan(text: '${dependingController2.text}',
-                          style: TextStyle(
-                              color: Color(0xff73D700), fontSize: 18),
+                        TextSpan(
+                          text: '${dependingController2.text}',
+                          style:
+                              TextStyle(color: Color(0xff73D700), fontSize: 18),
                         )
-                      ]
-                  ),
+                      ]),
                 ),
               ),
               content: TextField(
@@ -839,19 +844,21 @@ class _MyHomePageState extends State<MyHomePage>
           context: context,
           builder: (context) {
             return AlertDialog(
-              title:Center(
+              title: Center(
                 child: RichText(
                   text: TextSpan(
                       text: 'Enter a comment for ',
                       style: TextStyle(
-                          color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
                       children: <TextSpan>[
-                        TextSpan(text: '${dependingController3.text}',
-                          style: TextStyle(
-                              color: Color(0xffDB002A), fontSize: 18),
+                        TextSpan(
+                          text: '${dependingController3.text}',
+                          style:
+                              TextStyle(color: Color(0xffDB002A), fontSize: 18),
                         )
-                      ]
-                  ),
+                      ]),
                 ),
               ),
               content: TextField(
@@ -1269,9 +1276,12 @@ class _MyHomePageState extends State<MyHomePage>
                                 actualTextFieldController.text = '';
 
                                 setState(() {
-                                  level1ActualObject = level1ActualAccountsList[0];
-                                  level2ActualObject = level2ActualAccountsList[0];
-                                  level3ActualObject = level3ActualAccountsList[0];
+                                  level1ActualObject =
+                                      level1ActualAccountsList[0];
+                                  level2ActualObject =
+                                      level2ActualAccountsList[0];
+                                  level3ActualObject =
+                                      level3ActualAccountsList[0];
 
                                   costTypeObjectActual = costTypesList[0];
                                 });
@@ -1548,9 +1558,12 @@ class _MyHomePageState extends State<MyHomePage>
                               onPressed: () {
                                 budgetTextFieldController.text = '';
                                 setState(() {
-                                  level1BudgetObject = level1BudgetAccountsList[0];
-                                  level2BudgetObject = level2BudgetAccountsList[0];
-                                  level3BudgetObject = level3BudgetAccountsList[0];
+                                  level1BudgetObject =
+                                      level1BudgetAccountsList[0];
+                                  level2BudgetObject =
+                                      level2BudgetAccountsList[0];
+                                  level3BudgetObject =
+                                      level3BudgetAccountsList[0];
 
                                   costTypeObjectBudget = costTypesList[0];
                                 });
@@ -1699,19 +1712,33 @@ class _MyHomePageState extends State<MyHomePage>
                         CustomScrollView(slivers: [
                           SliverFillRemaining(
                             hasScrollBody: false,
-                            child: Container(
-                              child: Text("General Body"),
-                            ),
-                          )
-                        ]),
-                        CustomScrollView(slivers: [
-                          SliverFillRemaining(
-                            hasScrollBody: false,
                             child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
+                                  Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text("Use Costtypes:",
+                                            style: TextStyle(fontSize: 25)),
+                                        Switch(
+                                          value: true,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              areAccountsActive = value;
+                                            });
+                                          },
+                                          activeTrackColor: Color(0xffEEEEEE),
+                                          activeColor: Color(0xff0957FF),
+                                        ),
+                                      ]),
+                                  Divider(
+                                      color: Colors.black87
+                                  ),
                                   Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -1730,7 +1757,74 @@ class _MyHomePageState extends State<MyHomePage>
                                           activeTrackColor: Color(0xffEEEEEE),
                                           activeColor: Color(0xff0957FF),
                                         ),
+                                      ]),Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text("Use Level 1:",
+                                            style: TextStyle(fontSize: 25)),
+                                        Switch(
+                                          value: true,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              areAccountsActive = value;
+                                            });
+                                          },
+                                          activeTrackColor: Color(0xffEEEEEE),
+                                          activeColor: Color(0xff0957FF),
+                                        ),
+                                      ]),Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text("Use Level 2:",
+                                            style: TextStyle(fontSize: 25)),
+                                        Switch(
+                                          value: true,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              areAccountsActive = value;
+                                            });
+                                          },
+                                          activeTrackColor: Color(0xffEEEEEE),
+                                          activeColor: Color(0xff0957FF),
+                                        ),
+                                      ]),Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text("Use Level 3:",
+                                            style: TextStyle(fontSize: 25)),
+                                        Switch(
+                                          value: true,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              areAccountsActive = value;
+                                            });
+                                          },
+                                          activeTrackColor: Color(0xffEEEEEE),
+                                          activeColor: Color(0xff0957FF),
+                                        ),
                                       ]),
+                                ]),
+                          ),
+                        ]),
+                        CustomScrollView(slivers: [
+                          SliverFillRemaining(
+                            hasScrollBody: false,
+                            child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Text("Account Administration",
+                                      style: TextStyle(fontSize: 25)),
                                   Container(
                                     padding: const EdgeInsets.only(
                                         left: 30.0,
@@ -2003,12 +2097,13 @@ class _MyHomePageState extends State<MyHomePage>
                                             newLevel3TextFieldController.text =
                                                 '';
                                             setState(() {
-                                              level1AdminObject = level1AdminAccountsList[0];
-                                              level2AdminObject = level2AdminAccountsList[0];
-                                              level3AdminObject = level3AdminAccountsList[0];
+                                              level1AdminObject =
+                                                  level1AdminAccountsList[0];
+                                              level2AdminObject =
+                                                  level2AdminAccountsList[0];
+                                              level3AdminObject =
+                                                  level3AdminAccountsList[0];
                                             });
-
-
                                           },
                                         ),
                                       ),
@@ -2113,25 +2208,8 @@ class _MyHomePageState extends State<MyHomePage>
                                     MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
-                                  Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text("Use Costtypes:",
-                                            style: TextStyle(fontSize: 25)),
-                                        Switch(
-                                          value: true,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              areAccountsActive = value;
-                                            });
-                                          },
-                                          activeTrackColor: Color(0xffEEEEEE),
-                                          activeColor: Color(0xff0957FF),
-                                        ),
-                                      ]),
+                                  Text("Costtype Administration",
+                                      style: TextStyle(fontSize: 25)),
                                   Container(
                                     padding: const EdgeInsets.only(
                                         left: 30.0,
@@ -2234,7 +2312,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                 .text = '';
 
                                             setState(() {
-                                              costTypeObjectAdmin = costTypesList[0];
+                                              costTypeObjectAdmin =
+                                                  costTypesList[0];
                                             });
                                           },
                                         ),
