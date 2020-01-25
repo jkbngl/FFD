@@ -675,8 +675,7 @@ class _MyHomePageState extends State<MyHomePage>
       }
     }
 
-    print(level2ActualObject.name);
-
+    // Not sure if this needs to be done for all or if this is just a workaround and needs to be called once for all values
     setState(() {
       level2ActualObject = level2ActualObject;
     });
@@ -724,6 +723,10 @@ class _MyHomePageState extends State<MyHomePage>
       TextEditingController dependingController,
       TextEditingController dependingController2,
       TextEditingController dependingController3) async {
+
+    // cache the name of the entered level1 or costtype to display it in the title of the comment dialog
+    var level1OrCostTypeName = dependingController.text;
+
     if (type == 'costtype') {
       dependingController = newCostTypeCommentTextFieldController;
     } else if (type == 'account') {
@@ -740,9 +743,22 @@ class _MyHomePageState extends State<MyHomePage>
       await showDialog(
           context: context,
           builder: (context) {
-            return AlertDialog(
-              title: Text(
-                  'Enter a comment for your new ${type == 'costtype' ? 'Cost Type' : 'Account Level 1'}'),
+            return AlertDialog( //Enter a comment for '
+              title: Center(
+                child: RichText(
+                  text: TextSpan(
+                      text: 'Enter a comment for ',
+                      style: TextStyle(
+                          color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                      children: <TextSpan>[
+                        TextSpan(text: '$level1OrCostTypeName',
+                            style: TextStyle(
+                                color: Color(0xFF0957FF), fontSize: 18),
+                        )
+                      ]
+                  ),
+                ),
+              ),
               content: TextField(
                 controller: dependingController,
                 decoration: InputDecoration(hintText: "comment"),
@@ -776,7 +792,21 @@ class _MyHomePageState extends State<MyHomePage>
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('Enter a comment for your new Account Level 2'),
+              title: Center(
+                child: RichText(
+                  text: TextSpan(
+                      text: 'Enter a comment for ',
+                      style: TextStyle(
+                          color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                      children: <TextSpan>[
+                        TextSpan(text: '${dependingController2.text}',
+                          style: TextStyle(
+                              color: Color(0xff73D700), fontSize: 18),
+                        )
+                      ]
+                  ),
+                ),
+              ),
               content: TextField(
                 controller: newAccountLevel2CommentTextFieldController,
                 decoration: InputDecoration(hintText: "comment"),
@@ -809,7 +839,21 @@ class _MyHomePageState extends State<MyHomePage>
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('Enter a comment for your new Account Level 3'),
+              title:Center(
+                child: RichText(
+                  text: TextSpan(
+                      text: 'Enter a comment for ',
+                      style: TextStyle(
+                          color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                      children: <TextSpan>[
+                        TextSpan(text: '${dependingController3.text}',
+                          style: TextStyle(
+                              color: Color(0xffDB002A), fontSize: 18),
+                        )
+                      ]
+                  ),
+                ),
+              ),
               content: TextField(
                 controller: newAccountLevel3CommentTextFieldController,
                 decoration: InputDecoration(hintText: "comment"),
