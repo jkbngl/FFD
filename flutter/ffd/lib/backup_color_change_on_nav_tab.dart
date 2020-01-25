@@ -1269,6 +1269,10 @@ class _MyHomePageState extends State<MyHomePage>
                                 actualTextFieldController.text = '';
 
                                 setState(() {
+                                  level1ActualObject = level1ActualAccountsList[0];
+                                  level2ActualObject = level2ActualAccountsList[0];
+                                  level3ActualObject = level3ActualAccountsList[0];
+
                                   costTypeObjectActual = costTypesList[0];
                                 });
                               },
@@ -1544,6 +1548,10 @@ class _MyHomePageState extends State<MyHomePage>
                               onPressed: () {
                                 budgetTextFieldController.text = '';
                                 setState(() {
+                                  level1BudgetObject = level1BudgetAccountsList[0];
+                                  level2BudgetObject = level2BudgetAccountsList[0];
+                                  level3BudgetObject = level3BudgetAccountsList[0];
+
                                   costTypeObjectBudget = costTypesList[0];
                                 });
                                 /*
@@ -1994,6 +2002,13 @@ class _MyHomePageState extends State<MyHomePage>
                                                 '';
                                             newLevel3TextFieldController.text =
                                                 '';
+                                            setState(() {
+                                              level1AdminObject = level1AdminAccountsList[0];
+                                              level2AdminObject = level2AdminAccountsList[0];
+                                              level3AdminObject = level3AdminAccountsList[0];
+                                            });
+
+
                                           },
                                         ),
                                       ),
