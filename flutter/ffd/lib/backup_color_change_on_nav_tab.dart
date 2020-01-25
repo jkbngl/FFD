@@ -321,13 +321,20 @@ class _MyHomePageState extends State<MyHomePage>
         if (existingItem == null) {
           level2AccountsList.add(accountToAdd);
 
-          if(level1ActualObject.id > 0) {
+          if(level1ActualObject.id > 0)
+          {
             level2ActualAccountsList.add(accountToAdd);
           }
+
+          if(level1BudgetObject.id > 0) {
             level2BudgetAccountsList.add(accountToAdd);
-            level2AdminAccountsList.add(accountToAdd);
+
           }
 
+          if(level1AdminObject.id > 0)
+          {
+            level2AdminAccountsList.add(accountToAdd);
+          }
         }
       }
 
@@ -378,9 +385,20 @@ class _MyHomePageState extends State<MyHomePage>
         if (existingItem == null) {
           level3AccountsList.add(accountToAdd);
 
-          level3ActualAccountsList.add(accountToAdd);
-          level3BudgetAccountsList.add(accountToAdd);
-          level3AdminAccountsList.add(accountToAdd);
+          if(level2ActualObject.id > 0)
+          {
+            level3ActualAccountsList.add(accountToAdd);
+          }
+
+          if(level2BudgetObject.id > 0) {
+            level3BudgetAccountsList.add(accountToAdd);
+
+          }
+
+          if(level2AdminObject.id > 0)
+          {
+            level3AdminAccountsList.add(accountToAdd);
+          }
 
         }
       }
