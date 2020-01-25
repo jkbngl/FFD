@@ -125,7 +125,6 @@ class _MyHomePageState extends State<MyHomePage>
     const Account(-99, 'UNDEFINED', null),
   ];
 
-
   List<Account> level2AccountsList = <Account>[
     const Account(-100, 'UNDEFINED', null)
   ];
@@ -138,7 +137,6 @@ class _MyHomePageState extends State<MyHomePage>
   List<Account> level2AdminAccountsList = <Account>[
     const Account(-100, 'UNDEFINED', null)
   ];
-
 
   List<Account> level3AccountsList = <Account>[
     const Account(-101, 'UNDEFINED', null)
@@ -221,9 +219,9 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   @override
-  void afterFirstLayout(BuildContext context) {
+  void afterFirstLayout(BuildContext context) async {
     // Calling the same function "after layout" to resolve the issue.
-    checkForChanges(true, fetchAccountsAndCostTypes);
+    await checkForChanges(true, fetchAccountsAndCostTypes);
   }
 
   void checkForChanges(bool onStartup, bool fetch) async {
@@ -235,12 +233,14 @@ class _MyHomePageState extends State<MyHomePage>
     List<CostType> costTypesToRemove = <CostType>[];
     List<Account> accountsToRemove = <Account>[];
 
-    List<Account> accountsListStating = <Account>[const Account(-99, 'UNDEFINED', null)];
-    List<CostType> costTypesListStating = <CostType>[const CostType(-99, 'UNDEFINED')];
+    List<Account> accountsListStating = <Account>[
+      const Account(-99, 'UNDEFINED', null)
+    ];
+    List<CostType> costTypesListStating = <CostType>[
+      const CostType(-99, 'UNDEFINED')
+    ];
 
     bool remove = true;
-
-
 
     if (fetch || onStartup) {
       level1AccountsJson =
@@ -262,7 +262,7 @@ class _MyHomePageState extends State<MyHomePage>
             account['id'], account['name'], account['parent_account']);
 
         Account existingItem = level1AccountsList.firstWhere(
-                (itemToCheck) => itemToCheck.id == accountToAdd.id,
+            (itemToCheck) => itemToCheck.id == accountToAdd.id,
             orElse: () => null);
 
         accountsListStating.add(accountToAdd);
@@ -280,16 +280,15 @@ class _MyHomePageState extends State<MyHomePage>
         remove = true;
 
         // If an item is not in the staging list and is also not the undefined default account
-        for(int i = 0; i < accountsListStating.length; i++) {
+        for (int i = 0; i < accountsListStating.length; i++) {
           if (accountsListStating[i].id == element.id) {
             remove = false;
           }
         }
-        if(remove && element.id > 0){
+        if (remove && element.id > 0) {
           accountsToRemove.add(element);
         }
       });
-
 
       //print("REMOVING (ACCOUNTLEVEL1): ");
       accountsToRemove.forEach((element) {
@@ -313,7 +312,7 @@ class _MyHomePageState extends State<MyHomePage>
         accountToAdd = new Account(
             account['id'], account['name'], account['parent_account']);
         Account existingItem = level2AccountsList.firstWhere(
-                (itemToCheck) => itemToCheck.id == accountToAdd.id,
+            (itemToCheck) => itemToCheck.id == accountToAdd.id,
             orElse: () => null);
 
         accountsListStating.add(accountToAdd);
@@ -321,20 +320,9 @@ class _MyHomePageState extends State<MyHomePage>
         if (existingItem == null) {
           level2AccountsList.add(accountToAdd);
 
-          if(level1ActualObject.id > 0)
-          {
-            level2ActualAccountsList.add(accountToAdd);
-          }
-
-          if(level1BudgetObject.id > 0) {
-            level2BudgetAccountsList.add(accountToAdd);
-
-          }
-
-          if(level1AdminObject.id > 0)
-          {
-            level2AdminAccountsList.add(accountToAdd);
-          }
+          level2ActualAccountsList.add(accountToAdd);
+          level2BudgetAccountsList.add(accountToAdd);
+          level2AdminAccountsList.add(accountToAdd);
         }
       }
 
@@ -343,16 +331,15 @@ class _MyHomePageState extends State<MyHomePage>
         remove = true;
 
         // If an item is not in the staging list and is also not the undefined default account
-        for(int i = 0; i < accountsListStating.length; i++) {
+        for (int i = 0; i < accountsListStating.length; i++) {
           if (accountsListStating[i].id == element.id) {
             remove = false;
           }
         }
-        if(remove && element.id > 0){
+        if (remove && element.id > 0) {
           accountsToRemove.add(element);
         }
       });
-
 
       //print("REMOVING (ACCOUNTLEVEL2): ");
       accountsToRemove.forEach((element) {
@@ -362,7 +349,6 @@ class _MyHomePageState extends State<MyHomePage>
         level2ActualAccountsList.remove(element);
         level2BudgetAccountsList.remove(element);
         level2AdminAccountsList.remove(element);
-
       });
 
       //print("HAVING (ACCOUNTLEVEL1): ");
@@ -377,7 +363,7 @@ class _MyHomePageState extends State<MyHomePage>
         accountToAdd = new Account(
             account['id'], account['name'], account['parent_account']);
         Account existingItem = level3AccountsList.firstWhere(
-                (itemToCheck) => itemToCheck.id == accountToAdd.id,
+            (itemToCheck) => itemToCheck.id == accountToAdd.id,
             orElse: () => null);
 
         accountsListStating.add(accountToAdd);
@@ -385,21 +371,9 @@ class _MyHomePageState extends State<MyHomePage>
         if (existingItem == null) {
           level3AccountsList.add(accountToAdd);
 
-          if(level2ActualObject.id > 0)
-          {
-            level3ActualAccountsList.add(accountToAdd);
-          }
-
-          if(level2BudgetObject.id > 0) {
-            level3BudgetAccountsList.add(accountToAdd);
-
-          }
-
-          if(level2AdminObject.id > 0)
-          {
-            level3AdminAccountsList.add(accountToAdd);
-          }
-
+          level3ActualAccountsList.add(accountToAdd);
+          level3BudgetAccountsList.add(accountToAdd);
+          level3AdminAccountsList.add(accountToAdd);
         }
       }
 
@@ -408,16 +382,15 @@ class _MyHomePageState extends State<MyHomePage>
         remove = true;
 
         // If an item is not in the staging list and is also not the undefined default account
-        for(int i = 0; i < accountsListStating.length; i++) {
+        for (int i = 0; i < accountsListStating.length; i++) {
           if (accountsListStating[i].id == element.id) {
             remove = false;
           }
         }
-        if(remove && element.id > 0){
+        if (remove && element.id > 0) {
           accountsToRemove.add(element);
         }
       });
-
 
       //print("REMOVING (ACCOUNTLEVEL3): ");
       accountsToRemove.forEach((element) {
@@ -427,7 +400,6 @@ class _MyHomePageState extends State<MyHomePage>
         level3ActualAccountsList.remove(element);
         level3BudgetAccountsList.remove(element);
         level3AdminAccountsList.remove(element);
-
       });
 
       //print("HAVING (ACCOUNTLEVEL3): ");
@@ -441,7 +413,7 @@ class _MyHomePageState extends State<MyHomePage>
       for (var type in parsedCostTypes) {
         typeToAdd = new CostType(type['id'], type['name']);
         CostType existingItem = costTypesList.firstWhere(
-                (itemToCheck) => itemToCheck.id == typeToAdd.id,
+            (itemToCheck) => itemToCheck.id == typeToAdd.id,
             orElse: () => null);
 
         costTypesListStating.add(typeToAdd);
@@ -453,19 +425,18 @@ class _MyHomePageState extends State<MyHomePage>
 
       // Loop through all costtypes ever added on runtime, check with the ones added on the last run and add the ones which are not in the new list to another list
       costTypesList.forEach((element) {
-      remove = true;
+        remove = true;
 
         // If an item is not in the staging list and is also not the undefined default account
-        for(int i = 0; i < costTypesListStating.length; i++) {
+        for (int i = 0; i < costTypesListStating.length; i++) {
           if (costTypesListStating[i].id == element.id) {
             remove = false;
           }
         }
-        if(remove && element.id > 0){
+        if (remove && element.id > 0) {
           costTypesToRemove.add(element);
         }
       });
-
 
       //print("REMOVING (COSTTYPE: ");
       costTypesToRemove.forEach((element) {
@@ -486,12 +457,12 @@ class _MyHomePageState extends State<MyHomePage>
     var url = 'http://192.168.0.21:5000/api/ffd/';
 
     // Whenever with the backend is communicated its best to reload the accounts and costtpyes
-    if(type.contains('add') || type.contains('delete'))
+    if (type.contains('add') || type.contains('delete'))
       fetchAccountsAndCostTypes = true;
 
     // Are here in case needed sometimes later
     var params = {
-      "user": "DOC000506",    // TODO GET FIREBASE USER OBJECT HERE
+      "user": "DOC000506", // TODO GET FIREBASE USER OBJECT HERE
     };
 
     var body = {
@@ -542,11 +513,16 @@ class _MyHomePageState extends State<MyHomePage>
       'accounttoaddlevel1': newLevel1TextFieldController.text,
       'accounttoaddlevel2': newLevel2TextFieldController.text,
       'accounttoaddlevel3': newLevel3TextFieldController.text,
-      'accounttoaddlevel1comment': newAccountLevel1CommentTextFieldController.text,
-      'accounttoaddlevel2comment': newAccountLevel2CommentTextFieldController.text,
-      'accounttoaddlevel3comment': newAccountLevel3CommentTextFieldController.text,
-      'accountfornewlevel2parentaccount': level1AdminObject.id.toString(),    // ID of the selected level2 object, to match the parentID
-      'accountfornewlevel3parentaccount': level2AdminObject.id.toString(),    // ID of the selected level2 object, to match the parentID - not needed for level1 as level1s have no parent
+      'accounttoaddlevel1comment':
+          newAccountLevel1CommentTextFieldController.text,
+      'accounttoaddlevel2comment':
+          newAccountLevel2CommentTextFieldController.text,
+      'accounttoaddlevel3comment':
+          newAccountLevel3CommentTextFieldController.text,
+      'accountfornewlevel2parentaccount': level1AdminObject.id
+          .toString(), // ID of the selected level2 object, to match the parentID
+      'accountfornewlevel3parentaccount': level2AdminObject.id
+          .toString(), // ID of the selected level2 object, to match the parentID - not needed for level1 as level1s have no parent
       'status': 'IP',
       'user': '1',
       'group': '-1',
@@ -575,135 +551,135 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  arrangeAccounts(int level, String type) {
+  arrangeAccounts(int level, String type) async {
     // Refresh accounts lists, needed because the accounts are cleared from account list and when another level1 or 2 are selected the list only has the level2 and 3 accounts from the other level1 or 2
-    checkForChanges(false, true);
+
+    await checkForChanges(false, true);   // This await makes a difference and is important
+
+//    print("HAVING (level2ActualAccountsList): and trying to find childs for: ${level1ActualObject.name} - ${level1ActualObject.id} ");
+//    level2ActualAccountsList.forEach((element) {
+//      print(element.name + " - " + element.parentAccount.toString());
+//    });
 
     if (level == 1) {
-      if(type == 'actual')
-      {
+      if (type == 'actual') {
         // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level2ActualObject = level2ActualAccountsList.firstWhere(
-                (account) => account.parentAccount == level1ActualObject.id,
+            (account) => account.parentAccount == level1ActualObject.id,
             orElse: () => level2ActualAccountsList[0]);
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level2ActualAccountsList.retainWhere((account) =>
-        account.parentAccount == level1ActualObject.id || account.id < 0);
+            account.parentAccount == level1ActualObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level2AccountsList.retainWhere((account) =>
-        account.parentAccount == level1ActualObject.id || account.id < 0);
-
+            account.parentAccount == level1ActualObject.id || account.id < 0);
 
         // Same as above for level3
         level3ActualObject = level3ActualAccountsList.firstWhere(
-                (account) => account.parentAccount == level2ActualObject.id,
+            (account) => account.parentAccount == level2ActualObject.id,
             orElse: () => level3ActualAccountsList[0]);
 
         level3ActualAccountsList.retainWhere((account) =>
-        account.parentAccount == level2ActualObject.id || account.id < 0);
+            account.parentAccount == level2ActualObject.id || account.id < 0);
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level3AccountsList.retainWhere((account) =>
-        account.parentAccount == level2ActualObject.id || account.id < 0);
-      }
-      else if(type == 'budget')
-      {
+            account.parentAccount == level2ActualObject.id || account.id < 0);
+      } else if (type == 'budget') {
         level2BudgetObject = level2BudgetAccountsList.firstWhere(
-                (account) => account.parentAccount == level1BudgetObject.id,
+            (account) => account.parentAccount == level1BudgetObject.id,
             orElse: () => level2BudgetAccountsList[0]);
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level2BudgetAccountsList.retainWhere((account) =>
-        account.parentAccount == level1BudgetObject.id || account.id < 0);
+            account.parentAccount == level1BudgetObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level2AccountsList.retainWhere((account) =>
-        account.parentAccount == level1BudgetObject.id || account.id < 0);
-
+            account.parentAccount == level1BudgetObject.id || account.id < 0);
 
         // Same as above for level3
         level3BudgetObject = level3BudgetAccountsList.firstWhere(
-                (account) => account.parentAccount == level2BudgetObject.id,
+            (account) => account.parentAccount == level2BudgetObject.id,
             orElse: () => level3BudgetAccountsList[0]);
 
         level3BudgetAccountsList.retainWhere((account) =>
-        account.parentAccount == level2BudgetObject.id || account.id < 0);
+            account.parentAccount == level2BudgetObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level3AccountsList.retainWhere((account) =>
-        account.parentAccount == level1BudgetObject.id || account.id < 0);
-      }
-      else if(type == 'admin')
-      {
+            account.parentAccount == level1BudgetObject.id || account.id < 0);
+      } else if (type == 'admin') {
         // For the admin, don't auto set the first matching parent account, as this might be confusing when I want to add a new account
         level2AdminObject = level2AdminAccountsList[0];
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level2AdminAccountsList.retainWhere((account) =>
-        account.parentAccount == level1AdminObject.id || account.id < 0);
+            account.parentAccount == level1AdminObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level2AccountsList.retainWhere((account) =>
-        account.parentAccount == level1AdminObject.id || account.id < 0);
-
+            account.parentAccount == level1AdminObject.id || account.id < 0);
 
         // Same as above for level3
         level3AdminObject = level3AdminAccountsList.firstWhere(
-                (account) => account.parentAccount == level2AdminObject.id,
+            (account) => account.parentAccount == level2AdminObject.id,
             orElse: () => level3AdminAccountsList[0]);
 
         level3AdminAccountsList.retainWhere((account) =>
-        account.parentAccount == level2AdminObject.id || account.id < 0);
+            account.parentAccount == level2AdminObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level3AccountsList.retainWhere((account) =>
-        account.parentAccount == level2AdminObject.id || account.id < 0);
+            account.parentAccount == level2AdminObject.id || account.id < 0);
       }
     } else if (level == 2) {
-
-      if(type == 'actual')
-      {
+      if (type == 'actual') {
         // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3ActualObject = level3ActualAccountsList.firstWhere(
-                (account) => account.parentAccount == level2ActualObject.id,
+            (account) => account.parentAccount == level2ActualObject.id,
             orElse: () => level3ActualAccountsList[0]);
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3ActualAccountsList.retainWhere((account) =>
-        account.parentAccount == level2ActualObject.id || account.id < 0);
+            account.parentAccount == level2ActualObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level3AccountsList.retainWhere((account) =>
-        account.parentAccount == level2ActualObject.id || account.id < 0);
-      }
-      else if(type == 'budget'){
+            account.parentAccount == level2ActualObject.id || account.id < 0);
+      } else if (type == 'budget') {
         // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3BudgetObject = level3BudgetAccountsList.firstWhere(
-                (account) => account.parentAccount == level2BudgetObject.id,
+            (account) => account.parentAccount == level2BudgetObject.id,
             orElse: () => level3BudgetAccountsList[0]);
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3BudgetAccountsList.retainWhere((account) =>
-        account.parentAccount == level2BudgetObject.id || account.id < 0);
+            account.parentAccount == level2BudgetObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level3AccountsList.retainWhere((account) =>
-        account.parentAccount == level1BudgetObject.id || account.id < 0);
-      }
-      else if(type == 'admin'){
+            account.parentAccount == level1BudgetObject.id || account.id < 0);
+      } else if (type == 'admin') {
         // For the admin, don't auto set the first matching parent account, as this might be confusing when I want to add a new account
         level3AdminObject = level3AdminAccountsList[0];
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3AdminAccountsList.retainWhere((account) =>
-        account.parentAccount == level2AdminObject.id || account.id < 0);
+            account.parentAccount == level2AdminObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level3AccountsList.retainWhere((account) =>
-        account.parentAccount == level2AdminObject.id || account.id < 0);
+            account.parentAccount == level2AdminObject.id || account.id < 0);
       }
     }
+
+    print(level2ActualObject.name);
+
+    setState(() {
+      level2ActualObject = level2ActualObject;
+    });
   }
 
   /// Display date picker.
@@ -742,28 +718,31 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  commentInput(BuildContext context, String type, TextEditingController dependingController, TextEditingController dependingController2, TextEditingController dependingController3) async {
-
-
-    if(type == 'costtype')
-    {
+  commentInput(
+      BuildContext context,
+      String type,
+      TextEditingController dependingController,
+      TextEditingController dependingController2,
+      TextEditingController dependingController3) async {
+    if (type == 'costtype') {
       dependingController = newCostTypeCommentTextFieldController;
-    }
-    else if(type == 'account')
-    {
+    } else if (type == 'account') {
       dependingController = newAccountLevel1CommentTextFieldController;
     }
 
-    print("1 " + (type == 'costtype').toString() + " - " + (dependingController.text.length > 0).toString());
+    print("1 " +
+        (type == 'costtype').toString() +
+        " - " +
+        (dependingController.text.length > 0).toString());
 
     // When a costType is added or a new level1 was entered, if no level1 is entered it might still be the case the a new level2 was entered with a linked level1 account
-    if(type == 'costtype' || newLevel1TextFieldController.text.length > 0 )
-    {
+    if (type == 'costtype' || newLevel1TextFieldController.text.length > 0) {
       await showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('Enter a comment for your new ${type == 'costtype' ? 'Cost Type' : 'Account Level 1'}'),
+              title: Text(
+                  'Enter a comment for your new ${type == 'costtype' ? 'Cost Type' : 'Account Level 1'}'),
               content: TextField(
                 controller: dependingController,
                 decoration: InputDecoration(hintText: "comment"),
@@ -778,12 +757,9 @@ class _MyHomePageState extends State<MyHomePage>
                 new FlatButton(
                   child: new Text('SAVE'),
                   onPressed: () {
-                    if(type != 'account')
-                    {
+                    if (type != 'account') {
                       sendBackend('new${type}add');
-                    }
-                    else if(dependingController2.text.length <= 0)
-                    {
+                    } else if (dependingController2.text.length <= 0) {
                       sendBackend('new${type}add');
                     }
 
@@ -795,7 +771,7 @@ class _MyHomePageState extends State<MyHomePage>
           });
     }
 
-    if(dependingController2 != null && dependingController2.text.length > 0){
+    if (dependingController2 != null && dependingController2.text.length > 0) {
       await showDialog(
           context: context,
           builder: (context) {
@@ -816,7 +792,7 @@ class _MyHomePageState extends State<MyHomePage>
                   child: new Text('SAVE'),
                   onPressed: () {
                     // Send directly to backend if no additional level3 was entered which has to be saved in the Backend -> DB
-                    if(dependingController3.text.length <= 0){
+                    if (dependingController3.text.length <= 0) {
                       sendBackend('new${type}add');
                     }
 
@@ -828,7 +804,7 @@ class _MyHomePageState extends State<MyHomePage>
           });
     }
 
-    if(dependingController3 != null && dependingController3.text.length > 0){
+    if (dependingController3 != null && dependingController3.text.length > 0) {
       showDialog(
           context: context,
           builder: (context) {
@@ -858,7 +834,6 @@ class _MyHomePageState extends State<MyHomePage>
           });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -1099,7 +1074,8 @@ class _MyHomePageState extends State<MyHomePage>
 
                             arrangeAccounts(1, 'actual');
                           },
-                          items: level1ActualAccountsList.map((Account account) {
+                          items:
+                              level1ActualAccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -1143,7 +1119,8 @@ class _MyHomePageState extends State<MyHomePage>
 
                             arrangeAccounts(2, 'actual');
                           },
-                          items: level2ActualAccountsList.map((Account account) {
+                          items:
+                              level2ActualAccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -1185,7 +1162,8 @@ class _MyHomePageState extends State<MyHomePage>
 
                             arrangeAccounts(3, 'actual');
                           },
-                          items: level3ActualAccountsList.map((Account account) {
+                          items:
+                              level3ActualAccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -1221,9 +1199,6 @@ class _MyHomePageState extends State<MyHomePage>
                               setState(() {
                                 costTypeObjectActual = newValue;
                               });
-
-                              // TODO check if needed
-                              //arrangeAccounts(0, 'costtypes');
                             },
                             items: costTypesList.map((CostType type) {
                               return new DropdownMenuItem<CostType>(
@@ -1370,7 +1345,8 @@ class _MyHomePageState extends State<MyHomePage>
 
                             arrangeAccounts(1, 'budget');
                           },
-                          items: level1BudgetAccountsList.map((Account account) {
+                          items:
+                              level1BudgetAccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -1414,7 +1390,8 @@ class _MyHomePageState extends State<MyHomePage>
 
                             arrangeAccounts(2, 'budget');
                           },
-                          items: level2BudgetAccountsList.map((Account account) {
+                          items:
+                              level2BudgetAccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -1456,7 +1433,8 @@ class _MyHomePageState extends State<MyHomePage>
 
                             arrangeAccounts(3, 'budget');
                           },
-                          items: level3BudgetAccountsList.map((Account account) {
+                          items:
+                              level3BudgetAccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -1493,9 +1471,6 @@ class _MyHomePageState extends State<MyHomePage>
                               setState(() {
                                 costTypeObjectBudget = newValue;
                               });
-
-                              // TODO check if needed
-                              // arrangeAccounts(0, 'costtpyes');
                             },
                             items: costTypesList.map((CostType type) {
                               return new DropdownMenuItem<CostType>(
@@ -1963,9 +1938,12 @@ class _MyHomePageState extends State<MyHomePage>
                                           child: Text('Discard'),
                                           color: Color(0xffEEEEEE), // EEEEEE
                                           onPressed: () {
-                                            newLevel1TextFieldController.text = '';
-                                            newLevel2TextFieldController.text = '';
-                                            newLevel3TextFieldController.text = '';
+                                            newLevel1TextFieldController.text =
+                                                '';
+                                            newLevel2TextFieldController.text =
+                                                '';
+                                            newLevel3TextFieldController.text =
+                                                '';
                                           },
                                         ),
                                       ),
@@ -1983,48 +1961,56 @@ class _MyHomePageState extends State<MyHomePage>
                                           onPressed: () {
                                             sendBackend('newaccountdelete');
 
-                                            if(level3AdminObject.id > 0)
-                                            {
+                                            if (level3AdminObject.id > 0) {
                                               // If the acount which has just been deleted was selected, unselect it
-                                              if(level3ActualObject.id == level3AdminObject.id)
-                                              {
-                                                level3ActualObject = level3ActualAccountsList[0];
+                                              if (level3ActualObject.id ==
+                                                  level3AdminObject.id) {
+                                                level3ActualObject =
+                                                    level3ActualAccountsList[0];
                                               }
 
-                                              if(level3BudgetObject.id == level3AdminObject.id)
-                                              {
-                                                level3BudgetObject = level3BudgetAccountsList[0];
+                                              if (level3BudgetObject.id ==
+                                                  level3AdminObject.id) {
+                                                level3BudgetObject =
+                                                    level3BudgetAccountsList[0];
                                               }
 
-                                              level3AdminObject = level3AdminAccountsList[0];
-                                            } else if(level2AdminObject.id > 0)
-                                            {
+                                              level3AdminObject =
+                                                  level3AdminAccountsList[0];
+                                            } else if (level2AdminObject.id >
+                                                0) {
                                               // If the acount which has just been deleted was selected, unselect it
-                                              if(level2ActualObject.id == level2AdminObject.id)
-                                              {
-                                                level2ActualObject = level2ActualAccountsList[0];
+                                              if (level2ActualObject.id ==
+                                                  level2AdminObject.id) {
+                                                level2ActualObject =
+                                                    level2ActualAccountsList[0];
                                               }
 
-                                              if(level2BudgetObject.id == level2AdminObject.id)
-                                              {
-                                                level2BudgetObject = level2BudgetAccountsList[0];
+                                              if (level2BudgetObject.id ==
+                                                  level2AdminObject.id) {
+                                                level2BudgetObject =
+                                                    level2BudgetAccountsList[0];
                                               }
 
-                                              level2AdminObject = level2AdminAccountsList[0];
-                                            } else if(level1AdminObject.id > 0)
-                                            {
+                                              level2AdminObject =
+                                                  level2AdminAccountsList[0];
+                                            } else if (level1AdminObject.id >
+                                                0) {
                                               // If the acount which has just been deleted was selected, unselect it
-                                              if(level1ActualObject.id == level1AdminObject.id)
-                                              {
-                                                level1ActualObject = level1ActualAccountsList[0];
+                                              if (level1ActualObject.id ==
+                                                  level1AdminObject.id) {
+                                                level1ActualObject =
+                                                    level1ActualAccountsList[0];
                                               }
 
-                                              if(level1BudgetObject.id == level1AdminObject.id)
-                                              {
-                                                level1BudgetObject = level1BudgetAccountsList[0];
+                                              if (level1BudgetObject.id ==
+                                                  level1AdminObject.id) {
+                                                level1BudgetObject =
+                                                    level1BudgetAccountsList[0];
                                               }
 
-                                              level1AdminObject = level1AdminAccountsList[0];
+                                              level1AdminObject =
+                                                  level1AdminAccountsList[0];
                                             }
                                           },
                                         ),
@@ -2040,13 +2026,13 @@ class _MyHomePageState extends State<MyHomePage>
                                           color: Color(
                                               0xff0957FF), //df7599 - 0957FF
                                           onPressed: () {
-                                              commentInput(context, 'account',
-                                                  newLevel1TextFieldController,
-                                                  newLevel2TextFieldController,
-                                                  newLevel3TextFieldController
-                                              );
-
-                                            },
+                                            commentInput(
+                                                context,
+                                                'account',
+                                                newLevel1TextFieldController,
+                                                newLevel2TextFieldController,
+                                                newLevel3TextFieldController);
+                                          },
                                         ),
                                       ),
                                     ],
@@ -2179,7 +2165,8 @@ class _MyHomePageState extends State<MyHomePage>
                                           child: Text('Discard'),
                                           color: Color(0xffEEEEEE), // EEEEEE
                                           onPressed: () {
-                                            newCostTypeTextFieldController.text = '';
+                                            newCostTypeTextFieldController
+                                                .text = '';
                                           },
                                         ),
                                       ),
@@ -2198,7 +2185,8 @@ class _MyHomePageState extends State<MyHomePage>
                                             sendBackend('newcosttypedelete');
 
                                             // the here selected value was deleted and therefore is no more available, so set it to the first default value to not receive an error
-                                            costTypeObjectAdmin = costTypesList[0];
+                                            costTypeObjectAdmin =
+                                                costTypesList[0];
                                           },
                                         ),
                                       ),
@@ -2213,7 +2201,12 @@ class _MyHomePageState extends State<MyHomePage>
                                           color: Color(
                                               0xff0957FF), //df7599 - 0957FF
                                           onPressed: () {
-                                            commentInput(context, 'costtype', newCostTypeTextFieldController, null, null);
+                                            commentInput(
+                                                context,
+                                                'costtype',
+                                                newCostTypeTextFieldController,
+                                                null,
+                                                null);
                                           },
                                         ),
                                       ),
