@@ -192,17 +192,17 @@ class _MyHomePageState extends State<MyHomePage>
     _pageController = PageController();
 
     // Init with a default so that we don't get a null error on startup
-    level1ActualObject = level1AccountsList[0];
-    level1BudgetObject = level1AccountsList[0];
-    level1AdminObject = level1AccountsList[0];
+    level1ActualObject = level1ActualAccountsList[0];
+    level1BudgetObject = level1BudgetAccountsList[0];
+    level1AdminObject = level1AdminAccountsList[0];
 
-    level2ActualObject = level2AccountsList[0];
-    level2BudgetObject = level2AccountsList[0];
-    level2AdminObject = level2AccountsList[0];
+    level2ActualObject = level2ActualAccountsList[0];
+    level2BudgetObject = level2BudgetAccountsList[0];
+    level2AdminObject = level2AdminAccountsList[0];
 
-    level3ActualObject = level3AccountsList[0];
-    level3BudgetObject = level3AccountsList[0];
-    level3AdminObject = level3AccountsList[0];
+    level3ActualObject = level3ActualAccountsList[0];
+    level3BudgetObject = level3BudgetAccountsList[0];
+    level3AdminObject = level3AdminAccountsList[0];
 
     costTypeObjectActual = costTypesList[0];
     costTypeObjectBudget = costTypesList[0];
@@ -221,10 +221,10 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   void afterFirstLayout(BuildContext context) async {
     // Calling the same function "after layout" to resolve the issue.
-    await checkForChanges(true, fetchAccountsAndCostTypes);
+    await checkForChanges(true, fetchAccountsAndCostTypes, 'all');
   }
 
-  void checkForChanges(bool onStartup, bool fetch) async {
+  void checkForChanges(bool onStartup, bool fetch, String type) async {
     print("Checking for changes $onStartup - $fetch");
 
     Account accountToAdd;
@@ -555,7 +555,7 @@ class _MyHomePageState extends State<MyHomePage>
     // Refresh accounts lists, needed because the accounts are cleared from account list and when another level1 or 2 are selected the list only has the level2 and 3 accounts from the other level1 or 2
 
     await checkForChanges(
-        false, true); // This await makes a difference and is important
+        false, true, type); // This await makes a difference and is important
 
 //    print("HAVING (level2ActualAccountsList): and trying to find childs for: ${level1ActualObject.name} - ${level1ActualObject.id} ");
 //    level2ActualAccountsList.forEach((element) {
@@ -895,7 +895,7 @@ class _MyHomePageState extends State<MyHomePage>
           controller: _pageController,
           onPageChanged: (index) {
             // Check if something in the settings has been changed, if yes set the vars and widgets accordingly
-            checkForChanges(false, fetchAccountsAndCostTypes);
+            checkForChanges(false, fetchAccountsAndCostTypes, 'all');
 
             setState(() => _currentIndex = index);
 
