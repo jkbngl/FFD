@@ -225,7 +225,7 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   void checkForChanges(bool onStartup, bool fetch, String type) async {
-    print("Checking for changes $onStartup - $fetch");
+    print("Checking for changes $onStartup - $fetch, for type $type");
 
     Account accountToAdd;
     CostType typeToAdd;
@@ -261,9 +261,26 @@ class _MyHomePageState extends State<MyHomePage>
         accountToAdd = new Account(
             account['id'], account['name'], account['parent_account']);
 
-        Account existingItem = level1AccountsList.firstWhere(
-            (itemToCheck) => itemToCheck.id == accountToAdd.id,
-            orElse: () => null);
+        // This additional step would not be needed for level1 (#40 but to have all the same)
+        Account existingItem;
+        if(type == 'actual'){
+          existingItem = level1ActualAccountsList.firstWhere(
+                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              orElse: () => null);
+        } else if(type == 'budget'){
+          existingItem = level1BudgetAccountsList.firstWhere(
+                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              orElse: () => null);
+        } else if(type == 'admin'){
+          existingItem = level1AdminAccountsList.firstWhere(
+                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              orElse: () => null);
+        } else {
+          existingItem = level1AccountsList.firstWhere(
+                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              orElse: () => null);
+        }
+
 
         accountsListStating.add(accountToAdd);
 
@@ -311,9 +328,26 @@ class _MyHomePageState extends State<MyHomePage>
       for (var account in parsedAccountLevel2) {
         accountToAdd = new Account(
             account['id'], account['name'], account['parent_account']);
-        Account existingItem = level2AccountsList.firstWhere(
-            (itemToCheck) => itemToCheck.id == accountToAdd.id,
-            orElse: () => null);
+
+        // #40
+        Account existingItem;
+        if(type == 'actual'){
+          existingItem = level2ActualAccountsList.firstWhere(
+                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              orElse: () => null);
+        } else if(type == 'budget'){
+          existingItem = level2BudgetAccountsList.firstWhere(
+                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              orElse: () => null);
+        } else if(type == 'admin'){
+          existingItem = level2AdminAccountsList.firstWhere(
+                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              orElse: () => null);
+        } else {
+          existingItem = level2AccountsList.firstWhere(
+                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              orElse: () => null);
+        }
 
         accountsListStating.add(accountToAdd);
 
@@ -362,9 +396,25 @@ class _MyHomePageState extends State<MyHomePage>
       for (var account in parsedAccountLevel3) {
         accountToAdd = new Account(
             account['id'], account['name'], account['parent_account']);
-        Account existingItem = level3AccountsList.firstWhere(
-            (itemToCheck) => itemToCheck.id == accountToAdd.id,
-            orElse: () => null);
+        // #40
+        Account existingItem;
+        if(type == 'actual'){
+          existingItem = level3ActualAccountsList.firstWhere(
+                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              orElse: () => null);
+        } else if(type == 'budget'){
+          existingItem = level3BudgetAccountsList.firstWhere(
+                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              orElse: () => null);
+        } else if(type == 'admin'){
+          existingItem = level3AdminAccountsList.firstWhere(
+                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              orElse: () => null);
+        } else {
+          existingItem = level3AccountsList.firstWhere(
+                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              orElse: () => null);
+        }
 
         accountsListStating.add(accountToAdd);
 
