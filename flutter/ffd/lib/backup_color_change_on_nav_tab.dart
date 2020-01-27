@@ -263,32 +263,39 @@ class _MyHomePageState extends State<MyHomePage>
 
         // This additional step would not be needed for level1 (#40 but to have all the same)
         Account existingItem;
-        if(type == 'actual'){
+        if (type == 'actual') {
           existingItem = level1ActualAccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
-        } else if(type == 'budget'){
+        } else if (type == 'budget') {
           existingItem = level1BudgetAccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
-        } else if(type == 'admin'){
+        } else if (type == 'admin') {
           existingItem = level1AdminAccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
         } else {
           existingItem = level1AccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
         }
-
 
         accountsListStating.add(accountToAdd);
 
         if (existingItem == null) {
+          if (type == 'actual' || onStartup) {
+            level1ActualAccountsList.add(accountToAdd);
+          }
+          if (type == 'budget' || onStartup) {
+            level1BudgetAccountsList.add(accountToAdd);
+          }
+          if (type == 'admin' || onStartup) {
+            level1AdminAccountsList.add(accountToAdd);
+          }
+
           level1AccountsList.add(accountToAdd);
-          level1ActualAccountsList.add(accountToAdd);
-          level1BudgetAccountsList.add(accountToAdd);
-          level1AdminAccountsList.add(accountToAdd);
+
         }
       }
 
@@ -331,32 +338,38 @@ class _MyHomePageState extends State<MyHomePage>
 
         // #40
         Account existingItem;
-        if(type == 'actual'){
+        if (type == 'actual') {
           existingItem = level2ActualAccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
-        } else if(type == 'budget'){
+        } else if (type == 'budget') {
           existingItem = level2BudgetAccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
-        } else if(type == 'admin'){
+        } else if (type == 'admin') {
           existingItem = level2AdminAccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
         } else {
           existingItem = level2AccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
         }
 
         accountsListStating.add(accountToAdd);
 
         if (existingItem == null) {
-          level2AccountsList.add(accountToAdd);
+          if (type == 'actual' || onStartup) {
+            level2ActualAccountsList.add(accountToAdd);
+          }
+          if (type == 'budget' || onStartup) {
+            level2BudgetAccountsList.add(accountToAdd);
+          }
+          if (type == 'admin' || onStartup) {
+            level2AdminAccountsList.add(accountToAdd);
+          }
 
-          level2ActualAccountsList.add(accountToAdd);
-          level2BudgetAccountsList.add(accountToAdd);
-          level2AdminAccountsList.add(accountToAdd);
+          level2AccountsList.add(accountToAdd);
         }
       }
 
@@ -398,21 +411,21 @@ class _MyHomePageState extends State<MyHomePage>
             account['id'], account['name'], account['parent_account']);
         // #40
         Account existingItem;
-        if(type == 'actual'){
+        if (type == 'actual') {
           existingItem = level3ActualAccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
-        } else if(type == 'budget'){
+        } else if (type == 'budget') {
           existingItem = level3BudgetAccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
-        } else if(type == 'admin'){
+        } else if (type == 'admin') {
           existingItem = level3AdminAccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
         } else {
           existingItem = level3AccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
         }
 
@@ -1786,9 +1799,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           activeColor: Color(0xff0957FF),
                                         ),
                                       ]),
-                                  Divider(
-                                      color: Colors.black87
-                                  ),
+                                  Divider(color: Colors.black87),
                                   Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -1807,11 +1818,12 @@ class _MyHomePageState extends State<MyHomePage>
                                           activeTrackColor: Color(0xffEEEEEE),
                                           activeColor: Color(0xff0957FF),
                                         ),
-                                      ]),Row(
+                                      ]),
+                                  Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text("Use Level 1:",
                                             style: TextStyle(fontSize: 25)),
@@ -1825,11 +1837,12 @@ class _MyHomePageState extends State<MyHomePage>
                                           activeTrackColor: Color(0xffEEEEEE),
                                           activeColor: Color(0xff0957FF),
                                         ),
-                                      ]),Row(
+                                      ]),
+                                  Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text("Use Level 2:",
                                             style: TextStyle(fontSize: 25)),
@@ -1843,11 +1856,12 @@ class _MyHomePageState extends State<MyHomePage>
                                           activeTrackColor: Color(0xffEEEEEE),
                                           activeColor: Color(0xff0957FF),
                                         ),
-                                      ]),Row(
+                                      ]),
+                                  Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text("Use Level 3:",
                                             style: TextStyle(fontSize: 25)),
