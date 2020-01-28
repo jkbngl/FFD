@@ -8,6 +8,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 void main() => runApp(MyApp());
 
@@ -40,11 +41,14 @@ Map<int, Color> color = {
 
 MaterialColor colorCustom = MaterialColor(0xFF0957FF, color);
 
-class SalesData {
-  SalesData(this.year, this.sales);
+/// Sample ordinal data type.
+class OrdinalSales {
   final String year;
-  final double sales;
+  final int sales;
+
+  OrdinalSales(this.year, this.sales);
 }
+
 
 class Account {
   const Account(this.id, this.name, this.parentAccount);
@@ -104,6 +108,10 @@ class _MyHomePageState extends State<MyHomePage>
   Account level3BudgetObject;
   CostType costTypeObjectActual;
   CostType costTypeObjectBudget;
+
+  // when a same level2 is selected as is already selected the accounts are multiplicated, this dummyobject checks if the new selected account is the same as the old one
+  Account dummyAccount;
+
 
   // Json objects which are fetched from API
   var level1AccountsJson;
@@ -361,6 +369,8 @@ class _MyHomePageState extends State<MyHomePage>
         if (existingItem == null) {
           if (type == 'actual' || onStartup) {
             level2ActualAccountsList.add(accountToAdd);
+
+            print("READDED");
           }
           if (type == 'budget' || onStartup) {
             level2BudgetAccountsList.add(accountToAdd);
@@ -1112,7 +1122,14 @@ class _MyHomePageState extends State<MyHomePage>
                               backgroundColor: Color(0xff0957FF),
                             ),
                             Text(
-                                'Choosen: ${dateTimeActual.year.toString()}-${dateTimeActual.month.toString().padLeft(2, '0')}')
+                                'Choosen: ${dateTimeActual.year.toString()}-${dateTimeActual.month.toString().padLeft(2, '0')}'),
+                            Icon(
+                              Icons.help,
+                              color: Colors.grey,
+                              size: 24.0,
+                              semanticLabel: 'Text to announce in accessibility modes',
+                            ),
+
                           ]),
                       Container(
                         constraints: BoxConstraints.expand(
@@ -1227,11 +1244,19 @@ class _MyHomePageState extends State<MyHomePage>
                             color: Color(0xff0957FF),
                           ),
                           onChanged: (Account newValue) {
+                            dummyAccount = level2ActualObject;
+
                             setState(() {
                               level2ActualObject = newValue;
                             });
 
-                            arrangeAccounts(2, 'actual');
+                            if(dummyAccount.id != newValue.id)
+                            {
+                                arrangeAccounts(2, 'actual');
+                            }
+                            else {
+                              print("RESELECTED");
+                            }
                           },
                           items:
                               level2ActualAccountsList.map((Account account) {
@@ -1274,7 +1299,8 @@ class _MyHomePageState extends State<MyHomePage>
                               level3ActualObject = newValue;
                             });
 
-                            arrangeAccounts(3, 'actual');
+                            // TODO probably not needed as change in level3 has no affect in anything
+                            // arrangeAccounts(3, 'actual');
                           },
                           items:
                               level3ActualAccountsList.map((Account account) {
@@ -1556,7 +1582,8 @@ class _MyHomePageState extends State<MyHomePage>
                               level3BudgetObject = newValue;
                             });
 
-                            arrangeAccounts(3, 'budget');
+                            // TODO probably not needed as change in level3 has no affect in anything
+                            // arrangeAccounts(3, 'budget');
                           },
                           items:
                               level3BudgetAccountsList.map((Account account) {
@@ -1684,22 +1711,7 @@ class _MyHomePageState extends State<MyHomePage>
                   style: TextStyle(fontSize: 30),
                 ),
                 Container(
-                    child: SfCartesianChart(
-                        primaryXAxis:
-                            CategoryAxis(), // Initialize category axis.
-                        series: <LineSeries<SalesData, String>>[
-                      // Initialize line series.
-                      LineSeries<SalesData, String>(
-                          dataSource: [
-                            SalesData('Jan', 35),
-                            SalesData('Feb', 28),
-                            SalesData('Mar', 34),
-                            SalesData('Apr', 32),
-                            SalesData('May', 40)
-                          ],
-                          xValueMapper: (SalesData sales, _) => sales.year,
-                          yValueMapper: (SalesData sales, _) => sales.sales)
-                    ])),
+                    child: Text("test")),
               ],
             ),
             DefaultTabController(
@@ -2095,7 +2107,8 @@ class _MyHomePageState extends State<MyHomePage>
                                           level3AdminObject = newValue;
                                         });
 
-                                        arrangeAccounts(3, 'admin');
+                                        // TODO probably not needed as change in level3 has no affect in anything
+                                        //arrangeAccounts(3, 'admin');
                                       },
                                       items: level3AdminAccountsList
                                           .map((Account account) {
