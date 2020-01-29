@@ -49,7 +49,6 @@ class OrdinalSales {
   OrdinalSales(this.year, this.sales);
 }
 
-
 class Account {
   const Account(this.id, this.name, this.parentAccount);
 
@@ -111,7 +110,6 @@ class _MyHomePageState extends State<MyHomePage>
 
   // when a same level2 is selected as is already selected the accounts are multiplicated, this dummyobject checks if the new selected account is the same as the old one
   Account dummyAccount;
-
 
   // Json objects which are fetched from API
   var level1AccountsJson;
@@ -303,7 +301,6 @@ class _MyHomePageState extends State<MyHomePage>
           }
 
           level1AccountsList.add(accountToAdd);
-
         }
       }
 
@@ -962,7 +959,14 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: appBarTitleText),
+      appBar: AppBar(title: appBarTitleText, leading: IconButton(
+          icon: Icon(Icons.help),
+          color: Color(0xffEEEEEE),
+          iconSize: 24,
+          onPressed: () {
+            print('CLICKED');
+          }
+      ),),
       body: SizedBox.expand(
         child: PageView(
           controller: _pageController,
@@ -1123,15 +1127,6 @@ class _MyHomePageState extends State<MyHomePage>
                             ),
                             Text(
                                 'Choosen: ${dateTimeActual.year.toString()}-${dateTimeActual.month.toString().padLeft(2, '0')}'),
-                            IconButton(
-                                icon: Icon(Icons.help),
-                                color: Colors.grey,
-                                iconSize: 24,
-                                onPressed: () {
-                                  print('CLICKED');
-                                }
-                            ),
-
                           ]),
                       Container(
                         constraints: BoxConstraints.expand(
@@ -1252,11 +1247,9 @@ class _MyHomePageState extends State<MyHomePage>
                               level2ActualObject = newValue;
                             });
 
-                            if(dummyAccount.id != newValue.id)
-                            {
-                                arrangeAccounts(2, 'actual');
-                            }
-                            else {
+                            if (dummyAccount.id != newValue.id) {
+                              arrangeAccounts(2, 'actual');
+                            } else {
                               print("RESELECTED");
                             }
                           },
@@ -1712,8 +1705,7 @@ class _MyHomePageState extends State<MyHomePage>
                   'Visualizer',
                   style: TextStyle(fontSize: 30),
                 ),
-                Container(
-                    child: Text("test")),
+                Container(child: Text("test")),
               ],
             ),
             DefaultTabController(
