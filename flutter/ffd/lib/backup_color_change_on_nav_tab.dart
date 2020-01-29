@@ -964,7 +964,7 @@ class _MyHomePageState extends State<MyHomePage>
           color: Color(0xffEEEEEE),
           iconSize: 24,
           onPressed: () {
-            print('CLICKED');
+            print('CLICKED on $_currentIndex');
           }
       ),),
       body: SizedBox.expand(
