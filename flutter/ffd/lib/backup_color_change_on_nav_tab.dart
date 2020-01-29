@@ -1123,11 +1123,13 @@ class _MyHomePageState extends State<MyHomePage>
                             ),
                             Text(
                                 'Choosen: ${dateTimeActual.year.toString()}-${dateTimeActual.month.toString().padLeft(2, '0')}'),
-                            Icon(
-                              Icons.help,
-                              color: Colors.grey,
-                              size: 24.0,
-                              semanticLabel: 'Text to announce in accessibility modes',
+                            IconButton(
+                                icon: Icon(Icons.help),
+                                color: Colors.grey,
+                                iconSize: 24,
+                                onPressed: () {
+                                  print('CLICKED');
+                                }
                             ),
 
                           ]),
