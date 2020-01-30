@@ -956,6 +956,40 @@ class _MyHomePageState extends State<MyHomePage>
     }
   }
 
+  showHelpScreen(int index)
+  {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Help screen for screen: $index"),
+          content: new Text(
+              "1. (Optional):"
+                  "Select the month for which you want to enter your amount"
+                  ""
+                  "\n\n2. (Mandatory):"
+                  "Enter your amount"
+                  "\n\n3. (Mandatory):"
+                  "Select your accounts where your amount should be linked to "
+                  "\n\n4. (Mandatory):"
+                  "Select if your amount is a fix variable, or something else cost"
+                  "\n\n5. (Mandatory):"
+                  "Save your amount or discard your inputs"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -964,7 +998,7 @@ class _MyHomePageState extends State<MyHomePage>
           color: Color(0xffEEEEEE),
           iconSize: 24,
           onPressed: () {
-            print('CLICKED on $_currentIndex');
+            showHelpScreen(_currentIndex);
           }
       ),),
       body: SizedBox.expand(
