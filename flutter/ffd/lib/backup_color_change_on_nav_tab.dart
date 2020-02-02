@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 
 void main() => runApp(MyApp());
 
@@ -109,6 +109,7 @@ class _MyHomePageState extends State<MyHomePage>
   CostType costTypeObjectActual;
   CostType costTypeObjectBudget;
 
+  double rating = 0;
   // when a same level2 is selected as is already selected the accounts are multiplicated, this dummyobject checks if the new selected account is the same as the old one
   Account dummyAccount;
 
@@ -958,43 +959,50 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   showHelpScreen(int index) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Help screen for screen: $index"),
-          content: new Text("1. (Optional):"
-              "Select the month for which you want to enter your amount"
-              "\n\n2. (Mandatory):"
-              "Enter your amount"
-              "\n\n3. (Mandatory):"
-              "Select your accounts where your amount should be linked to"
-              "\n\n4. (Optional):"
-              "Select if your amount is a fix variable, or another costtype"
-              "\n\n5. (Mandatory):"
-              "Save your amount or discard your inputs"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-
-            new SmoothStarRating(
-                allowHalfRating: false,
-                onRatingChanged: (v) {
-
-                  setState(() {rating = 5;});
+        showDialog(
+            context: context,
+            barrierDismissible: true, // set to false if you want to force a rating
+            builder: (context) {
+              return RatingDialog(
+                icon: const FlutterLogo(
+                    size: 100,
+                    colors: Colors.red), // set your own image/icon widget
+                title: "The Rating Dialog",
+                description:
+                "Tap a star to set your rating. Add more description here if you want.",
+                submitButton: "SUBMIT",
+                alternativeButton: "Contact us instead?", // optional
+                positiveComment: "We are so happy to hear :)", // optional
+                negativeComment: "We're sad to hear :(", // optional
+                accentColor: Colors.red, // optional
+                onSubmitPressed: (int rating) {
+                  print("onSubmitPressed: rating = $rating");
+                  // TODO: open the app's page on Google Play / Apple App Store
                 },
-                starCount: 5,
-                rating: 5,
-                size: 40.0,
-                filledIconData: Icons.blur_off,
-                halfFilledIconData: Icons.blur_on,
-                color: Colors.green,
-                borderColor: Colors.green,
-                spacing: 0.0)
-          ],
-        );
-      },
-    );
+                onAlternativePressed: () {
+                  print("onAlternativePressed: do something");
+                  // TODO: maybe you want the user to contact you instead of rating a bad review
+                },
+              );
+            });
+
+//        return AlertDialog(
+//          title: new Text("Help screen for screen: $index"),
+//          content: new Text("1. (Optional):"
+//              "Select the month for which you want to enter your amount"
+//              "\n\n2. (Mandatory):"
+//              "Enter your amount"
+//              "\n\n3. (Mandatory):"
+//              "Select your accounts where your amount should be linked to"
+//              "\n\n4. (Optional):"
+//              "Select if your amount is a fix variable, or another costtype"
+//              "\n\n5. (Mandatory):"
+//              "Save your amount or discard your inputs"),
+//          actions: <Widget>[
+//            // usually buttons at the bottom of the dialog
+//
+//          ],
+//        );
   }
 
   @override
