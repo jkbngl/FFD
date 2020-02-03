@@ -1,14 +1,14 @@
 import 'dart:developer';
 
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:ffd/StackedBarTargetLineChart.dart';
+import 'package:ffd/SimpleBarChart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:after_layout/after_layout.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:rating_dialog/rating_dialog.dart';
 
 void main() => runApp(MyApp());
@@ -93,6 +93,13 @@ String _format = 'yyyy-MMMM';
 
 class _MyHomePageState extends State<MyHomePage>
     with AfterLayoutMixin<MyHomePage> {
+
+  Widget chartContainer = Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [Text('Chart Viewer')],
+  );
+
+
   int _currentIndex = 0;
   PageController _pageController;
 
@@ -985,24 +992,6 @@ class _MyHomePageState extends State<MyHomePage>
                 },
               );
             });
-
-//        return AlertDialog(
-//          title: new Text("Help screen for screen: $index"),
-//          content: new Text("1. (Optional):"
-//              "Select the month for which you want to enter your amount"
-//              "\n\n2. (Mandatory):"
-//              "Enter your amount"
-//              "\n\n3. (Mandatory):"
-//              "Select your accounts where your amount should be linked to"
-//              "\n\n4. (Optional):"
-//              "Select if your amount is a fix variable, or another costtype"
-//              "\n\n5. (Mandatory):"
-//              "Save your amount or discard your inputs"),
-//          actions: <Widget>[
-//            // usually buttons at the bottom of the dialog
-//
-//          ],
-//        );
   }
 
   @override
@@ -1757,6 +1746,18 @@ class _MyHomePageState extends State<MyHomePage>
                   style: TextStyle(fontSize: 30),
                 ),
                 Container(child: Text("test")),
+                Container(    margin: const EdgeInsets.all(10.0),
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * .4,
+                    child: chartContainer = StackedBarTargetLineChart.withSampleData()),
+//                RaisedButton(
+//                  child: Text('Simple'),
+//                  onPressed: () {
+//                    setState(() {
+//                      chartContainer = SimpleBarChart.withSampleData();
+//                    });
+//                  },
+//                ),
               ],
             ),
             DefaultTabController(
