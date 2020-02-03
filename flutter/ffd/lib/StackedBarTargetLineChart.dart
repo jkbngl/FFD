@@ -13,7 +13,7 @@ class StackedBarTargetLineChart extends StatelessWidget {
     return new StackedBarTargetLineChart(
       _createSampleData(),
       // Disable animations for image tests.
-      animate: false,
+      animate: true,
     );
   }
 
