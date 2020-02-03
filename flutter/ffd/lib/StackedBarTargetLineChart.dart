@@ -55,25 +55,12 @@ class StackedBarTargetLineChart extends StatelessWidget {
     ];
 
     final desktopTargetLineData = [
-      new OrdinalSales('2014', 4),
-      new OrdinalSales('2015', 20),
-      new OrdinalSales('2016', 80),
-      new OrdinalSales('2017', 65),
+      new OrdinalSales('2014', 60),
+      new OrdinalSales('2015', 100),
+      new OrdinalSales('2016', 150),
+      new OrdinalSales('2017', 140),
     ];
 
-    final tableTargetLineData = [
-      new OrdinalSales('2014', 30),
-      new OrdinalSales('2015', 55),
-      new OrdinalSales('2016', 15),
-      new OrdinalSales('2017', 25),
-    ];
-
-    final mobileTargetLineData = [
-      new OrdinalSales('2014', 10),
-      new OrdinalSales('2015', 5),
-      new OrdinalSales('2016', 45),
-      new OrdinalSales('2017', 35),
-    ];
 
     return [
       new charts.Series<OrdinalSales, String>(
@@ -102,22 +89,7 @@ class StackedBarTargetLineChart extends StatelessWidget {
       )
       // Configure our custom bar target renderer for this series.
         ..setAttribute(charts.rendererIdKey, 'customTargetLine'),
-      new charts.Series<OrdinalSales, String>(
-        id: 'Tablet Target Line',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: tableTargetLineData,
-      )
-      // Configure our custom bar target renderer for this series.
-        ..setAttribute(charts.rendererIdKey, 'customTargetLine'),
-      new charts.Series<OrdinalSales, String>(
-        id: 'Mobile Target Line',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: mobileTargetLineData,
-      )
-      // Configure our custom bar target renderer for this series.
-        ..setAttribute(charts.rendererIdKey, 'customTargetLine'),
+
     ];
   }
 }
