@@ -70,6 +70,65 @@ def readAccounts(level_type):
 
     return data
 
+def readAmounts(level_type, cost_type, parent_account):
+    """
+    This function responds to a request for /api/ffd/level_type
+    with the complete lists of accounts for the user
+
+    :return:        list of accounts
+    """
+
+    # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
+    data = []
+    query = "select now()"
+
+    connection = connect()
+    cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
+
+    if(int(level_type) == 1 and int(cost_type) < 0):
+        query = f"select  level1 \
+                        , sum(amount) \
+                    	, year \
+                    	, month \
+                  from    ffd.act_data \
+                  where user_fk = 1 \
+                  group by year \
+                    	 , month \
+                    	 , level1 \
+                  order by level1"
+    elif(int(level_type) == 1 and int(cost_type) > 0):
+        query = f"select  level1 \
+                        , costtype \
+                        , sum(amount) \
+                    	, year \
+                    	, month \
+                  from    ffd.act_data \
+                  where user_fk = 1 \
+                  group by year \
+                         , month \
+                    	 , level1 \
+                    	 , costtype \
+                  order by level1, costtype"
+
+    cursor.execute(query)
+    record = cursor.fetchall()
+    # fetch the column names from the cursror
+    columnnames = [desc[0] for desc in cursor.description]
+
+    # Create from the value array a key value object
+    for row in record:
+        cache = {}
+
+        for columnname in columnnames:
+            cache[columnname] = row[columnname]
+
+        data.append(cache)
+        
+    cursor.close()
+    connection.close()
+
+    return data
+
 def readCosttypes():
     """
     This function responds to a request for /api/ffd/level_type
