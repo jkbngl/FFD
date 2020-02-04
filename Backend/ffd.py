@@ -49,7 +49,7 @@ def readAccounts(level_type):
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-    query = f"select * from ffd.account_dim where level_type = {level_type} order by id asc"
+    query = f"select * from ffd.account_dim where level_type = {level_type} and active = 1 order by id asc"
 
     cursor.execute(query)
     record = cursor.fetchall()

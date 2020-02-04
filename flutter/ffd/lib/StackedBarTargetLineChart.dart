@@ -92,6 +92,8 @@ class StackedBarTargetLineChart extends StatelessWidget {
 
     ];
   }
+
+
 }
 
 /// Sample ordinal data type.
@@ -101,3 +103,4 @@ class OrdinalSales {
 
   OrdinalSales(this.year, this.sales);
 }
+

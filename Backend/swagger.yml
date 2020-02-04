@@ -27,6 +27,8 @@ paths:
             type: "array"
             items:
               properties:
+                active:
+                  type: "integer" 
                 comment: 
                   type: "string"
                 company_fk:
@@ -65,6 +67,8 @@ paths:
             type: "array"
             items:
               properties:
+                active:
+                  type: "integer" 
                 comment: 
                   type: "string"
                 company_fk:
@@ -76,8 +80,6 @@ paths:
                 group_fk:
                   type: "integer"
                 id: 
-                  type: "integer"
-                level_type: 
                   type: "integer"
                 name: 
                   type: "string"
@@ -105,25 +107,77 @@ paths:
               properties:
                 type:
                   type: "string"
-                userid:
-                  type: "integer"
-                groupid:
-                  type: "integer"
                 amount:
-                  type: "integer"
+                  type: "string"
+                userid:
+                  type: "string"
+                groupid:
+                  type: "string"
+                user:
+                  type: "string"
+                group:
+                  type: "string"
+                company:
+                  type: "string"
                 comment:
                   type: "string"
+                level1id:
+                  type: "string"
+                level2id:
+                  type: "string"
+                level3id:
+                  type: "string"
                 level1:
-                  type: "integer"
+                  type: "string"
                 level2:
-                  type: "integer"
+                  type: "string"
                 level3:
-                  type: "integer"
+                  type: "string"
+                adminaccountlevel1id:
+                  type: "string"
+                adminaccountlevel2id:
+                  type: "string"
+                adminaccountlevel3id:
+                  type: "string"
+                adminaccountlevel1:
+                  type: "string"
+                adminaccountlevel2:
+                  type: "string"
+                adminaccountlevel3:
+                  type: "string"
+                accounttoaddlevel1:
+                  type: "string"
+                accounttoaddlevel2:
+                  type: "string"
+                accounttoaddlevel3:
+                  type: "string"
+                accounttoaddlevel1comment:
+                  type: "string"
+                accounttoaddlevel2comment:
+                  type: "string"
+                accounttoaddlevel3comment:
+                  type: "string"
+                accountfornewlevel2parentaccount:
+                  type: "string"
+                accountfornewlevel3parentaccount:
+                  type: "string"
+                costtypeid:
+                  type: "string"
                 costtype:
-                  type: "integer"
+                  type: "string"
+                costtypetoadd:
+                  type: "string"
+                costtypetoaddcomment:
+                  type: "string"
+                costtypetodeletedid:
+                  type: "string"
+                costtypetodelete:
+                  type: "string"
+                date:
+                  type: "string"
                 year:
-                  type: "integer"
+                  type: "string"
                 month:
-                  type: "integer"
-                day:
-                  type: "integer"
+                  type: "string"
+                status:
+                  type: "string"
