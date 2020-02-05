@@ -530,9 +530,7 @@ class _MyHomePageState extends State<MyHomePage>
     fetchAccountsAndCostTypes = false;
 
     // needed to reinitialize dropdowns with new values
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   void sendBackend(String type) async {
@@ -968,18 +966,22 @@ class _MyHomePageState extends State<MyHomePage>
     }
   }
 
-  showHelpScreen(int index) {
+  showCustomDialog(int index, String page) {
+    Icon icon = Icon(Icons.error, size: 70);
+
+    if(page == 'help') {
+      Icon icon = Icon(Icons.thumb_down, size: 70);
+    }
+
     showDialog(
         context: context,
         barrierDismissible: true, // set to false if you want to force a rating
         builder: (context) {
           return RatingDialog(
-            icon: const FlutterLogo(
-                size: 100,
-                colors: Colors.red), // set your own image/icon widget
+            icon: icon, // set your own image/icon widget
             title: "The Rating Dialog",
             description:
-                "Tap a star to set your rating. Add more description here if you want.",
+            "Tap a star to set your rating. Add more description here if you want.",
             submitButton: "SUBMIT",
             alternativeButton: "Contact us instead?", // optional
             positiveComment: "We are so happy to hear :)", // optional
@@ -995,6 +997,7 @@ class _MyHomePageState extends State<MyHomePage>
             },
           );
         });
+    }
   }
 
   @override
@@ -1021,7 +1024,7 @@ class _MyHomePageState extends State<MyHomePage>
             color: Color(0xffEEEEEE),
             iconSize: 24,
             onPressed: () {
-              showHelpScreen(_currentIndex);
+              showCustomDialog(_currentIndex, 'help');
             }),
       ),
       body: SizedBox.expand(
@@ -1029,6 +1032,7 @@ class _MyHomePageState extends State<MyHomePage>
           controller: _pageController,
           onPageChanged: (index) {
             // Check if something in the settings has been changed, if yes set the vars and widgets accordingly
+
             if (index == 1) {
               checkForChanges(false, fetchAccountsAndCostTypes, 'actual');
             } else if (index == 2) {
