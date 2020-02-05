@@ -528,6 +528,11 @@ class _MyHomePageState extends State<MyHomePage>
     }
 
     fetchAccountsAndCostTypes = false;
+
+    // needed to reinitialize dropdowns with new values
+    setState(() {
+
+    });
   }
 
   void sendBackend(String type) async {
@@ -1024,7 +1029,11 @@ class _MyHomePageState extends State<MyHomePage>
           controller: _pageController,
           onPageChanged: (index) {
             // Check if something in the settings has been changed, if yes set the vars and widgets accordingly
-            checkForChanges(false, fetchAccountsAndCostTypes, 'all');
+            if (index == 1) {
+              checkForChanges(false, fetchAccountsAndCostTypes, 'actual');
+            } else if (index == 2) {
+              checkForChanges(false, fetchAccountsAndCostTypes, 'budget');
+            }
 
             setState(() => _currentIndex = index);
 
