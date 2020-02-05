@@ -970,7 +970,7 @@ class _MyHomePageState extends State<MyHomePage>
     Icon icon = Icon(Icons.error, size: 70);
 
     if(page == 'help') {
-      Icon icon = Icon(Icons.thumb_down, size: 70);
+      icon = Icon(Icons.thumb_down, size: 70);
     }
 
     showDialog(
@@ -978,7 +978,7 @@ class _MyHomePageState extends State<MyHomePage>
         barrierDismissible: true, // set to false if you want to force a rating
         builder: (context) {
           return RatingDialog(
-            icon: icon, // set your own image/icon widget
+            icon: Icon(Icons.thumb_down, size: 70), // set your own image/icon widget
             title: "The Rating Dialog",
             description:
             "Tap a star to set your rating. Add more description here if you want.",
@@ -998,7 +998,7 @@ class _MyHomePageState extends State<MyHomePage>
           );
         });
     }
-  }
+  
 
   @override
   Widget build(BuildContext context) {
