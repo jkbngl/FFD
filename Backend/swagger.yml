@@ -91,6 +91,71 @@ paths:
                   type: "string"
                 user_fk: 
                   type: "integer"
+  /ffd/amounts/:
+    get:
+      operationId: "ffd.readAmounts"
+      #example: http://192.168.0.21:5000/api/ffd/amounts/?level_type=1&cost_type=-1&parent_account=-1&year=2019&month=2
+      parameters:
+        - in: query
+          name: level_type
+          type: integer
+          required: false
+          description: Numeric ID of the user to get.
+        - in: query
+          name: cost_type
+          type: integer
+          required: false
+          description: Numeric ID of the user to get.
+        - in: query
+          name: parent_account
+          type: integer
+          required: false
+          description: Numeric ID of the user to get.  
+        - in: query
+          name: year
+          type: integer
+          required: false
+          description: Numeric ID of the user to get.  
+        - in: query
+          name: month
+          type: integer
+          required: false
+          description: Numeric ID of the user to get.  
+      tags:
+        - "Amounts"
+      summary: "Returns the amounts per level and depending on costtype if specified"
+      description: "Read the list of costtypes"
+      responses:
+        200:
+          description: "Successful read the list of amounts"
+          schema:
+            type: "array"
+            items:
+              properties:
+                active:
+                  type: "integer" 
+                comment: 
+                  type: "string"
+                company_fk:
+                  type: "integer"
+                created: 
+                  type: "string"
+                created_by: 
+                  type: "string"
+                group_fk:
+                  type: "integer"
+                id: 
+                  type: "integer"
+                name: 
+                  type: "string"
+                parent_account: 
+                  type: "integer"
+                updated: 
+                  type: "string"
+                updated_by: 
+                  type: "string"
+                user_fk: 
+                  type: "integer"
   /ffd/:
     post:
       operationId: "ffd.send"

@@ -70,7 +70,8 @@ def readAccounts(level_type):
 
     return data
 
-def readAmounts(level_type, cost_type, parent_account):
+def readAmounts(level_type, cost_type, parent_account, year, month):
+    
     """
     This function responds to a request for /api/ffd/level_type
     with the complete lists of accounts for the user
