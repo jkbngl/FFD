@@ -86,11 +86,11 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
     order_params = ''
 
     if(level_type == 1):
-        select_params += ' select level1 ' if len(select_params) <= 0 else ' , level1'
+        select_params += ' select sum(amount), level1 ' if len(select_params) <= 0 else ' , level1'
         group_params += ' group by level1 ' if len(group_params) <= 0 else ' , level1'
         order_params += ' order by level1 ' if len(order_params) <= 0 else ' , level1'
     if(level_type == 2): 
-        select_params += ' select level2 ' if len(select_params) <= 0 else ' , level2'
+        select_params += ' select sum(amount), level2 ' if len(select_params) <= 0 else ' , level2'
         group_params += ' group by level2 ' if len(group_params) <= 0 else ' , level2'
         order_params += ' order by level2 ' if len(order_params) <= 0 else ' , level2'
     if(level_type == 3):
@@ -100,25 +100,25 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
 
     
     if(cost_type > 0):
-        select_params += ' select cost_type ' if len(select_params) <= 0 else ' , cost_type'
+        select_params += ' select sum(amount), cost_type ' if len(select_params) <= 0 else ' , cost_type'
         where_params += f' where cost_type = {cost_type}' if len(where_params) <= 0 else f' and cost_type = {cost_type}'
         group_params += ' group by cost_type ' if len(group_params) <= 0 else ' , cost_type'
         order_params += ' order by cost_type ' if len(order_params) <= 0 else ' , cost_type'
     
     if(parent_account > 0):
-        select_params += ' select parent_account ' if len(select_params) <= 0 else ' , parent_account'
+        select_params += ' select sum(amount), parent_account ' if len(select_params) <= 0 else ' , parent_account'
         where_params += f' where parent_account = {parent_account}' if len(where_params) <= 0 else f' and parent_account = {parent_account}'
         group_params += ' group by parent_account ' if len(group_params) <= 0 else ' , parent_account'
         order_params += ' order by parent_account ' if len(order_params) <= 0 else ' , parent_account'
     
     if(year > 0):
-        select_params += ' select year ' if len(select_params) <= 0 else ' , year'
+        select_params += ' select sum(amount), year ' if len(select_params) <= 0 else ' , year'
         where_params += f' where year = {year}' if len(where_params) <= 0 else f' and year = {year}'
         group_params += ' group by year ' if len(group_params) <= 0 else ' , year'
         order_params += ' order by year ' if len(order_params) <= 0 else ' , year'
 
     if(month > 0):
-        select_params += ' select month ' if len(select_params) <= 0 else ' , month'
+        select_params += ' select sum(amount), month ' if len(select_params) <= 0 else ' , month'
         where_params += f' where month = {month}' if len(where_params) <= 0 else f' and month = {month}'
         group_params += ' group by month ' if len(group_params) <= 0 else ' , month'
         order_params += ' order by month ' if len(order_params) <= 0 else ' , month'
