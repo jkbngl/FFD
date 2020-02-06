@@ -129,7 +129,6 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
     data = []
     query = f"{select_params} from ffd.{'act' if _type == 'actual' else 'bdg'}_data {where_params}{group_params}{order_params}"
 
-    """
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
@@ -150,8 +149,8 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
     cursor.close()
     connection.close()
 
-    """
-    return query
+    
+    return data
 
 def readCosttypes():
     """
