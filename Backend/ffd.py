@@ -70,7 +70,7 @@ def readAccounts(level_type):
 
     return data
 
-def readAmounts(level_type, cost_type, parent_account, year, month):
+def readAmounts(level_type, cost_type, parent_account, year, month, _type):
     
     """
     This function responds to a request for /api/ffd/level_type
@@ -79,37 +79,59 @@ def readAmounts(level_type, cost_type, parent_account, year, month):
     :return:        list of accounts
     """
 
+    # Used to concat the query depending on the parameters passed
+    select_params = ''
+    where_params = ''
+    group_params = ''
+    order_params = ''
+
+    if(level_type == 1):
+        select_params += ' select level1 ' if len(select_params) <= 0 else ' , level1'
+        group_params += ' group by level1 ' if len(group_params) <= 0 else ' , level1'
+        order_params += ' order by level1 ' if len(order_params) <= 0 else ' , level1'
+    if(level_type == 2): 
+        select_params += ' select level2 ' if len(select_params) <= 0 else ' , level2'
+        group_params += ' group by level2 ' if len(group_params) <= 0 else ' , level2'
+        order_params += ' order by level2 ' if len(order_params) <= 0 else ' , level2'
+    if(level_type == 3):
+        select_params += ' select level3 ' if len(select_params) <= 0 else ' , level3'
+        group_params += ' group by level3 ' if len(group_params) <= 0 else ' , level3'
+        order_params += ' order by level3 ' if len(order_params) <= 0 else ' , level3'
+
+    
+    if(cost_type > 0):
+        select_params += ' select cost_type ' if len(select_params) <= 0 else ' , cost_type'
+        where_params += f' where cost_type = {cost_type}' if len(where_params) <= 0 else f' and cost_type = {cost_type}'
+        group_params += ' group by cost_type ' if len(group_params) <= 0 else ' , cost_type'
+        order_params += ' order by cost_type ' if len(order_params) <= 0 else ' , cost_type'
+    
+    if(parent_account > 0):
+        select_params += ' select parent_account ' if len(select_params) <= 0 else ' , parent_account'
+        where_params += f' where parent_account = {parent_account}' if len(where_params) <= 0 else f' and parent_account = {parent_account}'
+        group_params += ' group by parent_account ' if len(group_params) <= 0 else ' , parent_account'
+        order_params += ' order by parent_account ' if len(order_params) <= 0 else ' , parent_account'
+    
+    if(year > 0):
+        select_params += ' select year ' if len(select_params) <= 0 else ' , year'
+        where_params += f' where year = {year}' if len(where_params) <= 0 else f' and year = {year}'
+        group_params += ' group by year ' if len(group_params) <= 0 else ' , year'
+        order_params += ' order by year ' if len(order_params) <= 0 else ' , year'
+
+    if(month > 0):
+        select_params += ' select month ' if len(select_params) <= 0 else ' , month'
+        where_params += f' where month = {month}' if len(where_params) <= 0 else f' and month = {month}'
+        group_params += ' group by month ' if len(group_params) <= 0 else ' , month'
+        order_params += ' order by month ' if len(order_params) <= 0 else ' , month'
+
+    print(f"{select_params}{where_params}{group_params}{order_params}")
+
     # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
     data = []
-    query = "select now()"
+    query = f"{select_params} from ffd.{'act' if _type == 'actual' else 'bdg'}_data {where_params}{group_params}{order_params}"
 
+    """
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
-
-    if(int(level_type) == 1 and int(cost_type) < 0):
-        query = f"select  level1 \
-                        , sum(amount) \
-                    	, year \
-                    	, month \
-                  from    ffd.act_data \
-                  where user_fk = 1 \
-                  group by year \
-                    	 , month \
-                    	 , level1 \
-                  order by level1"
-    elif(int(level_type) == 1 and int(cost_type) > 0):
-        query = f"select  level1 \
-                        , costtype \
-                        , sum(amount) \
-                    	, year \
-                    	, month \
-                  from    ffd.act_data \
-                  where user_fk = 1 \
-                  group by year \
-                         , month \
-                    	 , level1 \
-                    	 , costtype \
-                  order by level1, costtype"
 
     cursor.execute(query)
     record = cursor.fetchall()
@@ -128,7 +150,8 @@ def readAmounts(level_type, cost_type, parent_account, year, month):
     cursor.close()
     connection.close()
 
-    return data
+    """
+    return query
 
 def readCosttypes():
     """

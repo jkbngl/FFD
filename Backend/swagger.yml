@@ -121,6 +121,11 @@ paths:
           type: integer
           required: false
           description: Numeric ID of the user to get.  
+        - in: query
+          name: _type
+          type: string
+          required: false
+          description: actual or budget.  
       tags:
         - "Amounts"
       summary: "Returns the amounts per level and depending on costtype if specified"
