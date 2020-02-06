@@ -973,17 +973,21 @@ class _MyHomePageState extends State<MyHomePage>
 
   showCustomDialog(int index, String page) {
     Icon icon = Icon(Icons.device_unknown, size: 70);
+    Color color = Colors.yellow;
 
     if(page == 'help') {
       icon = Icon(Icons.help, size: 70);
+      color = Color(0xff0957FF);
     }
     else if(page == 'success')
     {
       icon = Icon(Icons.thumb_up, size: 70);
+      color = Colors.green;
     }
     else if(page == 'error')
     {
       icon = Icon(Icons.thumb_down, size: 70);
+      color = Colors.red;
     }
 
     showDialog(
@@ -999,7 +1003,7 @@ class _MyHomePageState extends State<MyHomePage>
             alternativeButton: "Contact us instead?", // optional
             positiveComment: "We are so happy to hear :)", // optional
             negativeComment: "We're sad to hear :(", // optional
-            accentColor: Colors.red, // optional
+            accentColor: color, // optional
             onSubmitPressed: (int rating) {
               print("onSubmitPressed: rating = $rating");
               // TODO: open the app's page on Google Play / Apple App Store
