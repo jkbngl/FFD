@@ -614,9 +614,13 @@ class _MyHomePageState extends State<MyHomePage>
 
     var response = await http.post(url, body: body);
 
-    print(response);
 
+    showCustomDialog(_currentIndex, response.statusCode == 500 ? 'error' : 'success');
+    print(response.statusCode);
+
+    /*
     showDialog(
+
       context: context,
       builder: (context) => new AlertDialog(
         content: new Text(
@@ -628,7 +632,8 @@ class _MyHomePageState extends State<MyHomePage>
           )
         ],
       ),
-    );
+    );*/
+
   }
 
   arrangeAccounts(int level, String type) async {
@@ -967,9 +972,17 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   showCustomDialog(int index, String page) {
-    Icon icon = Icon(Icons.error, size: 70);
+    Icon icon = Icon(Icons.device_unknown, size: 70);
 
     if(page == 'help') {
+      icon = Icon(Icons.help, size: 70);
+    }
+    else if(page == 'success')
+    {
+      icon = Icon(Icons.thumb_up, size: 70);
+    }
+    else if(page == 'error')
+    {
       icon = Icon(Icons.thumb_down, size: 70);
     }
 
@@ -978,7 +991,7 @@ class _MyHomePageState extends State<MyHomePage>
         barrierDismissible: true, // set to false if you want to force a rating
         builder: (context) {
           return RatingDialog(
-            icon: Icon(Icons.thumb_down, size: 70), // set your own image/icon widget
+            icon: icon, // set your own image/icon widget
             title: "The Rating Dialog",
             description:
             "Tap a star to set your rating. Add more description here if you want.",
@@ -998,7 +1011,7 @@ class _MyHomePageState extends State<MyHomePage>
           );
         });
     }
-  
+
 
   @override
   Widget build(BuildContext context) {
