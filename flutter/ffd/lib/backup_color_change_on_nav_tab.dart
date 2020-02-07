@@ -1802,7 +1802,7 @@ class _MyHomePageState extends State<MyHomePage>
                       ),
                       FloatingActionButton(
                         onPressed: () =>
-                            _showDatePicker('actual', dateTimeActual),
+                            _showDatePicker('visualizer', dateTimeActual),
                         tooltip:
                         'Select a different date where the booking should be added in',
                         child: Icon(Icons.date_range),
