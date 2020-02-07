@@ -172,6 +172,7 @@ class _MyHomePageState extends State<MyHomePage>
   // Datetime object for selecting the date when the actual/ budget should be saved
   DateTime dateTimeActual;
   DateTime dateTimeBudget;
+  DateTime dateTimeVisualizer;
 
   // booleans loaded from DB to check whether accounts, which account levels and costTypes should be used
   bool areAccountsActive = true;
@@ -223,6 +224,7 @@ class _MyHomePageState extends State<MyHomePage>
 
     dateTimeActual = DateTime.parse(INIT_DATETIME);
     dateTimeBudget = DateTime.parse(INIT_DATETIME);
+    dateTimeVisualizer = DateTime.parse(INIT_DATETIME);
   }
 
   @override
@@ -786,8 +788,11 @@ class _MyHomePageState extends State<MyHomePage>
         setState(() {
           if (type == 'actual') {
             dateTimeActual = dateTime;
-          } else {
+          } else if(type == 'budget'){
             dateTimeBudget = dateTime;
+          }
+          else if(type == 'visualizer'){
+            dateTimeVisualizer = dateTime;
           }
         });
       },
@@ -795,8 +800,12 @@ class _MyHomePageState extends State<MyHomePage>
         setState(() {
           if (type == 'actual') {
             dateTimeActual = dateTime;
-          } else {
+          } else  if (type== 'budget'){
             dateTimeBudget = dateTime;
+          }
+          else if(type == 'visualizer')
+          {
+            dateTimeVisualizer = dateTime;
           }
         });
       },
@@ -1783,6 +1792,25 @@ class _MyHomePageState extends State<MyHomePage>
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Select the month',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      FloatingActionButton(
+                        onPressed: () =>
+                            _showDatePicker('actual', dateTimeActual),
+                        tooltip:
+                        'Select a different date where the booking should be added in',
+                        child: Icon(Icons.date_range),
+                        backgroundColor: Color(0xff0957FF),
+                      ),
+                      Text(
+                          'Choosen: ${dateTimeActual.year.toString()}-${dateTimeActual.month.toString().padLeft(2, '0')}'),
+                    ]),
                 Text(
                   'Visualizer',
                   style: TextStyle(fontSize: 30),
