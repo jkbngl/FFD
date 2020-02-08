@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:ffd/DonutPieChart.dart';
 import 'package:ffd/StackedBarTargetLineChart.dart';
 import 'package:ffd/SimpleBarChart.dart';
 import 'package:flutter/cupertino.dart';
@@ -616,8 +617,8 @@ class _MyHomePageState extends State<MyHomePage>
 
     var response = await http.post(url, body: body);
 
-
-    showCustomDialog(_currentIndex, response.statusCode == 500 ? 'error' : 'success');
+    showCustomDialog(
+        _currentIndex, response.statusCode == 500 ? 'error' : 'success');
     print(response.statusCode);
 
     /*
@@ -635,7 +636,6 @@ class _MyHomePageState extends State<MyHomePage>
         ],
       ),
     );*/
-
   }
 
   arrangeAccounts(int level, String type) async {
@@ -788,10 +788,9 @@ class _MyHomePageState extends State<MyHomePage>
         setState(() {
           if (type == 'actual') {
             dateTimeActual = dateTime;
-          } else if(type == 'budget'){
+          } else if (type == 'budget') {
             dateTimeBudget = dateTime;
-          }
-          else if(type == 'visualizer'){
+          } else if (type == 'visualizer') {
             dateTimeVisualizer = dateTime;
           }
         });
@@ -800,11 +799,9 @@ class _MyHomePageState extends State<MyHomePage>
         setState(() {
           if (type == 'actual') {
             dateTimeActual = dateTime;
-          } else  if (type== 'budget'){
+          } else if (type == 'budget') {
             dateTimeBudget = dateTime;
-          }
-          else if(type == 'visualizer')
-          {
+          } else if (type == 'visualizer') {
             dateTimeVisualizer = dateTime;
           }
         });
@@ -984,17 +981,13 @@ class _MyHomePageState extends State<MyHomePage>
     Icon icon = Icon(Icons.device_unknown, size: 70);
     Color color = Colors.yellow;
 
-    if(page == 'help') {
+    if (page == 'help') {
       icon = Icon(Icons.help, size: 70);
       color = Color(0xff0957FF);
-    }
-    else if(page == 'success')
-    {
+    } else if (page == 'success') {
       icon = Icon(Icons.thumb_up, size: 70);
       color = Colors.green;
-    }
-    else if(page == 'error')
-    {
+    } else if (page == 'error') {
       icon = Icon(Icons.thumb_down, size: 70);
       color = Colors.red;
     }
@@ -1007,7 +1000,7 @@ class _MyHomePageState extends State<MyHomePage>
             icon: icon, // set your own image/icon widget
             title: "The Rating Dialog",
             description:
-            "Tap a star to set your rating. Add more description here if you want.",
+                "Tap a star to set your rating. Add more description here if you want.",
             submitButton: "SUBMIT",
             alternativeButton: "Contact us instead?", // optional
             positiveComment: "We are so happy to hear :)", // optional
@@ -1023,8 +1016,7 @@ class _MyHomePageState extends State<MyHomePage>
             },
           );
         });
-    }
-
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1804,7 +1796,7 @@ class _MyHomePageState extends State<MyHomePage>
                         onPressed: () =>
                             _showDatePicker('visualizer', dateTimeActual),
                         tooltip:
-                        'Select a different date where the booking should be added in',
+                            'Select a different date where the booking should be added in',
                         child: Icon(Icons.date_range),
                         backgroundColor: Color(0xff0957FF),
                       ),
@@ -1816,12 +1808,19 @@ class _MyHomePageState extends State<MyHomePage>
                   style: TextStyle(fontSize: 30),
                 ),
                 Container(child: Text("test")),
-                Container(
+                /*Container(
                     margin: const EdgeInsets.all(10.0),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * .4,
                     child: chartContainer =
-                        StackedBarTargetLineChart.withSampleData()),
+                        StackedBarTargetLineChart.withSampleData()),*/
+                // TODO make with variable, just a test for #25
+                false == true ? Container(
+                    margin: const EdgeInsets.all(10.0),
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * .4,
+                    child: chartContainer =
+                        DonutPieChart.withSampleData()) : new Container(),
 //                RaisedButton(
 //                  child: Text('Simple'),
 //                  onPressed: () {
