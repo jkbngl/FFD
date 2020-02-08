@@ -1815,7 +1815,7 @@ class _MyHomePageState extends State<MyHomePage>
                     child: chartContainer =
                         StackedBarTargetLineChart.withSampleData()),*/
                 // TODO make with variable, just a test for #25
-                false == true ? Container(
+                true == true ? Container(
                     margin: const EdgeInsets.all(10.0),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * .4,
