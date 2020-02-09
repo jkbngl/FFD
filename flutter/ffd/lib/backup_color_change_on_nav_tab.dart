@@ -238,6 +238,7 @@ class _MyHomePageState extends State<MyHomePage>
   void afterFirstLayout(BuildContext context) async {
     // Calling the same function "after layout" to resolve the issue.
     await checkForChanges(true, fetchAccountsAndCostTypes, 'all');
+    //await loadAmounts();
   }
 
   void checkForChanges(bool onStartup, bool fetch, String type) async {
@@ -642,13 +643,8 @@ class _MyHomePageState extends State<MyHomePage>
     // Refresh accounts lists, needed because the accounts are cleared from account list and when another level1 or 2 are selected the list only has the level2 and 3 accounts from the other level1 or 2
 
     await checkForChanges(
-        false, true, type); // This await makes a difference and is important
-
-//    print("HAVING (level2ActualAccountsList): and trying to find childs for: ${level1ActualObject.name} - ${level1ActualObject.id} ");
-//    level2ActualAccountsList.forEach((element) {
-//      print(element.name + " - " + element.parentAccount.toString());
-//    });
-
+        false, true, type); // This await waits for all accounts to be loaded before continung
+    
     if (level == 1) {
       if (type == 'actual') {
         // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
@@ -1815,7 +1811,6 @@ class _MyHomePageState extends State<MyHomePage>
                   'Visualizer',
                   style: TextStyle(fontSize: 30),
                 ),
-                Container(child: Text("test")),
                 /*Container(
                     margin: const EdgeInsets.all(10.0),
                     width: MediaQuery.of(context).size.width,
