@@ -238,7 +238,35 @@ class _MyHomePageState extends State<MyHomePage>
   void afterFirstLayout(BuildContext context) async {
     // Calling the same function "after layout" to resolve the issue.
     await checkForChanges(true, fetchAccountsAndCostTypes, 'all');
-    //await loadAmounts();
+    await loadAmount();
+  }
+
+  void loadAmount() async {
+    int level_type = 1;
+    int cost_type = -1;
+    int parent_account = -1;
+    int year = 2020;
+    int month = 2;
+    String _type = 'actual';
+
+    //var amounts = await http.read('http://192.168.0.21:5000/api/ffd/amounts/?level_type=1&cost_type=-1&parent_account=-1&year=2020&month=1&_type=actual');
+    var amounts = await http.read('http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type');
+
+    var parsedAmounts = json.decode(amounts);
+
+    showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        content: new Text(
+            '$parsedAmounts'),
+        actions: <Widget>[
+          new FlatButton(
+            child: new Text('DISMISS'),
+            onPressed: () => Navigator.of(context).pop(),
+          )
+        ],
+      ),
+    );
   }
 
   void checkForChanges(bool onStartup, bool fetch, String type) async {
@@ -642,9 +670,9 @@ class _MyHomePageState extends State<MyHomePage>
   arrangeAccounts(int level, String type) async {
     // Refresh accounts lists, needed because the accounts are cleared from account list and when another level1 or 2 are selected the list only has the level2 and 3 accounts from the other level1 or 2
 
-    await checkForChanges(
-        false, true, type); // This await waits for all accounts to be loaded before continung
-    
+    await checkForChanges(false, true,
+        type); // This await waits for all accounts to be loaded before continung
+
     if (level == 1) {
       if (type == 'actual') {
         // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
@@ -1097,94 +1125,115 @@ class _MyHomePageState extends State<MyHomePage>
                 SliverFillRemaining(
                   hasScrollBody: false,
                   child: Container(
-                      color: Color(0xfff9f9f9),
-                      //color: Color(0xffffffff),
-                      child: Row(
+                    color: Color(0xfff9f9f9),
+                    //color: Color(0xffffffff),
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Container(
-                            width: MediaQuery.of(context).size.width * .48,
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              color: Colors.green,
-                              elevation: 10,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  const ListTile(
-                                    leading: Icon(Icons.album, size: 70),
-                                    title: Text('Actual',
-                                        style: TextStyle(color: Colors.white)),
-                                    subtitle: Text('TWICE',
-                                        style: TextStyle(color: Colors.white)),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                width: MediaQuery.of(context).size.width * .48,
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
                                   ),
-                                  ButtonTheme.bar(
-                                    child: ButtonBar(
-                                      children: <Widget>[
-                                        FlatButton(
-                                          child: const Text('Edit',
-                                              style: TextStyle(
-                                                  color: Colors.white)),
-                                          onPressed: () {},
+                                  color: Colors.green,
+                                  elevation: 10,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      const ListTile(
+                                        leading: Icon(Icons.album, size: 70),
+                                        title: Text('Actual',
+                                            style:
+                                                TextStyle(color: Colors.white)),
+                                        subtitle: Text('TWICE',
+                                            style:
+                                                TextStyle(color: Colors.white)),
+                                      ),
+                                      ButtonTheme.bar(
+                                        child: ButtonBar(
+                                          children: <Widget>[
+                                            FlatButton(
+                                              child: const Text('Edit',
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                              onPressed: () {},
+                                            ),
+                                            FlatButton(
+                                              child: const Text('Delete',
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                              onPressed: () {},
+                                            ),
+                                          ],
                                         ),
-                                        FlatButton(
-                                          child: const Text('Delete',
-                                              style: TextStyle(
-                                                  color: Colors.white)),
-                                          onPressed: () {},
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * .48,
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  color: Colors.red,
+                                  elevation: 10,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      const ListTile(
+                                        leading: Icon(Icons.album, size: 70),
+                                        title: Text('Budget',
+                                            style:
+                                                TextStyle(color: Colors.white)),
+                                        subtitle: Text('TWICE',
+                                            style:
+                                                TextStyle(color: Colors.white)),
+                                      ),
+                                      ButtonTheme.bar(
+                                        child: ButtonBar(
+                                          children: <Widget>[
+                                            FlatButton(
+                                              child: const Text('Edit',
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                              onPressed: () {},
+                                            ),
+                                            FlatButton(
+                                              child: const Text('Delete',
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                              onPressed: () {},
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * .48,
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              color: Colors.red,
-                              elevation: 10,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  const ListTile(
-                                    leading: Icon(Icons.album, size: 70),
-                                    title: Text('Budget',
-                                        style: TextStyle(color: Colors.white)),
-                                    subtitle: Text('TWICE',
-                                        style: TextStyle(color: Colors.white)),
-                                  ),
-                                  ButtonTheme.bar(
-                                    child: ButtonBar(
-                                      children: <Widget>[
-                                        FlatButton(
-                                          child: const Text('Edit',
-                                              style: TextStyle(
-                                                  color: Colors.white)),
-                                          onPressed: () {},
-                                        ),
-                                        FlatButton(
-                                          child: const Text('Delete',
-                                              style: TextStyle(
-                                                  color: Colors.white)),
-                                          onPressed: () {},
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      )),
+                          // TODO make with variable, just a test for #25
+                          true == true
+                              ? Container(
+                                  margin: const EdgeInsets.all(10.0),
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height * .4,
+                                  child: chartContainer =
+                                      DonutPieChart.withSampleData())
+                              : new Container()
+                        ]),
+                  ),
                 ),
               ],
             ),
@@ -1811,20 +1860,13 @@ class _MyHomePageState extends State<MyHomePage>
                   'Visualizer',
                   style: TextStyle(fontSize: 30),
                 ),
-                /*Container(
+                Container(
                     margin: const EdgeInsets.all(10.0),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * .4,
                     child: chartContainer =
-                        StackedBarTargetLineChart.withSampleData()),*/
-                // TODO make with variable, just a test for #25
-                true == true
-                    ? Container(
-                        margin: const EdgeInsets.all(10.0),
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * .4,
-                        child: chartContainer = DonutPieChart.withSampleData())
-                    : new Container(),
+                        StackedBarTargetLineChart.withSampleData()),
+
 //                RaisedButton(
 //                  child: Text('Simple'),
 //                  onPressed: () {

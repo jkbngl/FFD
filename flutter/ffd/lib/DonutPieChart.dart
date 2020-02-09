@@ -1,5 +1,6 @@
 /// Donut chart example. This is a simple pie chart with a hole in the middle.
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:ffd/backup_color_change_on_nav_tab.dart';
 import 'package:flutter/material.dart';
 
 class DonutPieChart extends StatelessWidget {
@@ -22,6 +23,7 @@ class DonutPieChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return new charts.PieChart(seriesList,
         animate: animate,
+
         // Configure the width of the pie slices to 60px. The remaining space in
         // the chart will be left as a hole in the center.
         defaultRenderer: new charts.ArcRendererConfig(arcWidth: 60));
@@ -32,13 +34,14 @@ class DonutPieChart extends StatelessWidget {
     final data = [
       new LinearSales(0, 100),
       new LinearSales(1, 75),
-      new LinearSales(2, 25),
-      new LinearSales(3, 5),
     ];
 
     return [
       new charts.Series<LinearSales, int>(
         id: 'Sales',
+        //colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        //seriesColor: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        //patternColorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
         domainFn: (LinearSales sales, _) => sales.year,
         measureFn: (LinearSales sales, _) => sales.sales,
         data: data,
