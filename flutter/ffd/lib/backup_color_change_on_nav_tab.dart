@@ -238,27 +238,7 @@ class _MyHomePageState extends State<MyHomePage>
   void afterFirstLayout(BuildContext context) async {
     // Calling the same function "after layout" to resolve the issue.
     await checkForChanges(true, fetchAccountsAndCostTypes, 'all');
-    await loadAmount();
-  }
-
-  void loadAmount() async {
-    int level_type = 1;
-    int cost_type = -1;
-    int parent_account = -1;
-    int year = 2020;
-    int month = 2;
-    String _type = 'actual';
-
-    //var amounts = await http.read('http://192.168.0.21:5000/api/ffd/amounts/?level_type=1&cost_type=-1&parent_account=-1&year=2020&month=1&_type=actual');
-    var amounts = await http.read('http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type');
-
-    var parsedAmounts = json.decode(amounts);
-
-    for(var amounts in parsedAmounts)
-    {
-      print(amounts['level1'].toString());
-      print(amounts['sum'].toString());
-    }
+    //await loadAmount();
   }
 
   void checkForChanges(bool onStartup, bool fetch, String type) async {
@@ -786,7 +766,7 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   /// Display date picker.
-  void _showDatePicker(String type, DateTime actualOrBudget) {
+  void _showDatePicker(String type, DateTime actualOrBudgetOrVisualizer) {
     DatePicker.showDatePicker(
       context,
       pickerTheme: DateTimePickerTheme(
@@ -796,7 +776,7 @@ class _MyHomePageState extends State<MyHomePage>
       ),
       minDateTime: DateTime.parse(MIN_DATETIME),
       maxDateTime: DateTime.parse(MAX_DATETIME),
-      initialDateTime: actualOrBudget,
+      initialDateTime: actualOrBudgetOrVisualizer,
       onClose: () => print("----- onClose $type -----"),
       onCancel: () => print('onCancel'),
       dateFormat: _format,
@@ -1080,10 +1060,12 @@ class _MyHomePageState extends State<MyHomePage>
                 }
               }
             }
+            /*
             else if(index == 3)
             {
               loadAmount();
             }
+            */
 
             setState(() => _currentIndex = index);
 
@@ -1843,14 +1825,14 @@ class _MyHomePageState extends State<MyHomePage>
                       ),
                       FloatingActionButton(
                         onPressed: () =>
-                            _showDatePicker('visualizer', dateTimeActual),
+                            _showDatePicker('visualizer', dateTimeVisualizer),
                         tooltip:
                             'Select a different date where the booking should be added in',
                         child: Icon(Icons.date_range),
                         backgroundColor: Color(0xff0957FF),
                       ),
                       Text(
-                          'Choosen: ${dateTimeActual.year.toString()}-${dateTimeActual.month.toString().padLeft(2, '0')}'),
+                          'Choosen: ${dateTimeVisualizer.year.toString()}-${dateTimeVisualizer.month.toString().padLeft(2, '0')}'),
                     ]),
                 Text(
                   'Visualizer',
