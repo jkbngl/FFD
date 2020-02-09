@@ -1051,10 +1051,19 @@ class _MyHomePageState extends State<MyHomePage>
           onPageChanged: (index) {
             // Check if something in the settings has been changed, if yes set the vars and widgets accordingly
 
-            if (index == 1) {
-              checkForChanges(false, fetchAccountsAndCostTypes, 'actual');
-            } else if (index == 2) {
-              checkForChanges(false, fetchAccountsAndCostTypes, 'budget');
+            if (index == 1 || index == 2) {
+
+              /// #46 fetched both accounts for actual and budget
+              if(fetchAccountsAndCostTypes)
+                {
+                  checkForChanges(false, fetchAccountsAndCostTypes, 'actual');
+                  checkForChanges(false, true, 'budget');
+                }
+              else
+                {
+                  checkForChanges(false, fetchAccountsAndCostTypes, 'actual');
+                  checkForChanges(false, fetchAccountsAndCostTypes, 'budget');
+                }
             }
 
             setState(() => _currentIndex = index);
