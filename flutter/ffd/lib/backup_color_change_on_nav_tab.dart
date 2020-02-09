@@ -254,19 +254,11 @@ class _MyHomePageState extends State<MyHomePage>
 
     var parsedAmounts = json.decode(amounts);
 
-    showDialog(
-      context: context,
-      builder: (context) => new AlertDialog(
-        content: new Text(
-            '$parsedAmounts'),
-        actions: <Widget>[
-          new FlatButton(
-            child: new Text('DISMISS'),
-            onPressed: () => Navigator.of(context).pop(),
-          )
-        ],
-      ),
-    );
+    for(var amounts in parsedAmounts)
+    {
+      print(amounts['level1'].toString());
+      print(amounts['sum'].toString());
+    }
   }
 
   void checkForChanges(bool onStartup, bool fetch, String type) async {
@@ -1087,6 +1079,10 @@ class _MyHomePageState extends State<MyHomePage>
                   checkForChanges(false, fetchAccountsAndCostTypes, 'budget');
                 }
               }
+            }
+            else if(index == 3)
+            {
+              loadAmount();
             }
 
             setState(() => _currentIndex = index);
