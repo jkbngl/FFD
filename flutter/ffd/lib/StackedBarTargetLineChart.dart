@@ -13,9 +13,7 @@ class StackedBarTargetLineChart extends StatelessWidget {
 
   /// Creates a stacked [BarChart] with sample data and no transition.
   factory StackedBarTargetLineChart.withSampleData() {
-
-    loadAmount();
-
+    
     return new StackedBarTargetLineChart(
 
       _createSampleData(),
@@ -57,8 +55,8 @@ class StackedBarTargetLineChart extends StatelessWidget {
 
     for(var amounts in parsedAmounts)
     {
-      print(amounts['level1'].toString());
-      print(amounts['sum'].toString());
+      //print(amounts['level1'].toString());
+      //print(amounts['sum'].toString());
     }
 
     final desktopSalesData = [
@@ -82,6 +80,7 @@ class StackedBarTargetLineChart extends StatelessWidget {
       new OrdinalSales('2017', 110),
     ];
 
+    print("REALLY DONE");
 
     return [
       new charts.Series<OrdinalSales, String>(
@@ -104,8 +103,9 @@ class StackedBarTargetLineChart extends StatelessWidget {
       )
       // Configure our custom bar target renderer for this series.
         ..setAttribute(charts.rendererIdKey, 'customTargetLine'),
-
     ];
+
+
   }
 
   /// Create series list with multiple series

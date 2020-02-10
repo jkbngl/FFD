@@ -1030,13 +1030,20 @@ class _MyHomePageState extends State<MyHomePage>
                   checkForChanges(false, true, 'actual');
                 } else if (_currentIndex == 2) {
                   checkForChanges(false, true, 'budget');
+                } else if (_currentIndex == 3) {
+                  StackedBarTargetLineChart.loadAmount().then((result) {
+                    // If we need to rebuild the widget with the resulting data,
+                    // make sure to use `setState`
+                    print("DONE v2");
+
+                    setState(() {});
+
+                    print("DONE v3");
+
+                  });
+
+                  print("DONE v1");
                 }
-                else if(_currentIndex == 3)
-                  {
-                    setState(() {
-                      
-                    });
-                  }
               })
         ],
         leading: IconButton(
