@@ -1031,6 +1031,12 @@ class _MyHomePageState extends State<MyHomePage>
                 } else if (_currentIndex == 2) {
                   checkForChanges(false, true, 'budget');
                 }
+                else if(_currentIndex == 3)
+                  {
+                    setState(() {
+                      
+                    });
+                  }
               })
         ],
         leading: IconButton(

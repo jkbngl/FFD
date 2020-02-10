@@ -3,6 +3,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:math';
 
 class StackedBarTargetLineChart extends StatelessWidget {
   final List<charts.Series> seriesList;
@@ -12,7 +13,11 @@ class StackedBarTargetLineChart extends StatelessWidget {
 
   /// Creates a stacked [BarChart] with sample data and no transition.
   factory StackedBarTargetLineChart.withSampleData() {
+
+    loadAmount();
+
     return new StackedBarTargetLineChart(
+
       _createSampleData(),
       //loadAmount(),
       animate: true,
@@ -29,6 +34,7 @@ class StackedBarTargetLineChart extends StatelessWidget {
           new charts.BarTargetLineRendererConfig<String>(
             // ID used to link series to this renderer.
               customRendererId: 'customTargetLine',
+
               groupingType: charts.BarGroupingType.stacked)
         ]);
   }
@@ -40,6 +46,9 @@ class StackedBarTargetLineChart extends StatelessWidget {
     int year = 2020;
     int month = 2;
     String _type = 'actual';
+    var rng = new Random();
+
+
 
     //var amounts = await http.read('http://192.168.0.21:5000/api/ffd/amounts/?level_type=1&cost_type=-1&parent_account=-1&year=2020&month=1&_type=actual');
     var amounts = await http.read('http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type');
@@ -53,7 +62,7 @@ class StackedBarTargetLineChart extends StatelessWidget {
     }
 
     final desktopSalesData = [
-      new OrdinalSales('2014', 5),
+      new OrdinalSales(rng.nextInt(100).toString(), 5),
       new OrdinalSales('2015', 25),
       new OrdinalSales('2016', 100),
       new OrdinalSales('2017', 75),
@@ -101,8 +110,12 @@ class StackedBarTargetLineChart extends StatelessWidget {
 
   /// Create series list with multiple series
   static List<charts.Series<OrdinalSales, String>> _createSampleData() {
+
+    var rng = new Random();
+
+
     final desktopSalesData = [
-      new OrdinalSales('2014', 5),
+      new OrdinalSales(rng.nextInt(100).toString(), 5),
       new OrdinalSales('2015', 25),
       new OrdinalSales('2016', 100),
       new OrdinalSales('2017', 75),
