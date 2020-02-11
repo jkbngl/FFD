@@ -1031,18 +1031,17 @@ class _MyHomePageState extends State<MyHomePage>
                 } else if (_currentIndex == 2) {
                   checkForChanges(false, true, 'budget');
                 } else if (_currentIndex == 3) {
-                  StackedBarTargetLineChart.loadAmount().then((result) {
-                    // If we need to rebuild the widget with the resulting data,
-                    // make sure to use `setState`
-                    print("DONE v2");
-
-                    setState(() {});
-
-                    print("DONE v3");
-
-                  });
-
-                  print("DONE v1");
+//                  StackedBarTargetLineChart.loadAmount().then((result) {
+//                    // If we need to rebuild the widget with the resulting data,
+//                    // make sure to use `setState`
+//                    print("DONE v2");
+//
+//                    setState(() {});
+//
+//                    print("DONE v3");
+//                  });
+//
+//                  print("DONE v1");
                 }
               })
         ],
@@ -1072,6 +1071,18 @@ class _MyHomePageState extends State<MyHomePage>
                   checkForChanges(false, fetchAccountsAndCostTypes, 'budget');
                 }
               }
+            } else if (_currentIndex == 3) {
+//              StackedBarTargetLineChart.loadAmount().then((result) {
+//                // If we need to rebuild the widget with the resulting data,
+//                // make sure to use `setState`
+//                print("DONE v2");
+//
+//                setState(() {});
+//
+//                print("DONE v3");
+//              });
+
+              print("DONE v1");
             }
             /*
             else if(index == 3)
@@ -1857,15 +1868,6 @@ class _MyHomePageState extends State<MyHomePage>
                     height: MediaQuery.of(context).size.height * .4,
                     child: chartContainer =
                         StackedBarTargetLineChart.withSampleData()),
-
-//                RaisedButton(
-//                  child: Text('Simple'),
-//                  onPressed: () {
-//                    setState(() {
-//                      chartContainer = SimpleBarChart.withSampleData();
-//                    });
-//                  },
-//                ),
               ],
             ),
             DefaultTabController(
