@@ -268,13 +268,13 @@ class _MyHomePageState extends State<MyHomePage>
 
     if (fetch || onStartup) {
       level1AccountsJson =
-      await http.read('http://192.168.0.21:5000/api/ffd/accounts/1');
+          await http.read('http://192.168.0.21:5000/api/ffd/accounts/1');
       level2AccountsJson =
-      await http.read('http://192.168.0.21:5000/api/ffd/accounts/2');
+          await http.read('http://192.168.0.21:5000/api/ffd/accounts/2');
       level3AccountsJson =
-      await http.read('http://192.168.0.21:5000/api/ffd/accounts/3');
+          await http.read('http://192.168.0.21:5000/api/ffd/accounts/3');
       costTypesJson =
-      await http.read('http://192.168.0.21:5000/api/ffd/costtypes/');
+          await http.read('http://192.168.0.21:5000/api/ffd/costtypes/');
 
       var parsedAccountLevel1 = json.decode(level1AccountsJson);
       var parsedAccountLevel2 = json.decode(level2AccountsJson);
@@ -289,19 +289,19 @@ class _MyHomePageState extends State<MyHomePage>
         Account existingItem;
         if (type == 'actual') {
           existingItem = level1ActualAccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
         } else if (type == 'budget') {
           existingItem = level1BudgetAccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
         } else if (type == 'admin') {
           existingItem = level1AdminAccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
         } else {
           existingItem = level1AccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
         }
 
@@ -363,19 +363,19 @@ class _MyHomePageState extends State<MyHomePage>
         Account existingItem;
         if (type == 'actual') {
           existingItem = level2ActualAccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
         } else if (type == 'budget') {
           existingItem = level2BudgetAccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
         } else if (type == 'admin') {
           existingItem = level2AdminAccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
         } else {
           existingItem = level2AccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
         }
 
@@ -438,19 +438,19 @@ class _MyHomePageState extends State<MyHomePage>
         Account existingItem;
         if (type == 'actual') {
           existingItem = level3ActualAccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
         } else if (type == 'budget') {
           existingItem = level3BudgetAccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
         } else if (type == 'admin') {
           existingItem = level3AdminAccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
         } else {
           existingItem = level3AccountsList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == accountToAdd.id,
+              (itemToCheck) => itemToCheck.id == accountToAdd.id,
               orElse: () => null);
         }
 
@@ -501,7 +501,7 @@ class _MyHomePageState extends State<MyHomePage>
       for (var type in parsedCostTypes) {
         typeToAdd = new CostType(type['id'], type['name']);
         CostType existingItem = costTypesList.firstWhere(
-                (itemToCheck) => itemToCheck.id == typeToAdd.id,
+            (itemToCheck) => itemToCheck.id == typeToAdd.id,
             orElse: () => null);
 
         costTypesListStating.add(typeToAdd);
@@ -545,7 +545,7 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   static List<charts.Series<CompanySizeVsNumberOfCompanies, String>>
-  _createVisualizationData() {
+      _createVisualizationData() {
     final data = [
       CompanySizeVsNumberOfCompanies("1-15", 10),
       CompanySizeVsNumberOfCompanies("15-50", 20),
@@ -560,17 +560,14 @@ class _MyHomePageState extends State<MyHomePage>
           id: 'CompanySizeVsNumberOfCompanies',
           colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
           domainFn: (CompanySizeVsNumberOfCompanies dataPoint, _) =>
-          dataPoint.companySize,
+              dataPoint.companySize,
           measureFn: (CompanySizeVsNumberOfCompanies dataPoint, _) =>
-          dataPoint.numberOfCompanies,
+              dataPoint.numberOfCompanies,
           data: data)
     ];
   }
 
-
-
-
-void sendBackend(String type) async {
+  void sendBackend(String type) async {
     var url = 'http://192.168.0.21:5000/api/ffd/';
 
     // Whenever with the backend is communicated its best to reload the accounts and costtpyes
@@ -588,11 +585,11 @@ void sendBackend(String type) async {
           ? actualTextFieldController.text
           : budgetTextFieldController.text,
       'level1':
-      type == 'actual' ? level1ActualObject.name : level1BudgetObject.name,
+          type == 'actual' ? level1ActualObject.name : level1BudgetObject.name,
       'level2':
-      type == 'actual' ? level2ActualObject.name : level2BudgetObject.name,
+          type == 'actual' ? level2ActualObject.name : level2BudgetObject.name,
       'level3':
-      type == 'actual' ? level3ActualObject.name : level3BudgetObject.name,
+          type == 'actual' ? level3ActualObject.name : level3BudgetObject.name,
       'level1id': type == 'actual'
           ? level1ActualObject.id.toString()
           : level1BudgetObject.id.toString(),
@@ -631,11 +628,11 @@ void sendBackend(String type) async {
       'accounttoaddlevel2': newLevel2TextFieldController.text,
       'accounttoaddlevel3': newLevel3TextFieldController.text,
       'accounttoaddlevel1comment':
-      newAccountLevel1CommentTextFieldController.text,
+          newAccountLevel1CommentTextFieldController.text,
       'accounttoaddlevel2comment':
-      newAccountLevel2CommentTextFieldController.text,
+          newAccountLevel2CommentTextFieldController.text,
       'accounttoaddlevel3comment':
-      newAccountLevel3CommentTextFieldController.text,
+          newAccountLevel3CommentTextFieldController.text,
       'accountfornewlevel2parentaccount': level1AdminObject.id
           .toString(), // ID of the selected level2 object, to match the parentID
       'accountfornewlevel3parentaccount': level2AdminObject.id
@@ -681,113 +678,113 @@ void sendBackend(String type) async {
       if (type == 'actual') {
         // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level2ActualObject = level2ActualAccountsList.firstWhere(
-                (account) => account.parentAccount == level1ActualObject.id,
+            (account) => account.parentAccount == level1ActualObject.id,
             orElse: () => level2ActualAccountsList[0]);
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level2ActualAccountsList.retainWhere((account) =>
-        account.parentAccount == level1ActualObject.id || account.id < 0);
+            account.parentAccount == level1ActualObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level2AccountsList.retainWhere((account) =>
-        account.parentAccount == level1ActualObject.id || account.id < 0);
+            account.parentAccount == level1ActualObject.id || account.id < 0);
 
         // Same as above for level3
         level3ActualObject = level3ActualAccountsList.firstWhere(
-                (account) => account.parentAccount == level2ActualObject.id,
+            (account) => account.parentAccount == level2ActualObject.id,
             orElse: () => level3ActualAccountsList[0]);
 
         level3ActualAccountsList.retainWhere((account) =>
-        account.parentAccount == level2ActualObject.id || account.id < 0);
+            account.parentAccount == level2ActualObject.id || account.id < 0);
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level3AccountsList.retainWhere((account) =>
-        account.parentAccount == level2ActualObject.id || account.id < 0);
+            account.parentAccount == level2ActualObject.id || account.id < 0);
       } else if (type == 'budget') {
         level2BudgetObject = level2BudgetAccountsList.firstWhere(
-                (account) => account.parentAccount == level1BudgetObject.id,
+            (account) => account.parentAccount == level1BudgetObject.id,
             orElse: () => level2BudgetAccountsList[0]);
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level2BudgetAccountsList.retainWhere((account) =>
-        account.parentAccount == level1BudgetObject.id || account.id < 0);
+            account.parentAccount == level1BudgetObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level2AccountsList.retainWhere((account) =>
-        account.parentAccount == level1BudgetObject.id || account.id < 0);
+            account.parentAccount == level1BudgetObject.id || account.id < 0);
 
         // Same as above for level3
         level3BudgetObject = level3BudgetAccountsList.firstWhere(
-                (account) => account.parentAccount == level2BudgetObject.id,
+            (account) => account.parentAccount == level2BudgetObject.id,
             orElse: () => level3BudgetAccountsList[0]);
 
         level3BudgetAccountsList.retainWhere((account) =>
-        account.parentAccount == level2BudgetObject.id || account.id < 0);
+            account.parentAccount == level2BudgetObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level3AccountsList.retainWhere((account) =>
-        account.parentAccount == level1BudgetObject.id || account.id < 0);
+            account.parentAccount == level1BudgetObject.id || account.id < 0);
       } else if (type == 'admin') {
         // For the admin, don't auto set the first matching parent account, as this might be confusing when I want to add a new account
         level2AdminObject = level2AdminAccountsList[0];
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level2AdminAccountsList.retainWhere((account) =>
-        account.parentAccount == level1AdminObject.id || account.id < 0);
+            account.parentAccount == level1AdminObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level2AccountsList.retainWhere((account) =>
-        account.parentAccount == level1AdminObject.id || account.id < 0);
+            account.parentAccount == level1AdminObject.id || account.id < 0);
 
         // Same as above for level3
         level3AdminObject = level3AdminAccountsList.firstWhere(
-                (account) => account.parentAccount == level2AdminObject.id,
+            (account) => account.parentAccount == level2AdminObject.id,
             orElse: () => level3AdminAccountsList[0]);
 
         level3AdminAccountsList.retainWhere((account) =>
-        account.parentAccount == level2AdminObject.id || account.id < 0);
+            account.parentAccount == level2AdminObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level3AccountsList.retainWhere((account) =>
-        account.parentAccount == level2AdminObject.id || account.id < 0);
+            account.parentAccount == level2AdminObject.id || account.id < 0);
       }
     } else if (level == 2) {
       if (type == 'actual') {
         // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3ActualObject = level3ActualAccountsList.firstWhere(
-                (account) => account.parentAccount == level2ActualObject.id,
+            (account) => account.parentAccount == level2ActualObject.id,
             orElse: () => level3ActualAccountsList[0]);
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3ActualAccountsList.retainWhere((account) =>
-        account.parentAccount == level2ActualObject.id || account.id < 0);
+            account.parentAccount == level2ActualObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level3AccountsList.retainWhere((account) =>
-        account.parentAccount == level2ActualObject.id || account.id < 0);
+            account.parentAccount == level2ActualObject.id || account.id < 0);
       } else if (type == 'budget') {
         // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3BudgetObject = level3BudgetAccountsList.firstWhere(
-                (account) => account.parentAccount == level2BudgetObject.id,
+            (account) => account.parentAccount == level2BudgetObject.id,
             orElse: () => level3BudgetAccountsList[0]);
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3BudgetAccountsList.retainWhere((account) =>
-        account.parentAccount == level2BudgetObject.id || account.id < 0);
+            account.parentAccount == level2BudgetObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level3AccountsList.retainWhere((account) =>
-        account.parentAccount == level1BudgetObject.id || account.id < 0);
+            account.parentAccount == level1BudgetObject.id || account.id < 0);
       } else if (type == 'admin') {
         // For the admin, don't auto set the first matching parent account, as this might be confusing when I want to add a new account
         level3AdminObject = level3AdminAccountsList[0];
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3AdminAccountsList.retainWhere((account) =>
-        account.parentAccount == level2AdminObject.id || account.id < 0);
+            account.parentAccount == level2AdminObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level3AccountsList.retainWhere((account) =>
-        account.parentAccount == level2AdminObject.id || account.id < 0);
+            account.parentAccount == level2AdminObject.id || account.id < 0);
       }
     }
 
@@ -876,7 +873,7 @@ void sendBackend(String type) async {
                         TextSpan(
                           text: '$level1OrCostTypeName',
                           style:
-                          TextStyle(color: Color(0xFF0957FF), fontSize: 18),
+                              TextStyle(color: Color(0xFF0957FF), fontSize: 18),
                         )
                       ]),
                 ),
@@ -926,7 +923,7 @@ void sendBackend(String type) async {
                         TextSpan(
                           text: '${dependingController2.text}',
                           style:
-                          TextStyle(color: Color(0xff73D700), fontSize: 18),
+                              TextStyle(color: Color(0xff73D700), fontSize: 18),
                         )
                       ]),
                 ),
@@ -975,7 +972,7 @@ void sendBackend(String type) async {
                         TextSpan(
                           text: '${dependingController3.text}',
                           style:
-                          TextStyle(color: Color(0xffDB002A), fontSize: 18),
+                              TextStyle(color: Color(0xffDB002A), fontSize: 18),
                         )
                       ]),
                 ),
@@ -1028,7 +1025,7 @@ void sendBackend(String type) async {
             icon: icon, // set your own image/icon widget
             title: "The Rating Dialog",
             description:
-            "Tap a star to set your rating. Add more description here if you want.",
+                "Tap a star to set your rating. Add more description here if you want.",
             submitButton: "SUBMIT",
             alternativeButton: "Contact us instead?", // optional
             positiveComment: "We are so happy to hear :)", // optional
@@ -1062,12 +1059,8 @@ void sendBackend(String type) async {
                   checkForChanges(false, true, 'actual');
                 } else if (_currentIndex == 2) {
                   checkForChanges(false, true, 'budget');
-                }
-                else if(_currentIndex == 3)
-                {
-                  setState(() {
-
-                  });
+                } else if (_currentIndex == 3) {
+                  setState(() {});
                 }
               })
         ],
@@ -1167,10 +1160,10 @@ void sendBackend(String type) async {
                                         leading: Icon(Icons.album, size: 70),
                                         title: Text('Actual',
                                             style:
-                                            TextStyle(color: Colors.white)),
+                                                TextStyle(color: Colors.white)),
                                         subtitle: Text('TWICE',
                                             style:
-                                            TextStyle(color: Colors.white)),
+                                                TextStyle(color: Colors.white)),
                                       ),
                                       ButtonTheme.bar(
                                         child: ButtonBar(
@@ -1209,10 +1202,10 @@ void sendBackend(String type) async {
                                         leading: Icon(Icons.album, size: 70),
                                         title: Text('Budget',
                                             style:
-                                            TextStyle(color: Colors.white)),
+                                                TextStyle(color: Colors.white)),
                                         subtitle: Text('TWICE',
                                             style:
-                                            TextStyle(color: Colors.white)),
+                                                TextStyle(color: Colors.white)),
                                       ),
                                       ButtonTheme.bar(
                                         child: ButtonBar(
@@ -1241,25 +1234,13 @@ void sendBackend(String type) async {
                           // TODO make with variable, just a test for #25
                           true == true
                               ? Container(
-                              margin: const EdgeInsets.all(10.0),
-                              width: MediaQuery.of(context).size.width,
-                              height:
-                              MediaQuery.of(context).size.height * .4,
-                              child:
-                                //chartContainer = DonutPieChart.withSampleData()
-                              charts.BarChart(
-                              _createVisualizationData(),
-                    animate: true,
-                    behaviors: [
-                      charts.ChartTitle('Company Size vs Number of Companies'),
-                      charts.ChartTitle('Number of Companies',
-                          behaviorPosition: charts.BehaviorPosition.start),
-                      charts.ChartTitle('Company Size',
-                          behaviorPosition: charts.BehaviorPosition.bottom)
-                    ],
-                  ),
-                          )
-                          : new Container()
+                                  margin: const EdgeInsets.all(10.0),
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height * .4,
+                                  child: chartContainer =
+                                      DonutPieChart.withSampleData())
+                              : new Container()
                         ]),
                   ),
                 ),
@@ -1285,7 +1266,7 @@ void sendBackend(String type) async {
                               onPressed: () =>
                                   _showDatePicker('actual', dateTimeActual),
                               tooltip:
-                              'Select a different date where the booking should be added in',
+                                  'Select a different date where the booking should be added in',
                               child: Icon(Icons.date_range),
                               backgroundColor: Color(0xff0957FF),
                             ),
@@ -1310,8 +1291,8 @@ void sendBackend(String type) async {
                           //autofocus: true,
                           controller: actualTextFieldController,
                           decoration: InputDecoration(
-                            // hintText: 'Enter ur amount',
-                            //hintStyle: TextStyle(height: 1.75),
+                              // hintText: 'Enter ur amount',
+                              //hintStyle: TextStyle(height: 1.75),
                               labelText: 'Enter your amount',
                               labelStyle: TextStyle(
                                   height: 0.5,
@@ -1367,7 +1348,7 @@ void sendBackend(String type) async {
                             arrangeAccounts(1, 'actual');
                           },
                           items:
-                          level1ActualAccountsList.map((Account account) {
+                              level1ActualAccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -1418,7 +1399,7 @@ void sendBackend(String type) async {
                             }
                           },
                           items:
-                          level2ActualAccountsList.map((Account account) {
+                              level2ActualAccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -1462,7 +1443,7 @@ void sendBackend(String type) async {
                             // arrangeAccounts(3, 'actual');
                           },
                           items:
-                          level3ActualAccountsList.map((Account account) {
+                              level3ActualAccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -1525,11 +1506,11 @@ void sendBackend(String type) async {
 
                                 setState(() {
                                   level1ActualObject =
-                                  level1ActualAccountsList[0];
+                                      level1ActualAccountsList[0];
                                   level2ActualObject =
-                                  level2ActualAccountsList[0];
+                                      level2ActualAccountsList[0];
                                   level3ActualObject =
-                                  level3ActualAccountsList[0];
+                                      level3ActualAccountsList[0];
 
                                   costTypeObjectActual = costTypesList[0];
                                 });
@@ -1576,7 +1557,7 @@ void sendBackend(String type) async {
                               onPressed: () =>
                                   _showDatePicker('budget', dateTimeBudget),
                               tooltip:
-                              'Select a different date where the booking should be added in',
+                                  'Select a different date where the booking should be added in',
                               child: Icon(Icons.date_range),
                               backgroundColor: Color(0xff0957FF),
                             ),
@@ -1601,8 +1582,8 @@ void sendBackend(String type) async {
                           //autofocus: true,
                           controller: budgetTextFieldController,
                           decoration: InputDecoration(
-                            // hintText: 'Enter ur amount',
-                            //hintStyle: TextStyle(height: 1.75),
+                              // hintText: 'Enter ur amount',
+                              //hintStyle: TextStyle(height: 1.75),
                               labelText: 'Enter your amount',
                               labelStyle: TextStyle(
                                   height: 0.5,
@@ -1656,7 +1637,7 @@ void sendBackend(String type) async {
                             arrangeAccounts(1, 'budget');
                           },
                           items:
-                          level1BudgetAccountsList.map((Account account) {
+                              level1BudgetAccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -1701,7 +1682,7 @@ void sendBackend(String type) async {
                             arrangeAccounts(2, 'budget');
                           },
                           items:
-                          level2BudgetAccountsList.map((Account account) {
+                              level2BudgetAccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -1745,7 +1726,7 @@ void sendBackend(String type) async {
                             // arrangeAccounts(3, 'budget');
                           },
                           items:
-                          level3BudgetAccountsList.map((Account account) {
+                              level3BudgetAccountsList.map((Account account) {
                             return new DropdownMenuItem<Account>(
                               value: account,
                               child: new Text(
@@ -1808,11 +1789,11 @@ void sendBackend(String type) async {
                                 budgetTextFieldController.text = '';
                                 setState(() {
                                   level1BudgetObject =
-                                  level1BudgetAccountsList[0];
+                                      level1BudgetAccountsList[0];
                                   level2BudgetObject =
-                                  level2BudgetAccountsList[0];
+                                      level2BudgetAccountsList[0];
                                   level3BudgetObject =
-                                  level3BudgetAccountsList[0];
+                                      level3BudgetAccountsList[0];
 
                                   costTypeObjectBudget = costTypesList[0];
                                 });
@@ -1877,7 +1858,7 @@ void sendBackend(String type) async {
                         onPressed: () =>
                             _showDatePicker('visualizer', dateTimeVisualizer),
                         tooltip:
-                        'Select a different date where the booking should be added in',
+                            'Select a different date where the booking should be added in',
                         child: Icon(Icons.date_range),
                         backgroundColor: Color(0xff0957FF),
                       ),
@@ -1889,11 +1870,24 @@ void sendBackend(String type) async {
                   style: TextStyle(fontSize: 30),
                 ),
                 Container(
-                    margin: const EdgeInsets.all(10.0),
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * .4,
-                    child: chartContainer =
-                        StackedBarTargetLineChart.withSampleData()),
+                  margin: const EdgeInsets.all(10.0),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * .4,
+                  child:
+
+                      //chartContainer = DonutPieChart.withSampleData()
+                      charts.BarChart(
+                    _createVisualizationData(),
+                    animate: true,
+                    behaviors: [
+                      charts.ChartTitle('Company Size vs Number of Companies'),
+                      charts.ChartTitle('Number of Companies',
+                          behaviorPosition: charts.BehaviorPosition.start),
+                      charts.ChartTitle('Company Size',
+                          behaviorPosition: charts.BehaviorPosition.bottom)
+                    ],
+                  ),
+                )
 
 //                RaisedButton(
 //                  child: Text('Simple'),
@@ -1980,14 +1974,14 @@ void sendBackend(String type) async {
                             hasScrollBody: false,
                             child: Column(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text("Use Costtypes:",
                                             style: TextStyle(fontSize: 25)),
@@ -2005,9 +1999,9 @@ void sendBackend(String type) async {
                                   Divider(color: Colors.black87),
                                   Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text("Use Accounts:",
                                             style: TextStyle(fontSize: 25)),
@@ -2024,9 +2018,9 @@ void sendBackend(String type) async {
                                       ]),
                                   Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text("Use Level 1:",
                                             style: TextStyle(fontSize: 25)),
@@ -2043,9 +2037,9 @@ void sendBackend(String type) async {
                                       ]),
                                   Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text("Use Level 2:",
                                             style: TextStyle(fontSize: 25)),
@@ -2062,9 +2056,9 @@ void sendBackend(String type) async {
                                       ]),
                                   Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Text("Use Level 3:",
                                             style: TextStyle(fontSize: 25)),
@@ -2087,7 +2081,7 @@ void sendBackend(String type) async {
                             hasScrollBody: false,
                             child: Column(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   Text("Account Administration",
@@ -2113,7 +2107,7 @@ void sendBackend(String type) async {
                                       iconSize: 24,
                                       elevation: 16,
                                       style:
-                                      TextStyle(color: Color(0xff0957FF)),
+                                          TextStyle(color: Color(0xff0957FF)),
                                       isExpanded: true,
                                       underline: Container(
                                         height: 2,
@@ -2151,12 +2145,12 @@ void sendBackend(String type) async {
                                       // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
                                       style: TextStyle(
                                           height:
-                                          2), //increases the height of cursor
+                                              2), //increases the height of cursor
                                       // autofocus: true,
                                       controller: newLevel1TextFieldController,
                                       decoration: InputDecoration(
                                           hintText:
-                                          'Select an existing or create a new level 1',
+                                              'Select an existing or create a new level 1',
                                           hintStyle: TextStyle(
                                               height: 1.75,
                                               color: Color(0xff0957FF)),
@@ -2167,10 +2161,10 @@ void sendBackend(String type) async {
                                           //prefixIcon: Icon(Icons.attach_money),
                                           //labelStyle: TextStyle(color: Color(0xff0957FF)),
                                           enabledBorder:
-                                          new UnderlineInputBorder(
-                                              borderSide: new BorderSide(
-                                                  color:
-                                                  Color(0xff0957FF)))),
+                                              new UnderlineInputBorder(
+                                                  borderSide: new BorderSide(
+                                                      color:
+                                                          Color(0xff0957FF)))),
                                     ),
                                   ),
                                   /*
@@ -2199,7 +2193,7 @@ void sendBackend(String type) async {
                                       iconSize: 24,
                                       elevation: 16,
                                       style:
-                                      TextStyle(color: Color(0xff0957FF)),
+                                          TextStyle(color: Color(0xff0957FF)),
                                       isExpanded: true,
                                       underline: Container(
                                         height: 2,
@@ -2237,12 +2231,12 @@ void sendBackend(String type) async {
                                       // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
                                       style: TextStyle(
                                           height:
-                                          2), //increases the height of cursor
+                                              2), //increases the height of cursor
                                       // autofocus: true,
                                       controller: newLevel2TextFieldController,
                                       decoration: InputDecoration(
                                           hintText:
-                                          'Select an existing or create a new level 2',
+                                              'Select an existing or create a new level 2',
                                           hintStyle: TextStyle(
                                               height: 1.75,
                                               color: Color(0xff0957FF)),
@@ -2253,10 +2247,10 @@ void sendBackend(String type) async {
                                           //prefixIcon: Icon(Icons.attach_money),
                                           //labelStyle: TextStyle(color: Color(0xff0957FF)),
                                           enabledBorder:
-                                          new UnderlineInputBorder(
-                                              borderSide: new BorderSide(
-                                                  color:
-                                                  Color(0xff0957FF)))),
+                                              new UnderlineInputBorder(
+                                                  borderSide: new BorderSide(
+                                                      color:
+                                                          Color(0xff0957FF)))),
                                     ),
                                   ),
                                   /*
@@ -2284,7 +2278,7 @@ void sendBackend(String type) async {
                                       iconSize: 24,
                                       elevation: 16,
                                       style:
-                                      TextStyle(color: Color(0xff0957FF)),
+                                          TextStyle(color: Color(0xff0957FF)),
                                       isExpanded: true,
                                       underline: Container(
                                         height: 2,
@@ -2323,12 +2317,12 @@ void sendBackend(String type) async {
                                       // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
                                       style: TextStyle(
                                           height:
-                                          2), //increases the height of cursor
+                                              2), //increases the height of cursor
                                       // autofocus: true,
                                       controller: newLevel3TextFieldController,
                                       decoration: InputDecoration(
                                           hintText:
-                                          'Select an existing or create a new level 3',
+                                              'Select an existing or create a new level 3',
                                           hintStyle: TextStyle(
                                               height: 1.75,
                                               color: Color(0xff0957FF)),
@@ -2339,10 +2333,10 @@ void sendBackend(String type) async {
                                           //prefixIcon: Icon(Icons.attach_money),
                                           //labelStyle: TextStyle(color: Color(0xff0957FF)),
                                           enabledBorder:
-                                          new UnderlineInputBorder(
-                                              borderSide: new BorderSide(
-                                                  color:
-                                                  Color(0xff0957FF)))),
+                                              new UnderlineInputBorder(
+                                                  borderSide: new BorderSide(
+                                                      color:
+                                                          Color(0xff0957FF)))),
                                     ),
                                   ),
                                   ButtonBar(
@@ -2357,18 +2351,18 @@ void sendBackend(String type) async {
                                           color: Color(0xffEEEEEE), // EEEEEE
                                           onPressed: () {
                                             newLevel1TextFieldController.text =
-                                            '';
+                                                '';
                                             newLevel2TextFieldController.text =
-                                            '';
+                                                '';
                                             newLevel3TextFieldController.text =
-                                            '';
+                                                '';
                                             setState(() {
                                               level1AdminObject =
-                                              level1AdminAccountsList[0];
+                                                  level1AdminAccountsList[0];
                                               level2AdminObject =
-                                              level2AdminAccountsList[0];
+                                                  level2AdminAccountsList[0];
                                               level3AdminObject =
-                                              level3AdminAccountsList[0];
+                                                  level3AdminAccountsList[0];
                                             });
                                           },
                                         ),
@@ -2392,51 +2386,51 @@ void sendBackend(String type) async {
                                               if (level3ActualObject.id ==
                                                   level3AdminObject.id) {
                                                 level3ActualObject =
-                                                level3ActualAccountsList[0];
+                                                    level3ActualAccountsList[0];
                                               }
 
                                               if (level3BudgetObject.id ==
                                                   level3AdminObject.id) {
                                                 level3BudgetObject =
-                                                level3BudgetAccountsList[0];
+                                                    level3BudgetAccountsList[0];
                                               }
 
                                               level3AdminObject =
-                                              level3AdminAccountsList[0];
+                                                  level3AdminAccountsList[0];
                                             } else if (level2AdminObject.id >
                                                 0) {
                                               // If the acount which has just been deleted was selected, unselect it
                                               if (level2ActualObject.id ==
                                                   level2AdminObject.id) {
                                                 level2ActualObject =
-                                                level2ActualAccountsList[0];
+                                                    level2ActualAccountsList[0];
                                               }
 
                                               if (level2BudgetObject.id ==
                                                   level2AdminObject.id) {
                                                 level2BudgetObject =
-                                                level2BudgetAccountsList[0];
+                                                    level2BudgetAccountsList[0];
                                               }
 
                                               level2AdminObject =
-                                              level2AdminAccountsList[0];
+                                                  level2AdminAccountsList[0];
                                             } else if (level1AdminObject.id >
                                                 0) {
                                               // If the acount which has just been deleted was selected, unselect it
                                               if (level1ActualObject.id ==
                                                   level1AdminObject.id) {
                                                 level1ActualObject =
-                                                level1ActualAccountsList[0];
+                                                    level1ActualAccountsList[0];
                                               }
 
                                               if (level1BudgetObject.id ==
                                                   level1AdminObject.id) {
                                                 level1BudgetObject =
-                                                level1BudgetAccountsList[0];
+                                                    level1BudgetAccountsList[0];
                                               }
 
                                               level1AdminObject =
-                                              level1AdminAccountsList[0];
+                                                  level1AdminAccountsList[0];
                                             }
                                           },
                                         ),
@@ -2471,7 +2465,7 @@ void sendBackend(String type) async {
                             hasScrollBody: false,
                             child: Column(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   Text("Costtype Administration",
@@ -2497,7 +2491,7 @@ void sendBackend(String type) async {
                                       iconSize: 24,
                                       elevation: 16,
                                       style:
-                                      TextStyle(color: Color(0xff0957FF)),
+                                          TextStyle(color: Color(0xff0957FF)),
                                       isExpanded: true,
                                       underline: Container(
                                         height: 2,
@@ -2533,13 +2527,13 @@ void sendBackend(String type) async {
                                       // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
                                       style: TextStyle(
                                           height:
-                                          2), //increases the height of cursor
+                                              2), //increases the height of cursor
                                       // autofocus: true,
                                       controller:
-                                      newCostTypeTextFieldController,
+                                          newCostTypeTextFieldController,
                                       decoration: InputDecoration(
                                           hintText:
-                                          'Select an existing or create a new Costtype',
+                                              'Select an existing or create a new Costtype',
                                           hintStyle: TextStyle(
                                               height: 1.75,
                                               color: Color(0xff0957FF)),
@@ -2550,10 +2544,10 @@ void sendBackend(String type) async {
                                           //prefixIcon: Icon(Icons.attach_money),
                                           //labelStyle: TextStyle(color: Color(0xff0957FF)),
                                           enabledBorder:
-                                          new UnderlineInputBorder(
-                                              borderSide: new BorderSide(
-                                                  color:
-                                                  Color(0xff0957FF)))),
+                                              new UnderlineInputBorder(
+                                                  borderSide: new BorderSide(
+                                                      color:
+                                                          Color(0xff0957FF)))),
                                     ),
                                   ),
                                   /*
@@ -2578,7 +2572,7 @@ void sendBackend(String type) async {
 
                                             setState(() {
                                               costTypeObjectAdmin =
-                                              costTypesList[0];
+                                                  costTypesList[0];
                                             });
                                           },
                                         ),
@@ -2599,7 +2593,7 @@ void sendBackend(String type) async {
 
                                             // the here selected value was deleted and therefore is no more available, so set it to the first default value to not receive an error
                                             costTypeObjectAdmin =
-                                            costTypesList[0];
+                                                costTypesList[0];
                                           },
                                         ),
                                       ),
