@@ -13,11 +13,6 @@ class StackedBarTargetLineChart extends StatelessWidget {
 
   /// Creates a stacked [BarChart] with sample data and no transition.
   factory StackedBarTargetLineChart.withSampleData() {
-
-    print("STARTING");
-    loadAmount();
-    print("DONE");
-
     return new StackedBarTargetLineChart(
       _createSampleData(),
       //loadAmount(),
@@ -49,32 +44,29 @@ class StackedBarTargetLineChart extends StatelessWidget {
     String _type = 'actual';
     var rng = new Random();
 
-
-
     //var amounts = await http.read('http://192.168.0.21:5000/api/ffd/amounts/?level_type=1&cost_type=-1&parent_account=-1&year=2020&month=1&_type=actual');
-    var amounts = await http.read('http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type');
+    var amounts = await http.read(
+        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type');
 
     var parsedAmounts = json.decode(amounts);
 
-    for(var amounts in parsedAmounts)
-    {
-      print(amounts['level1'].toString());
-      print(amounts['sum'].toString());
+    final desktopSalesData = [new OrdinalSales('2069', 5)];
+
+    for (var amounts in parsedAmounts) {
+      desktopSalesData
+          .add(new OrdinalSales(amounts['level$level_type'].toString(), amounts['sum']));
     }
 
-    final desktopSalesData = [
-      new OrdinalSales(rng.nextInt(100).toString(), 5),
-      new OrdinalSales('2015', 25),
-      new OrdinalSales('2016', 100),
-      new OrdinalSales('2017', 75),
-    ];
+    for (var name in desktopSalesData) {
+      //print(name.year);
+    }
 
-    final tableSalesData = [
-      new OrdinalSales('2014', 25),
-      new OrdinalSales('2015', 50),
-      new OrdinalSales('2016', 10),
-      new OrdinalSales('2017', 20),
-    ];
+    final tableSalesData = [new OrdinalSales('20420', 5)];
+
+    for (var amounts in parsedAmounts) {
+      tableSalesData
+          .add(new OrdinalSales(amounts['level${level_type + 1}'].toString(), amounts['sum']));
+    }
 
     final desktopTargetLineData = [
       new OrdinalSales('2014', 25),
@@ -83,6 +75,7 @@ class StackedBarTargetLineChart extends StatelessWidget {
       new OrdinalSales('2017', 110),
     ];
 
+    print("REALLY DONE in correct place");
 
     return [
       new charts.Series<OrdinalSales, String>(
@@ -113,7 +106,6 @@ class StackedBarTargetLineChart extends StatelessWidget {
 
     var rng = new Random();
 
-
     final desktopSalesData = [
       new OrdinalSales(rng.nextInt(100).toString(), 5),
       new OrdinalSales('2015', 25),
@@ -134,6 +126,9 @@ class StackedBarTargetLineChart extends StatelessWidget {
       new OrdinalSales('2016', 100),
       new OrdinalSales('2017', 110),
     ];
+
+    print("DONE BEFORE DATA LOADED");
+
 
 
     return [
@@ -157,7 +152,6 @@ class StackedBarTargetLineChart extends StatelessWidget {
       )
       // Configure our custom bar target renderer for this series.
         ..setAttribute(charts.rendererIdKey, 'customTargetLine'),
-
     ];
   }
 
@@ -167,7 +161,7 @@ class StackedBarTargetLineChart extends StatelessWidget {
 /// Sample ordinal data type.
 class OrdinalSales {
   final String year;
-  final int sales;
+  final double sales;
 
   OrdinalSales(this.year, this.sales);
 }

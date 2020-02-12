@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:rating_dialog/rating_dialog.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 void main() => runApp(MyApp());
 
@@ -64,6 +65,13 @@ class CostType {
 
   final int id;
   final String name;
+}
+
+class CompanySizeVsNumberOfCompanies {
+  final String companySize;
+  final int numberOfCompanies;
+
+  CompanySizeVsNumberOfCompanies(this.companySize, this.numberOfCompanies);
 }
 
 class MyHomePage extends StatefulWidget {
@@ -536,7 +544,33 @@ class _MyHomePageState extends State<MyHomePage>
     setState(() {});
   }
 
-  void sendBackend(String type) async {
+  static List<charts.Series<CompanySizeVsNumberOfCompanies, String>>
+  _createVisualizationData() {
+    final data = [
+      CompanySizeVsNumberOfCompanies("1-15", 10),
+      CompanySizeVsNumberOfCompanies("15-50", 20),
+      CompanySizeVsNumberOfCompanies("51-200", 30),
+      CompanySizeVsNumberOfCompanies("201-500", 10),
+      CompanySizeVsNumberOfCompanies("501-1000", 40),
+      CompanySizeVsNumberOfCompanies("1000+", 50),
+    ];
+
+    return [
+      charts.Series<CompanySizeVsNumberOfCompanies, String>(
+          id: 'CompanySizeVsNumberOfCompanies',
+          colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+          domainFn: (CompanySizeVsNumberOfCompanies dataPoint, _) =>
+          dataPoint.companySize,
+          measureFn: (CompanySizeVsNumberOfCompanies dataPoint, _) =>
+          dataPoint.numberOfCompanies,
+          data: data)
+    ];
+  }
+
+
+
+
+void sendBackend(String type) async {
     var url = 'http://192.168.0.21:5000/api/ffd/';
 
     // Whenever with the backend is communicated its best to reload the accounts and costtpyes
@@ -1211,9 +1245,21 @@ class _MyHomePageState extends State<MyHomePage>
                               width: MediaQuery.of(context).size.width,
                               height:
                               MediaQuery.of(context).size.height * .4,
-                              child: chartContainer =
-                                  DonutPieChart.withSampleData())
-                              : new Container()
+                              child:
+                                //chartContainer = DonutPieChart.withSampleData()
+                              charts.BarChart(
+                              _createVisualizationData(),
+                    animate: true,
+                    behaviors: [
+                      charts.ChartTitle('Company Size vs Number of Companies'),
+                      charts.ChartTitle('Number of Companies',
+                          behaviorPosition: charts.BehaviorPosition.start),
+                      charts.ChartTitle('Company Size',
+                          behaviorPosition: charts.BehaviorPosition.bottom)
+                    ],
+                  ),
+                          )
+                          : new Container()
                         ]),
                   ),
                 ),
