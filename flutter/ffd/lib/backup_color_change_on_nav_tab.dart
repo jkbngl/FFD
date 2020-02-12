@@ -71,7 +71,7 @@ class CostType {
 
 class CompanySizeVsNumberOfCompanies {
   String companySize;
-  int numberOfCompanies;
+  double numberOfCompanies;
 
   CompanySizeVsNumberOfCompanies(this.companySize, this.numberOfCompanies);
 }
@@ -187,11 +187,6 @@ class _MyHomePageState extends State<MyHomePage>
 
   var testVariable = [
     CompanySizeVsNumberOfCompanies("1-25", 10),
-    CompanySizeVsNumberOfCompanies("15-50", 20),
-    CompanySizeVsNumberOfCompanies("51-200", 30),
-    CompanySizeVsNumberOfCompanies("201-500", 10),
-    CompanySizeVsNumberOfCompanies("501-1000", 40),
-    CompanySizeVsNumberOfCompanies("1000+", 50),
   ];
 
   // booleans loaded from DB to check whether accounts, which account levels and costTypes should be used
@@ -257,6 +252,37 @@ class _MyHomePageState extends State<MyHomePage>
   void afterFirstLayout(BuildContext context) async {
     // Calling the same function "after layout" to resolve the issue.
     await checkForChanges(true, fetchAccountsAndCostTypes, 'all');
+  }
+
+  loadAmount() async {
+    int level_type = 1;
+    int cost_type = -1;
+    int parent_account = -1;
+    int year = 2020;
+    int month = 2;
+    String _type = 'actual';
+
+    //var amounts = await http.read('http://192.168.0.21:5000/api/ffd/amounts/?level_type=1&cost_type=-1&parent_account=-1&year=2020&month=1&_type=actual');
+    var amounts = await http.read(
+        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type');
+
+    var parsedAmounts = json.decode(amounts);
+
+    final desktopSalesData = [new OrdinalSales('2069', 5)];
+
+    testVariable.clear();
+
+    for (var amounts in parsedAmounts) {
+      testVariable
+          .add(CompanySizeVsNumberOfCompanies(amounts['level$level_type'].toString(), amounts['sum']));
+    }
+
+    final desktopTargetLineData = [
+      new OrdinalSales('2014', 25),
+      new OrdinalSales('2015', 60),
+      new OrdinalSales('2016', 100),
+      new OrdinalSales('2017', 110),
+    ];
   }
 
   void checkForChanges(bool onStartup, bool fetch, String type) async {
@@ -1069,7 +1095,7 @@ class _MyHomePageState extends State<MyHomePage>
                   checkForChanges(false, true, 'budget');
                 } else if (_currentIndex == 3) {
                   print("REFRESHING ${testVariable[0].companySize}");
-                  testVariable[0].companySize = '6';
+                  loadAmount();
                   setState(() {});
                 }
               })
