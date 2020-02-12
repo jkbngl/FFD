@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:ffd/DonutPieChart.dart';
@@ -12,6 +13,7 @@ import 'dart:convert';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'dart:async';
 
 void main() => runApp(MyApp());
 
@@ -68,8 +70,8 @@ class CostType {
 }
 
 class CompanySizeVsNumberOfCompanies {
-  final String companySize;
-  final int numberOfCompanies;
+  String companySize;
+  int numberOfCompanies;
 
   CompanySizeVsNumberOfCompanies(this.companySize, this.numberOfCompanies);
 }
@@ -182,6 +184,15 @@ class _MyHomePageState extends State<MyHomePage>
   DateTime dateTimeActual;
   DateTime dateTimeBudget;
   DateTime dateTimeVisualizer;
+
+  var testVariable = [
+    CompanySizeVsNumberOfCompanies("1-25", 10),
+    CompanySizeVsNumberOfCompanies("15-50", 20),
+    CompanySizeVsNumberOfCompanies("51-200", 30),
+    CompanySizeVsNumberOfCompanies("201-500", 10),
+    CompanySizeVsNumberOfCompanies("501-1000", 40),
+    CompanySizeVsNumberOfCompanies("1000+", 50),
+  ];
 
   // booleans loaded from DB to check whether accounts, which account levels and costTypes should be used
   bool areAccountsActive = true;
@@ -544,27 +555,24 @@ class _MyHomePageState extends State<MyHomePage>
     setState(() {});
   }
 
-  static List<charts.Series<CompanySizeVsNumberOfCompanies, String>>
-      _createVisualizationData() {
-    final data = [
-      CompanySizeVsNumberOfCompanies("1-15", 10),
-      CompanySizeVsNumberOfCompanies("15-50", 20),
-      CompanySizeVsNumberOfCompanies("51-200", 30),
-      CompanySizeVsNumberOfCompanies("201-500", 10),
-      CompanySizeVsNumberOfCompanies("501-1000", 40),
-      CompanySizeVsNumberOfCompanies("1000+", 50),
-    ];
+  Future<String> fetchPost() async {
+    int level_type = 1;
+    int cost_type = -1;
+    int parent_account = -1;
+    int year = 2020;
+    int month = 2;
+    String _type = 'actual';
 
-    return [
-      charts.Series<CompanySizeVsNumberOfCompanies, String>(
-          id: 'CompanySizeVsNumberOfCompanies',
-          colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-          domainFn: (CompanySizeVsNumberOfCompanies dataPoint, _) =>
-              dataPoint.companySize,
-          measureFn: (CompanySizeVsNumberOfCompanies dataPoint, _) =>
-              dataPoint.numberOfCompanies,
-          data: data)
-    ];
+    final response = await http.get(
+        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type');
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response, then parse the JSON.
+      return response.body;
+    } else {
+      // If the server did not return a 200 OK response, then throw an exception.
+      throw Exception('Failed to load post');
+    }
   }
 
   void sendBackend(String type) async {
@@ -1060,6 +1068,8 @@ class _MyHomePageState extends State<MyHomePage>
                 } else if (_currentIndex == 2) {
                   checkForChanges(false, true, 'budget');
                 } else if (_currentIndex == 3) {
+                  print("REFRESHING ${testVariable[0].companySize}");
+                  testVariable[0].companySize = '6';
                   setState(() {});
                 }
               })
@@ -1877,7 +1887,19 @@ class _MyHomePageState extends State<MyHomePage>
 
                       //chartContainer = DonutPieChart.withSampleData()
                       charts.BarChart(
-                    _createVisualizationData(),
+                    [
+                      charts.Series<CompanySizeVsNumberOfCompanies, String>(
+                          id: 'CompanySizeVsNumberOfCompanies',
+                          colorFn: (_, __) =>
+                              charts.MaterialPalette.blue.shadeDefault,
+                          domainFn:
+                              (CompanySizeVsNumberOfCompanies dataPoint, _) =>
+                                  dataPoint.companySize,
+                          measureFn:
+                              (CompanySizeVsNumberOfCompanies dataPoint, _) =>
+                                  dataPoint.numberOfCompanies,
+                          data: testVariable)
+                    ],
                     animate: true,
                     behaviors: [
                       charts.ChartTitle('Company Size vs Number of Companies'),
