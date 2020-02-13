@@ -76,6 +76,12 @@ class CompanySizeVsNumberOfCompanies {
   CompanySizeVsNumberOfCompanies(this.companySize, this.numberOfCompanies);
 }
 
+class homescreenPie {
+  int dimension;
+  double amount;
+
+  homescreenPie(this.dimension, this.amount);
+}
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -189,13 +195,10 @@ class _MyHomePageState extends State<MyHomePage>
     CompanySizeVsNumberOfCompanies("1-25", 10),
   ];
 
-  var homescreenDataActual = [
-    CompanySizeVsNumberOfCompanies("1-25", 10),
+  var homescreenData = [
+    homescreenPie(69, 10),
   ];
 
-  var homescreenDataBudget = [
-    CompanySizeVsNumberOfCompanies("1-25", 10),
-  ];
 
   // booleans loaded from DB to check whether accounts, which account levels and costTypes should be used
   bool areAccountsActive = true;
@@ -313,20 +316,19 @@ class _MyHomePageState extends State<MyHomePage>
     var parsedActual = json.decode(actual);
     var parsedBudget = json.decode(actual);
 
-    final actualArray = [new OrdinalSales('2069', 5)];
-    final budgetArray = [new OrdinalSales('2069', 5)];
+    final actualArray = [new homescreenPie(2069, 5)];
+    final budgetArray = [new homescreenPie(2420, 5)];
 
-    homescreenDataActual.clear();
-    homescreenDataBudget.clear();
+    homescreenData.clear();
 
     for (var amount in parsedActual) {
-      homescreenDataActual.add(CompanySizeVsNumberOfCompanies(
-          amount['level$level_type'].toString(), amount['sum']));
+      homescreenData.add(homescreenPie(
+          0, amount['sum']));
     }
 
     for (var amount in parsedBudget) {
-      homescreenDataBudget.add(CompanySizeVsNumberOfCompanies(
-          amount['level$level_type'].toString(), amount['sum']));
+      homescreenData.add(homescreenPie(
+          1, amount['sum']));
     }
 
     final desktopTargetLineData = [
@@ -1143,7 +1145,7 @@ class _MyHomePageState extends State<MyHomePage>
               onPressed: () {
                 if (_currentIndex == 0) {
                   print(
-                      "REFRESHING ${homescreenDataActual[0].companySize} and ${homescreenDataBudget[0].companySize}");
+                      "REFRESHING ${homescreenData[0].dimension} and ${homescreenData[0].amount}");
                   loadHomescreen();
                 } else if (_currentIndex == 1) {
                   checkForChanges(false, true, 'actual');
@@ -1330,8 +1332,30 @@ class _MyHomePageState extends State<MyHomePage>
                                   width: MediaQuery.of(context).size.width,
                                   height:
                                       MediaQuery.of(context).size.height * .4,
-                                  child: chartContainer =
-                                      DonutPieChart.withSampleData())
+                                  child: charts.PieChart(
+                                    [
+                                      charts.Series<homescreenPie, int>(
+                                          id: 'CompanySizeVsNumberOfCompanies',
+                                          colorFn: (_, __) =>
+                                          charts.MaterialPalette.blue.shadeDefault,
+                                          domainFn:
+                                              (homescreenPie dataPoint, _) =>
+                                          dataPoint.dimension,
+                                          measureFn:
+                                              (homescreenPie dataPoint, _) =>
+                                          dataPoint.amount,
+                                          data: homescreenData)
+                                    ],
+                                    animate: true,
+                                    behaviors: [
+                                      charts.ChartTitle('Company Size vs Number of Companies'),
+                                      charts.ChartTitle('Number of Companies',
+                                          behaviorPosition: charts.BehaviorPosition.start),
+                                      charts.ChartTitle('Company Size',
+                                          behaviorPosition: charts.BehaviorPosition.bottom)
+                                    ],
+                                  ),
+                          )
                               : new Container()
                         ]),
                   ),
