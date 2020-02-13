@@ -314,7 +314,7 @@ class _MyHomePageState extends State<MyHomePage>
         'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type');
 
     var parsedActual = json.decode(actual);
-    var parsedBudget = json.decode(actual);
+    var parsedBudget = json.decode(budget);
 
     final actualArray = [new homescreenPie(2069, 5)];
     final budgetArray = [new homescreenPie(2420, 5)];
@@ -1147,6 +1147,7 @@ class _MyHomePageState extends State<MyHomePage>
                   print(
                       "REFRESHING ${homescreenData[0].dimension} and ${homescreenData[0].amount}");
                   loadHomescreen();
+                  setState(() {});
                 } else if (_currentIndex == 1) {
                   checkForChanges(false, true, 'actual');
                 } else if (_currentIndex == 2) {
