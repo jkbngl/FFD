@@ -185,7 +185,15 @@ class _MyHomePageState extends State<MyHomePage>
   DateTime dateTimeBudget;
   DateTime dateTimeVisualizer;
 
-  var testVariable = [
+  var visualizerData = [
+    CompanySizeVsNumberOfCompanies("1-25", 10),
+  ];
+
+  var homescreenDataActual = [
+    CompanySizeVsNumberOfCompanies("1-25", 10),
+  ];
+
+  var homescreenDataBudget = [
     CompanySizeVsNumberOfCompanies("1-25", 10),
   ];
 
@@ -270,11 +278,55 @@ class _MyHomePageState extends State<MyHomePage>
 
     final desktopSalesData = [new OrdinalSales('2069', 5)];
 
-    testVariable.clear();
+    visualizerData.clear();
 
     for (var amounts in parsedAmounts) {
-      testVariable
-          .add(CompanySizeVsNumberOfCompanies(amounts['level$level_type'].toString(), amounts['sum']));
+      visualizerData.add(CompanySizeVsNumberOfCompanies(
+          amounts['level$level_type'].toString(), amounts['sum']));
+    }
+
+    final desktopTargetLineData = [
+      new OrdinalSales('2014', 25),
+      new OrdinalSales('2015', 60),
+      new OrdinalSales('2016', 100),
+      new OrdinalSales('2017', 110),
+    ];
+  }
+
+  loadHomescreen() async {
+    int level_type = -1;
+    int cost_type = -1;
+    int parent_account = -1;
+    int year = 2020;
+    int month = 2;
+    String _type = 'actual';
+
+    //var amounts = await http.read('http://192.168.0.21:5000/api/ffd/amounts/?level_type=1&cost_type=-1&parent_account=-1&year=2020&month=1&_type=actual');
+    var actual = await http.read(
+        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type');
+
+    _type = 'budget';
+
+    var budget = await http.read(
+        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type');
+
+    var parsedActual = json.decode(actual);
+    var parsedBudget = json.decode(actual);
+
+    final actualArray = [new OrdinalSales('2069', 5)];
+    final budgetArray = [new OrdinalSales('2069', 5)];
+
+    homescreenDataActual.clear();
+    homescreenDataBudget.clear();
+
+    for (var amount in parsedActual) {
+      homescreenDataActual.add(CompanySizeVsNumberOfCompanies(
+          amount['level$level_type'].toString(), amount['sum']));
+    }
+
+    for (var amount in parsedBudget) {
+      homescreenDataBudget.add(CompanySizeVsNumberOfCompanies(
+          amount['level$level_type'].toString(), amount['sum']));
     }
 
     final desktopTargetLineData = [
@@ -1089,12 +1141,16 @@ class _MyHomePageState extends State<MyHomePage>
               color: Color(0xffEEEEEE),
               iconSize: 24,
               onPressed: () {
-                if (_currentIndex == 1) {
+                if (_currentIndex == 0) {
+                  print(
+                      "REFRESHING ${homescreenDataActual[0].companySize} and ${homescreenDataBudget[0].companySize}");
+                  loadHomescreen();
+                } else if (_currentIndex == 1) {
                   checkForChanges(false, true, 'actual');
                 } else if (_currentIndex == 2) {
                   checkForChanges(false, true, 'budget');
                 } else if (_currentIndex == 3) {
-                  print("REFRESHING ${testVariable[0].companySize}");
+                  print("REFRESHING ${visualizerData[0].companySize}");
                   loadAmount();
                   setState(() {});
                 }
@@ -1910,8 +1966,6 @@ class _MyHomePageState extends State<MyHomePage>
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * .4,
                   child:
-
-                      //chartContainer = DonutPieChart.withSampleData()
                       charts.BarChart(
                     [
                       charts.Series<CompanySizeVsNumberOfCompanies, String>(
@@ -1924,7 +1978,7 @@ class _MyHomePageState extends State<MyHomePage>
                           measureFn:
                               (CompanySizeVsNumberOfCompanies dataPoint, _) =>
                                   dataPoint.numberOfCompanies,
-                          data: testVariable)
+                          data: visualizerData)
                     ],
                     animate: true,
                     behaviors: [
