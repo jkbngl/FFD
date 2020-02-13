@@ -326,7 +326,7 @@ class _MyHomePageState extends State<MyHomePage>
     }
 
     for (var amount in parsedBudget) {
-      homescreenData.add(homescreenPie(1, amount['sum']));
+      homescreenData.add(homescreenPie(1, amount['sum'] - homescreenData[0].amount));
     }
 
     final desktopTargetLineData = [
@@ -1143,7 +1143,7 @@ class _MyHomePageState extends State<MyHomePage>
               onPressed: () {
                 if (_currentIndex == 0) {
                   print(
-                      "REFRESHING ${homescreenData[0].dimension} and ${homescreenData[0].amount}");
+                      "REFRESHING ${homescreenData[0].amount} and ${homescreenData[1].amount}");
                   loadHomescreen();
                   setState(() {});
                 } else if (_currentIndex == 1) {
@@ -1994,11 +1994,13 @@ class _MyHomePageState extends State<MyHomePage>
                     [
                       charts.Series<CompanySizeVsNumberOfCompanies, String>(
                           id: 'CompanySizeVsNumberOfCompanies',
+                          
                           colorFn: (_, __) =>
                               charts.MaterialPalette.blue.shadeDefault,
                           domainFn:
                               (CompanySizeVsNumberOfCompanies dataPoint, _) =>
                                   dataPoint.companySize,
+
                           measureFn:
                               (CompanySizeVsNumberOfCompanies dataPoint, _) =>
                                   dataPoint.numberOfCompanies,
@@ -2006,10 +2008,10 @@ class _MyHomePageState extends State<MyHomePage>
                     ],
                     animate: true,
                     behaviors: [
-                      charts.ChartTitle('Company Size vs Number of Companies'),
-                      charts.ChartTitle('Number of Companies',
+                      charts.ChartTitle('Spendings per Accounts'),
+                      charts.ChartTitle('Amounts',
                           behaviorPosition: charts.BehaviorPosition.start),
-                      charts.ChartTitle('Company Size',
+                      charts.ChartTitle('Accounts',
                           behaviorPosition: charts.BehaviorPosition.bottom)
                     ],
                   ),
