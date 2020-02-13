@@ -82,6 +82,7 @@ class homescreenPie {
 
   homescreenPie(this.dimension, this.amount);
 }
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -198,7 +199,6 @@ class _MyHomePageState extends State<MyHomePage>
   var homescreenData = [
     homescreenPie(69, 10),
   ];
-
 
   // booleans loaded from DB to check whether accounts, which account levels and costTypes should be used
   bool areAccountsActive = true;
@@ -322,13 +322,11 @@ class _MyHomePageState extends State<MyHomePage>
     homescreenData.clear();
 
     for (var amount in parsedActual) {
-      homescreenData.add(homescreenPie(
-          0, amount['sum']));
+      homescreenData.add(homescreenPie(0, amount['sum']));
     }
 
     for (var amount in parsedBudget) {
-      homescreenData.add(homescreenPie(
-          1, amount['sum']));
+      homescreenData.add(homescreenPie(1, amount['sum']));
     }
 
     final desktopTargetLineData = [
@@ -1337,26 +1335,28 @@ class _MyHomePageState extends State<MyHomePage>
                                     [
                                       charts.Series<homescreenPie, int>(
                                           id: 'CompanySizeVsNumberOfCompanies',
-                                          colorFn: (_, __) =>
-                                          charts.MaterialPalette.blue.shadeDefault,
+
                                           domainFn:
                                               (homescreenPie dataPoint, _) =>
-                                          dataPoint.dimension,
+                                                  dataPoint.dimension,
+                                          labelAccessorFn: (homescreenPie row, _) => '${row.dimension}: ${row.amount}',
                                           measureFn:
                                               (homescreenPie dataPoint, _) =>
-                                          dataPoint.amount,
+                                                  dataPoint.amount,
                                           data: homescreenData)
                                     ],
                                     animate: true,
                                     behaviors: [
-                                      charts.ChartTitle('Company Size vs Number of Companies'),
-                                      charts.ChartTitle('Number of Companies',
-                                          behaviorPosition: charts.BehaviorPosition.start),
-                                      charts.ChartTitle('Company Size',
-                                          behaviorPosition: charts.BehaviorPosition.bottom)
+                                      charts.ChartTitle('Actual vs Budget'),
+                                      charts.ChartTitle('Budget',
+                                          behaviorPosition:
+                                              charts.BehaviorPosition.start),
+                                      charts.ChartTitle('Actual',
+                                          behaviorPosition:
+                                              charts.BehaviorPosition.end)
                                     ],
                                   ),
-                          )
+                                )
                               : new Container()
                         ]),
                   ),
@@ -1990,8 +1990,7 @@ class _MyHomePageState extends State<MyHomePage>
                   margin: const EdgeInsets.all(10.0),
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * .4,
-                  child:
-                      charts.BarChart(
+                  child: charts.BarChart(
                     [
                       charts.Series<CompanySizeVsNumberOfCompanies, String>(
                           id: 'CompanySizeVsNumberOfCompanies',
