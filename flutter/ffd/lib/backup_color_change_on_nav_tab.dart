@@ -1170,7 +1170,6 @@ class _MyHomePageState extends State<MyHomePage>
           controller: _pageController,
           onPageChanged: (index) {
             // Check if something in the settings has been changed, if yes set the vars and widgets accordingly
-
             if (index == 1 || index == 2) {
               /// #46 fetched both accounts for actual and budget
               if (fetchAccountsAndCostTypes) {
@@ -2005,8 +2004,13 @@ class _MyHomePageState extends State<MyHomePage>
                               (CompanySizeVsNumberOfCompanies dataPoint, _) =>
                                   dataPoint.numberOfCompanies,
                           data: visualizerData)
+
                     ],
                     animate: true,
+                    barRendererDecorator: new charts.BarLabelDecorator<String>(),
+                    // Hide domain axis.
+                    domainAxis:
+                    new charts.OrdinalAxisSpec(renderSpec: new charts.NoneRenderSpec()),
                     behaviors: [
                       charts.ChartTitle('Spendings per Accounts'),
                       charts.ChartTitle('Amounts',
