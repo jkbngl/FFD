@@ -294,6 +294,8 @@ class _MyHomePageState extends State<MyHomePage>
       new OrdinalSales('2016', 100),
       new OrdinalSales('2017', 110),
     ];
+
+    setState(() {});
   }
 
   loadHomescreen() async {
@@ -336,6 +338,8 @@ class _MyHomePageState extends State<MyHomePage>
       new OrdinalSales('2016', 100),
       new OrdinalSales('2017', 110),
     ];
+
+    setState(() {});
   }
 
   void checkForChanges(bool onStartup, bool fetch, String type) async {
@@ -1145,7 +1149,7 @@ class _MyHomePageState extends State<MyHomePage>
                 if (_currentIndex == 0) {
                   //print("REFRESHING ${homescreenData[0].amount} and ${homescreenData[1].amount}");
                   loadHomescreen();
-                  setState(() {});
+
                 } else if (_currentIndex == 1) {
                   checkForChanges(false, true, 'actual');
                 } else if (_currentIndex == 2) {
