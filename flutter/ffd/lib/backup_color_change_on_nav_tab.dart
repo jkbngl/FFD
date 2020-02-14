@@ -326,7 +326,8 @@ class _MyHomePageState extends State<MyHomePage>
     }
 
     for (var amount in parsedBudget) {
-      homescreenData.add(homescreenPie(1, amount['sum'] - homescreenData[0].amount));
+      homescreenData
+          .add(homescreenPie(1, amount['sum'] - homescreenData[0].amount));
     }
 
     final desktopTargetLineData = [
@@ -1333,11 +1334,12 @@ class _MyHomePageState extends State<MyHomePage>
                                     [
                                       charts.Series<homescreenPie, int>(
                                           id: 'CompanySizeVsNumberOfCompanies',
-
                                           domainFn:
                                               (homescreenPie dataPoint, _) =>
                                                   dataPoint.dimension,
-                                          labelAccessorFn: (homescreenPie row, _) => '${row.dimension}: ${row.amount}',
+                                          labelAccessorFn: (homescreenPie row,
+                                                  _) =>
+                                              '${row.dimension}: ${row.amount}',
                                           measureFn:
                                               (homescreenPie dataPoint, _) =>
                                                   dataPoint.amount,
@@ -1992,22 +1994,17 @@ class _MyHomePageState extends State<MyHomePage>
                     [
                       charts.Series<CompanySizeVsNumberOfCompanies, String>(
                           id: 'CompanySizeVsNumberOfCompanies',
-                          
-                          colorFn: (_, __) =>
-                              charts.MaterialPalette.blue.shadeDefault,
-                          domainFn:
-                              (CompanySizeVsNumberOfCompanies dataPoint, _) =>
-                                  dataPoint.companySize,
+                          domainFn: (CompanySizeVsNumberOfCompanies sales, _) => sales.companySize,
+                          measureFn: (CompanySizeVsNumberOfCompanies sales, _) => sales.numberOfCompanies,
+                    labelAccessorFn: (CompanySizeVsNumberOfCompanies sales, _) =>
+                    '${sales.companySize}: \$${sales.numberOfCompanies.toString()}',
 
-                          measureFn:
-                              (CompanySizeVsNumberOfCompanies dataPoint, _) =>
-                                  dataPoint.numberOfCompanies,
-                          data: visualizerData)
-
+        data: visualizerData)
                     ],
                     animate: true,
-                    barRendererDecorator: new charts.BarLabelDecorator<String>(),
                     vertical: false,
+                    // Hide domain axis.
+                    barRendererDecorator: new charts.BarLabelDecorator<String>(),
                     // Hide domain axis.
                     domainAxis:
                     new charts.OrdinalAxisSpec(renderSpec: new charts.NoneRenderSpec()),
