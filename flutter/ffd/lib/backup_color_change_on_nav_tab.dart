@@ -1142,8 +1142,7 @@ class _MyHomePageState extends State<MyHomePage>
               iconSize: 24,
               onPressed: () {
                 if (_currentIndex == 0) {
-                  print(
-                      "REFRESHING ${homescreenData[0].amount} and ${homescreenData[1].amount}");
+                  //print("REFRESHING ${homescreenData[0].amount} and ${homescreenData[1].amount}");
                   loadHomescreen();
                   setState(() {});
                 } else if (_currentIndex == 1) {
@@ -2008,6 +2007,7 @@ class _MyHomePageState extends State<MyHomePage>
                     ],
                     animate: true,
                     barRendererDecorator: new charts.BarLabelDecorator<String>(),
+                    vertical: false,
                     // Hide domain axis.
                     domainAxis:
                     new charts.OrdinalAxisSpec(renderSpec: new charts.NoneRenderSpec()),
