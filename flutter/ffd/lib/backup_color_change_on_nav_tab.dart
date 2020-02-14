@@ -2014,9 +2014,9 @@ class _MyHomePageState extends State<MyHomePage>
                     new charts.OrdinalAxisSpec(renderSpec: new charts.NoneRenderSpec()),
                     behaviors: [
                       charts.ChartTitle('Spendings per Accounts'),
-                      charts.ChartTitle('Amounts',
-                          behaviorPosition: charts.BehaviorPosition.start),
                       charts.ChartTitle('Accounts',
+                          behaviorPosition: charts.BehaviorPosition.start),
+                      charts.ChartTitle('Amounts',
                           behaviorPosition: charts.BehaviorPosition.bottom)
                     ],
                   ),
