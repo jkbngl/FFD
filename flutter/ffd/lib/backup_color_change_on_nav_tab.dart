@@ -77,10 +77,10 @@ class CompanySizeVsNumberOfCompanies {
 }
 
 class homescreenPie {
-  int dimension;
+  String type;
   double amount;
 
-  homescreenPie(this.dimension, this.amount);
+  homescreenPie(this.type, this.amount);
 }
 
 class MyHomePage extends StatefulWidget {
@@ -197,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage>
   ];
 
   var homescreenData = [
-    homescreenPie(69, 10),
+    homescreenPie('Dummy', 10),
   ];
 
   // booleans loaded from DB to check whether accounts, which account levels and costTypes should be used
@@ -262,7 +262,11 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   void afterFirstLayout(BuildContext context) async {
     // Calling the same function "after layout" to resolve the issue.
-    await checkForChanges(true, fetchAccountsAndCostTypes, 'all');
+
+    //await checkForChanges(true, fetchAccountsAndCostTypes, 'all');
+    checkForChanges(true, fetchAccountsAndCostTypes, 'all');
+    loadAmount();
+    loadHomescreen();
   }
 
   loadAmount() async {
@@ -317,18 +321,18 @@ class _MyHomePageState extends State<MyHomePage>
     var parsedActual = json.decode(actual);
     var parsedBudget = json.decode(budget);
 
-    final actualArray = [new homescreenPie(2069, 5)];
-    final budgetArray = [new homescreenPie(2420, 5)];
+    final actualArray = [new homescreenPie('DUMMY2', 5)];
+    final budgetArray = [new homescreenPie('DUMMY3', 5)];
 
     homescreenData.clear();
 
     for (var amount in parsedActual) {
-      homescreenData.add(homescreenPie(0, amount['sum']));
+      homescreenData.add(homescreenPie('Actual', amount['sum']));
     }
 
     for (var amount in parsedBudget) {
       homescreenData
-          .add(homescreenPie(1, amount['sum'] - homescreenData[0].amount));
+          .add(homescreenPie('Budget', amount['sum'] - homescreenData[0].amount));
     }
 
     final desktopTargetLineData = [
@@ -1335,28 +1339,30 @@ class _MyHomePageState extends State<MyHomePage>
                                       MediaQuery.of(context).size.height * .4,
                                   child: charts.PieChart(
                                     [
-                                      charts.Series<homescreenPie, int>(
+                                      charts.Series<homescreenPie, String>(
                                           id: 'CompanySizeVsNumberOfCompanies',
                                           domainFn:
                                               (homescreenPie dataPoint, _) =>
-                                                  dataPoint.dimension,
+                                                  dataPoint.type,
                                           labelAccessorFn: (homescreenPie row,
                                                   _) =>
-                                              '${row.dimension}: ${row.amount}',
+                                              '${row.type}\n${row.amount}',
                                           measureFn:
                                               (homescreenPie dataPoint, _) =>
                                                   dataPoint.amount,
                                           data: homescreenData)
                                     ],
+                                    defaultRenderer: new charts.ArcRendererConfig(
+                                      arcRendererDecorators: [
+                                        new charts.ArcLabelDecorator(
+                                          //labelPadding:-25,
+                                            labelPosition: charts.ArcLabelPosition.outside),
+                                      ],
+                                      arcWidth: 30,
+                                    ),
                                     animate: true,
                                     behaviors: [
                                       charts.ChartTitle('Actual vs Budget'),
-                                      charts.ChartTitle('Budget',
-                                          behaviorPosition:
-                                              charts.BehaviorPosition.start),
-                                      charts.ChartTitle('Actual',
-                                          behaviorPosition:
-                                              charts.BehaviorPosition.end)
                                     ],
                                   ),
                                 )
@@ -2000,7 +2006,7 @@ class _MyHomePageState extends State<MyHomePage>
                           domainFn: (CompanySizeVsNumberOfCompanies sales, _) => sales.companySize,
                           measureFn: (CompanySizeVsNumberOfCompanies sales, _) => sales.numberOfCompanies,
                     labelAccessorFn: (CompanySizeVsNumberOfCompanies sales, _) =>
-                    '${sales.companySize}: \$${sales.numberOfCompanies.toString()}',
+                    '${sales.companySize}: € ${sales.numberOfCompanies.toString()}',
 
         data: visualizerData)
                     ],
