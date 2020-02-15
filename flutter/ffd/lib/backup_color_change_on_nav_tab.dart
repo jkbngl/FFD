@@ -269,11 +269,10 @@ class _MyHomePageState extends State<MyHomePage>
     int level_type = 1;
     int cost_type = -1;
     int parent_account = -1;
-    int year = 2020;
-    int month = 2;
+    int year = dateTimeVisualizer.year;
+    int month = dateTimeVisualizer.month;
     String _type = 'actual';
 
-    //var amounts = await http.read('http://192.168.0.21:5000/api/ffd/amounts/?level_type=1&cost_type=-1&parent_account=-1&year=2020&month=1&_type=actual');
     var amounts = await http.read(
         'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type');
 
