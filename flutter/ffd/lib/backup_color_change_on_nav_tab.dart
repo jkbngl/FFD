@@ -1151,9 +1151,28 @@ class _MyHomePageState extends State<MyHomePage>
         });
   }
 
+
+  _onSelectionChanged(charts.SelectionModel model)
+  {
+    final selectedDatum = model.selectedDatum;
+    final selectedDatum2 = model.selectedSeries;
+
+    if (selectedDatum.isNotEmpty) {
+      //time = selectedDatum.first.datum.toString();
+      selectedDatum.forEach((charts.SeriesDatum datumPair) {
+        print(datumPair.datum.numberOfCompanies);
+        print(datumPair.datum.companySize);
+
+      });
+    }
+
+    print(selectedDatum.first.datum.toString());
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final children =  Scaffold(
       appBar: AppBar(
         title: appBarTitleText,
         actions: <Widget>[
@@ -2009,8 +2028,7 @@ class _MyHomePageState extends State<MyHomePage>
                   'Visualizer',
                   style: TextStyle(fontSize: 30),
                 ),
-                Container(
-                  margin: const EdgeInsets.all(10.0),
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * .4,
                   child: charts.BarChart(
@@ -2029,7 +2047,12 @@ class _MyHomePageState extends State<MyHomePage>
                           data: visualizerData)
                     ],
                     animate: true,
-
+                    selectionModels: [
+                      new charts.SelectionModelConfig(
+                        type: charts.SelectionModelType.info,
+                        changedListener: _onSelectionChanged
+                      )
+                    ],
                     vertical: false,
                     // Hide domain axis.
                     barRendererDecorator:
@@ -2822,5 +2845,8 @@ class _MyHomePageState extends State<MyHomePage>
         ],
       ),
     );
+
+    return children;
+
   }
 }
