@@ -298,7 +298,7 @@ class _MyHomePageState extends State<MyHomePage>
 
     for (var amounts in parsedAmounts) {
       visualizerData.add(CompanySizeVsNumberOfCompanies(
-          amounts['level$level_type'].toString(), amounts['sum'], -1));
+          amounts['level$level_type'].toString(), amounts['sum'], amounts['level${level_type.toString()}_fk']));
     }
 
     final desktopTargetLineData = [
@@ -1163,7 +1163,7 @@ class _MyHomePageState extends State<MyHomePage>
       selectedDatum.forEach((charts.SeriesDatum datumPair) {
         print(datumPair.datum.numberOfCompanies);
         print(datumPair.datum.companySize);
-
+        print(datumPair.datum.accountId);
       });
     }
 
