@@ -98,12 +98,11 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
         group_params += ' group by level3, level3_fk ' if len(group_params) <= 0 else ' , level3, level3_fk '
         order_params += ' order by level3 ' if len(order_params) <= 0 else ' , level3'
 
-    
     if(cost_type > 0):
-        select_params += ' select sum(amount), cost_type, cost_type_fk ' if len(select_params) <= 0 else ' , cost_type, cost_type_fk'
-        where_params += f' where cost_type_fk = {cost_type}' if len(where_params) <= 0 else f' and cost_type_fk = {cost_type}'
-        group_params += ' group by cost_type, cost_type_fk ' if len(group_params) <= 0 else ' , cost_type, cost_type_fk'
-        order_params += ' order by cost_type ' if len(order_params) <= 0 else ' , cost_type'
+        select_params += ' select sum(amount), costtype, costtype_fk ' if len(select_params) <= 0 else ' , costtype, costtype_fk'
+        where_params += f' where costtype_fk = {cost_type}' if len(where_params) <= 0 else f' and costtype_fk = {cost_type}'
+        group_params += ' group by costtype, costtype_fk ' if len(group_params) <= 0 else ' , costtype, costtype_fk'
+        order_params += ' order by costtype ' if len(order_params) <= 0 else ' , costtype'
     
     if(parent_account > 0):
         select_params += f' select sum(amount), level{level_type - 1}_fk  ' if len(select_params) <= 0 else f' , level{level_type - 1}_fk '
