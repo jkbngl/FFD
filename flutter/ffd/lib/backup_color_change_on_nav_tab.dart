@@ -74,7 +74,8 @@ class CompanySizeVsNumberOfCompanies {
   double numberOfCompanies;
   int accountId;
 
-  CompanySizeVsNumberOfCompanies(this.companySize, this.numberOfCompanies, this.accountId);
+  CompanySizeVsNumberOfCompanies(
+      this.companySize, this.numberOfCompanies, this.accountId);
 }
 
 class homescreenPie {
@@ -201,7 +202,6 @@ class _MyHomePageState extends State<MyHomePage>
     homescreenPie('Dummy1', 10),
     homescreenPie('Dummy2', 10),
     homescreenPie('Dummy3', 10),
-
   ];
 
   // booleans loaded from DB to check whether accounts, which account levels and costTypes should be used
@@ -274,9 +274,7 @@ class _MyHomePageState extends State<MyHomePage>
     loadHomescreen();
     loadAmount();
 
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   loadAmount() async {
@@ -298,7 +296,9 @@ class _MyHomePageState extends State<MyHomePage>
 
     for (var amounts in parsedAmounts) {
       visualizerData.add(CompanySizeVsNumberOfCompanies(
-          amounts['level$level_type'].toString(), amounts['sum'], amounts['level${level_type.toString()}_fk']));
+          amounts['level$level_type'].toString(),
+          amounts['sum'],
+          amounts['level${level_type.toString()}_fk']));
     }
 
     final desktopTargetLineData = [
@@ -346,8 +346,7 @@ class _MyHomePageState extends State<MyHomePage>
     }
 
     for (var amount in parsedBudget) {
-      homescreenData.add(
-          homescreenPie('OverallBudget', amount['sum']));
+      homescreenData.add(homescreenPie('OverallBudget', amount['sum']));
     }
 
     final desktopTargetLineData = [
@@ -1152,9 +1151,7 @@ class _MyHomePageState extends State<MyHomePage>
         });
   }
 
-
-  _onSelectionChanged(charts.SelectionModel model)
-  {
+  _onSelectionChanged(charts.SelectionModel model) {
     final selectedDatum = model.selectedDatum;
     final selectedDatum2 = model.selectedSeries;
 
@@ -1170,10 +1167,9 @@ class _MyHomePageState extends State<MyHomePage>
     print(selectedDatum.first.datum.toString());
   }
 
-
   @override
   Widget build(BuildContext context) {
-    final children =  Scaffold(
+    final children = Scaffold(
       appBar: AppBar(
         title: appBarTitleText,
         actions: <Widget>[
@@ -1292,7 +1288,8 @@ class _MyHomePageState extends State<MyHomePage>
                                         title: Text('Actual',
                                             style:
                                                 TextStyle(color: Colors.white)),
-                                        subtitle: Text(homescreenData[0].amount.toString(),
+                                        subtitle: Text(
+                                            homescreenData[0].amount.toString(),
                                             style:
                                                 TextStyle(color: Colors.white)),
                                       ),
@@ -1334,7 +1331,14 @@ class _MyHomePageState extends State<MyHomePage>
                                         title: Text('Budget',
                                             style:
                                                 TextStyle(color: Colors.white)),
-                                        subtitle: Text(homescreenData[1].amount.toString() + '\n' + homescreenData[2].amount.toString(),
+                                        subtitle: Text(
+                                            homescreenData[1]
+                                                    .amount
+                                                    .toString() +
+                                                '\n' +
+                                                homescreenData[2]
+                                                    .amount
+                                                    .toString(),
                                             style:
                                                 TextStyle(color: Colors.white)),
                                       ),
@@ -1382,7 +1386,8 @@ class _MyHomePageState extends State<MyHomePage>
                                           measureFn:
                                               (homescreenPie dataPoint, _) =>
                                                   dataPoint.amount,
-                                          data: homescreenData.sublist(0, 2) /*Only first 2 elements not also the overall budget*/)
+                                          data: homescreenData.sublist(0,
+                                              2) /*Only first 2 elements not also the overall budget*/)
                                     ],
                                     defaultRenderer:
                                         new charts.ArcRendererConfig(
@@ -2025,9 +2030,19 @@ class _MyHomePageState extends State<MyHomePage>
                       Text(
                           'Choosen: ${dateTimeVisualizer.year.toString()}-${dateTimeVisualizer.month.toString().padLeft(2, '0')}'),
                     ]),
-                Text(
-                  'Visualizer',
-                  style: TextStyle(fontSize: 30),
+                Container(
+                  constraints: BoxConstraints.expand(
+                    height: 50.0,
+                  ),
+                  padding: const EdgeInsets.only(
+                      left: 30.0, top: 0, right: 30, bottom: 0),
+                  //color: Colors.blue[600],
+                  alignment: Alignment.center,
+                  //child: Text('Submit'),
+                  child: Text(
+                    'Visualizer',
+                    style: TextStyle(fontSize: 30),
+                  ),
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
@@ -2050,9 +2065,8 @@ class _MyHomePageState extends State<MyHomePage>
                     animate: true,
                     selectionModels: [
                       new charts.SelectionModelConfig(
-                        type: charts.SelectionModelType.info,
-                        changedListener: _onSelectionChanged
-                      )
+                          type: charts.SelectionModelType.info,
+                          changedListener: _onSelectionChanged)
                     ],
                     vertical: false,
                     // Hide domain axis.
@@ -2069,7 +2083,45 @@ class _MyHomePageState extends State<MyHomePage>
                           behaviorPosition: charts.BehaviorPosition.bottom)
                     ],
                   ),
-                )
+                ),Container(
+                  constraints: BoxConstraints.expand(
+                    height: 50.0,
+                  ),
+                  padding: const EdgeInsets.only(
+                      left: 30.0, top: 0, right: 30, bottom: 0),
+                  //color: Colors.blue[600],
+                  alignment: Alignment.center,
+                  //child: Text('Submit'),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: DropdownButton<CostType>(
+                      value: costTypeObjectActual,
+                      icon: Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: TextStyle(color: Color(0xff0957FF)),
+                      underline: Container(
+                        height: 2,
+                        width: 2000,
+                        color: Color(0xff0957FF),
+                      ),
+                      onChanged: (CostType newValue) {
+                        setState(() {
+                          costTypeObjectActual = newValue;
+                        });
+                      },
+                      items: costTypesList.map((CostType type) {
+                        return new DropdownMenuItem<CostType>(
+                          value: type,
+                          child: new Text(
+                            type.name,
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
+
 
 //                RaisedButton(
 //                  child: Text('Simple'),
@@ -2848,6 +2900,5 @@ class _MyHomePageState extends State<MyHomePage>
     );
 
     return children;
-
   }
 }
