@@ -265,8 +265,14 @@ class _MyHomePageState extends State<MyHomePage>
 
     //await checkForChanges(true, fetchAccountsAndCostTypes, 'all');
     checkForChanges(true, fetchAccountsAndCostTypes, 'all');
-    loadAmount();
+
+    // Keep loadHomescreen before loadAmount, because if not the state will be set 2 times and it will look strange
     loadHomescreen();
+    loadAmount();
+
+    setState(() {
+
+    });
   }
 
   loadAmount() async {
@@ -331,8 +337,8 @@ class _MyHomePageState extends State<MyHomePage>
     }
 
     for (var amount in parsedBudget) {
-      homescreenData
-          .add(homescreenPie('Budget', amount['sum'] - homescreenData[0].amount));
+      homescreenData.add(
+          homescreenPie('Budget', amount['sum'] - homescreenData[0].amount));
     }
 
     final desktopTargetLineData = [
@@ -1152,7 +1158,6 @@ class _MyHomePageState extends State<MyHomePage>
                 if (_currentIndex == 0) {
                   //print("REFRESHING ${homescreenData[0].amount} and ${homescreenData[1].amount}");
                   loadHomescreen();
-
                 } else if (_currentIndex == 1) {
                   checkForChanges(false, true, 'actual');
                 } else if (_currentIndex == 2) {
@@ -1160,7 +1165,6 @@ class _MyHomePageState extends State<MyHomePage>
                 } else if (_currentIndex == 3) {
                   print("REFRESHING ${visualizerData[0].companySize}");
                   loadAmount();
-                  setState(() {});
                 }
               })
         ],
@@ -1344,21 +1348,23 @@ class _MyHomePageState extends State<MyHomePage>
                                           domainFn:
                                               (homescreenPie dataPoint, _) =>
                                                   dataPoint.type,
-                                          labelAccessorFn: (homescreenPie row,
-                                                  _) =>
-                                              '${row.type}\n${row.amount}',
+                                          labelAccessorFn:
+                                              (homescreenPie row, _) =>
+                                                  '${row.type}\n${row.amount}',
                                           measureFn:
                                               (homescreenPie dataPoint, _) =>
                                                   dataPoint.amount,
                                           data: homescreenData)
                                     ],
-                                    defaultRenderer: new charts.ArcRendererConfig(
+                                    defaultRenderer:
+                                        new charts.ArcRendererConfig(
                                       arcRendererDecorators: [
                                         new charts.ArcLabelDecorator(
-                                          //labelPadding:-25,
-                                            labelPosition: charts.ArcLabelPosition.outside),
+                                            //labelPadding:-25,
+                                            labelPosition: charts
+                                                .ArcLabelPosition.outside),
                                       ],
-                                      arcWidth: 30,
+                                      arcWidth: 50,
                                     ),
                                     animate: true,
                                     behaviors: [
@@ -2003,20 +2009,25 @@ class _MyHomePageState extends State<MyHomePage>
                     [
                       charts.Series<CompanySizeVsNumberOfCompanies, String>(
                           id: 'CompanySizeVsNumberOfCompanies',
-                          domainFn: (CompanySizeVsNumberOfCompanies sales, _) => sales.companySize,
-                          measureFn: (CompanySizeVsNumberOfCompanies sales, _) => sales.numberOfCompanies,
-                    labelAccessorFn: (CompanySizeVsNumberOfCompanies sales, _) =>
-                    '${sales.companySize}: € ${sales.numberOfCompanies.toString()}',
-
-        data: visualizerData)
+                          domainFn: (CompanySizeVsNumberOfCompanies sales, _) =>
+                              sales.companySize,
+                          measureFn:
+                              (CompanySizeVsNumberOfCompanies sales, _) =>
+                                  sales.numberOfCompanies,
+                          labelAccessorFn: (CompanySizeVsNumberOfCompanies
+                                      sales,
+                                  _) =>
+                              '${sales.companySize}: € ${sales.numberOfCompanies.toString()}',
+                          data: visualizerData)
                     ],
                     animate: true,
                     vertical: false,
                     // Hide domain axis.
-                    barRendererDecorator: new charts.BarLabelDecorator<String>(),
+                    barRendererDecorator:
+                        new charts.BarLabelDecorator<String>(),
                     // Hide domain axis.
-                    domainAxis:
-                    new charts.OrdinalAxisSpec(renderSpec: new charts.NoneRenderSpec()),
+                    domainAxis: new charts.OrdinalAxisSpec(
+                        renderSpec: new charts.NoneRenderSpec()),
                     behaviors: [
                       charts.ChartTitle('Spendings per Accounts'),
                       charts.ChartTitle('Accounts',
