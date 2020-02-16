@@ -86,23 +86,23 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
     order_params = ''
 
     if(level_type == 1):
-        select_params += ' select sum(amount), level1 ' if len(select_params) <= 0 else ' , level1'
-        group_params += ' group by level1 ' if len(group_params) <= 0 else ' , level1'
+        select_params += ' select sum(amount), level1, level1_fk ' if len(select_params) <= 0 else ' , level1, level1_fk'
+        group_params += ' group by level1, level1_fk ' if len(group_params) <= 0 else ' , level1, level1_fk'
         order_params += ' order by level1 ' if len(order_params) <= 0 else ' , level1'
     if(level_type == 2): 
-        select_params += ' select sum(amount), level2 ' if len(select_params) <= 0 else ' , level2'
-        group_params += ' group by level2 ' if len(group_params) <= 0 else ' , level2'
+        select_params += ' select sum(amount), level2, level2_fk ' if len(select_params) <= 0 else ' , level2, level2_fk'
+        group_params += ' group by level2, level2_fk ' if len(group_params) <= 0 else ' , level2, level2_fk'
         order_params += ' order by level2 ' if len(order_params) <= 0 else ' , level2'
     if(level_type == 3):
-        select_params += ' select level3 ' if len(select_params) <= 0 else ' , level3'
-        group_params += ' group by level3 ' if len(group_params) <= 0 else ' , level3'
+        select_params += ' select level3, level3_fk ' if len(select_params) <= 0 else ' , level3, level3_fk '
+        group_params += ' group by level3, level3_fk ' if len(group_params) <= 0 else ' , level3, level3_fk '
         order_params += ' order by level3 ' if len(order_params) <= 0 else ' , level3'
 
     
     if(cost_type > 0):
-        select_params += ' select sum(amount), cost_type ' if len(select_params) <= 0 else ' , cost_type'
-        where_params += f' where cost_type = {cost_type}' if len(where_params) <= 0 else f' and cost_type = {cost_type}'
-        group_params += ' group by cost_type ' if len(group_params) <= 0 else ' , cost_type'
+        select_params += ' select sum(amount), cost_type, cost_type_fk ' if len(select_params) <= 0 else ' , cost_type, cost_type_fk'
+        where_params += f' where cost_type_fk = {cost_type}' if len(where_params) <= 0 else f' and cost_type_fk = {cost_type}'
+        group_params += ' group by cost_type, cost_type_fk ' if len(group_params) <= 0 else ' , cost_type, cost_type_fk'
         order_params += ' order by cost_type ' if len(order_params) <= 0 else ' , cost_type'
     
     if(parent_account > 0):
