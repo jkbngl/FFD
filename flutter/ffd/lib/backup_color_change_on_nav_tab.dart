@@ -72,8 +72,9 @@ class CostType {
 class CompanySizeVsNumberOfCompanies {
   String companySize;
   double numberOfCompanies;
+  int accountId;
 
-  CompanySizeVsNumberOfCompanies(this.companySize, this.numberOfCompanies);
+  CompanySizeVsNumberOfCompanies(this.companySize, this.numberOfCompanies, this.accountId);
 }
 
 class homescreenPie {
@@ -193,7 +194,7 @@ class _MyHomePageState extends State<MyHomePage>
   DateTime dateTimeVisualizer;
 
   var visualizerData = [
-    CompanySizeVsNumberOfCompanies("1-25", 10),
+    CompanySizeVsNumberOfCompanies("1-25", 10, -69),
   ];
 
   var homescreenData = [
@@ -297,7 +298,7 @@ class _MyHomePageState extends State<MyHomePage>
 
     for (var amounts in parsedAmounts) {
       visualizerData.add(CompanySizeVsNumberOfCompanies(
-          amounts['level$level_type'].toString(), amounts['sum']));
+          amounts['level$level_type'].toString(), amounts['sum'], -1));
     }
 
     final desktopTargetLineData = [
