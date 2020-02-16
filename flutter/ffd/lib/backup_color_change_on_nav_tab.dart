@@ -133,10 +133,14 @@ class _MyHomePageState extends State<MyHomePage>
   Account level3BudgetObject;
   CostType costTypeObjectActual;
   CostType costTypeObjectBudget;
+  CostType costTypeObjectVisualizer;
 
   double rating = 0;
   // when a same level2 is selected as is already selected the accounts are multiplicated, this dummyobject checks if the new selected account is the same as the old one
   Account dummyAccount;
+
+  // Parent_account for visualizer page which is -1 when initializing and changed when clicked on a bar
+  int g_parent_account = -1;
 
   // Json objects which are fetched from API
   var level1AccountsJson;
@@ -251,6 +255,7 @@ class _MyHomePageState extends State<MyHomePage>
     costTypeObjectActual = costTypesList[0];
     costTypeObjectBudget = costTypesList[0];
     costTypeObjectAdmin = costTypesList[0];
+    costTypeObjectVisualizer = costTypesList[0];
 
     dateTimeActual = DateTime.parse(INIT_DATETIME);
     dateTimeBudget = DateTime.parse(INIT_DATETIME);
@@ -278,9 +283,9 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   loadAmount() async {
-    int level_type = 1;
-    int cost_type = -1;
-    int parent_account = -1;
+    int level_type = g_parent_account > 0 ? 2 : 1;
+    int cost_type = costTypeObjectVisualizer.id;
+    int parent_account = g_parent_account;
     int year = dateTimeVisualizer.year;
     int month = dateTimeVisualizer.month;
     String _type = 'actual';
@@ -655,25 +660,6 @@ class _MyHomePageState extends State<MyHomePage>
     setState(() {});
   }
 
-  Future<String> fetchPost() async {
-    int level_type = 1;
-    int cost_type = -1;
-    int parent_account = -1;
-    int year = 2020;
-    int month = 2;
-    String _type = 'actual';
-
-    final response = await http.get(
-        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type');
-
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response, then parse the JSON.
-      return response.body;
-    } else {
-      // If the server did not return a 200 OK response, then throw an exception.
-      throw Exception('Failed to load post');
-    }
-  }
 
   void sendBackend(String type) async {
     var url = 'http://192.168.0.21:5000/api/ffd/';
@@ -1161,6 +1147,8 @@ class _MyHomePageState extends State<MyHomePage>
         print(datumPair.datum.numberOfCompanies);
         print(datumPair.datum.companySize);
         print(datumPair.datum.accountId);
+
+        g_parent_account = datumPair.datum.accountId;
       });
     }
 
@@ -2008,7 +1996,7 @@ class _MyHomePageState extends State<MyHomePage>
               ],
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Row(
@@ -2030,20 +2018,7 @@ class _MyHomePageState extends State<MyHomePage>
                       Text(
                           'Choosen: ${dateTimeVisualizer.year.toString()}-${dateTimeVisualizer.month.toString().padLeft(2, '0')}'),
                     ]),
-                Container(
-                  constraints: BoxConstraints.expand(
-                    height: 50.0,
-                  ),
-                  padding: const EdgeInsets.only(
-                      left: 30.0, top: 0, right: 30, bottom: 0),
-                  //color: Colors.blue[600],
-                  alignment: Alignment.center,
-                  //child: Text('Submit'),
-                  child: Text(
-                    'Visualizer',
-                    style: TextStyle(fontSize: 30),
-                  ),
-                ),
+
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * .4,
@@ -2095,7 +2070,7 @@ class _MyHomePageState extends State<MyHomePage>
                   child: Align(
                     alignment: Alignment.topRight,
                     child: DropdownButton<CostType>(
-                      value: costTypeObjectActual,
+                      value: costTypeObjectVisualizer,
                       icon: Icon(Icons.arrow_downward),
                       iconSize: 24,
                       elevation: 16,
@@ -2107,7 +2082,7 @@ class _MyHomePageState extends State<MyHomePage>
                       ),
                       onChanged: (CostType newValue) {
                         setState(() {
-                          costTypeObjectActual = newValue;
+                          costTypeObjectVisualizer = newValue;
                         });
                       },
                       items: costTypesList.map((CostType type) {
