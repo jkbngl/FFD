@@ -197,7 +197,10 @@ class _MyHomePageState extends State<MyHomePage>
   ];
 
   var homescreenData = [
-    homescreenPie('Dummy', 10),
+    homescreenPie('Dummy1', 10),
+    homescreenPie('Dummy2', 10),
+    homescreenPie('Dummy3', 10),
+
   ];
 
   // booleans loaded from DB to check whether accounts, which account levels and costTypes should be used
@@ -339,6 +342,11 @@ class _MyHomePageState extends State<MyHomePage>
     for (var amount in parsedBudget) {
       homescreenData.add(
           homescreenPie('Budget', amount['sum'] - homescreenData[0].amount));
+    }
+
+    for (var amount in parsedBudget) {
+      homescreenData.add(
+          homescreenPie('OverallBudget', amount['sum']));
     }
 
     final desktopTargetLineData = [
@@ -1259,12 +1267,12 @@ class _MyHomePageState extends State<MyHomePage>
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
-                                      const ListTile(
+                                      ListTile(
                                         leading: Icon(Icons.album, size: 70),
                                         title: Text('Actual',
                                             style:
                                                 TextStyle(color: Colors.white)),
-                                        subtitle: Text('TWICE',
+                                        subtitle: Text(homescreenData[0].amount.toString(),
                                             style:
                                                 TextStyle(color: Colors.white)),
                                       ),
@@ -1301,12 +1309,12 @@ class _MyHomePageState extends State<MyHomePage>
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
-                                      const ListTile(
+                                      ListTile(
                                         leading: Icon(Icons.album, size: 70),
                                         title: Text('Budget',
                                             style:
                                                 TextStyle(color: Colors.white)),
-                                        subtitle: Text('TWICE',
+                                        subtitle: Text(homescreenData[1].amount.toString() + '\n' + homescreenData[2].amount.toString(),
                                             style:
                                                 TextStyle(color: Colors.white)),
                                       ),
@@ -1354,7 +1362,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           measureFn:
                                               (homescreenPie dataPoint, _) =>
                                                   dataPoint.amount,
-                                          data: homescreenData)
+                                          data: homescreenData.sublist(0, 2) /*Only first 2 elements not also the overall budget*/)
                                     ],
                                     defaultRenderer:
                                         new charts.ArcRendererConfig(
@@ -2021,6 +2029,7 @@ class _MyHomePageState extends State<MyHomePage>
                           data: visualizerData)
                     ],
                     animate: true,
+
                     vertical: false,
                     // Hide domain axis.
                     barRendererDecorator:
