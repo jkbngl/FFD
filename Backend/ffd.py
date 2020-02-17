@@ -94,7 +94,7 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
         group_params += ' group by level2, level2_fk ' if len(group_params) <= 0 else ' , level2, level2_fk'
         order_params += ' order by level2 ' if len(order_params) <= 0 else ' , level2'
     if(level_type == 3):
-        select_params += ' select level3, level3_fk ' if len(select_params) <= 0 else ' , level3, level3_fk '
+        select_params += ' select sum(amount), level3, level3_fk ' if len(select_params) <= 0 else ' , level3, level3_fk '
         group_params += ' group by level3, level3_fk ' if len(group_params) <= 0 else ' , level3, level3_fk '
         order_params += ' order by level3 ' if len(order_params) <= 0 else ' , level3'
 
