@@ -2134,15 +2134,23 @@ class _MyHomePageState extends State<MyHomePage>
                     ),
                   ),
                 ),
+                RaisedButton(
+                  child: Text('Discard'),
+                  color: Color(0xffEEEEEE), // EEEEEE
+                  onPressed: () {
+                    setState(() {
+                      showFullYear = false;
+                      costTypeObjectVisualizer = costTypesList[0];
+                      dateTimeVisualizer = DateTime.parse(INIT_DATETIME);
 
-//                RaisedButton(
-//                  child: Text('Simple'),
-//                  onPressed: () {
-//                    setState(() {
-//                      chartContainer = SimpleBarChart.withSampleData();
-//                    });
-//                  },
-//                ),
+                      g_parent_account.accountLevel = 1;
+                      g_parent_account.id = -69;
+
+                      loadAmount();
+
+                    });
+                  },
+                ),
               ],
             ),
             DefaultTabController(
