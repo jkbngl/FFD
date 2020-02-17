@@ -1153,6 +1153,10 @@ class _MyHomePageState extends State<MyHomePage>
     }
 
     print(selectedDatum.first.datum.toString());
+
+    setState(() {
+      loadAmount();
+    });
   }
 
   @override
@@ -1177,6 +1181,9 @@ class _MyHomePageState extends State<MyHomePage>
                 } else if (_currentIndex == 3) {
                   print("REFRESHING ${visualizerData[0].companySize}");
                   loadAmount();
+                }
+                else if (_currentIndex == 4) {
+                  checkForChanges(false, true, 'admin');
                 }
               })
         ],
