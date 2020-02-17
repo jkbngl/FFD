@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:ffd/DonutPieChart.dart';
@@ -55,11 +56,12 @@ class OrdinalSales {
 }
 
 class Account {
-  const Account(this.id, this.name, this.parentAccount);
+  Account(this.id, this.name, this.parentAccount, this.accountLevel);
 
-  final int id;
-  final String name;
-  final int parentAccount;
+  int id;
+  String name;
+  int parentAccount;
+  int accountLevel = -1;
 }
 
 class CostType {
@@ -73,9 +75,10 @@ class CompanySizeVsNumberOfCompanies {
   String companySize;
   double numberOfCompanies;
   int accountId;
+  int accountLevel;
 
-  CompanySizeVsNumberOfCompanies(
-      this.companySize, this.numberOfCompanies, this.accountId);
+  CompanySizeVsNumberOfCompanies(this.companySize, this.numberOfCompanies,
+      this.accountId, this.accountLevel);
 }
 
 class homescreenPie {
@@ -139,8 +142,9 @@ class _MyHomePageState extends State<MyHomePage>
   // when a same level2 is selected as is already selected the accounts are multiplicated, this dummyobject checks if the new selected account is the same as the old one
   Account dummyAccount;
 
-  // Parent_account for visualizer page which is -1 when initializing and changed when clicked on a bar
-  int g_parent_account = -1;
+  // Parent_account for visualizer page which is -1 when initializing and changed when clicked on a bar - has to be initialized with 1 as account level
+  Account g_parent_account =
+      new Account(-69, 'DUMMY G_PARENT_ACCOUNT_FOR_VISUALISATION', null, 1);
 
   // Json objects which are fetched from API
   var level1AccountsJson;
@@ -150,42 +154,42 @@ class _MyHomePageState extends State<MyHomePage>
 
   // List has to be filled with 1 default account so that we don't get a null error on startup - Lists with all values for dropdown
   List<Account> level1AccountsList = <Account>[
-    const Account(-99, 'UNDEFINED', null),
+    Account(-99, 'UNDEFINED', null, null),
   ];
   List<Account> level1ActualAccountsList = <Account>[
-    const Account(-99, 'UNDEFINED', null),
+    Account(-99, 'UNDEFINED', null, null),
   ];
   List<Account> level1BudgetAccountsList = <Account>[
-    const Account(-99, 'UNDEFINED', null),
+    Account(-99, 'UNDEFINED', null, null),
   ];
   List<Account> level1AdminAccountsList = <Account>[
-    const Account(-99, 'UNDEFINED', null),
+    Account(-99, 'UNDEFINED', null, null),
   ];
 
   List<Account> level2AccountsList = <Account>[
-    const Account(-100, 'UNDEFINED', null)
+    Account(-100, 'UNDEFINED', null, null)
   ];
   List<Account> level2ActualAccountsList = <Account>[
-    const Account(-100, 'UNDEFINED', null)
+    Account(-100, 'UNDEFINED', null, null)
   ];
   List<Account> level2BudgetAccountsList = <Account>[
-    const Account(-100, 'UNDEFINED', null)
+    Account(-100, 'UNDEFINED', null, null)
   ];
   List<Account> level2AdminAccountsList = <Account>[
-    const Account(-100, 'UNDEFINED', null)
+    Account(-100, 'UNDEFINED', null, null)
   ];
 
   List<Account> level3AccountsList = <Account>[
-    const Account(-101, 'UNDEFINED', null)
+    Account(-101, 'UNDEFINED', null, null)
   ];
   List<Account> level3ActualAccountsList = <Account>[
-    const Account(-101, 'UNDEFINED', null)
+    Account(-101, 'UNDEFINED', null, null)
   ];
   List<Account> level3BudgetAccountsList = <Account>[
-    const Account(-101, 'UNDEFINED', null)
+    Account(-101, 'UNDEFINED', null, null)
   ];
   List<Account> level3AdminAccountsList = <Account>[
-    const Account(-101, 'UNDEFINED', null)
+    Account(-101, 'UNDEFINED', null, null)
   ];
 
   List<CostType> costTypesList = <CostType>[const CostType(-99, 'UNDEFINED')];
@@ -199,7 +203,7 @@ class _MyHomePageState extends State<MyHomePage>
   DateTime dateTimeVisualizer;
 
   var visualizerData = [
-    CompanySizeVsNumberOfCompanies("1-25", 10, -69),
+    CompanySizeVsNumberOfCompanies("1-25", 10, -69, -69),
   ];
 
   var homescreenData = [
@@ -214,6 +218,9 @@ class _MyHomePageState extends State<MyHomePage>
   bool areLevel2AccountsActive = true;
   bool areLevel3AccountsActive = true;
   bool areCostTypesActive = true;
+
+  // Boolean for visualizer whether it should be shown per month or the full year
+  bool showFullYear = false;
 
   // Controllers used which store the value of the new accounts/ CostTypes added
   final newLevel1TextFieldController = TextEditingController();
@@ -283,15 +290,19 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   loadAmount() async {
-    int level_type = g_parent_account > 0 ? 2 : 1;
+    int level_type = g_parent_account.accountLevel;
     int cost_type = costTypeObjectVisualizer.id;
-    int parent_account = g_parent_account;
+    int parent_account = g_parent_account.id;
     int year = dateTimeVisualizer.year;
-    int month = dateTimeVisualizer.month;
+    int month = !showFullYear ? dateTimeVisualizer.month : -1;
     String _type = 'actual';
 
-    var amounts = await http.read(
-        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type');
+    String uri =
+        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type';
+
+    print(uri);
+
+    var amounts = await http.read(uri);
 
     var parsedAmounts = json.decode(amounts);
 
@@ -303,7 +314,8 @@ class _MyHomePageState extends State<MyHomePage>
       visualizerData.add(CompanySizeVsNumberOfCompanies(
           amounts['level$level_type'].toString(),
           amounts['sum'],
-          amounts['level${level_type.toString()}_fk']));
+          amounts['level${level_type.toString()}_fk'],
+          level_type));
     }
 
     final desktopTargetLineData = [
@@ -374,7 +386,7 @@ class _MyHomePageState extends State<MyHomePage>
     List<Account> accountsToRemove = <Account>[];
 
     List<Account> accountsListStating = <Account>[
-      const Account(-99, 'UNDEFINED', null)
+      Account(-99, 'UNDEFINED', null, null)
     ];
     List<CostType> costTypesListStating = <CostType>[
       const CostType(-99, 'UNDEFINED')
@@ -398,8 +410,8 @@ class _MyHomePageState extends State<MyHomePage>
       var parsedCostTypes = json.decode(costTypesJson);
 
       for (var account in parsedAccountLevel1) {
-        accountToAdd = new Account(
-            account['id'], account['name'], account['parent_account']);
+        accountToAdd = new Account(account['id'], account['name'],
+            account['parent_account'], account['level_type']);
 
         // This additional step would not be needed for level1 (#40 but to have all the same)
         Account existingItem;
@@ -472,8 +484,8 @@ class _MyHomePageState extends State<MyHomePage>
       accountsToRemove.clear();
 
       for (var account in parsedAccountLevel2) {
-        accountToAdd = new Account(
-            account['id'], account['name'], account['parent_account']);
+        accountToAdd = new Account(account['id'], account['name'],
+            account['parent_account'], account['level_type']);
 
         // #40
         Account existingItem;
@@ -548,8 +560,8 @@ class _MyHomePageState extends State<MyHomePage>
       accountsToRemove.clear();
 
       for (var account in parsedAccountLevel3) {
-        accountToAdd = new Account(
-            account['id'], account['name'], account['parent_account']);
+        accountToAdd = new Account(account['id'], account['name'],
+            account['parent_account'], account['level_type']);
         // #40
         Account existingItem;
         if (type == 'actual') {
@@ -659,7 +671,6 @@ class _MyHomePageState extends State<MyHomePage>
     // needed to reinitialize dropdowns with new values
     setState(() {});
   }
-
 
   void sendBackend(String type) async {
     var url = 'http://192.168.0.21:5000/api/ffd/';
@@ -1147,12 +1158,13 @@ class _MyHomePageState extends State<MyHomePage>
         print(datumPair.datum.numberOfCompanies);
         print(datumPair.datum.companySize);
         print(datumPair.datum.accountId);
+        print(datumPair.datum.accountLevel);
 
-        g_parent_account = datumPair.datum.accountId;
+        g_parent_account.id = datumPair.datum.accountId;
+        g_parent_account.accountLevel =
+            datumPair.datum.accountLevel + 1; // we need to next higher one
       });
     }
-
-    print(selectedDatum.first.datum.toString());
 
     setState(() {
       loadAmount();
@@ -1181,8 +1193,7 @@ class _MyHomePageState extends State<MyHomePage>
                 } else if (_currentIndex == 3) {
                   print("REFRESHING ${visualizerData[0].companySize}");
                   loadAmount();
-                }
-                else if (_currentIndex == 4) {
+                } else if (_currentIndex == 4) {
                   checkForChanges(false, true, 'admin');
                 }
               })
@@ -1213,12 +1224,6 @@ class _MyHomePageState extends State<MyHomePage>
                 }
               }
             }
-            /*
-            else if(index == 3)
-            {
-              loadAmount();
-            }
-            */
 
             setState(() => _currentIndex = index);
 
@@ -2025,7 +2030,31 @@ class _MyHomePageState extends State<MyHomePage>
                       Text(
                           'Choosen: ${dateTimeVisualizer.year.toString()}-${dateTimeVisualizer.month.toString().padLeft(2, '0')}'),
                     ]),
-
+                Container(
+                  //color: Colors.blue[600],
+                  alignment: Alignment.center,
+                  //child: Text('Submit'),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Switch(
+                          value: showFullYear,
+                          onChanged: (value) {
+                            setState(() {
+                              showFullYear = value;
+                              loadAmount();
+                            });
+                          },
+                          activeTrackColor: Color(0xffEEEEEE),
+                          activeColor: Color(0xff0957FF),
+                        ),
+                        Text(
+                          "Full Year:",
+                          style: TextStyle(fontSize: 25),
+                        ),
+                      ]),
+                ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * .4,
@@ -2065,7 +2094,8 @@ class _MyHomePageState extends State<MyHomePage>
                           behaviorPosition: charts.BehaviorPosition.bottom)
                     ],
                   ),
-                ),Container(
+                ),
+                Container(
                   constraints: BoxConstraints.expand(
                     height: 50.0,
                   ),
@@ -2090,6 +2120,7 @@ class _MyHomePageState extends State<MyHomePage>
                       onChanged: (CostType newValue) {
                         setState(() {
                           costTypeObjectVisualizer = newValue;
+                          loadAmount();
                         });
                       },
                       items: costTypesList.map((CostType type) {
@@ -2103,7 +2134,6 @@ class _MyHomePageState extends State<MyHomePage>
                     ),
                   ),
                 ),
-
 
 //                RaisedButton(
 //                  child: Text('Simple'),
