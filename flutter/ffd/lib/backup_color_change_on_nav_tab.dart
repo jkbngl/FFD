@@ -2103,7 +2103,7 @@ class _MyHomePageState extends State<MyHomePage>
                             left: 30.0, top: 0, right: 30, bottom: 0),
                         //child: Text('Submit'),
                         child: RaisedButton(
-                          child: Text('Discard'),
+                          child: Text('Reset'),
                           color: Color(0xffEEEEEE), // EEEEEE
                           onPressed: () {
                             setState(() {
