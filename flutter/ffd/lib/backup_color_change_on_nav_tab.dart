@@ -2095,62 +2095,66 @@ class _MyHomePageState extends State<MyHomePage>
                     ],
                   ),
                 ),
-                Container(
-                  constraints: BoxConstraints.expand(
-                    height: 50.0,
-                  ),
-                  padding: const EdgeInsets.only(
-                      left: 30.0, top: 0, right: 30, bottom: 0),
-                  //color: Colors.blue[600],
-                  alignment: Alignment.center,
-                  //child: Text('Submit'),
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: DropdownButton<CostType>(
-                      value: costTypeObjectVisualizer,
-                      icon: Icon(Icons.arrow_downward),
-                      iconSize: 24,
-                      elevation: 16,
-                      style: TextStyle(color: Color(0xff0957FF)),
-                      underline: Container(
-                        height: 2,
-                        width: 2000,
-                        color: Color(0xff0957FF),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.only(
+                            left: 30.0, top: 0, right: 30, bottom: 0),
+                        //child: Text('Submit'),
+                        child: RaisedButton(
+                          child: Text('Discard'),
+                          color: Color(0xffEEEEEE), // EEEEEE
+                          onPressed: () {
+                            setState(() {
+                              showFullYear = false;
+                              costTypeObjectVisualizer = costTypesList[0];
+                              dateTimeVisualizer =
+                                  DateTime.parse(INIT_DATETIME);
+
+                              g_parent_account.accountLevel = 1;
+                              g_parent_account.id = -69;
+
+                              loadAmount();
+                            });
+                          },
+                        ),
                       ),
-                      onChanged: (CostType newValue) {
-                        setState(() {
-                          costTypeObjectVisualizer = newValue;
-                          loadAmount();
-                        });
-                      },
-                      items: costTypesList.map((CostType type) {
-                        return new DropdownMenuItem<CostType>(
-                          value: type,
-                          child: new Text(
-                            type.name,
+                      Container(
+                        padding: const EdgeInsets.only(
+                            left: 30.0, top: 0, right: 30, bottom: 30),
+                        //child: Text('Submit'),
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: DropdownButton<CostType>(
+                            value: costTypeObjectVisualizer,
+                            icon: Icon(Icons.arrow_downward),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: TextStyle(color: Color(0xff0957FF)),
+                            underline: Container(
+                              height: 2,
+                              width: 2000,
+                              color: Color(0xff0957FF),
+                            ),
+                            onChanged: (CostType newValue) {
+                              setState(() {
+                                costTypeObjectVisualizer = newValue;
+                                loadAmount();
+                              });
+                            },
+                            items: costTypesList.map((CostType type) {
+                              return new DropdownMenuItem<CostType>(
+                                value: type,
+                                child: new Text(
+                                  type.name,
+                                ),
+                              );
+                            }).toList(),
                           ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ),
-                RaisedButton(
-                  child: Text('Discard'),
-                  color: Color(0xffEEEEEE), // EEEEEE
-                  onPressed: () {
-                    setState(() {
-                      showFullYear = false;
-                      costTypeObjectVisualizer = costTypesList[0];
-                      dateTimeVisualizer = DateTime.parse(INIT_DATETIME);
-
-                      g_parent_account.accountLevel = 1;
-                      g_parent_account.id = -69;
-
-                      loadAmount();
-
-                    });
-                  },
-                ),
+                        ),
+                      ),
+                    ])
               ],
             ),
             DefaultTabController(
