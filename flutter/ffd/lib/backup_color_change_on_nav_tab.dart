@@ -334,8 +334,8 @@ class _MyHomePageState extends State<MyHomePage>
     int level_type = -1;
     int cost_type = -1;
     int parent_account = -1;
-    int year = 2020;
-    int month = 2;
+    int year = dateTimeHome.year;
+    int month = dateTimeHome.month;
     String _type = 'actual';
 
     //var amounts = await http.read('http://192.168.0.21:5000/api/ffd/amounts/?level_type=1&cost_type=-1&parent_account=-1&year=2020&month=1&_type=actual');
@@ -932,6 +932,7 @@ class _MyHomePageState extends State<MyHomePage>
       onConfirm: (dateTime, List<int> index) {
         setState(() {
           if (type == 'home') {
+            loadHomescreen();
             dateTimeHome = dateTime;
           } else if (type == 'actual') {
             dateTimeActual = dateTime;
@@ -1348,7 +1349,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 ),
                                 FloatingActionButton(
                                   onPressed: () => _showDatePicker(
-                                      'homescreen', dateTimeHome),
+                                      'home', dateTimeHome),
                                   tooltip:
                                       'Select a different date where the booking should be added in',
                                   child: Icon(Icons.date_range),
