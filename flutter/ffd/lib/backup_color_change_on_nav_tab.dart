@@ -1272,7 +1272,7 @@ class _MyHomePageState extends State<MyHomePage>
                     //color: Color(0xffffffff),
                     child: Column(
                         mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Row(
@@ -1291,7 +1291,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                                       ListTile(
-                                        leading: Icon(Icons.album, size: 70),
+                                        leading: Icon(Icons.monetization_on, size: 50),
                                         title: Text('Actual',
                                             style:
                                                 TextStyle(color: Colors.white)),
@@ -1300,24 +1300,7 @@ class _MyHomePageState extends State<MyHomePage>
                                             style:
                                                 TextStyle(color: Colors.white)),
                                       ),
-                                      ButtonTheme.bar(
-                                        child: ButtonBar(
-                                          children: <Widget>[
-                                            FlatButton(
-                                              child: const Text('Edit',
-                                                  style: TextStyle(
-                                                      color: Colors.white)),
-                                              onPressed: () {},
-                                            ),
-                                            FlatButton(
-                                              child: const Text('Delete',
-                                                  style: TextStyle(
-                                                      color: Colors.white)),
-                                              onPressed: () {},
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+
                                     ],
                                   ),
                                 ),
@@ -1334,7 +1317,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                                       ListTile(
-                                        leading: Icon(Icons.album, size: 70),
+                                        leading: Icon(Icons.account_balance_wallet, size: 50),
                                         title: Text('Budget',
                                             style:
                                                 TextStyle(color: Colors.white)),
@@ -1348,24 +1331,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                     .toString(),
                                             style:
                                                 TextStyle(color: Colors.white)),
-                                      ),
-                                      ButtonTheme.bar(
-                                        child: ButtonBar(
-                                          children: <Widget>[
-                                            FlatButton(
-                                              child: const Text('Edit',
-                                                  style: TextStyle(
-                                                      color: Colors.white)),
-                                              onPressed: () {},
-                                            ),
-                                            FlatButton(
-                                              child: const Text('Delete',
-                                                  style: TextStyle(
-                                                      color: Colors.white)),
-                                              onPressed: () {},
-                                            ),
-                                          ],
-                                        ),
                                       ),
                                     ],
                                   ),
