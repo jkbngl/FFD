@@ -1286,10 +1286,12 @@ class _MyHomePageState extends State<MyHomePage>
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),
-                                  color: Colors.green,
+                                  color: homescreenData[0].amount > homescreenData[2].amount ? Colors.red : Colors.green,     // If Actual bigger budget -> show as red
                                   elevation: 10,
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: <Widget>[
                                       ListTile(
                                         leading: Icon(Icons.monetization_on, size: 50),
@@ -1312,10 +1314,12 @@ class _MyHomePageState extends State<MyHomePage>
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),
-                                  color: Colors.red,
+                                  color: homescreenData[0].amount > homescreenData[2].amount ? Colors.red : Colors.green,
                                   elevation: 10,
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: <Widget>[
                                       ListTile(
                                         leading: Icon(Icons.account_balance_wallet, size: 50),
