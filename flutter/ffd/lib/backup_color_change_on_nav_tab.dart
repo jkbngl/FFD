@@ -932,6 +932,7 @@ class _MyHomePageState extends State<MyHomePage>
           } else if (type == 'budget') {
             dateTimeBudget = dateTime;
           } else if (type == 'visualizer') {
+            loadAmount();
             dateTimeVisualizer = dateTime;
           }
         });
