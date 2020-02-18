@@ -1286,15 +1286,22 @@ class _MyHomePageState extends State<MyHomePage>
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),
-                                  color: homescreenData[0].amount > homescreenData[2].amount ? Colors.red : Colors.green,     // If Actual bigger budget -> show as red
+                                  color: homescreenData[0].amount >
+                                          homescreenData[2].amount
+                                      ? Colors.red
+                                      : Colors
+                                          .green, // If Actual bigger budget -> show as red
                                   elevation: 10,
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       ListTile(
-                                        leading: Icon(Icons.monetization_on, size: 50),
+                                        leading: Icon(Icons.monetization_on,
+                                            size: 50),
                                         title: Text('Actual',
                                             style:
                                                 TextStyle(color: Colors.white)),
@@ -1303,40 +1310,46 @@ class _MyHomePageState extends State<MyHomePage>
                                             style:
                                                 TextStyle(color: Colors.white)),
                                       ),
-
                                     ],
                                   ),
                                 ),
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width * .48,
-                                decoration: BoxDecoration(
-                                  borderRadius: new BorderRadius.only(
+                                /*decoration: BoxDecoration(
+                                    borderRadius: new BorderRadius.only(
                                       topLeft: const Radius.circular(25.0),
                                       topRight: const Radius.circular(25.0),
                                       bottomLeft: const Radius.circular(25.0),
                                       bottomRight: const Radius.circular(25.0),
-                                  ),
+                                    ),
                                     gradient: LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight, // 10% of the width, so there are ten blinds.
-                                    colors: [Colors.green, Colors.red], // whitish to gray
-                                    tileMode: TileMode.repeated, // repeats the gradient over the canvas
-                                  )),
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight, // 10% of the width, so there are ten blinds.
+                                      colors: [Colors.green, Colors.red], // whitish to gray
+                                      tileMode: TileMode.repeated, // repeats the gradient over the canvas
+                                    )),
+                                 */
                                 child: Card(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),
-                                  //color: homescreenData[0].amount > homescreenData[2].amount ? Colors.red : Colors.green,
-                                  color: Color(0x00000000),
+                                  color: homescreenData[0].amount >
+                                          homescreenData[2].amount
+                                      ? Colors.red
+                                      : Colors.green,
                                   elevation: 10,
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       ListTile(
-                                        leading: Icon(Icons.account_balance_wallet, size: 50),
+                                        leading: Icon(
+                                            Icons.account_balance_wallet,
+                                            size: 50),
                                         title: Text('Budget',
                                             style:
                                                 TextStyle(color: Colors.white)),
@@ -1366,8 +1379,8 @@ class _MyHomePageState extends State<MyHomePage>
                                   style: TextStyle(fontSize: 15),
                                 ),
                                 FloatingActionButton(
-                                  onPressed: () => _showDatePicker(
-                                      'home', dateTimeHome),
+                                  onPressed: () =>
+                                      _showDatePicker('home', dateTimeHome),
                                   tooltip:
                                       'Select a different date where the booking should be added in',
                                   child: Icon(Icons.date_range),
@@ -2072,6 +2085,8 @@ class _MyHomePageState extends State<MyHomePage>
                     [
                       charts.Series<CompanySizeVsNumberOfCompanies, String>(
                           id: 'CompanySizeVsNumberOfCompanies',
+                          colorFn: (_, __) =>
+                              charts.ColorUtil.fromDartColor(Color(0xFF0957FF)),
                           domainFn: (CompanySizeVsNumberOfCompanies sales, _) =>
                               sales.companySize,
                           measureFn:
