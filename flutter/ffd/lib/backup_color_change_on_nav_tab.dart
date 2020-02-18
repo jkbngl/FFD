@@ -1310,11 +1310,25 @@ class _MyHomePageState extends State<MyHomePage>
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width * .48,
+                                decoration: BoxDecoration(
+                                  borderRadius: new BorderRadius.only(
+                                      topLeft: const Radius.circular(25.0),
+                                      topRight: const Radius.circular(25.0),
+                                      bottomLeft: const Radius.circular(25.0),
+                                      bottomRight: const Radius.circular(25.0),
+                                  ),
+                                    gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight, // 10% of the width, so there are ten blinds.
+                                    colors: [Colors.green, Colors.red], // whitish to gray
+                                    tileMode: TileMode.repeated, // repeats the gradient over the canvas
+                                  )),
                                 child: Card(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),
-                                  color: homescreenData[0].amount > homescreenData[2].amount ? Colors.red : Colors.green,
+                                  //color: homescreenData[0].amount > homescreenData[2].amount ? Colors.red : Colors.green,
+                                  color: Color(0x00000000),
                                   elevation: 10,
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
