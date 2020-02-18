@@ -198,6 +198,7 @@ class _MyHomePageState extends State<MyHomePage>
   final budgetTextFieldController = TextEditingController();
 
   // Datetime object for selecting the date when the actual/ budget should be saved
+  DateTime dateTimeHome;
   DateTime dateTimeActual;
   DateTime dateTimeBudget;
   DateTime dateTimeVisualizer;
@@ -264,6 +265,7 @@ class _MyHomePageState extends State<MyHomePage>
     costTypeObjectAdmin = costTypesList[0];
     costTypeObjectVisualizer = costTypesList[0];
 
+    dateTimeHome = DateTime.parse(INIT_DATETIME);
     dateTimeActual = DateTime.parse(INIT_DATETIME);
     dateTimeBudget = DateTime.parse(INIT_DATETIME);
     dateTimeVisualizer = DateTime.parse(INIT_DATETIME);
@@ -916,7 +918,9 @@ class _MyHomePageState extends State<MyHomePage>
       dateFormat: _format,
       onChange: (dateTime, List<int> index) {
         setState(() {
-          if (type == 'actual') {
+          if (type == 'home') {
+            dateTimeHome = dateTime;
+          } else if (type == 'actual') {
             dateTimeActual = dateTime;
           } else if (type == 'budget') {
             dateTimeBudget = dateTime;
@@ -927,7 +931,9 @@ class _MyHomePageState extends State<MyHomePage>
       },
       onConfirm: (dateTime, List<int> index) {
         setState(() {
-          if (type == 'actual') {
+          if (type == 'home') {
+            dateTimeHome = dateTime;
+          } else if (type == 'actual') {
             dateTimeActual = dateTime;
           } else if (type == 'budget') {
             dateTimeBudget = dateTime;
@@ -1367,6 +1373,25 @@ class _MyHomePageState extends State<MyHomePage>
                               ),
                             ],
                           ),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  'Select the month',
+                                  style: TextStyle(fontSize: 15),
+                                ),
+                                FloatingActionButton(
+                                  onPressed: () => _showDatePicker(
+                                      'homescreen', dateTimeHome),
+                                  tooltip:
+                                      'Select a different date where the booking should be added in',
+                                  child: Icon(Icons.date_range),
+                                  backgroundColor: Color(0xff0957FF),
+                                ),
+                                Text(
+                                    'Choosen: ${dateTimeHome.year.toString()}-${dateTimeHome.month.toString().padLeft(2, '0')}'),
+                              ]),
                           // TODO make with variable, just a test for #25
                           true == true
                               ? Container(
