@@ -338,6 +338,8 @@ class _MyHomePageState extends State<MyHomePage>
     int month = dateTimeHome.month;
     String _type = 'actual';
 
+    print("$year - $month");
+
     //var amounts = await http.read('http://192.168.0.21:5000/api/ffd/amounts/?level_type=1&cost_type=-1&parent_account=-1&year=2020&month=1&_type=actual');
     var actual = await http.read(
         'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type');
@@ -350,26 +352,17 @@ class _MyHomePageState extends State<MyHomePage>
     var parsedActual = json.decode(actual);
     var parsedBudget = json.decode(budget);
 
-    final actualArray = [new homescreenPie('DUMMY2', 5)];
-    final budgetArray = [new homescreenPie('DUMMY3', 5)];
-
     //homescreenData.clear();
 
-    for (var amount in parsedActual) {
-      homescreenData[0].amount = amount['sum'];
-      homescreenData[0].type = 'Actual';
+    homescreenData[0].amount = parsedActual.length != 0 ? parsedActual[0]['sum'] : 0;
+    homescreenData[0].type = parsedActual.length != 0 ? 'Actual' : "No Data found \nfor $year - $month";
 
-    }
+    homescreenData[1].amount= parsedBudget.length != 0 ? parsedBudget[0]['sum'] - homescreenData[0].amount : 99;
+    homescreenData[1].type = parsedBudget.length != 0 ?  'Budget' : "No Data found \nfor $year - $month";
 
-    for (var amount in parsedBudget) {
-      homescreenData[1].amount= amount['sum'] - homescreenData[0].amount;
-      homescreenData[1].type = 'Budget';
-    }
+    homescreenData[2].amount = parsedBudget.length != 0 ? parsedBudget[0]['sum'] : 99;
+    homescreenData[2].type = parsedBudget.length != 0 ? 'OverallBudget' : "No Data found \nfor $year - $month";
 
-    for (var amount in parsedBudget) {
-      homescreenData[2].amount = amount['sum'];
-      homescreenData[2].type = 'OverallBudget';
-    }
 
     final desktopTargetLineData = [
       new OrdinalSales('2014', 25),
