@@ -917,7 +917,7 @@ class _MyHomePageState extends State<MyHomePage>
       onCancel: () => print('onCancel'),
       dateFormat: _format,
       onChange: (dateTime, List<int> index) {
-        setState(() {
+        //setState(() {
           if (type == 'home') {
             dateTimeHome = dateTime;
           } else if (type == 'actual') {
@@ -927,7 +927,7 @@ class _MyHomePageState extends State<MyHomePage>
           } else if (type == 'visualizer') {
             dateTimeVisualizer = dateTime;
           }
-        });
+        //});
       },
       onConfirm: (dateTime, List<int> index) {
         setState(() {
@@ -1192,7 +1192,6 @@ class _MyHomePageState extends State<MyHomePage>
               iconSize: 24,
               onPressed: () {
                 if (_currentIndex == 0) {
-                  //print("REFRESHING ${homescreenData[0].amount} and ${homescreenData[1].amount}");
                   loadHomescreen();
                 } else if (_currentIndex == 1) {
                   checkForChanges(false, true, 'actual');
