@@ -353,19 +353,22 @@ class _MyHomePageState extends State<MyHomePage>
     final actualArray = [new homescreenPie('DUMMY2', 5)];
     final budgetArray = [new homescreenPie('DUMMY3', 5)];
 
-    homescreenData.clear();
+    //homescreenData.clear();
 
     for (var amount in parsedActual) {
-      homescreenData.add(homescreenPie('Actual', amount['sum']));
+      homescreenData[0].amount = amount['sum'];
+      homescreenData[0].type = 'Actual';
+
     }
 
     for (var amount in parsedBudget) {
-      homescreenData.add(
-          homescreenPie('Budget', amount['sum'] - homescreenData[0].amount));
+      homescreenData[1].amount= amount['sum'] - homescreenData[0].amount;
+      homescreenData[1].type = 'Budget';
     }
 
     for (var amount in parsedBudget) {
-      homescreenData.add(homescreenPie('OverallBudget', amount['sum']));
+      homescreenData[2].amount = amount['sum'];
+      homescreenData[2].type = 'OverallBudget';
     }
 
     final desktopTargetLineData = [
