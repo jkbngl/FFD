@@ -140,3 +140,20 @@ CREATE TABLE ffd.user_dim (
       , created_by text DEFAULT 'UNDEFINED'
       , updated_by text DEFAULT 'UNDEFINED'
     );
+    
+   
+   CREATE TABLE ffd.preference_dim (
+        id SERIAL PRIMARY KEY
+      , user_fk integer DEFAULT -1 REFERENCES ffd.user_dim(id) 
+      , group_fk integer DEFAULT -1 REFERENCES  ffd.group_dim(id)
+      , company_fk integer DEFAULT -1 REFERENCES ffd.company_dim(id)
+      , costtypes_active bool default true
+      , accounts_active bool default true
+      , accountsLevel1_active bool default true
+      , accountsLevel2_active bool default true
+      , accountsLevel3_active bool default true
+      , created date DEFAULT now()
+      , updated date DEFAULT now()
+      , created_by text DEFAULT 'UNDEFINED'
+      , updated_by text DEFAULT 'UNDEFINED'
+    );
