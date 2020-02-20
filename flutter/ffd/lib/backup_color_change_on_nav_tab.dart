@@ -354,15 +354,24 @@ class _MyHomePageState extends State<MyHomePage>
 
     //homescreenData.clear();
 
-    homescreenData[0].amount = parsedActual.length != 0 ? parsedActual[0]['sum'] : 0;
-    homescreenData[0].type = parsedActual.length != 0 ? 'Actual' : "No Data found \nfor $year - $month";
+    homescreenData[0].amount =
+        parsedActual.length != 0 ? parsedActual[0]['sum'] : 0;
+    homescreenData[0].type = parsedActual.length != 0
+        ? 'Actual'
+        : "No Data found \nfor $year - $month";
 
-    homescreenData[1].amount= parsedBudget.length != 0 ? parsedBudget[0]['sum'] - homescreenData[0].amount : 99;
-    homescreenData[1].type = parsedBudget.length != 0 ?  'Budget' : "No Data found \nfor $year - $month";
+    homescreenData[1].amount = parsedBudget.length != 0
+        ? parsedBudget[0]['sum'] - homescreenData[0].amount
+        : 99;
+    homescreenData[1].type = parsedBudget.length != 0
+        ? 'Budget'
+        : "No Data found \nfor $year - $month";
 
-    homescreenData[2].amount = parsedBudget.length != 0 ? parsedBudget[0]['sum'] : 99;
-    homescreenData[2].type = parsedBudget.length != 0 ? 'OverallBudget' : "No Data found \nfor $year - $month";
-
+    homescreenData[2].amount =
+        parsedBudget.length != 0 ? parsedBudget[0]['sum'] : 99;
+    homescreenData[2].type = parsedBudget.length != 0
+        ? 'OverallBudget'
+        : "No Data found \nfor $year - $month";
 
     final desktopTargetLineData = [
       new OrdinalSales('2014', 25),
@@ -914,15 +923,15 @@ class _MyHomePageState extends State<MyHomePage>
       dateFormat: _format,
       onChange: (dateTime, List<int> index) {
         //setState(() {
-          if (type == 'home') {
-            dateTimeHome = dateTime;
-          } else if (type == 'actual') {
-            dateTimeActual = dateTime;
-          } else if (type == 'budget') {
-            dateTimeBudget = dateTime;
-          } else if (type == 'visualizer') {
-            dateTimeVisualizer = dateTime;
-          }
+        if (type == 'home') {
+          dateTimeHome = dateTime;
+        } else if (type == 'actual') {
+          dateTimeActual = dateTime;
+        } else if (type == 'budget') {
+          dateTimeBudget = dateTime;
+        } else if (type == 'visualizer') {
+          dateTimeVisualizer = dateTime;
+        }
         //});
       },
       onConfirm: (dateTime, List<int> index) {
@@ -2351,7 +2360,58 @@ class _MyHomePageState extends State<MyHomePage>
                                           activeColor: Color(0xff0957FF),
                                         ),
                                       ]),
-                                ]),
+
+
+                                  ButtonBar(
+                                    mainAxisSize: MainAxisSize
+                                        .min, // this will take space as minimum as posible(to center)
+                                    children: <Widget>[
+                                      ButtonTheme(
+                                        minWidth: 75.0,
+                                        height: 50.0,
+                                        child: RaisedButton(
+                                          child: Text('Discard'),
+                                          color: Color(0xffEEEEEE), // EEEEEE
+                                          onPressed: () {
+                                            newLevel1TextFieldController.text =
+                                            '';
+                                            newLevel2TextFieldController.text =
+                                            '';
+                                            newLevel3TextFieldController.text =
+                                            '';
+                                            setState(() {
+                                              level1AdminObject =
+                                              level1AdminAccountsList[0];
+                                              level2AdminObject =
+                                              level2AdminAccountsList[0];
+                                              level3AdminObject =
+                                              level3AdminAccountsList[0];
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      ButtonTheme(
+                                        minWidth: 150.0,
+                                        height: 70.0,
+                                        child: RaisedButton(
+                                          child: Text('Save',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20)),
+                                          color: Color(
+                                              0xff0957FF), //df7599 - 0957FF
+                                          onPressed: () {
+                                            commentInput(
+                                                context,
+                                                'account',
+                                                newLevel1TextFieldController,
+                                                newLevel2TextFieldController,
+                                                newLevel3TextFieldController);
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),                                ]),
                           ),
                         ]),
                         CustomScrollView(slivers: [
