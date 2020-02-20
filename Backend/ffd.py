@@ -70,6 +70,44 @@ def readAccounts(level_type):
 
     return data
 
+def readPreferences():
+    """
+    This function responds to a request for /api/ffd/Preferences
+    with the complete lists of Preferences for the user
+
+    :return:        list of preferences
+    """
+
+    # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
+    data = []
+
+    connection = connect()
+    cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
+
+    query = f"select user_fk, group_fk integer, company_fk \
+                   , costtypes_active, accounts_active \
+                   , accountsLevel1_active, accountsLevel2_active, accountsLevel3_active \
+                    from ffd.account_dim"
+
+    cursor.execute(query)
+    record = cursor.fetchall()
+    # fetch the column names from the cursror
+    columnnames = [desc[0] for desc in cursor.description]
+
+    # Create from the value array a key value object
+    for row in record:
+        cache = {}
+
+        for columnname in columnnames:
+            cache[columnname] = row[columnname]
+
+        data.append(cache)
+        
+    cursor.close()
+    connection.close()
+
+    return data
+
 def readAmounts(level_type, cost_type, parent_account, year, month, _type):
     
     """

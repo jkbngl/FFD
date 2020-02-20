@@ -53,6 +53,36 @@ paths:
                   type: "string"
                 user_fk: 
                   type: "integer"
+  /ffd/preferences:
+    get:
+      operationId: "ffd.readPreferences"
+      tags:
+        - "preferences"
+      summary: "Returns the preferences"
+      description: "Read the preferences"
+      responses:
+        200:
+          description: "Successful read the list of preferences"
+          schema:
+            type: "array"
+            items:
+              properties:
+                user_fk:
+                  type: "integer"
+                group_fk: 
+                  type: "integer"
+                company_fk:
+                  type: "integer"
+                costtypes_active:
+                  type: "boolean"
+                accounts_active:
+                  type: "boolean"
+                accountsLevel1_active:
+                  type: "boolean"
+                accountsLevel2_active:
+                  type: "boolean"
+                accountsLevel3_active:
+                  type: "boolean"
   /ffd/costtypes/:
     get:
       operationId: "ffd.readCosttypes"
