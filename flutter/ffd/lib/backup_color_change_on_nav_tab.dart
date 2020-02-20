@@ -287,6 +287,7 @@ class _MyHomePageState extends State<MyHomePage>
     // Keep loadHomescreen before loadAmount, because if not the state will be set 2 times and it will look strange
     loadHomescreen();
     loadAmount();
+    loadPreferences();
 
     setState(() {});
   }
@@ -331,42 +332,23 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   loadPreferences() async {
-    int level_type = g_parent_account.accountLevel;
-    int cost_type = costTypeObjectVisualizer.id;
-    int parent_account = g_parent_account.id;
-    int year = dateTimeVisualizer.year;
-    int month = !showFullYear ? dateTimeVisualizer.month : -1;
-    String _type = 'actual';
+    String user = '1';
 
-    String uri =
-        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type';
+    String uri = 'http://192.168.0.21:5000/api/ffd/preferences?user=$user';
 
     print(uri);
 
-    var amounts = await http.read(uri);
+    var preferences = await http.read(uri);
 
-    var parsedAmounts = json.decode(amounts);
+    var parsedPreferences = json.decode(preferences);
 
-    final desktopSalesData = [new OrdinalSales('2069', 5)];
-
-    visualizerData.clear();
-
-    for (var amounts in parsedAmounts) {
-      visualizerData.add(CompanySizeVsNumberOfCompanies(
-          amounts['level$level_type'].toString(),
-          amounts['sum'],
-          amounts['level${level_type.toString()}_fk'],
-          level_type));
-    }
-
-    final desktopTargetLineData = [
-      new OrdinalSales('2014', 25),
-      new OrdinalSales('2015', 60),
-      new OrdinalSales('2016', 100),
-      new OrdinalSales('2017', 110),
-    ];
-
-    setState(() {});
+    setState(() {
+      areCostTypesActive = parsedPreferences[0]['costtypes_active'];
+      areAccountsActive = parsedPreferences[0]['accounts_active'];
+      areLevel1AccountsActive = parsedPreferences[0]['accountslevel1_active'];
+      areLevel2AccountsActive = parsedPreferences[0]['accountslevel2_active'];
+      areLevel3AccountsActive = parsedPreferences[0]['accountslevel3_active'];
+    });
   }
 
   loadHomescreen() async {
@@ -1251,6 +1233,7 @@ class _MyHomePageState extends State<MyHomePage>
                   loadAmount();
                 } else if (_currentIndex == 4) {
                   checkForChanges(false, true, 'admin');
+                  loadPreferences();
                 }
               })
         ],
@@ -2317,7 +2300,7 @@ class _MyHomePageState extends State<MyHomePage>
                                         Text("Use Costtypes:",
                                             style: TextStyle(fontSize: 25)),
                                         Switch(
-                                          value: true,
+                                          value: areCostTypesActive,
                                           onChanged: (value) {
                                             setState(() {
                                               areCostTypesActive = value;
@@ -2337,7 +2320,7 @@ class _MyHomePageState extends State<MyHomePage>
                                         Text("Use Accounts:",
                                             style: TextStyle(fontSize: 25)),
                                         Switch(
-                                          value: true,
+                                          value: areAccountsActive,
                                           onChanged: (value) {
                                             setState(() {
                                               areAccountsActive = value;
@@ -2375,7 +2358,7 @@ class _MyHomePageState extends State<MyHomePage>
                                         Text("Use Level 2:",
                                             style: TextStyle(fontSize: 25)),
                                         Switch(
-                                          value: true,
+                                          value: areLevel2AccountsActive,
                                           onChanged: (value) {
                                             setState(() {
                                               areLevel2AccountsActive = value;
@@ -2394,7 +2377,7 @@ class _MyHomePageState extends State<MyHomePage>
                                         Text("Use Level 3:",
                                             style: TextStyle(fontSize: 25)),
                                         Switch(
-                                          value: true,
+                                          value: areLevel3AccountsActive,
                                           onChanged: (value) {
                                             setState(() {
                                               areLevel3AccountsActive = value;
@@ -2415,7 +2398,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           child: Text('Discard'),
                                           color: Color(0xffEEEEEE), // EEEEEE
                                           onPressed: () {
-                                              loadPreferences();
+                                            loadPreferences();
                                           },
                                         ),
                                       ),
@@ -2435,7 +2418,8 @@ class _MyHomePageState extends State<MyHomePage>
                                         ),
                                       ),
                                     ],
-                                  ),                                ]),
+                                  ),
+                                ]),
                           ),
                         ]),
                         CustomScrollView(slivers: [
