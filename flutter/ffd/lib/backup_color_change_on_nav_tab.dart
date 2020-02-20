@@ -330,6 +330,45 @@ class _MyHomePageState extends State<MyHomePage>
     setState(() {});
   }
 
+  loadPreferences() async {
+    int level_type = g_parent_account.accountLevel;
+    int cost_type = costTypeObjectVisualizer.id;
+    int parent_account = g_parent_account.id;
+    int year = dateTimeVisualizer.year;
+    int month = !showFullYear ? dateTimeVisualizer.month : -1;
+    String _type = 'actual';
+
+    String uri =
+        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type';
+
+    print(uri);
+
+    var amounts = await http.read(uri);
+
+    var parsedAmounts = json.decode(amounts);
+
+    final desktopSalesData = [new OrdinalSales('2069', 5)];
+
+    visualizerData.clear();
+
+    for (var amounts in parsedAmounts) {
+      visualizerData.add(CompanySizeVsNumberOfCompanies(
+          amounts['level$level_type'].toString(),
+          amounts['sum'],
+          amounts['level${level_type.toString()}_fk'],
+          level_type));
+    }
+
+    final desktopTargetLineData = [
+      new OrdinalSales('2014', 25),
+      new OrdinalSales('2015', 60),
+      new OrdinalSales('2016', 100),
+      new OrdinalSales('2017', 110),
+    ];
+
+    setState(() {});
+  }
+
   loadHomescreen() async {
     int level_type = -1;
     int cost_type = -1;
@@ -749,6 +788,11 @@ class _MyHomePageState extends State<MyHomePage>
           .toString(), // ID of the selected level2 object, to match the parentID
       'accountfornewlevel3parentaccount': level2AdminObject.id
           .toString(), // ID of the selected level2 object, to match the parentID - not needed for level1 as level1s have no parent
+      'arecosttypesactive': areCostTypesActive.toString(),
+      'areAccountsActive': areAccountsActive.toString(),
+      'arelevel1accountsactive': areLevel1AccountsActive.toString(),
+      'arelevel2accountsactive': areLevel2AccountsActive.toString(),
+      'arelevel3accountsactive': areLevel3AccountsActive.toString(),
       'status': 'IP',
       'user': '1',
       'group': '-1',
@@ -2276,7 +2320,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           value: true,
                                           onChanged: (value) {
                                             setState(() {
-                                              areAccountsActive = value;
+                                              areCostTypesActive = value;
                                             });
                                           },
                                           activeTrackColor: Color(0xffEEEEEE),
@@ -2315,7 +2359,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           value: true,
                                           onChanged: (value) {
                                             setState(() {
-                                              areAccountsActive = value;
+                                              areLevel1AccountsActive = value;
                                             });
                                           },
                                           activeTrackColor: Color(0xffEEEEEE),
@@ -2334,7 +2378,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           value: true,
                                           onChanged: (value) {
                                             setState(() {
-                                              areAccountsActive = value;
+                                              areLevel2AccountsActive = value;
                                             });
                                           },
                                           activeTrackColor: Color(0xffEEEEEE),
@@ -2353,15 +2397,13 @@ class _MyHomePageState extends State<MyHomePage>
                                           value: true,
                                           onChanged: (value) {
                                             setState(() {
-                                              areAccountsActive = value;
+                                              areLevel3AccountsActive = value;
                                             });
                                           },
                                           activeTrackColor: Color(0xffEEEEEE),
                                           activeColor: Color(0xff0957FF),
                                         ),
                                       ]),
-
-
                                   ButtonBar(
                                     mainAxisSize: MainAxisSize
                                         .min, // this will take space as minimum as posible(to center)
@@ -2373,20 +2415,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           child: Text('Discard'),
                                           color: Color(0xffEEEEEE), // EEEEEE
                                           onPressed: () {
-                                            newLevel1TextFieldController.text =
-                                            '';
-                                            newLevel2TextFieldController.text =
-                                            '';
-                                            newLevel3TextFieldController.text =
-                                            '';
-                                            setState(() {
-                                              level1AdminObject =
-                                              level1AdminAccountsList[0];
-                                              level2AdminObject =
-                                              level2AdminAccountsList[0];
-                                              level3AdminObject =
-                                              level3AdminAccountsList[0];
-                                            });
+                                              loadPreferences();
                                           },
                                         ),
                                       ),
@@ -2401,12 +2430,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           color: Color(
                                               0xff0957FF), //df7599 - 0957FF
                                           onPressed: () {
-                                            commentInput(
-                                                context,
-                                                'account',
-                                                newLevel1TextFieldController,
-                                                newLevel2TextFieldController,
-                                                newLevel3TextFieldController);
+                                            sendBackend('generaladmin');
                                           },
                                         ),
                                       ),
