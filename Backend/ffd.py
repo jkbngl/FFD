@@ -84,10 +84,10 @@ def readPreferences():
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-    query = f"select user_fk, group_fk integer, company_fk \
+    query = f"select user_fk, group_fk, company_fk \
                    , costtypes_active, accounts_active \
                    , accountsLevel1_active, accountsLevel2_active, accountsLevel3_active \
-                    from ffd.account_dim"
+                    from ffd.preference_dim"
 
     cursor.execute(query)
     record = cursor.fetchall()
