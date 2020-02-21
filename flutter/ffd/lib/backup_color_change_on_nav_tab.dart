@@ -2324,7 +2324,14 @@ class _MyHomePageState extends State<MyHomePage>
                                           onChanged: (value) {
                                             setState(() {
                                               areAccountsActive = value;
+
+                                              areLevel1AccountsActive = areAccountsActive;
+                                              areLevel2AccountsActive = areAccountsActive;
+                                              areLevel3AccountsActive = areAccountsActive;
+
                                             });
+
+
                                           },
                                           activeTrackColor: Color(0xffEEEEEE),
                                           activeColor: Color(0xff0957FF),
@@ -2339,7 +2346,7 @@ class _MyHomePageState extends State<MyHomePage>
                                         Text("Use Level 1:",
                                             style: TextStyle(fontSize: 25)),
                                         Switch(
-                                          value: true,
+                                          value: areLevel1AccountsActive,
                                           onChanged: (value) {
                                             setState(() {
                                               areLevel1AccountsActive = value;
