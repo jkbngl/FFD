@@ -771,7 +771,7 @@ class _MyHomePageState extends State<MyHomePage>
       'accountfornewlevel3parentaccount': level2AdminObject.id
           .toString(), // ID of the selected level2 object, to match the parentID - not needed for level1 as level1s have no parent
       'arecosttypesactive': areCostTypesActive.toString(),
-      'areAccountsActive': areAccountsActive.toString(),
+      'areaccountsactive': areAccountsActive.toString(),
       'arelevel1accountsactive': areLevel1AccountsActive.toString(),
       'arelevel2accountsactive': areLevel2AccountsActive.toString(),
       'arelevel3accountsactive': areLevel3AccountsActive.toString(),
@@ -1955,7 +1955,7 @@ class _MyHomePageState extends State<MyHomePage>
                           }).toList(),
                         ),
                       ) : Container(),
-                      Container(
+                      areCostTypesActive ? Container(
                         constraints: BoxConstraints.expand(
                           height: 50.0,
                         ),
@@ -1993,7 +1993,7 @@ class _MyHomePageState extends State<MyHomePage>
                             }).toList(),
                           ),
                         ),
-                      ),
+                      ) : Container(),
                       ButtonBar(
                         mainAxisSize: MainAxisSize
                             .min, // this will take space as minimum as posible(to center)

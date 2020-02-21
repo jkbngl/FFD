@@ -140,9 +140,9 @@ CREATE TABLE ffd.user_dim (
       , created_by text DEFAULT 'UNDEFINED'
       , updated_by text DEFAULT 'UNDEFINED'
     );
-       
+          
    CREATE TABLE ffd.preference_dim (
-         user_fk integer DEFAULT -1 REFERENCES ffd.user_dim(id) 
+        user_fk integer DEFAULT -1 REFERENCES ffd.user_dim(id) UNIQUE 
       , group_fk integer DEFAULT -1 REFERENCES  ffd.group_dim(id)
       , company_fk integer DEFAULT -1 REFERENCES ffd.company_dim(id)
       , costtypes_active bool default true
