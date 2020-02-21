@@ -1528,7 +1528,7 @@ class _MyHomePageState extends State<MyHomePage>
                                       color: Color(0xff0957FF)))),
                         ),
                       ),
-                      Container(
+                      areLevel1AccountsActive ? Container(
                         constraints: BoxConstraints.expand(
                           height: 100,
                           //width: MediaQuery.of(context).size.width * .8
@@ -1576,8 +1576,8 @@ class _MyHomePageState extends State<MyHomePage>
                             );
                           }).toList(),
                         ),
-                      ),
-                      Container(
+                      ) : Container(),
+                      areLevel2AccountsActive ? Container(
                         constraints: BoxConstraints.expand(
                           height: 50,
                         ),
@@ -1627,8 +1627,8 @@ class _MyHomePageState extends State<MyHomePage>
                             );
                           }).toList(),
                         ),
-                      ),
-                      Container(
+                      ) : Container(),
+                      areLevel3AccountsActive ? Container(
                         constraints: BoxConstraints.expand(
                           height: 100.0,
                         ),
@@ -1671,8 +1671,8 @@ class _MyHomePageState extends State<MyHomePage>
                             );
                           }).toList(),
                         ),
-                      ),
-                      Container(
+                      ) : Container(),
+                      areCostTypesActive ? Container(
                         constraints: BoxConstraints.expand(
                           height: 50.0,
                         ),
@@ -1709,7 +1709,7 @@ class _MyHomePageState extends State<MyHomePage>
                             }).toList(),
                           ),
                         ),
-                      ),
+                      ) : Container(),
                       ButtonBar(
                         mainAxisSize: MainAxisSize
                             .min, // this will take space as minimum as posible(to center)
@@ -1819,7 +1819,7 @@ class _MyHomePageState extends State<MyHomePage>
                                       color: Color(0xff0957FF)))),
                         ),
                       ),
-                      Container(
+                      areLevel1AccountsActive ? Container(
                         constraints: BoxConstraints.expand(
                           height: 100,
                           //width: MediaQuery.of(context).size.width * .8
@@ -1865,8 +1865,8 @@ class _MyHomePageState extends State<MyHomePage>
                             );
                           }).toList(),
                         ),
-                      ),
-                      Container(
+                      ) : Container(),
+                      areLevel2AccountsActive ? Container(
                         constraints: BoxConstraints.expand(
                           height: 50,
                         ),
@@ -1910,8 +1910,8 @@ class _MyHomePageState extends State<MyHomePage>
                             );
                           }).toList(),
                         ),
-                      ),
-                      Container(
+                      ) : Container(),
+                      areLevel3AccountsActive ? Container(
                         constraints: BoxConstraints.expand(
                           height: 100.0,
                         ),
@@ -1954,7 +1954,7 @@ class _MyHomePageState extends State<MyHomePage>
                             );
                           }).toList(),
                         ),
-                      ),
+                      ) : Container(),
                       Container(
                         constraints: BoxConstraints.expand(
                           height: 50.0,
