@@ -282,13 +282,16 @@ class _MyHomePageState extends State<MyHomePage>
   void afterFirstLayout(BuildContext context) async {
     // Calling the same function "after layout" to resolve the issue.
 
-    //await checkForChanges(true, fetchAccountsAndCostTypes, 'all');
     checkForChanges(true, fetchAccountsAndCostTypes, 'all');
 
     // Keep loadHomescreen before loadAmount, because if not the state will be set 2 times and it will look strange
     loadHomescreen();
     loadAmount();
-    loadPreferences();
+
+    // Await is needed here because else the sendBackend for generalAdmin will always overwrite the preferences with the default values defined in the code here
+    await loadPreferences();
+    // initialize if no preferences are present yet
+    sendBackend('generaladmin');
 
     setState(() {});
   }
@@ -1338,7 +1341,9 @@ class _MyHomePageState extends State<MyHomePage>
                                             style:
                                                 TextStyle(color: Colors.white)),
                                         subtitle: Text(
-                                            homescreenData[0].amount.toString(),
+                                            homescreenData[0]
+                                                .amount
+                                                .toStringAsFixed(2),
                                             style:
                                                 TextStyle(color: Colors.white)),
                                       ),
@@ -1388,11 +1393,11 @@ class _MyHomePageState extends State<MyHomePage>
                                         subtitle: Text(
                                             homescreenData[1]
                                                     .amount
-                                                    .toString() +
+                                                    .toStringAsFixed(2) +
                                                 '\n' +
                                                 homescreenData[2]
                                                     .amount
-                                                    .toString(),
+                                                    .toStringAsFixed(2),
                                             style:
                                                 TextStyle(color: Colors.white)),
                                       ),
@@ -1443,42 +1448,37 @@ class _MyHomePageState extends State<MyHomePage>
                                 ),
                               ]),
                           Container(
-                                  margin: const EdgeInsets.all(10.0),
-                                  width: MediaQuery.of(context).size.width,
-                                  height:
-                                      MediaQuery.of(context).size.height * .4,
-                                  child: charts.PieChart(
-                                    [
-                                      charts.Series<homescreenPie, String>(
-                                          id: 'CompanySizeVsNumberOfCompanies',
-                                          domainFn:
-                                              (homescreenPie dataPoint, _) =>
-                                                  dataPoint.type,
-                                          labelAccessorFn:
-                                              (homescreenPie row, _) =>
-                                                  '${row.type}\n${row.amount}',
-                                          measureFn:
-                                              (homescreenPie dataPoint, _) =>
-                                                  dataPoint.amount,
-                                          data: homescreenData.sublist(0,
-                                              2) /*Only first 2 elements not also the overall budget*/)
-                                    ],
-                                    defaultRenderer:
-                                        new charts.ArcRendererConfig(
-                                      arcRendererDecorators: [
-                                        new charts.ArcLabelDecorator(
-                                            //labelPadding:-25,
-                                            labelPosition: charts
-                                                .ArcLabelPosition.outside),
-                                      ],
-                                      arcWidth: 50,
-                                    ),
-                                    animate: true,
-                                    behaviors: [
-                                      charts.ChartTitle('Actual vs Budget'),
-                                    ],
-                                  ),
-                                )
+                            margin: const EdgeInsets.all(10.0),
+                            width: MediaQuery.of(context).size.width * .9,
+                            height: MediaQuery.of(context).size.height * .4,
+                            child: charts.PieChart(
+                              [
+                                charts.Series<homescreenPie, String>(
+                                    id: 'CompanySizeVsNumberOfCompanies',
+                                    domainFn: (homescreenPie dataPoint, _) =>
+                                        dataPoint.type,
+                                    labelAccessorFn: (homescreenPie row, _) =>
+                                        '${row.type}\n${row.amount.toStringAsFixed(2)}',
+                                    measureFn: (homescreenPie dataPoint, _) =>
+                                        dataPoint.amount,
+                                    data: homescreenData.sublist(0,
+                                        2) /*Only first 2 elements not also the overall budget*/)
+                              ],
+                              defaultRenderer: new charts.ArcRendererConfig(
+                                arcRendererDecorators: [
+                                  new charts.ArcLabelDecorator(
+                                      //labelPadding:-25,
+                                      labelPosition:
+                                          charts.ArcLabelPosition.outside),
+                                ],
+                                arcWidth: 50,
+                              ),
+                              animate: true,
+                              behaviors: [
+                                charts.ChartTitle('Actual vs Budget'),
+                              ],
+                            ),
+                          )
                         ]),
                   ),
                 ),
@@ -1547,188 +1547,196 @@ class _MyHomePageState extends State<MyHomePage>
                                       color: Color(0xff0957FF)))),
                         ),
                       ),
-                      areLevel1AccountsActive ? Container(
-                        constraints: BoxConstraints.expand(
-                          height: 100,
-                          //width: MediaQuery.of(context).size.width * .8
-                        ),
+                      areLevel1AccountsActive
+                          ? Container(
+                              constraints: BoxConstraints.expand(
+                                height: 100,
+                                //width: MediaQuery.of(context).size.width * .8
+                              ),
 
-                        padding: const EdgeInsets.only(
-                            left: 30.0, top: 0, right: 30, bottom: 0),
-                        //color: Colors.blue[600],
-                        alignment: Alignment.center,
-                        //child: Text('Submit'),
-                        child: DropdownButton<Account>(
-                          value: level1ActualObject,
-                          hint: Text(
-                            "Select a level 1 account",
-                            /*style: TextStyle(
+                              padding: const EdgeInsets.only(
+                                  left: 30.0, top: 0, right: 30, bottom: 0),
+                              //color: Colors.blue[600],
+                              alignment: Alignment.center,
+                              //child: Text('Submit'),
+                              child: DropdownButton<Account>(
+                                value: level1ActualObject,
+                                hint: Text(
+                                  "Select a level 1 account",
+                                  /*style: TextStyle(
                               color,
                             ),*/
-                          ),
-                          icon: Icon(Icons.arrow_downward),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: TextStyle(color: Color(0xff0957FF)),
-                          isExpanded: true,
-                          underline: Container(
-                            height: 2,
-                            width: 5000,
-                            color: Color(0xff0957FF),
-                          ),
-                          onChanged: (Account newValue) {
-                            setState(() {
-                              level1ActualObject = newValue;
-                            });
-
-                            print(level1ActualObject.name);
-
-                            arrangeAccounts(1, 'actual');
-                          },
-                          items:
-                              level1ActualAccountsList.map((Account account) {
-                            return new DropdownMenuItem<Account>(
-                              value: account,
-                              child: new Text(
-                                account.name,
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ) : Container(),
-                      areLevel2AccountsActive ? Container(
-                        constraints: BoxConstraints.expand(
-                          height: 50,
-                        ),
-                        padding: const EdgeInsets.only(
-                            left: 30.0, top: 0, right: 30, bottom: 0),
-                        //color: Colors.blue[600],
-                        alignment: Alignment.center,
-                        //child: Text('Submit'),
-                        child: DropdownButton<Account>(
-                          value: level2ActualObject,
-                          hint: Text(
-                            "Select a level 2 account",
-                            /*style: TextStyle(
-                              color,
-                            ),*/
-                          ),
-                          icon: Icon(Icons.arrow_downward),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: TextStyle(color: Color(0xff0957FF)),
-                          isExpanded: true,
-                          underline: Container(
-                            height: 2,
-                            width: 5000,
-                            color: Color(0xff0957FF),
-                          ),
-                          onChanged: (Account newValue) {
-                            dummyAccount = level2ActualObject;
-
-                            setState(() {
-                              level2ActualObject = newValue;
-                            });
-
-                            if (dummyAccount.id != newValue.id) {
-                              arrangeAccounts(2, 'actual');
-                            } else {
-                              print("RESELECTED");
-                            }
-                          },
-                          items:
-                              level2ActualAccountsList.map((Account account) {
-                            return new DropdownMenuItem<Account>(
-                              value: account,
-                              child: new Text(
-                                account.name,
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ) : Container(),
-                      areLevel3AccountsActive ? Container(
-                        constraints: BoxConstraints.expand(
-                          height: 100.0,
-                        ),
-                        padding: const EdgeInsets.only(
-                            left: 30.0, top: 0, right: 30, bottom: 0),
-                        alignment: Alignment.center,
-                        child: DropdownButton<Account>(
-                          value: level3ActualObject,
-                          hint: Text(
-                            "Select a level 3 account",
-                            /*style: TextStyle(
-                              color,
-                            ),*/
-                          ),
-                          icon: Icon(Icons.arrow_downward),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: TextStyle(color: Color(0xff0957FF)),
-                          isExpanded: true,
-                          underline: Container(
-                            height: 2,
-                            width: 5000,
-                            color: Color(0xff0957FF),
-                          ),
-                          onChanged: (Account newValue) {
-                            setState(() {
-                              level3ActualObject = newValue;
-                            });
-
-                            // TODO probably not needed as change in level3 has no affect in anything
-                            // arrangeAccounts(3, 'actual');
-                          },
-                          items:
-                              level3ActualAccountsList.map((Account account) {
-                            return new DropdownMenuItem<Account>(
-                              value: account,
-                              child: new Text(
-                                account.name,
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ) : Container(),
-                      areCostTypesActive ? Container(
-                        constraints: BoxConstraints.expand(
-                          height: 50.0,
-                        ),
-                        padding: const EdgeInsets.only(
-                            left: 30.0, top: 0, right: 30, bottom: 0),
-                        //color: Colors.blue[600],
-                        alignment: Alignment.center,
-                        //child: Text('Submit'),
-                        child: Align(
-                          alignment: Alignment.topRight,
-                          child: DropdownButton<CostType>(
-                            value: costTypeObjectActual,
-                            icon: Icon(Icons.arrow_downward),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: TextStyle(color: Color(0xff0957FF)),
-                            underline: Container(
-                              height: 2,
-                              width: 2000,
-                              color: Color(0xff0957FF),
-                            ),
-                            onChanged: (CostType newValue) {
-                              setState(() {
-                                costTypeObjectActual = newValue;
-                              });
-                            },
-                            items: costTypesList.map((CostType type) {
-                              return new DropdownMenuItem<CostType>(
-                                value: type,
-                                child: new Text(
-                                  type.name,
                                 ),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ) : Container(),
+                                icon: Icon(Icons.arrow_downward),
+                                iconSize: 24,
+                                elevation: 16,
+                                style: TextStyle(color: Color(0xff0957FF)),
+                                isExpanded: true,
+                                underline: Container(
+                                  height: 2,
+                                  width: 5000,
+                                  color: Color(0xff0957FF),
+                                ),
+                                onChanged: (Account newValue) {
+                                  setState(() {
+                                    level1ActualObject = newValue;
+                                  });
+
+                                  print(level1ActualObject.name);
+
+                                  arrangeAccounts(1, 'actual');
+                                },
+                                items: level1ActualAccountsList
+                                    .map((Account account) {
+                                  return new DropdownMenuItem<Account>(
+                                    value: account,
+                                    child: new Text(
+                                      account.name,
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            )
+                          : Container(),
+                      areLevel2AccountsActive
+                          ? Container(
+                              constraints: BoxConstraints.expand(
+                                height: 50,
+                              ),
+                              padding: const EdgeInsets.only(
+                                  left: 30.0, top: 0, right: 30, bottom: 0),
+                              //color: Colors.blue[600],
+                              alignment: Alignment.center,
+                              //child: Text('Submit'),
+                              child: DropdownButton<Account>(
+                                value: level2ActualObject,
+                                hint: Text(
+                                  "Select a level 2 account",
+                                  /*style: TextStyle(
+                              color,
+                            ),*/
+                                ),
+                                icon: Icon(Icons.arrow_downward),
+                                iconSize: 24,
+                                elevation: 16,
+                                style: TextStyle(color: Color(0xff0957FF)),
+                                isExpanded: true,
+                                underline: Container(
+                                  height: 2,
+                                  width: 5000,
+                                  color: Color(0xff0957FF),
+                                ),
+                                onChanged: (Account newValue) {
+                                  dummyAccount = level2ActualObject;
+
+                                  setState(() {
+                                    level2ActualObject = newValue;
+                                  });
+
+                                  if (dummyAccount.id != newValue.id) {
+                                    arrangeAccounts(2, 'actual');
+                                  } else {
+                                    print("RESELECTED");
+                                  }
+                                },
+                                items: level2ActualAccountsList
+                                    .map((Account account) {
+                                  return new DropdownMenuItem<Account>(
+                                    value: account,
+                                    child: new Text(
+                                      account.name,
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            )
+                          : Container(),
+                      areLevel3AccountsActive
+                          ? Container(
+                              constraints: BoxConstraints.expand(
+                                height: 100.0,
+                              ),
+                              padding: const EdgeInsets.only(
+                                  left: 30.0, top: 0, right: 30, bottom: 0),
+                              alignment: Alignment.center,
+                              child: DropdownButton<Account>(
+                                value: level3ActualObject,
+                                hint: Text(
+                                  "Select a level 3 account",
+                                  /*style: TextStyle(
+                              color,
+                            ),*/
+                                ),
+                                icon: Icon(Icons.arrow_downward),
+                                iconSize: 24,
+                                elevation: 16,
+                                style: TextStyle(color: Color(0xff0957FF)),
+                                isExpanded: true,
+                                underline: Container(
+                                  height: 2,
+                                  width: 5000,
+                                  color: Color(0xff0957FF),
+                                ),
+                                onChanged: (Account newValue) {
+                                  setState(() {
+                                    level3ActualObject = newValue;
+                                  });
+
+                                  // TODO probably not needed as change in level3 has no affect in anything
+                                  // arrangeAccounts(3, 'actual');
+                                },
+                                items: level3ActualAccountsList
+                                    .map((Account account) {
+                                  return new DropdownMenuItem<Account>(
+                                    value: account,
+                                    child: new Text(
+                                      account.name,
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            )
+                          : Container(),
+                      areCostTypesActive
+                          ? Container(
+                              constraints: BoxConstraints.expand(
+                                height: 50.0,
+                              ),
+                              padding: const EdgeInsets.only(
+                                  left: 30.0, top: 0, right: 30, bottom: 0),
+                              //color: Colors.blue[600],
+                              alignment: Alignment.center,
+                              //child: Text('Submit'),
+                              child: Align(
+                                alignment: Alignment.topRight,
+                                child: DropdownButton<CostType>(
+                                  value: costTypeObjectActual,
+                                  icon: Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: TextStyle(color: Color(0xff0957FF)),
+                                  underline: Container(
+                                    height: 2,
+                                    width: 2000,
+                                    color: Color(0xff0957FF),
+                                  ),
+                                  onChanged: (CostType newValue) {
+                                    setState(() {
+                                      costTypeObjectActual = newValue;
+                                    });
+                                  },
+                                  items: costTypesList.map((CostType type) {
+                                    return new DropdownMenuItem<CostType>(
+                                      value: type,
+                                      child: new Text(
+                                        type.name,
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            )
+                          : Container(),
                       ButtonBar(
                         mainAxisSize: MainAxisSize
                             .min, // this will take space as minimum as posible(to center)
@@ -1838,181 +1846,189 @@ class _MyHomePageState extends State<MyHomePage>
                                       color: Color(0xff0957FF)))),
                         ),
                       ),
-                      areLevel1AccountsActive ? Container(
-                        constraints: BoxConstraints.expand(
-                          height: 100,
-                          //width: MediaQuery.of(context).size.width * .8
-                        ),
+                      areLevel1AccountsActive
+                          ? Container(
+                              constraints: BoxConstraints.expand(
+                                height: 100,
+                                //width: MediaQuery.of(context).size.width * .8
+                              ),
 
-                        padding: const EdgeInsets.only(
-                            left: 30.0, top: 0, right: 30, bottom: 0),
-                        //color: Colors.blue[600],
-                        alignment: Alignment.center,
-                        //child: Text('Submit'),
-                        child: DropdownButton<Account>(
-                          value: level1BudgetObject,
-                          hint: Text(
-                            "Select a level 1 account",
-                            /*style: TextStyle(
+                              padding: const EdgeInsets.only(
+                                  left: 30.0, top: 0, right: 30, bottom: 0),
+                              //color: Colors.blue[600],
+                              alignment: Alignment.center,
+                              //child: Text('Submit'),
+                              child: DropdownButton<Account>(
+                                value: level1BudgetObject,
+                                hint: Text(
+                                  "Select a level 1 account",
+                                  /*style: TextStyle(
                               color,
                             ),*/
-                          ),
-                          icon: Icon(Icons.arrow_downward),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: TextStyle(color: Color(0xff0957FF)),
-                          isExpanded: true,
-                          underline: Container(
-                            height: 2,
-                            width: 5000,
-                            color: Color(0xff0957FF),
-                          ),
-                          onChanged: (Account newValue) {
-                            setState(() {
-                              level1BudgetObject = newValue;
-                            });
-
-                            arrangeAccounts(1, 'budget');
-                          },
-                          items:
-                              level1BudgetAccountsList.map((Account account) {
-                            return new DropdownMenuItem<Account>(
-                              value: account,
-                              child: new Text(
-                                account.name,
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ) : Container(),
-                      areLevel2AccountsActive ? Container(
-                        constraints: BoxConstraints.expand(
-                          height: 50,
-                        ),
-                        padding: const EdgeInsets.only(
-                            left: 30.0, top: 0, right: 30, bottom: 0),
-                        //color: Colors.blue[600],
-                        alignment: Alignment.center,
-                        //child: Text('Submit'),
-                        child: DropdownButton<Account>(
-                          value: level2BudgetObject,
-                          hint: Text(
-                            "Select a level 2 account",
-                            /*style: TextStyle(
-                              color,
-                            ),*/
-                          ),
-                          icon: Icon(Icons.arrow_downward),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: TextStyle(color: Color(0xff0957FF)),
-                          isExpanded: true,
-                          underline: Container(
-                            height: 2,
-                            width: 5000,
-                            color: Color(0xff0957FF),
-                          ),
-                          onChanged: (Account newValue) {
-                            setState(() {
-                              level2BudgetObject = newValue;
-                            });
-
-                            arrangeAccounts(2, 'budget');
-                          },
-                          items:
-                              level2BudgetAccountsList.map((Account account) {
-                            return new DropdownMenuItem<Account>(
-                              value: account,
-                              child: new Text(
-                                account.name,
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ) : Container(),
-                      areLevel3AccountsActive ? Container(
-                        constraints: BoxConstraints.expand(
-                          height: 100.0,
-                        ),
-                        padding: const EdgeInsets.only(
-                            left: 30.0, top: 0, right: 30, bottom: 0),
-                        alignment: Alignment.center,
-                        child: DropdownButton<Account>(
-                          value: level3BudgetObject,
-                          hint: Text(
-                            "Select a level 3 account",
-                            /*style: TextStyle(
-                              color,
-                            ),*/
-                          ),
-                          icon: Icon(Icons.arrow_downward),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: TextStyle(color: Color(0xff0957FF)),
-                          isExpanded: true,
-                          underline: Container(
-                            height: 2,
-                            width: 5000,
-                            color: Color(0xff0957FF),
-                          ),
-                          onChanged: (Account newValue) {
-                            setState(() {
-                              level3BudgetObject = newValue;
-                            });
-
-                            // TODO probably not needed as change in level3 has no affect in anything
-                            // arrangeAccounts(3, 'budget');
-                          },
-                          items:
-                              level3BudgetAccountsList.map((Account account) {
-                            return new DropdownMenuItem<Account>(
-                              value: account,
-                              child: new Text(
-                                account.name,
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ) : Container(),
-                      areCostTypesActive ? Container(
-                        constraints: BoxConstraints.expand(
-                          height: 50.0,
-                        ),
-                        padding: const EdgeInsets.only(
-                            left: 30.0, top: 0, right: 30, bottom: 0),
-                        //color: Colors.blue[600],
-                        alignment: Alignment.center,
-                        //child: Text('Submit'),
-                        child: Align(
-                          alignment: Alignment.topRight,
-                          child: DropdownButton<CostType>(
-                            value: costTypeObjectBudget,
-                            icon: Icon(Icons.arrow_downward),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: TextStyle(color: Color(0xff0957FF)),
-                            //isExpanded: true,
-                            underline: Container(
-                              height: 2,
-                              width: 2000,
-                              color: Color(0xff0957FF),
-                            ),
-                            onChanged: (CostType newValue) {
-                              setState(() {
-                                costTypeObjectBudget = newValue;
-                              });
-                            },
-                            items: costTypesList.map((CostType type) {
-                              return new DropdownMenuItem<CostType>(
-                                value: type,
-                                child: new Text(
-                                  type.name,
                                 ),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ) : Container(),
+                                icon: Icon(Icons.arrow_downward),
+                                iconSize: 24,
+                                elevation: 16,
+                                style: TextStyle(color: Color(0xff0957FF)),
+                                isExpanded: true,
+                                underline: Container(
+                                  height: 2,
+                                  width: 5000,
+                                  color: Color(0xff0957FF),
+                                ),
+                                onChanged: (Account newValue) {
+                                  setState(() {
+                                    level1BudgetObject = newValue;
+                                  });
+
+                                  arrangeAccounts(1, 'budget');
+                                },
+                                items: level1BudgetAccountsList
+                                    .map((Account account) {
+                                  return new DropdownMenuItem<Account>(
+                                    value: account,
+                                    child: new Text(
+                                      account.name,
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            )
+                          : Container(),
+                      areLevel2AccountsActive
+                          ? Container(
+                              constraints: BoxConstraints.expand(
+                                height: 50,
+                              ),
+                              padding: const EdgeInsets.only(
+                                  left: 30.0, top: 0, right: 30, bottom: 0),
+                              //color: Colors.blue[600],
+                              alignment: Alignment.center,
+                              //child: Text('Submit'),
+                              child: DropdownButton<Account>(
+                                value: level2BudgetObject,
+                                hint: Text(
+                                  "Select a level 2 account",
+                                  /*style: TextStyle(
+                              color,
+                            ),*/
+                                ),
+                                icon: Icon(Icons.arrow_downward),
+                                iconSize: 24,
+                                elevation: 16,
+                                style: TextStyle(color: Color(0xff0957FF)),
+                                isExpanded: true,
+                                underline: Container(
+                                  height: 2,
+                                  width: 5000,
+                                  color: Color(0xff0957FF),
+                                ),
+                                onChanged: (Account newValue) {
+                                  setState(() {
+                                    level2BudgetObject = newValue;
+                                  });
+
+                                  arrangeAccounts(2, 'budget');
+                                },
+                                items: level2BudgetAccountsList
+                                    .map((Account account) {
+                                  return new DropdownMenuItem<Account>(
+                                    value: account,
+                                    child: new Text(
+                                      account.name,
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            )
+                          : Container(),
+                      areLevel3AccountsActive
+                          ? Container(
+                              constraints: BoxConstraints.expand(
+                                height: 100.0,
+                              ),
+                              padding: const EdgeInsets.only(
+                                  left: 30.0, top: 0, right: 30, bottom: 0),
+                              alignment: Alignment.center,
+                              child: DropdownButton<Account>(
+                                value: level3BudgetObject,
+                                hint: Text(
+                                  "Select a level 3 account",
+                                  /*style: TextStyle(
+                              color,
+                            ),*/
+                                ),
+                                icon: Icon(Icons.arrow_downward),
+                                iconSize: 24,
+                                elevation: 16,
+                                style: TextStyle(color: Color(0xff0957FF)),
+                                isExpanded: true,
+                                underline: Container(
+                                  height: 2,
+                                  width: 5000,
+                                  color: Color(0xff0957FF),
+                                ),
+                                onChanged: (Account newValue) {
+                                  setState(() {
+                                    level3BudgetObject = newValue;
+                                  });
+
+                                  // TODO probably not needed as change in level3 has no affect in anything
+                                  // arrangeAccounts(3, 'budget');
+                                },
+                                items: level3BudgetAccountsList
+                                    .map((Account account) {
+                                  return new DropdownMenuItem<Account>(
+                                    value: account,
+                                    child: new Text(
+                                      account.name,
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            )
+                          : Container(),
+                      areCostTypesActive
+                          ? Container(
+                              constraints: BoxConstraints.expand(
+                                height: 50.0,
+                              ),
+                              padding: const EdgeInsets.only(
+                                  left: 30.0, top: 0, right: 30, bottom: 0),
+                              //color: Colors.blue[600],
+                              alignment: Alignment.center,
+                              //child: Text('Submit'),
+                              child: Align(
+                                alignment: Alignment.topRight,
+                                child: DropdownButton<CostType>(
+                                  value: costTypeObjectBudget,
+                                  icon: Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: TextStyle(color: Color(0xff0957FF)),
+                                  //isExpanded: true,
+                                  underline: Container(
+                                    height: 2,
+                                    width: 2000,
+                                    color: Color(0xff0957FF),
+                                  ),
+                                  onChanged: (CostType newValue) {
+                                    setState(() {
+                                      costTypeObjectBudget = newValue;
+                                    });
+                                  },
+                                  items: costTypesList.map((CostType type) {
+                                    return new DropdownMenuItem<CostType>(
+                                      value: type,
+                                      child: new Text(
+                                        type.name,
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            )
+                          : Container(),
                       ButtonBar(
                         mainAxisSize: MainAxisSize
                             .min, // this will take space as minimum as posible(to center)
@@ -2344,18 +2360,22 @@ class _MyHomePageState extends State<MyHomePage>
                                             setState(() {
                                               areAccountsActive = value;
 
-                                              areLevel1AccountsActive = areAccountsActive;
-                                              areLevel2AccountsActive = areAccountsActive;
-                                              areLevel3AccountsActive = areAccountsActive;
-
+                                              areLevel1AccountsActive =
+                                                  areAccountsActive;
+                                              areLevel2AccountsActive =
+                                                  areAccountsActive;
+                                              areLevel3AccountsActive =
+                                                  areAccountsActive;
                                             });
-
-
                                           },
                                           activeTrackColor: Color(0xffEEEEEE),
                                           activeColor: Color(0xff0957FF),
                                         ),
                                       ]),
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                        left: 0, top: 0, right: 0, bottom: 10),
+                                  ),
                                   Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -2369,6 +2389,14 @@ class _MyHomePageState extends State<MyHomePage>
                                           onChanged: (value) {
                                             setState(() {
                                               areLevel1AccountsActive = value;
+
+                                              // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
+                                              if(!areLevel1AccountsActive) {
+                                                areLevel2AccountsActive = false;
+                                                areLevel3AccountsActive = false;
+
+                                                areAccountsActive = false;
+                                              }
                                             });
                                           },
                                           activeTrackColor: Color(0xffEEEEEE),
@@ -2388,6 +2416,13 @@ class _MyHomePageState extends State<MyHomePage>
                                           onChanged: (value) {
                                             setState(() {
                                               areLevel2AccountsActive = value;
+
+                                              // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
+                                              if (areLevel2AccountsActive) {
+                                                areLevel1AccountsActive = true;
+                                              } else if(!areLevel2AccountsActive) {
+                                                areLevel3AccountsActive = false;
+                                              }
                                             });
                                           },
                                           activeTrackColor: Color(0xffEEEEEE),
@@ -2407,6 +2442,12 @@ class _MyHomePageState extends State<MyHomePage>
                                           onChanged: (value) {
                                             setState(() {
                                               areLevel3AccountsActive = value;
+
+                                              // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
+                                              if (areLevel3AccountsActive) {
+                                                areLevel1AccountsActive = true;
+                                                areLevel2AccountsActive = true;
+                                              }
                                             });
                                           },
                                           activeTrackColor: Color(0xffEEEEEE),
@@ -2458,259 +2499,277 @@ class _MyHomePageState extends State<MyHomePage>
                                 children: <Widget>[
                                   Text("Account Administration",
                                       style: TextStyle(fontSize: 25)),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 30.0,
-                                        top: 0,
-                                        right: 30,
-                                        bottom: 0),
-                                    //color: Colors.blue[600],
-                                    alignment: Alignment.center,
-                                    //child: Text('Submit'),
-                                    child: DropdownButton<Account>(
-                                      value: level1AdminObject,
-                                      hint: Text(
-                                        "Select a level 1 account",
-                                        /*style: TextStyle(
+                                  areLevel1AccountsActive
+                                      ? Container(
+                                          padding: const EdgeInsets.only(
+                                              left: 30.0,
+                                              top: 0,
+                                              right: 30,
+                                              bottom: 0),
+                                          //color: Colors.blue[600],
+                                          alignment: Alignment.center,
+                                          //child: Text('Submit'),
+                                          child: DropdownButton<Account>(
+                                            value: level1AdminObject,
+                                            hint: Text(
+                                              "Select a level 1 account",
+                                              /*style: TextStyle(
                               color,
                             ),*/
-                                      ),
-                                      icon: Icon(Icons.arrow_downward),
-                                      iconSize: 24,
-                                      elevation: 16,
-                                      style:
-                                          TextStyle(color: Color(0xff0957FF)),
-                                      isExpanded: true,
-                                      underline: Container(
-                                        height: 2,
-                                        width: 5000,
-                                        color: Color(0xff0957FF),
-                                      ),
-                                      onChanged: (Account newValue) {
-                                        setState(() {
-                                          level1AdminObject = newValue;
-                                        });
+                                            ),
+                                            icon: Icon(Icons.arrow_downward),
+                                            iconSize: 24,
+                                            elevation: 16,
+                                            style: TextStyle(
+                                                color: Color(0xff0957FF)),
+                                            isExpanded: true,
+                                            underline: Container(
+                                              height: 2,
+                                              width: 5000,
+                                              color: Color(0xff0957FF),
+                                            ),
+                                            onChanged: (Account newValue) {
+                                              setState(() {
+                                                level1AdminObject = newValue;
+                                              });
 
-                                        arrangeAccounts(1, 'admin');
-                                      },
-                                      items: level1AdminAccountsList
-                                          .map((Account account) {
-                                        return new DropdownMenuItem<Account>(
-                                          value: account,
-                                          child: new Text(
-                                            account.name,
+                                              arrangeAccounts(1, 'admin');
+                                            },
+                                            items: level1AdminAccountsList
+                                                .map((Account account) {
+                                              return new DropdownMenuItem<
+                                                  Account>(
+                                                value: account,
+                                                child: new Text(
+                                                  account.name,
+                                                ),
+                                              );
+                                            }).toList(),
                                           ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 30.0,
-                                        top: 0,
-                                        right: 30,
-                                        bottom: 40),
-                                    //color: Colors.blue[600],
-                                    alignment: Alignment.center,
-                                    //child: Text('Submit'),
-                                    child: TextFormField(
-                                      // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
-                                      style: TextStyle(
-                                          height:
-                                              2), //increases the height of cursor
-                                      // autofocus: true,
-                                      controller: newLevel1TextFieldController,
-                                      decoration: InputDecoration(
-                                          hintText:
-                                              'Select an existing or create a new level 1',
-                                          hintStyle: TextStyle(
-                                              height: 1.75,
-                                              color: Color(0xff0957FF)),
-                                          /*icon: Icon(
+                                        )
+                                      : Container(),
+                                  areLevel1AccountsActive
+                                      ? Container(
+                                          padding: const EdgeInsets.only(
+                                              left: 30.0,
+                                              top: 0,
+                                              right: 30,
+                                              bottom: 40),
+                                          //color: Colors.blue[600],
+                                          alignment: Alignment.center,
+                                          //child: Text('Submit'),
+                                          child: TextFormField(
+                                            // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
+                                            style: TextStyle(
+                                                height:
+                                                    2), //increases the height of cursor
+                                            // autofocus: true,
+                                            controller:
+                                                newLevel1TextFieldController,
+                                            decoration: InputDecoration(
+                                                hintText:
+                                                    'Select an existing or create a new level 1',
+                                                hintStyle: TextStyle(
+                                                    height: 1.75,
+                                                    color: Color(0xff0957FF)),
+                                                /*icon: Icon(
                                             Icons.attach_money,
                                             color: Color(0xff0957FF),
                                           ),*/
-                                          //prefixIcon: Icon(Icons.attach_money),
-                                          //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                          enabledBorder:
-                                              new UnderlineInputBorder(
-                                                  borderSide: new BorderSide(
-                                                      color:
-                                                          Color(0xff0957FF)))),
-                                    ),
-                                  ),
+                                                //prefixIcon: Icon(Icons.attach_money),
+                                                //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                enabledBorder:
+                                                    new UnderlineInputBorder(
+                                                        borderSide: new BorderSide(
+                                                            color: Color(
+                                                                0xff0957FF)))),
+                                          ),
+                                        )
+                                      : Container(),
                                   /*
                                   Divider(
                                     color: Colors.black,
                                   ),
                                   */
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 30.0,
-                                        top: 0,
-                                        right: 30,
-                                        bottom: 0),
-                                    //color: Colors.blue[600],
-                                    alignment: Alignment.center,
-                                    //child: Text('Submit'),
-                                    child: DropdownButton<Account>(
-                                      value: level2AdminObject,
-                                      hint: Text(
-                                        "Select a level 2 account",
-                                        /*style: TextStyle(
+                                  areLevel2AccountsActive
+                                      ? Container(
+                                          padding: const EdgeInsets.only(
+                                              left: 30.0,
+                                              top: 0,
+                                              right: 30,
+                                              bottom: 0),
+                                          //color: Colors.blue[600],
+                                          alignment: Alignment.center,
+                                          //child: Text('Submit'),
+                                          child: DropdownButton<Account>(
+                                            value: level2AdminObject,
+                                            hint: Text(
+                                              "Select a level 2 account",
+                                              /*style: TextStyle(
                               color,
                             ),*/
-                                      ),
-                                      icon: Icon(Icons.arrow_downward),
-                                      iconSize: 24,
-                                      elevation: 16,
-                                      style:
-                                          TextStyle(color: Color(0xff0957FF)),
-                                      isExpanded: true,
-                                      underline: Container(
-                                        height: 2,
-                                        width: 5000,
-                                        color: Color(0xff0957FF),
-                                      ),
-                                      onChanged: (Account newValue) {
-                                        setState(() {
-                                          level2AdminObject = newValue;
-                                        });
+                                            ),
+                                            icon: Icon(Icons.arrow_downward),
+                                            iconSize: 24,
+                                            elevation: 16,
+                                            style: TextStyle(
+                                                color: Color(0xff0957FF)),
+                                            isExpanded: true,
+                                            underline: Container(
+                                              height: 2,
+                                              width: 5000,
+                                              color: Color(0xff0957FF),
+                                            ),
+                                            onChanged: (Account newValue) {
+                                              setState(() {
+                                                level2AdminObject = newValue;
+                                              });
 
-                                        arrangeAccounts(2, 'admin');
-                                      },
-                                      items: level2AdminAccountsList
-                                          .map((Account account) {
-                                        return new DropdownMenuItem<Account>(
-                                          value: account,
-                                          child: new Text(
-                                            account.name,
+                                              arrangeAccounts(2, 'admin');
+                                            },
+                                            items: level2AdminAccountsList
+                                                .map((Account account) {
+                                              return new DropdownMenuItem<
+                                                  Account>(
+                                                value: account,
+                                                child: new Text(
+                                                  account.name,
+                                                ),
+                                              );
+                                            }).toList(),
                                           ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 30.0,
-                                        top: 0,
-                                        right: 30,
-                                        bottom: 40),
-                                    //color: Colors.blue[600],
-                                    alignment: Alignment.center,
-                                    //child: Text('Submit'),
-                                    child: TextFormField(
-                                      // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
-                                      style: TextStyle(
-                                          height:
-                                              2), //increases the height of cursor
-                                      // autofocus: true,
-                                      controller: newLevel2TextFieldController,
-                                      decoration: InputDecoration(
-                                          hintText:
-                                              'Select an existing or create a new level 2',
-                                          hintStyle: TextStyle(
-                                              height: 1.75,
-                                              color: Color(0xff0957FF)),
-                                          /*icon: Icon(
+                                        )
+                                      : Container(),
+                                  areLevel2AccountsActive
+                                      ? Container(
+                                          padding: const EdgeInsets.only(
+                                              left: 30.0,
+                                              top: 0,
+                                              right: 30,
+                                              bottom: 40),
+                                          //color: Colors.blue[600],
+                                          alignment: Alignment.center,
+                                          //child: Text('Submit'),
+                                          child: TextFormField(
+                                            // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
+                                            style: TextStyle(
+                                                height:
+                                                    2), //increases the height of cursor
+                                            // autofocus: true,
+                                            controller:
+                                                newLevel2TextFieldController,
+                                            decoration: InputDecoration(
+                                                hintText:
+                                                    'Select an existing or create a new level 2',
+                                                hintStyle: TextStyle(
+                                                    height: 1.75,
+                                                    color: Color(0xff0957FF)),
+                                                /*icon: Icon(
                                             Icons.attach_money,
                                             color: Color(0xff0957FF),
                                           ),*/
-                                          //prefixIcon: Icon(Icons.attach_money),
-                                          //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                          enabledBorder:
-                                              new UnderlineInputBorder(
-                                                  borderSide: new BorderSide(
-                                                      color:
-                                                          Color(0xff0957FF)))),
-                                    ),
-                                  ),
+                                                //prefixIcon: Icon(Icons.attach_money),
+                                                //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                enabledBorder:
+                                                    new UnderlineInputBorder(
+                                                        borderSide: new BorderSide(
+                                                            color: Color(
+                                                                0xff0957FF)))),
+                                          ),
+                                        )
+                                      : Container(),
                                   /*
                                   Divider(
                                     color: Colors.black,
                                   ), */
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 30.0,
-                                        top: 0,
-                                        right: 30,
-                                        bottom: 0),
-                                    //color: Colors.blue[600],
-                                    alignment: Alignment.center,
-                                    //child: Text('Submit'),
-                                    child: DropdownButton<Account>(
-                                      value: level3AdminObject,
-                                      hint: Text(
-                                        "Select a level 3 account",
-                                        /*style: TextStyle(
+                                  areLevel3AccountsActive
+                                      ? Container(
+                                          padding: const EdgeInsets.only(
+                                              left: 30.0,
+                                              top: 0,
+                                              right: 30,
+                                              bottom: 0),
+                                          //color: Colors.blue[600],
+                                          alignment: Alignment.center,
+                                          //child: Text('Submit'),
+                                          child: DropdownButton<Account>(
+                                            value: level3AdminObject,
+                                            hint: Text(
+                                              "Select a level 3 account",
+                                              /*style: TextStyle(
                               color,
                             ),*/
-                                      ),
-                                      icon: Icon(Icons.arrow_downward),
-                                      iconSize: 24,
-                                      elevation: 16,
-                                      style:
-                                          TextStyle(color: Color(0xff0957FF)),
-                                      isExpanded: true,
-                                      underline: Container(
-                                        height: 2,
-                                        width: 5000,
-                                        color: Color(0xff0957FF),
-                                      ),
-                                      onChanged: (Account newValue) {
-                                        setState(() {
-                                          level3AdminObject = newValue;
-                                        });
+                                            ),
+                                            icon: Icon(Icons.arrow_downward),
+                                            iconSize: 24,
+                                            elevation: 16,
+                                            style: TextStyle(
+                                                color: Color(0xff0957FF)),
+                                            isExpanded: true,
+                                            underline: Container(
+                                              height: 2,
+                                              width: 5000,
+                                              color: Color(0xff0957FF),
+                                            ),
+                                            onChanged: (Account newValue) {
+                                              setState(() {
+                                                level3AdminObject = newValue;
+                                              });
 
-                                        // TODO probably not needed as change in level3 has no affect in anything
-                                        //arrangeAccounts(3, 'admin');
-                                      },
-                                      items: level3AdminAccountsList
-                                          .map((Account account) {
-                                        return new DropdownMenuItem<Account>(
-                                          value: account,
-                                          child: new Text(
-                                            account.name,
+                                              // TODO probably not needed as change in level3 has no affect in anything
+                                              //arrangeAccounts(3, 'admin');
+                                            },
+                                            items: level3AdminAccountsList
+                                                .map((Account account) {
+                                              return new DropdownMenuItem<
+                                                  Account>(
+                                                value: account,
+                                                child: new Text(
+                                                  account.name,
+                                                ),
+                                              );
+                                            }).toList(),
                                           ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 30.0,
-                                        top: 0,
-                                        right: 30,
-                                        bottom: 0),
-                                    //color: Colors.blue[600],
-                                    alignment: Alignment.center,
-                                    //child: Text('Submit'),
-                                    child: TextFormField(
-                                      // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
-                                      style: TextStyle(
-                                          height:
-                                              2), //increases the height of cursor
-                                      // autofocus: true,
-                                      controller: newLevel3TextFieldController,
-                                      decoration: InputDecoration(
-                                          hintText:
-                                              'Select an existing or create a new level 3',
-                                          hintStyle: TextStyle(
-                                              height: 1.75,
-                                              color: Color(0xff0957FF)),
-                                          /*icon: Icon(
+                                        )
+                                      : Container(),
+                                  areLevel3AccountsActive
+                                      ? Container(
+                                          padding: const EdgeInsets.only(
+                                              left: 30.0,
+                                              top: 0,
+                                              right: 30,
+                                              bottom: 0),
+                                          //color: Colors.blue[600],
+                                          alignment: Alignment.center,
+                                          //child: Text('Submit'),
+                                          child: TextFormField(
+                                            // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
+                                            style: TextStyle(
+                                                height:
+                                                    2), //increases the height of cursor
+                                            // autofocus: true,
+                                            controller:
+                                                newLevel3TextFieldController,
+                                            decoration: InputDecoration(
+                                                hintText:
+                                                    'Select an existing or create a new level 3',
+                                                hintStyle: TextStyle(
+                                                    height: 1.75,
+                                                    color: Color(0xff0957FF)),
+                                                /*icon: Icon(
                                             Icons.attach_money,
                                             color: Color(0xff0957FF),
                                           ),*/
-                                          //prefixIcon: Icon(Icons.attach_money),
-                                          //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                          enabledBorder:
-                                              new UnderlineInputBorder(
-                                                  borderSide: new BorderSide(
-                                                      color:
-                                                          Color(0xff0957FF)))),
-                                    ),
-                                  ),
+                                                //prefixIcon: Icon(Icons.attach_money),
+                                                //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                enabledBorder:
+                                                    new UnderlineInputBorder(
+                                                        borderSide: new BorderSide(
+                                                            color: Color(
+                                                                0xff0957FF)))),
+                                          ),
+                                        )
+                                      : Container(),
                                   ButtonBar(
                                     mainAxisSize: MainAxisSize
                                         .min, // this will take space as minimum as posible(to center)
