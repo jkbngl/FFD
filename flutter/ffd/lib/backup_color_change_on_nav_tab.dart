@@ -1203,9 +1203,36 @@ class _MyHomePageState extends State<MyHomePage>
         print(datumPair.datum.accountId);
         print(datumPair.datum.accountLevel);
 
-        g_parent_account.id = datumPair.datum.accountId;
-        g_parent_account.accountLevel =
-            datumPair.datum.accountLevel + 1; // we need to next higher one
+        if(datumPair.datum.accountId > 0 && datumPair.datum.accountLevel < 3)
+        {
+          g_parent_account.id = datumPair.datum.accountId;
+          g_parent_account.accountLevel = datumPair.datum.accountLevel + 1; // we need to next higher one
+        }
+        else
+          {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                // return object of type Dialog
+                return AlertDialog(
+                  title: new Text("No further drilldown possible"),
+                  content: new Text(
+                      "No drilldown possible as there is no deeper level available"),
+                  actions: <Widget>[
+                    // usually buttons at the bottom of the dialog
+                    new FlatButton(
+                      child: new Text("Close"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          }
+
+
       });
     }
 
