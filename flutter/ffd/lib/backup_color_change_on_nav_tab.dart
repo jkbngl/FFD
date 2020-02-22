@@ -1217,7 +1217,7 @@ class _MyHomePageState extends State<MyHomePage>
                 return AlertDialog(
                   title: new Text("No further drilldown possible"),
                   content: new Text(
-                      "No drilldown possible as there is no deeper level available"),
+                      datumPair.datum.accountLevel >= 3 ? "adjust text" : "adjust text"), // No drilldown possible as there is no deeper level available
                   actions: <Widget>[
                     // usually buttons at the bottom of the dialog
                     new FlatButton(
