@@ -221,6 +221,7 @@ class _MyHomePageState extends State<MyHomePage>
   bool areCostTypesActive = true;
 
   // Boolean for visualizer whether it should be shown per month or the full year
+  bool showFullYearHome = false;
   bool showFullYear = false;
 
   // Controllers used which store the value of the new accounts/ CostTypes added
@@ -356,7 +357,7 @@ class _MyHomePageState extends State<MyHomePage>
     int cost_type = -1;
     int parent_account = -1;
     int year = dateTimeHome.year;
-    int month = dateTimeHome.month;
+    int month = showFullYearHome ? -1 : dateTimeHome.month;
     String _type = 'actual';
 
     print("$year - $month");
@@ -1421,8 +1422,27 @@ class _MyHomePageState extends State<MyHomePage>
                                     'Choosen: ${dateTimeHome.year.toString()}-${dateTimeHome.month.toString().padLeft(2, '0')}'),
                               ]),
                           // TODO make with variable, just a test for #25
-                          true == true
-                              ? Container(
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Switch(
+                                  value: showFullYearHome,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      showFullYearHome = value;
+                                      loadHomescreen();
+                                    });
+                                  },
+                                  activeTrackColor: Color(0xffEEEEEE),
+                                  activeColor: Color(0xff0957FF),
+                                ),
+                                Text(
+                                  "Full Year:",
+                                  style: TextStyle(fontSize: 25),
+                                ),
+                              ]),
+                          Container(
                                   margin: const EdgeInsets.all(10.0),
                                   width: MediaQuery.of(context).size.width,
                                   height:
@@ -1459,7 +1479,6 @@ class _MyHomePageState extends State<MyHomePage>
                                     ],
                                   ),
                                 )
-                              : new Container()
                         ]),
                   ),
                 ),
