@@ -1489,7 +1489,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     domainFn: (homescreenPie dataPoint, _) =>
                                         dataPoint.type,
                                     labelAccessorFn: (homescreenPie row, _) =>
-                                        '${row.type}\n${row.amount.toStringAsFixed(2)}',
+                                        '${row.type}\n${row.amount.toStringAsFixed(2)}€',
                                     measureFn: (homescreenPie dataPoint, _) =>
                                         dataPoint.amount,
                                     data: homescreenData.sublist(0,
@@ -2192,7 +2192,7 @@ class _MyHomePageState extends State<MyHomePage>
                           labelAccessorFn: (CompanySizeVsNumberOfCompanies
                                       sales,
                                   _) =>
-                              '${sales.companySize}: € ${sales.numberOfCompanies.toString()}',
+                              '${sales.companySize}: ${sales.numberOfCompanies.toString()}€',
                           data: visualizerData)
                     ],
                     animate: true,
