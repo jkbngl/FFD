@@ -2420,13 +2420,12 @@ class _MyHomePageState extends State<MyHomePage>
                                           onChanged: (value) {
                                             setState(() {
                                               areLevel1AccountsActive = value;
+                                              areAccountsActive = value;
 
                                               // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
                                               if(!areLevel1AccountsActive) {
                                                 areLevel2AccountsActive = false;
                                                 areLevel3AccountsActive = false;
-
-                                                areAccountsActive = false;
                                               }
                                             });
                                           },
@@ -2451,6 +2450,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
                                               if (areLevel2AccountsActive) {
                                                 areLevel1AccountsActive = true;
+                                                areAccountsActive = true;
                                               } else if(!areLevel2AccountsActive) {
                                                 areLevel3AccountsActive = false;
                                               }
@@ -2476,6 +2476,7 @@ class _MyHomePageState extends State<MyHomePage>
 
                                               // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
                                               if (areLevel3AccountsActive) {
+                                                areAccountsActive = true;
                                                 areLevel1AccountsActive = true;
                                                 areLevel2AccountsActive = true;
                                               }
