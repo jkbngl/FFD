@@ -347,11 +347,15 @@ class _MyHomePageState extends State<MyHomePage>
     var parsedPreferences = json.decode(preferences);
 
     setState(() {
-      areCostTypesActive = parsedPreferences[0]['costtypes_active'];
-      areAccountsActive = parsedPreferences[0]['accounts_active'];
-      areLevel1AccountsActive = parsedPreferences[0]['accountslevel1_active'];
-      areLevel2AccountsActive = parsedPreferences[0]['accountslevel2_active'];
-      areLevel3AccountsActive = parsedPreferences[0]['accountslevel3_active'];
+
+      for(var preference in parsedPreferences)
+      {
+        areCostTypesActive = preference['costtypes_active'];
+        areAccountsActive = preference['accounts_active'];
+        areLevel1AccountsActive = preference['accountslevel1_active'];
+        areLevel2AccountsActive = preference['accountslevel2_active'];
+        areLevel3AccountsActive = preference['accountslevel3_active'];
+      }
     });
   }
 
