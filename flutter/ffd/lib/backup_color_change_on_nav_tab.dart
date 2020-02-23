@@ -347,9 +347,7 @@ class _MyHomePageState extends State<MyHomePage>
     var parsedPreferences = json.decode(preferences);
 
     setState(() {
-
-      for(var preference in parsedPreferences)
-      {
+      for (var preference in parsedPreferences) {
         areCostTypesActive = preference['costtypes_active'];
         areAccountsActive = preference['accounts_active'];
         areLevel1AccountsActive = preference['accountslevel1_active'];
@@ -794,8 +792,7 @@ class _MyHomePageState extends State<MyHomePage>
 
     var response = await http.post(url, body: body);
 
-    if(!onStartup)
-    {
+    if (!onStartup) {
       showCustomDialog(
           _currentIndex, response.statusCode == 500 ? 'error' : 'success');
       print(response.statusCode);
@@ -1198,6 +1195,10 @@ class _MyHomePageState extends State<MyHomePage>
         });
   }
 
+  onCardTapped(int position) {
+    print('Card $position tapped');
+  }
+
   _onSelectionChanged(charts.SelectionModel model) {
     final selectedDatum = model.selectedDatum;
     final selectedDatum2 = model.selectedSeries;
@@ -1210,36 +1211,33 @@ class _MyHomePageState extends State<MyHomePage>
         print(datumPair.datum.accountId);
         print(datumPair.datum.accountLevel);
 
-        if(datumPair.datum.accountId > 0 && datumPair.datum.accountLevel < 3)
-        {
+        if (datumPair.datum.accountId > 0 && datumPair.datum.accountLevel < 3) {
           g_parent_account.id = datumPair.datum.accountId;
-          g_parent_account.accountLevel = datumPair.datum.accountLevel + 1; // we need to next higher one
+          g_parent_account.accountLevel =
+              datumPair.datum.accountLevel + 1; // we need to next higher one
+        } else {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              // return object of type Dialog
+              return AlertDialog(
+                title: new Text("No further drilldown possible"),
+                content: new Text(datumPair.datum.accountLevel >= 3
+                    ? "No drilldown deeper than level3 allowed"
+                    : "No deeper level available"), // No drilldown possible as there is no deeper level available
+                actions: <Widget>[
+                  // usually buttons at the bottom of the dialog
+                  new FlatButton(
+                    child: new Text("Close"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
         }
-        else
-          {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                // return object of type Dialog
-                return AlertDialog(
-                  title: new Text("No further drilldown possible"),
-                  content: new Text(
-                      datumPair.datum.accountLevel >= 3 ? "No drilldown deeper than level3 allowed" : "No deeper level available"), // No drilldown possible as there is no deeper level available
-                  actions: <Widget>[
-                    // usually buttons at the bottom of the dialog
-                    new FlatButton(
-                      child: new Text("Close"),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                );
-              },
-            );
-          }
-
-
       });
     }
 
@@ -1349,45 +1347,60 @@ class _MyHomePageState extends State<MyHomePage>
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              Container(
-                                width: MediaQuery.of(context).size.width * .48,
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  color: homescreenData[0].amount >
-                                          homescreenData[2].amount
-                                      ? Colors.red
-                                      : Colors
-                                          .green, // If Actual bigger budget -> show as red
-                                  elevation: 10,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      ListTile(
-                                        leading: Icon(Icons.monetization_on,
-                                            size: 50),
-                                        title: Text('Actual',
-                                            style:
-                                                TextStyle(color: Colors.white)),
-                                        subtitle: Text(
-                                            homescreenData[0]
-                                                .amount
-                                                .toStringAsFixed(2),
-                                            style:
-                                                TextStyle(color: Colors.white)),
-                                      ),
-                                    ],
+                              GestureDetector(
+                                onTap: () {
+                                  print("Actual clicked");
+                                  setState(() => _currentIndex = 1);
+                                  _pageController.jumpToPage(1);
+                                },
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * .48,
+                                  child: Card(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    color: homescreenData[0].amount >
+                                            homescreenData[2].amount
+                                        ? Colors.red
+                                        : Colors
+                                            .green, // If Actual bigger budget -> show as red
+                                    elevation: 10,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        ListTile(
+                                          leading: Icon(Icons.monetization_on,
+                                              size: 50),
+                                          title: Text('Actual',
+                                              style: TextStyle(
+                                                  color: Colors.white)),
+                                          subtitle: Text(
+                                              homescreenData[0]
+                                                  .amount
+                                                  .toStringAsFixed(2),
+                                              style: TextStyle(
+                                                  color: Colors.white)),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * .48,
-                                /*decoration: BoxDecoration(
+                              GestureDetector(
+                                onTap: () {
+                                  print("Budget clicked");
+                                  setState(() => _currentIndex = 2);
+                                  _pageController.jumpToPage(2);
+                                },
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * .48,
+                                  /*decoration: BoxDecoration(
                                     borderRadius: new BorderRadius.only(
                                       topLeft: const Radius.circular(25.0),
                                       topRight: const Radius.circular(25.0),
@@ -1401,41 +1414,42 @@ class _MyHomePageState extends State<MyHomePage>
                                       tileMode: TileMode.repeated, // repeats the gradient over the canvas
                                     )),
                                  */
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  color: homescreenData[0].amount >
-                                          homescreenData[2].amount
-                                      ? Colors.red
-                                      : Colors.green,
-                                  elevation: 10,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      ListTile(
-                                        leading: Icon(
-                                            Icons.account_balance_wallet,
-                                            size: 50),
-                                        title: Text('Budget',
-                                            style:
-                                                TextStyle(color: Colors.white)),
-                                        subtitle: Text(
-                                            homescreenData[1]
-                                                    .amount
-                                                    .toStringAsFixed(2) +
-                                                '\n' +
-                                                homescreenData[2]
-                                                    .amount
-                                                    .toStringAsFixed(2),
-                                            style:
-                                                TextStyle(color: Colors.white)),
-                                      ),
-                                    ],
+                                  child: Card(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    color: homescreenData[0].amount >
+                                            homescreenData[2].amount
+                                        ? Colors.red
+                                        : Colors.green,
+                                    elevation: 10,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        ListTile(
+                                          leading: Icon(
+                                              Icons.account_balance_wallet,
+                                              size: 50),
+                                          title: Text('Budget',
+                                              style: TextStyle(
+                                                  color: Colors.white)),
+                                          subtitle: Text(
+                                              homescreenData[1]
+                                                      .amount
+                                                      .toStringAsFixed(2) +
+                                                  '\n' +
+                                                  homescreenData[2]
+                                                      .amount
+                                                      .toStringAsFixed(2),
+                                              style: TextStyle(
+                                                  color: Colors.white)),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -2426,7 +2440,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               areAccountsActive = value;
 
                                               // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
-                                              if(!areLevel1AccountsActive) {
+                                              if (!areLevel1AccountsActive) {
                                                 areLevel2AccountsActive = false;
                                                 areLevel3AccountsActive = false;
                                               }
@@ -2454,7 +2468,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               if (areLevel2AccountsActive) {
                                                 areLevel1AccountsActive = true;
                                                 areAccountsActive = true;
-                                              } else if(!areLevel2AccountsActive) {
+                                              } else if (!areLevel2AccountsActive) {
                                                 areLevel3AccountsActive = false;
                                               }
                                             });
@@ -2845,7 +2859,8 @@ class _MyHomePageState extends State<MyHomePage>
                                               )),
                                           color: Colors.red, //df7599 - 0957FF
                                           onPressed: () {
-                                            sendBackend('newaccountdelete', false);
+                                            sendBackend(
+                                                'newaccountdelete', false);
 
                                             if (level3AdminObject.id > 0) {
                                               // If the acount which has just been deleted was selected, unselect it
@@ -3055,7 +3070,8 @@ class _MyHomePageState extends State<MyHomePage>
                                               )),
                                           color: Colors.red, //df7599 - 0957FF
                                           onPressed: () {
-                                            sendBackend('newcosttypedelete', false);
+                                            sendBackend(
+                                                'newcosttypedelete', false);
 
                                             // the here selected value was deleted and therefore is no more available, so set it to the first default value to not receive an error
                                             costTypeObjectAdmin =
