@@ -146,6 +146,9 @@ class _MyHomePageState extends State<MyHomePage>
   Account g_parent_account =
       new Account(-69, 'DUMMY G_PARENT_ACCOUNT_FOR_VISUALISATION', null, 1);
 
+  // Text which shows the drilldown level
+  String drilldownLevel = "";
+
   // Json objects which are fetched from API
   var level1AccountsJson;
   var level2AccountsJson;
@@ -1215,6 +1218,8 @@ class _MyHomePageState extends State<MyHomePage>
           g_parent_account.id = datumPair.datum.accountId;
           g_parent_account.accountLevel =
               datumPair.datum.accountLevel + 1; // we need to next higher one
+
+          drilldownLevel += drilldownLevel.length > 0 ? " > " + datumPair.datum.companySize : datumPair.datum.companySize;
         } else {
           showDialog(
             context: context,
@@ -2192,6 +2197,19 @@ class _MyHomePageState extends State<MyHomePage>
                         ),
                       ]),
                 ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                        left: 30.0, top: 0, right: 0, bottom: 0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Drilldown: " + drilldownLevel,
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * .4,
@@ -2253,6 +2271,8 @@ class _MyHomePageState extends State<MyHomePage>
 
                               g_parent_account.accountLevel = 1;
                               g_parent_account.id = -69;
+
+                              drilldownLevel = "";
 
                               loadAmount();
                             });
