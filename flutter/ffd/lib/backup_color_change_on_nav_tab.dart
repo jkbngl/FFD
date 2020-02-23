@@ -236,6 +236,8 @@ class _MyHomePageState extends State<MyHomePage>
   final newAccountLevel3CommentTextFieldController = TextEditingController();
   final newCostTypeTextFieldController = TextEditingController();
   final newCostTypeCommentTextFieldController = TextEditingController();
+  final actualCommentTextFieldController = TextEditingController();
+  final budgetCommentTextFieldController = TextEditingController();
 
   // Account and Costtype objedts which are used in the admin page
   Account level1AdminObject;
@@ -726,6 +728,8 @@ class _MyHomePageState extends State<MyHomePage>
       'amount': type == 'actual'
           ? actualTextFieldController.text
           : budgetTextFieldController.text,
+      'actualcomment': actualCommentTextFieldController.text,
+      'budgetcomment': budgetCommentTextFieldController.text,
       'level1':
           type == 'actual' ? level1ActualObject.name : level1BudgetObject.name,
       'level2':
@@ -996,21 +1000,25 @@ class _MyHomePageState extends State<MyHomePage>
       TextEditingController dependingController2,
       TextEditingController dependingController3) async {
     // cache the name of the entered level1 or costtype to display it in the title of the comment dialog
-    var level1OrCostTypeName = dependingController.text;
+    var level1OrCostTypeName = type != 'actual' && type != 'budget'
+        ? dependingController.text
+        : 'your $type input';
 
     if (type == 'costtype') {
       dependingController = newCostTypeCommentTextFieldController;
+    } else if (type == 'actual') {
+      dependingController = actualCommentTextFieldController;
+    } else if (type == 'budget') {
+      dependingController = budgetCommentTextFieldController;
     } else if (type == 'account') {
       dependingController = newAccountLevel1CommentTextFieldController;
     }
 
-    print("1 " +
-        (type == 'costtype').toString() +
-        " - " +
-        (dependingController.text.length > 0).toString());
-
     // When a costType is added or a new level1 was entered, if no level1 is entered it might still be the case the a new level2 was entered with a linked level1 account
-    if (type == 'costtype' || newLevel1TextFieldController.text.length > 0) {
+    if (type == 'costtype' ||
+        type == 'actual' ||
+        type == 'budget' ||
+        newLevel1TextFieldController.text.length > 0) {
       await showDialog(
           context: context,
           builder: (context) {
@@ -1047,7 +1055,11 @@ class _MyHomePageState extends State<MyHomePage>
                 new FlatButton(
                   child: new Text('SAVE'),
                   onPressed: () {
-                    if (type != 'account') {
+                    if (type == 'actual') {
+                      sendBackend('actual', false);
+                    } else if (type == 'budget') {
+                      sendBackend('budget', false);
+                    } else if (type != 'account') {
                       sendBackend('new${type}add', false);
                     } else if (dependingController2.text.length <= 0) {
                       sendBackend('new${type}add', false);
@@ -1219,7 +1231,9 @@ class _MyHomePageState extends State<MyHomePage>
           g_parent_account.accountLevel =
               datumPair.datum.accountLevel + 1; // we need to next higher one
 
-          drilldownLevel += drilldownLevel.length > 0 ? " > " + datumPair.datum.companySize : datumPair.datum.companySize;
+          drilldownLevel += drilldownLevel.length > 0
+              ? " > " + datumPair.datum.companySize
+              : datumPair.datum.companySize;
         } else {
           showDialog(
             context: context,
@@ -1825,7 +1839,8 @@ class _MyHomePageState extends State<MyHomePage>
                                       color: Colors.white, fontSize: 17)),
                               color: Color(0xff0957FF), //df7599 - 0957FF
                               onPressed: () {
-                                sendBackend('actual', false);
+                                commentInput(
+                                    context, 'actual', null, null, null);
                               },
                             ),
                           ),
@@ -2138,7 +2153,8 @@ class _MyHomePageState extends State<MyHomePage>
                                       color: Colors.white, fontSize: 17)),
                               color: Color(0xff0957FF), //df7599 - 0957FF
                               onPressed: () {
-                                sendBackend('budget', false);
+                                commentInput(
+                                    context, 'budget', null, null, null);
                               },
                             ),
                           ),
