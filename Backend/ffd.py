@@ -70,7 +70,7 @@ def readAccounts(level_type):
 
     return data
 
-def readPreferences():
+def readPreferences(user):
     """
     This function responds to a request for /api/ffd/Preferences
     with the complete lists of Preferences for the user
@@ -252,6 +252,8 @@ def send():
         data = addAccount(data)
     elif data['type'].lower() == 'newaccountdelete':
         deleteAccount(data)
+    elif data['type'].lower() == 'generaladmin':
+        savePreferences(data)
     
 
     #data = request.values
@@ -262,9 +264,31 @@ def send():
 def sendActual(data):
     connection = connect()
     cursor = connection.cursor()
-    command = f"INSERT INTO ffd.act_data (amount, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk) \
-                                  VALUES ({data['amount']}, '{data['date']}', {data['year']}, {data['month']}, '{data['level1']}', {data['level1id']}, '{data['level2']}', {data['level2id']}, '{data['level3']}', {data['level3id']} \
+    command = f"INSERT INTO ffd.act_data (amount, comment, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk) \
+                                  VALUES ({data['amount']}, '{data['actualcomment']}', '{data['date']}', {data['year']}, {data['month']}, '{data['level1']}', {data['level1id']}, '{data['level2']}', {data['level2id']}, '{data['level3']}', {data['level3id']} \
                                   , '{data['costtype']}', {data['costtypeid']}, {data['user']})"
+    print(command)
+    cursor.execute(command)
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+def savePreferences(data):
+    connection = connect()
+    cursor = connection.cursor()
+    command = f"insert into ffd.preference_dim (select {data['user']} as user, {data['group']} as group_fk, {data['company']} as company_fk, \
+                                                       {data['arecosttypesactive']} costtypes_active, {data['areaccountsactive']} accounts_active, \
+                                                       {data['arelevel1accountsactive']} accountslevel1_active, \
+                                                       {data['arelevel2accountsactive']} accountslevel2_active, \
+                                                       {data['arelevel3accountsactive']} accountslevel3_active) \
+                ON CONFLICT (user_fk)  \
+                do update set costtypes_active = EXCLUDED.costtypes_active , \
+                              accounts_active = EXCLUDED.accounts_active, \
+                              accountslevel1_active = EXCLUDED.accountslevel1_active, \
+                              accountslevel2_active = EXCLUDED.accountslevel2_active, \
+                              accountslevel3_active = EXCLUDED.accountslevel3_active "
+                
+    
     print(command)
     cursor.execute(command)
     connection.commit()
@@ -274,8 +298,8 @@ def sendActual(data):
 def sendBudget(data):
     connection = connect()
     cursor = connection.cursor()
-    command = f"INSERT INTO ffd.bdg_data (amount, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk) \
-                                  VALUES ({data['amount']}, '{data['date']}', {data['year']}, {data['month']}, '{data['level1']}', {data['level1id']}, '{data['level2']}', {data['level2id']}, '{data['level3']}', {data['level3id']} \
+    command = f"INSERT INTO ffd.bdg_data (amount, comment, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk) \
+                                  VALUES ({data['amount']}, '{data['budgetcomment']}', '{data['date']}', {data['year']}, {data['month']}, '{data['level1']}', {data['level1id']}, '{data['level2']}', {data['level2id']}, '{data['level3']}', {data['level3id']} \
                                   , '{data['costtype']}', {data['costtypeid']}, {data['user']})"
     print(command)
     cursor.execute(command)
