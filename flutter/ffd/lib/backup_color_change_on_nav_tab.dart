@@ -291,7 +291,7 @@ class _MyHomePageState extends State<MyHomePage>
     // Await is needed here because else the sendBackend for generalAdmin will always overwrite the preferences with the default values defined in the code here
     await loadPreferences();
     // initialize if no preferences are present yet
-    sendBackend('generaladmin');
+    sendBackend('generaladmin', true);
 
     setState(() {});
   }
@@ -708,7 +708,7 @@ class _MyHomePageState extends State<MyHomePage>
     setState(() {});
   }
 
-  void sendBackend(String type) async {
+  void sendBackend(String type, bool onStartup) async {
     var url = 'http://192.168.0.21:5000/api/ffd/';
 
     // Whenever with the backend is communicated its best to reload the accounts and costtpyes
@@ -794,9 +794,12 @@ class _MyHomePageState extends State<MyHomePage>
 
     var response = await http.post(url, body: body);
 
-    showCustomDialog(
-        _currentIndex, response.statusCode == 500 ? 'error' : 'success');
-    print(response.statusCode);
+    if(!onStartup)
+    {
+      showCustomDialog(
+          _currentIndex, response.statusCode == 500 ? 'error' : 'success');
+      print(response.statusCode);
+    }
 
     /*
     showDialog(
@@ -1045,9 +1048,9 @@ class _MyHomePageState extends State<MyHomePage>
                   child: new Text('SAVE'),
                   onPressed: () {
                     if (type != 'account') {
-                      sendBackend('new${type}add');
+                      sendBackend('new${type}add', false);
                     } else if (dependingController2.text.length <= 0) {
-                      sendBackend('new${type}add');
+                      sendBackend('new${type}add', false);
                     }
 
                     Navigator.of(context).pop();
@@ -1096,7 +1099,7 @@ class _MyHomePageState extends State<MyHomePage>
                   onPressed: () {
                     // Send directly to backend if no additional level3 was entered which has to be saved in the Backend -> DB
                     if (dependingController3.text.length <= 0) {
-                      sendBackend('new${type}add');
+                      sendBackend('new${type}add', false);
                     }
 
                     Navigator.of(context).pop();
@@ -1143,7 +1146,7 @@ class _MyHomePageState extends State<MyHomePage>
                 new FlatButton(
                   child: new Text('SAVE'),
                   onPressed: () {
-                    sendBackend('new${type}add');
+                    sendBackend('new${type}add', false);
 
                     Navigator.of(context).pop();
                   },
@@ -1803,7 +1806,7 @@ class _MyHomePageState extends State<MyHomePage>
                                       color: Colors.white, fontSize: 17)),
                               color: Color(0xff0957FF), //df7599 - 0957FF
                               onPressed: () {
-                                sendBackend('actual');
+                                sendBackend('actual', false);
                               },
                             ),
                           ),
@@ -2116,7 +2119,7 @@ class _MyHomePageState extends State<MyHomePage>
                                       color: Colors.white, fontSize: 17)),
                               color: Color(0xff0957FF), //df7599 - 0957FF
                               onPressed: () {
-                                sendBackend('budget');
+                                sendBackend('budget', false);
                               },
                             ),
                           ),
@@ -2512,7 +2515,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           color: Color(
                                               0xff0957FF), //df7599 - 0957FF
                                           onPressed: () {
-                                            sendBackend('generaladmin');
+                                            sendBackend('generaladmin', false);
                                           },
                                         ),
                                       ),
@@ -2842,7 +2845,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               )),
                                           color: Colors.red, //df7599 - 0957FF
                                           onPressed: () {
-                                            sendBackend('newaccountdelete');
+                                            sendBackend('newaccountdelete', false);
 
                                             if (level3AdminObject.id > 0) {
                                               // If the acount which has just been deleted was selected, unselect it
@@ -3052,7 +3055,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               )),
                                           color: Colors.red, //df7599 - 0957FF
                                           onPressed: () {
-                                            sendBackend('newcosttypedelete');
+                                            sendBackend('newcosttypedelete', false);
 
                                             // the here selected value was deleted and therefore is no more available, so set it to the first default value to not receive an error
                                             costTypeObjectAdmin =
