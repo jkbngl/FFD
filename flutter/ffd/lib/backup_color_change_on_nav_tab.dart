@@ -1579,25 +1579,27 @@ class _MyHomePageState extends State<MyHomePage>
                               ]),
                         ),
                       ),
-                      Tab(child: Container(
-                        alignment: Alignment.center,
-                        //constraints: BoxConstraints.expand(width: 200),
-                        width: 2000,
-                        color: Color(0xff003680),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(
-                                Icons.home,
-                                color: Colors.white,
-                              ),
-                              Text(
-                                "Adjust",
-                                style: TextStyle(color: Colors.white),
-                              )
-                            ]),
-                      ),),
+                      Tab(
+                        child: Container(
+                          alignment: Alignment.center,
+                          //constraints: BoxConstraints.expand(width: 200),
+                          width: 2000,
+                          color: Color(0xff003680),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.home,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  "Adjust",
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              ]),
+                        ),
+                      ),
                     ]),
                   ),
                   Expanded(
@@ -1943,27 +1945,26 @@ class _MyHomePageState extends State<MyHomePage>
                           ),
                         ),
                         Container(
-                          child: ListView(
-                            padding: const EdgeInsets.all(8),
-                            children: <Widget>[
-                              Container(
-                                height: 50,
-                                color: Colors.amber[600],
-                                child: const Center(child: Text('Entry A')),
-                              ),
-                              Container(
-                                height: 50,
-                                color: Colors.amber[500],
-                                child: const Center(child: Text('Entry B')),
-                              ),
-                              Container(
-                                height: 50,
-                                color: Colors.amber[100],
-                                child: const Center(child: Text('Entry C')),
-                              ),
-                            ],
-                          )
-                        ),
+                            child: ListView(
+                          padding: const EdgeInsets.all(8),
+                          children: <Widget>[
+                            Container(
+                              height: 50,
+                              color: Colors.amber[600],
+                              child: const Center(child: Text('Entry A')),
+                            ),
+                            Container(
+                              height: 50,
+                              color: Colors.amber[500],
+                              child: const Center(child: Text('Entry B')),
+                            ),
+                            Container(
+                              height: 50,
+                              color: Colors.amber[100],
+                              child: const Center(child: Text('Entry C')),
+                            ),
+                          ],
+                        )),
                       ]),
                     ),
                   )
@@ -2284,171 +2285,183 @@ class _MyHomePageState extends State<MyHomePage>
                 ),
               ],
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                        'Select the month',
-                        style: TextStyle(fontSize: 15),
-                      ),
-                      FloatingActionButton(
-                        onPressed: () =>
-                            _showDatePicker('visualizer', dateTimeVisualizer),
-                        tooltip:
-                            'Select a different date where the booking should be added in',
-                        child: Icon(Icons.date_range),
-                        backgroundColor: Color(0xff0957FF),
-                      ),
-                      Text(
-                          'Choosen: ${dateTimeVisualizer.year.toString()}-${dateTimeVisualizer.month.toString().padLeft(2, '0')}'),
-                    ]),
-                Container(
-                  //color: Colors.blue[600],
-                  alignment: Alignment.center,
-                  //child: Text('Submit'),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Switch(
-                          value: showFullYear,
-                          onChanged: (value) {
-                            setState(() {
-                              showFullYear = value;
-                              loadAmount();
-                            });
-                          },
-                          activeTrackColor: Color(0xffEEEEEE),
-                          activeColor: Color(0xff0957FF),
-                        ),
-                        Text(
-                          "Full Year:",
-                          style: TextStyle(fontSize: 25),
-                        ),
-                      ]),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    padding: const EdgeInsets.only(
-                        left: 30.0, top: 0, right: 0, bottom: 0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Drilldown: " + drilldownLevel,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * .4,
-                  child: charts.BarChart(
-                    [
-                      charts.Series<CompanySizeVsNumberOfCompanies, String>(
-                          id: 'CompanySizeVsNumberOfCompanies',
-                          colorFn: (_, __) =>
-                              charts.ColorUtil.fromDartColor(Color(0xFF0957FF)),
-                          domainFn: (CompanySizeVsNumberOfCompanies sales, _) =>
-                              sales.companySize,
-                          measureFn:
-                              (CompanySizeVsNumberOfCompanies sales, _) =>
-                                  sales.numberOfCompanies,
-                          labelAccessorFn: (CompanySizeVsNumberOfCompanies
-                                      sales,
-                                  _) =>
-                              '${sales.companySize}: ${sales.numberOfCompanies.toString()}€',
-                          data: visualizerData)
-                    ],
-                    animate: true,
-                    selectionModels: [
-                      new charts.SelectionModelConfig(
-                          type: charts.SelectionModelType.info,
-                          changedListener: _onSelectionChanged)
-                    ],
-                    vertical: false,
-                    // Hide domain axis.
-                    barRendererDecorator:
-                        new charts.BarLabelDecorator<String>(),
-                    // Hide domain axis.
-                    domainAxis: new charts.OrdinalAxisSpec(
-                        renderSpec: new charts.NoneRenderSpec()),
-                    behaviors: [
-                      charts.ChartTitle('Spendings per Accounts'),
-                      charts.ChartTitle('Accounts',
-                          behaviorPosition: charts.BehaviorPosition.start),
-                      charts.ChartTitle('Amounts',
-                          behaviorPosition: charts.BehaviorPosition.bottom)
-                    ],
-                  ),
-                ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.only(
-                            left: 30.0, top: 0, right: 30, bottom: 0),
-                        //child: Text('Submit'),
-                        child: RaisedButton(
-                          child: Text('Reset'),
-                          color: Color(0xffEEEEEE), // EEEEEE
-                          onPressed: () {
-                            setState(() {
-                              showFullYear = false;
-                              costTypeObjectVisualizer = costTypesList[0];
-                              dateTimeVisualizer =
-                                  DateTime.parse(INIT_DATETIME);
-
-                              g_parent_account.accountLevel = 1;
-                              g_parent_account.id = -69;
-
-                              drilldownLevel = "";
-
-                              loadAmount();
-                            });
-                          },
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(
-                            left: 30.0, top: 0, right: 30, bottom: 30),
-                        //child: Text('Submit'),
-                        child: Align(
-                          alignment: Alignment.topRight,
-                          child: DropdownButton<CostType>(
-                            value: costTypeObjectVisualizer,
-                            icon: Icon(Icons.arrow_downward),
-                            iconSize: 24,
-                            elevation: 16,
-                            style: TextStyle(color: Color(0xff0957FF)),
-                            underline: Container(
-                              height: 2,
-                              width: 2000,
-                              color: Color(0xff0957FF),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'Select the month',
+                              style: TextStyle(fontSize: 15),
                             ),
-                            onChanged: (CostType newValue) {
-                              setState(() {
-                                costTypeObjectVisualizer = newValue;
-                                loadAmount();
-                              });
-                            },
-                            items: costTypesList.map((CostType type) {
-                              return new DropdownMenuItem<CostType>(
-                                value: type,
-                                child: new Text(
-                                  type.name,
-                                ),
-                              );
-                            }).toList(),
+                            FloatingActionButton(
+                              onPressed: () => _showDatePicker(
+                                  'visualizer', dateTimeVisualizer),
+                              tooltip:
+                                  'Select a different date where the booking should be added in',
+                              child: Icon(Icons.date_range),
+                              backgroundColor: Color(0xff0957FF),
+                            ),
+                            Text(
+                                'Choosen: ${dateTimeVisualizer.year.toString()}-${dateTimeVisualizer.month.toString().padLeft(2, '0')}'),
+                          ]),
+                      Container(
+                        //color: Colors.blue[600],
+                        alignment: Alignment.center,
+                        //child: Text('Submit'),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Switch(
+                                value: showFullYear,
+                                onChanged: (value) {
+                                  setState(() {
+                                    showFullYear = value;
+                                    loadAmount();
+                                  });
+                                },
+                                activeTrackColor: Color(0xffEEEEEE),
+                                activeColor: Color(0xff0957FF),
+                              ),
+                              Text(
+                                "Full Year:",
+                                style: TextStyle(fontSize: 25),
+                              ),
+                            ]),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          padding: const EdgeInsets.only(
+                              left: 30.0, top: 0, right: 0, bottom: 0),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Drilldown: " + drilldownLevel,
+                            ),
                           ),
                         ),
                       ),
-                    ])
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * .4,
+                        child: charts.BarChart(
+                          [
+                            charts.Series<CompanySizeVsNumberOfCompanies,
+                                    String>(
+                                id: 'CompanySizeVsNumberOfCompanies',
+                                colorFn: (_, __) =>
+                                    charts.ColorUtil.fromDartColor(
+                                        Color(0xFF0957FF)),
+                                domainFn:
+                                    (CompanySizeVsNumberOfCompanies sales, _) =>
+                                        sales.companySize,
+                                measureFn:
+                                    (CompanySizeVsNumberOfCompanies sales, _) =>
+                                        sales.numberOfCompanies,
+                                labelAccessorFn: (CompanySizeVsNumberOfCompanies
+                                            sales,
+                                        _) =>
+                                    '${sales.companySize}: ${sales.numberOfCompanies.toString()}€',
+                                data: visualizerData)
+                          ],
+                          animate: true,
+                          selectionModels: [
+                            new charts.SelectionModelConfig(
+                                type: charts.SelectionModelType.info,
+                                changedListener: _onSelectionChanged)
+                          ],
+                          vertical: false,
+                          // Hide domain axis.
+                          barRendererDecorator:
+                              new charts.BarLabelDecorator<String>(),
+                          // Hide domain axis.
+                          domainAxis: new charts.OrdinalAxisSpec(
+                              renderSpec: new charts.NoneRenderSpec()),
+                          behaviors: [
+                            charts.ChartTitle('Spendings per Accounts'),
+                            charts.ChartTitle('Accounts',
+                                behaviorPosition:
+                                    charts.BehaviorPosition.start),
+                            charts.ChartTitle('Amounts',
+                                behaviorPosition:
+                                    charts.BehaviorPosition.bottom)
+                          ],
+                        ),
+                      ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              padding: const EdgeInsets.only(
+                                  left: 30.0, top: 0, right: 30, bottom: 0),
+                              //child: Text('Submit'),
+                              child: RaisedButton(
+                                child: Text('Reset'),
+                                color: Color(0xffEEEEEE), // EEEEEE
+                                onPressed: () {
+                                  setState(() {
+                                    showFullYear = false;
+                                    costTypeObjectVisualizer = costTypesList[0];
+                                    dateTimeVisualizer =
+                                        DateTime.parse(INIT_DATETIME);
+
+                                    g_parent_account.accountLevel = 1;
+                                    g_parent_account.id = -69;
+
+                                    drilldownLevel = "";
+
+                                    loadAmount();
+                                  });
+                                },
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.only(
+                                  left: 30.0, top: 0, right: 30, bottom: 30),
+                              //child: Text('Submit'),
+                              child: Align(
+                                alignment: Alignment.topRight,
+                                child: DropdownButton<CostType>(
+                                  value: costTypeObjectVisualizer,
+                                  icon: Icon(Icons.arrow_downward),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: TextStyle(color: Color(0xff0957FF)),
+                                  underline: Container(
+                                    height: 2,
+                                    width: 2000,
+                                    color: Color(0xff0957FF),
+                                  ),
+                                  onChanged: (CostType newValue) {
+                                    setState(() {
+                                      costTypeObjectVisualizer = newValue;
+                                      loadAmount();
+                                    });
+                                  },
+                                  items: costTypesList.map((CostType type) {
+                                    return new DropdownMenuItem<CostType>(
+                                      value: type,
+                                      child: new Text(
+                                        type.name,
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
+                          ])
+                    ],
+                  ),
+                ),
               ],
             ),
             DefaultTabController(
