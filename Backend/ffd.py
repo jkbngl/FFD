@@ -164,7 +164,7 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
 
     # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
     data = []
-    query = f"{select_params} from ffd.{'act' if _type == 'actual' else 'bdg'}_data {where_params}{group_params}{order_params}"
+    query = f"{select_params} from ffd.{'act' if _type == 'actual' else 'bdg'}_data {where_params}{group_params} order by sum desc"
 
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
