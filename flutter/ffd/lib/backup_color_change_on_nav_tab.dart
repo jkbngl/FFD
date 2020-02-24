@@ -1963,49 +1963,12 @@ class _MyHomePageState extends State<MyHomePage>
                               ),
                             ],
                           )
-
-<<<<<<< HEAD
-
                         ),
                       ]),
                     ),
                   )
                 ],
               ),
-=======
-                                setState(() {
-                                  level1ActualObject =
-                                      level1ActualAccountsList[0];
-                                  level2ActualObject =
-                                      level2ActualAccountsList[0];
-                                  level3ActualObject =
-                                      level3ActualAccountsList[0];
-
-                                  costTypeObjectActual = costTypesList[0];
-                                });
-                              },
-                            ),
-                          ),
-                          ButtonTheme(
-                            minWidth: 150.0,
-                            height: 60.0,
-                            child: RaisedButton(
-                              child: Text('Save',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 17)),
-                              color: Color(0xff0957FF), //df7599 - 0957FF
-                              onPressed: () {
-                                commentInput(
-                                    context, 'actual', null, null, null);
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
             ),
             CustomScrollView(
               slivers: [
