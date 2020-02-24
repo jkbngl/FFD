@@ -56,6 +56,12 @@ paths:
   /ffd/preferences:
     get:
       operationId: "ffd.readPreferences"
+      parameters:
+        - in: query
+          name: user
+          type: string
+          required: false
+          description: Numeric ID of the user to get.
       tags:
         - "preferences"
       summary: "Returns the preferences"
@@ -195,12 +201,12 @@ paths:
     post:
       operationId: "ffd.send"
       tags:
-        - "Actual Budget"
-      summary: "Send new actuals and budgets to the server"
-      description: "Send new actuals and budgets to the server"
+        - "Actual Budget Preferences Accounts"
+      summary: "Send new actuals, budgets preferences and else to the server"
+      description: "Send new actuals, budgets preferences and else to the server"
       responses:
         200:
-          description: "Successful send actuals and budgets"
+          description: "Successful send actuals, budgets preferences and else"
           schema:
             type: "array"
             items:
@@ -208,6 +214,10 @@ paths:
                 type:
                   type: "string"
                 amount:
+                  type: "string"
+                actualcomment:
+                  type: "string"
+                budgetcomment:
                   type: "string"
                 userid:
                   type: "string"
