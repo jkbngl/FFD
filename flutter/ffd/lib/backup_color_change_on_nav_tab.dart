@@ -1556,10 +1556,48 @@ class _MyHomePageState extends State<MyHomePage>
               child: Column(
                 children: <Widget>[
                   Container(
-                    constraints: BoxConstraints.expand(height: 50),
+                    //constraints: BoxConstraints.expand(height: 50),
                     child: TabBar(tabs: [
-                      Tab(text: "Input"),
-                      Tab(text: "Adjust"),
+                      Tab(
+                        child: Container(
+                          alignment: Alignment.center,
+                          //constraints: BoxConstraints.expand(width: 200),
+                          width: 2000,
+                          color: Color(0xff003680),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.home,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  "Input",
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              ]),
+                        ),
+                      ),
+                      Tab(child: Container(
+                        alignment: Alignment.center,
+                        //constraints: BoxConstraints.expand(width: 200),
+                        width: 2000,
+                        color: Color(0xff003680),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.home,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                "Adjust",
+                                style: TextStyle(color: Colors.white),
+                              )
+                            ]),
+                      ),),
                     ]),
                   ),
                   Expanded(
@@ -1575,18 +1613,20 @@ class _MyHomePageState extends State<MyHomePage>
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
                                             'Select the month',
                                             style: TextStyle(fontSize: 15),
                                           ),
                                           FloatingActionButton(
-                                            onPressed: () =>
-                                                _showDatePicker('actual', dateTimeActual),
+                                            onPressed: () => _showDatePicker(
+                                                'actual', dateTimeActual),
                                             tooltip:
-                                            'Select a different date where the booking should be added in',
+                                                'Select a different date where the booking should be added in',
                                             child: Icon(Icons.date_range),
                                             backgroundColor: Color(0xff0957FF),
                                           ),
@@ -1599,7 +1639,10 @@ class _MyHomePageState extends State<MyHomePage>
                                       ),
 
                                       padding: const EdgeInsets.only(
-                                          left: 30.0, top: 0, right: 30, bottom: 0),
+                                          left: 30.0,
+                                          top: 0,
+                                          right: 30,
+                                          bottom: 0),
                                       //color: Colors.blue[600],
                                       alignment: Alignment.center,
                                       //child: Text('Submit'),
@@ -1607,12 +1650,13 @@ class _MyHomePageState extends State<MyHomePage>
                                         keyboardType: TextInputType
                                             .number, //keyboard with numbers only will appear to the screen
                                         style: TextStyle(
-                                            height: 2), //increases the height of cursor
+                                            height:
+                                                2), //increases the height of cursor
                                         //autofocus: true,
                                         controller: actualTextFieldController,
                                         decoration: InputDecoration(
-                                          // hintText: 'Enter ur amount',
-                                          //hintStyle: TextStyle(height: 1.75),
+                                            // hintText: 'Enter ur amount',
+                                            //hintStyle: TextStyle(height: 1.75),
                                             labelText: 'Enter your amount',
                                             labelStyle: TextStyle(
                                                 height: 0.5,
@@ -1624,200 +1668,227 @@ class _MyHomePageState extends State<MyHomePage>
                                             ),
                                             //prefixIcon: Icon(Icons.attach_money),
                                             //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                            enabledBorder: new UnderlineInputBorder(
-                                                borderSide: new BorderSide(
-                                                    color: Color(0xff0957FF)))),
+                                            enabledBorder:
+                                                new UnderlineInputBorder(
+                                                    borderSide: new BorderSide(
+                                                        color: Color(
+                                                            0xff0957FF)))),
                                       ),
                                     ),
                                     areLevel1AccountsActive
                                         ? Container(
-                                      constraints: BoxConstraints.expand(
-                                        height: 100,
-                                        //width: MediaQuery.of(context).size.width * .8
-                                      ),
+                                            constraints: BoxConstraints.expand(
+                                              height: 100,
+                                              //width: MediaQuery.of(context).size.width * .8
+                                            ),
 
-                                      padding: const EdgeInsets.only(
-                                          left: 30.0, top: 0, right: 30, bottom: 0),
-                                      //color: Colors.blue[600],
-                                      alignment: Alignment.center,
-                                      //child: Text('Submit'),
-                                      child: DropdownButton<Account>(
-                                        value: level1ActualObject,
-                                        hint: Text(
-                                          "Select a level 1 account",
-                                          /*style: TextStyle(
+                                            padding: const EdgeInsets.only(
+                                                left: 30.0,
+                                                top: 0,
+                                                right: 30,
+                                                bottom: 0),
+                                            //color: Colors.blue[600],
+                                            alignment: Alignment.center,
+                                            //child: Text('Submit'),
+                                            child: DropdownButton<Account>(
+                                              value: level1ActualObject,
+                                              hint: Text(
+                                                "Select a level 1 account",
+                                                /*style: TextStyle(
                               color,
                             ),*/
-                                        ),
-                                        icon: Icon(Icons.arrow_downward),
-                                        iconSize: 24,
-                                        elevation: 16,
-                                        style: TextStyle(color: Color(0xff0957FF)),
-                                        isExpanded: true,
-                                        underline: Container(
-                                          height: 2,
-                                          width: 5000,
-                                          color: Color(0xff0957FF),
-                                        ),
-                                        onChanged: (Account newValue) {
-                                          setState(() {
-                                            level1ActualObject = newValue;
-                                          });
+                                              ),
+                                              icon: Icon(Icons.arrow_downward),
+                                              iconSize: 24,
+                                              elevation: 16,
+                                              style: TextStyle(
+                                                  color: Color(0xff0957FF)),
+                                              isExpanded: true,
+                                              underline: Container(
+                                                height: 2,
+                                                width: 5000,
+                                                color: Color(0xff0957FF),
+                                              ),
+                                              onChanged: (Account newValue) {
+                                                setState(() {
+                                                  level1ActualObject = newValue;
+                                                });
 
-                                          print(level1ActualObject.name);
+                                                print(level1ActualObject.name);
 
-                                          arrangeAccounts(1, 'actual');
-                                        },
-                                        items: level1ActualAccountsList
-                                            .map((Account account) {
-                                          return new DropdownMenuItem<Account>(
-                                            value: account,
-                                            child: new Text(
-                                              account.name,
+                                                arrangeAccounts(1, 'actual');
+                                              },
+                                              items: level1ActualAccountsList
+                                                  .map((Account account) {
+                                                return new DropdownMenuItem<
+                                                    Account>(
+                                                  value: account,
+                                                  child: new Text(
+                                                    account.name,
+                                                  ),
+                                                );
+                                              }).toList(),
                                             ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    )
+                                          )
                                         : Container(),
                                     areLevel2AccountsActive
                                         ? Container(
-                                      constraints: BoxConstraints.expand(
-                                        height: 50,
-                                      ),
-                                      padding: const EdgeInsets.only(
-                                          left: 30.0, top: 0, right: 30, bottom: 0),
-                                      //color: Colors.blue[600],
-                                      alignment: Alignment.center,
-                                      //child: Text('Submit'),
-                                      child: DropdownButton<Account>(
-                                        value: level2ActualObject,
-                                        hint: Text(
-                                          "Select a level 2 account",
-                                          /*style: TextStyle(
+                                            constraints: BoxConstraints.expand(
+                                              height: 50,
+                                            ),
+                                            padding: const EdgeInsets.only(
+                                                left: 30.0,
+                                                top: 0,
+                                                right: 30,
+                                                bottom: 0),
+                                            //color: Colors.blue[600],
+                                            alignment: Alignment.center,
+                                            //child: Text('Submit'),
+                                            child: DropdownButton<Account>(
+                                              value: level2ActualObject,
+                                              hint: Text(
+                                                "Select a level 2 account",
+                                                /*style: TextStyle(
                               color,
                             ),*/
-                                        ),
-                                        icon: Icon(Icons.arrow_downward),
-                                        iconSize: 24,
-                                        elevation: 16,
-                                        style: TextStyle(color: Color(0xff0957FF)),
-                                        isExpanded: true,
-                                        underline: Container(
-                                          height: 2,
-                                          width: 5000,
-                                          color: Color(0xff0957FF),
-                                        ),
-                                        onChanged: (Account newValue) {
-                                          dummyAccount = level2ActualObject;
+                                              ),
+                                              icon: Icon(Icons.arrow_downward),
+                                              iconSize: 24,
+                                              elevation: 16,
+                                              style: TextStyle(
+                                                  color: Color(0xff0957FF)),
+                                              isExpanded: true,
+                                              underline: Container(
+                                                height: 2,
+                                                width: 5000,
+                                                color: Color(0xff0957FF),
+                                              ),
+                                              onChanged: (Account newValue) {
+                                                dummyAccount =
+                                                    level2ActualObject;
 
-                                          setState(() {
-                                            level2ActualObject = newValue;
-                                          });
+                                                setState(() {
+                                                  level2ActualObject = newValue;
+                                                });
 
-                                          if (dummyAccount.id != newValue.id) {
-                                            arrangeAccounts(2, 'actual');
-                                          } else {
-                                            print("RESELECTED");
-                                          }
-                                        },
-                                        items: level2ActualAccountsList
-                                            .map((Account account) {
-                                          return new DropdownMenuItem<Account>(
-                                            value: account,
-                                            child: new Text(
-                                              account.name,
+                                                if (dummyAccount.id !=
+                                                    newValue.id) {
+                                                  arrangeAccounts(2, 'actual');
+                                                } else {
+                                                  print("RESELECTED");
+                                                }
+                                              },
+                                              items: level2ActualAccountsList
+                                                  .map((Account account) {
+                                                return new DropdownMenuItem<
+                                                    Account>(
+                                                  value: account,
+                                                  child: new Text(
+                                                    account.name,
+                                                  ),
+                                                );
+                                              }).toList(),
                                             ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    )
+                                          )
                                         : Container(),
                                     areLevel3AccountsActive
                                         ? Container(
-                                      constraints: BoxConstraints.expand(
-                                        height: 100.0,
-                                      ),
-                                      padding: const EdgeInsets.only(
-                                          left: 30.0, top: 0, right: 30, bottom: 0),
-                                      alignment: Alignment.center,
-                                      child: DropdownButton<Account>(
-                                        value: level3ActualObject,
-                                        hint: Text(
-                                          "Select a level 3 account",
-                                          /*style: TextStyle(
+                                            constraints: BoxConstraints.expand(
+                                              height: 100.0,
+                                            ),
+                                            padding: const EdgeInsets.only(
+                                                left: 30.0,
+                                                top: 0,
+                                                right: 30,
+                                                bottom: 0),
+                                            alignment: Alignment.center,
+                                            child: DropdownButton<Account>(
+                                              value: level3ActualObject,
+                                              hint: Text(
+                                                "Select a level 3 account",
+                                                /*style: TextStyle(
                               color,
                             ),*/
-                                        ),
-                                        icon: Icon(Icons.arrow_downward),
-                                        iconSize: 24,
-                                        elevation: 16,
-                                        style: TextStyle(color: Color(0xff0957FF)),
-                                        isExpanded: true,
-                                        underline: Container(
-                                          height: 2,
-                                          width: 5000,
-                                          color: Color(0xff0957FF),
-                                        ),
-                                        onChanged: (Account newValue) {
-                                          setState(() {
-                                            level3ActualObject = newValue;
-                                          });
+                                              ),
+                                              icon: Icon(Icons.arrow_downward),
+                                              iconSize: 24,
+                                              elevation: 16,
+                                              style: TextStyle(
+                                                  color: Color(0xff0957FF)),
+                                              isExpanded: true,
+                                              underline: Container(
+                                                height: 2,
+                                                width: 5000,
+                                                color: Color(0xff0957FF),
+                                              ),
+                                              onChanged: (Account newValue) {
+                                                setState(() {
+                                                  level3ActualObject = newValue;
+                                                });
 
-                                          // TODO probably not needed as change in level3 has no affect in anything
-                                          // arrangeAccounts(3, 'actual');
-                                        },
-                                        items: level3ActualAccountsList
-                                            .map((Account account) {
-                                          return new DropdownMenuItem<Account>(
-                                            value: account,
-                                            child: new Text(
-                                              account.name,
+                                                // TODO probably not needed as change in level3 has no affect in anything
+                                                // arrangeAccounts(3, 'actual');
+                                              },
+                                              items: level3ActualAccountsList
+                                                  .map((Account account) {
+                                                return new DropdownMenuItem<
+                                                    Account>(
+                                                  value: account,
+                                                  child: new Text(
+                                                    account.name,
+                                                  ),
+                                                );
+                                              }).toList(),
                                             ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    )
+                                          )
                                         : Container(),
                                     areCostTypesActive
                                         ? Container(
-                                      constraints: BoxConstraints.expand(
-                                        height: 50.0,
-                                      ),
-                                      padding: const EdgeInsets.only(
-                                          left: 30.0, top: 0, right: 30, bottom: 0),
-                                      //color: Colors.blue[600],
-                                      alignment: Alignment.center,
-                                      //child: Text('Submit'),
-                                      child: Align(
-                                        alignment: Alignment.topRight,
-                                        child: DropdownButton<CostType>(
-                                          value: costTypeObjectActual,
-                                          icon: Icon(Icons.arrow_downward),
-                                          iconSize: 24,
-                                          elevation: 16,
-                                          style: TextStyle(color: Color(0xff0957FF)),
-                                          underline: Container(
-                                            height: 2,
-                                            width: 2000,
-                                            color: Color(0xff0957FF),
-                                          ),
-                                          onChanged: (CostType newValue) {
-                                            setState(() {
-                                              costTypeObjectActual = newValue;
-                                            });
-                                          },
-                                          items: costTypesList.map((CostType type) {
-                                            return new DropdownMenuItem<CostType>(
-                                              value: type,
-                                              child: new Text(
-                                                type.name,
+                                            constraints: BoxConstraints.expand(
+                                              height: 50.0,
+                                            ),
+                                            padding: const EdgeInsets.only(
+                                                left: 30.0,
+                                                top: 0,
+                                                right: 30,
+                                                bottom: 0),
+                                            //color: Colors.blue[600],
+                                            alignment: Alignment.center,
+                                            //child: Text('Submit'),
+                                            child: Align(
+                                              alignment: Alignment.topRight,
+                                              child: DropdownButton<CostType>(
+                                                value: costTypeObjectActual,
+                                                icon:
+                                                    Icon(Icons.arrow_downward),
+                                                iconSize: 24,
+                                                elevation: 16,
+                                                style: TextStyle(
+                                                    color: Color(0xff0957FF)),
+                                                underline: Container(
+                                                  height: 2,
+                                                  width: 2000,
+                                                  color: Color(0xff0957FF),
+                                                ),
+                                                onChanged: (CostType newValue) {
+                                                  setState(() {
+                                                    costTypeObjectActual =
+                                                        newValue;
+                                                  });
+                                                },
+                                                items: costTypesList
+                                                    .map((CostType type) {
+                                                  return new DropdownMenuItem<
+                                                      CostType>(
+                                                    value: type,
+                                                    child: new Text(
+                                                      type.name,
+                                                    ),
+                                                  );
+                                                }).toList(),
                                               ),
-                                            );
-                                          }).toList(),
-                                        ),
-                                      ),
-                                    )
+                                            ),
+                                          )
                                         : Container(),
                                     ButtonBar(
                                       mainAxisSize: MainAxisSize
@@ -1830,17 +1901,19 @@ class _MyHomePageState extends State<MyHomePage>
                                             child: Text('Discard'),
                                             color: Color(0xffEEEEEE), // EEEEEE
                                             onPressed: () {
-                                              actualTextFieldController.text = '';
+                                              actualTextFieldController.text =
+                                                  '';
 
                                               setState(() {
                                                 level1ActualObject =
-                                                level1ActualAccountsList[0];
+                                                    level1ActualAccountsList[0];
                                                 level2ActualObject =
-                                                level2ActualAccountsList[0];
+                                                    level2ActualAccountsList[0];
                                                 level3ActualObject =
-                                                level3ActualAccountsList[0];
+                                                    level3ActualAccountsList[0];
 
-                                                costTypeObjectActual = costTypesList[0];
+                                                costTypeObjectActual =
+                                                    costTypesList[0];
                                               });
                                             },
                                           ),
@@ -1851,11 +1924,13 @@ class _MyHomePageState extends State<MyHomePage>
                                           child: RaisedButton(
                                             child: Text('Save',
                                                 style: TextStyle(
-                                                    color: Colors.white, fontSize: 17)),
-                                            color: Color(0xff0957FF), //df7599 - 0957FF
+                                                    color: Colors.white,
+                                                    fontSize: 17)),
+                                            color: Color(
+                                                0xff0957FF), //df7599 - 0957FF
                                             onPressed: () {
-                                              commentInput(
-                                                  context, 'actual', null, null, null);
+                                              commentInput(context, 'actual',
+                                                  null, null, null);
                                             },
                                           ),
                                         ),
@@ -1868,7 +1943,28 @@ class _MyHomePageState extends State<MyHomePage>
                           ),
                         ),
                         Container(
-                          child: Text("Articles Body"),
+                          child: ListView(
+                            padding: const EdgeInsets.all(8),
+                            children: <Widget>[
+                              Container(
+                                height: 50,
+                                color: Colors.amber[600],
+                                child: const Center(child: Text('Entry A')),
+                              ),
+                              Container(
+                                height: 50,
+                                color: Colors.amber[500],
+                                child: const Center(child: Text('Entry B')),
+                              ),
+                              Container(
+                                height: 50,
+                                color: Colors.amber[100],
+                                child: const Center(child: Text('Entry C')),
+                              ),
+                            ],
+                          )
+
+
                         ),
                       ]),
                     ),
@@ -2362,7 +2458,7 @@ class _MyHomePageState extends State<MyHomePage>
               child: Column(
                 children: <Widget>[
                   Container(
-                    constraints: BoxConstraints.expand(height: 50),
+                    //constraints: BoxConstraints.expand(height: 50),
                     child: TabBar(tabs: [
                       Tab(
                         child: Container(
