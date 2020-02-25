@@ -110,7 +110,7 @@ def readPreferences(user):
 
 def readListActualBudget(_type, user, interval = 365):
     data = []
-    query = f"select * from ffd.{'act' if _type == 'actual' else 'bdg'}_data where user_fk = {user} and data_date > date_trunc('month', CURRENT_DATE) - INTERVAL '1 year' order data_date by sum desc"
+    query = f"select * from ffd.{'act' if _type == 'actual' else 'bdg'}_data where user_fk = {user} and data_date > date_trunc('month', CURRENT_DATE) - INTERVAL '1 year' order by data_date desc"
 
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
@@ -133,7 +133,7 @@ def readListActualBudget(_type, user, interval = 365):
     connection.close()
 
     
-    return query
+    return data
 
 def readAmounts(level_type, cost_type, parent_account, year, month, _type):
     
