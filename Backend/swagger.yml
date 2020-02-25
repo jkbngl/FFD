@@ -197,6 +197,79 @@ paths:
                   type: "string"
                 user_fk: 
                   type: "integer"
+  /ffd/amounts/:
+    get:
+      operationId: "ffd.readListActualBudget"
+      #example: http://192.168.0.21:5000/api/ffd/amounts/?_type=1&user=-1&interval=-1
+      parameters:
+        - in: query
+          name: _type
+          type: string
+          required: true
+          description: actual or budget.
+        - in: query
+          name: user
+          type: integer
+          required: true
+          description: Numeric ID of the user to get.
+        - in: query
+          name: interval
+          type: integer
+          required: false
+          description: days back, default 365  
+      tags:
+        - "Amounts"
+      summary: "Returns all actual or budget entries for the user in the interval"
+      description: "Read the list of actual or budget entries for the user in the interval"
+      responses:
+        200:
+          description: "Successful read the list of actual or budget entries for the user in the interval"
+          schema:
+            type: "array"
+            items:
+              properties:
+                id:
+                  type: "integer"
+                amount:
+                  type: "integer"
+                comment:
+                  type: "string"
+                data_date:
+                  type: "string"
+                year: 
+                  type: "integer"
+                month:
+                  type: "integer"
+                day:
+                  type: "string"
+                level1:
+                  type: "string"
+                level1_fk:
+                  type: "integer"
+                level2:
+                  type: "string"
+                level2_fk:
+                  type: "integer"
+                level3:
+                  type: "string"
+                level3_fk:
+                  type: "integer"
+                costtype:
+                  type: "string"
+                costtype_fk:
+                  type: "integer"
+                user_fk:
+                  type: "integer"
+                group_fk:
+                  type: "integer"
+                created:
+                  type: "string"
+                updated:
+                  type: "string"
+                created_by:
+                  type: "string"
+                updated_by:
+                  type: "string"
   /ffd/:
     post:
       operationId: "ffd.send"

@@ -108,11 +108,38 @@ def readPreferences(user):
 
     return data
 
+def readListActualBudget(_type, user, interval = 365):
+    data = []
+    query = f"select * from ffd.{'act' if _type == 'actual' else 'bdg'}_data where user_fk = {user} and data_date > date_trunc('month', CURRENT_DATE) - INTERVAL '1 year' order data_date by sum desc"
+
+    connection = connect()
+    cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
+
+    cursor.execute(query)
+    record = cursor.fetchall()
+    # fetch the column names from the cursror
+    columnnames = [desc[0] for desc in cursor.description]
+
+    # Create from the value array a key value object
+    for row in record:
+        cache = {}
+
+        for columnname in columnnames:
+            cache[columnname] = row[columnname]
+
+        data.append(cache)
+        
+    cursor.close()
+    connection.close()
+
+    
+    return query
+
 def readAmounts(level_type, cost_type, parent_account, year, month, _type):
     
     """
-    This function responds to a request for /api/ffd/level_type
-    with the complete lists of accounts for the user
+    This function responds to a request for /api/ffd/amounts
+    with the complete lists of amounts for the specified params
 
     :return:        list of accounts
     """

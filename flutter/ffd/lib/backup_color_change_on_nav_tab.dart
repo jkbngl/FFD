@@ -831,7 +831,9 @@ class _MyHomePageState extends State<MyHomePage>
       if (type == 'actual') {
         // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level2ActualObject = level2ActualAccountsList.firstWhere(
-            (account) => account.parentAccount == level1ActualObject.id  && areLevel2AccountsActive,
+            (account) =>
+                account.parentAccount == level1ActualObject.id &&
+                areLevel2AccountsActive,
             orElse: () => level2ActualAccountsList[0]);
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
@@ -844,7 +846,9 @@ class _MyHomePageState extends State<MyHomePage>
 
         // Same as above for level3
         level3ActualObject = level3ActualAccountsList.firstWhere(
-            (account) => account.parentAccount == level2ActualObject.id && areLevel3AccountsActive,
+            (account) =>
+                account.parentAccount == level2ActualObject.id &&
+                areLevel3AccountsActive,
             orElse: () => level3ActualAccountsList[0]);
 
         level3ActualAccountsList.retainWhere((account) =>
@@ -855,7 +859,9 @@ class _MyHomePageState extends State<MyHomePage>
             account.parentAccount == level2ActualObject.id || account.id < 0);
       } else if (type == 'budget') {
         level2BudgetObject = level2BudgetAccountsList.firstWhere(
-            (account) => account.parentAccount == level1BudgetObject.id  && areLevel2AccountsActive,
+            (account) =>
+                account.parentAccount == level1BudgetObject.id &&
+                areLevel2AccountsActive,
             orElse: () => level2BudgetAccountsList[0]);
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
@@ -868,7 +874,9 @@ class _MyHomePageState extends State<MyHomePage>
 
         // Same as above for level3
         level3BudgetObject = level3BudgetAccountsList.firstWhere(
-            (account) => account.parentAccount == level2BudgetObject.id   && areLevel3AccountsActive,
+            (account) =>
+                account.parentAccount == level2BudgetObject.id &&
+                areLevel3AccountsActive,
             orElse: () => level3BudgetAccountsList[0]);
 
         level3BudgetAccountsList.retainWhere((account) =>
@@ -905,7 +913,9 @@ class _MyHomePageState extends State<MyHomePage>
       if (type == 'actual') {
         // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3ActualObject = level3ActualAccountsList.firstWhere(
-            (account) => account.parentAccount == level2ActualObject.id && areLevel3AccountsActive,
+            (account) =>
+                account.parentAccount == level2ActualObject.id &&
+                areLevel3AccountsActive,
             orElse: () => level3ActualAccountsList[0]);
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
@@ -918,7 +928,9 @@ class _MyHomePageState extends State<MyHomePage>
       } else if (type == 'budget') {
         // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3BudgetObject = level3BudgetAccountsList.firstWhere(
-            (account) => account.parentAccount == level2BudgetObject.id && areLevel3AccountsActive,
+            (account) =>
+                account.parentAccount == level2BudgetObject.id &&
+                areLevel3AccountsActive,
             orElse: () => level3BudgetAccountsList[0]);
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
@@ -1515,38 +1527,41 @@ class _MyHomePageState extends State<MyHomePage>
                                   style: TextStyle(fontSize: 25),
                                 ),
                               ]),
-                          Container(
-                            margin: const EdgeInsets.all(10.0),
-                            width: MediaQuery.of(context).size.width * .9,
-                            height: MediaQuery.of(context).size.height * .4,
-                            child: charts.PieChart(
-                              [
-                                charts.Series<homescreenPie, String>(
-                                    id: 'CompanySizeVsNumberOfCompanies',
-                                    domainFn: (homescreenPie dataPoint, _) =>
-                                        dataPoint.type,
-                                    labelAccessorFn: (homescreenPie row, _) =>
-                                        '${row.type}\n${row.amount.toStringAsFixed(2)}€',
-                                    measureFn: (homescreenPie dataPoint, _) =>
-                                        dataPoint.amount,
-                                    data: homescreenData.sublist(0,
-                                        2) /*Only first 2 elements not also the overall budget*/)
-                              ],
-                              defaultRenderer: new charts.ArcRendererConfig(
-                                arcRendererDecorators: [
-                                  new charts.ArcLabelDecorator(
-                                      //labelPadding:-25,
-                                      labelPosition:
-                                          charts.ArcLabelPosition.outside),
-                                ],
-                                arcWidth: 50,
-                              ),
-                              animate: true,
-                              behaviors: [
-                                charts.ChartTitle('Actual vs Budget'),
-                              ],
-                            ),
-                          )
+                         Container(
+                                margin: const EdgeInsets.all(0.0),
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height * .4,
+                                child: charts.PieChart(
+                                  [
+                                    charts.Series<homescreenPie, String>(
+                                        id: 'CompanySizeVsNumberOfCompanies',
+                                        domainFn:
+                                            (homescreenPie dataPoint, _) =>
+                                                dataPoint.type,
+                                        labelAccessorFn: (homescreenPie row,
+                                                _) =>
+                                            '${row.type}\n${row.amount.toStringAsFixed(2)}€',
+                                        measureFn:
+                                            (homescreenPie dataPoint, _) =>
+                                                dataPoint.amount,
+                                        data: homescreenData.sublist(0,
+                                            2) /*Only first 2 elements not also the overall budget*/)
+                                  ],
+                                  defaultRenderer: new charts.ArcRendererConfig(
+                                    arcRendererDecorators: [
+                                      new charts.ArcLabelDecorator(
+                                          //labelPadding: 0,
+                                          labelPosition:
+                                              charts.ArcLabelPosition.outside),
+                                    ],
+                                    arcWidth: 50,
+                                  ),
+                                  animate: true,
+                                  behaviors: [
+                                    charts.ChartTitle('Actual vs Budget'),
+                                  ],
+                                ),
+                              )
                         ]),
                   ),
                 ),
