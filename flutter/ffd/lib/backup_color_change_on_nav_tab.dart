@@ -1962,9 +1962,13 @@ class _MyHomePageState extends State<MyHomePage>
                           padding: const EdgeInsets.all(8),
                           children: <Widget>[
                             Container(
-                              color: Colors.amber[600],
+                              margin: const EdgeInsets.all(15.0),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.blueAccent),
+                                color: Color(0xffEEEEEE),
+                              ),
+                              padding: const EdgeInsets.all(3.0),
                               child: Center(
-                                
                                   child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
@@ -1982,22 +1986,64 @@ class _MyHomePageState extends State<MyHomePage>
                                             CrossAxisAlignment.center,
                                         children: <Widget>[
                                           Text('Entry A'),
-                                          Text("Entry ab"),
-                                          Text("Entry ab"),
-                                          Text("Entry ab"),
-                                          Text("Entry ab")
                                         ])
                                   ])),
                             ),
                             Container(
-                              height: 50,
-                              color: Colors.amber[500],
-                              child: const Center(child: Text('Entry B')),
+                              margin: const EdgeInsets.all(15.0),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.blueAccent),
+                                color: Color(0xffEEEEEE),
+                              ),
+                              padding: const EdgeInsets.all(3.0),
+                              child: Center(
+                                  child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.attach_money,
+                                          color: Color(0xff0957FF),
+                                        ),
+                                        Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Text('Entry A'),
+                                            ])
+                                      ])),
                             ),
                             Container(
-                              height: 50,
-                              color: Colors.amber[100],
-                              child: const Center(child: Text('Entry C')),
+                              margin: const EdgeInsets.all(15.0),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.blueAccent),
+                                color: Color(0xffEEEEEE),
+                              ),
+                              padding: const EdgeInsets.all(3.0),
+                              child: Center(
+                                  child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.attach_money,
+                                          color: Color(0xff0957FF),
+                                        ),
+                                        Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Text('Entry A'),
+                                            ])
+                                      ])),
                             ),
                           ],
                         )),
