@@ -1527,41 +1527,38 @@ class _MyHomePageState extends State<MyHomePage>
                                   style: TextStyle(fontSize: 25),
                                 ),
                               ]),
-                         Container(
-                                margin: const EdgeInsets.all(0.0),
-                                width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.height * .4,
-                                child: charts.PieChart(
-                                  [
-                                    charts.Series<homescreenPie, String>(
-                                        id: 'CompanySizeVsNumberOfCompanies',
-                                        domainFn:
-                                            (homescreenPie dataPoint, _) =>
-                                                dataPoint.type,
-                                        labelAccessorFn: (homescreenPie row,
-                                                _) =>
-                                            '${row.type}\n${row.amount.toStringAsFixed(2)}€',
-                                        measureFn:
-                                            (homescreenPie dataPoint, _) =>
-                                                dataPoint.amount,
-                                        data: homescreenData.sublist(0,
-                                            2) /*Only first 2 elements not also the overall budget*/)
-                                  ],
-                                  defaultRenderer: new charts.ArcRendererConfig(
-                                    arcRendererDecorators: [
-                                      new charts.ArcLabelDecorator(
-                                          //labelPadding: 0,
-                                          labelPosition:
-                                              charts.ArcLabelPosition.outside),
-                                    ],
-                                    arcWidth: 50,
-                                  ),
-                                  animate: true,
-                                  behaviors: [
-                                    charts.ChartTitle('Actual vs Budget'),
-                                  ],
-                                ),
-                              )
+                          Container(
+                            margin: const EdgeInsets.all(0.0),
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * .4,
+                            child: charts.PieChart(
+                              [
+                                charts.Series<homescreenPie, String>(
+                                    id: 'CompanySizeVsNumberOfCompanies',
+                                    domainFn: (homescreenPie dataPoint, _) =>
+                                        dataPoint.type,
+                                    labelAccessorFn: (homescreenPie row, _) =>
+                                        '${row.type}\n${row.amount.toStringAsFixed(2)}€',
+                                    measureFn: (homescreenPie dataPoint, _) =>
+                                        dataPoint.amount,
+                                    data: homescreenData.sublist(0,
+                                        2) /*Only first 2 elements not also the overall budget*/)
+                              ],
+                              defaultRenderer: new charts.ArcRendererConfig(
+                                arcRendererDecorators: [
+                                  new charts.ArcLabelDecorator(
+                                      //labelPadding: 0,
+                                      labelPosition:
+                                          charts.ArcLabelPosition.outside),
+                                ],
+                                arcWidth: 50,
+                              ),
+                              animate: true,
+                              behaviors: [
+                                charts.ChartTitle('Actual vs Budget'),
+                              ],
+                            ),
+                          )
                         ]),
                   ),
                 ),
@@ -1965,9 +1962,32 @@ class _MyHomePageState extends State<MyHomePage>
                           padding: const EdgeInsets.all(8),
                           children: <Widget>[
                             Container(
-                              height: 50,
                               color: Colors.amber[600],
-                              child: const Center(child: Text('Entry A')),
+                              child: Center(
+                                
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.attach_money,
+                                          color: Color(0xff0957FF),
+                                        ),
+                                        Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text('Entry A'),
+                                          Text("Entry ab"),
+                                          Text("Entry ab"),
+                                          Text("Entry ab"),
+                                          Text("Entry ab")
+                                        ])
+                                  ])),
                             ),
                             Container(
                               height: 50,
