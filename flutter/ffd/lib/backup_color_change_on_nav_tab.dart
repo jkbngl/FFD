@@ -2012,7 +2012,8 @@ class _MyHomePageState extends State<MyHomePage>
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: <Widget>[
-                                          Text('Entry A'),
+                                          Text('19,99 @ 2020-11-27'),
+                                          Text('CAR > GAS - FIX'),
                                         ])
                                   ])),
                             ),
@@ -2040,7 +2041,8 @@ class _MyHomePageState extends State<MyHomePage>
                                             crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                             children: <Widget>[
-                                              Text('Entry A'),
+                                              Text('119,99 @ 2019-12-20'),
+                                              Text('PRESENTS - VARIABLE'),
                                             ])
                                       ])),
                             ),
@@ -2068,7 +2070,8 @@ class _MyHomePageState extends State<MyHomePage>
                                             crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                             children: <Widget>[
-                                              Text('Entry A'),
+                                              Text('50 @ 2020-05-01'),
+                                              Text('GROCERIES > FOR ME - VARIABLE'),
                                             ])
                                       ])),
                             ),
