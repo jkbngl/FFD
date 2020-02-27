@@ -304,8 +304,19 @@ class _MyHomePageState extends State<MyHomePage>
     setState(() {});
   }
 
-  loadList(String type) async {
+  final List<String> names = <String>[
+    'Aby',
+    'Aish',
+    'Ayan',
+    'Ben',
+    'Bob',
+    'Charlie',
+    'Cook',
+    'Carline'
+  ];
+  final List<int> msgCount = <int>[2, 0, 10, 6, 52, 4, 0, 2];
 
+  loadList(String type) async {
     var user = 1;
 
     String uri =
@@ -322,50 +333,51 @@ class _MyHomePageState extends State<MyHomePage>
     visualizerData.clear();
 
     for (var amount in parsedAmounts) {
-      print("${amount['amount']} @ ${amount['data_date']} for ${amount['level1']} > ${amount['level2']} > ${amount['level3']} and ${amount['costtype']}");
+      print(
+          "${amount['amount']} @ ${amount['data_date']} for ${amount['level1']} > ${amount['level2']} > ${amount['level3']} and ${amount['costtype']}");
     }
 
     setState(() {});
   }
 
   loadAmount() async {
-  int level_type = g_parent_account.accountLevel;
-  int cost_type = costTypeObjectVisualizer.id;
-  int parent_account = g_parent_account.id;
-  int year = dateTimeVisualizer.year;
-  int month = !showFullYear ? dateTimeVisualizer.month : -1;
-  String _type = 'actual';
+    int level_type = g_parent_account.accountLevel;
+    int cost_type = costTypeObjectVisualizer.id;
+    int parent_account = g_parent_account.id;
+    int year = dateTimeVisualizer.year;
+    int month = !showFullYear ? dateTimeVisualizer.month : -1;
+    String _type = 'actual';
 
-  String uri =
-      'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type';
+    String uri =
+        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type';
 
-  print(uri);
+    print(uri);
 
-  var amounts = await http.read(uri);
+    var amounts = await http.read(uri);
 
-  var parsedAmounts = json.decode(amounts);
+    var parsedAmounts = json.decode(amounts);
 
-  final desktopSalesData = [new OrdinalSales('2069', 5)];
+    final desktopSalesData = [new OrdinalSales('2069', 5)];
 
-  visualizerData.clear();
+    visualizerData.clear();
 
-  for (var amounts in parsedAmounts) {
-  visualizerData.add(CompanySizeVsNumberOfCompanies(
-  amounts['level$level_type'].toString(),
-  amounts['sum'],
-  amounts['level${level_type.toString()}_fk'],
-  level_type));
+    for (var amounts in parsedAmounts) {
+      visualizerData.add(CompanySizeVsNumberOfCompanies(
+          amounts['level$level_type'].toString(),
+          amounts['sum'],
+          amounts['level${level_type.toString()}_fk'],
+          level_type));
+    }
+
+    final desktopTargetLineData = [
+      new OrdinalSales('2014', 25),
+      new OrdinalSales('2015', 60),
+      new OrdinalSales('2016', 100),
+      new OrdinalSales('2017', 110),
+    ];
+
+    setState(() {});
   }
-
-  final desktopTargetLineData = [
-    new OrdinalSales('2014', 25),
-    new OrdinalSales('2015', 60),
-    new OrdinalSales('2016', 100),
-    new OrdinalSales('2017', 110),
-  ];
-
-  setState(() {});
-}
 
   loadPreferences() async {
     String user = '1';
@@ -985,6 +997,18 @@ class _MyHomePageState extends State<MyHomePage>
     setState(() {
       level2ActualObject = level2ActualObject;
     });
+  }
+
+  int value = 2;
+
+  _addItem() {
+    setState(() {
+      value = value + 1;
+    });
+  }
+
+  _buildRow(int index) {
+    return Text("Item " + index.toString());
   }
 
   /// Display date picker.
@@ -1984,99 +2008,30 @@ class _MyHomePageState extends State<MyHomePage>
                             ],
                           ),
                         ),
-                        Container(
-                            child: ListView(
-                          padding: const EdgeInsets.all(8),
-                          children: <Widget>[
-                            Container(
-                              margin: const EdgeInsets.all(15.0),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.blueAccent),
-                                color: Color(0xffEEEEEE),
-                              ),
-                              padding: const EdgeInsets.all(3.0),
-                              child: Center(
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.attach_money,
-                                          color: Color(0xff0957FF),
-                                        ),
-                                        Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          Text('19,99 @ 2020-11-27'),
-                                          Text('CAR > GAS - FIX'),
-                                        ])
-                                  ])),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.all(15.0),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.blueAccent),
-                                color: Color(0xffEEEEEE),
-                              ),
-                              padding: const EdgeInsets.all(3.0),
-                              child: Center(
-                                  child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.attach_money,
-                                          color: Color(0xff0957FF),
-                                        ),
-                                        Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            children: <Widget>[
-                                              Text('119,99 @ 2019-12-20'),
-                                              Text('PRESENTS - VARIABLE'),
-                                            ])
-                                      ])),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.all(15.0),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.blueAccent),
-                                color: Color(0xffEEEEEE),
-                              ),
-                              padding: const EdgeInsets.all(3.0),
-                              child: Center(
-                                  child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.attach_money,
-                                          color: Color(0xff0957FF),
-                                        ),
-                                        Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            children: <Widget>[
-                                              Text('50 @ 2020-05-01'),
-                                              Text('GROCERIES > FOR ME - VARIABLE'),
-                                            ])
-                                      ])),
-                            ),
-                          ],
-                        )),
+                        Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[Expanded(
+                                child: ListView.builder(
+                                    padding: const EdgeInsets.all(8),
+                                    itemCount: names.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Container(
+                                        height: 50,
+                                        margin: EdgeInsets.all(2),
+                                        color: msgCount[index] >= 10
+                                            ? Colors.blue[400]
+                                            : msgCount[index] > 3
+                                                ? Colors.blue[100]
+                                                : Colors.grey,
+                                        child: Center(
+                                            child: Text(
+                                          '${names[index]} (${msgCount[index]})',
+                                          style: TextStyle(fontSize: 18),
+                                        )),
+                                      );
+                                    }))]),
                       ]),
                     ),
                   )
