@@ -64,6 +64,23 @@ class Account {
   int accountLevel = -1;
 }
 
+class ListItem {
+  ListItem(this._type, this.id, this.comment, this.amount, this.date, this.level1, this.level1_fk, this.level2, this.level2_fk, this.level3, this.level3_fk, this.costType);
+
+  String _type;       // Actual or Budget
+  int id;             // Id of the entry in the act_data or bdg_data table
+  String comment;
+  double amount;
+  String date;
+  String level1;
+  String level1_fk;
+  String level2;
+  String level2_fk;
+  String level3;
+  String level3_fk;
+  String costType;
+}
+
 class CostType {
   const CostType(this.id, this.name);
 
@@ -315,6 +332,10 @@ class _MyHomePageState extends State<MyHomePage>
     'Carline'
   ];
   final List<int> msgCount = <int>[2, 0, 10, 6, 52, 4, 0, 2];
+  
+  // Lists that hold the items in the adjust list
+  final List<ListItem> actList = <ListItem>[];
+  final List<ListItem> bdgList = <ListItem>[];
 
   loadList(String type) async {
     var user = 1;
@@ -328,11 +349,24 @@ class _MyHomePageState extends State<MyHomePage>
 
     var parsedAmounts = json.decode(amounts);
 
-    final desktopSalesData = [new OrdinalSales('2069', 5)];
 
     visualizerData.clear();
 
     for (var amount in parsedAmounts) {
+      
+      if(type == 'actual'){
+        actList.add(new ListItem('actual', amount['id'], amount['comment'], amount['amount'], amount['data_date'], amount['level1'], amount['level1_fk']
+                                                                                                                 , amount['level2'], amount['level2_fk']
+                                                                                                                 , amount['level3'], amount['level3_fk'], amount['costtype']));
+
+      } else if(type == 'budget')
+      {
+        bdgList.add(new ListItem('budget', amount['id'], amount['comment'], amount['amount'], amount['data_date'], amount['level1'], amount['level1_fk']
+                                                                                                                 , amount['level2'], amount['level2_fk']
+                                                                                                                 , amount['level3'], amount['level3_fk'], amount['costtype']));
+
+      }
+
       print(
           "${amount['amount']} @ ${amount['data_date']} for ${amount['level1']} > ${amount['level2']} > ${amount['level3']} and ${amount['costtype']}");
     }
@@ -2014,7 +2048,7 @@ class _MyHomePageState extends State<MyHomePage>
                             children: <Widget>[Expanded(
                                 child: ListView.builder(
                                     padding: const EdgeInsets.all(8),
-                                    itemCount: names.length,
+                                    itemCount: actList.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
                                       return Container(
@@ -2042,9 +2076,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                       CrossAxisAlignment.center,
                                                       children: <Widget>[
                                                         Text('\n'),
-                                                        Text('50 @ 2020-05-01'),
-                                                        Text('GROCERIES > FOR ME - VARIABLE'),
-                                                        Text('${names[index]} (${msgCount[index]})',),
+                                                        Text('${actList[index].amount} ${actList[index].date}'),
+                                                        Text('${actList[index].level1} > ${actList[index].level2} > ${actList[index].level3} - ${actList[index].costType}',),
                                                         Text('\n'),
                                                       ])
                                                 ])),
