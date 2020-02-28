@@ -2018,18 +2018,36 @@ class _MyHomePageState extends State<MyHomePage>
                                     itemBuilder:
                                         (BuildContext context, int index) {
                                       return Container(
-                                        height: 50,
-                                        margin: EdgeInsets.all(2),
-                                        color: msgCount[index] >= 10
-                                            ? Colors.blue[400]
-                                            : msgCount[index] > 3
-                                                ? Colors.blue[100]
-                                                : Colors.grey,
+                                        margin: const EdgeInsets.all(15.0),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.blueAccent),
+                                          color: Color(0xffEEEEEE),
+                                        ),
+                                        padding: const EdgeInsets.all(3.0),
                                         child: Center(
-                                            child: Text(
-                                          '${names[index]} (${msgCount[index]})',
-                                          style: TextStyle(fontSize: 18),
-                                        )),
+                                            child: Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Icon(
+                                                    Icons.attach_money,
+                                                    color: Color(0xff0957FF),
+                                                  ),
+                                                  Column(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                      children: <Widget>[
+                                                        Text('\n'),
+                                                        Text('50 @ 2020-05-01'),
+                                                        Text('GROCERIES > FOR ME - VARIABLE'),
+                                                        Text('${names[index]} (${msgCount[index]})',),
+                                                        Text('\n'),
+                                                      ])
+                                                ])),
                                       );
                                     }))]),
                       ]),
