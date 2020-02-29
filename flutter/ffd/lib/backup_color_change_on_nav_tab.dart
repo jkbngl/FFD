@@ -1704,7 +1704,7 @@ class _MyHomePageState extends State<MyHomePage>
                     child: Container(
                       child: TabBarView(children: [
                         Container(
-                          child: CustomScrollView(
+                        child: CustomScrollView(
                             slivers: [
                               SliverFillRemaining(
                                 hasScrollBody: false,
@@ -2089,275 +2089,330 @@ class _MyHomePageState extends State<MyHomePage>
                 ],
               ),
             ),
-            CustomScrollView(
-              slivers: [
-                SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              'Select the month',
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            FloatingActionButton(
-                              onPressed: () =>
-                                  _showDatePicker('budget', dateTimeBudget),
-                              tooltip:
-                                  'Select a different date where the booking should be added in',
-                              child: Icon(Icons.date_range),
-                              backgroundColor: Color(0xff0957FF),
-                            ),
-                            Text(
-                                'Choosen: ${dateTimeBudget.year.toString()}-${dateTimeBudget.month.toString().padLeft(2, '0')}')
-                          ]),
-                      Container(
-                        constraints: BoxConstraints.expand(
-                          height: 100,
-                        ),
-
-                        padding: const EdgeInsets.only(
-                            left: 30.0, top: 0, right: 30, bottom: 0),
-                        //color: Colors.blue[600],
-                        alignment: Alignment.center,
-                        //child: Text('Submit'),
-                        child: TextFormField(
-                          keyboardType: TextInputType
-                              .number, //keyboard with numbers only will appear to the screen
-                          style: TextStyle(
-                              height: 2), //increases the height of cursor
-                          //autofocus: true,
-                          controller: budgetTextFieldController,
-                          decoration: InputDecoration(
-                              // hintText: 'Enter ur amount',
-                              //hintStyle: TextStyle(height: 1.75),
-                              labelText: 'Enter your amount',
-                              labelStyle: TextStyle(
-                                  height: 0.5,
-                                  color: Color(
-                                      0xff0957FF)), //increases the height of cursor
-                              icon: Icon(
-                                Icons.attach_money,
-                                color: Color(0xff0957FF),
-                              ),
-                              //prefixIcon: Icon(Icons.attach_money),
-                              //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                              enabledBorder: new UnderlineInputBorder(
-                                  borderSide: new BorderSide(
-                                      color: Color(0xff0957FF)))),
+            DefaultTabController(
+              length: 2,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    //constraints: BoxConstraints.expand(height: 50),
+                    child: TabBar(tabs: [
+                      Tab(
+                        child: Container(
+                          alignment: Alignment.center,
+                          //constraints: BoxConstraints.expand(width: 200),
+                          width: 2000,
+                          color: Color(0xff003680),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.home,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  "Input",
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              ]),
                         ),
                       ),
-                      areLevel1AccountsActive
-                          ? Container(
-                              constraints: BoxConstraints.expand(
-                                height: 100,
-                                //width: MediaQuery.of(context).size.width * .8
-                              ),
-
-                              padding: const EdgeInsets.only(
-                                  left: 30.0, top: 0, right: 30, bottom: 0),
-                              //color: Colors.blue[600],
-                              alignment: Alignment.center,
-                              //child: Text('Submit'),
-                              child: DropdownButton<Account>(
-                                value: level1BudgetObject,
-                                hint: Text(
-                                  "Select a level 1 account",
-                                  /*style: TextStyle(
-                              color,
-                            ),*/
+                      Tab(
+                        child: Container(
+                          alignment: Alignment.center,
+                          //constraints: BoxConstraints.expand(width: 200),
+                          width: 2000,
+                          color: Color(0xff003680),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.home,
+                                  color: Colors.white,
                                 ),
-                                icon: Icon(Icons.arrow_downward),
-                                iconSize: 24,
-                                elevation: 16,
-                                style: TextStyle(color: Color(0xff0957FF)),
-                                isExpanded: true,
-                                underline: Container(
-                                  height: 2,
-                                  width: 5000,
-                                  color: Color(0xff0957FF),
-                                ),
-                                onChanged: (Account newValue) {
-                                  setState(() {
-                                    level1BudgetObject = newValue;
-                                  });
-
-                                  arrangeAccounts(1, 'budget');
-                                },
-                                items: level1BudgetAccountsList
-                                    .map((Account account) {
-                                  return new DropdownMenuItem<Account>(
-                                    value: account,
-                                    child: new Text(
-                                      account.name,
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                            )
-                          : Container(),
-                      areLevel2AccountsActive
-                          ? Container(
-                              constraints: BoxConstraints.expand(
-                                height: 50,
-                              ),
-                              padding: const EdgeInsets.only(
-                                  left: 30.0, top: 0, right: 30, bottom: 0),
-                              //color: Colors.blue[600],
-                              alignment: Alignment.center,
-                              //child: Text('Submit'),
-                              child: DropdownButton<Account>(
-                                value: level2BudgetObject,
-                                hint: Text(
-                                  "Select a level 2 account",
-                                  /*style: TextStyle(
-                              color,
-                            ),*/
-                                ),
-                                icon: Icon(Icons.arrow_downward),
-                                iconSize: 24,
-                                elevation: 16,
-                                style: TextStyle(color: Color(0xff0957FF)),
-                                isExpanded: true,
-                                underline: Container(
-                                  height: 2,
-                                  width: 5000,
-                                  color: Color(0xff0957FF),
-                                ),
-                                onChanged: (Account newValue) {
-                                  setState(() {
-                                    level2BudgetObject = newValue;
-                                  });
-
-                                  arrangeAccounts(2, 'budget');
-                                },
-                                items: level2BudgetAccountsList
-                                    .map((Account account) {
-                                  return new DropdownMenuItem<Account>(
-                                    value: account,
-                                    child: new Text(
-                                      account.name,
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                            )
-                          : Container(),
-                      areLevel3AccountsActive
-                          ? Container(
-                              constraints: BoxConstraints.expand(
-                                height: 100.0,
-                              ),
-                              padding: const EdgeInsets.only(
-                                  left: 30.0, top: 0, right: 30, bottom: 0),
-                              alignment: Alignment.center,
-                              child: DropdownButton<Account>(
-                                value: level3BudgetObject,
-                                hint: Text(
-                                  "Select a level 3 account",
-                                  /*style: TextStyle(
-                              color,
-                            ),*/
-                                ),
-                                icon: Icon(Icons.arrow_downward),
-                                iconSize: 24,
-                                elevation: 16,
-                                style: TextStyle(color: Color(0xff0957FF)),
-                                isExpanded: true,
-                                underline: Container(
-                                  height: 2,
-                                  width: 5000,
-                                  color: Color(0xff0957FF),
-                                ),
-                                onChanged: (Account newValue) {
-                                  setState(() {
-                                    level3BudgetObject = newValue;
-                                  });
-
-                                  // TODO probably not needed as change in level3 has no affect in anything
-                                  // arrangeAccounts(3, 'budget');
-                                },
-                                items: level3BudgetAccountsList
-                                    .map((Account account) {
-                                  return new DropdownMenuItem<Account>(
-                                    value: account,
-                                    child: new Text(
-                                      account.name,
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                            )
-                          : Container(),
-                      areCostTypesActive
-                          ? Container(
-                              constraints: BoxConstraints.expand(
-                                height: 50.0,
-                              ),
-                              padding: const EdgeInsets.only(
-                                  left: 30.0, top: 0, right: 30, bottom: 0),
-                              //color: Colors.blue[600],
-                              alignment: Alignment.center,
-                              //child: Text('Submit'),
-                              child: Align(
-                                alignment: Alignment.topRight,
-                                child: DropdownButton<CostType>(
-                                  value: costTypeObjectBudget,
-                                  icon: Icon(Icons.arrow_downward),
-                                  iconSize: 24,
-                                  elevation: 16,
-                                  style: TextStyle(color: Color(0xff0957FF)),
-                                  //isExpanded: true,
-                                  underline: Container(
-                                    height: 2,
-                                    width: 2000,
-                                    color: Color(0xff0957FF),
-                                  ),
-                                  onChanged: (CostType newValue) {
-                                    setState(() {
-                                      costTypeObjectBudget = newValue;
-                                    });
-                                  },
-                                  items: costTypesList.map((CostType type) {
-                                    return new DropdownMenuItem<CostType>(
-                                      value: type,
-                                      child: new Text(
-                                        type.name,
+                                Text(
+                                  "Adjust",
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              ]),
+                        ),
+                      ),
+                    ]),
+                  ),
+                  Expanded(
+                    child: Container(
+                      child: TabBarView(children: [
+                        Container(
+                          child: CustomScrollView(
+                            slivers: [
+                              SliverFillRemaining(
+                                hasScrollBody: false,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text(
+                                            'Select the month',
+                                            style: TextStyle(fontSize: 15),
+                                          ),
+                                          FloatingActionButton(
+                                            onPressed: () =>
+                                                _showDatePicker('budget', dateTimeBudget),
+                                            tooltip:
+                                            'Select a different date where the booking should be added in',
+                                            child: Icon(Icons.date_range),
+                                            backgroundColor: Color(0xff0957FF),
+                                          ),
+                                          Text(
+                                              'Choosen: ${dateTimeBudget.year.toString()}-${dateTimeBudget.month.toString().padLeft(2, '0')}')
+                                        ]),
+                                    Container(
+                                      constraints: BoxConstraints.expand(
+                                        height: 100,
                                       ),
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-                            )
-                          : Container(),
-                      ButtonBar(
-                        mainAxisSize: MainAxisSize
-                            .min, // this will take space as minimum as posible(to center)
-                        children: <Widget>[
-                          ButtonTheme(
-                            minWidth: 75.0,
-                            height: 40.0,
-                            child: RaisedButton(
-                              child: Text('Discard'),
-                              color: Color(0xffEEEEEE), // EEEEEE
-                              onPressed: () {
-                                budgetTextFieldController.text = '';
-                                setState(() {
-                                  level1BudgetObject =
-                                      level1BudgetAccountsList[0];
-                                  level2BudgetObject =
-                                      level2BudgetAccountsList[0];
-                                  level3BudgetObject =
-                                      level3BudgetAccountsList[0];
 
-                                  costTypeObjectBudget = costTypesList[0];
-                                });
-                                /*
+                                      padding: const EdgeInsets.only(
+                                          left: 30.0, top: 0, right: 30, bottom: 0),
+                                      //color: Colors.blue[600],
+                                      alignment: Alignment.center,
+                                      //child: Text('Submit'),
+                                      child: TextFormField(
+                                        keyboardType: TextInputType
+                                            .number, //keyboard with numbers only will appear to the screen
+                                        style: TextStyle(
+                                            height: 2), //increases the height of cursor
+                                        //autofocus: true,
+                                        controller: budgetTextFieldController,
+                                        decoration: InputDecoration(
+                                          // hintText: 'Enter ur amount',
+                                          //hintStyle: TextStyle(height: 1.75),
+                                            labelText: 'Enter your amount',
+                                            labelStyle: TextStyle(
+                                                height: 0.5,
+                                                color: Color(
+                                                    0xff0957FF)), //increases the height of cursor
+                                            icon: Icon(
+                                              Icons.attach_money,
+                                              color: Color(0xff0957FF),
+                                            ),
+                                            //prefixIcon: Icon(Icons.attach_money),
+                                            //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                            enabledBorder: new UnderlineInputBorder(
+                                                borderSide: new BorderSide(
+                                                    color: Color(0xff0957FF)))),
+                                      ),
+                                    ),
+                                    areLevel1AccountsActive
+                                        ? Container(
+                                      constraints: BoxConstraints.expand(
+                                        height: 100,
+                                        //width: MediaQuery.of(context).size.width * .8
+                                      ),
+
+                                      padding: const EdgeInsets.only(
+                                          left: 30.0, top: 0, right: 30, bottom: 0),
+                                      //color: Colors.blue[600],
+                                      alignment: Alignment.center,
+                                      //child: Text('Submit'),
+                                      child: DropdownButton<Account>(
+                                        value: level1BudgetObject,
+                                        hint: Text(
+                                          "Select a level 1 account",
+                                          /*style: TextStyle(
+                              color,
+                            ),*/
+                                        ),
+                                        icon: Icon(Icons.arrow_downward),
+                                        iconSize: 24,
+                                        elevation: 16,
+                                        style: TextStyle(color: Color(0xff0957FF)),
+                                        isExpanded: true,
+                                        underline: Container(
+                                          height: 2,
+                                          width: 5000,
+                                          color: Color(0xff0957FF),
+                                        ),
+                                        onChanged: (Account newValue) {
+                                          setState(() {
+                                            level1BudgetObject = newValue;
+                                          });
+
+                                          arrangeAccounts(1, 'budget');
+                                        },
+                                        items: level1BudgetAccountsList
+                                            .map((Account account) {
+                                          return new DropdownMenuItem<Account>(
+                                            value: account,
+                                            child: new Text(
+                                              account.name,
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ),
+                                    )
+                                        : Container(),
+                                    areLevel2AccountsActive
+                                        ? Container(
+                                      constraints: BoxConstraints.expand(
+                                        height: 50,
+                                      ),
+                                      padding: const EdgeInsets.only(
+                                          left: 30.0, top: 0, right: 30, bottom: 0),
+                                      //color: Colors.blue[600],
+                                      alignment: Alignment.center,
+                                      //child: Text('Submit'),
+                                      child: DropdownButton<Account>(
+                                        value: level2BudgetObject,
+                                        hint: Text(
+                                          "Select a level 2 account",
+                                          /*style: TextStyle(
+                              color,
+                            ),*/
+                                        ),
+                                        icon: Icon(Icons.arrow_downward),
+                                        iconSize: 24,
+                                        elevation: 16,
+                                        style: TextStyle(color: Color(0xff0957FF)),
+                                        isExpanded: true,
+                                        underline: Container(
+                                          height: 2,
+                                          width: 5000,
+                                          color: Color(0xff0957FF),
+                                        ),
+                                        onChanged: (Account newValue) {
+                                          setState(() {
+                                            level2BudgetObject = newValue;
+                                          });
+
+                                          arrangeAccounts(2, 'budget');
+                                        },
+                                        items: level2BudgetAccountsList
+                                            .map((Account account) {
+                                          return new DropdownMenuItem<Account>(
+                                            value: account,
+                                            child: new Text(
+                                              account.name,
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ),
+                                    )
+                                        : Container(),
+                                    areLevel3AccountsActive
+                                        ? Container(
+                                      constraints: BoxConstraints.expand(
+                                        height: 100.0,
+                                      ),
+                                      padding: const EdgeInsets.only(
+                                          left: 30.0, top: 0, right: 30, bottom: 0),
+                                      alignment: Alignment.center,
+                                      child: DropdownButton<Account>(
+                                        value: level3BudgetObject,
+                                        hint: Text(
+                                          "Select a level 3 account",
+                                          /*style: TextStyle(
+                              color,
+                            ),*/
+                                        ),
+                                        icon: Icon(Icons.arrow_downward),
+                                        iconSize: 24,
+                                        elevation: 16,
+                                        style: TextStyle(color: Color(0xff0957FF)),
+                                        isExpanded: true,
+                                        underline: Container(
+                                          height: 2,
+                                          width: 5000,
+                                          color: Color(0xff0957FF),
+                                        ),
+                                        onChanged: (Account newValue) {
+                                          setState(() {
+                                            level3BudgetObject = newValue;
+                                          });
+
+                                          // TODO probably not needed as change in level3 has no affect in anything
+                                          // arrangeAccounts(3, 'budget');
+                                        },
+                                        items: level3BudgetAccountsList
+                                            .map((Account account) {
+                                          return new DropdownMenuItem<Account>(
+                                            value: account,
+                                            child: new Text(
+                                              account.name,
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ),
+                                    )
+                                        : Container(),
+                                    areCostTypesActive
+                                        ? Container(
+                                      constraints: BoxConstraints.expand(
+                                        height: 50.0,
+                                      ),
+                                      padding: const EdgeInsets.only(
+                                          left: 30.0, top: 0, right: 30, bottom: 0),
+                                      //color: Colors.blue[600],
+                                      alignment: Alignment.center,
+                                      //child: Text('Submit'),
+                                      child: Align(
+                                        alignment: Alignment.topRight,
+                                        child: DropdownButton<CostType>(
+                                          value: costTypeObjectBudget,
+                                          icon: Icon(Icons.arrow_downward),
+                                          iconSize: 24,
+                                          elevation: 16,
+                                          style: TextStyle(color: Color(0xff0957FF)),
+                                          //isExpanded: true,
+                                          underline: Container(
+                                            height: 2,
+                                            width: 2000,
+                                            color: Color(0xff0957FF),
+                                          ),
+                                          onChanged: (CostType newValue) {
+                                            setState(() {
+                                              costTypeObjectBudget = newValue;
+                                            });
+                                          },
+                                          items: costTypesList.map((CostType type) {
+                                            return new DropdownMenuItem<CostType>(
+                                              value: type,
+                                              child: new Text(
+                                                type.name,
+                                              ),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    )
+                                        : Container(),
+                                    ButtonBar(
+                                      mainAxisSize: MainAxisSize
+                                          .min, // this will take space as minimum as posible(to center)
+                                      children: <Widget>[
+                                        ButtonTheme(
+                                          minWidth: 75.0,
+                                          height: 40.0,
+                                          child: RaisedButton(
+                                            child: Text('Discard'),
+                                            color: Color(0xffEEEEEE), // EEEEEE
+                                            onPressed: () {
+                                              budgetTextFieldController.text = '';
+                                              setState(() {
+                                                level1BudgetObject =
+                                                level1BudgetAccountsList[0];
+                                                level2BudgetObject =
+                                                level2BudgetAccountsList[0];
+                                                level3BudgetObject =
+                                                level3BudgetAccountsList[0];
+
+                                                costTypeObjectBudget = costTypesList[0];
+                                              });
+                                              /*
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -2379,29 +2434,77 @@ class _MyHomePageState extends State<MyHomePage>
                                   },
                                 );
                                 */
-                              },
-                            ),
+                                            },
+                                          ),
+                                        ),
+                                        ButtonTheme(
+                                          minWidth: 150.0,
+                                          height: 60.0,
+                                          child: RaisedButton(
+                                            child: Text('Save',
+                                                style: TextStyle(
+                                                    color: Colors.white, fontSize: 17)),
+                                            color: Color(0xff0957FF), //df7599 - 0957FF
+                                            onPressed: () {
+                                              commentInput(
+                                                  context, 'budget', null, null, null);
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                          ButtonTheme(
-                            minWidth: 150.0,
-                            height: 60.0,
-                            child: RaisedButton(
-                              child: Text('Save',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 17)),
-                              color: Color(0xff0957FF), //df7599 - 0957FF
-                              onPressed: () {
-                                commentInput(
-                                    context, 'budget', null, null, null);
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                        ),
+                        Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[Expanded(
+                                child: ListView.builder(
+                                    padding: const EdgeInsets.all(8),
+                                    itemCount: bdgList.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Container(
+                                        margin: const EdgeInsets.all(15.0),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.blueAccent),
+                                          color: Color(0xffEEEEEE),
+                                        ),
+                                        padding: const EdgeInsets.all(3.0),
+                                        child: Center(
+                                            child: Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Icon(
+                                                    Icons.account_balance_wallet,
+                                                    color: Color(0xff0957FF),
+                                                  ),
+                                                  Column(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                      children: <Widget>[
+                                                        Text('\n'),
+                                                        Text('${bdgList[index].amount} ${bdgList[index].date}'),
+                                                        Text('${bdgList[index].level1} > ${bdgList[index].level2} > ${bdgList[index].level3} - ${bdgList[index].costType}',),
+                                                        Text('\n'),
+                                                      ])
+                                                ])),
+                                      );
+                                    }))]),
+                      ]),
+                    ),
+                  )
+                ],
+              ),
             ),
             CustomScrollView(
               slivers: [
