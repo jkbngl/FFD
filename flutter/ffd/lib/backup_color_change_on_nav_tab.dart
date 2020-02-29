@@ -321,18 +321,6 @@ class _MyHomePageState extends State<MyHomePage>
     setState(() {});
   }
 
-  final List<String> names = <String>[
-    'Aby',
-    'Aish',
-    'Ayan',
-    'Ben',
-    'Bob',
-    'Charlie',
-    'Cook',
-    'Carline'
-  ];
-  final List<int> msgCount = <int>[2, 0, 10, 6, 52, 4, 0, 2];
-  
   // Lists that hold the items in the adjust list
   final List<ListItem> actList = <ListItem>[];
   final List<ListItem> bdgList = <ListItem>[];
@@ -347,6 +335,15 @@ class _MyHomePageState extends State<MyHomePage>
 
     var amounts = await http.read(uri);
     var parsedAmounts = json.decode(amounts);
+
+    if(type == 'actual')
+    {
+      actList.clear();
+    }
+    else if(type == 'budget')
+    {
+      bdgList.clear();
+    }
 
     for (var amount in parsedAmounts) {
 
@@ -2065,21 +2062,29 @@ class _MyHomePageState extends State<MyHomePage>
                                                 crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                                 children: <Widget>[
-                                                  Icon(
-                                                    Icons.attach_money,
-                                                    color: Color(0xff0957FF),
+                                                  SizedBox(
+                                                    width: MediaQuery.of(context).size.width * .1,
+                                                    //height: 300.0,
+                                                    child: Icon(
+                                                      Icons.attach_money,
+                                                      color: Color(0xff0957FF),
+                                                    ),
                                                   ),
-                                                  Column(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                      children: <Widget>[
-                                                        Text('\n'),
-                                                        Text('${actList[index].amount} ${actList[index].date}'),
-                                                        Text('${actList[index].level1} > ${actList[index].level2} > ${actList[index].level3} - ${actList[index].costType}',),
-                                                        Text('\n'),
-                                                      ])
+                                                  SizedBox(
+                                                    width: MediaQuery.of(context).size.width * .7,
+                                                    //height: 300.0,
+                                                    child:Column(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment.center,
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment.center,
+                                                        children: <Widget>[
+                                                          Text('\n'),
+                                                          Text('${actList[index].amount} ${actList[index].date}'),
+                                                          Text('${actList[index].level1} > ${actList[index].level2} > ${actList[index].level3} - ${actList[index].costType}',),
+                                                          Text('\n'),
+                                                        ]),
+                                                  ),
                                                 ])),
                                       );
                                     }))]),
