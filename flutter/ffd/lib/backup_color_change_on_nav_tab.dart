@@ -2088,9 +2088,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                   SizedBox(
                                                     width: MediaQuery.of(context).size.width * .1,
                                                     //height: 300.0,
-                                                    child: Icon(
-                                                      Icons.delete,
-                                                      color: Colors.red, //df7599 - 0957FF,
+                                                    child: IconButton(
+                                                      icon: new Icon(Icons.delete),
+                                                      color: Colors.red,
+                                                      onPressed: (){ print('TODELETE + ${actList[index].id}');},
                                                     ),
                                                   )
                                                 ])),
@@ -2495,21 +2496,38 @@ class _MyHomePageState extends State<MyHomePage>
                                                 crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                                 children: <Widget>[
-                                                  Icon(
-                                                    Icons.account_balance_wallet,
-                                                    color: Color(0xff0957FF),
+                                                  SizedBox(
+                                                    width: MediaQuery.of(context).size.width * .1,
+                                                    //height: 300.0,
+                                                    child: Icon(
+                                                      Icons.attach_money,
+                                                      color: Color(0xff0957FF),
+                                                    ),
                                                   ),
-                                                  Column(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                      children: <Widget>[
-                                                        Text('\n'),
-                                                        Text('${bdgList[index].amount} ${bdgList[index].date}'),
-                                                        Text('${bdgList[index].level1} > ${bdgList[index].level2} > ${bdgList[index].level3} - ${bdgList[index].costType}',),
-                                                        Text('\n'),
-                                                      ])
+                                                  SizedBox(
+                                                    width: MediaQuery.of(context).size.width * .6,
+                                                    //height: 300.0,
+                                                    child:Column(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment.center,
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment.center,
+                                                        children: <Widget>[
+                                                          Text('\n'),
+                                                          Text('${actList[index].amount} ${actList[index].date}'),
+                                                          Text('${actList[index].level1} > ${actList[index].level2} > ${actList[index].level3} - ${actList[index].costType}',),
+                                                          Text('\n'),
+                                                        ]),
+                                                  ),
+                                                  SizedBox(
+                                                    width: MediaQuery.of(context).size.width * .1,
+                                                    //height: 300.0,
+                                                    child: IconButton(
+                                                      icon: new Icon(Icons.delete),
+                                                      color: Colors.red,
+                                                      onPressed: (){ print('TODELETE + ${actList[index].id}');},
+                                                    ),
+                                                  )
                                                 ])),
                                       );
                                     }))]),
