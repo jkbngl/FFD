@@ -2071,7 +2071,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                    width: MediaQuery.of(context).size.width * .7,
+                                                    width: MediaQuery.of(context).size.width * .6,
                                                     //height: 300.0,
                                                     child:Column(
                                                         mainAxisAlignment:
@@ -2085,6 +2085,14 @@ class _MyHomePageState extends State<MyHomePage>
                                                           Text('\n'),
                                                         ]),
                                                   ),
+                                                  SizedBox(
+                                                    width: MediaQuery.of(context).size.width * .1,
+                                                    //height: 300.0,
+                                                    child: Icon(
+                                                      Icons.delete,
+                                                      color: Colors.red, //df7599 - 0957FF,
+                                                    ),
+                                                  )
                                                 ])),
                                       );
                                     }))]),
