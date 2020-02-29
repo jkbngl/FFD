@@ -73,11 +73,11 @@ class ListItem {
   double amount;
   String date;
   String level1;
-  String level1_fk;
+  int level1_fk;
   String level2;
-  String level2_fk;
+  int level2_fk;
   String level3;
-  String level3_fk;
+  int level3_fk;
   String costType;
 }
 
@@ -346,14 +346,15 @@ class _MyHomePageState extends State<MyHomePage>
     print(uri);
 
     var amounts = await http.read(uri);
-
     var parsedAmounts = json.decode(amounts);
 
-
-    visualizerData.clear();
-
     for (var amount in parsedAmounts) {
-      
+
+      print(
+          "${amount['amount']} @ ${amount['data_date']} for ${amount['level1']} > ${amount['level2']} > ${amount['level3']} and ${amount['costtype']}");
+
+      print(amount);
+
       if(type == 'actual'){
         actList.add(new ListItem('actual', amount['id'], amount['comment'], amount['amount'], amount['data_date'], amount['level1'], amount['level1_fk']
                                                                                                                  , amount['level2'], amount['level2_fk']
@@ -366,9 +367,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                                                  , amount['level3'], amount['level3_fk'], amount['costtype']));
 
       }
-
-      print(
-          "${amount['amount']} @ ${amount['data_date']} for ${amount['level1']} > ${amount['level2']} > ${amount['level3']} and ${amount['costtype']}");
     }
 
     setState(() {});
