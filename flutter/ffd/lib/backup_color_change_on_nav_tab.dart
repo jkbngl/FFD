@@ -1379,8 +1379,10 @@ class _MyHomePageState extends State<MyHomePage>
                   loadHomescreen();
                 } else if (_currentIndex == 1) {
                   checkForChanges(false, true, 'actual');
+                  loadList('actual');
                 } else if (_currentIndex == 2) {
                   checkForChanges(false, true, 'budget');
+                  loadList('budget');
                 } else if (_currentIndex == 3) {
                   print("REFRESHING ${visualizerData[0].companySize}");
                   loadAmount();
