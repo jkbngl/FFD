@@ -2048,7 +2048,24 @@ class _MyHomePageState extends State<MyHomePage>
                                     itemCount: actList.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
-                                      return Container(
+                                      return GestureDetector(
+                                          onTap: () {
+                                        print("Item ${actList[index].id} clicked");
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => new AlertDialog(
+                                            content: new Text(
+                                                'Comment: ${actList[index].comment}'),
+                                            actions: <Widget>[
+                                              new FlatButton(
+                                                child: new Text('DISMISS'),
+                                                onPressed: () => Navigator.of(context).pop(),
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                          child: Container(
                                         margin: const EdgeInsets.all(15.0),
                                         decoration: BoxDecoration(
                                           border: Border.all(color: Colors.blueAccent),
@@ -2056,7 +2073,7 @@ class _MyHomePageState extends State<MyHomePage>
                                         ),
                                         padding: const EdgeInsets.all(3.0),
                                         child: Center(
-                                            child: Row(
+                                          child: Row(
                                                 mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
                                                 crossAxisAlignment:
@@ -2095,7 +2112,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     ),
                                                   )
                                                 ])),
-                                      );
+                                          ));
                                     }))]),
                       ]),
                     ),
@@ -2482,7 +2499,25 @@ class _MyHomePageState extends State<MyHomePage>
                                     itemCount: bdgList.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
-                                      return Container(
+                                      return GestureDetector(
+                                          onTap: () {
+                                        print("Item ${bdgList[index].id} clicked");
+
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => new AlertDialog(
+                                            content: new Text(
+                                                'Comment: ${bdgList[index].comment}'),
+                                            actions: <Widget>[
+                                              new FlatButton(
+                                                child: new Text('DISMISS'),
+                                                onPressed: () => Navigator.of(context).pop(),
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                          child: Container(
                                         margin: const EdgeInsets.all(15.0),
                                         decoration: BoxDecoration(
                                           border: Border.all(color: Colors.blueAccent),
@@ -2529,7 +2564,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     ),
                                                   )
                                                 ])),
-                                      );
+                                      ));
                                     }))]),
                       ]),
                     ),
