@@ -170,8 +170,10 @@ class _MyHomePageState extends State<MyHomePage>
   CostType costTypeObjectVisualizer;
 
   // Items sent to backend to delete the entry in the DB
-  ListItem actObjectToDelete = new ListItem('actual', -1, null, null, null, null, null, null, null, null, null, null, null);
-  ListItem bdgObjectToDelete = new ListItem('actual', -1, null, null, null, null, null, null, null, null, null, null, null);
+  ListItem actObjectToDelete = new ListItem('actual', -1, null, null, null,
+      null, null, null, null, null, null, null, null);
+  ListItem bdgObjectToDelete = new ListItem('actual', -1, null, null, null,
+      null, null, null, null, null, null, null, null);
 
   double rating = 0;
   // when a same level2 is selected as is already selected the accounts are multiplicated, this dummyobject checks if the new selected account is the same as the old one
@@ -380,8 +382,7 @@ class _MyHomePageState extends State<MyHomePage>
             amount['level3'],
             amount['level3_fk'],
             amount['costtype'],
-            amount['active'])
-        );
+            amount['active']));
       } else if (type == 'budget') {
         bdgList.add(new ListItem(
             'budget',
@@ -396,8 +397,7 @@ class _MyHomePageState extends State<MyHomePage>
             amount['level3'],
             amount['level3_fk'],
             amount['costtype'],
-            amount['active'])
-        );
+            amount['active']));
       }
     }
 
@@ -2114,7 +2114,10 @@ class _MyHomePageState extends State<MyHomePage>
                                               decoration: BoxDecoration(
                                                 border: Border.all(
                                                     color: Colors.blueAccent),
-                                                color: actList[index].active == 1 ? Color(0xffEEEEEE) : Colors.red,
+                                                color:
+                                                    actList[index].active == 1
+                                                        ? Color(0xffEEEEEE)
+                                                        : Colors.redAccent,
                                               ),
                                               padding:
                                                   const EdgeInsets.all(3.0),
@@ -2201,7 +2204,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       'Confirm'),
                                                                   onPressed:
                                                                       () {
-                                                                    actObjectToDelete.id = actList[index].id;
+                                                                    actObjectToDelete
+                                                                            .id =
+                                                                        actList[index]
+                                                                            .id;
 
                                                                     sendBackend(
                                                                         'actlistdelete',
@@ -2671,8 +2677,10 @@ class _MyHomePageState extends State<MyHomePage>
                                               decoration: BoxDecoration(
                                                 border: Border.all(
                                                     color: Colors.blueAccent),
-                                                color: bdgList[index].active == 1 ? Color(0xffEEEEEE) : Colors.red
-                                                ,
+                                                color:
+                                                    bdgList[index].active == 1
+                                                        ? Color(0xffEEEEEE)
+                                                        : Colors.redAccent,
                                               ),
                                               padding:
                                                   const EdgeInsets.all(3.0),
@@ -2760,8 +2768,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       'Confirm'),
                                                                   onPressed:
                                                                       () {
-
-                                                                        bdgObjectToDelete.id = bdgList[index].id;
+                                                                    bdgObjectToDelete
+                                                                            .id =
+                                                                        bdgList[index]
+                                                                            .id;
 
                                                                     sendBackend(
                                                                         'bsglistdelete',

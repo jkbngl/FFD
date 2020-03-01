@@ -450,4 +450,15 @@ def addAccount(data):
     return data
 
 def deleteEntry(type, data):
+    connection = connect()
+    cursor = connection.cursor()
+
+    command = f"update ffd.{'act' if type == 'actual' else 'bdg'}_data set active = 0 where id = {data['actlistitemtodelete'] if type == 'actual' else data['bdglistitemtodelete']}"
+    
+    print(command)
+    cursor.execute(command)
+    connection.commit()
+    cursor.close()
+    connection.close()
+    
     return data
