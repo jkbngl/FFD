@@ -886,7 +886,7 @@ class _MyHomePageState extends State<MyHomePage>
       'arelevel2accountsactive': areLevel2AccountsActive.toString(),
       'arelevel3accountsactive': areLevel3AccountsActive.toString(),
       'actlistitemtodelete': actObjectToDelete.id.toString(),
-      'bsglistitemtodelete': bdgObjectToDelete.id.toString(),
+      'bdglistitemtodelete': bdgObjectToDelete.id.toString(),
       'status': 'IP',
       'user': '1',
       'group': '-1',
