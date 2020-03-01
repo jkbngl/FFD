@@ -1768,10 +1768,6 @@ class _MyHomePageState extends State<MyHomePage>
                                               'Choosen: ${dateTimeActual.year.toString()}-${dateTimeActual.month.toString().padLeft(2, '0')}'),
                                         ]),
                                     Container(
-                                      constraints: BoxConstraints.expand(
-                                        height: 100,
-                                      ),
-
                                       padding: const EdgeInsets.only(
                                           left: 30.0,
                                           top: 0,
@@ -2094,8 +2090,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                 context: context,
                                                 builder: (context) =>
                                                     new AlertDialog(
-                                                  content: new Text(
-                                                      'Comment: ${actList[index].comment}'),
+                                                      title: Text('Comment'),
+
+                                                      content: new Text(
+                                                      '${actList[index].comment}'),
                                                   actions: <Widget>[
                                                     new FlatButton(
                                                       child:
@@ -2322,9 +2320,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               'Choosen: ${dateTimeBudget.year.toString()}-${dateTimeBudget.month.toString().padLeft(2, '0')}')
                                         ]),
                                     Container(
-                                      constraints: BoxConstraints.expand(
-                                        height: 100,
-                                      ),
+
 
                                       padding: const EdgeInsets.only(
                                           left: 30.0,
@@ -2661,8 +2657,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                 context: context,
                                                 builder: (context) =>
                                                     new AlertDialog(
-                                                  content: new Text(
-                                                      'Comment: ${bdgList[index].comment}'),
+                                                  title: Text('Comment'),
+                                                      content: new Text(
+                                                      '${bdgList[index].comment}'),
                                                   actions: <Widget>[
                                                     new FlatButton(
                                                       child:
