@@ -146,7 +146,7 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
 
     # Used to concat the query depending on the parameters passed
     select_params = ''
-    where_params = ''
+    where_params = 'where active = 1'
     group_params = ''
     order_params = ''
 
