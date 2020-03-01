@@ -77,7 +77,8 @@ class ListItem {
       this.level2_fk,
       this.level3,
       this.level3_fk,
-      this.costType);
+      this.costType,
+      this.active);
 
   String _type; // Actual or Budget
   int id; // Id of the entry in the act_data or bdg_data table
@@ -91,6 +92,7 @@ class ListItem {
   String level3;
   int level3_fk;
   String costType;
+  int active;
 }
 
 class CostType {
@@ -168,8 +170,8 @@ class _MyHomePageState extends State<MyHomePage>
   CostType costTypeObjectVisualizer;
 
   // Items sent to backend to delete the entry in the DB
-  ListItem actObjectToDelete = new ListItem('actual', -1, null, null, null, null, null, null, null, null, null, null);
-  ListItem bdgObjectToDelete = new ListItem('actual', -1, null, null, null, null, null, null, null, null, null, null);
+  ListItem actObjectToDelete = new ListItem('actual', -1, null, null, null, null, null, null, null, null, null, null, null);
+  ListItem bdgObjectToDelete = new ListItem('actual', -1, null, null, null, null, null, null, null, null, null, null, null);
 
   double rating = 0;
   // when a same level2 is selected as is already selected the accounts are multiplicated, this dummyobject checks if the new selected account is the same as the old one
@@ -377,7 +379,9 @@ class _MyHomePageState extends State<MyHomePage>
             amount['level2_fk'],
             amount['level3'],
             amount['level3_fk'],
-            amount['costtype']));
+            amount['costtype'],
+            amount['active'])
+        );
       } else if (type == 'budget') {
         bdgList.add(new ListItem(
             'budget',
@@ -391,7 +395,9 @@ class _MyHomePageState extends State<MyHomePage>
             amount['level2_fk'],
             amount['level3'],
             amount['level3_fk'],
-            amount['costtype']));
+            amount['costtype'],
+            amount['active'])
+        );
       }
     }
 
@@ -2108,7 +2114,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               decoration: BoxDecoration(
                                                 border: Border.all(
                                                     color: Colors.blueAccent),
-                                                color: Color(0xffEEEEEE),
+                                                color: actList[index].active == 1 ? Color(0xffEEEEEE) : Colors.red,
                                               ),
                                               padding:
                                                   const EdgeInsets.all(3.0),
@@ -2665,7 +2671,8 @@ class _MyHomePageState extends State<MyHomePage>
                                               decoration: BoxDecoration(
                                                 border: Border.all(
                                                     color: Colors.blueAccent),
-                                                color: Color(0xffEEEEEE),
+                                                color: bdgList[index].active == 1 ? Color(0xffEEEEEE) : Colors.red
+                                                ,
                                               ),
                                               padding:
                                                   const EdgeInsets.all(3.0),
