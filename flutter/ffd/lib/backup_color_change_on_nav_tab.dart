@@ -2570,8 +2570,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                         CrossAxisAlignment.center,
                                                         children: <Widget>[
                                                           Text('\n'),
-                                                          Text('${actList[index].amount} ${actList[index].date}'),
-                                                          Text('${actList[index].level1} > ${actList[index].level2} > ${actList[index].level3} - ${actList[index].costType}',),
+                                                          Text('${bdgList[index].amount} ${bdgList[index].date}'),
+                                                          Text('${bdgList[index].level1} > ${bdgList[index].level2} > ${bdgList[index].level3} - ${bdgList[index].costType}',),
                                                           Text('\n'),
                                                         ]),
                                                   ),
@@ -2583,14 +2583,14 @@ class _MyHomePageState extends State<MyHomePage>
                                                       color: Colors.red,
                                                       onPressed: (){
 
-                                                        print('TODELETE + ${actList[index].id}');
+                                                        print('TODELETE + ${bdgList[index].id}');
 
                                                         showDialog(
                                                           context: context,
                                                           builder: (context) => new AlertDialog(
                                                             title: Text("Are you sure?"),
                                                             content: new Text(
-                                                                'Deleting ${actList[index].id}'),
+                                                                'Deleting ${bdgList[index].id}'),
                                                             actions: <Widget>[
                                                               new FlatButton(
                                                                 child: new Text('Cancel'),
