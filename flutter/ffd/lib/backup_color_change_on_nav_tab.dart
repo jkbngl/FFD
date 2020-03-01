@@ -65,10 +65,22 @@ class Account {
 }
 
 class ListItem {
-  ListItem(this._type, this.id, this.comment, this.amount, this.date, this.level1, this.level1_fk, this.level2, this.level2_fk, this.level3, this.level3_fk, this.costType);
+  ListItem(
+      this._type,
+      this.id,
+      this.comment,
+      this.amount,
+      this.date,
+      this.level1,
+      this.level1_fk,
+      this.level2,
+      this.level2_fk,
+      this.level3,
+      this.level3_fk,
+      this.costType);
 
-  String _type;       // Actual or Budget
-  int id;             // Id of the entry in the act_data or bdg_data table
+  String _type; // Actual or Budget
+  int id; // Id of the entry in the act_data or bdg_data table
   String comment;
   double amount;
   String date;
@@ -154,6 +166,10 @@ class _MyHomePageState extends State<MyHomePage>
   CostType costTypeObjectActual;
   CostType costTypeObjectBudget;
   CostType costTypeObjectVisualizer;
+
+  // Items sent to backend to delete the entry in the DB
+  ListItem actObjectToDelete = new ListItem('actual', -1, null, null, null, null, null, null, null, null, null, null);
+  ListItem bdgObjectToDelete = new ListItem('actual', -1, null, null, null, null, null, null, null, null, null, null);
 
   double rating = 0;
   // when a same level2 is selected as is already selected the accounts are multiplicated, this dummyobject checks if the new selected account is the same as the old one
@@ -336,33 +352,46 @@ class _MyHomePageState extends State<MyHomePage>
     var amounts = await http.read(uri);
     var parsedAmounts = json.decode(amounts);
 
-    if(type == 'actual')
-    {
+    if (type == 'actual') {
       actList.clear();
-    }
-    else if(type == 'budget')
-    {
+    } else if (type == 'budget') {
       bdgList.clear();
     }
 
     for (var amount in parsedAmounts) {
-
       print(
           "${amount['amount']} @ ${amount['data_date']} for ${amount['level1']} > ${amount['level2']} > ${amount['level3']} and ${amount['costtype']}");
 
       print(amount);
 
-      if(type == 'actual'){
-        actList.add(new ListItem('actual', amount['id'], amount['comment'], amount['amount'], amount['data_date'], amount['level1'], amount['level1_fk']
-                                                                                                                 , amount['level2'], amount['level2_fk']
-                                                                                                                 , amount['level3'], amount['level3_fk'], amount['costtype']));
-
-      } else if(type == 'budget')
-      {
-        bdgList.add(new ListItem('budget', amount['id'], amount['comment'], amount['amount'], amount['data_date'], amount['level1'], amount['level1_fk']
-                                                                                                                 , amount['level2'], amount['level2_fk']
-                                                                                                                 , amount['level3'], amount['level3_fk'], amount['costtype']));
-
+      if (type == 'actual') {
+        actList.add(new ListItem(
+            'actual',
+            amount['id'],
+            amount['comment'],
+            amount['amount'],
+            amount['data_date'],
+            amount['level1'],
+            amount['level1_fk'],
+            amount['level2'],
+            amount['level2_fk'],
+            amount['level3'],
+            amount['level3_fk'],
+            amount['costtype']));
+      } else if (type == 'budget') {
+        bdgList.add(new ListItem(
+            'budget',
+            amount['id'],
+            amount['comment'],
+            amount['amount'],
+            amount['data_date'],
+            amount['level1'],
+            amount['level1_fk'],
+            amount['level2'],
+            amount['level2_fk'],
+            amount['level3'],
+            amount['level3_fk'],
+            amount['costtype']));
       }
     }
 
@@ -856,6 +885,8 @@ class _MyHomePageState extends State<MyHomePage>
       'arelevel1accountsactive': areLevel1AccountsActive.toString(),
       'arelevel2accountsactive': areLevel2AccountsActive.toString(),
       'arelevel3accountsactive': areLevel3AccountsActive.toString(),
+      'actlistitemtodelete': actObjectToDelete.id.toString(),
+      'bsglistitemtodelete': bdgObjectToDelete.id.toString(),
       'status': 'IP',
       'user': '1',
       'group': '-1',
@@ -1701,7 +1732,7 @@ class _MyHomePageState extends State<MyHomePage>
                     child: Container(
                       child: TabBarView(children: [
                         Container(
-                        child: CustomScrollView(
+                          child: CustomScrollView(
                             slivers: [
                               SliverFillRemaining(
                                 hasScrollBody: false,
@@ -2042,99 +2073,148 @@ class _MyHomePageState extends State<MyHomePage>
                         Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[Expanded(
-                                child: ListView.builder(
-                                    padding: const EdgeInsets.all(8),
-                                    itemCount: actList.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return GestureDetector(
-                                          onTap: () {
-                                        print("Item ${actList[index].id} clicked");
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) => new AlertDialog(
-                                            content: new Text(
-                                                'Comment: ${actList[index].comment}'),
-                                            actions: <Widget>[
-                                              new FlatButton(
-                                                child: new Text('DISMISS'),
-                                                onPressed: () => Navigator.of(context).pop(),
-                                              )
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                          child: Container(
-                                        margin: const EdgeInsets.all(15.0),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.blueAccent),
-                                          color: Color(0xffEEEEEE),
-                                        ),
-                                        padding: const EdgeInsets.all(3.0),
-                                        child: Center(
-                                          child: Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                                children: <Widget>[
-                                                  SizedBox(
-                                                    width: MediaQuery.of(context).size.width * .1,
-                                                    //height: 300.0,
-                                                    child: Icon(
-                                                      Icons.attach_money,
-                                                      color: Color(0xff0957FF),
+                            children: <Widget>[
+                              Expanded(
+                                  child: ListView.builder(
+                                      padding: const EdgeInsets.all(8),
+                                      itemCount: actList.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return GestureDetector(
+                                            onTap: () {
+                                              print(
+                                                  "Item ${actList[index].id} clicked");
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) =>
+                                                    new AlertDialog(
+                                                  content: new Text(
+                                                      'Comment: ${actList[index].comment}'),
+                                                  actions: <Widget>[
+                                                    new FlatButton(
+                                                      child:
+                                                          new Text('DISMISS'),
+                                                      onPressed: () =>
+                                                          Navigator.of(context)
+                                                              .pop(),
+                                                    )
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                            child: Container(
+                                              margin:
+                                                  const EdgeInsets.all(15.0),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.blueAccent),
+                                                color: Color(0xffEEEEEE),
+                                              ),
+                                              padding:
+                                                  const EdgeInsets.all(3.0),
+                                              child: Center(
+                                                  child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: <Widget>[
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              .1,
+                                                      //height: 300.0,
+                                                      child: Icon(
+                                                        Icons.attach_money,
+                                                        color:
+                                                            Color(0xff0957FF),
+                                                      ),
                                                     ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: MediaQuery.of(context).size.width * .6,
-                                                    //height: 300.0,
-                                                    child:Column(
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment.center,
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment.center,
-                                                        children: <Widget>[
-                                                          Text('\n'),
-                                                          Text('${actList[index].amount} ${actList[index].date}'),
-                                                          Text('${actList[index].level1} > ${actList[index].level2} > ${actList[index].level3} - ${actList[index].costType}',),
-                                                          Text('\n'),
-                                                        ]),
-                                                  ),
-                                                  SizedBox(
-                                                    width: MediaQuery.of(context).size.width * .1,
-                                                    //height: 300.0,
-                                                    child: IconButton(
-                                                      icon: new Icon(Icons.delete),
-                                                      color: Colors.red,
-                                                      onPressed: ()
-                                                      {
-                                                        print('TODELETE + ${actList[index].id}');
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              .6,
+                                                      //height: 300.0,
+                                                      child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: <Widget>[
+                                                            Text('\n'),
+                                                            Text(
+                                                                '${actList[index].amount} ${actList[index].date}'),
+                                                            Text(
+                                                              '${actList[index].level1} > ${actList[index].level2} > ${actList[index].level3} - ${actList[index].costType}',
+                                                            ),
+                                                            Text('\n'),
+                                                          ]),
+                                                    ),
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              .1,
+                                                      //height: 300.0,
+                                                      child: IconButton(
+                                                        icon: new Icon(
+                                                            Icons.delete),
+                                                        color: Colors.red,
+                                                        onPressed: () {
+                                                          print(
+                                                              'TODELETE + ${actList[index].id}');
 
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (context) => new AlertDialog(
-                                                            title: Text("Are you sure?"),
-                                                            content: new Text(
-                                                                'Deleting ${actList[index].id}'),
-                                                            actions: <Widget>[
-                                                              new FlatButton(
-                                                                child: new Text('Cancel'),
-                                                                onPressed: () => Navigator.of(context).pop(),
-                                                              ),new FlatButton(
-                                                                child: new Text('Confirm'),
-                                                                onPressed: () => Navigator.of(context).pop(),
-                                                              )
-                                                            ],
-                                                          ),
-                                                        );
-                                                      },
-                                                    ),
-                                                  )
-                                                ])),
-                                          ));
-                                    }))]),
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (context) =>
+                                                                new AlertDialog(
+                                                              title: Text(
+                                                                  "Are you sure?"),
+                                                              content: new Text(
+                                                                  'Deleting ${actList[index].id}'),
+                                                              actions: <Widget>[
+                                                                new FlatButton(
+                                                                  child: new Text(
+                                                                      'Cancel'),
+                                                                  onPressed: () =>
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop(),
+                                                                ),
+                                                                new FlatButton(
+                                                                  child: new Text(
+                                                                      'Confirm'),
+                                                                  onPressed:
+                                                                      () {
+                                                                    actObjectToDelete.id = actList[index].id;
+
+                                                                    sendBackend(
+                                                                        'actlistdelete',
+                                                                        false);
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                  },
+                                                                )
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    )
+                                                  ])),
+                                            ));
+                                      }))
+                            ]),
                       ]),
                     ),
                   )
@@ -2205,18 +2285,20 @@ class _MyHomePageState extends State<MyHomePage>
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
                                             'Select the month',
                                             style: TextStyle(fontSize: 15),
                                           ),
                                           FloatingActionButton(
-                                            onPressed: () =>
-                                                _showDatePicker('budget', dateTimeBudget),
+                                            onPressed: () => _showDatePicker(
+                                                'budget', dateTimeBudget),
                                             tooltip:
-                                            'Select a different date where the booking should be added in',
+                                                'Select a different date where the booking should be added in',
                                             child: Icon(Icons.date_range),
                                             backgroundColor: Color(0xff0957FF),
                                           ),
@@ -2229,7 +2311,10 @@ class _MyHomePageState extends State<MyHomePage>
                                       ),
 
                                       padding: const EdgeInsets.only(
-                                          left: 30.0, top: 0, right: 30, bottom: 0),
+                                          left: 30.0,
+                                          top: 0,
+                                          right: 30,
+                                          bottom: 0),
                                       //color: Colors.blue[600],
                                       alignment: Alignment.center,
                                       //child: Text('Submit'),
@@ -2237,12 +2322,13 @@ class _MyHomePageState extends State<MyHomePage>
                                         keyboardType: TextInputType
                                             .number, //keyboard with numbers only will appear to the screen
                                         style: TextStyle(
-                                            height: 2), //increases the height of cursor
+                                            height:
+                                                2), //increases the height of cursor
                                         //autofocus: true,
                                         controller: budgetTextFieldController,
                                         decoration: InputDecoration(
-                                          // hintText: 'Enter ur amount',
-                                          //hintStyle: TextStyle(height: 1.75),
+                                            // hintText: 'Enter ur amount',
+                                            //hintStyle: TextStyle(height: 1.75),
                                             labelText: 'Enter your amount',
                                             labelStyle: TextStyle(
                                                 height: 0.5,
@@ -2254,193 +2340,218 @@ class _MyHomePageState extends State<MyHomePage>
                                             ),
                                             //prefixIcon: Icon(Icons.attach_money),
                                             //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                            enabledBorder: new UnderlineInputBorder(
-                                                borderSide: new BorderSide(
-                                                    color: Color(0xff0957FF)))),
+                                            enabledBorder:
+                                                new UnderlineInputBorder(
+                                                    borderSide: new BorderSide(
+                                                        color: Color(
+                                                            0xff0957FF)))),
                                       ),
                                     ),
                                     areLevel1AccountsActive
                                         ? Container(
-                                      constraints: BoxConstraints.expand(
-                                        height: 100,
-                                        //width: MediaQuery.of(context).size.width * .8
-                                      ),
+                                            constraints: BoxConstraints.expand(
+                                              height: 100,
+                                              //width: MediaQuery.of(context).size.width * .8
+                                            ),
 
-                                      padding: const EdgeInsets.only(
-                                          left: 30.0, top: 0, right: 30, bottom: 0),
-                                      //color: Colors.blue[600],
-                                      alignment: Alignment.center,
-                                      //child: Text('Submit'),
-                                      child: DropdownButton<Account>(
-                                        value: level1BudgetObject,
-                                        hint: Text(
-                                          "Select a level 1 account",
-                                          /*style: TextStyle(
+                                            padding: const EdgeInsets.only(
+                                                left: 30.0,
+                                                top: 0,
+                                                right: 30,
+                                                bottom: 0),
+                                            //color: Colors.blue[600],
+                                            alignment: Alignment.center,
+                                            //child: Text('Submit'),
+                                            child: DropdownButton<Account>(
+                                              value: level1BudgetObject,
+                                              hint: Text(
+                                                "Select a level 1 account",
+                                                /*style: TextStyle(
                               color,
                             ),*/
-                                        ),
-                                        icon: Icon(Icons.arrow_downward),
-                                        iconSize: 24,
-                                        elevation: 16,
-                                        style: TextStyle(color: Color(0xff0957FF)),
-                                        isExpanded: true,
-                                        underline: Container(
-                                          height: 2,
-                                          width: 5000,
-                                          color: Color(0xff0957FF),
-                                        ),
-                                        onChanged: (Account newValue) {
-                                          setState(() {
-                                            level1BudgetObject = newValue;
-                                          });
+                                              ),
+                                              icon: Icon(Icons.arrow_downward),
+                                              iconSize: 24,
+                                              elevation: 16,
+                                              style: TextStyle(
+                                                  color: Color(0xff0957FF)),
+                                              isExpanded: true,
+                                              underline: Container(
+                                                height: 2,
+                                                width: 5000,
+                                                color: Color(0xff0957FF),
+                                              ),
+                                              onChanged: (Account newValue) {
+                                                setState(() {
+                                                  level1BudgetObject = newValue;
+                                                });
 
-                                          arrangeAccounts(1, 'budget');
-                                        },
-                                        items: level1BudgetAccountsList
-                                            .map((Account account) {
-                                          return new DropdownMenuItem<Account>(
-                                            value: account,
-                                            child: new Text(
-                                              account.name,
+                                                arrangeAccounts(1, 'budget');
+                                              },
+                                              items: level1BudgetAccountsList
+                                                  .map((Account account) {
+                                                return new DropdownMenuItem<
+                                                    Account>(
+                                                  value: account,
+                                                  child: new Text(
+                                                    account.name,
+                                                  ),
+                                                );
+                                              }).toList(),
                                             ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    )
+                                          )
                                         : Container(),
                                     areLevel2AccountsActive
                                         ? Container(
-                                      constraints: BoxConstraints.expand(
-                                        height: 50,
-                                      ),
-                                      padding: const EdgeInsets.only(
-                                          left: 30.0, top: 0, right: 30, bottom: 0),
-                                      //color: Colors.blue[600],
-                                      alignment: Alignment.center,
-                                      //child: Text('Submit'),
-                                      child: DropdownButton<Account>(
-                                        value: level2BudgetObject,
-                                        hint: Text(
-                                          "Select a level 2 account",
-                                          /*style: TextStyle(
+                                            constraints: BoxConstraints.expand(
+                                              height: 50,
+                                            ),
+                                            padding: const EdgeInsets.only(
+                                                left: 30.0,
+                                                top: 0,
+                                                right: 30,
+                                                bottom: 0),
+                                            //color: Colors.blue[600],
+                                            alignment: Alignment.center,
+                                            //child: Text('Submit'),
+                                            child: DropdownButton<Account>(
+                                              value: level2BudgetObject,
+                                              hint: Text(
+                                                "Select a level 2 account",
+                                                /*style: TextStyle(
                               color,
                             ),*/
-                                        ),
-                                        icon: Icon(Icons.arrow_downward),
-                                        iconSize: 24,
-                                        elevation: 16,
-                                        style: TextStyle(color: Color(0xff0957FF)),
-                                        isExpanded: true,
-                                        underline: Container(
-                                          height: 2,
-                                          width: 5000,
-                                          color: Color(0xff0957FF),
-                                        ),
-                                        onChanged: (Account newValue) {
-                                          setState(() {
-                                            level2BudgetObject = newValue;
-                                          });
+                                              ),
+                                              icon: Icon(Icons.arrow_downward),
+                                              iconSize: 24,
+                                              elevation: 16,
+                                              style: TextStyle(
+                                                  color: Color(0xff0957FF)),
+                                              isExpanded: true,
+                                              underline: Container(
+                                                height: 2,
+                                                width: 5000,
+                                                color: Color(0xff0957FF),
+                                              ),
+                                              onChanged: (Account newValue) {
+                                                setState(() {
+                                                  level2BudgetObject = newValue;
+                                                });
 
-                                          arrangeAccounts(2, 'budget');
-                                        },
-                                        items: level2BudgetAccountsList
-                                            .map((Account account) {
-                                          return new DropdownMenuItem<Account>(
-                                            value: account,
-                                            child: new Text(
-                                              account.name,
+                                                arrangeAccounts(2, 'budget');
+                                              },
+                                              items: level2BudgetAccountsList
+                                                  .map((Account account) {
+                                                return new DropdownMenuItem<
+                                                    Account>(
+                                                  value: account,
+                                                  child: new Text(
+                                                    account.name,
+                                                  ),
+                                                );
+                                              }).toList(),
                                             ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    )
+                                          )
                                         : Container(),
                                     areLevel3AccountsActive
                                         ? Container(
-                                      constraints: BoxConstraints.expand(
-                                        height: 100.0,
-                                      ),
-                                      padding: const EdgeInsets.only(
-                                          left: 30.0, top: 0, right: 30, bottom: 0),
-                                      alignment: Alignment.center,
-                                      child: DropdownButton<Account>(
-                                        value: level3BudgetObject,
-                                        hint: Text(
-                                          "Select a level 3 account",
-                                          /*style: TextStyle(
+                                            constraints: BoxConstraints.expand(
+                                              height: 100.0,
+                                            ),
+                                            padding: const EdgeInsets.only(
+                                                left: 30.0,
+                                                top: 0,
+                                                right: 30,
+                                                bottom: 0),
+                                            alignment: Alignment.center,
+                                            child: DropdownButton<Account>(
+                                              value: level3BudgetObject,
+                                              hint: Text(
+                                                "Select a level 3 account",
+                                                /*style: TextStyle(
                               color,
                             ),*/
-                                        ),
-                                        icon: Icon(Icons.arrow_downward),
-                                        iconSize: 24,
-                                        elevation: 16,
-                                        style: TextStyle(color: Color(0xff0957FF)),
-                                        isExpanded: true,
-                                        underline: Container(
-                                          height: 2,
-                                          width: 5000,
-                                          color: Color(0xff0957FF),
-                                        ),
-                                        onChanged: (Account newValue) {
-                                          setState(() {
-                                            level3BudgetObject = newValue;
-                                          });
+                                              ),
+                                              icon: Icon(Icons.arrow_downward),
+                                              iconSize: 24,
+                                              elevation: 16,
+                                              style: TextStyle(
+                                                  color: Color(0xff0957FF)),
+                                              isExpanded: true,
+                                              underline: Container(
+                                                height: 2,
+                                                width: 5000,
+                                                color: Color(0xff0957FF),
+                                              ),
+                                              onChanged: (Account newValue) {
+                                                setState(() {
+                                                  level3BudgetObject = newValue;
+                                                });
 
-                                          // TODO probably not needed as change in level3 has no affect in anything
-                                          // arrangeAccounts(3, 'budget');
-                                        },
-                                        items: level3BudgetAccountsList
-                                            .map((Account account) {
-                                          return new DropdownMenuItem<Account>(
-                                            value: account,
-                                            child: new Text(
-                                              account.name,
+                                                // TODO probably not needed as change in level3 has no affect in anything
+                                                // arrangeAccounts(3, 'budget');
+                                              },
+                                              items: level3BudgetAccountsList
+                                                  .map((Account account) {
+                                                return new DropdownMenuItem<
+                                                    Account>(
+                                                  value: account,
+                                                  child: new Text(
+                                                    account.name,
+                                                  ),
+                                                );
+                                              }).toList(),
                                             ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    )
+                                          )
                                         : Container(),
                                     areCostTypesActive
                                         ? Container(
-                                      constraints: BoxConstraints.expand(
-                                        height: 50.0,
-                                      ),
-                                      padding: const EdgeInsets.only(
-                                          left: 30.0, top: 0, right: 30, bottom: 0),
-                                      //color: Colors.blue[600],
-                                      alignment: Alignment.center,
-                                      //child: Text('Submit'),
-                                      child: Align(
-                                        alignment: Alignment.topRight,
-                                        child: DropdownButton<CostType>(
-                                          value: costTypeObjectBudget,
-                                          icon: Icon(Icons.arrow_downward),
-                                          iconSize: 24,
-                                          elevation: 16,
-                                          style: TextStyle(color: Color(0xff0957FF)),
-                                          //isExpanded: true,
-                                          underline: Container(
-                                            height: 2,
-                                            width: 2000,
-                                            color: Color(0xff0957FF),
-                                          ),
-                                          onChanged: (CostType newValue) {
-                                            setState(() {
-                                              costTypeObjectBudget = newValue;
-                                            });
-                                          },
-                                          items: costTypesList.map((CostType type) {
-                                            return new DropdownMenuItem<CostType>(
-                                              value: type,
-                                              child: new Text(
-                                                type.name,
+                                            constraints: BoxConstraints.expand(
+                                              height: 50.0,
+                                            ),
+                                            padding: const EdgeInsets.only(
+                                                left: 30.0,
+                                                top: 0,
+                                                right: 30,
+                                                bottom: 0),
+                                            //color: Colors.blue[600],
+                                            alignment: Alignment.center,
+                                            //child: Text('Submit'),
+                                            child: Align(
+                                              alignment: Alignment.topRight,
+                                              child: DropdownButton<CostType>(
+                                                value: costTypeObjectBudget,
+                                                icon:
+                                                    Icon(Icons.arrow_downward),
+                                                iconSize: 24,
+                                                elevation: 16,
+                                                style: TextStyle(
+                                                    color: Color(0xff0957FF)),
+                                                //isExpanded: true,
+                                                underline: Container(
+                                                  height: 2,
+                                                  width: 2000,
+                                                  color: Color(0xff0957FF),
+                                                ),
+                                                onChanged: (CostType newValue) {
+                                                  setState(() {
+                                                    costTypeObjectBudget =
+                                                        newValue;
+                                                  });
+                                                },
+                                                items: costTypesList
+                                                    .map((CostType type) {
+                                                  return new DropdownMenuItem<
+                                                      CostType>(
+                                                    value: type,
+                                                    child: new Text(
+                                                      type.name,
+                                                    ),
+                                                  );
+                                                }).toList(),
                                               ),
-                                            );
-                                          }).toList(),
-                                        ),
-                                      ),
-                                    )
+                                            ),
+                                          )
                                         : Container(),
                                     ButtonBar(
                                       mainAxisSize: MainAxisSize
@@ -2453,16 +2564,18 @@ class _MyHomePageState extends State<MyHomePage>
                                             child: Text('Discard'),
                                             color: Color(0xffEEEEEE), // EEEEEE
                                             onPressed: () {
-                                              budgetTextFieldController.text = '';
+                                              budgetTextFieldController.text =
+                                                  '';
                                               setState(() {
                                                 level1BudgetObject =
-                                                level1BudgetAccountsList[0];
+                                                    level1BudgetAccountsList[0];
                                                 level2BudgetObject =
-                                                level2BudgetAccountsList[0];
+                                                    level2BudgetAccountsList[0];
                                                 level3BudgetObject =
-                                                level3BudgetAccountsList[0];
+                                                    level3BudgetAccountsList[0];
 
-                                                costTypeObjectBudget = costTypesList[0];
+                                                costTypeObjectBudget =
+                                                    costTypesList[0];
                                               });
                                               /*
                                 showDialog(
@@ -2495,11 +2608,13 @@ class _MyHomePageState extends State<MyHomePage>
                                           child: RaisedButton(
                                             child: Text('Save',
                                                 style: TextStyle(
-                                                    color: Colors.white, fontSize: 17)),
-                                            color: Color(0xff0957FF), //df7599 - 0957FF
+                                                    color: Colors.white,
+                                                    fontSize: 17)),
+                                            color: Color(
+                                                0xff0957FF), //df7599 - 0957FF
                                             onPressed: () {
-                                              commentInput(
-                                                  context, 'budget', null, null, null);
+                                              commentInput(context, 'budget',
+                                                  null, null, null);
                                             },
                                           ),
                                         ),
@@ -2514,100 +2629,151 @@ class _MyHomePageState extends State<MyHomePage>
                         Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[Expanded(
-                                child: ListView.builder(
-                                    padding: const EdgeInsets.all(8),
-                                    itemCount: bdgList.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return GestureDetector(
-                                          onTap: () {
-                                        print("Item ${bdgList[index].id} clicked");
+                            children: <Widget>[
+                              Expanded(
+                                  child: ListView.builder(
+                                      padding: const EdgeInsets.all(8),
+                                      itemCount: bdgList.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return GestureDetector(
+                                            onTap: () {
+                                              print(
+                                                  "Item ${bdgList[index].id} clicked");
 
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) => new AlertDialog(
-                                            content: new Text(
-                                                'Comment: ${bdgList[index].comment}'),
-                                            actions: <Widget>[
-                                              new FlatButton(
-                                                child: new Text('DISMISS'),
-                                                onPressed: () => Navigator.of(context).pop(),
-                                              )
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                          child: Container(
-                                        margin: const EdgeInsets.all(15.0),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.blueAccent),
-                                          color: Color(0xffEEEEEE),
-                                        ),
-                                        padding: const EdgeInsets.all(3.0),
-                                        child: Center(
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                                children: <Widget>[
-                                                  SizedBox(
-                                                    width: MediaQuery.of(context).size.width * .1,
-                                                    //height: 300.0,
-                                                    child: Icon(
-                                                      Icons.account_balance_wallet,
-                                                      color: Color(0xff0957FF),
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) =>
+                                                    new AlertDialog(
+                                                  content: new Text(
+                                                      'Comment: ${bdgList[index].comment}'),
+                                                  actions: <Widget>[
+                                                    new FlatButton(
+                                                      child:
+                                                          new Text('DISMISS'),
+                                                      onPressed: () =>
+                                                          Navigator.of(context)
+                                                              .pop(),
+                                                    )
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                            child: Container(
+                                              margin:
+                                                  const EdgeInsets.all(15.0),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.blueAccent),
+                                                color: Color(0xffEEEEEE),
+                                              ),
+                                              padding:
+                                                  const EdgeInsets.all(3.0),
+                                              child: Center(
+                                                  child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: <Widget>[
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              .1,
+                                                      //height: 300.0,
+                                                      child: Icon(
+                                                        Icons
+                                                            .account_balance_wallet,
+                                                        color:
+                                                            Color(0xff0957FF),
+                                                      ),
                                                     ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: MediaQuery.of(context).size.width * .6,
-                                                    //height: 300.0,
-                                                    child:Column(
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment.center,
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment.center,
-                                                        children: <Widget>[
-                                                          Text('\n'),
-                                                          Text('${bdgList[index].amount} ${bdgList[index].date}'),
-                                                          Text('${bdgList[index].level1} > ${bdgList[index].level2} > ${bdgList[index].level3} - ${bdgList[index].costType}',),
-                                                          Text('\n'),
-                                                        ]),
-                                                  ),
-                                                  SizedBox(
-                                                    width: MediaQuery.of(context).size.width * .1,
-                                                    //height: 300.0,
-                                                    child: IconButton(
-                                                      icon: new Icon(Icons.delete),
-                                                      color: Colors.red,
-                                                      onPressed: (){
-
-                                                        print('TODELETE + ${bdgList[index].id}');
-
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (context) => new AlertDialog(
-                                                            title: Text("Are you sure?"),
-                                                            content: new Text(
-                                                                'Deleting ${bdgList[index].id}'),
-                                                            actions: <Widget>[
-                                                              new FlatButton(
-                                                                child: new Text('Cancel'),
-                                                                onPressed: () => Navigator.of(context).pop(),
-                                                              ),new FlatButton(
-                                                                child: new Text('Confirm'),
-                                                                onPressed: () => Navigator.of(context).pop(),
-                                                              )
-                                                            ],
-                                                          ),
-                                                        );
-                                                      },
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              .6,
+                                                      //height: 300.0,
+                                                      child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: <Widget>[
+                                                            Text('\n'),
+                                                            Text(
+                                                                '${bdgList[index].amount} ${bdgList[index].date}'),
+                                                            Text(
+                                                              '${bdgList[index].level1} > ${bdgList[index].level2} > ${bdgList[index].level3} - ${bdgList[index].costType}',
+                                                            ),
+                                                            Text('\n'),
+                                                          ]),
                                                     ),
-                                                  )
-                                                ])),
-                                      ));
-                                    }))]),
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              .1,
+                                                      //height: 300.0,
+                                                      child: IconButton(
+                                                        icon: new Icon(
+                                                            Icons.delete),
+                                                        color: Colors.red,
+                                                        onPressed: () {
+                                                          print(
+                                                              'TODELETE + ${bdgList[index].id}');
+
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (context) =>
+                                                                new AlertDialog(
+                                                              title: Text(
+                                                                  "Are you sure?"),
+                                                              content: new Text(
+                                                                  'Deleting ${bdgList[index].id}'),
+                                                              actions: <Widget>[
+                                                                new FlatButton(
+                                                                  child: new Text(
+                                                                      'Cancel'),
+                                                                  onPressed: () =>
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop(),
+                                                                ),
+                                                                new FlatButton(
+                                                                  child: new Text(
+                                                                      'Confirm'),
+                                                                  onPressed:
+                                                                      () {
+
+                                                                        bdgObjectToDelete.id = bdgList[index].id;
+
+                                                                    sendBackend(
+                                                                        'bsglistdelete',
+                                                                        false);
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                  },
+                                                                )
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    )
+                                                  ])),
+                                            ));
+                                      }))
+                            ]),
                       ]),
                     ),
                   )

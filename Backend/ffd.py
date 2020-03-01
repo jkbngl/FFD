@@ -108,7 +108,7 @@ def readPreferences(user):
 
     return data
 
-def readListActualBudget(_type, user, interval = 365):
+def readListActualBudget(_type, user):
     data = []
     query = f"select * from ffd.{'act' if _type == 'actual' else 'bdg'}_data where user_fk = {user} and data_date > date_trunc('month', CURRENT_DATE) - INTERVAL '1 year' order by data_date desc"
 
@@ -281,6 +281,10 @@ def send():
         deleteAccount(data)
     elif data['type'].lower() == 'generaladmin':
         savePreferences(data)
+    elif data['type'].lower() == 'actlistdelete':
+        deleteEntry('actual', data)
+    elif data['type'].lower() == 'bsglistdelete':
+        deleteEntry('budget', data)
     
 
     #data = request.values
@@ -443,4 +447,7 @@ def addAccount(data):
     cursor.close()
     connection.close()
 
+    return data
+
+def deleteEntry(type, data):
     return data

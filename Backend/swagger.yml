@@ -197,7 +197,7 @@ paths:
                   type: "string"
                 user_fk: 
                   type: "integer"
-  /ffd/amounts/:
+  /ffd/list/:
     get:
       operationId: "ffd.readListActualBudget"
       #example: http://192.168.0.21:5000/api/ffd/amounts/?_type=1&user=-1&interval=-1
@@ -212,18 +212,13 @@ paths:
           type: integer
           required: true
           description: Numeric ID of the user to get.
-        - in: query
-          name: interval
-          type: integer
-          required: false
-          description: days back, default 365  
       tags:
         - "Amounts"
-      summary: "Returns all actual or budget entries for the user in the interval"
-      description: "Read the list of actual or budget entries for the user in the interval"
+      summary: "Returns all actual or budget entries for the user in the last year"
+      description: "Read the list of actual or budget entries for the user in the last year"
       responses:
         200:
-          description: "Successful read the list of actual or budget entries for the user in the interval"
+          description: "Successful read the list of actual or budget entries for the user in the last year"
           schema:
             type: "array"
             items:
@@ -374,4 +369,8 @@ paths:
                   type: "boolean"
                 arelevel3accountsactive: 
                   type: "boolean"
+                actlistitemtodelete:
+                  type: "string"
+                bdglistitemtodelete:
+                  type: "string"
             
