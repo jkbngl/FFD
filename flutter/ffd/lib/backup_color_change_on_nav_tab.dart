@@ -2176,8 +2176,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                       //height: 300.0,
                                                       child: IconButton(
                                                         icon: new Icon(
-                                                            Icons.delete),
-                                                        color: Colors.red,
+                                                          actList[index].active == 1
+                                                              ? Icons.delete
+                                                              : Icons.restore,),
+                                                        color: actList[index].active == 1
+                                                            ? Colors.red
+                                                            : Colors.black,
                                                         onPressed: () {
                                                           print(
                                                               'TODELETE + ${actList[index].id}');
@@ -2740,8 +2744,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                       //height: 300.0,
                                                       child: IconButton(
                                                         icon: new Icon(
-                                                            Icons.delete),
-                                                        color: Colors.red,
+                                                          bdgList[index].active == 1
+                                                              ? Icons.delete
+                                                              : Icons.restore,),
+                                                        color: bdgList[index].active == 1
+                                                            ? Colors.red
+                                                            : Colors.black,
                                                         onPressed: () {
                                                           print(
                                                               'TODELETE + ${bdgList[index].id}');
