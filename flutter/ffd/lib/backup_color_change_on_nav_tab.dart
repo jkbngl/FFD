@@ -2556,7 +2556,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     width: MediaQuery.of(context).size.width * .1,
                                                     //height: 300.0,
                                                     child: Icon(
-                                                      Icons.attach_money,
+                                                      Icons.account_balance_wallet,
                                                       color: Color(0xff0957FF),
                                                     ),
                                                   ),
@@ -2603,8 +2603,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                           ),
                                                         );
                                                       },
-
-
                                                     ),
                                                   )
                                                 ])),
