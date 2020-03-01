@@ -73,74 +73,94 @@ CREATE TABLE ffd.user_dim (
     );
 
     CREATE TABLE ffd.account_dim (
-        id SERIAL PRIMARY KEY
-      , name text
-      , comment text
-      , level_type integer
-      , parent_account integer
-      , user_fk integer DEFAULT -1 REFERENCES ffd.user_dim(id) 
-      , group_fk integer DEFAULT -1 REFERENCES  ffd.group_dim(id)
-      , company_fk integer DEFAULT -1 REFERENCES ffd.company_dim(id)
-      , active integer DEFAULT 1
-      , created date DEFAULT now()
-      , updated date DEFAULT now()
-      , created_by text DEFAULT 'UNDEFINED'
-      , updated_by text DEFAULT 'UNDEFINED'
-      , CONSTRAINT account_user_uq UNIQUE (name, level_type, user_fk)
-	  , CONSTRAINT account_group_uq UNIQUE (name, level_type, group_fk)
-      , CONSTRAINT account_company_uq UNIQUE (name, level_type, company_fk)
-    );
+	id serial NOT NULL,
+	"name" text NULL,
+	"comment" text NULL,
+	level_type int4 NULL,
+	parent_account int4 NULL,
+	user_fk int4 NULL DEFAULT '-1'::integer,
+	group_fk int4 NULL DEFAULT '-1'::integer,
+	company_fk int4 NULL DEFAULT '-1'::integer,
+	created date NULL DEFAULT now(),
+	updated date NULL DEFAULT now(),
+	created_by text NULL DEFAULT 'UNDEFINED'::text,
+	updated_by text NULL DEFAULT 'UNDEFINED'::text,
+	active int4 NULL DEFAULT 1,
+	CONSTRAINT account_company_uq UNIQUE (name, level_type, company_fk),
+	CONSTRAINT account_dim_pkey PRIMARY KEY (id),
+	CONSTRAINT account_group_uq UNIQUE (name, level_type, group_fk),
+	CONSTRAINT account_user_uq UNIQUE (name, level_type, user_fk),
+	CONSTRAINT account_dim_company_fk_fkey FOREIGN KEY (company_fk) REFERENCES ffd.company_dim(id),
+	CONSTRAINT account_dim_group_fk_fkey FOREIGN KEY (group_fk) REFERENCES ffd.group_dim(id),
+	CONSTRAINT account_dim_user_fk_fkey FOREIGN KEY (user_fk) REFERENCES ffd.user_dim(id)
+);
+
    
 
-
     CREATE TABLE ffd.act_data (
-        id SERIAL PRIMARY KEY
-      , amount NUMERIC
-      , comment text
-      , data_date date
-      , year integer
-      , month integer
-      , day integer
-      , level1 text DEFAULT 'UNDEFINED'
-      , level1_fk integer DEFAULT -1 REFERENCES ffd.account_dim(id)
-      , level2 text DEFAULT 'UNDEFINED'
-	  , level2_fk integer DEFAULT -1 REFERENCES ffd.account_dim(id)
-	  , level3 text DEFAULT 'UNDEFINED'
-	  , level3_fk integer DEFAULT -1 REFERENCES ffd.account_dim(id)
-	  , costtype text DEFAULT 'UNDEFINED'
-      , costtype_fk integer DEFAULT -1 REFERENCES ffd.costtype_dim(id)
-      , user_fk integer DEFAULT -1 REFERENCES ffd.user_dim(id)
-      , group_fk integer DEFAULT -1 REFERENCES ffd.group_dim(id)
-      , created date DEFAULT now()
-      , updated date DEFAULT now()
-      , created_by text DEFAULT 'UNDEFINED'
-      , updated_by text DEFAULT 'UNDEFINED'
-    );
+	id serial NOT NULL,
+	amount numeric NULL,
+	"comment" text NULL,
+	data_date date NULL,
+	"year" int4 NULL,
+	"month" int4 NULL,
+	"day" int4 NULL,
+	level1 text NULL DEFAULT 'UNDEFINED'::text,
+	level1_fk int4 NULL DEFAULT '-1'::integer,
+	level2 text NULL DEFAULT 'UNDEFINED'::text,
+	level2_fk int4 NULL DEFAULT '-1'::integer,
+	level3 text NULL DEFAULT 'UNDEFINED'::text,
+	level3_fk int4 NULL DEFAULT '-1'::integer,
+	costtype text NULL DEFAULT 'UNDEFINED'::text,
+	costtype_fk int4 NULL DEFAULT '-1'::integer,
+	user_fk int4 NULL DEFAULT '-1'::integer,
+	group_fk int4 NULL DEFAULT '-1'::integer,
+	created date NULL DEFAULT now(),
+	updated date NULL DEFAULT now(),
+	created_by text NULL DEFAULT 'UNDEFINED'::text,
+	updated_by text NULL DEFAULT 'UNDEFINED'::text,
+	CONSTRAINT act_data_pkey PRIMARY KEY (id),
+	CONSTRAINT act_data_costtype_fk_fkey FOREIGN KEY (costtype_fk) REFERENCES ffd.costtype_dim(id),
+	CONSTRAINT act_data_group_fk_fkey FOREIGN KEY (group_fk) REFERENCES ffd.group_dim(id),
+	CONSTRAINT act_data_level1_fk_fkey FOREIGN KEY (level1_fk) REFERENCES ffd.account_dim(id),
+	CONSTRAINT act_data_level2_fk_fkey FOREIGN KEY (level2_fk) REFERENCES ffd.account_dim(id),
+	CONSTRAINT act_data_level3_fk_fkey FOREIGN KEY (level3_fk) REFERENCES ffd.account_dim(id),
+	CONSTRAINT act_data_user_fk_fkey FOREIGN KEY (user_fk) REFERENCES ffd.user_dim(id)
+);
 
     CREATE TABLE ffd.bdg_data (
-        id SERIAL PRIMARY KEY
-      , amount NUMERIC
-      , comment text
-      , data_date date
-      , year integer
-      , month integer
-      , day integer
-      , level1 text DEFAULT 'UNDEFINED'
-      , level1_fk integer DEFAULT -1 REFERENCES ffd.account_dim(id)
-      , level2 text DEFAULT 'UNDEFINED'
-	  , level2_fk integer DEFAULT -1 REFERENCES ffd.account_dim(id)
-	  , level3 text DEFAULT 'UNDEFINED'
-	  , level3_fk integer DEFAULT -1 REFERENCES ffd.account_dim(id)
-	  , costtype text DEFAULT 'UNDEFINED'
-      , costtype_fk integer DEFAULT -1 REFERENCES ffd.costtype_dim(id)
-      , user_fk integer DEFAULT -1 REFERENCES ffd.user_dim(id)
-      , group_fk integer DEFAULT -1 REFERENCES ffd.group_dim(id)
-      , created date DEFAULT now()
-      , updated date DEFAULT now()
-      , created_by text DEFAULT 'UNDEFINED'
-      , updated_by text DEFAULT 'UNDEFINED'
-    );
-          
+	id serial NOT NULL,
+	amount numeric NULL,
+	"comment" text NULL,
+	data_date date NULL,
+	"year" int4 NULL,
+	"month" int4 NULL,
+	"day" int4 NULL,
+	level1 text NULL DEFAULT 'UNDEFINED'::text,
+	level1_fk int4 NULL DEFAULT '-1'::integer,
+	level2 text NULL DEFAULT 'UNDEFINED'::text,
+	level2_fk int4 NULL DEFAULT '-1'::integer,
+	level3 text NULL DEFAULT 'UNDEFINED'::text,
+	level3_fk int4 NULL DEFAULT '-1'::integer,
+	costtype text NULL DEFAULT 'UNDEFINED'::text,
+	costtype_fk int4 NULL DEFAULT '-1'::integer,
+	user_fk int4 NULL DEFAULT '-1'::integer,
+	group_fk int4 NULL DEFAULT '-1'::integer,
+	created date NULL DEFAULT now(),
+	updated date NULL DEFAULT now(),
+	created_by text NULL DEFAULT 'UNDEFINED'::text,
+	updated_by text NULL DEFAULT 'UNDEFINED'::text,
+	CONSTRAINT bdg_data_pkey PRIMARY KEY (id),
+	CONSTRAINT bdg_data_costtype_fk_fkey FOREIGN KEY (costtype_fk) REFERENCES ffd.costtype_dim(id),
+	CONSTRAINT bdg_data_group_fk_fkey FOREIGN KEY (group_fk) REFERENCES ffd.group_dim(id),
+	CONSTRAINT bdg_data_level1_fk_fkey FOREIGN KEY (level1_fk) REFERENCES ffd.account_dim(id),
+	CONSTRAINT bdg_data_level2_fk_fkey FOREIGN KEY (level2_fk) REFERENCES ffd.account_dim(id),
+	CONSTRAINT bdg_data_level3_fk_fkey FOREIGN KEY (level3_fk) REFERENCES ffd.account_dim(id),
+	CONSTRAINT bdg_data_user_fk_fkey FOREIGN KEY (user_fk) REFERENCES ffd.user_dim(id)
+);
+       
+   drop table ffd.preference_dim;
+   
    CREATE TABLE ffd.preference_dim (
         user_fk integer DEFAULT -1 REFERENCES ffd.user_dim(id) UNIQUE 
       , group_fk integer DEFAULT -1 REFERENCES  ffd.group_dim(id)
