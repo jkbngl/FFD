@@ -2108,7 +2108,28 @@ class _MyHomePageState extends State<MyHomePage>
                                                     child: IconButton(
                                                       icon: new Icon(Icons.delete),
                                                       color: Colors.red,
-                                                      onPressed: (){ print('TODELETE + ${actList[index].id}');},
+                                                      onPressed: ()
+                                                      {
+                                                        print('TODELETE + ${actList[index].id}');
+
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (context) => new AlertDialog(
+                                                            title: Text("Are you sure?"),
+                                                            content: new Text(
+                                                                'Deleting ${actList[index].id}'),
+                                                            actions: <Widget>[
+                                                              new FlatButton(
+                                                                child: new Text('Cancel'),
+                                                                onPressed: () => Navigator.of(context).pop(),
+                                                              ),new FlatButton(
+                                                                child: new Text('Confirm'),
+                                                                onPressed: () => Navigator.of(context).pop(),
+                                                              )
+                                                            ],
+                                                          ),
+                                                        );
+                                                      },
                                                     ),
                                                   )
                                                 ])),
@@ -2560,7 +2581,30 @@ class _MyHomePageState extends State<MyHomePage>
                                                     child: IconButton(
                                                       icon: new Icon(Icons.delete),
                                                       color: Colors.red,
-                                                      onPressed: (){ print('TODELETE + ${actList[index].id}');},
+                                                      onPressed: (){
+
+                                                        print('TODELETE + ${actList[index].id}');
+
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (context) => new AlertDialog(
+                                                            title: Text("Are you sure?"),
+                                                            content: new Text(
+                                                                'Deleting ${actList[index].id}'),
+                                                            actions: <Widget>[
+                                                              new FlatButton(
+                                                                child: new Text('Cancel'),
+                                                                onPressed: () => Navigator.of(context).pop(),
+                                                              ),new FlatButton(
+                                                                child: new Text('Confirm'),
+                                                                onPressed: () => Navigator.of(context).pop(),
+                                                              )
+                                                            ],
+                                                          ),
+                                                        );
+                                                      },
+
+
                                                     ),
                                                   )
                                                 ])),
