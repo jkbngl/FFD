@@ -453,7 +453,7 @@ def deleteEntry(type, data):
     connection = connect()
     cursor = connection.cursor()
 
-    command = f"update ffd.{'act' if type == 'actual' else 'bdg'}_data set active = 0 where id = {data['actlistitemtodelete'] if type == 'actual' else data['bdglistitemtodelete']}"
+    command = f"update ffd.{'act' if type == 'actual' else 'bdg'}_data set active = case when active = 1 then 0 else 1 end where id = {data['actlistitemtodelete'] if type == 'actual' else data['bdglistitemtodelete']}"
     
     print(command)
     cursor.execute(command)
