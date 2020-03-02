@@ -26,6 +26,8 @@ dependencies:
   flutter_cupertino_date_picker: ^1.0.12
   charts_flutter: ^0.8.1
   rating_dialog: ^1.0.0
+  pull_to_refresh: ^1.4.5
+
 
 
 

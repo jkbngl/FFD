@@ -14,7 +14,7 @@ import 'dart:convert';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'dart:async';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 void main() => runApp(MyApp());
 
@@ -1395,6 +1395,8 @@ class _MyHomePageState extends State<MyHomePage>
     });
   }
 
+  final RefreshController _refreshController = RefreshController();
+
   @override
   Widget build(BuildContext context) {
     final children = Scaffold(
@@ -1485,73 +1487,82 @@ class _MyHomePageState extends State<MyHomePage>
             CustomScrollView(
               slivers: [
                 SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: Container(
-                    color: Color(0xfff9f9f9),
-                    //color: Color(0xffffffff),
-                    child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                  child: SmartRefresher(
+                      controller: _refreshController,
+                      enablePullDown: true,
+                      onRefresh: () async {
+                        print("REFRESHING ON SCROLL");
+                        await Future.delayed(Duration(seconds: 2));
+                        _refreshController.refreshCompleted();
+                      },
+                      child: Container(
+                        color: Color(0xfff9f9f9),
+                        //color: Color(0xffffffff),
+                        child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              GestureDetector(
-                                onTap: () {
-                                  print("Actual clicked");
-                                  setState(() => _currentIndex = 1);
-                                  _pageController.jumpToPage(1);
-                                },
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * .48,
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                    color: homescreenData[0].amount >
-                                            homescreenData[2].amount
-                                        ? Colors.red
-                                        : Colors
-                                            .green, // If Actual bigger budget -> show as red
-                                    elevation: 10,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        ListTile(
-                                          leading: Icon(Icons.monetization_on,
-                                              size: 50),
-                                          title: Text('Actual',
-                                              style: TextStyle(
-                                                  color: Colors.white)),
-                                          subtitle: Text(
-                                              homescreenData[0]
-                                                  .amount
-                                                  .toStringAsFixed(2),
-                                              style: TextStyle(
-                                                  color: Colors.white)),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {
+                                      print("Actual clicked");
+                                      setState(() => _currentIndex = 1);
+                                      _pageController.jumpToPage(1);
+                                    },
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          .48,
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
                                         ),
-                                      ],
+                                        color: homescreenData[0].amount >
+                                                homescreenData[2].amount
+                                            ? Colors.red
+                                            : Colors
+                                                .green, // If Actual bigger budget -> show as red
+                                        elevation: 10,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                            ListTile(
+                                              leading: Icon(
+                                                  Icons.monetization_on,
+                                                  size: 50),
+                                              title: Text('Actual',
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                              subtitle: Text(
+                                                  homescreenData[0]
+                                                      .amount
+                                                      .toStringAsFixed(2),
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  print("Budget clicked");
-                                  setState(() => _currentIndex = 2);
-                                  _pageController.jumpToPage(2);
-                                },
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * .48,
-                                  /*decoration: BoxDecoration(
+                                  GestureDetector(
+                                    onTap: () {
+                                      print("Budget clicked");
+                                      setState(() => _currentIndex = 2);
+                                      _pageController.jumpToPage(2);
+                                    },
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          .48,
+                                      /*decoration: BoxDecoration(
                                     borderRadius: new BorderRadius.only(
                                       topLeft: const Radius.circular(25.0),
                                       topRight: const Radius.circular(25.0),
@@ -1565,121 +1576,126 @@ class _MyHomePageState extends State<MyHomePage>
                                       tileMode: TileMode.repeated, // repeats the gradient over the canvas
                                     )),
                                  */
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                    color: homescreenData[0].amount >
-                                            homescreenData[2].amount
-                                        ? Colors.red
-                                        : Colors.green,
-                                    elevation: 10,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        ListTile(
-                                          leading: Icon(
-                                              Icons.account_balance_wallet,
-                                              size: 50),
-                                          title: Text('Budget',
-                                              style: TextStyle(
-                                                  color: Colors.white)),
-                                          subtitle: Text(
-                                              homescreenData[1]
-                                                      .amount
-                                                      .toStringAsFixed(2) +
-                                                  '\n' +
-                                                  homescreenData[2]
-                                                      .amount
-                                                      .toStringAsFixed(2),
-                                              style: TextStyle(
-                                                  color: Colors.white)),
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
                                         ),
-                                      ],
+                                        color: homescreenData[0].amount >
+                                                homescreenData[2].amount
+                                            ? Colors.red
+                                            : Colors.green,
+                                        elevation: 10,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                            ListTile(
+                                              leading: Icon(
+                                                  Icons.account_balance_wallet,
+                                                  size: 50),
+                                              title: Text('Budget',
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                              subtitle: Text(
+                                                  homescreenData[1]
+                                                          .amount
+                                                          .toStringAsFixed(2) +
+                                                      '\n' +
+                                                      homescreenData[2]
+                                                          .amount
+                                                          .toStringAsFixed(2),
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  'Select the month',
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                                FloatingActionButton(
-                                  onPressed: () =>
-                                      _showDatePicker('home', dateTimeHome),
-                                  tooltip:
-                                      'Select a different date where the booking should be added in',
-                                  child: Icon(Icons.date_range),
-                                  backgroundColor: Color(0xff0957FF),
-                                ),
-                                Text(
-                                    'Choosen: ${dateTimeHome.year.toString()}-${dateTimeHome.month.toString().padLeft(2, '0')}'),
-                              ]),
-                          // TODO make with variable, just a test for #25
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Switch(
-                                  value: showFullYearHome,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      showFullYearHome = value;
-                                      loadHomescreen();
-                                    });
-                                  },
-                                  activeTrackColor: Color(0xffEEEEEE),
-                                  activeColor: Color(0xff0957FF),
-                                ),
-                                Text(
-                                  "Full Year:",
-                                  style: TextStyle(fontSize: 25),
-                                ),
-                              ]),
-                          Container(
-                            margin: const EdgeInsets.all(0.0),
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * .4,
-                            child: charts.PieChart(
-                              [
-                                charts.Series<homescreenPie, String>(
-                                    id: 'CompanySizeVsNumberOfCompanies',
-                                    domainFn: (homescreenPie dataPoint, _) =>
-                                        dataPoint.type,
-                                    labelAccessorFn: (homescreenPie row, _) =>
-                                        '${row.type}\n${row.amount.toStringAsFixed(2)}€',
-                                    measureFn: (homescreenPie dataPoint, _) =>
-                                        dataPoint.amount,
-                                    data: homescreenData.sublist(0,
-                                        2) /*Only first 2 elements not also the overall budget*/)
-                              ],
-                              defaultRenderer: new charts.ArcRendererConfig(
-                                arcRendererDecorators: [
-                                  new charts.ArcLabelDecorator(
-                                      //labelPadding: 0,
-                                      labelPosition:
-                                          charts.ArcLabelPosition.outside),
                                 ],
-                                arcWidth: 50,
                               ),
-                              animate: true,
-                              behaviors: [
-                                charts.ChartTitle('Actual vs Budget'),
-                              ],
-                            ),
-                          )
-                        ]),
-                  ),
+                              Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      'Select the month',
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                    FloatingActionButton(
+                                      onPressed: () =>
+                                          _showDatePicker('home', dateTimeHome),
+                                      tooltip:
+                                          'Select a different date where the booking should be added in',
+                                      child: Icon(Icons.date_range),
+                                      backgroundColor: Color(0xff0957FF),
+                                    ),
+                                    Text(
+                                        'Choosen: ${dateTimeHome.year.toString()}-${dateTimeHome.month.toString().padLeft(2, '0')}'),
+                                  ]),
+                              // TODO make with variable, just a test for #25
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Switch(
+                                      value: showFullYearHome,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          showFullYearHome = value;
+                                          loadHomescreen();
+                                        });
+                                      },
+                                      activeTrackColor: Color(0xffEEEEEE),
+                                      activeColor: Color(0xff0957FF),
+                                    ),
+                                    Text(
+                                      "Full Year:",
+                                      style: TextStyle(fontSize: 25),
+                                    ),
+                                  ]),
+                              Container(
+                                margin: const EdgeInsets.all(0.0),
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height * .4,
+                                child: charts.PieChart(
+                                  [
+                                    charts.Series<homescreenPie, String>(
+                                        id: 'CompanySizeVsNumberOfCompanies',
+                                        domainFn:
+                                            (homescreenPie dataPoint, _) =>
+                                                dataPoint.type,
+                                        labelAccessorFn: (homescreenPie row,
+                                                _) =>
+                                            '${row.type}\n${row.amount.toStringAsFixed(2)}€',
+                                        measureFn:
+                                            (homescreenPie dataPoint, _) =>
+                                                dataPoint.amount,
+                                        data: homescreenData.sublist(0,
+                                            2) /*Only first 2 elements not also the overall budget*/)
+                                  ],
+                                  defaultRenderer: new charts.ArcRendererConfig(
+                                    arcRendererDecorators: [
+                                      new charts.ArcLabelDecorator(
+                                          //labelPadding: 0,
+                                          labelPosition:
+                                              charts.ArcLabelPosition.outside),
+                                    ],
+                                    arcWidth: 50,
+                                  ),
+                                  animate: true,
+                                  behaviors: [
+                                    charts.ChartTitle('Actual vs Budget'),
+                                  ],
+                                ),
+                              )
+                            ]),
+                      )),
                 ),
               ],
             ),
@@ -1741,7 +1757,14 @@ class _MyHomePageState extends State<MyHomePage>
                           child: CustomScrollView(
                             slivers: [
                               SliverFillRemaining(
-                                hasScrollBody: false,
+                                  child: SmartRefresher(
+                                controller: _refreshController,
+                                enablePullDown: true,
+                                onRefresh: () async {
+                                  print("REFRESHING ON SCROLL");
+                                  await Future.delayed(Duration(seconds: 2));
+                                  _refreshController.refreshCompleted();
+                                },
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -2068,7 +2091,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     ),
                                   ],
                                 ),
-                              ),
+                              )),
                             ],
                           ),
                         ),
@@ -2090,9 +2113,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                 context: context,
                                                 builder: (context) =>
                                                     new AlertDialog(
-                                                      title: Text('Comment'),
-
-                                                      content: new Text(
+                                                  title: Text('Comment'),
+                                                  content: new Text(
                                                       '${actList[index].comment}'),
                                                   actions: <Widget>[
                                                     new FlatButton(
@@ -2174,10 +2196,15 @@ class _MyHomePageState extends State<MyHomePage>
                                                       //height: 300.0,
                                                       child: IconButton(
                                                         icon: new Icon(
-                                                          actList[index].active == 1
+                                                          actList[index]
+                                                                      .active ==
+                                                                  1
                                                               ? Icons.delete
-                                                              : Icons.restore,),
-                                                        color: actList[index].active == 1
+                                                              : Icons.restore,
+                                                        ),
+                                                        color: actList[index]
+                                                                    .active ==
+                                                                1
                                                             ? Colors.red
                                                             : Colors.black,
                                                         onPressed: () {
@@ -2293,8 +2320,15 @@ class _MyHomePageState extends State<MyHomePage>
                           child: CustomScrollView(
                             slivers: [
                               SliverFillRemaining(
-                                hasScrollBody: false,
-                                child: Column(
+                          child: SmartRefresher(
+    controller: _refreshController,
+    enablePullDown: true,
+    onRefresh: () async {
+    print("REFRESHING ON SCROLL");
+    await Future.delayed(Duration(seconds: 2));
+    _refreshController.refreshCompleted();
+    },
+    child:  Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
@@ -2320,8 +2354,6 @@ class _MyHomePageState extends State<MyHomePage>
                                               'Choosen: ${dateTimeBudget.year.toString()}-${dateTimeBudget.month.toString().padLeft(2, '0')}')
                                         ]),
                                     Container(
-
-
                                       padding: const EdgeInsets.only(
                                           left: 30.0,
                                           top: 0,
@@ -2633,7 +2665,7 @@ class _MyHomePageState extends State<MyHomePage>
                                       ],
                                     ),
                                   ],
-                                ),
+                                )),
                               ),
                             ],
                           ),
@@ -2658,7 +2690,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                 builder: (context) =>
                                                     new AlertDialog(
                                                   title: Text('Comment'),
-                                                      content: new Text(
+                                                  content: new Text(
                                                       '${bdgList[index].comment}'),
                                                   actions: <Widget>[
                                                     new FlatButton(
@@ -2741,10 +2773,15 @@ class _MyHomePageState extends State<MyHomePage>
                                                       //height: 300.0,
                                                       child: IconButton(
                                                         icon: new Icon(
-                                                          bdgList[index].active == 1
+                                                          bdgList[index]
+                                                                      .active ==
+                                                                  1
                                                               ? Icons.delete
-                                                              : Icons.restore,),
-                                                        color: bdgList[index].active == 1
+                                                              : Icons.restore,
+                                                        ),
+                                                        color: bdgList[index]
+                                                                    .active ==
+                                                                1
                                                             ? Colors.red
                                                             : Colors.black,
                                                         onPressed: () {
@@ -2805,8 +2842,15 @@ class _MyHomePageState extends State<MyHomePage>
             CustomScrollView(
               slivers: [
                 SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: Column(
+    child: SmartRefresher(
+    controller: _refreshController,
+    enablePullDown: true,
+    onRefresh: () async {
+    print("REFRESHING ON SCROLL");
+    await Future.delayed(Duration(seconds: 2));
+    _refreshController.refreshCompleted();
+    },
+    child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -2977,7 +3021,7 @@ class _MyHomePageState extends State<MyHomePage>
                             ),
                           ])
                     ],
-                  ),
+                  )),
                 ),
               ],
             ),
@@ -3052,9 +3096,16 @@ class _MyHomePageState extends State<MyHomePage>
                     child: Container(
                       child: TabBarView(children: [
                         CustomScrollView(slivers: [
-                          SliverFillRemaining(
-                            hasScrollBody: false,
-                            child: Column(
+                      SliverFillRemaining(
+                      child: SmartRefresher(
+                        controller: _refreshController,
+                        enablePullDown: true,
+                        onRefresh: () async {
+                          print("REFRESHING ON SCROLL");
+                          await Future.delayed(Duration(seconds: 2));
+                          _refreshController.refreshCompleted();
+                        },
+                        child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -3220,13 +3271,20 @@ class _MyHomePageState extends State<MyHomePage>
                                       ),
                                     ],
                                   ),
-                                ]),
+                                ])),
                           ),
                         ]),
                         CustomScrollView(slivers: [
                           SliverFillRemaining(
-                            hasScrollBody: false,
-                            child: Column(
+                              child: SmartRefresher(
+                                controller: _refreshController,
+                                enablePullDown: true,
+                                onRefresh: () async {
+                                  print("REFRESHING ON SCROLL");
+                                  await Future.delayed(Duration(seconds: 2));
+                                  _refreshController.refreshCompleted();
+                                },
+                                child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -3623,13 +3681,20 @@ class _MyHomePageState extends State<MyHomePage>
                                       ),
                                     ],
                                   ),
-                                ]),
+                                ])),
                           )
                         ]),
                         CustomScrollView(slivers: [
                           SliverFillRemaining(
-                            hasScrollBody: false,
-                            child: Column(
+                              child: SmartRefresher(
+                                controller: _refreshController,
+                                enablePullDown: true,
+                                onRefresh: () async {
+                                  print("REFRESHING ON SCROLL");
+                                  await Future.delayed(Duration(seconds: 2));
+                                  _refreshController.refreshCompleted();
+                                },
+                                child:Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -3786,7 +3851,7 @@ class _MyHomePageState extends State<MyHomePage>
                                       ),
                                     ],
                                   ),
-                                ]),
+                                ])),
                           )
                         ]),
                       ]),
