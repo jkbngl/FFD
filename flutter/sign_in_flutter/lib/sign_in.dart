@@ -6,6 +6,7 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
 String name;
 String email;
 String imageUrl;
+String token;
 
 Future<String> signInWithGoogle() async {
 
@@ -25,14 +26,16 @@ Future<String> signInWithGoogle() async {
   name = user.displayName;
   email = user.email;
   imageUrl = user.photoUrl;
-
-
+  user.getIdToken().then((value) {
+    token = value.token.toString();
+  });
 
 
   assert(!user.isAnonymous);
   assert(await user.getIdToken() != null);
 
   final FirebaseUser currentUser = await _auth.currentUser();
+
   assert(user.uid == currentUser.uid);
 
   return 'signInWithGoogle succeeded: $user';
