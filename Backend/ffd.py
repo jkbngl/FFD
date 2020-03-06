@@ -4,12 +4,37 @@ import psycopg2.extras
 from flask import request
 import json
 from configparser import *
+import logging
+
+"""
+from google.oauth2 import id_token
+from google.auth.transport import requests
+import google.auth 
+"""
+import firebase_admin
+from firebase_admin import _auth_utils
+from firebase_admin import _http_client
+from firebase_admin import _token_gen
+from firebase_admin import _user_import
+from firebase_admin import _user_mgt
+from firebase_admin import _utils
+from firebase_admin import auth
+
+_AUTH_ATTRIBUTE = '_auth'
 
 config = ConfigParser()
 config.read('config.ini')
 
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s:%(levelname)s:%(message)s')
+
+
+
 def get_timestamp():
+    logging.debug('return formatted datetime object')
     return datetime.now().strftime(("%Y-%m-%d %H:%M:%S"))
+
+
+get_timestamp()
 
 def connect():
     try:
@@ -266,6 +291,7 @@ def send():
     """
 
     data = request.form.to_dict()
+
 
     if data['type'].lower() == 'actual':
         sendActual(data)
