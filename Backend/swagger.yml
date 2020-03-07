@@ -265,6 +265,28 @@ paths:
                   type: "string"
                 updated_by:
                   type: "string"
+  /ffd/validateDummyToken/:
+    get:
+      operationId: "ffd.validateDummyToken"
+      parameters:
+        - in: query
+          name: token
+          type: string
+          required: false
+          description: token to validate.
+      tags:
+        - "Used for testing of tokens"
+      summary: "Used for testing of tokens"
+      description: "Used for testing of tokens"
+      responses:
+        200:
+          description: "Successfully tested token"
+          schema:
+            type: "array"
+            items:
+              properties:
+                token:
+                  type: "string"
   /ffd/:
     post:
       operationId: "ffd.send"

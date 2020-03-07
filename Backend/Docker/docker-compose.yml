@@ -7,6 +7,9 @@ services:
     volumes:
       - ./app:/usr/src/app
       - ./config.ini:/usr/src/app/config.ini
+      - ./signindemoffdv2-firebase-adminsdk-gtlce-04508e9efc.json:/usr/scr/app/signindemoffdv2-firebase-adminsdk-gtlce-04508e9efc.json
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/usr/scr/app/signindemoffdv2-firebase-adminsdk-gtlce-04508e9efc.json
     ports:
       - "5000:5000"
     container_name: ffd_api

@@ -12,12 +12,7 @@ from google.auth.transport import requests
 import google.auth 
 """
 import firebase_admin
-from firebase_admin import _auth_utils
-from firebase_admin import _http_client
-from firebase_admin import _token_gen
-from firebase_admin import _user_import
-from firebase_admin import _user_mgt
-from firebase_admin import _utils
+from firebase_admin import credentials
 from firebase_admin import auth
 
 _AUTH_ATTRIBUTE = '_auth'
@@ -27,37 +22,48 @@ config.read('config.ini')
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s:%(levelname)s:%(message)s')
 
-
+# Firebase app instance, needs to be declared globally as it may only be initialized once and if handled in def state is lost on next run
+app = None
 
 def get_timestamp():
-    logging.debug('return formatted datetime object')
     return datetime.now().strftime(("%Y-%m-%d %H:%M:%S"))
 
-def validateToken(token):
-
-    # (Receive token by HTTPS POST)
-    # ...
+def validateDummyToken(token):
 
     try:
-        logger.info(f"validating {token}")
+        global app
 
-        app = firebase_admin.initialize_app()
+        logging.info(f"validating {token}")
 
-        #token_verifier = _get_auth_service(app).token_verifier
-        verified_claims = auth.verify_id_token(token)
-        verified_claims = decoded_token['uid']
+        #cred = credentials.Certificate("../signindemoffdv2-firebase-adminsdk-gtlce-04508e9efc.json")
+        
+        
+        # ONLY NEEDS TO BE DONE ONCE
+        
+        if(app is not None):
+            logging.info(f"APP {app} already initialized")
+        else:
+            logging.info(f"initializing APP as it does not already exist")
+            app = firebase_admin.initialize_app()
+            logging.info(f"using {app}")
 
 
-        #print(f"validated {uid}")
+        decoded_token = auth.verify_id_token(token)
+        uid = decoded_token['uid']
+
+
+        logging.info(f"validated {uid}")
+
+        return "validated"
 
     except ValueError as e:
         # Invalid token
-        print(f"invalid token {e}")
-        pass
+        logging.critical(f"error {e}")
 
-implicit()
-#validateToken('eyJhbGciOiJSUzI1NiIsImtpZCI6IjhjZjBjNjQyZDQwOWRlODJlY2M5MjI4ZTRiZDc5OTkzOTZiNTY3NDAiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiSmFrb2IgZW5nbCIsInBpY3R1cmUiOiJodHRwczovL2xoNS5nb29nbGV1c2VyY29udGVudC5jb20vLVBLVGxpUEhFQjRnL0FBQUFBQUFBQUFJL0FBQUFBQUFBQUFBL0FLRjA1bkE5MWNfeXF4bDVJSmZFbkVkeC0wWElQc1p1NHcvczk2LWMvcGhvdG8uanBnIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL3NpZ25pbmRlbW9mZmR2MiIsImF1ZCI6InNpZ25pbmRlbW9mZmR2MiIsImF1dGhfdGltZSI6MTU4MzQ0MDA5OSwidXNlcl9pZCI6ImZUcUtYdXdZWFhWSzNPRGFZeDlQcVBIVlU3QzMiLCJzdWIiOiJmVHFLWHV3WVhYVkszT0RhWXg5UHFQSFZVN0MzIiwiaWF0IjoxNTgzNDQwMTAwLCJleHAiOjE1ODM0NDM3MDAsImVtYWlsIjoiamFrb2IuZW5nbC5qZUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjEwOTY1Mzg1MjYzNzc4ODU4ODM1NiJdLCJlbWFpbCI6WyJqYWtvYi5lbmdsLmplQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6Imdvb2dsZS5jb20ifX0.m4hlkJPkh-o8UZmm45UsceyVaku9zxS77etZ3c1jiBIksV_1AKS3D68pbbk4dsmgXf1tnQzcXM8J6CoN8l2C74MNo0AFHaT-0hN4BGhVwNmVB-rqQNmIP25Q_ZegFCs23M3f15KRnRQyxHhIN4OmY5kSaPTk0ox4eaHLLz_QUaqw')
-
+        return f"not validated {e}"
+    except Exception as e:
+        logging.critical(f"error {e}")
+        return f"not validated v2 {e}"
 
 def connect():
     try:

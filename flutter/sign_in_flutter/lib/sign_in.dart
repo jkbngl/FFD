@@ -27,9 +27,6 @@ Future<String> signInWithGoogle() async {
   email = user.email;
   imageUrl = user.photoUrl;
 
-
-  user.
-
   user.getIdToken(refresh: true).then((value) {
     token = value.token.toString();
     print(token);

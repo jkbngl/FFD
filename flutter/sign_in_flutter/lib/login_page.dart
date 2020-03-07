@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sign_in_flutter/login_page.dart';
 import 'package:sign_in_flutter/sign_in.dart';
+import 'package:http/http.dart' as http;
 
 
 class LoginPage extends StatefulWidget {
@@ -70,6 +71,21 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
+validateToken(token) async
+{
+  print("Validating $token");
+
+  String uri =
+      'http://192.168.0.21:5000/api/ffd/validateDummyToken/?token=$token';
+
+  print(uri);
+
+  var amounts = await http.read(uri);
+
+  print("Response: $amounts");
+  return true;
+}
+
 class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -133,7 +149,7 @@ class FirstScreen extends StatelessWidget {
                     color: Colors.black54),
               ),
               Text(
-                token,
+                token != null ? token.substring(0, 20) + " - " + token.substring(token.length - 20, token.length) : "initializing",
                 style: TextStyle(
                     fontSize: 25,
                     color: Colors.deepPurple,
@@ -141,6 +157,22 @@ class FirstScreen extends StatelessWidget {
               ),
 
               SizedBox(height: 40),
+              RaisedButton(
+                onPressed: () {
+                  validateToken(token);
+                },
+                color: Colors.deepPurple,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Validate',
+                    style: TextStyle(fontSize: 25, color: Colors.white),
+                  ),
+                ),
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40)),
+              ),
               RaisedButton(
                 onPressed: () {
                   signOutGoogle();
