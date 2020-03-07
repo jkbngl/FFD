@@ -33,8 +33,31 @@ def get_timestamp():
     logging.debug('return formatted datetime object')
     return datetime.now().strftime(("%Y-%m-%d %H:%M:%S"))
 
+def validateToken(token):
 
-get_timestamp()
+    # (Receive token by HTTPS POST)
+    # ...
+
+    try:
+        logger.info(f"validating {token}")
+
+        app = firebase_admin.initialize_app()
+
+        #token_verifier = _get_auth_service(app).token_verifier
+        verified_claims = auth.verify_id_token(token)
+        verified_claims = decoded_token['uid']
+
+
+        #print(f"validated {uid}")
+
+    except ValueError as e:
+        # Invalid token
+        print(f"invalid token {e}")
+        pass
+
+implicit()
+#validateToken('eyJhbGciOiJSUzI1NiIsImtpZCI6IjhjZjBjNjQyZDQwOWRlODJlY2M5MjI4ZTRiZDc5OTkzOTZiNTY3NDAiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiSmFrb2IgZW5nbCIsInBpY3R1cmUiOiJodHRwczovL2xoNS5nb29nbGV1c2VyY29udGVudC5jb20vLVBLVGxpUEhFQjRnL0FBQUFBQUFBQUFJL0FBQUFBQUFBQUFBL0FLRjA1bkE5MWNfeXF4bDVJSmZFbkVkeC0wWElQc1p1NHcvczk2LWMvcGhvdG8uanBnIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL3NpZ25pbmRlbW9mZmR2MiIsImF1ZCI6InNpZ25pbmRlbW9mZmR2MiIsImF1dGhfdGltZSI6MTU4MzQ0MDA5OSwidXNlcl9pZCI6ImZUcUtYdXdZWFhWSzNPRGFZeDlQcVBIVlU3QzMiLCJzdWIiOiJmVHFLWHV3WVhYVkszT0RhWXg5UHFQSFZVN0MzIiwiaWF0IjoxNTgzNDQwMTAwLCJleHAiOjE1ODM0NDM3MDAsImVtYWlsIjoiamFrb2IuZW5nbC5qZUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjEwOTY1Mzg1MjYzNzc4ODU4ODM1NiJdLCJlbWFpbCI6WyJqYWtvYi5lbmdsLmplQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6Imdvb2dsZS5jb20ifX0.m4hlkJPkh-o8UZmm45UsceyVaku9zxS77etZ3c1jiBIksV_1AKS3D68pbbk4dsmgXf1tnQzcXM8J6CoN8l2C74MNo0AFHaT-0hN4BGhVwNmVB-rqQNmIP25Q_ZegFCs23M3f15KRnRQyxHhIN4OmY5kSaPTk0ox4eaHLLz_QUaqw')
+
 
 def connect():
     try:
