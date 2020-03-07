@@ -60,10 +60,10 @@ def validateDummyToken(token):
         # Invalid token
         logging.critical(f"error {e}")
 
-        return f"not validated {e}"
+        return f"not validated {e}", 403
     except Exception as e:
         logging.critical(f"error {e}")
-        return f"not validated v2 {e}"
+        return f"not validated v2 {e}", 403
 
 def connect():
     try:
