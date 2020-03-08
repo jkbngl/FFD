@@ -7,9 +7,9 @@ services:
     volumes:
       - ./app:/usr/src/app
       - ./config.ini:/usr/src/app/config.ini
-      - ./signindemoffdv2-firebase-adminsdk-gtlce-04508e9efc.json:/usr/scr/app/signindemoffdv2-firebase-adminsdk-gtlce-04508e9efc.json
+      - ./financefordummies-3bd4d-firebase-adminsdk-3n825-404a64c505.json:/usr/scr/app/financefordummies-3bd4d-firebase-adminsdk-3n825-404a64c505.json
     environment:
-      - GOOGLE_APPLICATION_CREDENTIALS=/usr/scr/app/signindemoffdv2-firebase-adminsdk-gtlce-04508e9efc.json
+      - GOOGLE_APPLICATION_CREDENTIALS=/usr/scr/app/financefordummies-3bd4d-firebase-adminsdk-3n825-404a64c505.json
     ports:
       - "5000:5000"
     container_name: ffd_api

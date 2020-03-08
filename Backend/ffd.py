@@ -49,12 +49,10 @@ def validateDummyToken(token):
 
 
         decoded_token = auth.verify_id_token(token)
-        uid = decoded_token['uid']
 
+        logging.info(f"validated {decoded_token}")
 
-        logging.info(f"validated {uid}")
-
-        return "validated"
+        return f"validated {decoded_token}", 200
 
     except ValueError as e:
         # Invalid token
