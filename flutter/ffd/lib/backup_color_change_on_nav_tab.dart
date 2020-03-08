@@ -2802,8 +2802,16 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   .center,
                                                           children: <Widget>[
                                                             Text('\n'),
-                                                            Text(
-                                                                '${bdgList[index].amount} ${bdgList[index].date}'),
+                                                            Row(
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                                children: [
+                                                                  Text(
+                                                                      "${bdgList[index].date}"),
+                                                                  Text(
+                                                                      '${bdgList[index].amount}'),
+                                                                ]),
                                                             Text(
                                                               '${bdgList[index].level1} > ${bdgList[index].level2} > ${bdgList[index].level3} - ${bdgList[index].costType}',
                                                             ),
