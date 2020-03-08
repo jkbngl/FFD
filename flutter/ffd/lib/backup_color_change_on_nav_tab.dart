@@ -2179,8 +2179,16 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   .center,
                                                           children: <Widget>[
                                                             Text('\n'),
-                                                            Text(
-                                                                '${actList[index].amount} ${actList[index].date}'),
+                                                            Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Text(
+                                                                      "${actList[index].date}"),
+                                                                  Text(
+                                                                      '${actList[index].amount}'),
+                                                                ]),
                                                             Text(
                                                               '${actList[index].level1} > ${actList[index].level2} > ${actList[index].level3} - ${actList[index].costType}',
                                                             ),
