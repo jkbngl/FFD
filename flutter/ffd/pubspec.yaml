@@ -27,7 +27,8 @@ dependencies:
   charts_flutter: ^0.8.1
   rating_dialog: ^1.0.0
   pull_to_refresh: ^1.4.5
-
+  firebase_auth: ^0.15.2
+  google_sign_in: ^4.0.4
 
 
 
@@ -54,7 +55,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+    - assets/
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 

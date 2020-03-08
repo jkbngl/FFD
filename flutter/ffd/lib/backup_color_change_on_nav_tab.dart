@@ -16,6 +16,9 @@ import 'package:rating_dialog/rating_dialog.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
