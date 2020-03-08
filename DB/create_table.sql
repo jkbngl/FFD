@@ -8,15 +8,17 @@ drop table ffd.account_dim;
 drop table ffd.act_data;
 drop table ffd.bdg_data;
 
-
-CREATE TABLE ffd.user_dim (
-        id SERIAL PRIMARY KEY
-      , name text
-      , created date DEFAULT now()
-      , updated date DEFAULT now()
-      , created_by text DEFAULT 'UNDEFINED'
-      , updated_by text DEFAULT 'UNDEFINED'
-    );
+	CREATE TABLE ffd.user_dim (
+		id serial NOT NULL,
+		"name" text NULL,
+		created date NULL DEFAULT now(),
+		updated date NULL DEFAULT now(),
+		created_by text NULL DEFAULT 'UNDEFINED'::text,
+		updated_by text NULL DEFAULT 'UNDEFINED'::text,
+		mail text NULL,
+		CONSTRAINT user_dim_mail_key UNIQUE (mail),
+		CONSTRAINT user_dim_pkey PRIMARY KEY (id)
+	);
 
     CREATE TABLE ffd.group_dim (
         id SERIAL PRIMARY KEY
