@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart';
+import 'backup_color_change_on_nav_tab.dart';
 import 'sign_in.dart';
 import 'package:http/http.dart' as http;
 
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-                return FirstScreen();
+                return MyHomePage();
               },
             ),
           );
