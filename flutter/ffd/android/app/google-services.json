@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "107662707220",
+    "firebase_url": "https://financefordummies-3bd4d.firebaseio.com",
+    "project_id": "financefordummies-3bd4d",
+    "storage_bucket": "financefordummies-3bd4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107662707220:android:0c2e7f6050ab10713af501",
+        "android_client_info": {
+          "package_name": "ml.jakob.ffd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107662707220-ti2hfpp4v8e7cvfducic5ql7uetlnf58.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ml.jakob.ffd",
+            "certificate_hash": "8a21ba5084af9f68a543d4430b727143a5bac1fa"
+          }
+        },
+        {
+          "client_id": "107662707220-6e8vt4s4v3092rucot594a0sa1ksqgge.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlF9j3LhexmxHOlYE9QeakTjTylEwS2lw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107662707220-6e8vt4s4v3092rucot594a0sa1ksqgge.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

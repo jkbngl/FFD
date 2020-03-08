@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'login_page.dart';
 import 'sign_in.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -70,12 +72,129 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
+validateToken(token) async
+{
+  print("Validating $token");
+
+  String uri =
+      'http://192.168.0.21:5000/api/ffd/validateDummyToken/?token=$token';
+
+  print(uri);
+
+  var amounts = await http.read(uri);
+
+  print("Response: $amounts");
+  return true;
+}
+
 class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(color: Colors.blue[100]),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [Colors.blue[100], Colors.blue[400]],
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              CircleAvatar(
+                backgroundImage: NetworkImage(
+                  imageUrl,
+                ),
+                radius: 60,
+                backgroundColor: Colors.transparent,
+              ),
+              SizedBox(height: 40),
+              Text(
+                'NAME',
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black54),
+              ),
+              Text(
+                name,
+                style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.deepPurple,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'EMAIL',
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black54),
+              ),
+              Text(
+                email,
+                style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.deepPurple,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'TOKEN',
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black54),
+              ),
+              Text(
+                token != null ? token.substring(0, 20) + " - " + token.substring(token.length - 20, token.length) : "initializing",
+                style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.deepPurple,
+                    fontWeight: FontWeight.bold),
+              ),
+
+              SizedBox(height: 40),
+              RaisedButton(
+                onPressed: () {
+                  validateToken(token);
+                },
+                color: Colors.deepPurple,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Validate',
+                    style: TextStyle(fontSize: 25, color: Colors.white),
+                  ),
+                ),
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40)),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  signOutGoogle();
+                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return LoginPage();}), ModalRoute.withName('/'));
+                },
+                color: Colors.deepPurple,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Sign Out',
+                    style: TextStyle(fontSize: 25, color: Colors.white),
+                  ),
+                ),
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40)),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
-
