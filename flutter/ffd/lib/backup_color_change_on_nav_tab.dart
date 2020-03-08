@@ -6,6 +6,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:ffd/DonutPieChart.dart';
 import 'package:ffd/StackedBarTargetLineChart.dart';
 import 'package:ffd/SimpleBarChart.dart';
+import 'package:ffd/sign_in.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:after_layout/after_layout.dart';
@@ -819,6 +820,8 @@ class _MyHomePageState extends State<MyHomePage>
 
   void sendBackend(String type, bool onStartup) async {
     var url = 'http://192.168.0.21:5000/api/ffd/';
+    String _token = token;
+
 
     // Whenever with the backend is communicated its best to reload the accounts and costtpyes
     if (type.contains('add') || type.contains('delete'))
@@ -900,6 +903,7 @@ class _MyHomePageState extends State<MyHomePage>
       'user': '1',
       'group': '-1',
       'company': '-1',
+      'token': _token
     };
 
     print(url);
