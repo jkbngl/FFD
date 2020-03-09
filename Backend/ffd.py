@@ -28,7 +28,7 @@ app = None
 def get_timestamp():
     return datetime.now().strftime(("%Y-%m-%d %H:%M:%S"))
 
-def validateDummyToken(token):
+def validateToken(token):
 
     try:
         global app
@@ -50,7 +50,7 @@ def validateDummyToken(token):
 
         decoded_token = auth.verify_id_token(token)
 
-        logging.info(f"validated {decoded_token}")
+        logging.info(f" {decoded_token}")
 
         return f"validated {decoded_token}", 200
 
@@ -73,19 +73,20 @@ def connect():
                                       database = config.get('db', 'database')
         )
         
-        # Print PostgreSQL Connection properties
         cursor = connection.cursor()
-        print(connection.get_dsn_parameters(),"\n")
+        
+        # Log PostgreSQL Connection properties
+        logging.debug(connection.get_dsn_parameters(),"\n")
 
-        # Print PostgreSQL version
+        # Get PostgreSQL version
         cursor.execute("SELECT version();")
         record = cursor.fetchone()
-        print("You are connected to - ", record,"\n")
+        logging.debug(f"You are connected to - {record}\n")
 
         return connection
 
     except (Exception, psycopg2.Error) as error :
-        print ("Error while connecting to PostgreSQL", error)
+        logging.critical(f"Error while connecting to PostgreSQL {error}")
 
 def readAccounts(level_type):
     """
@@ -239,7 +240,7 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
         group_params += ' group by month ' if len(group_params) <= 0 else ' , month'
         order_params += ' order by month ' if len(order_params) <= 0 else ' , month'
 
-    print(f"{select_params}{where_params}{group_params}{order_params}")
+    logging.info(f"{select_params}{where_params}{group_params}{order_params}")
 
     # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
     data = []
@@ -319,6 +320,12 @@ def send():
 
     data = request.form.to_dict()
 
+    user, code = validateToken(data['token'])
+
+    if(code != 200):
+        return data, 403
+
+    logging.debug(data)
 
     if data['type'].lower() == 'actual':
         sendActual(data)
@@ -340,10 +347,8 @@ def send():
         deleteEntry('budget', data)
     
 
-    #data = request.values
-    #print(f'RECEIVED DATA: {dir(request)}')
     data['status'] = 'success'
-    return data
+    return data, 200
 
 def sendActual(data):
     connection = connect()
@@ -351,7 +356,8 @@ def sendActual(data):
     command = f"INSERT INTO ffd.act_data (amount, comment, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk) \
                                   VALUES ({data['amount']}, '{data['actualcomment']}', '{data['date']}', {data['year']}, {data['month']}, '{data['level1']}', {data['level1id']}, '{data['level2']}', {data['level2id']}, '{data['level3']}', {data['level3id']} \
                                   , '{data['costtype']}', {data['costtypeid']}, {data['user']})"
-    print(command)
+    
+    logging.info(command)
     cursor.execute(command)
     connection.commit()
     cursor.close()
@@ -373,7 +379,7 @@ def savePreferences(data):
                               accountslevel3_active = EXCLUDED.accountslevel3_active "
                 
     
-    print(command)
+    logging.info(command)
     cursor.execute(command)
     connection.commit()
     cursor.close()
@@ -385,7 +391,7 @@ def sendBudget(data):
     command = f"INSERT INTO ffd.bdg_data (amount, comment, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk) \
                                   VALUES ({data['amount']}, '{data['budgetcomment']}', '{data['date']}', {data['year']}, {data['month']}, '{data['level1']}', {data['level1id']}, '{data['level2']}', {data['level2id']}, '{data['level3']}', {data['level3id']} \
                                   , '{data['costtype']}', {data['costtypeid']}, {data['user']})"
-    print(command)
+    logging.info(command)
     cursor.execute(command)
     connection.commit()
     cursor.close()
@@ -395,7 +401,7 @@ def deleteCostType(data):
     connection = connect()
     cursor = connection.cursor()
     command = f"update ffd.costtype_dim set active = 0 where id = {data['costtypetodeleteid']}"
-    print(command)
+    logging.info(command)
     cursor.execute(command)
     connection.commit()
     cursor.close()
@@ -407,7 +413,7 @@ def addCostType(data):
     command = f"INSERT INTO ffd.costtype_dim (name, comment, user_fk, group_fk, company_fk) \
                                   VALUES ('{data['costtypetoadd'].upper()}', '{data['costtypetoaddcomment']}' \
                                   , {data['user']},  {data['group']},  {data['company']})"
-    print(command)
+    logging.info(command)
     cursor.execute(command)
     connection.commit()
     cursor.close()
@@ -431,7 +437,7 @@ def deleteAccount(data):
 
     
     command = f"update ffd.account_dim set active = 0 where id = {accounttodelete}"
-    print(command)
+    logging.info(command)
     
     cursor.execute(command)
     connection.commit()
@@ -447,7 +453,7 @@ def addAccount(data):
         command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
                                   VALUES ('{data['accounttoaddlevel1'].upper()}', '{data['accounttoaddlevel1comment']}', 1, null \
                                   , {data['user']},  {data['group']},  {data['company']})"
-        print(command)
+        logging.info(command)
         cursor.execute(command)
         connection.commit()
 
@@ -456,7 +462,7 @@ def addAccount(data):
         command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
                                   VALUES ('{data['accounttoaddlevel2'].upper()}', '{data['accounttoaddlevel2comment']}', 2, {data['accountfornewlevel2parentaccount']} \
                                   , {data['user']},  {data['group']},  {data['company']})"
-        print(command)
+        logging.info(command)
         cursor.execute(command)
         connection.commit()
 
@@ -470,7 +476,7 @@ def addAccount(data):
         command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
                                   VALUES ('{data['accounttoaddlevel2'].upper()}', '{data['accounttoaddlevel2comment']}', 2, {record[0][0]} \
                                   , {data['user']},  {data['group']},  {data['company']})"
-        print(command)
+        logging.info(command)
         cursor.execute(command)
         connection.commit()
         
@@ -480,7 +486,7 @@ def addAccount(data):
         command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
                                   VALUES ('{data['accounttoaddlevel3'].upper()}', '{data['accounttoaddlevel3comment']}', 3, {data['accountfornewlevel3parentaccount']} \
                                   , {data['user']},  {data['group']},  {data['company']})"
-        print(command)
+        logging.info(command)
         cursor.execute(command)
         connection.commit()
 
@@ -494,7 +500,7 @@ def addAccount(data):
         command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
                                   VALUES ('{data['accounttoaddlevel3'].upper()}', '{data['accounttoaddlevel3comment']}', 3, {record[0][0]} \
                                   , {data['user']},  {data['group']},  {data['company']})"
-        print(command)
+        logging.info(command)
         cursor.execute(command)
         connection.commit()
     cursor.close()
@@ -508,7 +514,7 @@ def deleteEntry(type, data):
 
     command = f"update ffd.{'act' if type == 'actual' else 'bdg'}_data set active = case when active = 1 then 0 else 1 end where id = {data['actlistitemtodelete'] if type == 'actual' else data['bdglistitemtodelete']}"
     
-    print(command)
+    logging.info(command)
     cursor.execute(command)
     connection.commit()
     cursor.close()
