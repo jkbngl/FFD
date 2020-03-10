@@ -328,6 +328,7 @@ class _MyHomePageState extends State<MyHomePage>
   void afterFirstLayout(BuildContext context) async {
     // Calling the same function "after layout" to resolve the issue.
 
+    //await syncUserInBackend();
     checkForChanges(true, fetchAccountsAndCostTypes, 'all');
 
     // Keep loadHomescreen before loadAmount, because if not the state will be set 2 times and it will look strange
@@ -901,6 +902,7 @@ class _MyHomePageState extends State<MyHomePage>
       'bdglistitemtodelete': bdgObjectToDelete.id.toString(),
       'status': 'IP',
       'user': '1',
+      'mailFrontend': email,
       'group': '-1',
       'company': '-1'
     };
@@ -912,7 +914,7 @@ class _MyHomePageState extends State<MyHomePage>
 
     if (!onStartup) {
       showCustomDialog(
-          _currentIndex, response.statusCode == 500 ? 'error' : 'success');
+          _currentIndex, response.statusCode == 200 ? 'success' : 'error', response.statusCode);
       print(response.statusCode);
     }
 
@@ -1305,7 +1307,7 @@ class _MyHomePageState extends State<MyHomePage>
     }
   }
 
-  showCustomDialog(int index, String page) {
+  showCustomDialog(int index, String page, int code) {
     Icon icon = Icon(Icons.device_unknown, size: 70);
     Color color = Colors.yellow;
 
@@ -1326,7 +1328,7 @@ class _MyHomePageState extends State<MyHomePage>
         builder: (context) {
           return RatingDialog(
             icon: icon, // set your own image/icon widget
-            title: "The Rating Dialog",
+            title: "Code: $code",
             description:
                 "Tap a star to set your rating. Add more description here if you want.",
             submitButton: "SUBMIT",
@@ -1437,7 +1439,7 @@ class _MyHomePageState extends State<MyHomePage>
             color: Color(0xffEEEEEE),
             iconSize: 24,
             onPressed: () {
-              showCustomDialog(_currentIndex, 'help');
+              showCustomDialog(_currentIndex, 'help', -1);
             }),
       ),
       body: SizedBox.expand(
