@@ -76,7 +76,7 @@ def connect():
         cursor = connection.cursor()
         
         # Log PostgreSQL Connection properties
-        logging.debug(connection.get_dsn_parameters(),"\n")
+        logging.debug(connection.get_dsn_parameters())
 
         # Get PostgreSQL version
         cursor.execute("SELECT version();")
@@ -319,6 +319,9 @@ def send():
     """
 
     data = request.form.to_dict()
+    header = request.headers.get('accesstoken')
+    logging.debug(f"header: {header}")
+
 
     user, code = validateToken(data['token'])
 
