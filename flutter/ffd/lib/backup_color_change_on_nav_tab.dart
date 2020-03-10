@@ -829,7 +829,7 @@ class _MyHomePageState extends State<MyHomePage>
 
     // Are here in case needed sometimes later
     var params = {
-      "user": "DOC000506", // TODO GET FIREBASE USER OBJECT HERE
+      "accesstoken": _token,
     };
 
     var body = {
@@ -909,7 +909,7 @@ class _MyHomePageState extends State<MyHomePage>
     print(url);
     print(body);
 
-    var response = await http.post(url, body: body);
+    var response = await http.post(url, body: body, headers: params);
 
     if (!onStartup) {
       showCustomDialog(
