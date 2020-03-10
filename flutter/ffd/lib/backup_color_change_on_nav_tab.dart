@@ -902,8 +902,7 @@ class _MyHomePageState extends State<MyHomePage>
       'status': 'IP',
       'user': '1',
       'group': '-1',
-      'company': '-1',
-      'token': _token
+      'company': '-1'
     };
 
     print(url);
