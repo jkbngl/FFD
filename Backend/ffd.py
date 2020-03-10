@@ -323,9 +323,10 @@ def send():
     logging.debug(f"header: {header}")
 
 
-    user, code = validateToken(data['token'])
+    user, code = validateToken(header)
 
-    if(code != 200):
+    if(code == 403):
+        logging.error("ACCESS FORBIDDEN")
         return data, 403
 
     logging.debug(data)
