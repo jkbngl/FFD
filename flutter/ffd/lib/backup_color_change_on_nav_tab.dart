@@ -1419,6 +1419,18 @@ class _MyHomePageState extends State<MyHomePage>
         actions: <Widget>[
           // action button
           IconButton(
+            icon: Icon(Icons.exit_to_app),
+            color: Color(0xffEEEEEE),
+            iconSize: 24,
+            onPressed: () {
+              signOutGoogle();
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) {
+                return LoginPage();
+              }), ModalRoute.withName('/'));
+            },
+          ),
+          IconButton(
               icon: Icon(Icons.refresh),
               color: Color(0xffEEEEEE),
               iconSize: 24,
@@ -1722,27 +1734,6 @@ class _MyHomePageState extends State<MyHomePage>
                                       animate: true,
                                     ),
                                   )),
-                              RaisedButton(
-                                onPressed: () {
-                                  signOutGoogle();
-                                  Navigator.of(context).pushAndRemoveUntil(
-                                      MaterialPageRoute(builder: (context) {
-                                    return LoginPage();
-                                  }), ModalRoute.withName('/'));
-                                },
-                                color: Colors.deepPurple,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Sign Out',
-                                    style: TextStyle(
-                                        fontSize: 25, color: Colors.white),
-                                  ),
-                                ),
-                                elevation: 5,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(40)),
-                              )
                             ]),
                       )),
                 ),
