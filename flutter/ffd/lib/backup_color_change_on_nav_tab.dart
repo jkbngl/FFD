@@ -16,6 +16,7 @@ import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'login_page.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -1683,45 +1684,65 @@ class _MyHomePageState extends State<MyHomePage>
                                     fontFamily: 'Open Sans',
                                     fontSize: 30),
                               ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 0,
-                                top: 25,
-                                right: 0,
-                                bottom: 0),
-                            child:
-                                Container(
-                                margin: const EdgeInsets.all(0.0),
-                                width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.height * .4,
-                                child: charts.PieChart(
-                                  [
-                                    charts.Series<homescreenPie, String>(
-                                        id: 'CompanySizeVsNumberOfCompanies',
-                                        domainFn:
-                                            (homescreenPie dataPoint, _) =>
-                                                dataPoint.type,
-                                        labelAccessorFn: (homescreenPie row,
-                                                _) =>
-                                            '${row.type}\n${row.amount.toStringAsFixed(2)}€',
-                                        measureFn:
-                                            (homescreenPie dataPoint, _) =>
-                                                dataPoint.amount,
-                                        data: homescreenData.sublist(0,
-                                            2) /*Only first 2 elements not also the overall budget*/)
-                                  ],
-                                  defaultRenderer: new charts.ArcRendererConfig(
-                                    arcRendererDecorators: [
-                                      new charts.ArcLabelDecorator(
-                                          //labelPadding: 0,
-                                          labelPosition:
-                                              charts.ArcLabelPosition.outside),
-                                    ],
-                                    arcWidth: 50,
+                              Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 0, top: 25, right: 0, bottom: 0),
+                                  child: Container(
+                                    margin: const EdgeInsets.all(0.0),
+                                    width: MediaQuery.of(context).size.width,
+                                    height:
+                                        MediaQuery.of(context).size.height * .4,
+                                    child: charts.PieChart(
+                                      [
+                                        charts.Series<homescreenPie, String>(
+                                            id:
+                                                'CompanySizeVsNumberOfCompanies',
+                                            domainFn:
+                                                (homescreenPie dataPoint, _) =>
+                                                    dataPoint.type,
+                                            labelAccessorFn: (homescreenPie row,
+                                                    _) =>
+                                                '${row.type}\n${row.amount.toStringAsFixed(2)}€',
+                                            measureFn:
+                                                (homescreenPie dataPoint, _) =>
+                                                    dataPoint.amount,
+                                            data: homescreenData.sublist(0,
+                                                2) /*Only first 2 elements not also the overall budget*/)
+                                      ],
+                                      defaultRenderer:
+                                          new charts.ArcRendererConfig(
+                                        arcRendererDecorators: [
+                                          new charts.ArcLabelDecorator(
+                                              //labelPadding: 0,
+                                              labelPosition: charts
+                                                  .ArcLabelPosition.outside),
+                                        ],
+                                        arcWidth: 50,
+                                      ),
+                                      animate: true,
+                                    ),
+                                  )),
+                              RaisedButton(
+                                onPressed: () {
+                                  signOutGoogle();
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(builder: (context) {
+                                    return LoginPage();
+                                  }), ModalRoute.withName('/'));
+                                },
+                                color: Colors.deepPurple,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Sign Out',
+                                    style: TextStyle(
+                                        fontSize: 25, color: Colors.white),
                                   ),
-                                  animate: true,
                                 ),
-                              ))
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(40)),
+                              )
                             ]),
                       )),
                 ),
