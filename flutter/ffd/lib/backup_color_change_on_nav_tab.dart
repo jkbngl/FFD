@@ -267,6 +267,8 @@ class _MyHomePageState extends State<MyHomePage>
   // Boolean for visualizer whether it should be shown per month or the full year
   bool showFullYearHome = false;
   bool showFullYear = false;
+  bool showAllTimeHome = false;
+  bool showAllTime = false;
 
   // Controllers used which store the value of the new accounts/ CostTypes added
   final newLevel1TextFieldController = TextEditingController();
@@ -413,8 +415,8 @@ class _MyHomePageState extends State<MyHomePage>
     int level_type = g_parent_account.accountLevel;
     int cost_type = costTypeObjectVisualizer.id;
     int parent_account = g_parent_account.id;
-    int year = dateTimeVisualizer.year;
-    int month = !showFullYear ? dateTimeVisualizer.month : -1;
+    int year = showAllTime ? -1 : dateTimeVisualizer.year;
+    int month = showFullYear || showAllTime ? -1 : dateTimeVisualizer.month;  //if the whole year or all time should be shown, use no month filter
     String _type = 'actual';
 
     String uri =
@@ -2947,6 +2949,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     value: showFullYear,
                                     onChanged: (value) {
                                       setState(() {
+                                        showAllTime = false;
                                         showFullYear = value;
                                         loadAmount();
                                       });
@@ -2956,6 +2959,22 @@ class _MyHomePageState extends State<MyHomePage>
                                   ),
                                   Text(
                                     "Full Year:",
+                                    style: TextStyle(fontSize: 25),
+                                  ),
+                                  Switch(
+                                    value: showAllTime,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        showFullYear = false;
+                                        showAllTime = value;
+                                        loadAmount();
+                                      });
+                                    },
+                                    activeTrackColor: Color(0xffEEEEEE),
+                                    activeColor: Color(0xff0957FF),
+                                  ),
+                                  Text(
+                                    "All Time:",
                                     style: TextStyle(fontSize: 25),
                                   ),
                                 ]),
@@ -3034,6 +3053,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     color: Color(0xffEEEEEE), // EEEEEE
                                     onPressed: () {
                                       setState(() {
+                                        showAllTime = false;
                                         showFullYear = false;
                                         costTypeObjectVisualizer =
                                             costTypesList[0];
