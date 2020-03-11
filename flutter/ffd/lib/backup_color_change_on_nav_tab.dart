@@ -1665,7 +1665,7 @@ class _MyHomePageState extends State<MyHomePage>
                                       activeColor: Color(0xff0957FF),
                                     ),
                                     Text(
-                                      "Full Year:",
+                                      "Full Year",
                                       style: TextStyle(fontSize: 25),
                                     ),
                                   ]),
@@ -2958,7 +2958,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     activeColor: Color(0xff0957FF),
                                   ),
                                   Text(
-                                    "Full Year:",
+                                    "Full Year",
                                     style: TextStyle(fontSize: 25),
                                   ),
                                   Switch(
@@ -2974,7 +2974,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     activeColor: Color(0xff0957FF),
                                   ),
                                   Text(
-                                    "All Time:",
+                                    "All Time",
                                     style: TextStyle(fontSize: 25),
                                   ),
                                 ]),
