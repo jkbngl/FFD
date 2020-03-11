@@ -19,7 +19,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -416,7 +415,10 @@ class _MyHomePageState extends State<MyHomePage>
     int cost_type = costTypeObjectVisualizer.id;
     int parent_account = g_parent_account.id;
     int year = showAllTime ? -1 : dateTimeVisualizer.year;
-    int month = showFullYear || showAllTime ? -1 : dateTimeVisualizer.month;  //if the whole year or all time should be shown, use no month filter
+    int month = showFullYear || showAllTime
+        ? -1
+        : dateTimeVisualizer
+            .month; //if the whole year or all time should be shown, use no month filter
     String _type = 'actual';
 
     String uri =
@@ -825,7 +827,6 @@ class _MyHomePageState extends State<MyHomePage>
     var url = 'http://192.168.0.21:5000/api/ffd/';
     String _token = token;
 
-
     // Whenever with the backend is communicated its best to reload the accounts and costtpyes
     if (type.contains('add') || type.contains('delete'))
       fetchAccountsAndCostTypes = true;
@@ -916,7 +917,9 @@ class _MyHomePageState extends State<MyHomePage>
 
     if (!onStartup) {
       showCustomDialog(
-          _currentIndex, response.statusCode == 200 ? 'success' : 'error', response.statusCode);
+          _currentIndex,
+          response.statusCode == 200 ? 'success' : 'error',
+          response.statusCode);
       print(response.statusCode);
     }
 
@@ -1669,7 +1672,25 @@ class _MyHomePageState extends State<MyHomePage>
                                       style: TextStyle(fontSize: 25),
                                     ),
                                   ]),
-                              Container(
+                              Text(
+                                'Actual vs Budget.',
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontWeight: FontWeight.w900,
+                                    fontStyle: FontStyle.italic,
+                                    fontFamily: 'Open Sans',
+                                    fontSize: 30),
+                              ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 0,
+                                top: 25,
+                                right: 0,
+                                bottom: 0),
+                            child:
+                                Container(
                                 margin: const EdgeInsets.all(0.0),
                                 width: MediaQuery.of(context).size.width,
                                 height: MediaQuery.of(context).size.height * .4,
@@ -1699,11 +1720,8 @@ class _MyHomePageState extends State<MyHomePage>
                                     arcWidth: 50,
                                   ),
                                   animate: true,
-                                  behaviors: [
-                                    charts.ChartTitle('Actual vs Budget'),
-                                  ],
                                 ),
-                              )
+                              ))
                             ]),
                       )),
                 ),
@@ -2814,8 +2832,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                             Text('\n'),
                                                             Row(
                                                                 mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
                                                                 children: [
                                                                   Text(
                                                                       "${bdgList[index].date}"),
