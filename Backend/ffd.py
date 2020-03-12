@@ -50,9 +50,9 @@ def validateToken(token):
 
         decoded_token = auth.verify_id_token(token)
 
-        logging.info(f" {decoded_token}")
+        logging.info(f"{decoded_token}")
 
-        return f"validated {decoded_token}", 200
+        return decoded_token, 200
 
     except ValueError as e:
         # Invalid token
@@ -62,6 +62,41 @@ def validateToken(token):
     except Exception as e:
         logging.critical(f"error {e}")
         return f"not validated v2 {e}", 403
+
+def validateMail(mail, passedUserId):
+    data = []
+
+    connection = connect()
+    cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
+
+    query = f"select * from ffd.user_dim where mail = '{mail}'"
+
+    cursor.execute(query)
+    record = cursor.fetchall()
+    # fetch the column names from the cursror
+    columnnames = [desc[0] for desc in cursor.description]
+    # Create from the value array a key value object
+    for row in record:
+        cache = {}
+
+        for columnname in columnnames:
+            cache[columnname] = row[columnname]
+
+        data.append(cache)
+        
+    cursor.close()
+    connection.close()
+
+    logging.debug(data)
+
+    for user in data:
+        logging.debug(f"CHECKING: {int(passedUserId) > 0}")
+        logging.debug(f"CHECKING: {user['id'] or - 1 == int(passedUserId)}")
+
+        # A userId is passed and is valid (bigger then 0) + matches the email passed in the decoded token
+        return int(passedUserId) > 0 and (user['id'] or - 1 == int(passedUserId))
+
+    return False
 
 def connect():
     try:
@@ -322,10 +357,18 @@ def send():
     header = request.headers.get('accesstoken')
     logging.debug(f"header: {header}")
 
+    headerMail, code = validateToken(header)
 
-    user, code = validateToken(header)
+    logging.debug(f"MATCHING: {data['user']}")
+    logging.debug(f"MATCHING: {headerMail['email']}")
 
-    if(code == 403):
+
+    userMatchWithMail = validateMail(headerMail['email'], data['user'])
+
+    logging.debug(f"MATCHING: {userMatchWithMail}")
+
+
+    if(code == 403 or userMatchWithMail is False):
         logging.error("ACCESS FORBIDDEN")
         return data, 403
 
@@ -352,6 +395,7 @@ def send():
     
 
     data['status'] = 'success'
+    data['mail'] = headerMail
     return data, 200
 
 def sendActual(data):
