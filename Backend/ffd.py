@@ -28,6 +28,19 @@ app = None
 def get_timestamp():
     return datetime.now().strftime(("%Y-%m-%d %H:%M:%S"))
 
+def validate(header, data):
+    headerMail, code = validateToken(header)
+
+    userMatchWithMail = validateMail(headerMail['email'], data['user'])
+
+    logging.debug(f"MATCHING: {userMatchWithMail}")
+
+
+    if(code == 403 or userMatchWithMail is False):
+        logging.error("ACCESS FORBIDDEN")
+        return data, 403
+
+
 def validateToken(token):
 
     try:
@@ -232,6 +245,8 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
     :return:        list of accounts
     """
 
+    validateToken
+
     # Used to concat the query depending on the parameters passed
     select_params = ''
     where_params = 'where active = 1'
@@ -354,23 +369,9 @@ def send():
     """
 
     data = request.form.to_dict()
-    header = request.headers.get('accesstoken')
-    logging.debug(f"header: {header}")
+    headerAccesstoken = request.headers.get('accesstoken')
 
-    headerMail, code = validateToken(header)
-
-    logging.debug(f"MATCHING: {data['user']}")
-    logging.debug(f"MATCHING: {headerMail['email']}")
-
-
-    userMatchWithMail = validateMail(headerMail['email'], data['user'])
-
-    logging.debug(f"MATCHING: {userMatchWithMail}")
-
-
-    if(code == 403 or userMatchWithMail is False):
-        logging.error("ACCESS FORBIDDEN")
-        return data, 403
+    validate(headerAccesstoken, data)
 
     logging.debug(data)
 
@@ -395,7 +396,6 @@ def send():
     
 
     data['status'] = 'success'
-    data['mail'] = headerMail
     return data, 200
 
 def sendActual(data):

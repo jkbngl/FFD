@@ -485,14 +485,18 @@ class _MyHomePageState extends State<MyHomePage>
 
     print("$year - $month");
 
+    var params = {
+      "accesstoken": token,
+    };
+
     //var amounts = await http.read('http://192.168.0.21:5000/api/ffd/amounts/?level_type=1&cost_type=-1&parent_account=-1&year=2020&month=1&_type=actual');
     var actual = await http.read(
-        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type');
+        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type', headers: params);
 
     _type = 'budget';
 
     var budget = await http.read(
-        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type');
+        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type', headers: params);
 
     var parsedActual = json.decode(actual);
     var parsedBudget = json.decode(budget);
@@ -1423,11 +1427,29 @@ class _MyHomePageState extends State<MyHomePage>
             color: Color(0xffEEEEEE),
             iconSize: 24,
             onPressed: () {
-              signOutGoogle();
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) {
-                return LoginPage();
-              }), ModalRoute.withName('/'));
+              showDialog(
+                context: context,
+                builder: (context) => new AlertDialog(
+                  title: Text("Are you sure?"),
+                  content: new Text('Confirm Logout'),
+                  actions: <Widget>[
+                    new FlatButton(
+                      child: new Text('Cancel'),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                    new FlatButton(
+                      child: new Text('Confirm'),
+                      onPressed: () {
+                        signOutGoogle();
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (context) {
+                          return LoginPage();
+                        }), ModalRoute.withName('/'));
+                      },
+                    )
+                  ],
+                ),
+              );
             },
           ),
           IconButton(
