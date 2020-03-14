@@ -56,12 +56,6 @@ paths:
   /ffd/preferences:
     get:
       operationId: "ffd.readPreferences"
-      parameters:
-        - in: query
-          name: user
-          type: string
-          required: false
-          description: Numeric ID of the user to get.
       tags:
         - "preferences"
       summary: "Returns the preferences"
@@ -136,27 +130,27 @@ paths:
           name: level_type
           type: integer
           required: false
-          description: Numeric ID of the user to get.
+          description: which level to use
         - in: query
           name: cost_type
           type: integer
           required: false
-          description: Numeric ID of the user to get.
+          description: if a filter on costtype should be applied
         - in: query
           name: parent_account
           type: integer
           required: false
-          description: Numeric ID of the user to get.  
+          description: if a filter on parent_account should be applied
         - in: query
           name: year
           type: integer
           required: false
-          description: Numeric ID of the user to get.  
+          description: if a filter on year should be applied
         - in: query
           name: month
           type: integer
           required: false
-          description: Numeric ID of the user to get.  
+          description: if a filter on month should be applied
         - in: query
           name: _type
           type: string
@@ -200,18 +194,13 @@ paths:
   /ffd/list/:
     get:
       operationId: "ffd.readListActualBudget"
-      #example: http://192.168.0.21:5000/api/ffd/amounts/?_type=1&user=-1&interval=-1
+      #example: http://192.168.0.21:5000/api/ffd/amounts/?_type=1&interval=-1
       parameters:
         - in: query
           name: _type
           type: string
           required: true
           description: actual or budget.
-        - in: query
-          name: user
-          type: integer
-          required: true
-          description: Numeric ID of the user to get.
       tags:
         - "Amounts"
       summary: "Returns all actual or budget entries for the user in the last year"
@@ -253,8 +242,6 @@ paths:
                   type: "string"
                 costtype_fk:
                   type: "integer"
-                user_fk:
-                  type: "integer"
                 group_fk:
                   type: "integer"
                 created:
@@ -265,9 +252,9 @@ paths:
                   type: "string"
                 updated_by:
                   type: "string"
-  /ffd/validateDummyToken/:
+  /ffd/validateToken/:
     get:
-      operationId: "ffd.validateDummyToken"
+      operationId: "ffd.validateToken"
       parameters:
         - in: query
           name: token
@@ -309,11 +296,7 @@ paths:
                   type: "string"
                 budgetcomment:
                   type: "string"
-                userid:
-                  type: "string"
                 groupid:
-                  type: "string"
-                user:
                   type: "string"
                 group:
                   type: "string"

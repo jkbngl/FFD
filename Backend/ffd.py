@@ -5,17 +5,10 @@ from flask import request
 import json
 from configparser import *
 import logging
-
-"""
-from google.oauth2 import id_token
-from google.auth.transport import requests
-import google.auth 
-"""
+import pytz
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import auth
-
-_AUTH_ATTRIBUTE = '_auth'
 
 config = ConfigParser()
 config.read('config.ini')
@@ -25,20 +18,28 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s:%(levelname)s:%(mes
 # Firebase app instance, needs to be declared globally as it may only be initialized once and if handled in def state is lost on next run
 app = None
 
+
+# 69
+def to_utc(timestamp, timezone):
+    local = pytz.timezone (timezone)
+    naive = datetime.datetime.strptime (timestamp, "%Y-%m-%d %H:%M:%S")
+    local_dt = local.localize(naive, is_dst=None)
+    
+    return local_dt.astimezone(pytz.utc)
+
+
 def get_timestamp():
     return datetime.now().strftime(("%Y-%m-%d %H:%M:%S"))
 
-def validate(header, data):
+def validate(header):
+    
     headerMail, code = validateToken(header)
 
-    userMatchWithMail = validateMail(headerMail['email'], data['user'])
-
-    logging.debug(f"MATCHING: {userMatchWithMail}")
-
-
-    if(code == 403 or userMatchWithMail is False):
+    if(code == 403):
         logging.error("ACCESS FORBIDDEN")
-        return data, 403
+        return "ACCESS FORBIDDEN", 403
+
+    return getIdByMail(headerMail), headerMail
 
 
 def validateToken(token):
@@ -76,15 +77,16 @@ def validateToken(token):
         logging.critical(f"error {e}")
         return f"not validated v2 {e}", 403
 
-def validateMail(mail, passedUserId):
+def getIdByMail(mail):
     data = []
 
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-    query = f"select * from ffd.user_dim where mail = '{mail}'"
+    query = f"select id from ffd.user_dim where mail = '{mail['email']}'"
 
     cursor.execute(query)
+
     record = cursor.fetchall()
     # fetch the column names from the cursror
     columnnames = [desc[0] for desc in cursor.description]
@@ -100,20 +102,14 @@ def validateMail(mail, passedUserId):
     cursor.close()
     connection.close()
 
-    logging.debug(data)
+    return data[0]['id']
 
-    for user in data:
-        logging.debug(f"CHECKING: {int(passedUserId) > 0}")
-        logging.debug(f"CHECKING: {user['id'] or - 1 == int(passedUserId)}")
 
-        # A userId is passed and is valid (bigger then 0) + matches the email passed in the decoded token
-        return int(passedUserId) > 0 and (user['id'] or - 1 == int(passedUserId))
-
-    return False
+def getAccessRights(data):
+    pass
 
 def connect():
     try:
-
         connection = psycopg2.connect(user = config.get('db', 'user'),
                                       password = config.get('db', 'password'),
                                       host = config.get('db', 'host'),
@@ -144,13 +140,17 @@ def readAccounts(level_type):
     :return:        list of accounts
     """
 
+    headerAccesstoken = request.headers.get('accesstoken')
+    userId, mail = validate(headerAccesstoken)
+
+
     # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
     data = []
 
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-    query = f"select * from ffd.account_dim where level_type = {level_type} and active = 1 order by id asc"
+    query = f"select * from ffd.account_dim acc where level_type = {level_type} and active = 1 and user_fk = {userId} order by id asc"
 
     cursor.execute(query)
     record = cursor.fetchall()
@@ -171,13 +171,16 @@ def readAccounts(level_type):
 
     return data
 
-def readPreferences(user):
+def readPreferences():
     """
     This function responds to a request for /api/ffd/Preferences
     with the complete lists of Preferences for the user
 
     :return:        list of preferences
     """
+
+    headerAccesstoken = request.headers.get('accesstoken')
+    userId, mail = validate(headerAccesstoken)
 
     # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
     data = []
@@ -188,7 +191,8 @@ def readPreferences(user):
     query = f"select user_fk, group_fk, company_fk \
                    , costtypes_active, accounts_active \
                    , accountsLevel1_active, accountsLevel2_active, accountsLevel3_active \
-                    from ffd.preference_dim"
+              from ffd.preference_dim \
+              where  user_fk = {userId}"
 
     cursor.execute(query)
     record = cursor.fetchall()
@@ -209,9 +213,16 @@ def readPreferences(user):
 
     return data
 
-def readListActualBudget(_type, user):
+def readListActualBudget(_type):
+    
+    headerAccesstoken = request.headers.get('accesstoken')
+    userId, mail = validate(headerAccesstoken)
+
     data = []
-    query = f"select * from ffd.{'act' if _type == 'actual' else 'bdg'}_data where user_fk = {user} and data_date > date_trunc('month', CURRENT_DATE) - INTERVAL '1 year' order by created desc"
+    query = f"select  *\
+              from    ffd.{'act' if _type == 'actual' else 'bdg'}_data \
+              where   data_date > date_trunc('month', CURRENT_DATE) - INTERVAL '1 year' \
+              and     user_fk = {userId} order by created desc"
 
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
@@ -233,7 +244,6 @@ def readListActualBudget(_type, user):
     cursor.close()
     connection.close()
 
-    
     return data
 
 def readAmounts(level_type, cost_type, parent_account, year, month, _type):
@@ -245,11 +255,12 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
     :return:        list of accounts
     """
 
-    validateToken
+    headerAccesstoken = request.headers.get('accesstoken')
+    userId, mail = validate(headerAccesstoken)
 
     # Used to concat the query depending on the parameters passed
     select_params = ''
-    where_params = 'where active = 1'
+    where_params = f'where active = 1 and user_fk = {userId} '
     group_params = ''
     order_params = ''
 
@@ -327,13 +338,16 @@ def readCosttypes():
     :return:        list of accounts
     """
 
+    headerAccesstoken = request.headers.get('accesstoken')
+    userId, mail = validate(headerAccesstoken)
+
     # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
     data = []
 
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-    query = f"select * from ffd.costtype_dim where active = 1"
+    query = f"select * from ffd.costtype_dim where active = 1 and user_fk = {userId}"
 
     cursor.execute(query)
     record = cursor.fetchall()
@@ -369,41 +383,41 @@ def send():
     """
 
     data = request.form.to_dict()
+    
     headerAccesstoken = request.headers.get('accesstoken')
-
-    validate(headerAccesstoken, data)
+    userId, mail = validate(headerAccesstoken)
 
     logging.debug(data)
 
     if data['type'].lower() == 'actual':
-        sendActual(data)
+        sendActual(data, userId)
     elif data['type'].lower() == 'budget':
-        sendBudget(data)
+        sendBudget(data, userId)
     elif data['type'].lower() == 'newcosttypedelete':
-        deleteCostType(data)
+        deleteCostType(data, userId)
     elif data['type'].lower() == 'newcosttypeadd':
-        addCostType(data)
+        addCostType(data, userId)
     elif data['type'].lower() == 'newaccountadd':
-        data = addAccount(data)
+        data = addAccount(data, userId)
     elif data['type'].lower() == 'newaccountdelete':
-        deleteAccount(data)
+        deleteAccount(data, userId)
     elif data['type'].lower() == 'generaladmin':
-        savePreferences(data)
+        savePreferences(data, userId)
     elif data['type'].lower() == 'actlistdelete':
-        deleteEntry('actual', data)
+        deleteEntry('actual', data, userId)
     elif data['type'].lower() == 'bsglistdelete':
-        deleteEntry('budget', data)
+        deleteEntry('budget', data, userId)
     
 
     data['status'] = 'success'
     return data, 200
 
-def sendActual(data):
+def sendActual(data, userId):
     connection = connect()
     cursor = connection.cursor()
     command = f"INSERT INTO ffd.act_data (amount, comment, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk) \
                                   VALUES ({data['amount']}, '{data['actualcomment']}', '{data['date']}', {data['year']}, {data['month']}, '{data['level1']}', {data['level1id']}, '{data['level2']}', {data['level2id']}, '{data['level3']}', {data['level3id']} \
-                                  , '{data['costtype']}', {data['costtypeid']}, {data['user']})"
+                                  , '{data['costtype']}', {data['costtypeid']}, {userId})"
     
     logging.info(command)
     cursor.execute(command)
@@ -411,10 +425,10 @@ def sendActual(data):
     cursor.close()
     connection.close()
 
-def savePreferences(data):
+def savePreferences(data, userId):
     connection = connect()
     cursor = connection.cursor()
-    command = f"insert into ffd.preference_dim (select {data['user']} as user, {data['group']} as group_fk, {data['company']} as company_fk, \
+    command = f"insert into ffd.preference_dim (select {userId} as user, {data['group']} as group_fk, {data['company']} as company_fk, \
                                                        {data['arecosttypesactive']} costtypes_active, {data['areaccountsactive']} accounts_active, \
                                                        {data['arelevel1accountsactive']} accountslevel1_active, \
                                                        {data['arelevel2accountsactive']} accountslevel2_active, \
@@ -433,41 +447,41 @@ def savePreferences(data):
     cursor.close()
     connection.close()
 
-def sendBudget(data):
+def sendBudget(data, userId):
     connection = connect()
     cursor = connection.cursor()
     command = f"INSERT INTO ffd.bdg_data (amount, comment, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk) \
                                   VALUES ({data['amount']}, '{data['budgetcomment']}', '{data['date']}', {data['year']}, {data['month']}, '{data['level1']}', {data['level1id']}, '{data['level2']}', {data['level2id']}, '{data['level3']}', {data['level3id']} \
-                                  , '{data['costtype']}', {data['costtypeid']}, {data['user']})"
+                                  , '{data['costtype']}', {data['costtypeid']}, {userId})"
     logging.info(command)
     cursor.execute(command)
     connection.commit()
     cursor.close()
     connection.close()
 
-def deleteCostType(data):
+def deleteCostType(data, userId):
     connection = connect()
     cursor = connection.cursor()
-    command = f"update ffd.costtype_dim set active = 0 where id = {data['costtypetodeleteid']}"
+    command = f"update ffd.costtype_dim set active = 0 where id = {data['costtypetodeleteid']} and user_fk = {userId}"
     logging.info(command)
     cursor.execute(command)
     connection.commit()
     cursor.close()
     connection.close()
 
-def addCostType(data):
+def addCostType(data, userId):
     connection = connect()
     cursor = connection.cursor()
     command = f"INSERT INTO ffd.costtype_dim (name, comment, user_fk, group_fk, company_fk) \
                                   VALUES ('{data['costtypetoadd'].upper()}', '{data['costtypetoaddcomment']}' \
-                                  , {data['user']},  {data['group']},  {data['company']})"
+                                  , {userId},  {data['group']},  {data['company']})"
     logging.info(command)
     cursor.execute(command)
     connection.commit()
     cursor.close()
     connection.close()
 
-def deleteAccount(data):
+def deleteAccount(data, userId):
     connection = connect()
     cursor = connection.cursor()
     
@@ -484,7 +498,7 @@ def deleteAccount(data):
         accounttodelete = data['adminaccountlevel1id']
 
     
-    command = f"update ffd.account_dim set active = 0 where id = {accounttodelete}"
+    command = f"update ffd.account_dim set active = 0 where id = {accounttodelete} and user_fk = {userId}"
     logging.info(command)
     
     cursor.execute(command)
@@ -492,7 +506,7 @@ def deleteAccount(data):
     cursor.close()
     connection.close()
 
-def addAccount(data):
+def addAccount(data, userId):
     connection = connect()
     cursor = connection.cursor()
     
@@ -500,7 +514,7 @@ def addAccount(data):
     if(data['accounttoaddlevel1']):
         command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
                                   VALUES ('{data['accounttoaddlevel1'].upper()}', '{data['accounttoaddlevel1comment']}', 1, null \
-                                  , {data['user']},  {data['group']},  {data['company']})"
+                                  , {userId},  {data['group']},  {data['company']})"
         logging.info(command)
         cursor.execute(command)
         connection.commit()
@@ -509,7 +523,7 @@ def addAccount(data):
     if(int(data['accountfornewlevel2parentaccount']) > 0 and data['accounttoaddlevel2']):
         command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
                                   VALUES ('{data['accounttoaddlevel2'].upper()}', '{data['accounttoaddlevel2comment']}', 2, {data['accountfornewlevel2parentaccount']} \
-                                  , {data['user']},  {data['group']},  {data['company']})"
+                                  , {userId},  {data['group']},  {data['company']})"
         logging.info(command)
         cursor.execute(command)
         connection.commit()
@@ -523,7 +537,7 @@ def addAccount(data):
         record = cursor.fetchall()
         command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
                                   VALUES ('{data['accounttoaddlevel2'].upper()}', '{data['accounttoaddlevel2comment']}', 2, {record[0][0]} \
-                                  , {data['user']},  {data['group']},  {data['company']})"
+                                  , {userId},  {data['group']},  {data['company']})"
         logging.info(command)
         cursor.execute(command)
         connection.commit()
@@ -533,7 +547,7 @@ def addAccount(data):
     if(int(data['accountfornewlevel3parentaccount']) > 0 and data['accounttoaddlevel3']):
         command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
                                   VALUES ('{data['accounttoaddlevel3'].upper()}', '{data['accounttoaddlevel3comment']}', 3, {data['accountfornewlevel3parentaccount']} \
-                                  , {data['user']},  {data['group']},  {data['company']})"
+                                  , {userId},  {data['group']},  {data['company']})"
         logging.info(command)
         cursor.execute(command)
         connection.commit()
@@ -547,7 +561,7 @@ def addAccount(data):
         record = cursor.fetchall()
         command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
                                   VALUES ('{data['accounttoaddlevel3'].upper()}', '{data['accounttoaddlevel3comment']}', 3, {record[0][0]} \
-                                  , {data['user']},  {data['group']},  {data['company']})"
+                                  , {userId},  {data['group']},  {data['company']})"
         logging.info(command)
         cursor.execute(command)
         connection.commit()
@@ -556,11 +570,14 @@ def addAccount(data):
 
     return data
 
-def deleteEntry(type, data):
+def deleteEntry(type, data, userId):
     connection = connect()
     cursor = connection.cursor()
 
-    command = f"update ffd.{'act' if type == 'actual' else 'bdg'}_data set active = case when active = 1 then 0 else 1 end where id = {data['actlistitemtodelete'] if type == 'actual' else data['bdglistitemtodelete']}"
+    command = f"update ffd.{'act' if type == 'actual' else 'bdg'}_data \
+                set active = case when active = 1 then 0 else 1 end \
+                where id = {data['actlistitemtodelete'] if type == 'actual' else data['bdglistitemtodelete']} \
+                and user_fk = {userId}"
     
     logging.info(command)
     cursor.execute(command)

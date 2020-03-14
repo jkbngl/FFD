@@ -353,10 +353,8 @@ class _MyHomePageState extends State<MyHomePage>
   final List<ListItem> bdgList = <ListItem>[];
 
   loadList(String type) async {
-    var user = 1;
-
     String uri =
-        'http://192.168.0.21:5000/api/ffd/list/?_type=$type&user=$user';
+        'http://192.168.0.21:5000/api/ffd/list/?_type=$type';
 
     print(uri);
 
@@ -462,9 +460,7 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   loadPreferences() async {
-    String user = '1';
-
-    String uri = 'http://192.168.0.21:5000/api/ffd/preferences?user=$user';
+    String uri = 'http://192.168.0.21:5000/api/ffd/preferences';
 
     print(uri);
 
@@ -926,7 +922,6 @@ class _MyHomePageState extends State<MyHomePage>
       'actlistitemtodelete': actObjectToDelete.id.toString(),
       'bdglistitemtodelete': bdgObjectToDelete.id.toString(),
       'status': 'IP',
-      'user': '1',
       'mailFrontend': email,
       'group': '-1',
       'company': '-1'
