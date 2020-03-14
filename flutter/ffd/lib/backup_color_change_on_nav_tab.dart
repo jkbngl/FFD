@@ -360,7 +360,11 @@ class _MyHomePageState extends State<MyHomePage>
 
     print(uri);
 
-    var amounts = await http.read(uri);
+    var params = {
+      "accesstoken": token,
+    };
+
+    var amounts = await http.read(uri, headers: params);
     var parsedAmounts = json.decode(amounts);
 
     if (type == 'actual') {
@@ -427,7 +431,11 @@ class _MyHomePageState extends State<MyHomePage>
 
     print(uri);
 
-    var amounts = await http.read(uri);
+    var params = {
+      "accesstoken": token,
+    };
+
+    var amounts = await http.read(uri, headers: params);
 
     var parsedAmounts = json.decode(amounts);
 
@@ -460,7 +468,11 @@ class _MyHomePageState extends State<MyHomePage>
 
     print(uri);
 
-    var preferences = await http.read(uri);
+    var params = {
+      "accesstoken": token,
+    };
+
+    var preferences = await http.read(uri, headers: params);
 
     var parsedPreferences = json.decode(preferences);
 
@@ -550,15 +562,19 @@ class _MyHomePageState extends State<MyHomePage>
 
     bool remove = true;
 
+    var params = {
+      "accesstoken": token,
+    };
+
     if (fetch || onStartup) {
       level1AccountsJson =
-          await http.read('http://192.168.0.21:5000/api/ffd/accounts/1');
+          await http.read('http://192.168.0.21:5000/api/ffd/accounts/1', headers: params);
       level2AccountsJson =
-          await http.read('http://192.168.0.21:5000/api/ffd/accounts/2');
+          await http.read('http://192.168.0.21:5000/api/ffd/accounts/2', headers: params);
       level3AccountsJson =
-          await http.read('http://192.168.0.21:5000/api/ffd/accounts/3');
+          await http.read('http://192.168.0.21:5000/api/ffd/accounts/3', headers: params);
       costTypesJson =
-          await http.read('http://192.168.0.21:5000/api/ffd/costtypes/');
+          await http.read('http://192.168.0.21:5000/api/ffd/costtypes/', headers: params);
 
       var parsedAccountLevel1 = json.decode(level1AccountsJson);
       var parsedAccountLevel2 = json.decode(level2AccountsJson);
