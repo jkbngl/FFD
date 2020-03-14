@@ -894,6 +894,7 @@ class _MyHomePageState extends State<MyHomePage>
       'month': type == 'actual'
           ? dateTimeActual.month.toString()
           : dateTimeBudget.month.toString(),
+      'timezone': DateTime.now().timeZoneName,
       'costtypetoadd': newCostTypeTextFieldController.text,
       'costtypetoaddcomment': newCostTypeCommentTextFieldController.text,
       'costtypetodeleteid': costTypeObjectAdmin.id.toString(),
