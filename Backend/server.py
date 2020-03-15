@@ -21,14 +21,14 @@ app.add_api('swagger.yml')
 
 application = app.app
 
-
-limiter = Limiter(key_func=get_remote_address)
-limiter.init_app(application)
+limiter = Limiter(application
+                , key_func=get_remote_address
+                , default_limits=["1000 per day", "200 per hour", "50 per minute"]
+)
 
 
 # Create a URL route in our application for "/"
 @app.route('/')
-@limiter.limit("100/day;10/hour;1/minute")
 def home():
     """
     This function just responds to the browser ULR
