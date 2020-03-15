@@ -330,6 +330,12 @@ class _MyHomePageState extends State<MyHomePage>
   void afterFirstLayout(BuildContext context) async {
     // Calling the same function "after layout" to resolve the issue.
 
+
+    // Resolves the issue that no data is available on login
+    await getToken();
+
+    print("WAITED");
+
     //await syncUserInBackend();
     checkForChanges(true, fetchAccountsAndCostTypes, 'all');
 
@@ -1123,8 +1129,7 @@ class _MyHomePageState extends State<MyHomePage>
       onCancel: () => print('onCancel'),
       dateFormat: _format,
       onChange: (dateTime, List<int> index) {
-        //setState(() {
-        if (type == 'home') {
+         if (type == 'home') {
           dateTimeHome = dateTime;
         } else if (type == 'actual') {
           dateTimeActual = dateTime;
@@ -1133,7 +1138,7 @@ class _MyHomePageState extends State<MyHomePage>
         } else if (type == 'visualizer') {
           dateTimeVisualizer = dateTime;
         }
-        //});
+
       },
       onConfirm: (dateTime, List<int> index) {
         setState(() {
