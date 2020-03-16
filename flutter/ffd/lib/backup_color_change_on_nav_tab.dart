@@ -946,6 +946,15 @@ class _MyHomePageState extends State<MyHomePage>
       print(response.statusCode);
     }
 
+    if(type == 'actlistdelete')
+    {
+      loadList('actual');
+    }
+    else if(type == 'bdglistdelete')
+    {
+      loadList('budget');
+    }
+
     /*
     showDialog(
       context: context,
@@ -2949,7 +2958,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             .id;
 
                                                                     sendBackend(
-                                                                        'bsglistdelete',
+                                                                        'bdglistdelete',
                                                                         false);
                                                                     Navigator.of(
                                                                             context)
