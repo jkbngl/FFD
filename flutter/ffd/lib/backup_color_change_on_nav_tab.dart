@@ -946,6 +946,7 @@ class _MyHomePageState extends State<MyHomePage>
       print(response.statusCode);
     }
 
+    // When an entry was deleted or restored, or a new entry was made in the input page
     if(type == 'actlistdelete' || type == 'actual')
     {
       loadList('actual');

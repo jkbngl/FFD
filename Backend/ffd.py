@@ -37,9 +37,9 @@ def validate(header):
 
     if(code == 403):
         logging.error("ACCESS FORBIDDEN")
-        return "ACCESS FORBIDDEN", 403
+        return "ACCESS FORBIDDEN", 403, "ERROR: ACCESS FORBIDDEN"
 
-    return getIdByMail(headerMail), headerMail
+    return getIdByMail(headerMail), headerMail, None
 
 
 def validateToken(token):
@@ -141,7 +141,7 @@ def readAccounts(level_type):
     """
 
     headerAccesstoken = request.headers.get('accesstoken')
-    userId, mail = validate(headerAccesstoken)
+    userId, mail, errorMessage = validate(headerAccesstoken)
 
 
     # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
@@ -180,7 +180,7 @@ def readPreferences():
     """
 
     headerAccesstoken = request.headers.get('accesstoken')
-    userId, mail = validate(headerAccesstoken)
+    userId, mail, errorMessage = validate(headerAccesstoken)
 
     # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
     data = []
@@ -216,7 +216,7 @@ def readPreferences():
 def readListActualBudget(_type):
     
     headerAccesstoken = request.headers.get('accesstoken')
-    userId, mail = validate(headerAccesstoken)
+    userId, mail, errorMessage = validate(headerAccesstoken)
 
     data = []
     query = f"select  *\
@@ -256,7 +256,7 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
     """
 
     headerAccesstoken = request.headers.get('accesstoken')
-    userId, mail = validate(headerAccesstoken)
+    userId, mail, errorMessage = validate(headerAccesstoken)
 
     # Used to concat the query depending on the parameters passed
     select_params = ''
@@ -339,7 +339,7 @@ def readCosttypes():
     """
 
     headerAccesstoken = request.headers.get('accesstoken')
-    userId, mail = validate(headerAccesstoken)
+    userId, mail, errorMessage = validate(headerAccesstoken)
 
     # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
     data = []
@@ -385,7 +385,7 @@ def send():
     data = request.form.to_dict()
     
     headerAccesstoken = request.headers.get('accesstoken')
-    userId, mail = validate(headerAccesstoken)
+    userId, mail, errorMessage = validate(headerAccesstoken)
 
     logging.debug(data)
 
@@ -405,7 +405,7 @@ def send():
         savePreferences(data, userId)
     elif data['type'].lower() == 'actlistdelete':
         deleteEntry('actual', data, userId)
-    elif data['type'].lower() == 'bsglistdelete':
+    elif data['type'].lower() == 'bdglistdelete':
         deleteEntry('budget', data, userId)
     
 
