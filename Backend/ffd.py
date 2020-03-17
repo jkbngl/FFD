@@ -143,6 +143,9 @@ def readAccounts(level_type):
     headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
 
+    # Mail is ACCESS FORBIDDEN in this case
+    if(errorMessage is not None):
+        return mail, 403
 
     # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
     data = []
@@ -182,6 +185,10 @@ def readPreferences():
     headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
 
+    # Mail is ACCESS FORBIDDEN in this case
+    if(errorMessage is not None):
+        return mail, 403
+
     # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
     data = []
 
@@ -217,6 +224,10 @@ def readListActualBudget(_type):
     
     headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
+
+    # Mail is ACCESS FORBIDDEN in this case
+    if(errorMessage is not None):
+        return mail, 403
 
     data = []
     query = f"select  *\
@@ -257,6 +268,10 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
 
     headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
+
+    # Mail is ACCESS FORBIDDEN in this case
+    if(errorMessage is not None):
+        return mail, 403
 
     # Used to concat the query depending on the parameters passed
     select_params = ''
@@ -341,6 +356,10 @@ def readCosttypes():
     headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
 
+    # Mail is ACCESS FORBIDDEN in this case
+    if(errorMessage is not None):
+        return mail, 403
+
     # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
     data = []
 
@@ -387,6 +406,10 @@ def send():
     headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
 
+    # Mail is ACCESS FORBIDDEN in this case
+    if(errorMessage is not None):
+        return mail, 403
+
     logging.debug(data)
 
     if data['type'].lower() == 'actual':
@@ -410,7 +433,7 @@ def send():
     
 
     data['status'] = 'success'
-    return data, 200
+    return data
 
 def sendActual(data, userId):
     connection = connect()
