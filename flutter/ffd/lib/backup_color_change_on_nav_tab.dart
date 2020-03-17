@@ -946,11 +946,11 @@ class _MyHomePageState extends State<MyHomePage>
       print(response.statusCode);
     }
 
-    if(type == 'actlistdelete')
+    if(type == 'actlistdelete' || type == 'actual')
     {
       loadList('actual');
     }
-    else if(type == 'bdglistdelete')
+    else if(type == 'bdglistdelete' || type == 'budget')
     {
       loadList('budget');
     }
