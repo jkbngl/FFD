@@ -336,7 +336,7 @@ class _MyHomePageState extends State<MyHomePage>
 
     print("WAITED");
 
-    //await syncUserInBackend();
+    await syncUserInBackend();
     checkForChanges(true, fetchAccountsAndCostTypes, 'all');
 
     // Keep loadHomescreen before loadAmount, because if not the state will be set 2 times and it will look strange
@@ -358,6 +358,21 @@ class _MyHomePageState extends State<MyHomePage>
   final List<ListItem> actList = <ListItem>[];
   final List<ListItem> bdgList = <ListItem>[];
 
+  syncUserInBackend() async {
+    String uri =
+        'http://192.168.0.21:5000/api/ffd/user/';
+
+    print(uri);
+
+    var params = {
+      "accesstoken": token,
+    };
+
+    var user = await http.read(uri, headers: params);
+
+    print(user);
+  }
+
   loadList(String type) async {
     String uri =
         'http://192.168.0.21:5000/api/ffd/list/?_type=$type';
@@ -378,11 +393,6 @@ class _MyHomePageState extends State<MyHomePage>
     }
 
     for (var amount in parsedAmounts) {
-      print(
-          "${amount['amount']} @ ${amount['data_date']} for ${amount['level1']} > ${amount['level2']} > ${amount['level3']} and ${amount['costtype']}");
-
-      print(amount);
-
       if (type == 'actual') {
         actList.add(new ListItem(
             'actual',

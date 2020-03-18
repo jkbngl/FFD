@@ -102,7 +102,7 @@ def getIdByMail(mail):
     cursor.close()
     connection.close()
 
-    return data[0]['id']
+    return data[0]['id'] if len(data) > 0 else -1
 
 
 def getAccessRights(data):
@@ -131,6 +131,17 @@ def connect():
 
     except (Exception, psycopg2.Error) as error :
         logging.critical(f"Error while connecting to PostgreSQL {error}")
+
+def userExists():
+    
+    headerAccesstoken = request.headers.get('accesstoken')
+    userId, mail, errorMessage = validate(headerAccesstoken)
+
+    if(userId < 0):
+        return f"USER NOT FOUND - {userId}"
+    else:
+        return f"USER FOUND - {userId}"
+
 
 def readAccounts(level_type):
     """
