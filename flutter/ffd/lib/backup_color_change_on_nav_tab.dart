@@ -371,13 +371,16 @@ class _MyHomePageState extends State<MyHomePage>
     var user = await http.read(uri, headers: params);
     var parsedUser = json.decode(user);
 
+    var randomFact = await http.read('https://uselessfacts.jsph.pl/random.json?language=en');
+    var parsedFact = json.decode(randomFact);
+
     if(parsedUser['created'] == true)
     {
       showDialog(
         context: context,
         builder: (context) => new AlertDialog(
           content: new Text(
-              'Welcome, good to see you here ${parsedUser['name']}'),
+              'Welcome, good to see you here ${parsedUser['name']}\n\nAre you up for a fact? did you know that: \n\n${parsedFact['text']}'),
           actions: <Widget>[
             new FlatButton(
               child: new Text('DISMISS'),
@@ -393,7 +396,7 @@ class _MyHomePageState extends State<MyHomePage>
           context: context,
           builder: (context) => new AlertDialog(
             content: new Text(
-                'Welcome back ${parsedUser['name']}'),
+                'Welcome back ${parsedUser['name']}\n\nAre you up for a fact? did you know that: \n\n${parsedFact['text']}'),
             actions: <Widget>[
               new FlatButton(
                 child: new Text('DISMISS'),
