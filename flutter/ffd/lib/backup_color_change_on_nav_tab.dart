@@ -369,8 +369,41 @@ class _MyHomePageState extends State<MyHomePage>
     };
 
     var user = await http.read(uri, headers: params);
+    var parsedUser = json.decode(user);
 
-    print(user);
+    if(parsedUser['created'] == true)
+    {
+      showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          content: new Text(
+              'Welcome, good to see you here ${parsedUser['name']}'),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('DISMISS'),
+              onPressed: () => Navigator.of(context).pop(),
+            )
+          ],
+        ),
+      );
+    }
+    else
+      {
+        showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            content: new Text(
+                'Welcome back ${parsedUser['name']}'),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text('DISMISS'),
+                onPressed: () => Navigator.of(context).pop(),
+              )
+            ],
+          ),
+        );
+      }
+
   }
 
   loadList(String type) async {
