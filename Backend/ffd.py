@@ -138,7 +138,17 @@ def userExists():
     userId, mail, errorMessage = validate(headerAccesstoken)
 
     if(userId < 0):
-        return f"USER NOT FOUND - {userId}"
+        connection = connect()
+        cursor = connection.cursor()
+        command = f"INSERT INTO ffd.user_dim (name, mail) \
+                                  VALUES ('{mail['name'].upper()}', '{mail['email']}')"
+        logging.info(command)
+        cursor.execute(command)
+        connection.commit()
+        cursor.close()
+        connection.close()
+
+        return f"USER NOT FOUND - {userId}, but created it"
     else:
         return f"USER FOUND - {userId}"
 
