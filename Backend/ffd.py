@@ -148,7 +148,7 @@ def userExists():
         cursor.close()
         connection.close()
 
-        return f"USER NOT FOUND - {userId}, but created it"
+        return f"USER NOT FOUND - {userId}, but created it with id {getIdByMail(mail)}"
     else:
         return f"USER FOUND - {userId}"
 
