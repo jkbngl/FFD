@@ -28,10 +28,27 @@ class _LoginPageState extends State<LoginPage> {
                     fontWeight: FontWeight.w900,
                     fontStyle: FontStyle.italic,
                     fontFamily: 'Open Sans',
-                    fontSize: 30),
+                    fontSize: 40),
               ),
               SizedBox(height: 50),
-              Icon(Icons.monetization_on,   color: Colors.grey[800]),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.monetization_on, color: Colors.grey[800]),
+                    Text(
+                      ' vs. ',
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          color: Colors.grey[800],
+                          fontWeight: FontWeight.w900,
+                          fontStyle: FontStyle.italic,
+                          fontFamily: 'Open Sans',
+                          fontSize: 30),
+                    ),
+                    Icon(Icons.account_balance_wallet, color: Colors.grey[800])
+                  ]),
               SizedBox(height: 50),
               _signInButton(),
             ],
@@ -55,7 +72,6 @@ class _LoginPageState extends State<LoginPage> {
           );
         });
       },
-
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
       highlightElevation: 0,
       borderSide: BorderSide(color: Colors.grey),
@@ -83,8 +99,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-validateToken(token) async
-{
+validateToken(token) async {
   print("Validating $token");
 
   String uri =
@@ -161,13 +176,16 @@ class FirstScreen extends StatelessWidget {
                     color: Colors.black54),
               ),
               Text(
-                token != null ? token.substring(0, 20) + " - " + token.substring(token.length - 20, token.length) : "initializing",
+                token != null
+                    ? token.substring(0, 20) +
+                        " - " +
+                        token.substring(token.length - 20, token.length)
+                    : "initializing",
                 style: TextStyle(
                     fontSize: 25,
                     color: Colors.deepPurple,
                     fontWeight: FontWeight.bold),
               ),
-
               SizedBox(height: 40),
               RaisedButton(
                 onPressed: () {
@@ -188,7 +206,10 @@ class FirstScreen extends StatelessWidget {
               RaisedButton(
                 onPressed: () {
                   signOutGoogle();
-                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return LoginPage();}), ModalRoute.withName('/'));
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) {
+                    return LoginPage();
+                  }), ModalRoute.withName('/'));
                 },
                 color: Colors.deepPurple,
                 child: Padding(

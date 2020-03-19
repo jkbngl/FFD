@@ -1624,6 +1624,7 @@ class _MyHomePageState extends State<MyHomePage>
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
+                              SizedBox(height: 10),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -1634,6 +1635,7 @@ class _MyHomePageState extends State<MyHomePage>
                                       setState(() => _currentIndex = 1);
                                       _pageController.jumpToPage(1);
                                     },
+
                                     child: Container(
                                       width: MediaQuery.of(context).size.width *
                                           .48,
@@ -1739,6 +1741,7 @@ class _MyHomePageState extends State<MyHomePage>
                                   ),
                                 ],
                               ),
+                              SizedBox(height: 10),
                               Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
@@ -1760,6 +1763,7 @@ class _MyHomePageState extends State<MyHomePage>
                                         'Choosen: ${dateTimeHome.year.toString()}-${dateTimeHome.month.toString().padLeft(2, '0')}'),
                                   ]),
                               // TODO make with variable, just a test for #25
+                              SizedBox(height: 20),
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -1776,25 +1780,26 @@ class _MyHomePageState extends State<MyHomePage>
                                       activeColor: Color(0xff0957FF),
                                     ),
                                     Text(
-                                      "Full Year",
-                                      style: TextStyle(fontSize: 25),
+                                      'Full Year',
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          color: Colors.grey[800],
+                                          fontWeight: FontWeight.w900,
+                                          fontSize: 25),
                                     ),
                                   ]),
                               Text(
-                                'Actual vs Budget.',
+                                'Actual vs Budget',
                                 maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                     color: Colors.grey[800],
                                     fontWeight: FontWeight.w900,
-                                    fontStyle: FontStyle.italic,
                                     fontFamily: 'Open Sans',
                                     fontSize: 30),
                               ),
-                              Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 0, top: 25, right: 0, bottom: 0),
-                                  child: Container(
+                              Container(
                                     margin: const EdgeInsets.all(0.0),
                                     width: MediaQuery.of(context).size.width,
                                     height:
@@ -1828,7 +1833,7 @@ class _MyHomePageState extends State<MyHomePage>
                                       ),
                                       animate: true,
                                     ),
-                                  )),
+                                  ),
                             ]),
                       )),
                 ),
