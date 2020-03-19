@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'FFD Login.',
+                'FFD Login',
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -30,7 +30,8 @@ class _LoginPageState extends State<LoginPage> {
                     fontFamily: 'Open Sans',
                     fontSize: 30),
               ),
-              FlutterLogo(size: 150),
+              SizedBox(height: 50),
+              Icon(Icons.monetization_on,   color: Colors.grey[800]),
               SizedBox(height: 50),
               _signInButton(),
             ],
