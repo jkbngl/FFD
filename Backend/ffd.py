@@ -148,9 +148,9 @@ def userExists():
         cursor.close()
         connection.close()
 
-        return f"USER NOT FOUND - {userId}, but created it with id {getIdByMail(mail)}"
+        return {'created': True, 'mail': mail['email'], 'id': getIdByMail(mail), 'name': mail['name']}
     else:
-        return f"USER FOUND - {userId}"
+        return {'created': False, 'mail': mail['email'], 'id': getIdByMail(mail), 'name': mail['name']}
 
 
 def readAccounts(level_type):
@@ -174,7 +174,7 @@ def readAccounts(level_type):
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-    query = f"select * from ffd.account_dim acc where level_type = {level_type} and active = 1 and user_fk = {userId} order by id asc"
+    query = f"select * from ffd.account_dim acc where level_type = {level_type} and active = 1 and user_fk = {userId} order by name asc"
 
     cursor.execute(query)
     record = cursor.fetchall()
