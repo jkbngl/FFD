@@ -19,7 +19,17 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("FFD LOGIN", style: TextStyle(fontSize: 50, fontStyle: FontStyle.italic),),
+              Text(
+                'FFD Login.',
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    color: Colors.grey[800],
+                    fontWeight: FontWeight.w900,
+                    fontStyle: FontStyle.italic,
+                    fontFamily: 'Open Sans',
+                    fontSize: 30),
+              ),
               FlutterLogo(size: 150),
               SizedBox(height: 50),
               _signInButton(),
