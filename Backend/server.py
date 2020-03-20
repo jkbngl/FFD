@@ -23,7 +23,7 @@ application = app.app
 
 limiter = Limiter(application
                 , key_func=get_remote_address
-                , default_limits=["10000 per day", "1000 per hour", "200 per minute"]
+                , default_limits=["10000 per day", "1000 per hour", "200 per minute", "20 per second"]
 )
 
 
