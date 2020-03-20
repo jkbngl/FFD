@@ -1600,10 +1600,10 @@ class _MyHomePageState extends State<MyHomePage>
                         color: Color(0xfff9f9f9),
                         //color: Color(0xffffffff),
                         child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
+
                               SizedBox(height: 10),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -1621,13 +1621,15 @@ class _MyHomePageState extends State<MyHomePage>
                                       child: Card(
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(15.0),
+                                              BorderRadius.circular(50.0),
                                         ),
-                                        color: homescreenData[0].amount >
+                                        /*color: homescreenData[0].amount >
                                                 homescreenData[2].amount
                                             ? Colors.red
                                             : Colors
                                                 .green, // If Actual bigger budget -> show as red
+                                         */
+                                        color: Color(0xff003680),
                                         elevation: 10,
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
@@ -1639,10 +1641,11 @@ class _MyHomePageState extends State<MyHomePage>
                                             ListTile(
                                               leading: Icon(
                                                   Icons.monetization_on,
+                                                  color: Colors.white,
                                                   size: 50),
                                               title: Text('Actual',
                                                   style: TextStyle(
-                                                      color: Colors.white)),
+                                                      color: Color(0xffF5F5F6))),
                                               subtitle: Text(
                                                   homescreenData[0]
                                                       .amount
@@ -1664,29 +1667,26 @@ class _MyHomePageState extends State<MyHomePage>
                                     child: Container(
                                       width: MediaQuery.of(context).size.width *
                                           .48,
-                                      /*decoration: BoxDecoration(
+                                      decoration: BoxDecoration(
                                     borderRadius: new BorderRadius.only(
-                                      topLeft: const Radius.circular(25.0),
-                                      topRight: const Radius.circular(25.0),
-                                      bottomLeft: const Radius.circular(25.0),
-                                      bottomRight: const Radius.circular(25.0),
+                                      topLeft: const Radius.circular(50.0),
+                                      topRight: const Radius.circular(50.0),
+                                      bottomLeft: const Radius.circular(50.0),
+                                      bottomRight: const Radius.circular(50.0),
                                     ),
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight, // 10% of the width, so there are ten blinds.
-                                      colors: [Colors.green, Colors.red], // whitish to gray
-                                      tileMode: TileMode.repeated, // repeats the gradient over the canvas
-                                    )),
-                                 */
+                                    ),
+
                                       child: Card(
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(15.0),
+                                              BorderRadius.circular(50.0),
                                         ),
-                                        color: homescreenData[0].amount >
+                                        /*color: homescreenData[0].amount >
                                                 homescreenData[2].amount
                                             ? Colors.red
                                             : Colors.green,
+                                        */
+                                        color: Color(0xff003680),
                                         elevation: 10,
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
@@ -1698,6 +1698,7 @@ class _MyHomePageState extends State<MyHomePage>
                                             ListTile(
                                               leading: Icon(
                                                   Icons.account_balance_wallet,
+                                                  color: Colors.white,
                                                   size: 50),
                                               title: Text('Budget',
                                                   style: TextStyle(
@@ -1720,6 +1721,7 @@ class _MyHomePageState extends State<MyHomePage>
                                   ),
                                 ],
                               ),
+
                               SizedBox(height: 10),
                               Row(
                                   mainAxisAlignment:
@@ -1736,7 +1738,7 @@ class _MyHomePageState extends State<MyHomePage>
                                       tooltip:
                                           'Select a different date where the booking should be added in',
                                       child: Icon(Icons.date_range),
-                                      backgroundColor: Color(0xff0957FF),
+                                      backgroundColor: Color(0xff003680),
                                     ),
                                     Text(
                                         'Choosen: ${dateTimeHome.year.toString()}-${dateTimeHome.month.toString().padLeft(2, '0')}'),
@@ -1780,6 +1782,7 @@ class _MyHomePageState extends State<MyHomePage>
                               ),
                               Container(
                                 margin: const EdgeInsets.all(0.0),
+
                                 width: MediaQuery.of(context).size.width,
                                 height: MediaQuery.of(context).size.height * .4,
                                 child: charts.PieChart(
@@ -1795,8 +1798,9 @@ class _MyHomePageState extends State<MyHomePage>
                                         measureFn:
                                             (homescreenPie dataPoint, _) =>
                                                 dataPoint.amount,
-                                        data: homescreenData.sublist(0,
-                                            2) /*Only first 2 elements not also the overall budget*/)
+                                        seriesColor: charts.Color.black,
+                                        data: homescreenData.sublist(0,2) /*Only first 2 elements not also the overall budget*/
+                                    )
                                   ],
                                   defaultRenderer: new charts.ArcRendererConfig(
                                     arcRendererDecorators: [
