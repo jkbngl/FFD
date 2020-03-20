@@ -1642,7 +1642,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               leading: Icon(
                                                   Icons.monetization_on,
                                                   color: Colors.white,
-                                                  size: 50),
+                                                  size: 45),
                                               title: Text('Actual',
                                                   style: TextStyle(
                                                       color: Color(0xffF5F5F6))),
@@ -1699,7 +1699,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               leading: Icon(
                                                   Icons.account_balance_wallet,
                                                   color: Colors.white,
-                                                  size: 50),
+                                                  size: 45),
                                               title: Text('Budget',
                                                   style: TextStyle(
                                                       color: Colors.white)),
@@ -1728,20 +1728,38 @@ class _MyHomePageState extends State<MyHomePage>
                                       MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
-                                    Text(
-                                      'Select the month',
-                                      style: TextStyle(fontSize: 15),
-                                    ),
-                                    FloatingActionButton(
+                                    
+                                    /*FloatingActionButton(
                                       onPressed: () =>
                                           _showDatePicker('home', dateTimeHome),
                                       tooltip:
                                           'Select a different date where the booking should be added in',
                                       child: Icon(Icons.date_range),
                                       backgroundColor: Color(0xff003680),
+                                    ),*/
+                                    ButtonTheme(
+                                      //minWidth: 150.0,
+                                      height: 60.0,
+                                      child: FlatButton(
+                                        onPressed: () =>
+                                            _showDatePicker('home', dateTimeHome),
+                                        shape: new RoundedRectangleBorder(
+                                          borderRadius: new BorderRadius.circular(40.0),
+                                        ),
+                                        color: Color(0xff003680),
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Row( // Replace with a Row for horizontal icon + text
+                                          children: <Widget>[
+                                            Text(" ${dateTimeHome.year.toString()}-${dateTimeHome.month.toString().padLeft(2, '0')}",style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 17)),
+                                            SizedBox(width: 5),
+                                            Icon(Icons.calendar_today, color: Colors.white,),
+
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                    Text(
-                                        'Choosen: ${dateTimeHome.year.toString()}-${dateTimeHome.month.toString().padLeft(2, '0')}'),
                                   ]),
                               // TODO make with variable, just a test for #25
                               SizedBox(height: 20),
@@ -1809,6 +1827,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           labelPosition:
                                               charts.ArcLabelPosition.outside),
                                     ],
+                                    //strokeWidthPx: ,
                                     arcWidth: 50,
                                   ),
                                   animate: true,
