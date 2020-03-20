@@ -318,6 +318,8 @@ class _MyHomePageState extends State<MyHomePage>
     dateTimeActual = DateTime.parse(INIT_DATETIME);
     dateTimeBudget = DateTime.parse(INIT_DATETIME);
     dateTimeVisualizer = DateTime.parse(INIT_DATETIME);
+
+    welcomeDialog();
   }
 
   @override
@@ -328,15 +330,11 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   void afterFirstLayout(BuildContext context) async {
-    // Calling the same function "after layout" to resolve the issue.
-
 
     // Resolves the issue that no data is available on login
     await getToken();
-
-    print("WAITED");
-
     await syncUserInBackend();
+
     checkForChanges(true, fetchAccountsAndCostTypes, 'all');
 
     // Keep loadHomescreen before loadAmount, because if not the state will be set 2 times and it will look strange
@@ -358,29 +356,17 @@ class _MyHomePageState extends State<MyHomePage>
   final List<ListItem> actList = <ListItem>[];
   final List<ListItem> bdgList = <ListItem>[];
 
-  syncUserInBackend() async {
-    String uri =
-        'http://192.168.0.21:5000/api/ffd/user/';
+  welcomeDialog() async {
 
-    print(uri);
-
-    var params = {
-      "accesstoken": token,
-    };
-
-    var user = await http.read(uri, headers: params);
-    var parsedUser = json.decode(user);
-
-    var randomFact = await http.read('https://uselessfacts.jsph.pl/random.json?language=en');
+    var randomFact =
+        await http.read('https://uselessfacts.jsph.pl/random.json?language=en');
     var parsedFact = json.decode(randomFact);
 
-    if(parsedUser['created'] == true)
-    {
       showDialog(
         context: context,
         builder: (context) => new AlertDialog(
           content: new Text(
-              'Welcome, good to see you here ${parsedUser['name']}\n\nAre you up for a fact? did you know that: \n\n${parsedFact['text']}'),
+              'Welcome, good to see you here \n\nAre you up for a fact? did you know that: \n\n${parsedFact['text']}'),
           actions: <Widget>[
             new FlatButton(
               child: new Text('DISMISS'),
@@ -390,28 +376,24 @@ class _MyHomePageState extends State<MyHomePage>
         ),
       );
     }
-    else
-      {
-        showDialog(
-          context: context,
-          builder: (context) => new AlertDialog(
-            content: new Text(
-                'Welcome back ${parsedUser['name']}\n\nAre you up for a fact? did you know that: \n\n${parsedFact['text']}'),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text('DISMISS'),
-                onPressed: () => Navigator.of(context).pop(),
-              )
-            ],
-          ),
-        );
-      }
+
+  syncUserInBackend() async {
+    String uri = 'http://192.168.0.21:5000/api/ffd/user/';
+
+    print(uri);
+
+    var params = {
+      "accesstoken": token,
+    };
+
+    var user = await http.read(uri, headers: params);
+
+    print(user);
 
   }
 
   loadList(String type) async {
-    String uri =
-        'http://192.168.0.21:5000/api/ffd/list/?_type=$type';
+    String uri = 'http://192.168.0.21:5000/api/ffd/list/?_type=$type';
 
     print(uri);
 
@@ -551,12 +533,14 @@ class _MyHomePageState extends State<MyHomePage>
 
     //var amounts = await http.read('http://192.168.0.21:5000/api/ffd/amounts/?level_type=1&cost_type=-1&parent_account=-1&year=2020&month=1&_type=actual');
     var actual = await http.read(
-        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type', headers: params);
+        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type',
+        headers: params);
 
     _type = 'budget';
 
     var budget = await http.read(
-        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type', headers: params);
+        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type',
+        headers: params);
 
     var parsedActual = json.decode(actual);
     var parsedBudget = json.decode(budget);
@@ -615,14 +599,14 @@ class _MyHomePageState extends State<MyHomePage>
     };
 
     if (fetch || onStartup) {
-      level1AccountsJson =
-          await http.read('http://192.168.0.21:5000/api/ffd/accounts/1', headers: params);
-      level2AccountsJson =
-          await http.read('http://192.168.0.21:5000/api/ffd/accounts/2', headers: params);
-      level3AccountsJson =
-          await http.read('http://192.168.0.21:5000/api/ffd/accounts/3', headers: params);
-      costTypesJson =
-          await http.read('http://192.168.0.21:5000/api/ffd/costtypes/', headers: params);
+      level1AccountsJson = await http
+          .read('http://192.168.0.21:5000/api/ffd/accounts/1', headers: params);
+      level2AccountsJson = await http
+          .read('http://192.168.0.21:5000/api/ffd/accounts/2', headers: params);
+      level3AccountsJson = await http
+          .read('http://192.168.0.21:5000/api/ffd/accounts/3', headers: params);
+      costTypesJson = await http
+          .read('http://192.168.0.21:5000/api/ffd/costtypes/', headers: params);
 
       var parsedAccountLevel1 = json.decode(level1AccountsJson);
       var parsedAccountLevel2 = json.decode(level2AccountsJson);
@@ -993,12 +977,9 @@ class _MyHomePageState extends State<MyHomePage>
     }
 
     // When an entry was deleted or restored, or a new entry was made in the input page
-    if(type == 'actlistdelete' || type == 'actual')
-    {
+    if (type == 'actlistdelete' || type == 'actual') {
       loadList('actual');
-    }
-    else if(type == 'bdglistdelete' || type == 'budget')
-    {
+    } else if (type == 'bdglistdelete' || type == 'budget') {
       loadList('budget');
     }
 
@@ -1185,7 +1166,7 @@ class _MyHomePageState extends State<MyHomePage>
       onCancel: () => print('onCancel'),
       dateFormat: _format,
       onChange: (dateTime, List<int> index) {
-         if (type == 'home') {
+        if (type == 'home') {
           dateTimeHome = dateTime;
         } else if (type == 'actual') {
           dateTimeActual = dateTime;
@@ -1194,7 +1175,6 @@ class _MyHomePageState extends State<MyHomePage>
         } else if (type == 'visualizer') {
           dateTimeVisualizer = dateTime;
         }
-
       },
       onConfirm: (dateTime, List<int> index) {
         setState(() {
@@ -1539,7 +1519,7 @@ class _MyHomePageState extends State<MyHomePage>
                   checkForChanges(false, true, 'budget');
                   loadList('budget');
                 } else if (_currentIndex == 3) {
-                  print("REFRESHING ${visualizerData[0].companySize}");
+                  //print("REFRESHING ${visualizerData[0].companySize}");
                   loadAmount();
                 } else if (_currentIndex == 4) {
                   checkForChanges(false, true, 'admin');
@@ -1635,7 +1615,6 @@ class _MyHomePageState extends State<MyHomePage>
                                       setState(() => _currentIndex = 1);
                                       _pageController.jumpToPage(1);
                                     },
-
                                     child: Container(
                                       width: MediaQuery.of(context).size.width *
                                           .48,
@@ -1800,40 +1779,37 @@ class _MyHomePageState extends State<MyHomePage>
                                     fontSize: 30),
                               ),
                               Container(
-                                    margin: const EdgeInsets.all(0.0),
-                                    width: MediaQuery.of(context).size.width,
-                                    height:
-                                        MediaQuery.of(context).size.height * .4,
-                                    child: charts.PieChart(
-                                      [
-                                        charts.Series<homescreenPie, String>(
-                                            id:
-                                                'CompanySizeVsNumberOfCompanies',
-                                            domainFn:
-                                                (homescreenPie dataPoint, _) =>
-                                                    dataPoint.type,
-                                            labelAccessorFn: (homescreenPie row,
-                                                    _) =>
-                                                '${row.type}\n${row.amount.toStringAsFixed(2)}€',
-                                            measureFn:
-                                                (homescreenPie dataPoint, _) =>
-                                                    dataPoint.amount,
-                                            data: homescreenData.sublist(0,
-                                                2) /*Only first 2 elements not also the overall budget*/)
-                                      ],
-                                      defaultRenderer:
-                                          new charts.ArcRendererConfig(
-                                        arcRendererDecorators: [
-                                          new charts.ArcLabelDecorator(
-                                              //labelPadding: 0,
-                                              labelPosition: charts
-                                                  .ArcLabelPosition.outside),
-                                        ],
-                                        arcWidth: 50,
-                                      ),
-                                      animate: true,
-                                    ),
+                                margin: const EdgeInsets.all(0.0),
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height * .4,
+                                child: charts.PieChart(
+                                  [
+                                    charts.Series<homescreenPie, String>(
+                                        id: 'CompanySizeVsNumberOfCompanies',
+                                        domainFn:
+                                            (homescreenPie dataPoint, _) =>
+                                                dataPoint.type,
+                                        labelAccessorFn: (homescreenPie row,
+                                                _) =>
+                                            '${row.type}\n${row.amount.toStringAsFixed(2)}€',
+                                        measureFn:
+                                            (homescreenPie dataPoint, _) =>
+                                                dataPoint.amount,
+                                        data: homescreenData.sublist(0,
+                                            2) /*Only first 2 elements not also the overall budget*/)
+                                  ],
+                                  defaultRenderer: new charts.ArcRendererConfig(
+                                    arcRendererDecorators: [
+                                      new charts.ArcLabelDecorator(
+                                          //labelPadding: 0,
+                                          labelPosition:
+                                              charts.ArcLabelPosition.outside),
+                                    ],
+                                    arcWidth: 50,
                                   ),
+                                  animate: true,
+                                ),
+                              ),
                             ]),
                       )),
                 ),
