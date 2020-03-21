@@ -1898,24 +1898,32 @@ class _MyHomePageState extends State<MyHomePage>
                                   children: <Widget>[
                                     Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                        MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: <Widget>[
-                                          Text(
-                                            'Select the month',
-                                            style: TextStyle(fontSize: 15),
+                                          ButtonTheme(
+                                            //minWidth: 150.0,
+                                            height: 60.0,
+                                            child: FlatButton(
+                                              onPressed: () =>
+                                                  _showDatePicker('actual', dateTimeActual),
+                                              shape: new RoundedRectangleBorder(
+                                                borderRadius: new BorderRadius.circular(40.0),
+                                              ),
+                                              color: Color(0xff003680),
+                                              padding: EdgeInsets.all(10.0),
+                                              child: Row( // Replace with a Row for horizontal icon + text
+                                                children: <Widget>[
+                                                  Text(" ${dateTimeActual.year.toString()}-${dateTimeActual.month.toString().padLeft(2, '0')}",style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 17)),
+                                                  SizedBox(width: 10),
+                                                  Icon(Icons.calendar_today, color: Colors.white,),
+
+                                                ],
+                                              ),
+                                            ),
                                           ),
-                                          FloatingActionButton(
-                                            onPressed: () => _showDatePicker(
-                                                'actual', dateTimeActual),
-                                            tooltip:
-                                                'Select a different date where the booking should be added in',
-                                            child: Icon(Icons.date_range),
-                                            backgroundColor: Color(0xff0957FF),
-                                          ),
-                                          Text(
-                                              'Choosen: ${dateTimeActual.year.toString()}-${dateTimeActual.month.toString().padLeft(2, '0')}'),
                                         ]),
                                     Container(
                                       padding: const EdgeInsets.only(
@@ -2472,26 +2480,32 @@ class _MyHomePageState extends State<MyHomePage>
                                       children: <Widget>[
                                         Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                            MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
                                             children: <Widget>[
-                                              Text(
-                                                'Select the month',
-                                                style: TextStyle(fontSize: 15),
+                                              ButtonTheme(
+                                                //minWidth: 150.0,
+                                                height: 60.0,
+                                                child: FlatButton(
+                                                  onPressed: () =>
+                                                      _showDatePicker('budget', dateTimeBudget),
+                                                  shape: new RoundedRectangleBorder(
+                                                    borderRadius: new BorderRadius.circular(40.0),
+                                                  ),
+                                                  color: Color(0xff003680),
+                                                  padding: EdgeInsets.all(10.0),
+                                                  child: Row( // Replace with a Row for horizontal icon + text
+                                                    children: <Widget>[
+                                                      Text(" ${dateTimeBudget.year.toString()}-${dateTimeBudget.month.toString().padLeft(2, '0')}",style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 17)),
+                                                      SizedBox(width: 10),
+                                                      Icon(Icons.calendar_today, color: Colors.white,),
+
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
-                                              FloatingActionButton(
-                                                onPressed: () =>
-                                                    _showDatePicker('budget',
-                                                        dateTimeBudget),
-                                                tooltip:
-                                                    'Select a different date where the booking should be added in',
-                                                child: Icon(Icons.date_range),
-                                                backgroundColor:
-                                                    Color(0xff0957FF),
-                                              ),
-                                              Text(
-                                                  'Choosen: ${dateTimeBudget.year.toString()}-${dateTimeBudget.month.toString().padLeft(2, '0')}')
                                             ]),
                                         Container(
                                           padding: const EdgeInsets.only(
@@ -3036,23 +3050,33 @@ class _MyHomePageState extends State<MyHomePage>
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Text(
-                                  'Select the month',
-                                  style: TextStyle(fontSize: 15),
+                                ButtonTheme(
+                                  //minWidth: 150.0,
+                                  height: 60.0,
+                                  child: FlatButton(
+                                    onPressed: () =>
+                                        _showDatePicker('visualizer', dateTimeVisualizer),
+                                    shape: new RoundedRectangleBorder(
+                                      borderRadius: new BorderRadius.circular(40.0),
+                                    ),
+                                    color: Color(0xff003680),
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Row( // Replace with a Row for horizontal icon + text
+                                      children: <Widget>[
+                                        Text(" ${dateTimeVisualizer.year.toString()}-${dateTimeVisualizer.month.toString().padLeft(2, '0')}",style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17)),
+                                        SizedBox(width: 10),
+                                        Icon(Icons.calendar_today, color: Colors.white,),
+
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                                FloatingActionButton(
-                                  onPressed: () => _showDatePicker(
-                                      'visualizer', dateTimeVisualizer),
-                                  tooltip:
-                                      'Select a different date where the booking should be added in',
-                                  child: Icon(Icons.date_range),
-                                  backgroundColor: Color(0xff0957FF),
-                                ),
-                                Text(
-                                    'Choosen: ${dateTimeVisualizer.year.toString()}-${dateTimeVisualizer.month.toString().padLeft(2, '0')}'),
                               ]),
                           Container(
                             //color: Colors.blue[600],
