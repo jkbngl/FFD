@@ -1721,48 +1721,18 @@ class _MyHomePageState extends State<MyHomePage>
                                   ),
                                 ],
                               ),
-
-                              SizedBox(height: 10),
-                              Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    
-                                    /*FloatingActionButton(
-                                      onPressed: () =>
-                                          _showDatePicker('home', dateTimeHome),
-                                      tooltip:
-                                          'Select a different date where the booking should be added in',
-                                      child: Icon(Icons.date_range),
-                                      backgroundColor: Color(0xff003680),
-                                    ),*/
-                                    ButtonTheme(
-                                      //minWidth: 150.0,
-                                      height: 60.0,
-                                      child: FlatButton(
-                                        onPressed: () =>
-                                            _showDatePicker('home', dateTimeHome),
-                                        shape: new RoundedRectangleBorder(
-                                          borderRadius: new BorderRadius.circular(40.0),
-                                        ),
-                                        color: Color(0xff003680),
-                                        padding: EdgeInsets.all(10.0),
-                                        child: Row( // Replace with a Row for horizontal icon + text
-                                          children: <Widget>[
-                                            Text(" ${dateTimeHome.year.toString()}-${dateTimeHome.month.toString().padLeft(2, '0')}",style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 17)),
-                                            SizedBox(width: 5),
-                                            Icon(Icons.calendar_today, color: Colors.white,),
-
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ]),
                               // TODO make with variable, just a test for #25
-                              SizedBox(height: 20),
+                              SizedBox(height: 30),
+                              Text(
+                                'Actual vs Budget',
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontWeight: FontWeight.w900,
+                                    fontFamily: 'Open Sans',
+                                    fontSize: 30),
+                              ),
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -1788,19 +1758,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           fontSize: 25),
                                     ),
                                   ]),
-                              Text(
-                                'Actual vs Budget',
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    color: Colors.grey[800],
-                                    fontWeight: FontWeight.w900,
-                                    fontFamily: 'Open Sans',
-                                    fontSize: 30),
-                              ),
                               Container(
-                                margin: const EdgeInsets.all(0.0),
-
                                 width: MediaQuery.of(context).size.width,
                                 height: MediaQuery.of(context).size.height * .4,
                                 child: charts.PieChart(
@@ -1833,6 +1791,36 @@ class _MyHomePageState extends State<MyHomePage>
                                   animate: true,
                                 ),
                               ),
+                              Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    ButtonTheme(
+                                      //minWidth: 150.0,
+                                      height: 60.0,
+                                      child: FlatButton(
+                                        onPressed: () =>
+                                            _showDatePicker('home', dateTimeHome),
+                                        shape: new RoundedRectangleBorder(
+                                          borderRadius: new BorderRadius.circular(40.0),
+                                        ),
+                                        color: Color(0xff003680),
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Row( // Replace with a Row for horizontal icon + text
+                                          children: <Widget>[
+                                            Text(" ${dateTimeHome.year.toString()}-${dateTimeHome.month.toString().padLeft(2, '0')}",style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 17)),
+                                            SizedBox(width: 10),
+                                            Icon(Icons.calendar_today, color: Colors.white,),
+
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ]),
+                              SizedBox(height: 10),
                             ]),
                       )),
                 ),
