@@ -17,8 +17,7 @@ import 'package:rating_dialog/rating_dialog.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'login_page.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:searchable_dropdown/searchable_dropdown.dart';
 
 void main() => runApp(MyApp());
 
@@ -330,7 +329,6 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   void afterFirstLayout(BuildContext context) async {
-
     // Resolves the issue that no data is available on login
     await getToken();
     await syncUserInBackend();
@@ -357,25 +355,24 @@ class _MyHomePageState extends State<MyHomePage>
   final List<ListItem> bdgList = <ListItem>[];
 
   welcomeDialog() async {
-
     var randomFact =
         await http.read('https://uselessfacts.jsph.pl/random.json?language=en');
     var parsedFact = json.decode(randomFact);
 
-      showDialog(
-        context: context,
-        builder: (context) => new AlertDialog(
-          content: new Text(
-              'Welcome, good to see you here \n\nAre you up for a fact? did you know that: \n\n${parsedFact['text']}'),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text('DISMISS'),
-              onPressed: () => Navigator.of(context).pop(),
-            )
-          ],
-        ),
-      );
-    }
+    showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        content: new Text(
+            'Welcome, good to see you here \n\nAre you up for a fact? did you know that: \n\n${parsedFact['text']}'),
+        actions: <Widget>[
+          new FlatButton(
+            child: new Text('DISMISS'),
+            onPressed: () => Navigator.of(context).pop(),
+          )
+        ],
+      ),
+    );
+  }
 
   syncUserInBackend() async {
     String uri = 'http://192.168.0.21:5000/api/ffd/user/';
@@ -389,7 +386,6 @@ class _MyHomePageState extends State<MyHomePage>
     var user = await http.read(uri, headers: params);
 
     print(user);
-
   }
 
   loadList(String type) async {
@@ -1603,7 +1599,6 @@ class _MyHomePageState extends State<MyHomePage>
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-
                               SizedBox(height: 10),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -1645,7 +1640,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                   size: 45),
                                               title: Text('Actual',
                                                   style: TextStyle(
-                                                      color: Color(0xffF5F5F6))),
+                                                      color:
+                                                          Color(0xffF5F5F6))),
                                               subtitle: Text(
                                                   homescreenData[0]
                                                       .amount
@@ -1668,14 +1664,15 @@ class _MyHomePageState extends State<MyHomePage>
                                       width: MediaQuery.of(context).size.width *
                                           .48,
                                       decoration: BoxDecoration(
-                                    borderRadius: new BorderRadius.only(
-                                      topLeft: const Radius.circular(50.0),
-                                      topRight: const Radius.circular(50.0),
-                                      bottomLeft: const Radius.circular(50.0),
-                                      bottomRight: const Radius.circular(50.0),
-                                    ),
-                                    ),
-
+                                        borderRadius: new BorderRadius.only(
+                                          topLeft: const Radius.circular(50.0),
+                                          topRight: const Radius.circular(50.0),
+                                          bottomLeft:
+                                              const Radius.circular(50.0),
+                                          bottomRight:
+                                              const Radius.circular(50.0),
+                                        ),
+                                      ),
                                       child: Card(
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -1775,8 +1772,9 @@ class _MyHomePageState extends State<MyHomePage>
                                             (homescreenPie dataPoint, _) =>
                                                 dataPoint.amount,
                                         seriesColor: charts.Color.black,
-                                        data: homescreenData.sublist(0,2) /*Only first 2 elements not also the overall budget*/
-                                    )
+                                        data: homescreenData.sublist(0,
+                                            2) /*Only first 2 elements not also the overall budget*/
+                                        )
                                   ],
                                   defaultRenderer: new charts.ArcRendererConfig(
                                     arcRendererDecorators: [
@@ -1793,28 +1791,34 @@ class _MyHomePageState extends State<MyHomePage>
                               ),
                               Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     ButtonTheme(
                                       //minWidth: 150.0,
                                       height: 60.0,
                                       child: FlatButton(
-                                        onPressed: () =>
-                                            _showDatePicker('home', dateTimeHome),
+                                        onPressed: () => _showDatePicker(
+                                            'home', dateTimeHome),
                                         shape: new RoundedRectangleBorder(
-                                          borderRadius: new BorderRadius.circular(40.0),
+                                          borderRadius:
+                                              new BorderRadius.circular(40.0),
                                         ),
                                         color: Color(0xff003680),
                                         padding: EdgeInsets.all(10.0),
-                                        child: Row( // Replace with a Row for horizontal icon + text
+                                        child: Row(
+                                          // Replace with a Row for horizontal icon + text
                                           children: <Widget>[
-                                            Text(" ${dateTimeHome.year.toString()}-${dateTimeHome.month.toString().padLeft(2, '0')}",style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 17)),
+                                            Text(
+                                                " ${dateTimeHome.year.toString()}-${dateTimeHome.month.toString().padLeft(2, '0')}",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 17)),
                                             SizedBox(width: 10),
-                                            Icon(Icons.calendar_today, color: Colors.white,),
-
+                                            Icon(
+                                              Icons.calendar_today,
+                                              color: Colors.white,
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -1896,30 +1900,41 @@ class _MyHomePageState extends State<MyHomePage>
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
+                                    SizedBox(
+                                      height: 5,
+                                    ),
                                     Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: <Widget>[
                                           ButtonTheme(
                                             //minWidth: 150.0,
                                             height: 60.0,
                                             child: FlatButton(
-                                              onPressed: () =>
-                                                  _showDatePicker('actual', dateTimeActual),
+                                              onPressed: () => _showDatePicker(
+                                                  'actual', dateTimeActual),
                                               shape: new RoundedRectangleBorder(
-                                                borderRadius: new BorderRadius.circular(40.0),
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        40.0),
                                               ),
                                               color: Color(0xff003680),
                                               padding: EdgeInsets.all(10.0),
-                                              child: Row( // Replace with a Row for horizontal icon + text
+                                              child: Row(
+                                                // Replace with a Row for horizontal icon + text
                                                 children: <Widget>[
-                                                  Text(" ${dateTimeActual.year.toString()}-${dateTimeActual.month.toString().padLeft(2, '0')}",style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 17)),
+                                                  Text(
+                                                      " ${dateTimeActual.year.toString()}-${dateTimeActual.month.toString().padLeft(2, '0')}",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 17)),
                                                   SizedBox(width: 10),
-                                                  Icon(Icons.calendar_today, color: Colors.white,),
-
+                                                  Icon(
+                                                    Icons.calendar_today,
+                                                    color: Colors.white,
+                                                  ),
                                                 ],
                                               ),
                                             ),
@@ -1963,6 +1978,43 @@ class _MyHomePageState extends State<MyHomePage>
                                                             0xff0957FF)))),
                                       ),
                                     ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Container(
+                                      constraints: BoxConstraints.expand(
+                                        height: 100,
+                                        //width: MediaQuery.of(context).size.width * .8
+                                      ),
+                                      padding: const EdgeInsets.only(
+                                          left: 30.0,
+                                          top: 0,
+                                          right: 30,
+                                          bottom: 0),
+                                      //color: Colors.blue[600],
+                                      alignment: Alignment.center,
+                                      //child: Text('Submit'),
+                                      child: SearchableDropdown.single(
+                                      items: level1ActualAccountsList
+                                          .map((Account account) {
+                                        return new DropdownMenuItem<Account>(
+                                          value: account,
+                                          child: new Text(
+                                            account.name,
+                                          ),
+                                        );
+                                      }).toList(),
+                                      value: level1ActualObject,
+                                      hint: "Select one number",
+                                      searchHint: "Select one number",
+                                      onChanged: (value) {
+                                        setState(() {
+                                          level1ActualObject = value;
+                                        });
+                                      },
+                                      dialogBox: true,
+                                      isExpanded: true,
+                                    ),),
                                     areLevel1AccountsActive
                                         ? Container(
                                             constraints: BoxConstraints.expand(
@@ -2480,28 +2532,39 @@ class _MyHomePageState extends State<MyHomePage>
                                       children: <Widget>[
                                         Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                             children: <Widget>[
                                               ButtonTheme(
                                                 //minWidth: 150.0,
                                                 height: 60.0,
                                                 child: FlatButton(
                                                   onPressed: () =>
-                                                      _showDatePicker('budget', dateTimeBudget),
-                                                  shape: new RoundedRectangleBorder(
-                                                    borderRadius: new BorderRadius.circular(40.0),
+                                                      _showDatePicker('budget',
+                                                          dateTimeBudget),
+                                                  shape:
+                                                      new RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        new BorderRadius
+                                                            .circular(40.0),
                                                   ),
                                                   color: Color(0xff003680),
                                                   padding: EdgeInsets.all(10.0),
-                                                  child: Row( // Replace with a Row for horizontal icon + text
+                                                  child: Row(
+                                                    // Replace with a Row for horizontal icon + text
                                                     children: <Widget>[
-                                                      Text(" ${dateTimeBudget.year.toString()}-${dateTimeBudget.month.toString().padLeft(2, '0')}",style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 17)),
+                                                      Text(
+                                                          " ${dateTimeBudget.year.toString()}-${dateTimeBudget.month.toString().padLeft(2, '0')}",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 17)),
                                                       SizedBox(width: 10),
-                                                      Icon(Icons.calendar_today, color: Colors.white,),
-
+                                                      Icon(
+                                                        Icons.calendar_today,
+                                                        color: Colors.white,
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
@@ -3050,29 +3113,34 @@ class _MyHomePageState extends State<MyHomePage>
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 ButtonTheme(
                                   //minWidth: 150.0,
                                   height: 60.0,
                                   child: FlatButton(
-                                    onPressed: () =>
-                                        _showDatePicker('visualizer', dateTimeVisualizer),
+                                    onPressed: () => _showDatePicker(
+                                        'visualizer', dateTimeVisualizer),
                                     shape: new RoundedRectangleBorder(
-                                      borderRadius: new BorderRadius.circular(40.0),
+                                      borderRadius:
+                                          new BorderRadius.circular(40.0),
                                     ),
                                     color: Color(0xff003680),
                                     padding: EdgeInsets.all(10.0),
-                                    child: Row( // Replace with a Row for horizontal icon + text
+                                    child: Row(
+                                      // Replace with a Row for horizontal icon + text
                                       children: <Widget>[
-                                        Text(" ${dateTimeVisualizer.year.toString()}-${dateTimeVisualizer.month.toString().padLeft(2, '0')}",style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 17)),
+                                        Text(
+                                            " ${dateTimeVisualizer.year.toString()}-${dateTimeVisualizer.month.toString().padLeft(2, '0')}",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 17)),
                                         SizedBox(width: 10),
-                                        Icon(Icons.calendar_today, color: Colors.white,),
-
+                                        Icon(
+                                          Icons.calendar_today,
+                                          color: Colors.white,
+                                        ),
                                       ],
                                     ),
                                   ),

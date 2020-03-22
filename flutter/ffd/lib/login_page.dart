@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: <Widget>[
                     Icon(Icons.monetization_on, color: Colors.grey[800]),
                     Text(
-                      ' vs. ',
+                      ' vs ',
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
