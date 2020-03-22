@@ -65,6 +65,12 @@ class Account {
   String name;
   int parentAccount;
   int accountLevel = -1;
+
+  @override
+  String toString() {
+    return '${name}';
+  }
+
 }
 
 class ListItem {
@@ -1981,7 +1987,8 @@ class _MyHomePageState extends State<MyHomePage>
                                     SizedBox(
                                       height: 5,
                                     ),
-                                    Container(
+                                    areLevel1AccountsActive
+                                        ? Container(
                                       constraints: BoxConstraints.expand(
                                         height: 100,
                                         //width: MediaQuery.of(context).size.width * .8
@@ -1997,8 +2004,8 @@ class _MyHomePageState extends State<MyHomePage>
                                       child: SearchableDropdown.single(
                                       items: level1ActualAccountsList
                                           .map((Account account) {
-                                        return new DropdownMenuItem<String>(
-                                          value: account.name.toString(),
+                                        return new DropdownMenuItem<Account>(
+                                          value: account,
                                           child: new Text(
                                             account.name,
                                           ),
@@ -2014,8 +2021,8 @@ class _MyHomePageState extends State<MyHomePage>
                                       },
                                       dialogBox: true,
                                       isExpanded: true,
-                                    ),),
-                                    areLevel1AccountsActive
+                                    ),): Container(),
+                                    /*areLevel1AccountsActive
                                         ? Container(
                                             constraints: BoxConstraints.expand(
                                               height: 100,
@@ -2070,7 +2077,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               }).toList(),
                                             ),
                                           )
-                                        : Container(),
+                                        : Container(),*/
                                     areLevel2AccountsActive
                                         ? Container(
                                             constraints: BoxConstraints.expand(
