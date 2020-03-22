@@ -1137,19 +1137,12 @@ class _MyHomePageState extends State<MyHomePage>
     setState(() {
       level2ActualObject = level2ActualObject;
     });
+
+    print("${level2ActualObject.id} - ${level2ActualObject.name}");
+    print("${level3ActualObject.id} - ${level3ActualObject.name}");
   }
 
   int value = 2;
-
-  _addItem() {
-    setState(() {
-      value = value + 1;
-    });
-  }
-
-  _buildRow(int index) {
-    return Text("Item " + index.toString());
-  }
 
   /// Display date picker.
   void _showDatePicker(String type, DateTime actualOrBudgetOrVisualizer) {
@@ -2021,12 +2014,27 @@ class _MyHomePageState extends State<MyHomePage>
                                               ),
                                               hint: "Select one number",
                                               searchHint: "Select one number",
+                                              onClear: () {
+
+                                                print("CLEARING");
+
+                                                setState(() {
+                                                  level1ActualObject =
+                                                  level1ActualAccountsList[
+                                                  0];
+                                                });
+                                              },
                                               onChanged: (value) {
                                                 setState(() {
                                                   level1ActualObject = value;
                                                 });
 
+                                                print("${level1ActualObject.id} - ${level1ActualObject.name}");
+
                                                 arrangeAccounts(1, 'actual');
+
+                                                print("${level2ActualObject.id} - ${level2ActualObject.name}");
+
                                               },
                                               dialogBox: true,
                                               isExpanded: true,
@@ -2184,6 +2192,13 @@ class _MyHomePageState extends State<MyHomePage>
                                               ),
                                               hint: "Select one number",
                                               searchHint: "Select one number",
+                                              onClear: (value) {
+                                                setState(() {
+                                                  level2ActualObject =
+                                                  level2ActualAccountsList[
+                                                  0];
+                                                });
+                                              },
                                               onChanged: (value) {
                                                 // Check if a new value was selected or the same was reselected
                                                 dummyAccount =
@@ -2291,6 +2306,13 @@ class _MyHomePageState extends State<MyHomePage>
                                               ),
                                               hint: "Select one number",
                                               searchHint: "Select one number",
+                                              onClear: (value) {
+                                                setState(() {
+                                                  level3ActualObject =
+                                                      level3ActualAccountsList[
+                                                          0];
+                                                });
+                                              }, // The default object is set again
                                               onChanged: (value) {
                                                 setState(() {
                                                   level3ActualObject = value;
