@@ -2018,6 +2018,9 @@ class _MyHomePageState extends State<MyHomePage>
                                         setState(() {
                                           level1ActualObject = value;
                                         });
+
+                                        arrangeAccounts(1, 'actual');
+
                                       },
                                       dialogBox: true,
                                       isExpanded: true,
