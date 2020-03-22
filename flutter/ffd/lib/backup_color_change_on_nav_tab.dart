@@ -1989,7 +1989,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     areLevel1AccountsActive
                                         ? Container(
                                             constraints: BoxConstraints.expand(
-                                              height: 100,
+                                              height: 80,
                                               //width: MediaQuery.of(context).size.width * .8
                                             ),
                                             padding: const EdgeInsets.only(
@@ -2088,7 +2088,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               }).toList(),
                                             ),
                                           )
-                                        : Container(),*/
+                                        : Container(),
                                     areLevel2AccountsActive
                                         ? Container(
                                             constraints: BoxConstraints.expand(
@@ -2148,8 +2148,64 @@ class _MyHomePageState extends State<MyHomePage>
                                               }).toList(),
                                             ),
                                           )
+                                        : Container(),*/
+                                    areLevel2AccountsActive
+                                        ? Container(
+                                            constraints: BoxConstraints.expand(
+                                              height: 80,
+                                              //width: MediaQuery.of(context).size.width * .8
+                                            ),
+                                            padding: const EdgeInsets.only(
+                                                left: 30.0,
+                                                top: 0,
+                                                right: 30,
+                                                bottom: 0),
+                                            //color: Colors.blue[600],
+                                            alignment: Alignment.center,
+                                            //child: Text('Submit'),
+                                            child: SearchableDropdown.single(
+                                              items: level2ActualAccountsList
+                                                  .map((Account account) {
+                                                return new DropdownMenuItem<
+                                                    Account>(
+                                                  value: account,
+                                                  child: new Text(
+                                                    account.name,
+                                                  ),
+                                                );
+                                              }).toList(),
+                                              style: TextStyle(
+                                                  color: Color(0xff0957FF)),
+                                              value: level2ActualObject,
+                                              underline: Container(
+                                                height: 2,
+                                                width: 5000,
+                                                color: Color(0xff0957FF),
+                                              ),
+                                              hint: "Select one number",
+                                              searchHint: "Select one number",
+                                              onChanged: (value) {
+                                                // Check if a new value was selected or the same was reselected
+                                                dummyAccount =
+                                                    level2ActualObject;
+
+                                                setState(() {
+                                                  level2ActualObject = value;
+                                                });
+
+                                                if (dummyAccount.id !=
+                                                    value.id) {
+                                                  arrangeAccounts(2, 'actual');
+                                                } else {
+                                                  print("RESELECTED");
+                                                }
+                                              },
+                                              dialogBox: true,
+                                              isExpanded: true,
+                                            ),
+                                          )
                                         : Container(),
-                                    areLevel3AccountsActive
+                                    /*areLevel3AccountsActive
                                         ? Container(
                                             constraints: BoxConstraints.expand(
                                               height: 100.0,
@@ -2197,6 +2253,54 @@ class _MyHomePageState extends State<MyHomePage>
                                                   ),
                                                 );
                                               }).toList(),
+                                            ),
+                                          )
+                                        : Container(),*/
+                                    areLevel3AccountsActive
+                                        ? Container(
+                                            constraints: BoxConstraints.expand(
+                                              height: 80,
+                                              //width: MediaQuery.of(context).size.width * .8
+                                            ),
+                                            padding: const EdgeInsets.only(
+                                                left: 30.0,
+                                                top: 0,
+                                                right: 30,
+                                                bottom: 0),
+                                            //color: Colors.blue[600],
+                                            alignment: Alignment.center,
+                                            //child: Text('Submit'),
+                                            child: SearchableDropdown.single(
+                                              items: level3ActualAccountsList
+                                                  .map((Account account) {
+                                                return new DropdownMenuItem<
+                                                    Account>(
+                                                  value: account,
+                                                  child: new Text(
+                                                    account.name,
+                                                  ),
+                                                );
+                                              }).toList(),
+                                              style: TextStyle(
+                                                  color: Color(0xff0957FF)),
+                                              value: level3ActualObject,
+                                              underline: Container(
+                                                height: 2,
+                                                width: 5000,
+                                                color: Color(0xff0957FF),
+                                              ),
+                                              hint: "Select one number",
+                                              searchHint: "Select one number",
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  level3ActualObject = value;
+                                                });
+
+                                                // TODO probably not needed as change in level3 has no affect in anything
+                                                // arrangeAccounts(3, 'actual');
+                                              },
+                                              dialogBox: true,
+                                              isExpanded: true,
                                             ),
                                           )
                                         : Container(),
