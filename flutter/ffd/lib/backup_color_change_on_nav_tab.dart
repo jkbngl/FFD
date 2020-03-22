@@ -2015,13 +2015,12 @@ class _MyHomePageState extends State<MyHomePage>
                                               hint: "Select one number",
                                               searchHint: "Select one number",
                                               onClear: () {
-
                                                 print("CLEARING");
 
                                                 setState(() {
                                                   level1ActualObject =
-                                                  level1ActualAccountsList[
-                                                  0];
+                                                      level1ActualAccountsList[
+                                                          0];
                                                 });
                                               },
                                               onChanged: (value) {
@@ -2029,12 +2028,13 @@ class _MyHomePageState extends State<MyHomePage>
                                                   level1ActualObject = value;
                                                 });
 
-                                                print("${level1ActualObject.id} - ${level1ActualObject.name}");
+                                                print(
+                                                    "${level1ActualObject.id} - ${level1ActualObject.name}");
 
                                                 arrangeAccounts(1, 'actual');
 
-                                                print("${level2ActualObject.id} - ${level2ActualObject.name}");
-
+                                                print(
+                                                    "${level2ActualObject.id} - ${level2ActualObject.name}");
                                               },
                                               dialogBox: true,
                                               isExpanded: true,
@@ -2169,6 +2169,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                 right: 30,
                                                 bottom: 0),
                                             //color: Colors.blue[600],
+
                                             alignment: Alignment.center,
                                             //child: Text('Submit'),
                                             child: SearchableDropdown.single(
@@ -2185,6 +2186,8 @@ class _MyHomePageState extends State<MyHomePage>
                                               style: TextStyle(
                                                   color: Color(0xff0957FF)),
                                               value: level2ActualObject,
+                                              readOnly:
+                                                  level1ActualObject.id <= 0,
                                               underline: Container(
                                                 height: 2,
                                                 width: 5000,
@@ -2195,8 +2198,8 @@ class _MyHomePageState extends State<MyHomePage>
                                               onClear: (value) {
                                                 setState(() {
                                                   level2ActualObject =
-                                                  level2ActualAccountsList[
-                                                  0];
+                                                      level2ActualAccountsList[
+                                                          0];
                                                 });
                                               },
                                               onChanged: (value) {
@@ -2299,6 +2302,8 @@ class _MyHomePageState extends State<MyHomePage>
                                               style: TextStyle(
                                                   color: Color(0xff0957FF)),
                                               value: level3ActualObject,
+                                              readOnly:
+                                                  level2ActualObject.id <= 0,
                                               underline: Container(
                                                 height: 2,
                                                 width: 5000,
