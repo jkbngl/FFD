@@ -1997,8 +1997,8 @@ class _MyHomePageState extends State<MyHomePage>
                                       child: SearchableDropdown.single(
                                       items: level1ActualAccountsList
                                           .map((Account account) {
-                                        return new DropdownMenuItem<Account>(
-                                          value: account,
+                                        return new DropdownMenuItem<String>(
+                                          value: account.name.toString(),
                                           child: new Text(
                                             account.name,
                                           ),
