@@ -70,7 +70,6 @@ class Account {
   String toString() {
     return '${name}';
   }
-
 }
 
 class ListItem {
@@ -1989,42 +1988,51 @@ class _MyHomePageState extends State<MyHomePage>
                                     ),
                                     areLevel1AccountsActive
                                         ? Container(
-                                      constraints: BoxConstraints.expand(
-                                        height: 100,
-                                        //width: MediaQuery.of(context).size.width * .8
-                                      ),
-                                      padding: const EdgeInsets.only(
-                                          left: 30.0,
-                                          top: 0,
-                                          right: 30,
-                                          bottom: 0),
-                                      //color: Colors.blue[600],
-                                      alignment: Alignment.center,
-                                      //child: Text('Submit'),
-                                      child: SearchableDropdown.single(
-                                      items: level1ActualAccountsList
-                                          .map((Account account) {
-                                        return new DropdownMenuItem<Account>(
-                                          value: account,
-                                          child: new Text(
-                                            account.name,
-                                          ),
-                                        );
-                                      }).toList(),
-                                      value: level1ActualObject,
-                                      hint: "Select one number",
-                                      searchHint: "Select one number",
-                                      onChanged: (value) {
-                                        setState(() {
-                                          level1ActualObject = value;
-                                        });
+                                            constraints: BoxConstraints.expand(
+                                              height: 100,
+                                              //width: MediaQuery.of(context).size.width * .8
+                                            ),
+                                            padding: const EdgeInsets.only(
+                                                left: 30.0,
+                                                top: 0,
+                                                right: 30,
+                                                bottom: 0),
+                                            //color: Colors.blue[600],
+                                            alignment: Alignment.center,
+                                            //child: Text('Submit'),
+                                            child: SearchableDropdown.single(
+                                              items: level1ActualAccountsList
+                                                  .map((Account account) {
+                                                return new DropdownMenuItem<
+                                                    Account>(
+                                                  value: account,
+                                                  child: new Text(
+                                                    account.name,
+                                                  ),
+                                                );
+                                              }).toList(),
+                                              style: TextStyle(
+                                                  color: Color(0xff0957FF)),
+                                              value: level1ActualObject,
+                                              underline: Container(
+                                                height: 2,
+                                                width: 5000,
+                                                color: Color(0xff0957FF),
+                                              ),
+                                              hint: "Select one number",
+                                              searchHint: "Select one number",
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  level1ActualObject = value;
+                                                });
 
-                                        arrangeAccounts(1, 'actual');
-
-                                      },
-                                      dialogBox: true,
-                                      isExpanded: true,
-                                    ),): Container(),
+                                                arrangeAccounts(1, 'actual');
+                                              },
+                                              dialogBox: true,
+                                              isExpanded: true,
+                                            ),
+                                          )
+                                        : Container(),
                                     /*areLevel1AccountsActive
                                         ? Container(
                                             constraints: BoxConstraints.expand(
