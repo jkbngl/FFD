@@ -1405,6 +1405,34 @@ class _MyHomePageState extends State<MyHomePage>
         });
   }
 
+  handleRefresh(index){
+    if (_currentIndex == 0) {
+      loadHomescreen();
+    } else if (_currentIndex == 1) {
+
+      // Test for #83
+      setState(() {
+        print("SETTING STATE");
+        print(level1ActualObject.name);
+        print(level2ActualObject.name);
+        print(level3ActualObject.name);
+
+      });
+
+      checkForChanges(false, true, 'actual');
+      loadList('actual');
+    } else if (_currentIndex == 2) {
+      checkForChanges(false, true, 'budget');
+      loadList('budget');
+    } else if (_currentIndex == 3) {
+      //print("REFRESHING ${visualizerData[0].companySize}");
+      loadAmount();
+    } else if (_currentIndex == 4) {
+      checkForChanges(false, true, 'admin');
+      loadPreferences();
+    }
+  }
+
   onCardTapped(int position) {
     print('Card $position tapped');
   }
@@ -1504,21 +1532,7 @@ class _MyHomePageState extends State<MyHomePage>
               color: Color(0xffEEEEEE),
               iconSize: 24,
               onPressed: () {
-                if (_currentIndex == 0) {
-                  loadHomescreen();
-                } else if (_currentIndex == 1) {
-                  checkForChanges(false, true, 'actual');
-                  loadList('actual');
-                } else if (_currentIndex == 2) {
-                  checkForChanges(false, true, 'budget');
-                  loadList('budget');
-                } else if (_currentIndex == 3) {
-                  //print("REFRESHING ${visualizerData[0].companySize}");
-                  loadAmount();
-                } else if (_currentIndex == 4) {
-                  checkForChanges(false, true, 'admin');
-                  loadPreferences();
-                }
+                handleRefresh(_currentIndex);
               })
         ],
         leading: IconButton(
