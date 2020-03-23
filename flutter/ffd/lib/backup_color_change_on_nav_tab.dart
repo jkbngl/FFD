@@ -1600,8 +1600,9 @@ class _MyHomePageState extends State<MyHomePage>
                       controller: _refreshController,
                       enablePullDown: true,
                       onRefresh: () async {
+                        await handleRefresh(_currentIndex);
                         print("REFRESHING ON SCROLL");
-                        await Future.delayed(Duration(seconds: 2));
+                        // await Future.delayed(Duration(seconds: 2));
                         _refreshController.refreshCompleted();
                       },
                       child: Container(
@@ -1904,8 +1905,9 @@ class _MyHomePageState extends State<MyHomePage>
                                 controller: _refreshController,
                                 enablePullDown: true,
                                 onRefresh: () async {
+                                  await handleRefresh(_currentIndex);
                                   print("REFRESHING ON SCROLL");
-                                  await Future.delayed(Duration(seconds: 2));
+                                  //await Future.delayed(Duration(seconds: 2));
                                   _refreshController.refreshCompleted();
                                 },
                                 child: Column(
@@ -2682,9 +2684,9 @@ class _MyHomePageState extends State<MyHomePage>
                                     controller: _refreshController,
                                     enablePullDown: true,
                                     onRefresh: () async {
+                                      await handleRefresh(_currentIndex);
                                       print("REFRESHING ON SCROLL");
-                                      await Future.delayed(
-                                          Duration(seconds: 2));
+                                      //await Future.delayed(Duration(seconds: 2));
                                       _refreshController.refreshCompleted();
                                     },
                                     child: Column(
@@ -3267,8 +3269,9 @@ class _MyHomePageState extends State<MyHomePage>
                       controller: _refreshController,
                       enablePullDown: true,
                       onRefresh: () async {
+                        await handleRefresh(_currentIndex);
                         print("REFRESHING ON SCROLL");
-                        await Future.delayed(Duration(seconds: 2));
+                        //await Future.delayed(Duration(seconds: 2));
                         _refreshController.refreshCompleted();
                       },
                       child: Column(
@@ -3572,8 +3575,9 @@ class _MyHomePageState extends State<MyHomePage>
                                 controller: _refreshController,
                                 enablePullDown: true,
                                 onRefresh: () async {
+                                  await handleRefresh(_currentIndex);
                                   print("REFRESHING ON SCROLL");
-                                  await Future.delayed(Duration(seconds: 2));
+                                  //await Future.delayed(Duration(seconds: 2));
                                   _refreshController.refreshCompleted();
                                 },
                                 child: Column(
@@ -3771,8 +3775,9 @@ class _MyHomePageState extends State<MyHomePage>
                                 controller: _refreshController,
                                 enablePullDown: true,
                                 onRefresh: () async {
+                                  await handleRefresh(_currentIndex);
                                   print("REFRESHING ON SCROLL");
-                                  await Future.delayed(Duration(seconds: 2));
+                                  //await Future.delayed(Duration(seconds: 2));
                                   _refreshController.refreshCompleted();
                                 },
                                 child: Column(
@@ -4210,8 +4215,9 @@ class _MyHomePageState extends State<MyHomePage>
                                 controller: _refreshController,
                                 enablePullDown: true,
                                 onRefresh: () async {
+                                  await handleRefresh(_currentIndex);
                                   print("REFRESHING ON SCROLL");
-                                  await Future.delayed(Duration(seconds: 2));
+                                  //await Future.delayed(Duration(seconds: 2));
                                   _refreshController.refreshCompleted();
                                 },
                                 child: Column(
