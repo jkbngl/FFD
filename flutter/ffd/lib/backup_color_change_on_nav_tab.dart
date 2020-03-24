@@ -2345,6 +2345,8 @@ class _MyHomePageState extends State<MyHomePage>
                                             ),
                                           )
                                         : Container(),
+                                    // #52 when a level is deactivated the widgets have no space between
+                                    // this adds a little white space between the widget
                                     areLevel3AccountsActive ? Container() : SizedBox(height: 20),
                                     areCostTypesActive
                                         ? Container(
@@ -2937,6 +2939,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                 ),
                                               )
                                             : Container(),
+                                        // #52 when a level is deactivated the widgets have no space between
+                                        // this adds a little white space between the widget
                                         areLevel3AccountsActive ? Container() : SizedBox(height: 20),
                                         areCostTypesActive
                                             ? Container(
