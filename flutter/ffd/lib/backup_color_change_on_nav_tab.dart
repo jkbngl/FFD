@@ -2345,6 +2345,7 @@ class _MyHomePageState extends State<MyHomePage>
                                             ),
                                           )
                                         : Container(),
+                                    areLevel3AccountsActive ? Container() : SizedBox(height: 20),
                                     areCostTypesActive
                                         ? Container(
                                             constraints: BoxConstraints.expand(
@@ -2936,6 +2937,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                 ),
                                               )
                                             : Container(),
+                                        areLevel3AccountsActive ? Container() : SizedBox(height: 20),
                                         areCostTypesActive
                                             ? Container(
                                                 constraints:
