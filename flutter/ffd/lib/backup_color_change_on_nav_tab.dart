@@ -2201,7 +2201,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                   color: Color(0xff0957FF)),
                                               value: level2ActualObject,
                                               readOnly:
-                                                  level1ActualObject.id <= 0,
+                                                  level1ActualObject.id <= 0 || level2ActualAccountsList.length == 1,
                                               underline: Container(
                                                 height: 2,
                                                 width: 5000,
@@ -2317,7 +2317,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                   color: Color(0xff0957FF)),
                                               value: level3ActualObject,
                                               readOnly:
-                                                  level2ActualObject.id <= 0,
+                                                  level2ActualObject.id <= 0  || level3ActualAccountsList.length == 1,
                                               underline: Container(
                                                 height: 2,
                                                 width: 5000,
