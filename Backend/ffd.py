@@ -83,9 +83,7 @@ def getIdByMail(mail):
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-    query = f"select id from ffd.user_dim where mail = '{mail['email']}'"
-
-    cursor.execute(query)
+    cursor.execute(f"select id from ffd.user_dim where mail = '{mail['email']}'")
 
     record = cursor.fetchall()
     # fetch the column names from the cursror
@@ -148,9 +146,31 @@ def userExists():
         cursor.close()
         connection.close()
 
-        return {'created': True, 'mail': mail['email'], 'id': getIdByMail(mail), 'name': mail['name']}
+        chartOfAccountCreated = createDefaultChartOfAccount(getIdByMail(mail))
+        chartOfCostTypesCreated = createDefaultChartOfCostTypes(getIdByMail(mail))
+
+        return {'created': True, 'mail': mail['email'], 'id': getIdByMail(mail), 'name': mail['name'], 'chartOfAccountCreated': chartOfAccountCreated, 'chartOfCostTypesCreated': chartOfCostTypesCreated}
     else:
         return {'created': False, 'mail': mail['email'], 'id': getIdByMail(mail), 'name': mail['name']}
+
+
+def createDefaultChartOfAccount(userId):
+    return False
+
+def createDefaultChartOfCostTypes(userId):
+        connection = connect()
+        cursor = connection.cursor()
+
+        cursor.execute(f"INSERT INTO ffd.costtype_dim (name, comment, user_fk) VALUES ('VARIABLE', 'variable costs like eating out once a week', {userId});")
+        cursor.execute(f"INSERT INTO ffd.costtype_dim (name, comment, user_fk) VALUES ('FIX', 'fix costs like rent', {userId});")
+
+        connection.commit()
+        cursor.close()
+        connection.close()
+
+        return True
+        
+        
 
 
 def readAccounts(level_type):
@@ -174,9 +194,7 @@ def readAccounts(level_type):
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-    query = f"select * from ffd.account_dim acc where level_type = {level_type} and active = 1 and user_fk = {userId} order by name asc"
-
-    cursor.execute(query)
+    cursor.execute(f"select * from ffd.account_dim acc where level_type = {level_type} and active = 1 and user_fk = {userId} order by name asc")
     record = cursor.fetchall()
     # fetch the column names from the cursror
     columnnames = [desc[0] for desc in cursor.description]
@@ -216,13 +234,12 @@ def readPreferences():
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-    query = f"select user_fk, group_fk, company_fk \
-                   , costtypes_active, accounts_active \
-                   , accountsLevel1_active, accountsLevel2_active, accountsLevel3_active \
-              from ffd.preference_dim \
-              where  user_fk = {userId}"
 
-    cursor.execute(query)
+    cursor.execute(f"select user_fk, group_fk, company_fk \
+                          , costtypes_active, accounts_active \
+                          , accountsLevel1_active, accountsLevel2_active, accountsLevel3_active \
+                     from ffd.preference_dim \
+                     where  user_fk = {userId}")
     record = cursor.fetchall()
     # fetch the column names from the cursror
     columnnames = [desc[0] for desc in cursor.description]
@@ -251,15 +268,14 @@ def readListActualBudget(_type):
         return mail, 403
 
     data = []
-    query = f"select  *\
-              from    ffd.{'act' if _type == 'actual' else 'bdg'}_data \
-              where   data_date > date_trunc('month', CURRENT_DATE) - INTERVAL '1 year' \
-              and     user_fk = {userId} order by created desc"
 
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-    cursor.execute(query)
+    cursor.execute(f"select  *\
+                     from    ffd.{'act' if _type == 'actual' else 'bdg'}_data \
+                     where   data_date > date_trunc('month', CURRENT_DATE) - INTERVAL '1 year' \
+                     and     user_fk = {userId} order by created desc")
     record = cursor.fetchall()
     # fetch the column names from the cursror
     columnnames = [desc[0] for desc in cursor.description]
@@ -281,7 +297,7 @@ def readListActualBudget(_type):
 def readAmounts(level_type, cost_type, parent_account, year, month, _type):
     
     """
-    This function responds to a request for /api/ffd/amounts
+    This function responds to a request for /api/ffd/amounts/?level_type=2&cost_type=-99&parent_account=3&year=2020&month=2&_type=actual
     with the complete lists of amounts for the specified params
 
     :return:        list of accounts
@@ -341,12 +357,11 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
 
     # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
     data = []
-    query = f"{select_params} from ffd.{'act' if _type == 'actual' else 'bdg'}_data {where_params}{group_params} order by sum desc"
 
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-    cursor.execute(query)
+    cursor.execute(f"{select_params} from ffd.{'act' if _type == 'actual' else 'bdg'}_data {where_params}{group_params} order by sum desc")
     record = cursor.fetchall()
     # fetch the column names from the cursror
     columnnames = [desc[0] for desc in cursor.description]
@@ -387,9 +402,7 @@ def readCosttypes():
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-    query = f"select * from ffd.costtype_dim where active = 1 and user_fk = {userId}"
-
-    cursor.execute(query)
+    cursor.execute(f"select * from ffd.costtype_dim where active = 1 and user_fk = {userId}")
     record = cursor.fetchall()
     # fetch the column names from the cursror
     columnnames = [desc[0] for desc in cursor.description]
@@ -574,10 +587,9 @@ def addAccount(data, userId):
 
     # If no parent account for the new level2 was sent but a name for a new level 2 account and also a name for the level1 parent account
     elif(int(data['accountfornewlevel2parentaccount']) < 0 and data['accounttoaddlevel2'] and data['accounttoaddlevel1']):
-        # Check if a name for a level1 was sent, get the id of that and set this account as the parent
-        query = f"select id from ffd.account_dim where level_type = 1 and name = '{data['accounttoaddlevel1'].upper()}'"
         
-        cursor.execute(query)
+        # Check if a name for a level1 was sent, get the id of that and set this account as the parent       
+        cursor.execute(f"select id from ffd.account_dim where level_type = 1 and name = '{data['accounttoaddlevel1'].upper()}'")
         record = cursor.fetchall()
         command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
                                   VALUES ('{data['accounttoaddlevel2'].upper()}', '{data['accounttoaddlevel2comment']}', 2, {record[0][0]} \
@@ -598,10 +610,9 @@ def addAccount(data, userId):
 
     # If no parent account for the new level3 was sent but a name for a new level 3 account and also a name for the level2 parent account
     elif(int(data['accountfornewlevel3parentaccount']) < 0 and data['accounttoaddlevel3'] and data['accounttoaddlevel2']):
+
         # Check if a name for a level1 was sent, get the id of that and set this account as the parent
-        query = f"select id from ffd.account_dim where level_type = 2 and name = '{data['accounttoaddlevel2'].upper()}'"
-        
-        cursor.execute(query)
+        cursor.execute(f"select id from ffd.account_dim where level_type = 2 and name = '{data['accounttoaddlevel2'].upper()}'")
         record = cursor.fetchall()
         command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
                                   VALUES ('{data['accounttoaddlevel3'].upper()}', '{data['accounttoaddlevel3comment']}', 3, {record[0][0]} \

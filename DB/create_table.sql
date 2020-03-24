@@ -57,21 +57,24 @@ drop table ffd.bdg_data;
     );
     
     CREATE TABLE ffd.costtype_dim (
-        id SERIAL PRIMARY KEY,
-        name text,
-        comment text,
-        user_fk integer DEFAULT -1 REFERENCES ffd.user_dim(id),
-        group_fk integer DEFAULT -1 REFERENCES ffd.group_dim(id),
-        company_fk integer DEFAULT -1 REFERENCES ffd.company_dim(id),
-        active integer DEFAULT 1,
-        created date DEFAULT now(),
-        updated date DEFAULT now(),
-        created_by text DEFAULT 'UNDEFINED',
-        updated_by text DEFAULT 'UNDEFINED',
-        CONSTRAINT costtype_user_uq UNIQUE (name, user_fk),
-        CONSTRAINT costtype_group_uq UNIQUE (name, group_fk),
-        CONSTRAINT costtype_company_uq UNIQUE (name, company_fk)
-    );
+		id serial NOT NULL,
+		"name" text NULL,
+		"comment" text NULL,
+		user_fk int4 NULL DEFAULT '-1'::integer,
+		group_fk int4 NULL DEFAULT '-1'::integer,
+		company_fk int4 NULL DEFAULT '-1'::integer,
+		active int4 NULL DEFAULT 1,
+		created date NULL DEFAULT now(),
+		updated date NULL DEFAULT now(),
+		created_by text NULL DEFAULT 'UNDEFINED'::text,
+		updated_by text NULL DEFAULT 'UNDEFINED'::text,
+		CONSTRAINT costtype_dim_pkey PRIMARY KEY (id),
+		CONSTRAINT costtype_user_uq UNIQUE (name, user_fk),
+		CONSTRAINT costtype_dim_company_fk_fkey FOREIGN KEY (company_fk) REFERENCES ffd.company_dim(id),
+		CONSTRAINT costtype_dim_group_fk_fkey FOREIGN KEY (group_fk) REFERENCES ffd.group_dim(id),
+		CONSTRAINT costtype_dim_user_fk_fkey FOREIGN KEY (user_fk) REFERENCES ffd.user_dim(id)
+	);
+
 
     CREATE TABLE ffd.account_dim (
 		id serial NOT NULL,
