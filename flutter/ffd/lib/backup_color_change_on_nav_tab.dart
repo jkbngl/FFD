@@ -1003,6 +1003,7 @@ class _MyHomePageState extends State<MyHomePage>
   arrangeAccounts(int level, String type) async {
     // Refresh accounts lists, needed because the accounts are cleared from account list and when another level1 or 2 are selected the list only has the level2 and 3 accounts from the other level1 or 2
 
+
     await checkForChanges(false, true,
         type); // This await waits for all accounts to be loaded before continung
 
@@ -1525,13 +1526,13 @@ class _MyHomePageState extends State<MyHomePage>
               );
             },
           ),
-          IconButton(
+          /*IconButton(
               icon: Icon(Icons.refresh),
               color: Color(0xffEEEEEE),
               iconSize: 24,
               onPressed: () {
                 handleRefresh(_currentIndex);
-              })
+              })*/
         ],
         leading: IconButton(
             icon: Icon(Icons.help),
@@ -2008,6 +2009,7 @@ class _MyHomePageState extends State<MyHomePage>
                                             alignment: Alignment.center,
                                             //child: Text('Submit'),
                                             child: SearchableDropdown.single(
+
                                               items: level1ActualAccountsList
                                                   .map((Account account) {
                                                 return new DropdownMenuItem<
