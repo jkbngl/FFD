@@ -1526,13 +1526,16 @@ class _MyHomePageState extends State<MyHomePage>
               );
             },
           ),
-          /*IconButton(
+          // TODO REMOVE IconButton after validation of #90
+          /*
+          IconButton(
               icon: Icon(Icons.refresh),
               color: Color(0xffEEEEEE),
               iconSize: 24,
               onPressed: () {
                 handleRefresh(_currentIndex);
-              })*/
+          })
+          */
         ],
         leading: IconButton(
             icon: Icon(Icons.help),
@@ -1713,10 +1716,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                   style: TextStyle(
                                                       color: Colors.white)),
                                               subtitle: Text(
-                                                  homescreenData[1]
-                                                          .amount
-                                                          .toStringAsFixed(2) +
-                                                      '\n' +
+                                                  // #91
+                                                  /*
+                                                    homescreenData[1].amount.toStringAsFixed(2) +'\n' +
+                                                  */
                                                       homescreenData[2]
                                                           .amount
                                                           .toStringAsFixed(2),
