@@ -1003,7 +1003,6 @@ class _MyHomePageState extends State<MyHomePage>
   arrangeAccounts(int level, String type) async {
     // Refresh accounts lists, needed because the accounts are cleared from account list and when another level1 or 2 are selected the list only has the level2 and 3 accounts from the other level1 or 2
 
-
     await checkForChanges(false, true,
         type); // This await waits for all accounts to be loaded before continung
 
@@ -1189,22 +1188,40 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  _showProfile(){
+  _showProfile() {
     showDialog(
         context: context,
         barrierDismissible: true, // set to false if you want to force a rating
         builder: (context) {
           return RatingDialog(
-            icon: CircleAvatar(
-              backgroundImage: NetworkImage(
-                imageUrl,
-              ),
-              radius: 60,
-              backgroundColor: Colors.transparent,
-            ), // set your own image/icon widget
+            icon: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Container(),
+                      Spacer(),
+                      IconButton(
+                          icon: Icon(Icons.help),
+                          color: Color(0xffEEEEEE),
+                          iconSize: 24,
+                          onPressed: () {
+                            showCustomDialog(_currentIndex, 'help', -1);
+                          }),
+                    ],
+                  ),
+                  
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(
+                      imageUrl,
+                    ),
+                    radius: 60,
+                    backgroundColor: Colors.transparent,
+                  ),
+                ]), // set your own image/icon widget
             title: name,
-            description:
-            email,
+            description: email,
             submitButton: "SUBMIT",
             alternativeButton: "Contact us instead?", // optional
             positiveComment: "We are so happy to hear :)", // optional
@@ -1221,117 +1238,116 @@ class _MyHomePageState extends State<MyHomePage>
           );
         });
 
-
     Container(
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        begin: Alignment.topRight,
-        end: Alignment.bottomLeft,
-        colors: [Colors.blue[100], Colors.blue[400]],
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          colors: [Colors.blue[100], Colors.blue[400]],
+        ),
       ),
-    ),
-    child: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          CircleAvatar(
-            backgroundImage: NetworkImage(
-              imageUrl,
-            ),
-            radius: 60,
-            backgroundColor: Colors.transparent,
-          ),
-          SizedBox(height: 40),
-          Text(
-            'NAME',
-            style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                color: Colors.black54),
-          ),
-          Text(
-            name,
-            style: TextStyle(
-                fontSize: 25,
-                color: Colors.deepPurple,
-                fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 20),
-          Text(
-            'EMAIL',
-            style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                color: Colors.black54),
-          ),
-          Text(
-            email,
-            style: TextStyle(
-                fontSize: 25,
-                color: Colors.deepPurple,
-                fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 20),
-          Text(
-            'TOKEN',
-            style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                color: Colors.black54),
-          ),
-          Text(
-            token != null
-                ? token.substring(0, 20) +
-                " - " +
-                token.substring(token.length - 20, token.length)
-                : "initializing",
-            style: TextStyle(
-                fontSize: 25,
-                color: Colors.deepPurple,
-                fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 40),
-          RaisedButton(
-            onPressed: () {
-              validateToken(token);
-            },
-            color: Colors.deepPurple,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Validate',
-                style: TextStyle(fontSize: 25, color: Colors.white),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            CircleAvatar(
+              backgroundImage: NetworkImage(
+                imageUrl,
               ),
+              radius: 60,
+              backgroundColor: Colors.transparent,
             ),
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(40)),
-          ),
-          RaisedButton(
-            onPressed: () {
-              signOutGoogle();
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) {
-                    return LoginPage();
-                  }), ModalRoute.withName('/'));
-            },
-            color: Colors.deepPurple,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Sign Out',
-                style: TextStyle(fontSize: 25, color: Colors.white),
+            SizedBox(height: 40),
+            Text(
+              'NAME',
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black54),
+            ),
+            Text(
+              name,
+              style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.deepPurple,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            Text(
+              'EMAIL',
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black54),
+            ),
+            Text(
+              email,
+              style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.deepPurple,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            Text(
+              'TOKEN',
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black54),
+            ),
+            Text(
+              token != null
+                  ? token.substring(0, 20) +
+                      " - " +
+                      token.substring(token.length - 20, token.length)
+                  : "initializing",
+              style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.deepPurple,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 40),
+            RaisedButton(
+              onPressed: () {
+                validateToken(token);
+              },
+              color: Colors.deepPurple,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Validate',
+                  style: TextStyle(fontSize: 25, color: Colors.white),
+                ),
               ),
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40)),
             ),
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(40)),
-          )
-        ],
+            RaisedButton(
+              onPressed: () {
+                signOutGoogle();
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) {
+                  return LoginPage();
+                }), ModalRoute.withName('/'));
+              },
+              color: Colors.deepPurple,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Sign Out',
+                  style: TextStyle(fontSize: 25, color: Colors.white),
+                ),
+              ),
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40)),
+            )
+          ],
+        ),
       ),
-    ),
-  );
+    );
   }
 
   commentInput(
@@ -1869,9 +1885,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                   /*
                                                     homescreenData[1].amount.toStringAsFixed(2) +'\n' +
                                                   */
-                                                      homescreenData[2]
-                                                          .amount
-                                                          .toStringAsFixed(2),
+                                                  homescreenData[2]
+                                                      .amount
+                                                      .toStringAsFixed(2),
                                                   style: TextStyle(
                                                       color: Colors.white)),
                                             ),
@@ -2161,7 +2177,6 @@ class _MyHomePageState extends State<MyHomePage>
                                             alignment: Alignment.center,
                                             //child: Text('Submit'),
                                             child: SearchableDropdown.single(
-
                                               items: level1ActualAccountsList
                                                   .map((Account account) {
                                                 return new DropdownMenuItem<
@@ -2355,7 +2370,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                   color: Color(0xff0957FF)),
                                               value: level2ActualObject,
                                               readOnly:
-                                                  level1ActualObject.id <= 0 || level2ActualAccountsList.length == 1,
+                                                  level1ActualObject.id <= 0 ||
+                                                      level2ActualAccountsList
+                                                              .length ==
+                                                          1,
                                               underline: Container(
                                                 height: 2,
                                                 width: 5000,
@@ -2471,7 +2489,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                   color: Color(0xff0957FF)),
                                               value: level3ActualObject,
                                               readOnly:
-                                                  level2ActualObject.id <= 0  || level3ActualAccountsList.length == 1,
+                                                  level2ActualObject.id <= 0 ||
+                                                      level3ActualAccountsList
+                                                              .length ==
+                                                          1,
                                               underline: Container(
                                                 height: 2,
                                                 width: 5000,
@@ -2501,7 +2522,9 @@ class _MyHomePageState extends State<MyHomePage>
                                         : Container(),
                                     // #52 when a level is deactivated the widgets have no space between
                                     // this adds a little white space between the widget
-                                    areLevel3AccountsActive ? Container() : SizedBox(height: 20),
+                                    areLevel3AccountsActive
+                                        ? Container()
+                                        : SizedBox(height: 20),
                                     areCostTypesActive
                                         ? Container(
                                             constraints: BoxConstraints.expand(
@@ -3095,7 +3118,9 @@ class _MyHomePageState extends State<MyHomePage>
                                             : Container(),
                                         // #52 when a level is deactivated the widgets have no space between
                                         // this adds a little white space between the widget
-                                        areLevel3AccountsActive ? Container() : SizedBox(height: 20),
+                                        areLevel3AccountsActive
+                                            ? Container()
+                                            : SizedBox(height: 20),
                                         areCostTypesActive
                                             ? Container(
                                                 constraints:
