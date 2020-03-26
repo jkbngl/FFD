@@ -1205,7 +1205,7 @@ class _MyHomePageState extends State<MyHomePage>
                       IconButton(
                           icon: Icon(Icons.help),
                           color: Color(0xff003680),
-                          iconSize: 24,
+                          iconSize: 30,
                           onPressed: () {
                             showCustomDialog(_currentIndex, 'help', -1);
                           }),
