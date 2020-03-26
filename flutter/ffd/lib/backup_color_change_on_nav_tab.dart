@@ -1200,18 +1200,17 @@ class _MyHomePageState extends State<MyHomePage>
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Container(),
+                      Container(),  // Empty container, so that the iconbutton is at the right end
                       Spacer(),
                       IconButton(
                           icon: Icon(Icons.help),
-                          color: Color(0xffEEEEEE),
+                          color: Color(0xff003680),
                           iconSize: 24,
                           onPressed: () {
                             showCustomDialog(_currentIndex, 'help', -1);
                           }),
                     ],
                   ),
-                  
                   CircleAvatar(
                     backgroundImage: NetworkImage(
                       imageUrl,
@@ -1226,7 +1225,7 @@ class _MyHomePageState extends State<MyHomePage>
             alternativeButton: "Contact us instead?", // optional
             positiveComment: "We are so happy to hear :)", // optional
             negativeComment: "We're sad to hear :(", // optional
-            //accentColor: color, // optional
+            accentColor: Color(0xff003680), // optional
             onSubmitPressed: (int rating) {
               print("onSubmitPressed: rating = $rating");
               // TODO: open the app's page on Google Play / Apple App Store
