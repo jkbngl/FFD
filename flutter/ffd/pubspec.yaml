@@ -30,6 +30,7 @@ dependencies:
   firebase_auth: ^0.15.2
   google_sign_in: ^4.0.4
   searchable_dropdown: ^1.1.2
+  search_choices: ^1.0.13
 
 
 

@@ -18,6 +18,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'login_page.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
+import 'package:search_choices/search_choices.dart';
 
 void main() => runApp(MyApp());
 
@@ -1200,7 +1201,7 @@ class _MyHomePageState extends State<MyHomePage>
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Container(),  // Empty container, so that the iconbutton is at the right end
+                      Container(), // Empty container, so that the iconbutton is at the right end
                       Spacer(),
                       IconButton(
                           icon: Icon(Icons.help),
@@ -2161,6 +2162,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     SizedBox(
                                       height: 5,
                                     ),
+
                                     areLevel1AccountsActive
                                         ? Container(
                                             constraints: BoxConstraints.expand(
@@ -2175,7 +2177,7 @@ class _MyHomePageState extends State<MyHomePage>
                                             //color: Colors.blue[600],
                                             alignment: Alignment.center,
                                             //child: Text('Submit'),
-                                            child: SearchableDropdown.single(
+                                            child: SearchChoices.single(
                                               items: level1ActualAccountsList
                                                   .map((Account account) {
                                                 return new DropdownMenuItem<
@@ -2354,7 +2356,7 @@ class _MyHomePageState extends State<MyHomePage>
 
                                             alignment: Alignment.center,
                                             //child: Text('Submit'),
-                                            child: SearchableDropdown.single(
+                                            child: SearchChoices.single(
                                               items: level2ActualAccountsList
                                                   .map((Account account) {
                                                 return new DropdownMenuItem<
@@ -2473,7 +2475,7 @@ class _MyHomePageState extends State<MyHomePage>
                                             //color: Colors.blue[600],
                                             alignment: Alignment.center,
                                             //child: Text('Submit'),
-                                            child: SearchableDropdown.single(
+                                            child: SearchChoices.single(
                                               items: level3ActualAccountsList
                                                   .map((Account account) {
                                                 return new DropdownMenuItem<
@@ -2942,10 +2944,9 @@ class _MyHomePageState extends State<MyHomePage>
                                             ? Container(
                                                 constraints:
                                                     BoxConstraints.expand(
-                                                  height: 100,
+                                                  height: 80,
                                                   //width: MediaQuery.of(context).size.width * .8
                                                 ),
-
                                                 padding: const EdgeInsets.only(
                                                     left: 30.0,
                                                     top: 0,
@@ -2954,36 +2955,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                 //color: Colors.blue[600],
                                                 alignment: Alignment.center,
                                                 //child: Text('Submit'),
-                                                child: DropdownButton<Account>(
-                                                  value: level1BudgetObject,
-                                                  hint: Text(
-                                                    "Select a level 1 account",
-                                                    /*style: TextStyle(
-                              color,
-                            ),*/
-                                                  ),
-                                                  icon: Icon(
-                                                      Icons.arrow_downward),
-                                                  iconSize: 24,
-                                                  elevation: 16,
-                                                  style: TextStyle(
-                                                      color: Color(0xff0957FF)),
-                                                  isExpanded: true,
-                                                  underline: Container(
-                                                    height: 2,
-                                                    width: 5000,
-                                                    color: Color(0xff0957FF),
-                                                  ),
-                                                  onChanged:
-                                                      (Account newValue) {
-                                                    setState(() {
-                                                      level1BudgetObject =
-                                                          newValue;
-                                                    });
-
-                                                    arrangeAccounts(
-                                                        1, 'budget');
-                                                  },
+                                                child: SearchChoices.single(
                                                   items:
                                                       level1BudgetAccountsList
                                                           .map((Account
@@ -2996,6 +2968,37 @@ class _MyHomePageState extends State<MyHomePage>
                                                       ),
                                                     );
                                                   }).toList(),
+                                                  style: TextStyle(
+                                                      color: Color(0xff0957FF)),
+                                                  value: level1BudgetObject,
+                                                  underline: Container(
+                                                    height: 2,
+                                                    width: 5000,
+                                                    color: Color(0xff0957FF),
+                                                  ),
+                                                  hint: "Select one number",
+                                                  searchHint:
+                                                      "Select one number",
+                                                  onClear: () {
+                                                    print("CLEARING");
+
+                                                    setState(() {
+                                                      level1BudgetObject =
+                                                          level1BudgetAccountsList[
+                                                              0];
+                                                    });
+                                                  },
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      level1BudgetObject =
+                                                          value;
+                                                    });
+
+                                                    arrangeAccounts(
+                                                        1, 'budget');
+                                                  },
+                                                  dialogBox: true,
+                                                  isExpanded: true,
                                                 ),
                                               )
                                             : Container(),
@@ -3003,7 +3006,8 @@ class _MyHomePageState extends State<MyHomePage>
                                             ? Container(
                                                 constraints:
                                                     BoxConstraints.expand(
-                                                  height: 50,
+                                                  height: 80,
+                                                  //width: MediaQuery.of(context).size.width * .8
                                                 ),
                                                 padding: const EdgeInsets.only(
                                                     left: 30.0,
@@ -3011,38 +3015,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                     right: 30,
                                                     bottom: 0),
                                                 //color: Colors.blue[600],
+
                                                 alignment: Alignment.center,
                                                 //child: Text('Submit'),
-                                                child: DropdownButton<Account>(
-                                                  value: level2BudgetObject,
-                                                  hint: Text(
-                                                    "Select a level 2 account",
-                                                    /*style: TextStyle(
-                              color,
-                            ),*/
-                                                  ),
-                                                  icon: Icon(
-                                                      Icons.arrow_downward),
-                                                  iconSize: 24,
-                                                  elevation: 16,
-                                                  style: TextStyle(
-                                                      color: Color(0xff0957FF)),
-                                                  isExpanded: true,
-                                                  underline: Container(
-                                                    height: 2,
-                                                    width: 5000,
-                                                    color: Color(0xff0957FF),
-                                                  ),
-                                                  onChanged:
-                                                      (Account newValue) {
-                                                    setState(() {
-                                                      level2BudgetObject =
-                                                          newValue;
-                                                    });
-
-                                                    arrangeAccounts(
-                                                        2, 'budget');
-                                                  },
+                                                child: SearchChoices.single(
                                                   items:
                                                       level2BudgetAccountsList
                                                           .map((Account
@@ -3055,6 +3031,50 @@ class _MyHomePageState extends State<MyHomePage>
                                                       ),
                                                     );
                                                   }).toList(),
+                                                  style: TextStyle(
+                                                      color: Color(0xff0957FF)),
+                                                  value: level2BudgetObject,
+                                                  readOnly: level1BudgetObject
+                                                              .id <=
+                                                          0 ||
+                                                      level2BudgetAccountsList
+                                                              .length ==
+                                                          1,
+                                                  underline: Container(
+                                                    height: 2,
+                                                    width: 5000,
+                                                    color: Color(0xff0957FF),
+                                                  ),
+                                                  hint: "Select one number",
+                                                  searchHint:
+                                                      "Select one number",
+                                                  onClear: (value) {
+                                                    setState(() {
+                                                      level2BudgetObject =
+                                                          level2BudgetAccountsList[
+                                                              0];
+                                                    });
+                                                  },
+                                                  onChanged: (value) {
+                                                    // Check if a new value was selected or the same was reselected
+                                                    dummyAccount =
+                                                        level2BudgetObject;
+
+                                                    setState(() {
+                                                      level2BudgetObject =
+                                                          value;
+                                                    });
+
+                                                    if (dummyAccount.id !=
+                                                        value.id) {
+                                                      arrangeAccounts(
+                                                          2, 'budget');
+                                                    } else {
+                                                      print("RESELECTED");
+                                                    }
+                                                  },
+                                                  dialogBox: true,
+                                                  isExpanded: true,
                                                 ),
                                               )
                                             : Container(),
@@ -3062,44 +3082,18 @@ class _MyHomePageState extends State<MyHomePage>
                                             ? Container(
                                                 constraints:
                                                     BoxConstraints.expand(
-                                                  height: 100.0,
+                                                  height: 80,
+                                                  //width: MediaQuery.of(context).size.width * .8
                                                 ),
                                                 padding: const EdgeInsets.only(
                                                     left: 30.0,
                                                     top: 0,
                                                     right: 30,
                                                     bottom: 0),
+                                                //color: Colors.blue[600],
                                                 alignment: Alignment.center,
-                                                child: DropdownButton<Account>(
-                                                  value: level3BudgetObject,
-                                                  hint: Text(
-                                                    "Select a level 3 account",
-                                                    /*style: TextStyle(
-                              color,
-                            ),*/
-                                                  ),
-                                                  icon: Icon(
-                                                      Icons.arrow_downward),
-                                                  iconSize: 24,
-                                                  elevation: 16,
-                                                  style: TextStyle(
-                                                      color: Color(0xff0957FF)),
-                                                  isExpanded: true,
-                                                  underline: Container(
-                                                    height: 2,
-                                                    width: 5000,
-                                                    color: Color(0xff0957FF),
-                                                  ),
-                                                  onChanged:
-                                                      (Account newValue) {
-                                                    setState(() {
-                                                      level3BudgetObject =
-                                                          newValue;
-                                                    });
-
-                                                    // TODO probably not needed as change in level3 has no affect in anything
-                                                    // arrangeAccounts(3, 'budget');
-                                                  },
+                                                //child: Text('Submit'),
+                                                child: SearchChoices.single(
                                                   items:
                                                       level3BudgetAccountsList
                                                           .map((Account
@@ -3112,6 +3106,41 @@ class _MyHomePageState extends State<MyHomePage>
                                                       ),
                                                     );
                                                   }).toList(),
+                                                  style: TextStyle(
+                                                      color: Color(0xff0957FF)),
+                                                  value: level3BudgetObject,
+                                                  readOnly: level3BudgetObject
+                                                              .id <=
+                                                          0 ||
+                                                      level3BudgetAccountsList
+                                                              .length ==
+                                                          1,
+                                                  underline: Container(
+                                                    height: 2,
+                                                    width: 5000,
+                                                    color: Color(0xff0957FF),
+                                                  ),
+                                                  hint: "Select one number",
+                                                  searchHint:
+                                                      "Select one number",
+                                                  onClear: (value) {
+                                                    setState(() {
+                                                      level3BudgetObject =
+                                                          level3BudgetAccountsList[
+                                                              0];
+                                                    });
+                                                  }, // The default object is set again
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      level3BudgetObject =
+                                                          value;
+                                                    });
+
+                                                    // TODO probably not needed as change in level3 has no affect in anything
+                                                    // arrangeAccounts(3, 'actual');
+                                                  },
+                                                  dialogBox: true,
+                                                  isExpanded: true,
                                                 ),
                                               )
                                             : Container(),
