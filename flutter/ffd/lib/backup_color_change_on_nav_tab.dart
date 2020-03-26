@@ -1189,6 +1189,151 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
+  _showProfile(){
+    showDialog(
+        context: context,
+        barrierDismissible: true, // set to false if you want to force a rating
+        builder: (context) {
+          return RatingDialog(
+            icon: CircleAvatar(
+              backgroundImage: NetworkImage(
+                imageUrl,
+              ),
+              radius: 60,
+              backgroundColor: Colors.transparent,
+            ), // set your own image/icon widget
+            title: name,
+            description:
+            email,
+            submitButton: "SUBMIT",
+            alternativeButton: "Contact us instead?", // optional
+            positiveComment: "We are so happy to hear :)", // optional
+            negativeComment: "We're sad to hear :(", // optional
+            //accentColor: color, // optional
+            onSubmitPressed: (int rating) {
+              print("onSubmitPressed: rating = $rating");
+              // TODO: open the app's page on Google Play / Apple App Store
+            },
+            onAlternativePressed: () {
+              print("onAlternativePressed: do something");
+              // TODO: maybe you want the user to contact you instead of rating a bad review
+            },
+          );
+        });
+
+
+    Container(
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        begin: Alignment.topRight,
+        end: Alignment.bottomLeft,
+        colors: [Colors.blue[100], Colors.blue[400]],
+      ),
+    ),
+    child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          CircleAvatar(
+            backgroundImage: NetworkImage(
+              imageUrl,
+            ),
+            radius: 60,
+            backgroundColor: Colors.transparent,
+          ),
+          SizedBox(height: 40),
+          Text(
+            'NAME',
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Colors.black54),
+          ),
+          Text(
+            name,
+            style: TextStyle(
+                fontSize: 25,
+                color: Colors.deepPurple,
+                fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 20),
+          Text(
+            'EMAIL',
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Colors.black54),
+          ),
+          Text(
+            email,
+            style: TextStyle(
+                fontSize: 25,
+                color: Colors.deepPurple,
+                fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 20),
+          Text(
+            'TOKEN',
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Colors.black54),
+          ),
+          Text(
+            token != null
+                ? token.substring(0, 20) +
+                " - " +
+                token.substring(token.length - 20, token.length)
+                : "initializing",
+            style: TextStyle(
+                fontSize: 25,
+                color: Colors.deepPurple,
+                fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 40),
+          RaisedButton(
+            onPressed: () {
+              validateToken(token);
+            },
+            color: Colors.deepPurple,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Validate',
+                style: TextStyle(fontSize: 25, color: Colors.white),
+              ),
+            ),
+            elevation: 5,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40)),
+          ),
+          RaisedButton(
+            onPressed: () {
+              signOutGoogle();
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) {
+                    return LoginPage();
+                  }), ModalRoute.withName('/'));
+            },
+            color: Colors.deepPurple,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Sign Out',
+                style: TextStyle(fontSize: 25, color: Colors.white),
+              ),
+            ),
+            elevation: 5,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40)),
+          )
+        ],
+      ),
+    ),
+  );
+  }
+
   commentInput(
       BuildContext context,
       String type,
@@ -1542,7 +1687,11 @@ class _MyHomePageState extends State<MyHomePage>
             color: Color(0xffEEEEEE),
             iconSize: 24,
             onPressed: () {
-              showCustomDialog(_currentIndex, 'help', -1);
+              print(name);
+              print(email);
+              print(imageUrl);
+              _showProfile();
+              //showCustomDialog(_currentIndex, 'help', -1);
             }),
       ),
       body: SizedBox.expand(
