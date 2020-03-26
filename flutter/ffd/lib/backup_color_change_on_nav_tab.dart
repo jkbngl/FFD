@@ -1538,7 +1538,7 @@ class _MyHomePageState extends State<MyHomePage>
           */
         ],
         leading: IconButton(
-            icon: Icon(Icons.help),
+            icon: Icon(Icons.account_circle),
             color: Color(0xffEEEEEE),
             iconSize: 24,
             onPressed: () {
