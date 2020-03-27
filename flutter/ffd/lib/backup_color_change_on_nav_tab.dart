@@ -1386,6 +1386,7 @@ class _MyHomePageState extends State<MyHomePage>
           builder: (context) {
             return AlertDialog(
               //Enter a comment for '
+
               title: Center(
                 child: RichText(
                   text: TextSpan(
@@ -1411,6 +1412,22 @@ class _MyHomePageState extends State<MyHomePage>
                 new FlatButton(
                   child: new Text('CANCEL'),
                   onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                new FlatButton(
+                  child: new Text('SKIP'),
+                  onPressed: () {
+                    if (type == 'actual') {
+                      sendBackend('actual', false);
+                    } else if (type == 'budget') {
+                      sendBackend('budget', false);
+                    } else if (type != 'account') {
+                      sendBackend('new${type}add', false);
+                    } else if (dependingController2.text.length <= 0) {
+                      sendBackend('new${type}add', false);
+                    }
+
                     Navigator.of(context).pop();
                   },
                 ),
@@ -1469,6 +1486,17 @@ class _MyHomePageState extends State<MyHomePage>
                   },
                 ),
                 new FlatButton(
+                  child: new Text('SKIP'),
+                  onPressed: () {
+                    // Send directly to backend if no additional level3 was entered which has to be saved in the Backend -> DB
+                    if (dependingController3.text.length <= 0) {
+                      sendBackend('new${type}add', false);
+                    }
+
+                    Navigator.of(context).pop();
+                  },
+                ),
+                new FlatButton(
                   child: new Text('SAVE'),
                   onPressed: () {
                     // Send directly to backend if no additional level3 was entered which has to be saved in the Backend -> DB
@@ -1514,6 +1542,14 @@ class _MyHomePageState extends State<MyHomePage>
                 new FlatButton(
                   child: new Text('CANCEL'),
                   onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                new FlatButton(
+                  child: new Text('SKIP'),
+                  onPressed: () {
+                    sendBackend('new${type}add', false);
+
                     Navigator.of(context).pop();
                   },
                 ),
@@ -3984,7 +4020,6 @@ class _MyHomePageState extends State<MyHomePage>
                               color,
                             ),*/
                                                 ),
-
                                                 icon:
                                                     Icon(Icons.arrow_downward),
                                                 iconSize: 24,
@@ -4081,13 +4116,12 @@ class _MyHomePageState extends State<MyHomePage>
                             ),*/
                                                 ),
                                                 readOnly:
-                                                level1AdminObject.id <= 0 ||
-                                                    level2AdminAccountsList
-                                                        .length ==
-                                                        1,
+                                                    level1AdminObject.id <= 0 ||
+                                                        level2AdminAccountsList
+                                                                .length ==
+                                                            1,
                                                 icon:
                                                     Icon(Icons.arrow_downward),
-
                                                 iconSize: 24,
                                                 style: TextStyle(
                                                     color: Color(0xff0957FF)),
@@ -4182,10 +4216,10 @@ class _MyHomePageState extends State<MyHomePage>
                             ),*/
                                                 ),
                                                 readOnly:
-                                                level2AdminObject.id <= 0 ||
-                                                    level3AdminAccountsList
-                                                        .length ==
-                                                        1,
+                                                    level2AdminObject.id <= 0 ||
+                                                        level3AdminAccountsList
+                                                                .length ==
+                                                            1,
                                                 icon:
                                                     Icon(Icons.arrow_downward),
                                                 iconSize: 24,
