@@ -3978,7 +3978,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               //color: Colors.blue[600],
                                               alignment: Alignment.center,
                                               //child: Text('Submit'),
-                                              child: DropdownButton<Account>(
+                                              child: SearchChoices.single(
                                                 value: level1AdminObject,
                                                 hint: Text(
                                                   "Select a level 1 account",
@@ -3989,7 +3989,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                 icon:
                                                     Icon(Icons.arrow_downward),
                                                 iconSize: 24,
-                                                elevation: 16,
                                                 style: TextStyle(
                                                     color: Color(0xff0957FF)),
                                                 isExpanded: true,
@@ -4074,7 +4073,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               //color: Colors.blue[600],
                                               alignment: Alignment.center,
                                               //child: Text('Submit'),
-                                              child: DropdownButton<Account>(
+                                              child: SearchChoices.single(
                                                 value: level2AdminObject,
                                                 hint: Text(
                                                   "Select a level 2 account",
@@ -4085,7 +4084,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                 icon:
                                                     Icon(Icons.arrow_downward),
                                                 iconSize: 24,
-                                                elevation: 16,
                                                 style: TextStyle(
                                                     color: Color(0xff0957FF)),
                                                 isExpanded: true,
@@ -4169,7 +4167,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               //color: Colors.blue[600],
                                               alignment: Alignment.center,
                                               //child: Text('Submit'),
-                                              child: DropdownButton<Account>(
+                                              child: SearchChoices.single(
                                                 value: level3AdminObject,
                                                 hint: Text(
                                                   "Select a level 3 account",
@@ -4180,7 +4178,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                 icon:
                                                     Icon(Icons.arrow_downward),
                                                 iconSize: 24,
-                                                elevation: 16,
                                                 style: TextStyle(
                                                     color: Color(0xff0957FF)),
                                                 isExpanded: true,
@@ -4417,7 +4414,7 @@ class _MyHomePageState extends State<MyHomePage>
                                         //color: Colors.blue[600],
                                         alignment: Alignment.center,
                                         //child: Text('Submit'),
-                                        child: DropdownButton<CostType>(
+                                        child: SearchChoices.single(
                                           value: costTypeObjectAdmin,
                                           hint: Text(
                                             "Select a costtype to delete",
@@ -4427,7 +4424,6 @@ class _MyHomePageState extends State<MyHomePage>
                                           ),
                                           icon: Icon(Icons.arrow_downward),
                                           iconSize: 24,
-                                          elevation: 16,
                                           style: TextStyle(
                                               color: Color(0xff0957FF)),
                                           isExpanded: true,
