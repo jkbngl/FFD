@@ -75,8 +75,7 @@ drop table ffd.bdg_data;
 		CONSTRAINT costtype_dim_user_fk_fkey FOREIGN KEY (user_fk) REFERENCES ffd.user_dim(id)
 	);
 
-
-    CREATE TABLE ffd.account_dim (
+	CREATE TABLE ffd.account_dim (
 		id serial NOT NULL,
 		"name" text NULL,
 		"comment" text NULL,
@@ -90,16 +89,12 @@ drop table ffd.bdg_data;
 		created_by text NULL DEFAULT 'UNDEFINED'::text,
 		updated_by text NULL DEFAULT 'UNDEFINED'::text,
 		active int4 NULL DEFAULT 1,
-		CONSTRAINT account_company_uq UNIQUE (name, level_type, company_fk),
 		CONSTRAINT account_dim_pkey PRIMARY KEY (id),
-		CONSTRAINT account_group_uq UNIQUE (name, level_type, group_fk),
 		CONSTRAINT account_user_uq UNIQUE (name, level_type, user_fk),
 		CONSTRAINT account_dim_company_fk_fkey FOREIGN KEY (company_fk) REFERENCES ffd.company_dim(id),
 		CONSTRAINT account_dim_group_fk_fkey FOREIGN KEY (group_fk) REFERENCES ffd.group_dim(id),
 		CONSTRAINT account_dim_user_fk_fkey FOREIGN KEY (user_fk) REFERENCES ffd.user_dim(id)
 	);
-
-   
 
     CREATE TABLE ffd.act_data (
 		id serial NOT NULL,

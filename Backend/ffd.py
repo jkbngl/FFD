@@ -155,14 +155,37 @@ def userExists():
 
 
 def createDefaultChartOfAccount(userId):
+    connection = connect()
+    cursor = connection.cursor()
+
+    cursor.execute(f"INSERT INTO ffd.costtype_dim (name, comment, user_fk) VALUES ('VARIABLE', 'variable costs like eating out once a week', {userId});")
+    cursor.execute(f"INSERT INTO ffd.costtype_dim (name, comment, user_fk) VALUES ('FIX', 'fix costs like rent', {userId});")
+
+    connection.commit()
+    cursor.close()
+    connection.close()
     return False
 
 def createDefaultChartOfCostTypes(userId):
         connection = connect()
         cursor = connection.cursor()
 
-        cursor.execute(f"INSERT INTO ffd.costtype_dim (name, comment, user_fk) VALUES ('VARIABLE', 'variable costs like eating out once a week', {userId});")
-        cursor.execute(f"INSERT INTO ffd.costtype_dim (name, comment, user_fk) VALUES ('FIX', 'fix costs like rent', {userId});")
+        cursor.execute(f"INSERT INTO   ffd.account_dim (name, comment, level_type, parent_account, user_fk) VALUES   ('CAR', 'all car related costs', 1, null, {userId}) RETURNING id;")
+        id_of_new_row = cursor.fetchone()[0]
+        
+        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('GAS', 'all gas costs for the car', 2, {id_of_new_row}, {userId}) RETURNING id;")
+        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('INSURANCE', 'all insurcance costs for the car', 2, {id_of_new_row}, {userId}) RETURNING id;")
+        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('TAX', 'all tac costs for the car', 2, {id_of_new_row}, {userId}) RETURNING id;")
+        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('TIRES', 'all costs for tires for the car', 2, {id_of_new_row}, {userId}) RETURNING id;")
+        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'other car related costs', 2, {id_of_new_row}, {userId}) RETURNING id;")
+        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('REPAIRS', 'all car related repair costs', 2, {id_of_new_row}, {userId}) RETURNING id;")
+        id_of_new_row = cursor.fetchone()[0]
+        
+        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('MOTOR', 'all motor repairs costs for the car', 3, {id_of_new_row}, {userId}) RETURNING id;")
+        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('BREAKS', 'all breaks repairs costs for the car', 3, {id_of_new_row}, {userId}) RETURNING id;")
+        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('WINDOWS','all windows repairs costs for the car', 3, {id_of_new_row}, {userId}) RETURNING id;")
+        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER','all other repairs costs for the car', 3, {id_of_new_row}, {userId}) RETURNING id;")
+
 
         connection.commit()
         cursor.close()
