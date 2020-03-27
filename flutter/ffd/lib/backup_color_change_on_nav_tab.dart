@@ -2541,12 +2541,11 @@ class _MyHomePageState extends State<MyHomePage>
                                             //child: Text('Submit'),
                                             child: Align(
                                               alignment: Alignment.topRight,
-                                              child: DropdownButton<CostType>(
+                                              child: SearchChoices.single(
                                                 value: costTypeObjectActual,
                                                 icon:
                                                     Icon(Icons.arrow_downward),
                                                 iconSize: 24,
-                                                elevation: 16,
                                                 style: TextStyle(
                                                     color: Color(0xff0957FF)),
                                                 underline: Container(
@@ -3166,12 +3165,11 @@ class _MyHomePageState extends State<MyHomePage>
                                                 child: Align(
                                                   alignment: Alignment.topRight,
                                                   child:
-                                                      DropdownButton<CostType>(
+                                                      SearchChoices.single(
                                                     value: costTypeObjectBudget,
                                                     icon: Icon(
                                                         Icons.arrow_downward),
                                                     iconSize: 24,
-                                                    elevation: 16,
                                                     style: TextStyle(
                                                         color:
                                                             Color(0xff0957FF)),
