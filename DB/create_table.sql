@@ -90,7 +90,7 @@ drop table ffd.bdg_data;
 		updated_by text NULL DEFAULT 'UNDEFINED'::text,
 		active int4 NULL DEFAULT 1,
 		CONSTRAINT account_dim_pkey PRIMARY KEY (id),
-		CONSTRAINT account_user_uq UNIQUE (name, level_type, user_fk),
+		CONSTRAINT account_user_level_parent_uq UNIQUE (name, level_type, user_fk, parent_account),
 		CONSTRAINT account_dim_company_fk_fkey FOREIGN KEY (company_fk) REFERENCES ffd.company_dim(id),
 		CONSTRAINT account_dim_group_fk_fkey FOREIGN KEY (group_fk) REFERENCES ffd.group_dim(id),
 		CONSTRAINT account_dim_user_fk_fkey FOREIGN KEY (user_fk) REFERENCES ffd.user_dim(id)
