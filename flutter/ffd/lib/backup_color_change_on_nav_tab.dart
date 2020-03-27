@@ -109,6 +109,11 @@ class CostType {
 
   final int id;
   final String name;
+
+  @override
+  String toString() {
+    return '${name}';
+  }
 }
 
 class CompanySizeVsNumberOfCompanies {
@@ -2081,9 +2086,6 @@ class _MyHomePageState extends State<MyHomePage>
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
-                                    SizedBox(
-                                      height: 5,
-                                    ),
                                     Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
@@ -2159,10 +2161,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                             0xff0957FF)))),
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-
                                     areLevel1AccountsActive
                                         ? Container(
                                             constraints: BoxConstraints.expand(
@@ -2860,6 +2858,7 @@ class _MyHomePageState extends State<MyHomePage>
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: <Widget>[
+
                                         Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
