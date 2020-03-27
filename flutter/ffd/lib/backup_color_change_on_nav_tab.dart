@@ -2858,7 +2858,6 @@ class _MyHomePageState extends State<MyHomePage>
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: <Widget>[
-
                                         Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
@@ -3163,8 +3162,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                 //child: Text('Submit'),
                                                 child: Align(
                                                   alignment: Alignment.topRight,
-                                                  child:
-                                                      SearchChoices.single(
+                                                  child: SearchChoices.single(
                                                     value: costTypeObjectBudget,
                                                     icon: Icon(
                                                         Icons.arrow_downward),
@@ -3986,6 +3984,7 @@ class _MyHomePageState extends State<MyHomePage>
                               color,
                             ),*/
                                                 ),
+
                                                 icon:
                                                     Icon(Icons.arrow_downward),
                                                 iconSize: 24,
@@ -4081,8 +4080,14 @@ class _MyHomePageState extends State<MyHomePage>
                               color,
                             ),*/
                                                 ),
+                                                readOnly:
+                                                level1AdminObject.id <= 0 ||
+                                                    level2AdminAccountsList
+                                                        .length ==
+                                                        1,
                                                 icon:
                                                     Icon(Icons.arrow_downward),
+
                                                 iconSize: 24,
                                                 style: TextStyle(
                                                     color: Color(0xff0957FF)),
@@ -4122,6 +4127,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                   bottom: 40),
                                               //color: Colors.blue[600],
                                               alignment: Alignment.center,
+
                                               //child: Text('Submit'),
                                               child: TextFormField(
                                                 // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
@@ -4175,6 +4181,11 @@ class _MyHomePageState extends State<MyHomePage>
                               color,
                             ),*/
                                                 ),
+                                                readOnly:
+                                                level2AdminObject.id <= 0 ||
+                                                    level3AdminAccountsList
+                                                        .length ==
+                                                        1,
                                                 icon:
                                                     Icon(Icons.arrow_downward),
                                                 iconSize: 24,
