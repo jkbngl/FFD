@@ -2700,8 +2700,11 @@ class _MyHomePageState extends State<MyHomePage>
                                           color: actList[index].active == 1
                                               ? Color(0xffEEEEEE)
                                               : Colors.redAccent,
+                                            borderRadius:
+                                            new BorderRadius
+                                                .circular(30.0),
                                         ),
-                                        padding: const EdgeInsets.all(3.0),
+                                          padding: const EdgeInsets.all(3.0),
                                         child: Center(
                                             child: Row(
                                                 mainAxisAlignment:
