@@ -2836,9 +2836,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                         : Icons.restore,
                                                   ),
                                                   color:
-                                                      actList[index].active == 1
-                                                          ? Colors.red
-                                                          : Colors.black,
+                                                  Color(
+                                                      0xff0957FF),
                                                   onPressed: () {
                                                     print(
                                                         'TODELETE + ${actList[index].id}');
@@ -3561,10 +3560,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   ? Icons.delete
                                                                   : Icons.restore,
                                                             ),
-                                                            color:
-                                                            bdgList[index].active == 1
-                                                                ? Colors.red
-                                                                : Colors.black,
+                                                            color: Color(
+                                                                0xff0957FF),
                                                             onPressed: () {
                                                               print(
                                                                   'TODELETE + ${bdgList[index].id}');
