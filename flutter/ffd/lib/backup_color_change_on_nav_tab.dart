@@ -2700,11 +2700,20 @@ class _MyHomePageState extends State<MyHomePage>
                                           color: actList[index].active == 1
                                               ? Color(0xffEEEEEE)
                                               : Colors.redAccent,
-                                            borderRadius:
-                                            new BorderRadius
-                                                .circular(30.0),
+                                          borderRadius:
+                                              new BorderRadius.circular(30.0),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black12,
+                                              blurRadius: 20.0, // has the effect of softening the shadow
+                                              spreadRadius: 5.0, // has the effect of extending the shadow
+                                              offset: Offset(
+                                                10.0, // horizontal, move right 10
+                                                10.0, // vertical, move down 10
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                          padding: const EdgeInsets.all(3.0),
                                         child: Center(
                                             child: Row(
                                                 mainAxisAlignment:
@@ -2713,17 +2722,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.center,
                                                 children: <Widget>[
-                                              SizedBox(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    .1,
-                                                //height: 300.0,
-                                                child: Icon(
-                                                  Icons.attach_money,
-                                                  color: Color(0xff0957FF),
-                                                ),
-                                              ),
                                               SizedBox(
                                                 width: MediaQuery.of(context)
                                                         .size
@@ -2738,23 +2736,93 @@ class _MyHomePageState extends State<MyHomePage>
                                                         CrossAxisAlignment
                                                             .center,
                                                     children: <Widget>[
-                                                      Text('\n'),
+                                                      SizedBox(height: 15),
                                                       Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
-                                                                  .spaceBetween,
+                                                                  .start,
                                                           children: [
+                                                            SizedBox(
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width *
+                                                                  .1,
+                                                              child: Icon(
+                                                                Icons
+                                                                    .attach_money,
+                                                                color: Color(
+                                                                    0xff0957FF),
+                                                              ),
+                                                            ),
                                                             Text(
-                                                                "${actList[index].date}"),
-                                                            Text(
-                                                                '${actList[index].amount}'),
+                                                              "${actList[index].date}",
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xff0957FF),
+                                                                  fontSize: 25),
+                                                            ),
                                                           ]),
-                                                      Text(
-                                                        '${actList[index].level1} > ${actList[index].level2} > ${actList[index].level3} - ${actList[index].costType}',
+                                                      SizedBox(
+                                                        height: 10,
                                                       ),
-                                                      Text('\n'),
-                                                    ]),
+                                                      Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            SizedBox(
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width *
+                                                                  .1,
+                                                              child:
+                                                                  Container(),
+                                                            ),
+                                                            Text(
+                                                              "${actList[index].comment}",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 15),
+                                                            ),
+                                                            Container(),
+                                                          ]),
+                                                      SizedBox(
+                                                        height: 10,
+                                                      ),
+                                                      Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            SizedBox(
+                                                                width: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width *
+                                                                    .1,
+                                                                //height: 300.0,
+                                                                child:
+                                                                    Container()),
+                                                            Text(
+                                                              '${actList[index].level1} > ${actList[index].level2} > ${actList[index].level3} \n${actList[index].costType}',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 13),
+                                                            )
+                                                          ]),
+                                                      SizedBox(
+                                                        height: 15,
+                                                      ),                                                    ]),
                                               ),
+                                          Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment
+                                                  .start,
+                                              children: [Text('${actList[index].amount}'),
                                               SizedBox(
                                                 width: MediaQuery.of(context)
                                                         .size
@@ -2814,7 +2882,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     );
                                                   },
                                                 ),
-                                              )
+                                              )]),
                                             ])),
                                       ));
                                 })),
@@ -3360,8 +3428,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               ? Color(0xffEEEEEE)
                                               : Colors.redAccent,
                                           borderRadius:
-                                          new BorderRadius
-                                              .circular(30.0),
+                                              new BorderRadius.circular(30.0),
                                         ),
                                         padding: const EdgeInsets.all(3.0),
                                         child: Center(
