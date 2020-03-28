@@ -3576,7 +3576,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   title: Text(
                                                                       "Are you sure?"),
                                                                   content: new Text(
-                                                                      'Deleting ${actList[index].id}'),
+                                                                      'Deleting ${bdgList[index].id}'),
                                                                   actions: <Widget>[
                                                                     new FlatButton(
                                                                       child: new Text(
