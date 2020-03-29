@@ -3,9 +3,6 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'package:ffd/DonutPieChart.dart';
-import 'package:ffd/StackedBarTargetLineChart.dart';
-import 'package:ffd/SimpleBarChart.dart';
 import 'package:ffd/sign_in.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +14,6 @@ import 'package:rating_dialog/rating_dialog.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'login_page.dart';
-import 'package:searchable_dropdown/searchable_dropdown.dart';
 import 'package:search_choices/search_choices.dart';
 
 void main() => runApp(MyApp());
