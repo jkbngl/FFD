@@ -389,10 +389,23 @@ class _MyHomePageState extends State<MyHomePage>
     var params = {
       "accesstoken": token,
     };
-
-    var user = await http.read(uri, headers: params);
-
-    print(user);
+    try {
+      var user = await http.read(uri, headers: params);
+      print(user);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          content: new Text("ERROR - $e"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('DISMISS'),
+              onPressed: () => Navigator.of(context).pop(),
+            )
+          ],
+        ),
+      );
+    }
   }
 
   loadList(String type) async {
@@ -462,7 +475,6 @@ class _MyHomePageState extends State<MyHomePage>
         ),
       );
     }
-    ;
 
     setState(() {});
   }
@@ -487,30 +499,38 @@ class _MyHomePageState extends State<MyHomePage>
       "accesstoken": token,
     };
 
-    var amounts = await http.read(uri, headers: params);
+    try {
+      var amounts = await http.read(uri, headers: params);
 
-    var parsedAmounts = json.decode(amounts);
+      var parsedAmounts = json.decode(amounts);
 
-    final desktopSalesData = [new OrdinalSales('2069', 5)];
+      final desktopSalesData = [new OrdinalSales('2069', 5)];
 
-    visualizerData.clear();
+      visualizerData.clear();
 
-    for (var amounts in parsedAmounts) {
-      visualizerData.add(CompanySizeVsNumberOfCompanies(
-          amounts['level$level_type'].toString(),
-          amounts['sum'],
-          amounts['level${level_type.toString()}_fk'],
-          level_type));
+      for (var amounts in parsedAmounts) {
+        visualizerData.add(CompanySizeVsNumberOfCompanies(
+            amounts['level$level_type'].toString(),
+            amounts['sum'],
+            amounts['level${level_type.toString()}_fk'],
+            level_type));
+      }
+
+      setState(() {});
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          content: new Text("ERROR - $e"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('DISMISS'),
+              onPressed: () => Navigator.of(context).pop(),
+            )
+          ],
+        ),
+      );
     }
-
-    final desktopTargetLineData = [
-      new OrdinalSales('2014', 25),
-      new OrdinalSales('2015', 60),
-      new OrdinalSales('2016', 100),
-      new OrdinalSales('2017', 110),
-    ];
-
-    setState(() {});
   }
 
   loadPreferences() async {
@@ -522,19 +542,34 @@ class _MyHomePageState extends State<MyHomePage>
       "accesstoken": token,
     };
 
-    var preferences = await http.read(uri, headers: params);
+    try {
+      var preferences = await http.read(uri, headers: params);
 
-    var parsedPreferences = json.decode(preferences);
+      var parsedPreferences = json.decode(preferences);
 
-    setState(() {
-      for (var preference in parsedPreferences) {
-        areCostTypesActive = preference['costtypes_active'];
-        areAccountsActive = preference['accounts_active'];
-        areLevel1AccountsActive = preference['accountslevel1_active'];
-        areLevel2AccountsActive = preference['accountslevel2_active'];
-        areLevel3AccountsActive = preference['accountslevel3_active'];
-      }
-    });
+      setState(() {
+        for (var preference in parsedPreferences) {
+          areCostTypesActive = preference['costtypes_active'];
+          areAccountsActive = preference['accounts_active'];
+          areLevel1AccountsActive = preference['accountslevel1_active'];
+          areLevel2AccountsActive = preference['accountslevel2_active'];
+          areLevel3AccountsActive = preference['accountslevel3_active'];
+        }
+      });
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          content: new Text("ERROR - $e"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('DISMISS'),
+              onPressed: () => Navigator.of(context).pop(),
+            )
+          ],
+        ),
+      );
+    }
   }
 
   loadHomescreen() async {
@@ -551,49 +586,63 @@ class _MyHomePageState extends State<MyHomePage>
       "accesstoken": token,
     };
 
-    //var amounts = await http.read('http://192.168.0.21:5000/api/ffd/amounts/?level_type=1&cost_type=-1&parent_account=-1&year=2020&month=1&_type=actual');
-    var actual = await http.read(
-        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type',
-        headers: params);
+    try {
+      var actual = await http.read(
+          'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type',
+          headers: params);
 
-    _type = 'budget';
+      _type = 'budget';
 
-    var budget = await http.read(
-        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type',
-        headers: params);
+      var budget = await http.read(
+          'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type',
+          headers: params);
 
-    var parsedActual = json.decode(actual);
-    var parsedBudget = json.decode(budget);
+      var parsedActual = json.decode(actual);
+      var parsedBudget = json.decode(budget);
 
-    //homescreenData.clear();
+      //homescreenData.clear();
 
-    homescreenData[0].amount =
-        parsedActual.length != 0 ? parsedActual[0]['sum'] : 0;
-    homescreenData[0].type = parsedActual.length != 0
-        ? 'Actual'
-        : "No Data found \nfor $year - $month";
+      homescreenData[0].amount =
+          parsedActual.length != 0 ? parsedActual[0]['sum'] : 0;
+      homescreenData[0].type = parsedActual.length != 0
+          ? 'Actual'
+          : "No Data found \nfor $year - $month";
 
-    homescreenData[1].amount = parsedBudget.length != 0
-        ? parsedBudget[0]['sum'] - homescreenData[0].amount
-        : 99;
-    homescreenData[1].type = parsedBudget.length != 0
-        ? 'Budget'
-        : "No Data found \nfor $year - $month";
+      homescreenData[1].amount = parsedBudget.length != 0
+          ? parsedBudget[0]['sum'] - homescreenData[0].amount
+          : 99;
+      homescreenData[1].type = parsedBudget.length != 0
+          ? 'Budget'
+          : "No Data found \nfor $year - $month";
 
-    homescreenData[2].amount =
-        parsedBudget.length != 0 ? parsedBudget[0]['sum'] : 99;
-    homescreenData[2].type = parsedBudget.length != 0
-        ? 'OverallBudget'
-        : "No Data found \nfor $year - $month";
+      homescreenData[2].amount =
+          parsedBudget.length != 0 ? parsedBudget[0]['sum'] : 99;
+      homescreenData[2].type = parsedBudget.length != 0
+          ? 'OverallBudget'
+          : "No Data found \nfor $year - $month";
 
-    final desktopTargetLineData = [
-      new OrdinalSales('2014', 25),
-      new OrdinalSales('2015', 60),
-      new OrdinalSales('2016', 100),
-      new OrdinalSales('2017', 110),
-    ];
+      final desktopTargetLineData = [
+        new OrdinalSales('2014', 25),
+        new OrdinalSales('2015', 60),
+        new OrdinalSales('2016', 100),
+        new OrdinalSales('2017', 110),
+      ];
 
-    setState(() {});
+      setState(() {});
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          content: new Text("ERROR - $e"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('DISMISS'),
+              onPressed: () => Navigator.of(context).pop(),
+            )
+          ],
+        ),
+      );
+    }
   }
 
   void checkForChanges(bool onStartup, bool fetch, String type) async {
@@ -618,282 +667,301 @@ class _MyHomePageState extends State<MyHomePage>
       "accesstoken": token,
     };
 
-    if (fetch || onStartup) {
-      level1AccountsJson = await http
-          .read('http://192.168.0.21:5000/api/ffd/accounts/1', headers: params);
-      level2AccountsJson = await http
-          .read('http://192.168.0.21:5000/api/ffd/accounts/2', headers: params);
-      level3AccountsJson = await http
-          .read('http://192.168.0.21:5000/api/ffd/accounts/3', headers: params);
-      costTypesJson = await http
-          .read('http://192.168.0.21:5000/api/ffd/costtypes/', headers: params);
+    try {
+      if (fetch || onStartup) {
+        level1AccountsJson = await http.read(
+            'http://192.168.0.21:5000/api/ffd/accounts/1',
+            headers: params);
+        level2AccountsJson = await http.read(
+            'http://192.168.0.21:5000/api/ffd/accounts/2',
+            headers: params);
+        level3AccountsJson = await http.read(
+            'http://192.168.0.21:5000/api/ffd/accounts/3',
+            headers: params);
+        costTypesJson = await http.read(
+            'http://192.168.0.21:5000/api/ffd/costtypes/',
+            headers: params);
 
-      var parsedAccountLevel1 = json.decode(level1AccountsJson);
-      var parsedAccountLevel2 = json.decode(level2AccountsJson);
-      var parsedAccountLevel3 = json.decode(level3AccountsJson);
-      var parsedCostTypes = json.decode(costTypesJson);
+        var parsedAccountLevel1 = json.decode(level1AccountsJson);
+        var parsedAccountLevel2 = json.decode(level2AccountsJson);
+        var parsedAccountLevel3 = json.decode(level3AccountsJson);
+        var parsedCostTypes = json.decode(costTypesJson);
 
-      for (var account in parsedAccountLevel1) {
-        accountToAdd = new Account(account['id'], account['name'],
-            account['parent_account'], account['level_type']);
+        for (var account in parsedAccountLevel1) {
+          accountToAdd = new Account(account['id'], account['name'],
+              account['parent_account'], account['level_type']);
 
-        // This additional step would not be needed for level1 (#40 but to have all the same)
-        Account existingItem;
-        if (type == 'actual') {
-          existingItem = level1ActualAccountsList.firstWhere(
-              (itemToCheck) => itemToCheck.id == accountToAdd.id,
-              orElse: () => null);
-        } else if (type == 'budget') {
-          existingItem = level1BudgetAccountsList.firstWhere(
-              (itemToCheck) => itemToCheck.id == accountToAdd.id,
-              orElse: () => null);
-        } else if (type == 'admin') {
-          existingItem = level1AdminAccountsList.firstWhere(
-              (itemToCheck) => itemToCheck.id == accountToAdd.id,
-              orElse: () => null);
-        } else {
-          existingItem = level1AccountsList.firstWhere(
-              (itemToCheck) => itemToCheck.id == accountToAdd.id,
-              orElse: () => null);
+          // This additional step would not be needed for level1 (#40 but to have all the same)
+          Account existingItem;
+          if (type == 'actual') {
+            existingItem = level1ActualAccountsList.firstWhere(
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                orElse: () => null);
+          } else if (type == 'budget') {
+            existingItem = level1BudgetAccountsList.firstWhere(
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                orElse: () => null);
+          } else if (type == 'admin') {
+            existingItem = level1AdminAccountsList.firstWhere(
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                orElse: () => null);
+          } else {
+            existingItem = level1AccountsList.firstWhere(
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                orElse: () => null);
+          }
+
+          accountsListStating.add(accountToAdd);
+
+          if (existingItem == null) {
+            if (type == 'actual' || onStartup) {
+              level1ActualAccountsList.add(accountToAdd);
+            }
+            if (type == 'budget' || onStartup) {
+              level1BudgetAccountsList.add(accountToAdd);
+            }
+            if (type == 'admin' || onStartup) {
+              level1AdminAccountsList.add(accountToAdd);
+            }
+
+            level1AccountsList.add(accountToAdd);
+          }
         }
 
-        accountsListStating.add(accountToAdd);
+        // Loop through all level1 accounts ever added on runtime, check with the ones added on the last run and add the ones which are not in the new list to another list
+        level1AccountsList.forEach((element) {
+          remove = true;
 
-        if (existingItem == null) {
-          if (type == 'actual' || onStartup) {
-            level1ActualAccountsList.add(accountToAdd);
+          // If an item is not in the staging list and is also not the undefined default account
+          for (int i = 0; i < accountsListStating.length; i++) {
+            if (accountsListStating[i].id == element.id) {
+              remove = false;
+            }
           }
-          if (type == 'budget' || onStartup) {
-            level1BudgetAccountsList.add(accountToAdd);
+          if (remove && element.id > 0) {
+            accountsToRemove.add(element);
           }
-          if (type == 'admin' || onStartup) {
-            level1AdminAccountsList.add(accountToAdd);
+        });
+
+        //print("REMOVING (ACCOUNTLEVEL1): ");
+        accountsToRemove.forEach((element) {
+          //print(element.name);
+          level1AccountsList.remove(element);
+
+          level1ActualAccountsList.remove(element);
+          level1BudgetAccountsList.remove(element);
+          level1AdminAccountsList.remove(element);
+        });
+
+        //print("HAVING (ACCOUNTLEVEL1): ");
+        level1AccountsList.forEach((element) {
+          //print(element.name);
+        });
+
+        accountsListStating.clear();
+        accountsToRemove.clear();
+
+        for (var account in parsedAccountLevel2) {
+          accountToAdd = new Account(account['id'], account['name'],
+              account['parent_account'], account['level_type']);
+
+          // #40
+          Account existingItem;
+          if (type == 'actual') {
+            existingItem = level2ActualAccountsList.firstWhere(
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                orElse: () => null);
+          } else if (type == 'budget') {
+            existingItem = level2BudgetAccountsList.firstWhere(
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                orElse: () => null);
+          } else if (type == 'admin') {
+            existingItem = level2AdminAccountsList.firstWhere(
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                orElse: () => null);
+          } else {
+            existingItem = level2AccountsList.firstWhere(
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                orElse: () => null);
           }
 
-          level1AccountsList.add(accountToAdd);
+          accountsListStating.add(accountToAdd);
+
+          if (existingItem == null) {
+            if (type == 'actual' || onStartup) {
+              level2ActualAccountsList.add(accountToAdd);
+
+              print("READDED");
+            }
+            if (type == 'budget' || onStartup) {
+              level2BudgetAccountsList.add(accountToAdd);
+            }
+            if (type == 'admin' || onStartup) {
+              level2AdminAccountsList.add(accountToAdd);
+            }
+
+            level2AccountsList.add(accountToAdd);
+          }
         }
+
+        // Loop through all level1 accounts ever added on runtime, check with the ones added on the last run and add the ones which are not in the new list to another list
+        level2AccountsList.forEach((element) {
+          remove = true;
+
+          // If an item is not in the staging list and is also not the undefined default account
+          for (int i = 0; i < accountsListStating.length; i++) {
+            if (accountsListStating[i].id == element.id) {
+              remove = false;
+            }
+          }
+          if (remove && element.id > 0) {
+            accountsToRemove.add(element);
+          }
+        });
+
+        //print("REMOVING (ACCOUNTLEVEL2): ");
+        accountsToRemove.forEach((element) {
+          //print(element.name);
+          level2AccountsList.remove(element);
+
+          level2ActualAccountsList.remove(element);
+          level2BudgetAccountsList.remove(element);
+          level2AdminAccountsList.remove(element);
+        });
+
+        //print("HAVING (ACCOUNTLEVEL1): ");
+        level2AccountsList.forEach((element) {
+          //print(element.name);
+        });
+
+        accountsListStating.clear();
+        accountsToRemove.clear();
+
+        for (var account in parsedAccountLevel3) {
+          accountToAdd = new Account(account['id'], account['name'],
+              account['parent_account'], account['level_type']);
+          // #40
+          Account existingItem;
+          if (type == 'actual') {
+            existingItem = level3ActualAccountsList.firstWhere(
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                orElse: () => null);
+          } else if (type == 'budget') {
+            existingItem = level3BudgetAccountsList.firstWhere(
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                orElse: () => null);
+          } else if (type == 'admin') {
+            existingItem = level3AdminAccountsList.firstWhere(
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                orElse: () => null);
+          } else {
+            existingItem = level3AccountsList.firstWhere(
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                orElse: () => null);
+          }
+
+          accountsListStating.add(accountToAdd);
+
+          if (existingItem == null) {
+            level3AccountsList.add(accountToAdd);
+
+            level3ActualAccountsList.add(accountToAdd);
+            level3BudgetAccountsList.add(accountToAdd);
+            level3AdminAccountsList.add(accountToAdd);
+          }
+        }
+
+        // Loop through all level1 accounts ever added on runtime, check with the ones added on the last run and add the ones which are not in the new list to another list
+        level3AccountsList.forEach((element) {
+          remove = true;
+
+          // If an item is not in the staging list and is also not the undefined default account
+          for (int i = 0; i < accountsListStating.length; i++) {
+            if (accountsListStating[i].id == element.id) {
+              remove = false;
+            }
+          }
+          if (remove && element.id > 0) {
+            accountsToRemove.add(element);
+          }
+        });
+
+        //print("REMOVING (ACCOUNTLEVEL3): ");
+        accountsToRemove.forEach((element) {
+          //print(element.name);
+          level3AccountsList.remove(element);
+
+          level3ActualAccountsList.remove(element);
+          level3BudgetAccountsList.remove(element);
+          level3AdminAccountsList.remove(element);
+        });
+
+        //print("HAVING (ACCOUNTLEVEL3): ");
+        level3AccountsList.forEach((element) {
+          //print(element.name);
+        });
+
+        accountsListStating.clear();
+        accountsToRemove.clear();
+
+        for (var type in parsedCostTypes) {
+          typeToAdd = new CostType(type['id'], type['name']);
+          CostType existingItem = costTypesList.firstWhere(
+              (itemToCheck) => itemToCheck.id == typeToAdd.id,
+              orElse: () => null);
+
+          costTypesListStating.add(typeToAdd);
+
+          if (existingItem == null) {
+            costTypesList.add(typeToAdd);
+          }
+        }
+
+        // Loop through all costtypes ever added on runtime, check with the ones added on the last run and add the ones which are not in the new list to another list
+        costTypesList.forEach((element) {
+          remove = true;
+
+          // If an item is not in the staging list and is also not the undefined default account
+          for (int i = 0; i < costTypesListStating.length; i++) {
+            if (costTypesListStating[i].id == element.id) {
+              remove = false;
+            }
+          }
+          if (remove && element.id > 0) {
+            costTypesToRemove.add(element);
+          }
+        });
+
+        //print("REMOVING (COSTTYPE: ");
+        costTypesToRemove.forEach((element) {
+          //print(element.name);
+          costTypesList.remove(element);
+        });
+
+        //print("HAVING (COSTTYPES): ");
+        costTypesList.forEach((element) {
+          //print(element.name);
+        });
       }
 
-      // Loop through all level1 accounts ever added on runtime, check with the ones added on the last run and add the ones which are not in the new list to another list
-      level1AccountsList.forEach((element) {
-        remove = true;
+      fetchAccountsAndCostTypes = false;
 
-        // If an item is not in the staging list and is also not the undefined default account
-        for (int i = 0; i < accountsListStating.length; i++) {
-          if (accountsListStating[i].id == element.id) {
-            remove = false;
-          }
-        }
-        if (remove && element.id > 0) {
-          accountsToRemove.add(element);
-        }
-      });
-
-      //print("REMOVING (ACCOUNTLEVEL1): ");
-      accountsToRemove.forEach((element) {
-        //print(element.name);
-        level1AccountsList.remove(element);
-
-        level1ActualAccountsList.remove(element);
-        level1BudgetAccountsList.remove(element);
-        level1AdminAccountsList.remove(element);
-      });
-
-      //print("HAVING (ACCOUNTLEVEL1): ");
-      level1AccountsList.forEach((element) {
-        //print(element.name);
-      });
-
-      accountsListStating.clear();
-      accountsToRemove.clear();
-
-      for (var account in parsedAccountLevel2) {
-        accountToAdd = new Account(account['id'], account['name'],
-            account['parent_account'], account['level_type']);
-
-        // #40
-        Account existingItem;
-        if (type == 'actual') {
-          existingItem = level2ActualAccountsList.firstWhere(
-              (itemToCheck) => itemToCheck.id == accountToAdd.id,
-              orElse: () => null);
-        } else if (type == 'budget') {
-          existingItem = level2BudgetAccountsList.firstWhere(
-              (itemToCheck) => itemToCheck.id == accountToAdd.id,
-              orElse: () => null);
-        } else if (type == 'admin') {
-          existingItem = level2AdminAccountsList.firstWhere(
-              (itemToCheck) => itemToCheck.id == accountToAdd.id,
-              orElse: () => null);
-        } else {
-          existingItem = level2AccountsList.firstWhere(
-              (itemToCheck) => itemToCheck.id == accountToAdd.id,
-              orElse: () => null);
-        }
-
-        accountsListStating.add(accountToAdd);
-
-        if (existingItem == null) {
-          if (type == 'actual' || onStartup) {
-            level2ActualAccountsList.add(accountToAdd);
-
-            print("READDED");
-          }
-          if (type == 'budget' || onStartup) {
-            level2BudgetAccountsList.add(accountToAdd);
-          }
-          if (type == 'admin' || onStartup) {
-            level2AdminAccountsList.add(accountToAdd);
-          }
-
-          level2AccountsList.add(accountToAdd);
-        }
-      }
-
-      // Loop through all level1 accounts ever added on runtime, check with the ones added on the last run and add the ones which are not in the new list to another list
-      level2AccountsList.forEach((element) {
-        remove = true;
-
-        // If an item is not in the staging list and is also not the undefined default account
-        for (int i = 0; i < accountsListStating.length; i++) {
-          if (accountsListStating[i].id == element.id) {
-            remove = false;
-          }
-        }
-        if (remove && element.id > 0) {
-          accountsToRemove.add(element);
-        }
-      });
-
-      //print("REMOVING (ACCOUNTLEVEL2): ");
-      accountsToRemove.forEach((element) {
-        //print(element.name);
-        level2AccountsList.remove(element);
-
-        level2ActualAccountsList.remove(element);
-        level2BudgetAccountsList.remove(element);
-        level2AdminAccountsList.remove(element);
-      });
-
-      //print("HAVING (ACCOUNTLEVEL1): ");
-      level2AccountsList.forEach((element) {
-        //print(element.name);
-      });
-
-      accountsListStating.clear();
-      accountsToRemove.clear();
-
-      for (var account in parsedAccountLevel3) {
-        accountToAdd = new Account(account['id'], account['name'],
-            account['parent_account'], account['level_type']);
-        // #40
-        Account existingItem;
-        if (type == 'actual') {
-          existingItem = level3ActualAccountsList.firstWhere(
-              (itemToCheck) => itemToCheck.id == accountToAdd.id,
-              orElse: () => null);
-        } else if (type == 'budget') {
-          existingItem = level3BudgetAccountsList.firstWhere(
-              (itemToCheck) => itemToCheck.id == accountToAdd.id,
-              orElse: () => null);
-        } else if (type == 'admin') {
-          existingItem = level3AdminAccountsList.firstWhere(
-              (itemToCheck) => itemToCheck.id == accountToAdd.id,
-              orElse: () => null);
-        } else {
-          existingItem = level3AccountsList.firstWhere(
-              (itemToCheck) => itemToCheck.id == accountToAdd.id,
-              orElse: () => null);
-        }
-
-        accountsListStating.add(accountToAdd);
-
-        if (existingItem == null) {
-          level3AccountsList.add(accountToAdd);
-
-          level3ActualAccountsList.add(accountToAdd);
-          level3BudgetAccountsList.add(accountToAdd);
-          level3AdminAccountsList.add(accountToAdd);
-        }
-      }
-
-      // Loop through all level1 accounts ever added on runtime, check with the ones added on the last run and add the ones which are not in the new list to another list
-      level3AccountsList.forEach((element) {
-        remove = true;
-
-        // If an item is not in the staging list and is also not the undefined default account
-        for (int i = 0; i < accountsListStating.length; i++) {
-          if (accountsListStating[i].id == element.id) {
-            remove = false;
-          }
-        }
-        if (remove && element.id > 0) {
-          accountsToRemove.add(element);
-        }
-      });
-
-      //print("REMOVING (ACCOUNTLEVEL3): ");
-      accountsToRemove.forEach((element) {
-        //print(element.name);
-        level3AccountsList.remove(element);
-
-        level3ActualAccountsList.remove(element);
-        level3BudgetAccountsList.remove(element);
-        level3AdminAccountsList.remove(element);
-      });
-
-      //print("HAVING (ACCOUNTLEVEL3): ");
-      level3AccountsList.forEach((element) {
-        //print(element.name);
-      });
-
-      accountsListStating.clear();
-      accountsToRemove.clear();
-
-      for (var type in parsedCostTypes) {
-        typeToAdd = new CostType(type['id'], type['name']);
-        CostType existingItem = costTypesList.firstWhere(
-            (itemToCheck) => itemToCheck.id == typeToAdd.id,
-            orElse: () => null);
-
-        costTypesListStating.add(typeToAdd);
-
-        if (existingItem == null) {
-          costTypesList.add(typeToAdd);
-        }
-      }
-
-      // Loop through all costtypes ever added on runtime, check with the ones added on the last run and add the ones which are not in the new list to another list
-      costTypesList.forEach((element) {
-        remove = true;
-
-        // If an item is not in the staging list and is also not the undefined default account
-        for (int i = 0; i < costTypesListStating.length; i++) {
-          if (costTypesListStating[i].id == element.id) {
-            remove = false;
-          }
-        }
-        if (remove && element.id > 0) {
-          costTypesToRemove.add(element);
-        }
-      });
-
-      //print("REMOVING (COSTTYPE: ");
-      costTypesToRemove.forEach((element) {
-        //print(element.name);
-        costTypesList.remove(element);
-      });
-
-      //print("HAVING (COSTTYPES): ");
-      costTypesList.forEach((element) {
-        //print(element.name);
-      });
+      // needed to reinitialize dropdowns with new values
+      setState(() {});
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          content: new Text("ERROR - $e"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('DISMISS'),
+              onPressed: () => Navigator.of(context).pop(),
+            )
+          ],
+        ),
+      );
     }
-
-    fetchAccountsAndCostTypes = false;
-
-    // needed to reinitialize dropdowns with new values
-    setState(() {});
   }
 
   void sendBackend(String type, bool onStartup) async {
@@ -2719,9 +2787,9 @@ class _MyHomePageState extends State<MyHomePage>
                                             BoxShadow(
                                               color: Colors.black12,
                                               blurRadius:
-                                              5, // has the effect of softening the shadow
+                                                  5, // has the effect of softening the shadow
                                               spreadRadius:
-                                              0, // has the effect of extending the shadow
+                                                  0, // has the effect of extending the shadow
                                               offset: Offset(
                                                 7.0, // horizontal, move right 10
                                                 7.0, // vertical, move down 10
@@ -3496,9 +3564,9 @@ class _MyHomePageState extends State<MyHomePage>
                                             BoxShadow(
                                               color: Colors.black12,
                                               blurRadius:
-                                              5, // has the effect of softening the shadow
+                                                  5, // has the effect of softening the shadow
                                               spreadRadius:
-                                              0, // has the effect of extending the shadow
+                                                  0, // has the effect of extending the shadow
                                               offset: Offset(
                                                 7.0, // horizontal, move right 10
                                                 7.0, // vertical, move down 10
