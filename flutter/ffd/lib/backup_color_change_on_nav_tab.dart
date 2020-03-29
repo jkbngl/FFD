@@ -2280,10 +2280,6 @@ class _MyHomePageState extends State<MyHomePage>
                                     ),
                                     areLevel1AccountsActive
                                         ? Container(
-                                            constraints: BoxConstraints.expand(
-                                              height: 80,
-                                              //width: MediaQuery.of(context).size.width * .8
-                                            ),
                                             padding: const EdgeInsets.only(
                                                 left: 30.0,
                                                 top: 0,
@@ -2458,10 +2454,6 @@ class _MyHomePageState extends State<MyHomePage>
                                         : Container(),*/
                                     areLevel2AccountsActive
                                         ? Container(
-                                            constraints: BoxConstraints.expand(
-                                              height: 80,
-                                              //width: MediaQuery.of(context).size.width * .8
-                                            ),
                                             padding: const EdgeInsets.only(
                                                 left: 30.0,
                                                 top: 0,
@@ -2578,10 +2570,6 @@ class _MyHomePageState extends State<MyHomePage>
                                         : Container(),*/
                                     areLevel3AccountsActive
                                         ? Container(
-                                            constraints: BoxConstraints.expand(
-                                              height: 80,
-                                              //width: MediaQuery.of(context).size.width * .8
-                                            ),
                                             padding: const EdgeInsets.only(
                                                 left: 30.0,
                                                 top: 0,
@@ -2643,17 +2631,17 @@ class _MyHomePageState extends State<MyHomePage>
                                         : SizedBox(height: 20),
                                     areCostTypesActive
                                         ? Container(
-                                      constraints: BoxConstraints.expand(
-                                        height: 80,
-                                        //width: MediaQuery.of(context).size.width * .8
-                                      ),
-                                      padding: const EdgeInsets.only(
-                                          left: 30.0,
-                                          top: 0,
-                                          right: 30,
-                                          bottom: 0),
-                                      //color: Colors.blue[600],
-                                      alignment: Alignment.center,
+                                            constraints: BoxConstraints.expand(
+                                              height: 80,
+                                              //width: MediaQuery.of(context).size.width * .8
+                                            ),
+                                            padding: const EdgeInsets.only(
+                                                left: 30.0,
+                                                top: 0,
+                                                right: 30,
+                                                bottom: 0),
+                                            //color: Colors.blue[600],
+                                            alignment: Alignment.center,
                                             //child: Text('Submit'),
                                             child: Align(
                                               alignment: Alignment.topRight,
@@ -2864,13 +2852,21 @@ class _MyHomePageState extends State<MyHomePage>
                                                               child:
                                                                   Container(),
                                                             ),
-                                                            Text(
+                                                            Flexible(
+                                                                child: Text(
                                                               "${actList[index].comment}",
                                                               style: TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontSize: 15),
-                                                            ),
+                                                                color: Colors
+                                                                    .black,
+                                                                fontStyle:
+                                                                    FontStyle
+                                                                        .italic,
+                                                                fontSize: 15,
+                                                              ),
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            )),
                                                             Container(),
                                                           ]),
                                                       SizedBox(
@@ -2890,13 +2886,46 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 //height: 300.0,
                                                                 child:
                                                                     Container()),
-                                                            Text(
-                                                              '${actList[index].level1} > ${actList[index].level2} > ${actList[index].level3} \n${actList[index].costType}',
+                                                            Flexible(
+                                                                child: Text(
+                                                              '${actList[index].level1} > ${actList[index].level2} > ${actList[index].level3}',
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .black,
                                                                   fontSize: 13),
-                                                            )
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            ))
+                                                          ]),
+                                                      SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            SizedBox(
+                                                                width: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width *
+                                                                    .1,
+                                                                //height: 300.0,
+                                                                child:
+                                                                    Container()),
+                                                            Flexible(
+                                                                child: Text(
+                                                              '${actList[index].costType}',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 13),
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            ))
                                                           ]),
                                                       SizedBox(
                                                         height: 15,
@@ -3179,11 +3208,6 @@ class _MyHomePageState extends State<MyHomePage>
                                         ),
                                         areLevel1AccountsActive
                                             ? Container(
-                                                constraints:
-                                                    BoxConstraints.expand(
-                                                  height: 80,
-                                                  //width: MediaQuery.of(context).size.width * .8
-                                                ),
                                                 padding: const EdgeInsets.only(
                                                     left: 30.0,
                                                     top: 0,
@@ -3241,11 +3265,6 @@ class _MyHomePageState extends State<MyHomePage>
                                             : Container(),
                                         areLevel2AccountsActive
                                             ? Container(
-                                                constraints:
-                                                    BoxConstraints.expand(
-                                                  height: 80,
-                                                  //width: MediaQuery.of(context).size.width * .8
-                                                ),
                                                 padding: const EdgeInsets.only(
                                                     left: 30.0,
                                                     top: 0,
@@ -3317,11 +3336,6 @@ class _MyHomePageState extends State<MyHomePage>
                                             : Container(),
                                         areLevel3AccountsActive
                                             ? Container(
-                                                constraints:
-                                                    BoxConstraints.expand(
-                                                  height: 80,
-                                                  //width: MediaQuery.of(context).size.width * .8
-                                                ),
                                                 padding: const EdgeInsets.only(
                                                     left: 30.0,
                                                     top: 0,
@@ -3387,18 +3401,19 @@ class _MyHomePageState extends State<MyHomePage>
                                             ? Container()
                                             : SizedBox(height: 20),
                                         areCostTypesActive
-                                        ? Container(
-                                          constraints: BoxConstraints.expand(
-                                            height: 80,
-                                            //width: MediaQuery.of(context).size.width * .8
-                                          ),
-                                          padding: const EdgeInsets.only(
-                                              left: 30.0,
-                                              top: 0,
-                                              right: 30,
-                                              bottom: 0),
-                                          //color: Colors.blue[600],
-                                          alignment: Alignment.center,
+                                            ? Container(
+                                                constraints:
+                                                    BoxConstraints.expand(
+                                                  height: 80,
+                                                  //width: MediaQuery.of(context).size.width * .8
+                                                ),
+                                                padding: const EdgeInsets.only(
+                                                    left: 30.0,
+                                                    top: 0,
+                                                    right: 30,
+                                                    bottom: 0),
+                                                //color: Colors.blue[600],
+                                                alignment: Alignment.center,
                                                 //child: Text('Submit'),
                                                 child: Align(
                                                   alignment: Alignment.topRight,
@@ -3641,13 +3656,20 @@ class _MyHomePageState extends State<MyHomePage>
                                                               child:
                                                                   Container(),
                                                             ),
-                                                            Text(
+                                                            Flexible(
+                                                                child: Text(
                                                               "${bdgList[index].comment}",
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .black,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic,
                                                                   fontSize: 15),
-                                                            ),
+                                                                  overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            )),
                                                             Container(),
                                                           ]),
                                                       SizedBox(
@@ -3667,13 +3689,50 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 //height: 300.0,
                                                                 child:
                                                                     Container()),
-                                                            Text(
-                                                              '${bdgList[index].level1} > ${bdgList[index].level2} > ${bdgList[index].level3} \n${bdgList[index].costType}',
+                                                            Flexible(
+                                                                child: Text(
+                                                              '${bdgList[index].level1} > ${bdgList[index].level2} > ${bdgList[index].level3}}',
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .black,
                                                                   fontSize: 13),
-                                                            )
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            )),
+                                                          ]),
+                                                      SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            SizedBox(
+                                                                width: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width *
+                                                                    .1,
+                                                                //height: 300.0,
+                                                                child:
+                                                                    Container()),
+                                                            Flexible(
+                                                                child:
+                                                                    new Container(
+                                                                        padding: new EdgeInsets.only(
+                                                                            right:
+                                                                                13.0),
+                                                                        child:
+                                                                            Text(
+                                                                          '${bdgList[index].costType}',
+                                                                          style: TextStyle(
+                                                                              color: Colors.black,
+                                                                              fontSize: 13),
+                                                                          overflow:
+                                                                              TextOverflow.ellipsis,
+                                                                        )))
                                                           ]),
                                                       SizedBox(
                                                         height: 15,
@@ -4328,6 +4387,9 @@ class _MyHomePageState extends State<MyHomePage>
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
+                                      SizedBox(
+                                        height: 5,
+                                      ),
                                       Text("Account Administration",
                                           style: TextStyle(fontSize: 25)),
                                       areLevel1AccountsActive
@@ -4337,16 +4399,11 @@ class _MyHomePageState extends State<MyHomePage>
                                                   top: 0,
                                                   right: 30,
                                                   bottom: 0),
-                                              //color: Colors.blue[600],
                                               alignment: Alignment.center,
-                                              //child: Text('Submit'),
                                               child: SearchChoices.single(
                                                 value: level1AdminObject,
                                                 hint: Text(
                                                   "Select a level 1 account",
-                                                  /*style: TextStyle(
-                              color,
-                            ),*/
                                                 ),
                                                 icon:
                                                     Icon(Icons.arrow_downward),
@@ -4386,7 +4443,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                   left: 30.0,
                                                   top: 0,
                                                   right: 30,
-                                                  bottom: 40),
+                                                  bottom: 0),
                                               //color: Colors.blue[600],
                                               alignment: Alignment.center,
                                               //child: Text('Submit'),
@@ -4420,11 +4477,9 @@ class _MyHomePageState extends State<MyHomePage>
                                               ),
                                             )
                                           : Container(),
-                                      /*
-                                  Divider(
-                                    color: Colors.black,
-                                  ),
-                                  */
+                                      SizedBox(
+                                        height: 20,
+                                      ),
                                       areLevel2AccountsActive
                                           ? Container(
                                               padding: const EdgeInsets.only(
@@ -4486,7 +4541,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                   left: 30.0,
                                                   top: 0,
                                                   right: 30,
-                                                  bottom: 40),
+                                                  bottom: 0),
                                               //color: Colors.blue[600],
                                               alignment: Alignment.center,
 
@@ -4521,10 +4576,9 @@ class _MyHomePageState extends State<MyHomePage>
                                               ),
                                             )
                                           : Container(),
-                                      /*
-                                  Divider(
-                                    color: Colors.black,
-                                  ), */
+                                      SizedBox(
+                                        height: 20,
+                                      ),
                                       areLevel3AccountsActive
                                           ? Container(
                                               padding: const EdgeInsets.only(
