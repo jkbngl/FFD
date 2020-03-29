@@ -2751,8 +2751,8 @@ class _MyHomePageState extends State<MyHomePage>
                                           builder: (context) => new AlertDialog(
                                             title: Text('Comment'),
                                             content: new Text(
-                                                '${actList[index].comment}'),
-                                            actions: <Widget>[
+                                                "${actList[index].comment}\n\n'${actList[index].level1} > ${actList[index].level2} > ${actList[index].level3}\n\n${actList[index].costType}",
+                                              ),                                            actions: <Widget>[
                                               new FlatButton(
                                                 child: new Text('DISMISS'),
                                                 onPressed: () =>
@@ -3555,7 +3555,8 @@ class _MyHomePageState extends State<MyHomePage>
                                           builder: (context) => new AlertDialog(
                                             title: Text('Comment'),
                                             content: new Text(
-                                                '${bdgList[index].comment}'),
+                                              "${bdgList[index].comment}\n\n'${bdgList[index].level1} > ${bdgList[index].level2} > ${bdgList[index].level3}\n\n${bdgList[index].costType}",
+                                            ),
                                             actions: <Widget>[
                                               new FlatButton(
                                                 child: new Text('DISMISS'),
