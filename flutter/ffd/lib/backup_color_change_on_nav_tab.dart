@@ -2719,12 +2719,12 @@ class _MyHomePageState extends State<MyHomePage>
                                             BoxShadow(
                                               color: Colors.black12,
                                               blurRadius:
-                                                  20.0, // has the effect of softening the shadow
+                                              5, // has the effect of softening the shadow
                                               spreadRadius:
-                                                  5.0, // has the effect of extending the shadow
+                                              0, // has the effect of extending the shadow
                                               offset: Offset(
-                                                10.0, // horizontal, move right 10
-                                                10.0, // vertical, move down 10
+                                                7.0, // horizontal, move right 10
+                                                7.0, // vertical, move down 10
                                               ),
                                             )
                                           ],
@@ -3496,12 +3496,12 @@ class _MyHomePageState extends State<MyHomePage>
                                             BoxShadow(
                                               color: Colors.black12,
                                               blurRadius:
-                                                  20.0, // has the effect of softening the shadow
+                                              5, // has the effect of softening the shadow
                                               spreadRadius:
-                                                  5.0, // has the effect of extending the shadow
+                                              0, // has the effect of extending the shadow
                                               offset: Offset(
-                                                10.0, // horizontal, move right 10
-                                                10.0, // vertical, move down 10
+                                                7.0, // horizontal, move right 10
+                                                7.0, // vertical, move down 10
                                               ),
                                             )
                                           ],
