@@ -2643,16 +2643,17 @@ class _MyHomePageState extends State<MyHomePage>
                                         : SizedBox(height: 20),
                                     areCostTypesActive
                                         ? Container(
-                                            constraints: BoxConstraints.expand(
-                                              height: 50.0,
-                                            ),
-                                            padding: const EdgeInsets.only(
-                                                left: 30.0,
-                                                top: 0,
-                                                right: 30,
-                                                bottom: 0),
-                                            //color: Colors.blue[600],
-                                            alignment: Alignment.center,
+                                      constraints: BoxConstraints.expand(
+                                        height: 80,
+                                        //width: MediaQuery.of(context).size.width * .8
+                                      ),
+                                      padding: const EdgeInsets.only(
+                                          left: 30.0,
+                                          top: 0,
+                                          right: 30,
+                                          bottom: 0),
+                                      //color: Colors.blue[600],
+                                      alignment: Alignment.center,
                                             //child: Text('Submit'),
                                             child: Align(
                                               alignment: Alignment.topRight,
@@ -3386,18 +3387,18 @@ class _MyHomePageState extends State<MyHomePage>
                                             ? Container()
                                             : SizedBox(height: 20),
                                         areCostTypesActive
-                                            ? Container(
-                                                constraints:
-                                                    BoxConstraints.expand(
-                                                  height: 50.0,
-                                                ),
-                                                padding: const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment: Alignment.center,
+                                        ? Container(
+                                          constraints: BoxConstraints.expand(
+                                            height: 80,
+                                            //width: MediaQuery.of(context).size.width * .8
+                                          ),
+                                          padding: const EdgeInsets.only(
+                                              left: 30.0,
+                                              top: 0,
+                                              right: 30,
+                                              bottom: 0),
+                                          //color: Colors.blue[600],
+                                          alignment: Alignment.center,
                                                 //child: Text('Submit'),
                                                 child: Align(
                                                   alignment: Alignment.topRight,
