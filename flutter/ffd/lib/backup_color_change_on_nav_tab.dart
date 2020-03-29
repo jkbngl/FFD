@@ -408,48 +408,65 @@ class _MyHomePageState extends State<MyHomePage>
       "accesstoken": token,
     };
 
-    var amounts = await http.read(uri, headers: params);
-    var parsedAmounts = json.decode(amounts);
+    try {
+      var amounts = await http.read(uri, headers: params);
 
-    if (type == 'actual') {
-      actList.clear();
-    } else if (type == 'budget') {
-      bdgList.clear();
-    }
+      var parsedAmounts = json.decode(amounts);
 
-    for (var amount in parsedAmounts) {
       if (type == 'actual') {
-        actList.add(new ListItem(
-            'actual',
-            amount['id'],
-            amount['comment'],
-            amount['amount'],
-            amount['data_date'],
-            amount['level1'],
-            amount['level1_fk'],
-            amount['level2'],
-            amount['level2_fk'],
-            amount['level3'],
-            amount['level3_fk'],
-            amount['costtype'],
-            amount['active']));
+        actList.clear();
       } else if (type == 'budget') {
-        bdgList.add(new ListItem(
-            'budget',
-            amount['id'],
-            amount['comment'],
-            amount['amount'],
-            amount['data_date'],
-            amount['level1'],
-            amount['level1_fk'],
-            amount['level2'],
-            amount['level2_fk'],
-            amount['level3'],
-            amount['level3_fk'],
-            amount['costtype'],
-            amount['active']));
+        bdgList.clear();
       }
+
+      for (var amount in parsedAmounts) {
+        if (type == 'actual') {
+          actList.add(new ListItem(
+              'actual',
+              amount['id'],
+              amount['comment'],
+              amount['amount'],
+              amount['data_date'],
+              amount['level1'],
+              amount['level1_fk'],
+              amount['level2'],
+              amount['level2_fk'],
+              amount['level3'],
+              amount['level3_fk'],
+              amount['costtype'],
+              amount['active']));
+        } else if (type == 'budget') {
+          bdgList.add(new ListItem(
+              'budget',
+              amount['id'],
+              amount['comment'],
+              amount['amount'],
+              amount['data_date'],
+              amount['level1'],
+              amount['level1_fk'],
+              amount['level2'],
+              amount['level2_fk'],
+              amount['level3'],
+              amount['level3_fk'],
+              amount['costtype'],
+              amount['active']));
+        }
+      }
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          content: new Text("ERROR - $e"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('DISMISS'),
+              onPressed: () => Navigator.of(context).pop(),
+            )
+          ],
+        ),
+      );
     }
+    ;
 
     setState(() {});
   }
@@ -2705,8 +2722,10 @@ class _MyHomePageState extends State<MyHomePage>
                                           boxShadow: [
                                             BoxShadow(
                                               color: Colors.black12,
-                                              blurRadius: 20.0, // has the effect of softening the shadow
-                                              spreadRadius: 5.0, // has the effect of extending the shadow
+                                              blurRadius:
+                                                  20.0, // has the effect of softening the shadow
+                                              spreadRadius:
+                                                  5.0, // has the effect of extending the shadow
                                               offset: Offset(
                                                 10.0, // horizontal, move right 10
                                                 10.0, // vertical, move down 10
@@ -2816,72 +2835,122 @@ class _MyHomePageState extends State<MyHomePage>
                                                           ]),
                                                       SizedBox(
                                                         height: 15,
-                                                      ),                                                    ]),
-                                              ),
-                                          Column(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .start,
-                                              children: [Text('${actList[index].amount}'),
-                                              SizedBox(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    .1,
-                                                //height: 300.0,
-                                                child: IconButton(
-                                                  icon: new Icon(
-                                                    actList[index].active == 1
-                                                        ? Icons.delete
-                                                        : Icons.restore,
-                                                  ),
-                                                  color:
-                                                  Color(
-                                                      0xff0957FF),
-                                                  onPressed: () {
-                                                    print(
-                                                        'TODELETE + ${actList[index].id}');
-
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (context) =>
-                                                          new AlertDialog(
-                                                        title: Text(
-                                                            "Are you sure?"),
-                                                        content: new Text(
-                                                            'Deleting ${actList[index].id}'),
-                                                        actions: <Widget>[
-                                                          new FlatButton(
-                                                            child: new Text(
-                                                                'Cancel'),
-                                                            onPressed: () =>
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop(),
-                                                          ),
-                                                          new FlatButton(
-                                                            child: new Text(
-                                                                'Confirm'),
-                                                            onPressed: () {
-                                                              actObjectToDelete
-                                                                      .id =
-                                                                  actList[index]
-                                                                      .id;
-
-                                                              sendBackend(
-                                                                  'actlistdelete',
-                                                                  false);
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                            },
-                                                          )
-                                                        ],
                                                       ),
-                                                    );
-                                                  },
-                                                ),
-                                              )]),
+                                                    ]),
+                                              ),
+                                              Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                        '${actList[index].amount}'),
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              .1,
+                                                      //height: 300.0,
+                                                      child: IconButton(
+                                                        icon: new Icon(
+                                                          actList[index]
+                                                                      .active ==
+                                                                  1
+                                                              ? Icons.delete
+                                                              : Icons.restore,
+                                                        ),
+                                                        color:
+                                                            Color(0xff0957FF),
+                                                        onPressed: () {
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (context) =>
+                                                                new AlertDialog(
+                                                              title: Text(
+                                                                  "Are you sure?"),
+                                                              content: RichText(
+                                                                text: TextSpan(
+                                                                    text:
+                                                                        'Entry from ',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontSize:
+                                                                            18,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .bold),
+                                                                    children: <
+                                                                        TextSpan>[
+                                                                      TextSpan(
+                                                                        text:
+                                                                            '${actList[index].date} ',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Color(0xFF0957FF),
+                                                                            fontSize: 18),
+                                                                      ),
+                                                                      TextSpan(
+                                                                        text:
+                                                                            'with an amount of ',
+                                                                      ),
+                                                                      TextSpan(
+                                                                        text:
+                                                                            '${actList[index].amount} ',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Color(0xFF0957FF),
+                                                                            fontSize: 18),
+                                                                      ),
+                                                                      TextSpan(
+                                                                        text:
+                                                                            'will be ',
+                                                                      ),
+                                                                      TextSpan(
+                                                                        text:
+                                                                            '${actList[index].active == 1 ? "deleted" : "restored"}',
+                                                                        style: TextStyle(
+                                                                            color: actList[index].active == 1
+                                                                                ? Colors.red
+                                                                                : Colors.green,
+                                                                            fontSize: 18),
+                                                                      ),
+                                                                    ]),
+                                                              ),
+                                                              actions: <Widget>[
+                                                                new FlatButton(
+                                                                  child: new Text(
+                                                                      'Cancel'),
+                                                                  onPressed: () =>
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop(),
+                                                                ),
+                                                                new FlatButton(
+                                                                  child: new Text(
+                                                                      'Confirm'),
+                                                                  onPressed:
+                                                                      () {
+                                                                    actObjectToDelete
+                                                                            .id =
+                                                                        actList[index]
+                                                                            .id;
+
+                                                                    sendBackend(
+                                                                        'actlistdelete',
+                                                                        false);
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                  },
+                                                                )
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    )
+                                                  ]),
                                             ])),
                                       ));
                                 })),
@@ -3426,12 +3495,14 @@ class _MyHomePageState extends State<MyHomePage>
                                               ? Color(0xffEEEEEE)
                                               : Colors.redAccent,
                                           borderRadius:
-                                          new BorderRadius.circular(30.0),
+                                              new BorderRadius.circular(30.0),
                                           boxShadow: [
                                             BoxShadow(
                                               color: Colors.black12,
-                                              blurRadius: 20.0, // has the effect of softening the shadow
-                                              spreadRadius: 5.0, // has the effect of extending the shadow
+                                              blurRadius:
+                                                  20.0, // has the effect of softening the shadow
+                                              spreadRadius:
+                                                  5.0, // has the effect of extending the shadow
                                               offset: Offset(
                                                 10.0, // horizontal, move right 10
                                                 10.0, // vertical, move down 10
@@ -3442,171 +3513,225 @@ class _MyHomePageState extends State<MyHomePage>
                                         child: Center(
                                             child: Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceEvenly,
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.center,
                                                 children: <Widget>[
-                                                  SizedBox(
-                                                    width: MediaQuery.of(context)
+                                              SizedBox(
+                                                width: MediaQuery.of(context)
                                                         .size
                                                         .width *
-                                                        .6,
-                                                    //height: 300.0,
-                                                    child: Column(
-                                                        mainAxisAlignment:
+                                                    .6,
+                                                //height: 300.0,
+                                                child: Column(
+                                                    mainAxisAlignment:
                                                         MainAxisAlignment
                                                             .center,
-                                                        crossAxisAlignment:
+                                                    crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .center,
-                                                        children: <Widget>[
-                                                          SizedBox(height: 15),
-                                                          Row(
-                                                              mainAxisAlignment:
+                                                    children: <Widget>[
+                                                      SizedBox(height: 15),
+                                                      Row(
+                                                          mainAxisAlignment:
                                                               MainAxisAlignment
                                                                   .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: MediaQuery.of(
-                                                                      context)
+                                                          children: [
+                                                            SizedBox(
+                                                              width: MediaQuery.of(
+                                                                          context)
                                                                       .size
                                                                       .width *
-                                                                      .1,
-                                                                  child: Icon(
-                                                                    Icons
-                                                                        .account_balance_wallet,
-                                                                    color: Color(
-                                                                        0xff0957FF),
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  "${bdgList[index].date}",
-                                                                  style: TextStyle(
-                                                                      color: Color(
-                                                                          0xff0957FF),
-                                                                      fontSize: 25),
-                                                                ),
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Row(
-                                                              mainAxisAlignment:
+                                                                  .1,
+                                                              child: Icon(
+                                                                Icons
+                                                                    .account_balance_wallet,
+                                                                color: Color(
+                                                                    0xff0957FF),
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              "${bdgList[index].date}",
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xff0957FF),
+                                                                  fontSize: 25),
+                                                            ),
+                                                          ]),
+                                                      SizedBox(
+                                                        height: 10,
+                                                      ),
+                                                      Row(
+                                                          mainAxisAlignment:
                                                               MainAxisAlignment
                                                                   .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: MediaQuery.of(
-                                                                      context)
+                                                          children: [
+                                                            SizedBox(
+                                                              width: MediaQuery.of(
+                                                                          context)
                                                                       .size
                                                                       .width *
-                                                                      .1,
-                                                                  child:
+                                                                  .1,
+                                                              child:
                                                                   Container(),
-                                                                ),
-                                                                Text(
-                                                                  "${bdgList[index].comment}",
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize: 15),
-                                                                ),
-                                                                Container(),
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Row(
-                                                              mainAxisAlignment:
+                                                            ),
+                                                            Text(
+                                                              "${bdgList[index].comment}",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 15),
+                                                            ),
+                                                            Container(),
+                                                          ]),
+                                                      SizedBox(
+                                                        height: 10,
+                                                      ),
+                                                      Row(
+                                                          mainAxisAlignment:
                                                               MainAxisAlignment
                                                                   .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                    width: MediaQuery.of(
-                                                                        context)
+                                                          children: [
+                                                            SizedBox(
+                                                                width: MediaQuery.of(
+                                                                            context)
                                                                         .size
                                                                         .width *
-                                                                        .1,
-                                                                    //height: 300.0,
-                                                                    child:
+                                                                    .1,
+                                                                //height: 300.0,
+                                                                child:
                                                                     Container()),
-                                                                Text(
-                                                                  '${bdgList[index].level1} > ${bdgList[index].level2} > ${bdgList[index].level3} \n${bdgList[index].costType}',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize: 13),
-                                                                )
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 15,
-                                                          ),                                                    ]),
-                                                  ),
-                                                  Column(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .start,
-                                                      children: [Text('${bdgList[index].amount}'),
-                                                        SizedBox(
-                                                          width: MediaQuery.of(context)
-                                                              .size
-                                                              .width *
+                                                            Text(
+                                                              '${bdgList[index].level1} > ${bdgList[index].level2} > ${bdgList[index].level3} \n${bdgList[index].costType}',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 13),
+                                                            )
+                                                          ]),
+                                                      SizedBox(
+                                                        height: 15,
+                                                      ),
+                                                    ]),
+                                              ),
+                                              Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                        '${bdgList[index].amount}'),
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
                                                               .1,
-                                                          //height: 300.0,
-                                                          child: IconButton(
-                                                            icon: new Icon(
-                                                              bdgList[index].active == 1
-                                                                  ? Icons.delete
-                                                                  : Icons.restore,
-                                                            ),
-                                                            color: Color(
-                                                                0xff0957FF),
-                                                            onPressed: () {
-                                                              print(
-                                                                  'TODELETE + ${bdgList[index].id}');
+                                                      //height: 300.0,
+                                                      child: IconButton(
+                                                        icon: new Icon(
+                                                          bdgList[index]
+                                                                      .active ==
+                                                                  1
+                                                              ? Icons.delete
+                                                              : Icons.restore,
+                                                        ),
+                                                        color:
+                                                            Color(0xff0957FF),
+                                                        onPressed: () {
+                                                          print(
+                                                              'TODELETE + ${bdgList[index].id}');
 
-                                                              showDialog(
-                                                                context: context,
-                                                                builder: (context) =>
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (context) =>
                                                                 new AlertDialog(
-                                                                  title: Text(
-                                                                      "Are you sure?"),
-                                                                  content: new Text(
-                                                                      'Deleting ${bdgList[index].id}'),
-                                                                  actions: <Widget>[
-                                                                    new FlatButton(
-                                                                      child: new Text(
-                                                                          'Cancel'),
-                                                                      onPressed: () =>
-                                                                          Navigator.of(
+                                                              title: Text(
+                                                                  "Are you sure?"),
+                                                              content: RichText(
+                                                                text: TextSpan(
+                                                                    text:
+                                                                        'Entry from ',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontSize:
+                                                                            18,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .bold),
+                                                                    children: <
+                                                                        TextSpan>[
+                                                                      TextSpan(
+                                                                        text:
+                                                                            '${bdgList[index].date} ',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Color(0xFF0957FF),
+                                                                            fontSize: 18),
+                                                                      ),
+                                                                      TextSpan(
+                                                                        text:
+                                                                            'with an amount of ',
+                                                                      ),
+                                                                      TextSpan(
+                                                                        text:
+                                                                            '${bdgList[index].amount} ',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Color(0xFF0957FF),
+                                                                            fontSize: 18),
+                                                                      ),
+                                                                      TextSpan(
+                                                                        text:
+                                                                            'will be ',
+                                                                      ),
+                                                                      TextSpan(
+                                                                        text:
+                                                                            '${bdgList[index].active == 1 ? "deleted" : "restored"}',
+                                                                        style: TextStyle(
+                                                                            color: bdgList[index].active == 1
+                                                                                ? Colors.red
+                                                                                : Colors.green,
+                                                                            fontSize: 18),
+                                                                      ),
+                                                                    ]),
+                                                              ),
+                                                              actions: <Widget>[
+                                                                new FlatButton(
+                                                                  child: new Text(
+                                                                      'Cancel'),
+                                                                  onPressed: () =>
+                                                                      Navigator.of(
                                                                               context)
-                                                                              .pop(),
-                                                                    ),
-                                                                    new FlatButton(
-                                                                      child: new Text(
-                                                                          'Confirm'),
-                                                                      onPressed: () {
-                                                                        bdgObjectToDelete
-                                                                            .id =
-                                                                            bdgList[index]
-                                                                                .id;
-
-                                                                        sendBackend(
-                                                                            'bdglistdelete',
-                                                                            false);
-                                                                        Navigator.of(
-                                                                            context)
-                                                                            .pop();
-                                                                      },
-                                                                    )
-                                                                  ],
+                                                                          .pop(),
                                                                 ),
-                                                              );
-                                                            },
-                                                          ),
-                                                        )]),
-                                                ])),
+                                                                new FlatButton(
+                                                                  child: new Text(
+                                                                      'Confirm'),
+                                                                  onPressed:
+                                                                      () {
+                                                                    bdgObjectToDelete
+                                                                            .id =
+                                                                        bdgList[index]
+                                                                            .id;
+
+                                                                    sendBackend(
+                                                                        'bdglistdelete',
+                                                                        false);
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                  },
+                                                                )
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    )
+                                                  ]),
+                                            ])),
                                       ));
                                 })),
                       ]),
