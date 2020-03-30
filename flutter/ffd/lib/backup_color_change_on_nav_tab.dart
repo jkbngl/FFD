@@ -2751,8 +2751,9 @@ class _MyHomePageState extends State<MyHomePage>
                                           builder: (context) => new AlertDialog(
                                             title: Text('Comment'),
                                             content: new Text(
-                                                "${actList[index].comment}\n\n'${actList[index].level1} > ${actList[index].level2} > ${actList[index].level3}\n\n${actList[index].costType}",
-                                              ),                                            actions: <Widget>[
+                                              "${actList[index].comment}\n\n${actList[index].level1} > ${actList[index].level2} > ${actList[index].level3}\n\n${actList[index].costType}",
+                                            ),
+                                            actions: <Widget>[
                                               new FlatButton(
                                                 child: new Text('DISMISS'),
                                                 onPressed: () =>
@@ -2854,7 +2855,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             ),
                                                             Flexible(
                                                                 child: Text(
-                                                              "${actList[index].comment}",
+                                                              "${actList[index].comment.length > 0 ? actList[index].comment : 'no comment available'}",
                                                               style: TextStyle(
                                                                 color: Colors
                                                                     .black,
@@ -2961,44 +2962,75 @@ class _MyHomePageState extends State<MyHomePage>
                                                             builder: (context) =>
                                                                 new AlertDialog(
                                                               title: Text(
-                                                                  "Are you sure?"),
+                                                                "Are you sure?",
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 25,
+                                                                ),
+                                                              ),
                                                               content: RichText(
                                                                 text: TextSpan(
                                                                     text:
-                                                                        'Entry from ',
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            18,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .bold),
+                                                                        "${actList[index].comment.length > 0 ? actList[index].comment : 'no comment available'}\n\n",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          15,
+                                                                          fontStyle: FontStyle.italic
+                                                                    ),
                                                                     children: <
                                                                         TextSpan>[
                                                                       TextSpan(
                                                                         text:
-                                                                            '${actList[index].date} ',
-                                                                        style: TextStyle(
-                                                                            color:
-                                                                                Color(0xFF0957FF),
-                                                                            fontSize: 18),
+                                                                            'Entry from ',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              18,
+                                                                        ),
                                                                       ),
                                                                       TextSpan(
                                                                         text:
-                                                                            'with an amount of ',
+                                                                            '${actList[index].date} ',
+                                                                        style: TextStyle(
+                                                                            color: Color(
+                                                                                0xFF0957FF),
+                                                                            fontSize:
+                                                                                18,
+                                                                            fontWeight:
+                                                                                FontWeight.bold),
+                                                                      ),
+                                                                      TextSpan(
+                                                                        text:
+                                                                            'with an amount of ', style:
+                                                                      TextStyle(
+                                                                        fontSize:
+                                                                        18,
+                                                                      ),
                                                                       ),
                                                                       TextSpan(
                                                                         text:
                                                                             '${actList[index].amount} ',
                                                                         style: TextStyle(
-                                                                            color:
-                                                                                Color(0xFF0957FF),
-                                                                            fontSize: 18),
+                                                                            color: Color(
+                                                                                0xFF0957FF),
+                                                                            fontSize:
+                                                                                18,
+                                                                            fontWeight:
+                                                                                FontWeight.bold),
                                                                       ),
                                                                       TextSpan(
                                                                         text:
-                                                                            'will be ',
+                                                                            'will be ', style:
+                                                                      TextStyle(
+                                                                        fontSize:
+                                                                        18,
+                                                                      ),
                                                                       ),
                                                                       TextSpan(
                                                                         text:
@@ -3007,7 +3039,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             color: actList[index].active == 1
                                                                                 ? Colors.red
                                                                                 : Colors.green,
-                                                                            fontSize: 18),
+                                                                            fontSize: 18,
+                                                                            fontWeight: FontWeight.bold),
                                                                       ),
                                                                     ]),
                                                               ),
@@ -3555,7 +3588,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           builder: (context) => new AlertDialog(
                                             title: Text('Comment'),
                                             content: new Text(
-                                              "${bdgList[index].comment}\n\n'${bdgList[index].level1} > ${bdgList[index].level2} > ${bdgList[index].level3}\n\n${bdgList[index].costType}",
+                                              "${bdgList[index].comment}\n\n${bdgList[index].level1} > ${bdgList[index].level2} > ${bdgList[index].level3}\n\n${bdgList[index].costType}",
                                             ),
                                             actions: <Widget>[
                                               new FlatButton(
@@ -3659,7 +3692,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             ),
                                                             Flexible(
                                                                 child: Text(
-                                                              "${bdgList[index].comment}",
+                                                              "${bdgList[index].comment.length > 0 ? bdgList[index].comment : 'no comment available'}",
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .black,
@@ -3667,7 +3700,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       FontStyle
                                                                           .italic,
                                                                   fontSize: 15),
-                                                                  overflow:
+                                                              overflow:
                                                                   TextOverflow
                                                                       .ellipsis,
                                                             )),
@@ -3772,44 +3805,77 @@ class _MyHomePageState extends State<MyHomePage>
                                                             builder: (context) =>
                                                                 new AlertDialog(
                                                               title: Text(
-                                                                  "Are you sure?"),
+                                                                "Are you sure?",
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 25,
+                                                                ),
+                                                              ),
                                                               content: RichText(
                                                                 text: TextSpan(
                                                                     text:
-                                                                        'Entry from ',
+                                                                        "${bdgList[index].comment.length > 0 ? bdgList[index].comment : 'no comment available'}\n\n",
                                                                     style: TextStyle(
                                                                         color: Colors
                                                                             .black,
                                                                         fontSize:
-                                                                            18,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .bold),
+                                                                            15,
+                                                                        fontStyle:
+                                                                            FontStyle
+                                                                                .italic),
                                                                     children: <
                                                                         TextSpan>[
                                                                       TextSpan(
                                                                         text:
+                                                                            'Entry from ',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              18,
+                                                                        ),
+                                                                      ),
+                                                                      TextSpan(
+                                                                        text:
                                                                             '${bdgList[index].date} ',
                                                                         style: TextStyle(
-                                                                            color:
-                                                                                Color(0xFF0957FF),
-                                                                            fontSize: 18),
+                                                                            color: Color(
+                                                                                0xFF0957FF),
+                                                                            fontSize:
+                                                                                18,
+                                                                            fontWeight:
+                                                                                FontWeight.bold),
                                                                       ),
                                                                       TextSpan(
                                                                         text:
                                                                             'with an amount of ',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              18,
+                                                                        ),
                                                                       ),
                                                                       TextSpan(
                                                                         text:
                                                                             '${bdgList[index].amount} ',
                                                                         style: TextStyle(
-                                                                            color:
-                                                                                Color(0xFF0957FF),
-                                                                            fontSize: 18),
+                                                                            color: Color(
+                                                                                0xFF0957FF),
+                                                                            fontSize:
+                                                                                18,
+                                                                            fontWeight:
+                                                                                FontWeight.bold),
                                                                       ),
                                                                       TextSpan(
                                                                         text:
                                                                             'will be ',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              18,
+                                                                        ),
                                                                       ),
                                                                       TextSpan(
                                                                         text:
@@ -3818,7 +3884,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             color: bdgList[index].active == 1
                                                                                 ? Colors.red
                                                                                 : Colors.green,
-                                                                            fontSize: 18),
+                                                                            fontSize: 18,
+                                                                            fontWeight: FontWeight.bold),
                                                                       ),
                                                                     ]),
                                                               ),
@@ -4479,7 +4546,7 @@ class _MyHomePageState extends State<MyHomePage>
                                             )
                                           : Container(),
                                       SizedBox(
-                                        height: 20,
+                                        height: 15,
                                       ),
                                       areLevel2AccountsActive
                                           ? Container(
