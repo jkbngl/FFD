@@ -3237,369 +3237,413 @@ class _MyHomePageState extends State<MyHomePage>
                                       //await Future.delayed(Duration(seconds: 2));
                                       _refreshController.refreshCompleted();
                                     },
-                                    child: ListView.builder(  // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
-    itemCount: 1,
-    itemBuilder: (BuildContext context, int index) {
-    return Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Row(
+                                    child: ListView.builder(
+                                        // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
+                                        itemCount: 1,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return Column(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
+                                                MainAxisAlignment.center,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: <Widget>[
-                                              ButtonTheme(
-                                                //minWidth: 150.0,
-                                                height: 60.0,
-                                                child: FlatButton(
-                                                  onPressed: () =>
-                                                      _showDatePicker('budget',
-                                                          dateTimeBudget),
-                                                  shape:
-                                                      new RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        new BorderRadius
-                                                            .circular(40.0),
-                                                  ),
-                                                  color: Color(0xff003680),
-                                                  padding: EdgeInsets.all(10.0),
-                                                  child: Row(
-                                                    // Replace with a Row for horizontal icon + text
-                                                    children: <Widget>[
-                                                      Text(
-                                                          " ${dateTimeBudget.year.toString()}-${dateTimeBudget.month.toString().padLeft(2, '0')}",
-                                                          style: TextStyle(
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    ButtonTheme(
+                                                      //minWidth: 150.0,
+                                                      height: 60.0,
+                                                      child: FlatButton(
+                                                        onPressed: () =>
+                                                            _showDatePicker(
+                                                                'budget',
+                                                                dateTimeBudget),
+                                                        shape:
+                                                            new RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              new BorderRadius
+                                                                      .circular(
+                                                                  40.0),
+                                                        ),
+                                                        color:
+                                                            Color(0xff003680),
+                                                        padding: EdgeInsets.all(
+                                                            10.0),
+                                                        child: Row(
+                                                          // Replace with a Row for horizontal icon + text
+                                                          children: <Widget>[
+                                                            Text(
+                                                                " ${dateTimeBudget.year.toString()}-${dateTimeBudget.month.toString().padLeft(2, '0')}",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        17)),
+                                                            SizedBox(width: 10),
+                                                            Icon(
+                                                              Icons
+                                                                  .calendar_today,
                                                               color:
                                                                   Colors.white,
-                                                              fontSize: 17)),
-                                                      SizedBox(width: 10),
-                                                      Icon(
-                                                        Icons.calendar_today,
-                                                        color: Colors.white,
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                  ]),
+                                              Container(
+                                                padding: const EdgeInsets.only(
+                                                    left: 30.0,
+                                                    top: 0,
+                                                    right: 30,
+                                                    bottom: 0),
+                                                //color: Colors.blue[600],
+                                                alignment: Alignment.center,
+                                                //child: Text('Submit'),
+                                                child: TextFormField(
+                                                  keyboardType: TextInputType
+                                                      .number, //keyboard with numbers only will appear to the screen
+                                                  style: TextStyle(
+                                                      height:
+                                                          2), //increases the height of cursor
+                                                  //autofocus: true,
+                                                  controller:
+                                                      budgetTextFieldController,
+                                                  decoration: InputDecoration(
+                                                      // hintText: 'Enter ur amount',
+                                                      //hintStyle: TextStyle(height: 1.75),
+                                                      labelText:
+                                                          'Enter your amount',
+                                                      labelStyle: TextStyle(
+                                                          height: 0.5,
+                                                          color: Color(
+                                                              0xff0957FF)), //increases the height of cursor
+                                                      icon: Icon(
+                                                        Icons.attach_money,
+                                                        color:
+                                                            Color(0xff0957FF),
+                                                      ),
+                                                      //prefixIcon: Icon(Icons.attach_money),
+                                                      //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                      enabledBorder:
+                                                          new UnderlineInputBorder(
+                                                              borderSide:
+                                                                  new BorderSide(
+                                                                      color: Color(
+                                                                          0xff0957FF)))),
                                                 ),
                                               ),
-                                            ]),
-                                        Container(
-                                          padding: const EdgeInsets.only(
-                                              left: 30.0,
-                                              top: 0,
-                                              right: 30,
-                                              bottom: 0),
-                                          //color: Colors.blue[600],
-                                          alignment: Alignment.center,
-                                          //child: Text('Submit'),
-                                          child: TextFormField(
-                                            keyboardType: TextInputType
-                                                .number, //keyboard with numbers only will appear to the screen
-                                            style: TextStyle(
-                                                height:
-                                                    2), //increases the height of cursor
-                                            //autofocus: true,
-                                            controller:
-                                                budgetTextFieldController,
-                                            decoration: InputDecoration(
-                                                // hintText: 'Enter ur amount',
-                                                //hintStyle: TextStyle(height: 1.75),
-                                                labelText: 'Enter your amount',
-                                                labelStyle: TextStyle(
-                                                    height: 0.5,
-                                                    color: Color(
-                                                        0xff0957FF)), //increases the height of cursor
-                                                icon: Icon(
-                                                  Icons.attach_money,
-                                                  color: Color(0xff0957FF),
-                                                ),
-                                                //prefixIcon: Icon(Icons.attach_money),
-                                                //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                                enabledBorder:
-                                                    new UnderlineInputBorder(
-                                                        borderSide: new BorderSide(
+                                              areLevel1AccountsActive
+                                                  ? Container(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 30.0,
+                                                              top: 0,
+                                                              right: 30,
+                                                              bottom: 0),
+                                                      //color: Colors.blue[600],
+                                                      alignment:
+                                                          Alignment.center,
+                                                      //child: Text('Submit'),
+                                                      child:
+                                                          SearchChoices.single(
+                                                        items:
+                                                            level1BudgetAccountsList
+                                                                .map((Account
+                                                                    account) {
+                                                          return new DropdownMenuItem<
+                                                              Account>(
+                                                            value: account,
+                                                            child: new Text(
+                                                              account.name,
+                                                            ),
+                                                          );
+                                                        }).toList(),
+                                                        style: TextStyle(
                                                             color: Color(
-                                                                0xff0957FF)))),
-                                          ),
-                                        ),
-                                        areLevel1AccountsActive
-                                            ? Container(
-                                                padding: const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment: Alignment.center,
-                                                //child: Text('Submit'),
-                                                child: SearchChoices.single(
-                                                  items:
-                                                      level1BudgetAccountsList
-                                                          .map((Account
-                                                              account) {
-                                                    return new DropdownMenuItem<
-                                                        Account>(
-                                                      value: account,
-                                                      child: new Text(
-                                                        account.name,
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                  style: TextStyle(
-                                                      color: Color(0xff0957FF)),
-                                                  value: level1BudgetObject,
-                                                  underline: Container(
-                                                    height: 2,
-                                                    width: 5000,
-                                                    color: Color(0xff0957FF),
-                                                  ),
-                                                  hint: "Select one number",
-                                                  searchHint:
-                                                      "Select one number",
-                                                  onClear: () {
-                                                    print("CLEARING");
-
-                                                    setState(() {
-                                                      level1BudgetObject =
-                                                          level1BudgetAccountsList[
-                                                              0];
-                                                    });
-                                                  },
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      level1BudgetObject =
-                                                          value;
-                                                    });
-
-                                                    arrangeAccounts(
-                                                        1, 'budget');
-                                                  },
-                                                  dialogBox: true,
-                                                  isExpanded: true,
-                                                ),
-                                              )
-                                            : Container(),
-                                        areLevel2AccountsActive
-                                            ? Container(
-                                                padding: const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-
-                                                alignment: Alignment.center,
-                                                //child: Text('Submit'),
-                                                child: SearchChoices.single(
-                                                  items:
-                                                      level2BudgetAccountsList
-                                                          .map((Account
-                                                              account) {
-                                                    return new DropdownMenuItem<
-                                                        Account>(
-                                                      value: account,
-                                                      child: new Text(
-                                                        account.name,
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                  style: TextStyle(
-                                                      color: Color(0xff0957FF)),
-                                                  value: level2BudgetObject,
-                                                  readOnly: level1BudgetObject
-                                                              .id <=
-                                                          0 ||
-                                                      level2BudgetAccountsList
-                                                              .length ==
-                                                          1,
-                                                  underline: Container(
-                                                    height: 2,
-                                                    width: 5000,
-                                                    color: Color(0xff0957FF),
-                                                  ),
-                                                  hint: "Select one number",
-                                                  searchHint:
-                                                      "Select one number",
-                                                  onClear: (value) {
-                                                    setState(() {
-                                                      level2BudgetObject =
-                                                          level2BudgetAccountsList[
-                                                              0];
-                                                    });
-                                                  },
-                                                  onChanged: (value) {
-                                                    // Check if a new value was selected or the same was reselected
-                                                    dummyAccount =
-                                                        level2BudgetObject;
-
-                                                    setState(() {
-                                                      level2BudgetObject =
-                                                          value;
-                                                    });
-
-                                                    if (dummyAccount.id !=
-                                                        value.id) {
-                                                      arrangeAccounts(
-                                                          2, 'budget');
-                                                    } else {
-                                                      print("RESELECTED");
-                                                    }
-                                                  },
-                                                  dialogBox: true,
-                                                  isExpanded: true,
-                                                ),
-                                              )
-                                            : Container(),
-                                        areLevel3AccountsActive
-                                            ? Container(
-                                                padding: const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment: Alignment.center,
-                                                //child: Text('Submit'),
-                                                child: SearchChoices.single(
-                                                  items:
-                                                      level3BudgetAccountsList
-                                                          .map((Account
-                                                              account) {
-                                                    return new DropdownMenuItem<
-                                                        Account>(
-                                                      value: account,
-                                                      child: new Text(
-                                                        account.name,
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                  style: TextStyle(
-                                                      color: Color(0xff0957FF)),
-                                                  value: level3BudgetObject,
-                                                  readOnly: level3BudgetObject
-                                                              .id <=
-                                                          0 ||
-                                                      level3BudgetAccountsList
-                                                              .length ==
-                                                          1,
-                                                  underline: Container(
-                                                    height: 2,
-                                                    width: 5000,
-                                                    color: Color(0xff0957FF),
-                                                  ),
-                                                  hint: "Select one number",
-                                                  searchHint:
-                                                      "Select one number",
-                                                  onClear: (value) {
-                                                    setState(() {
-                                                      level3BudgetObject =
-                                                          level3BudgetAccountsList[
-                                                              0];
-                                                    });
-                                                  }, // The default object is set again
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      level3BudgetObject =
-                                                          value;
-                                                    });
-
-                                                    // TODO probably not needed as change in level3 has no affect in anything
-                                                    // arrangeAccounts(3, 'actual');
-                                                  },
-                                                  dialogBox: true,
-                                                  isExpanded: true,
-                                                ),
-                                              )
-                                            : Container(),
-                                        // #52 when a level is deactivated the widgets have no space between
-                                        // this adds a little white space between the widget
-                                        areLevel3AccountsActive
-                                            ? Container()
-                                            : SizedBox(height: 20),
-                                        areCostTypesActive
-                                            ? Container(
-                                                constraints:
-                                                    BoxConstraints.expand(
-                                                  height: 80,
-                                                  //width: MediaQuery.of(context).size.width * .8
-                                                ),
-                                                padding: const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment: Alignment.center,
-                                                //child: Text('Submit'),
-                                                child: Align(
-                                                  alignment: Alignment.topRight,
-                                                  child: SearchChoices.single(
-                                                    value: costTypeObjectBudget,
-                                                    icon: Icon(
-                                                        Icons.arrow_downward),
-                                                    iconSize: 24,
-                                                    style: TextStyle(
-                                                        color:
-                                                            Color(0xff0957FF)),
-                                                    //isExpanded: true,
-                                                    underline: Container(
-                                                      height: 2,
-                                                      width: 2000,
-                                                      color: Color(0xff0957FF),
-                                                    ),
-                                                    onChanged:
-                                                        (CostType newValue) {
-                                                      setState(() {
-                                                        costTypeObjectBudget =
-                                                            newValue;
-                                                      });
-                                                    },
-                                                    items: costTypesList
-                                                        .map((CostType type) {
-                                                      return new DropdownMenuItem<
-                                                          CostType>(
-                                                        value: type,
-                                                        child: new Text(
-                                                          type.name,
+                                                                0xff0957FF)),
+                                                        value:
+                                                            level1BudgetObject,
+                                                        underline: Container(
+                                                          height: 2,
+                                                          width: 5000,
+                                                          color:
+                                                              Color(0xff0957FF),
                                                         ),
-                                                      );
-                                                    }).toList(),
-                                                  ),
-                                                ),
-                                              )
-                                            : Container(),
-                                        ButtonBar(
-                                          mainAxisSize: MainAxisSize
-                                              .min, // this will take space as minimum as posible(to center)
-                                          children: <Widget>[
-                                            ButtonTheme(
-                                              minWidth: 75.0,
-                                              height: 40.0,
-                                              child: RaisedButton(
-                                                child: Text('Discard'),
-                                                color:
-                                                    Color(0xffEEEEEE), // EEEEEE
-                                                onPressed: () {
-                                                  budgetTextFieldController
-                                                      .text = '';
-                                                  setState(() {
-                                                    level1BudgetObject =
-                                                        level1BudgetAccountsList[
-                                                            0];
-                                                    level2BudgetObject =
-                                                        level2BudgetAccountsList[
-                                                            0];
-                                                    level3BudgetObject =
-                                                        level3BudgetAccountsList[
-                                                            0];
+                                                        hint:
+                                                            "Select one number",
+                                                        searchHint:
+                                                            "Select one number",
+                                                        onClear: () {
+                                                          print("CLEARING");
 
-                                                    costTypeObjectBudget =
-                                                        costTypesList[0];
-                                                  });
-                                                  /*
+                                                          setState(() {
+                                                            level1BudgetObject =
+                                                                level1BudgetAccountsList[
+                                                                    0];
+                                                          });
+                                                        },
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            level1BudgetObject =
+                                                                value;
+                                                          });
+
+                                                          arrangeAccounts(
+                                                              1, 'budget');
+                                                        },
+                                                        dialogBox: true,
+                                                        isExpanded: true,
+                                                      ),
+                                                    )
+                                                  : Container(),
+                                              areLevel2AccountsActive
+                                                  ? Container(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 30.0,
+                                                              top: 0,
+                                                              right: 30,
+                                                              bottom: 0),
+                                                      //color: Colors.blue[600],
+
+                                                      alignment:
+                                                          Alignment.center,
+                                                      //child: Text('Submit'),
+                                                      child:
+                                                          SearchChoices.single(
+                                                        items:
+                                                            level2BudgetAccountsList
+                                                                .map((Account
+                                                                    account) {
+                                                          return new DropdownMenuItem<
+                                                              Account>(
+                                                            value: account,
+                                                            child: new Text(
+                                                              account.name,
+                                                            ),
+                                                          );
+                                                        }).toList(),
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xff0957FF)),
+                                                        value:
+                                                            level2BudgetObject,
+                                                        readOnly: level1BudgetObject
+                                                                    .id <=
+                                                                0 ||
+                                                            level2BudgetAccountsList
+                                                                    .length ==
+                                                                1,
+                                                        underline: Container(
+                                                          height: 2,
+                                                          width: 5000,
+                                                          color:
+                                                              Color(0xff0957FF),
+                                                        ),
+                                                        hint:
+                                                            "Select one number",
+                                                        searchHint:
+                                                            "Select one number",
+                                                        onClear: (value) {
+                                                          setState(() {
+                                                            level2BudgetObject =
+                                                                level2BudgetAccountsList[
+                                                                    0];
+                                                          });
+                                                        },
+                                                        onChanged: (value) {
+                                                          // Check if a new value was selected or the same was reselected
+                                                          dummyAccount =
+                                                              level2BudgetObject;
+
+                                                          setState(() {
+                                                            level2BudgetObject =
+                                                                value;
+                                                          });
+
+                                                          if (dummyAccount.id !=
+                                                              value.id) {
+                                                            arrangeAccounts(
+                                                                2, 'budget');
+                                                          } else {
+                                                            print("RESELECTED");
+                                                          }
+                                                        },
+                                                        dialogBox: true,
+                                                        isExpanded: true,
+                                                      ),
+                                                    )
+                                                  : Container(),
+                                              areLevel3AccountsActive
+                                                  ? Container(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 30.0,
+                                                              top: 0,
+                                                              right: 30,
+                                                              bottom: 0),
+                                                      //color: Colors.blue[600],
+                                                      alignment:
+                                                          Alignment.center,
+                                                      //child: Text('Submit'),
+                                                      child:
+                                                          SearchChoices.single(
+                                                        items:
+                                                            level3BudgetAccountsList
+                                                                .map((Account
+                                                                    account) {
+                                                          return new DropdownMenuItem<
+                                                              Account>(
+                                                            value: account,
+                                                            child: new Text(
+                                                              account.name,
+                                                            ),
+                                                          );
+                                                        }).toList(),
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xff0957FF)),
+                                                        value:
+                                                            level3BudgetObject,
+                                                        readOnly: level3BudgetObject
+                                                                    .id <=
+                                                                0 ||
+                                                            level3BudgetAccountsList
+                                                                    .length ==
+                                                                1,
+                                                        underline: Container(
+                                                          height: 2,
+                                                          width: 5000,
+                                                          color:
+                                                              Color(0xff0957FF),
+                                                        ),
+                                                        hint:
+                                                            "Select one number",
+                                                        searchHint:
+                                                            "Select one number",
+                                                        onClear: (value) {
+                                                          setState(() {
+                                                            level3BudgetObject =
+                                                                level3BudgetAccountsList[
+                                                                    0];
+                                                          });
+                                                        }, // The default object is set again
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            level3BudgetObject =
+                                                                value;
+                                                          });
+
+                                                          // TODO probably not needed as change in level3 has no affect in anything
+                                                          // arrangeAccounts(3, 'actual');
+                                                        },
+                                                        dialogBox: true,
+                                                        isExpanded: true,
+                                                      ),
+                                                    )
+                                                  : Container(),
+                                              // #52 when a level is deactivated the widgets have no space between
+                                              // this adds a little white space between the widget
+                                              areLevel3AccountsActive
+                                                  ? Container()
+                                                  : SizedBox(height: 20),
+                                              areCostTypesActive
+                                                  ? Container(
+                                                      constraints:
+                                                          BoxConstraints.expand(
+                                                        height: 80,
+                                                        //width: MediaQuery.of(context).size.width * .8
+                                                      ),
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 30.0,
+                                                              top: 0,
+                                                              right: 30,
+                                                              bottom: 0),
+                                                      //color: Colors.blue[600],
+                                                      alignment:
+                                                          Alignment.center,
+                                                      //child: Text('Submit'),
+                                                      child: Align(
+                                                        alignment:
+                                                            Alignment.topRight,
+                                                        child: SearchChoices
+                                                            .single(
+                                                          value:
+                                                              costTypeObjectBudget,
+                                                          icon: Icon(Icons
+                                                              .arrow_downward),
+                                                          iconSize: 24,
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  0xff0957FF)),
+                                                          //isExpanded: true,
+                                                          underline: Container(
+                                                            height: 2,
+                                                            width: 2000,
+                                                            color: Color(
+                                                                0xff0957FF),
+                                                          ),
+                                                          onChanged: (CostType
+                                                              newValue) {
+                                                            setState(() {
+                                                              costTypeObjectBudget =
+                                                                  newValue;
+                                                            });
+                                                          },
+                                                          items: costTypesList
+                                                              .map((CostType
+                                                                  type) {
+                                                            return new DropdownMenuItem<
+                                                                CostType>(
+                                                              value: type,
+                                                              child: new Text(
+                                                                type.name,
+                                                              ),
+                                                            );
+                                                          }).toList(),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  : Container(),
+                                              ButtonBar(
+                                                mainAxisSize: MainAxisSize
+                                                    .min, // this will take space as minimum as posible(to center)
+                                                children: <Widget>[
+                                                  ButtonTheme(
+                                                    minWidth: 75.0,
+                                                    height: 40.0,
+                                                    child: RaisedButton(
+                                                      child: Text('Discard'),
+                                                      color: Color(
+                                                          0xffEEEEEE), // EEEEEE
+                                                      onPressed: () {
+                                                        budgetTextFieldController
+                                                            .text = '';
+                                                        setState(() {
+                                                          level1BudgetObject =
+                                                              level1BudgetAccountsList[
+                                                                  0];
+                                                          level2BudgetObject =
+                                                              level2BudgetAccountsList[
+                                                                  0];
+                                                          level3BudgetObject =
+                                                              level3BudgetAccountsList[
+                                                                  0];
+
+                                                          costTypeObjectBudget =
+                                                              costTypesList[0];
+                                                        });
+                                                        /*
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -3621,33 +3665,35 @@ class _MyHomePageState extends State<MyHomePage>
                                   },
                                 );
                                 */
-                                                },
+                                                      },
+                                                    ),
+                                                  ),
+                                                  ButtonTheme(
+                                                    minWidth: 150.0,
+                                                    height: 60.0,
+                                                    child: RaisedButton(
+                                                      child: Text('Save',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 17)),
+                                                      color: Color(
+                                                          0xff0957FF), //df7599 - 0957FF
+                                                      onPressed: () {
+                                                        commentInput(
+                                                            context,
+                                                            'budget',
+                                                            null,
+                                                            null,
+                                                            null);
+                                                      },
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                            ButtonTheme(
-                                              minWidth: 150.0,
-                                              height: 60.0,
-                                              child: RaisedButton(
-                                                child: Text('Save',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 17)),
-                                                color: Color(
-                                                    0xff0957FF), //df7599 - 0957FF
-                                                onPressed: () {
-                                                  commentInput(
-                                                      context,
-                                                      'budget',
-                                                      null,
-                                                      null,
-                                                      null);
-                                                },
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    );})),
+                                            ],
+                                          );
+                                        })),
                               ),
                             ],
                           ),
@@ -4030,217 +4076,244 @@ class _MyHomePageState extends State<MyHomePage>
                         //await Future.delayed(Duration(seconds: 2));
                         _refreshController.refreshCompleted();
                       },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      child: ListView.builder(
+                          // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
+                          itemCount: 1,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                ButtonTheme(
-                                  //minWidth: 150.0,
-                                  height: 60.0,
-                                  child: FlatButton(
-                                    onPressed: () => _showDatePicker(
-                                        'visualizer', dateTimeVisualizer),
-                                    shape: new RoundedRectangleBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(40.0),
-                                    ),
-                                    color: Color(0xff003680),
-                                    padding: EdgeInsets.all(10.0),
-                                    child: Row(
-                                      // Replace with a Row for horizontal icon + text
-                                      children: <Widget>[
-                                        Text(
-                                            " ${dateTimeVisualizer.year.toString()}-${dateTimeVisualizer.month.toString().padLeft(2, '0')}",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 17)),
-                                        SizedBox(width: 10),
-                                        Icon(
-                                          Icons.calendar_today,
-                                          color: Colors.white,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * .05,
                                 ),
-                              ]),
-                          Container(
-                            //color: Colors.blue[600],
-                            alignment: Alignment.center,
-                            //child: Text('Submit'),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Switch(
-                                    value: showFullYear,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        showAllTime = false;
-                                        showFullYear = value;
-                                        loadAmount();
-                                      });
-                                    },
-                                    activeTrackColor: Color(0xffEEEEEE),
-                                    activeColor: Color(0xff0957FF),
-                                  ),
-                                  Text(
-                                    "Full Year",
-                                    style: TextStyle(fontSize: 25),
-                                  ),
-                                  Switch(
-                                    value: showAllTime,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        showFullYear = false;
-                                        showAllTime = value;
-                                        loadAmount();
-                                      });
-                                    },
-                                    activeTrackColor: Color(0xffEEEEEE),
-                                    activeColor: Color(0xff0957FF),
-                                  ),
-                                  Text(
-                                    "All Time",
-                                    style: TextStyle(fontSize: 25),
-                                  ),
-                                ]),
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                              padding: const EdgeInsets.only(
-                                  left: 30.0, top: 0, right: 0, bottom: 0),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "Drilldown: " + drilldownLevel,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * .4,
-                            child: charts.BarChart(
-                              [
-                                charts.Series<CompanySizeVsNumberOfCompanies,
-                                        String>(
-                                    id: 'CompanySizeVsNumberOfCompanies',
-                                    colorFn: (_, __) =>
-                                        charts.ColorUtil.fromDartColor(
-                                            Color(0xFF0957FF)),
-                                    domainFn:
-                                        (CompanySizeVsNumberOfCompanies sales,
-                                                _) =>
-                                            sales.companySize,
-                                    measureFn:
-                                        (CompanySizeVsNumberOfCompanies sales,
-                                                _) =>
-                                            sales.numberOfCompanies,
-                                    labelAccessorFn:
-                                        (CompanySizeVsNumberOfCompanies sales,
-                                                _) =>
-                                            '${sales.companySize}: ${sales.numberOfCompanies.toString()}€',
-                                    data: visualizerData)
-                              ],
-                              animate: true,
-                              selectionModels: [
-                                new charts.SelectionModelConfig(
-                                    type: charts.SelectionModelType.info,
-                                    changedListener: _onSelectionChanged)
-                              ],
-                              vertical: false,
-                              // Hide domain axis.
-                              barRendererDecorator:
-                                  new charts.BarLabelDecorator<String>(),
-                              // Hide domain axis.
-                              domainAxis: new charts.OrdinalAxisSpec(
-                                  renderSpec: new charts.NoneRenderSpec()),
-                              behaviors: [
-                                charts.ChartTitle('Spendings per Accounts'),
-                                charts.ChartTitle('Accounts',
-                                    behaviorPosition:
-                                        charts.BehaviorPosition.start),
-                                charts.ChartTitle('Amounts',
-                                    behaviorPosition:
-                                        charts.BehaviorPosition.bottom)
-                              ],
-                            ),
-                          ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Container(
-                                  padding: const EdgeInsets.only(
-                                      left: 30.0, top: 0, right: 30, bottom: 0),
-                                  //child: Text('Submit'),
-                                  child: RaisedButton(
-                                    child: Text('Reset'),
-                                    color: Color(0xffEEEEEE), // EEEEEE
-                                    onPressed: () {
-                                      setState(() {
-                                        showAllTime = false;
-                                        showFullYear = false;
-                                        costTypeObjectVisualizer =
-                                            costTypesList[0];
-                                        dateTimeVisualizer =
-                                            DateTime.parse(INIT_DATETIME);
-
-                                        g_parent_account.accountLevel = 1;
-                                        g_parent_account.id = -69;
-
-                                        drilldownLevel = "";
-
-                                        loadAmount();
-                                      });
-                                    },
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.only(
-                                      left: 30.0,
-                                      top: 0,
-                                      right: 30,
-                                      bottom: 30),
-                                  //child: Text('Submit'),
-                                  child: Align(
-                                    alignment: Alignment.topRight,
-                                    child: SearchChoices.single(
-                                      value: costTypeObjectVisualizer,
-                                      icon: Icon(Icons.arrow_downward),
-                                      iconSize: 24,
-                                      style:
-                                          TextStyle(color: Color(0xff0957FF)),
-                                      underline: Container(
-                                        height: 2,
-                                        width: 2000,
-                                        color: Color(0xff0957FF),
-                                      ),
-                                      onChanged: (CostType newValue) {
-                                        setState(() {
-                                          costTypeObjectVisualizer = newValue;
-                                          loadAmount();
-                                        });
-                                      },
-                                      items: costTypesList.map((CostType type) {
-                                        return new DropdownMenuItem<CostType>(
-                                          value: type,
-                                          child: new Text(
-                                            type.name,
+                                Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      ButtonTheme(
+                                        //minWidth: 150.0,
+                                        height: 60.0,
+                                        child: FlatButton(
+                                          onPressed: () => _showDatePicker(
+                                              'visualizer', dateTimeVisualizer),
+                                          shape: new RoundedRectangleBorder(
+                                            borderRadius:
+                                                new BorderRadius.circular(40.0),
                                           ),
-                                        );
-                                      }).toList(),
+                                          color: Color(0xff003680),
+                                          padding: EdgeInsets.all(10.0),
+                                          child: Row(
+                                            // Replace with a Row for horizontal icon + text
+                                            children: <Widget>[
+                                              Text(
+                                                  " ${dateTimeVisualizer.year.toString()}-${dateTimeVisualizer.month.toString().padLeft(2, '0')}",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 17)),
+                                              SizedBox(width: 10),
+                                              Icon(
+                                                Icons.calendar_today,
+                                                color: Colors.white,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ]),
+                                Container(
+                                  //color: Colors.blue[600],
+                                  alignment: Alignment.center,
+                                  //child: Text('Submit'),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Switch(
+                                          value: showFullYear,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              showAllTime = false;
+                                              showFullYear = value;
+                                              loadAmount();
+                                            });
+                                          },
+                                          activeTrackColor: Color(0xffEEEEEE),
+                                          activeColor: Color(0xff0957FF),
+                                        ),
+                                        Text(
+                                          "Full Year",
+                                          style: TextStyle(fontSize: 25),
+                                        ),
+                                        Switch(
+                                          value: showAllTime,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              showFullYear = false;
+                                              showAllTime = value;
+                                              loadAmount();
+                                            });
+                                          },
+                                          activeTrackColor: Color(0xffEEEEEE),
+                                          activeColor: Color(0xff0957FF),
+                                        ),
+                                        Text(
+                                          "All Time",
+                                          style: TextStyle(fontSize: 25),
+                                        ),
+                                      ]),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Container(
+                                    padding: const EdgeInsets.only(
+                                        left: 30.0,
+                                        top: 0,
+                                        right: 0,
+                                        bottom: 0),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        "Drilldown: " + drilldownLevel,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ])
-                        ],
-                      )),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height * .4,
+                                  child: charts.BarChart(
+                                    [
+                                      charts.Series<
+                                              CompanySizeVsNumberOfCompanies,
+                                              String>(
+                                          id: 'CompanySizeVsNumberOfCompanies',
+                                          colorFn: (_, __) =>
+                                              charts.ColorUtil.fromDartColor(
+                                                  Color(0xFF0957FF)),
+                                          domainFn:
+                                              (CompanySizeVsNumberOfCompanies sales,
+                                                      _) =>
+                                                  sales.companySize,
+                                          measureFn:
+                                              (CompanySizeVsNumberOfCompanies sales,
+                                                      _) =>
+                                                  sales.numberOfCompanies,
+                                          labelAccessorFn:
+                                              (CompanySizeVsNumberOfCompanies sales,
+                                                      _) =>
+                                                  '${sales.companySize}: ${sales.numberOfCompanies.toString()}€',
+                                          data: visualizerData)
+                                    ],
+                                    animate: true,
+                                    selectionModels: [
+                                      new charts.SelectionModelConfig(
+                                          type: charts.SelectionModelType.info,
+                                          changedListener: _onSelectionChanged)
+                                    ],
+                                    vertical: false,
+                                    // Hide domain axis.
+                                    barRendererDecorator:
+                                        new charts.BarLabelDecorator<String>(),
+                                    // Hide domain axis.
+                                    domainAxis: new charts.OrdinalAxisSpec(
+                                        renderSpec:
+                                            new charts.NoneRenderSpec()),
+                                    behaviors: [
+                                      charts.ChartTitle(
+                                          'Spendings per Accounts'),
+                                      charts.ChartTitle('Accounts',
+                                          behaviorPosition:
+                                              charts.BehaviorPosition.start),
+                                      charts.ChartTitle('Amounts',
+                                          behaviorPosition:
+                                              charts.BehaviorPosition.bottom)
+                                    ],
+                                  ),
+                                ),
+                                Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                            left: 30.0,
+                                            top: 0,
+                                            right: 30,
+                                            bottom: 0),
+                                        //child: Text('Submit'),
+                                        child: RaisedButton(
+                                          child: Text('Reset'),
+                                          color: Color(0xffEEEEEE), // EEEEEE
+                                          onPressed: () {
+                                            setState(() {
+                                              showAllTime = false;
+                                              showFullYear = false;
+                                              costTypeObjectVisualizer =
+                                                  costTypesList[0];
+                                              dateTimeVisualizer =
+                                                  DateTime.parse(INIT_DATETIME);
+
+                                              g_parent_account.accountLevel = 1;
+                                              g_parent_account.id = -69;
+
+                                              drilldownLevel = "";
+
+                                              loadAmount();
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                            left: 30.0,
+                                            top: 0,
+                                            right: 30,
+                                            bottom: 30),
+                                        //child: Text('Submit'),
+                                        child: Align(
+                                          alignment: Alignment.topRight,
+                                          child: SearchChoices.single(
+                                            value: costTypeObjectVisualizer,
+                                            icon: Icon(Icons.arrow_downward),
+                                            iconSize: 24,
+                                            style: TextStyle(
+                                                color: Color(0xff0957FF)),
+                                            underline: Container(
+                                              height: 2,
+                                              width: 2000,
+                                              color: Color(0xff0957FF),
+                                            ),
+                                            onChanged: (CostType newValue) {
+                                              setState(() {
+                                                costTypeObjectVisualizer =
+                                                    newValue;
+                                                loadAmount();
+                                              });
+                                            },
+                                            items: costTypesList
+                                                .map((CostType type) {
+                                              return new DropdownMenuItem<
+                                                  CostType>(
+                                                value: type,
+                                                child: new Text(
+                                                  type.name,
+                                                ),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                      ),
+                                    ])
+                              ],
+                            );
+                          })),
                 ),
               ],
             ),
@@ -4335,193 +4408,237 @@ class _MyHomePageState extends State<MyHomePage>
                                   //await Future.delayed(Duration(seconds: 2));
                                   _refreshController.refreshCompleted();
                                 },
-                                child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            Text("Use Costtypes:",
-                                                style: TextStyle(fontSize: 25)),
-                                            Switch(
-                                              value: areCostTypesActive,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  areCostTypesActive = value;
-                                                });
-                                              },
-                                              activeTrackColor:
-                                                  Color(0xffEEEEEE),
-                                              activeColor: Color(0xff0957FF),
-                                            ),
-                                          ]),
-                                      Divider(color: Colors.black87),
-                                      Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            Text("Use Accounts:",
-                                                style: TextStyle(fontSize: 25)),
-                                            Switch(
-                                              value: areAccountsActive,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  areAccountsActive = value;
+                                child: ListView.builder(
+                                    // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
+                                    itemCount: 1,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              .7,
+                                          child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: <Widget>[
+                                                Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: <Widget>[
+                                                      Text("Use Costtypes:",
+                                                          style: TextStyle(
+                                                              fontSize: 25)),
+                                                      Switch(
+                                                        value:
+                                                            areCostTypesActive,
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            areCostTypesActive =
+                                                                value;
+                                                          });
+                                                        },
+                                                        activeTrackColor:
+                                                            Color(0xffEEEEEE),
+                                                        activeColor:
+                                                            Color(0xff0957FF),
+                                                      ),
+                                                    ]),
+                                                Divider(color: Colors.black87),
+                                                Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: <Widget>[
+                                                      Text("Use Accounts:",
+                                                          style: TextStyle(
+                                                              fontSize: 25)),
+                                                      Switch(
+                                                        value:
+                                                            areAccountsActive,
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            areAccountsActive =
+                                                                value;
 
-                                                  areLevel1AccountsActive =
-                                                      areAccountsActive;
-                                                  areLevel2AccountsActive =
-                                                      areAccountsActive;
-                                                  areLevel3AccountsActive =
-                                                      areAccountsActive;
-                                                });
-                                              },
-                                              activeTrackColor:
-                                                  Color(0xffEEEEEE),
-                                              activeColor: Color(0xff0957FF),
-                                            ),
-                                          ]),
-                                      Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 0,
-                                            top: 0,
-                                            right: 0,
-                                            bottom: 10),
-                                      ),
-                                      Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            Text("Use Level 1:",
-                                                style: TextStyle(fontSize: 25)),
-                                            Switch(
-                                              value: areLevel1AccountsActive,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  areLevel1AccountsActive =
-                                                      value;
-                                                  areAccountsActive = value;
+                                                            areLevel1AccountsActive =
+                                                                areAccountsActive;
+                                                            areLevel2AccountsActive =
+                                                                areAccountsActive;
+                                                            areLevel3AccountsActive =
+                                                                areAccountsActive;
+                                                          });
+                                                        },
+                                                        activeTrackColor:
+                                                            Color(0xffEEEEEE),
+                                                        activeColor:
+                                                            Color(0xff0957FF),
+                                                      ),
+                                                    ]),
+                                                Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 0,
+                                                          top: 0,
+                                                          right: 0,
+                                                          bottom: 10),
+                                                ),
+                                                Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: <Widget>[
+                                                      Text("Use Level 1:",
+                                                          style: TextStyle(
+                                                              fontSize: 25)),
+                                                      Switch(
+                                                        value:
+                                                            areLevel1AccountsActive,
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            areLevel1AccountsActive =
+                                                                value;
+                                                            areAccountsActive =
+                                                                value;
 
-                                                  // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
-                                                  if (!areLevel1AccountsActive) {
-                                                    areLevel2AccountsActive =
-                                                        false;
-                                                    areLevel3AccountsActive =
-                                                        false;
-                                                  }
-                                                });
-                                              },
-                                              activeTrackColor:
-                                                  Color(0xffEEEEEE),
-                                              activeColor: Color(0xff0957FF),
-                                            ),
-                                          ]),
-                                      Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            Text("Use Level 2:",
-                                                style: TextStyle(fontSize: 25)),
-                                            Switch(
-                                              value: areLevel2AccountsActive,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  areLevel2AccountsActive =
-                                                      value;
+                                                            // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
+                                                            if (!areLevel1AccountsActive) {
+                                                              areLevel2AccountsActive =
+                                                                  false;
+                                                              areLevel3AccountsActive =
+                                                                  false;
+                                                            }
+                                                          });
+                                                        },
+                                                        activeTrackColor:
+                                                            Color(0xffEEEEEE),
+                                                        activeColor:
+                                                            Color(0xff0957FF),
+                                                      ),
+                                                    ]),
+                                                Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: <Widget>[
+                                                      Text("Use Level 2:",
+                                                          style: TextStyle(
+                                                              fontSize: 25)),
+                                                      Switch(
+                                                        value:
+                                                            areLevel2AccountsActive,
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            areLevel2AccountsActive =
+                                                                value;
 
-                                                  // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
-                                                  if (areLevel2AccountsActive) {
-                                                    areLevel1AccountsActive =
-                                                        true;
-                                                    areAccountsActive = true;
-                                                  } else if (!areLevel2AccountsActive) {
-                                                    areLevel3AccountsActive =
-                                                        false;
-                                                  }
-                                                });
-                                              },
-                                              activeTrackColor:
-                                                  Color(0xffEEEEEE),
-                                              activeColor: Color(0xff0957FF),
-                                            ),
-                                          ]),
-                                      Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            Text("Use Level 3:",
-                                                style: TextStyle(fontSize: 25)),
-                                            Switch(
-                                              value: areLevel3AccountsActive,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  areLevel3AccountsActive =
-                                                      value;
+                                                            // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
+                                                            if (areLevel2AccountsActive) {
+                                                              areLevel1AccountsActive =
+                                                                  true;
+                                                              areAccountsActive =
+                                                                  true;
+                                                            } else if (!areLevel2AccountsActive) {
+                                                              areLevel3AccountsActive =
+                                                                  false;
+                                                            }
+                                                          });
+                                                        },
+                                                        activeTrackColor:
+                                                            Color(0xffEEEEEE),
+                                                        activeColor:
+                                                            Color(0xff0957FF),
+                                                      ),
+                                                    ]),
+                                                Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: <Widget>[
+                                                      Text("Use Level 3:",
+                                                          style: TextStyle(
+                                                              fontSize: 25)),
+                                                      Switch(
+                                                        value:
+                                                            areLevel3AccountsActive,
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            areLevel3AccountsActive =
+                                                                value;
 
-                                                  // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
-                                                  if (areLevel3AccountsActive) {
-                                                    areAccountsActive = true;
-                                                    areLevel1AccountsActive =
-                                                        true;
-                                                    areLevel2AccountsActive =
-                                                        true;
-                                                  }
-                                                });
-                                              },
-                                              activeTrackColor:
-                                                  Color(0xffEEEEEE),
-                                              activeColor: Color(0xff0957FF),
-                                            ),
-                                          ]),
-                                      ButtonBar(
-                                        mainAxisSize: MainAxisSize
-                                            .min, // this will take space as minimum as posible(to center)
-                                        children: <Widget>[
-                                          ButtonTheme(
-                                            minWidth: 75.0,
-                                            height: 50.0,
-                                            child: RaisedButton(
-                                              child: Text('Discard'),
-                                              color:
-                                                  Color(0xffEEEEEE), // EEEEEE
-                                              onPressed: () {
-                                                loadPreferences();
-                                              },
-                                            ),
-                                          ),
-                                          ButtonTheme(
-                                            minWidth: 150.0,
-                                            height: 70.0,
-                                            child: RaisedButton(
-                                              child: Text('Save',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 20)),
-                                              color: Color(
-                                                  0xff0957FF), //df7599 - 0957FF
-                                              onPressed: () {
-                                                sendBackend(
-                                                    'generaladmin', false);
-                                              },
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ])),
+                                                            // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
+                                                            if (areLevel3AccountsActive) {
+                                                              areAccountsActive =
+                                                                  true;
+                                                              areLevel1AccountsActive =
+                                                                  true;
+                                                              areLevel2AccountsActive =
+                                                                  true;
+                                                            }
+                                                          });
+                                                        },
+                                                        activeTrackColor:
+                                                            Color(0xffEEEEEE),
+                                                        activeColor:
+                                                            Color(0xff0957FF),
+                                                      ),
+                                                    ]),
+                                                ButtonBar(
+                                                  mainAxisSize: MainAxisSize
+                                                      .min, // this will take space as minimum as posible(to center)
+                                                  children: <Widget>[
+                                                    ButtonTheme(
+                                                      minWidth: 75.0,
+                                                      height: 50.0,
+                                                      child: RaisedButton(
+                                                        child: Text('Discard'),
+                                                        color: Color(
+                                                            0xffEEEEEE), // EEEEEE
+                                                        onPressed: () {
+                                                          loadPreferences();
+                                                        },
+                                                      ),
+                                                    ),
+                                                    ButtonTheme(
+                                                      minWidth: 150.0,
+                                                      height: 70.0,
+                                                      child: RaisedButton(
+                                                        child: Text('Save',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 20)),
+                                                        color: Color(
+                                                            0xff0957FF), //df7599 - 0957FF
+                                                        onPressed: () {
+                                                          sendBackend(
+                                                              'generaladmin',
+                                                              false);
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ]));
+                                    })),
                           ),
                         ]),
                         CustomScrollView(slivers: [
@@ -4535,7 +4652,10 @@ class _MyHomePageState extends State<MyHomePage>
                                   //await Future.delayed(Duration(seconds: 2));
                                   _refreshController.refreshCompleted();
                                 },
-                                child: Column(
+                                child: ListView.builder(  // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
+    itemCount: 1,
+    itemBuilder: (BuildContext context, int index) {
+    return Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment:
@@ -4964,7 +5084,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           ),
                                         ],
                                       ),
-                                    ])),
+                                    ]);})),
                           )
                         ]),
                         CustomScrollView(slivers: [
