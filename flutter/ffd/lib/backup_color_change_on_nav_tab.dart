@@ -3237,7 +3237,10 @@ class _MyHomePageState extends State<MyHomePage>
                                       //await Future.delayed(Duration(seconds: 2));
                                       _refreshController.refreshCompleted();
                                     },
-                                    child: Column(
+                                    child: ListView.builder(  // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
+    itemCount: 1,
+    itemBuilder: (BuildContext context, int index) {
+    return Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       crossAxisAlignment:
@@ -3644,7 +3647,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           ],
                                         ),
                                       ],
-                                    )),
+                                    );})),
                               ),
                             ],
                           ),
