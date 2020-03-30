@@ -1894,241 +1894,271 @@ class _MyHomePageState extends State<MyHomePage>
                         // await Future.delayed(Duration(seconds: 2));
                         _refreshController.refreshCompleted();
                       },
-                      child: Container(
-                        color: Color(0xfff9f9f9),
-                        //color: Color(0xffffffff),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  GestureDetector(
-                                    onTap: () {
-                                      print("Actual clicked");
-                                      setState(() => _currentIndex = 1);
-                                      _pageController.jumpToPage(1);
-                                    },
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          .48,
-                                      child: Card(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(50.0),
-                                        ),
-                                        /*color: homescreenData[0].amount >
+                      child: ListView.builder(  // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
+                          itemCount: 1,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              color: Color(0xfff9f9f9),
+                              //color: Color(0xffffffff),
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    SizedBox(height: 10),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        GestureDetector(
+                                          onTap: () {
+                                            print("Actual clicked");
+                                            setState(() => _currentIndex = 1);
+                                            _pageController.jumpToPage(1);
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                .48,
+                                            child: Card(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(50.0),
+                                              ),
+                                              /*color: homescreenData[0].amount >
                                                 homescreenData[2].amount
                                             ? Colors.red
                                             : Colors
                                                 .green, // If Actual bigger budget -> show as red
                                          */
-                                        color: Color(0xff003680),
-                                        elevation: 10,
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            ListTile(
-                                              leading: Icon(
-                                                  Icons.monetization_on,
-                                                  color: Colors.white,
-                                                  size: 45),
-                                              title: Text('Actual',
-                                                  style: TextStyle(
-                                                      color:
-                                                          Color(0xffF5F5F6))),
-                                              subtitle: Text(
-                                                  homescreenData[0]
-                                                      .amount
-                                                      .toStringAsFixed(2),
-                                                  style: TextStyle(
-                                                      color: Colors.white)),
+                                              color: Color(0xff003680),
+                                              elevation: 10,
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: <Widget>[
+                                                  ListTile(
+                                                    leading: Icon(
+                                                        Icons.monetization_on,
+                                                        color: Colors.white,
+                                                        size: 45),
+                                                    title: Text('Actual',
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xffF5F5F6))),
+                                                    subtitle: Text(
+                                                        homescreenData[0]
+                                                            .amount
+                                                            .toStringAsFixed(2),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white)),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      print("Budget clicked");
-                                      setState(() => _currentIndex = 2);
-                                      _pageController.jumpToPage(2);
-                                    },
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          .48,
-                                      decoration: BoxDecoration(
-                                        borderRadius: new BorderRadius.only(
-                                          topLeft: const Radius.circular(50.0),
-                                          topRight: const Radius.circular(50.0),
-                                          bottomLeft:
-                                              const Radius.circular(50.0),
-                                          bottomRight:
-                                              const Radius.circular(50.0),
-                                        ),
-                                      ),
-                                      child: Card(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(50.0),
-                                        ),
-                                        /*color: homescreenData[0].amount >
+                                        GestureDetector(
+                                          onTap: () {
+                                            print("Budget clicked");
+                                            setState(() => _currentIndex = 2);
+                                            _pageController.jumpToPage(2);
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                .48,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  new BorderRadius.only(
+                                                topLeft:
+                                                    const Radius.circular(50.0),
+                                                topRight:
+                                                    const Radius.circular(50.0),
+                                                bottomLeft:
+                                                    const Radius.circular(50.0),
+                                                bottomRight:
+                                                    const Radius.circular(50.0),
+                                              ),
+                                            ),
+                                            child: Card(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(50.0),
+                                              ),
+                                              /*color: homescreenData[0].amount >
                                                 homescreenData[2].amount
                                             ? Colors.red
                                             : Colors.green,
                                         */
-                                        color: Color(0xff003680),
-                                        elevation: 10,
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            ListTile(
-                                              leading: Icon(
-                                                  Icons.account_balance_wallet,
-                                                  color: Colors.white,
-                                                  size: 45),
-                                              title: Text('Budget',
-                                                  style: TextStyle(
-                                                      color: Colors.white)),
-                                              subtitle: Text(
-                                                  // #91
-                                                  /*
+                                              color: Color(0xff003680),
+                                              elevation: 10,
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: <Widget>[
+                                                  ListTile(
+                                                    leading: Icon(
+                                                        Icons
+                                                            .account_balance_wallet,
+                                                        color: Colors.white,
+                                                        size: 45),
+                                                    title: Text('Budget',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white)),
+                                                    subtitle: Text(
+                                                        // #91
+                                                        /*
                                                     homescreenData[1].amount.toStringAsFixed(2) +'\n' +
                                                   */
-                                                  homescreenData[2]
-                                                      .amount
-                                                      .toStringAsFixed(2),
-                                                  style: TextStyle(
-                                                      color: Colors.white)),
+                                                        homescreenData[2]
+                                                            .amount
+                                                            .toStringAsFixed(2),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white)),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                  ),
-                                ],
-                              ),
-                              // TODO make with variable, just a test for #25
-                              SizedBox(height: 30),
-                              Text(
-                                'Actual vs Budget',
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    color: Colors.grey[800],
-                                    fontWeight: FontWeight.w900,
-                                    fontFamily: 'Open Sans',
-                                    fontSize: 30),
-                              ),
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Switch(
-                                      value: showFullYearHome,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          showFullYearHome = value;
-                                          loadHomescreen();
-                                        });
-                                      },
-                                      activeTrackColor: Color(0xffEEEEEE),
-                                      activeColor: Color(0xff0957FF),
-                                    ),
+                                    // TODO make with variable, just a test for #25
+                                    SizedBox(height: 30),
                                     Text(
-                                      'Full Year',
+                                      'Actual vs Budget',
                                       maxLines: 3,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                           color: Colors.grey[800],
                                           fontWeight: FontWeight.w900,
-                                          fontSize: 25),
+                                          fontFamily: 'Open Sans',
+                                          fontSize: 30),
                                     ),
-                                  ]),
-                              Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.height * .4,
-                                child: charts.PieChart(
-                                  [
-                                    charts.Series<homescreenPie, String>(
-                                        id: 'CompanySizeVsNumberOfCompanies',
-                                        domainFn:
-                                            (homescreenPie dataPoint, _) =>
-                                                dataPoint.type,
-                                        labelAccessorFn: (homescreenPie row,
-                                                _) =>
-                                            '${row.type}\n${row.amount.toStringAsFixed(2)}€',
-                                        measureFn:
-                                            (homescreenPie dataPoint, _) =>
-                                                dataPoint.amount,
-                                        seriesColor: charts.Color.black,
-                                        data: homescreenData.sublist(0,
-                                            2) /*Only first 2 elements not also the overall budget*/
-                                        )
-                                  ],
-                                  defaultRenderer: new charts.ArcRendererConfig(
-                                    arcRendererDecorators: [
-                                      new charts.ArcLabelDecorator(
-                                          //labelPadding: 0,
-                                          labelPosition:
-                                              charts.ArcLabelPosition.outside),
-                                    ],
-                                    //strokeWidthPx: ,
-                                    arcWidth: 50,
-                                  ),
-                                  animate: true,
-                                ),
-                              ),
-                              Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    ButtonTheme(
-                                      //minWidth: 150.0,
-                                      height: 60.0,
-                                      child: FlatButton(
-                                        onPressed: () => _showDatePicker(
-                                            'home', dateTimeHome),
-                                        shape: new RoundedRectangleBorder(
-                                          borderRadius:
-                                              new BorderRadius.circular(40.0),
-                                        ),
-                                        color: Color(0xff003680),
-                                        padding: EdgeInsets.all(10.0),
-                                        child: Row(
-                                          // Replace with a Row for horizontal icon + text
-                                          children: <Widget>[
-                                            Text(
-                                                " ${dateTimeHome.year.toString()}-${dateTimeHome.month.toString().padLeft(2, '0')}",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 17)),
-                                            SizedBox(width: 10),
-                                            Icon(
-                                              Icons.calendar_today,
-                                              color: Colors.white,
-                                            ),
+                                    Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Switch(
+                                            value: showFullYearHome,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                showFullYearHome = value;
+                                                loadHomescreen();
+                                              });
+                                            },
+                                            activeTrackColor: Color(0xffEEEEEE),
+                                            activeColor: Color(0xff0957FF),
+                                          ),
+                                          Text(
+                                            'Full Year',
+                                            maxLines: 3,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                color: Colors.grey[800],
+                                                fontWeight: FontWeight.w900,
+                                                fontSize: 25),
+                                          ),
+                                        ]),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              .4,
+                                      child: charts.PieChart(
+                                        [
+                                          charts.Series<homescreenPie, String>(
+                                              id:
+                                                  'CompanySizeVsNumberOfCompanies',
+                                              domainFn: (homescreenPie
+                                                          dataPoint,
+                                                      _) =>
+                                                  dataPoint.type,
+                                              labelAccessorFn: (homescreenPie
+                                                          row,
+                                                      _) =>
+                                                  '${row.type}\n${row.amount.toStringAsFixed(2)}€',
+                                              measureFn:
+                                                  (homescreenPie dataPoint,
+                                                          _) =>
+                                                      dataPoint.amount,
+                                              seriesColor: charts.Color.black,
+                                              data: homescreenData.sublist(0,
+                                                  2) /*Only first 2 elements not also the overall budget*/
+                                              )
+                                        ],
+                                        defaultRenderer:
+                                            new charts.ArcRendererConfig(
+                                          arcRendererDecorators: [
+                                            new charts.ArcLabelDecorator(
+                                                //labelPadding: 0,
+                                                labelPosition: charts
+                                                    .ArcLabelPosition.outside),
                                           ],
+                                          //strokeWidthPx: ,
+                                          arcWidth: 50,
                                         ),
+                                        animate: true,
                                       ),
                                     ),
+                                    Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          ButtonTheme(
+                                            //minWidth: 150.0,
+                                            height: 60.0,
+                                            child: FlatButton(
+                                              onPressed: () => _showDatePicker(
+                                                  'home', dateTimeHome),
+                                              shape: new RoundedRectangleBorder(
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        40.0),
+                                              ),
+                                              color: Color(0xff003680),
+                                              padding: EdgeInsets.all(10.0),
+                                              child: Row(
+                                                // Replace with a Row for horizontal icon + text
+                                                children: <Widget>[
+                                                  Text(
+                                                      " ${dateTimeHome.year.toString()}-${dateTimeHome.month.toString().padLeft(2, '0')}",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 17)),
+                                                  SizedBox(width: 10),
+                                                  Icon(
+                                                    Icons.calendar_today,
+                                                    color: Colors.white,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ]),
+                                    SizedBox(height: 10),
                                   ]),
-                              SizedBox(height: 10),
-                            ]),
-                      )),
+                            );
+                          })),
                 ),
               ],
             ),
@@ -2342,7 +2372,6 @@ class _MyHomePageState extends State<MyHomePage>
                                               height: 100,
                                               //width: MediaQuery.of(context).size.width * .8
                                             ),
-
                                             padding: const EdgeInsets.only(
                                                 left: 30.0,
                                                 top: 0,
@@ -2374,9 +2403,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                 setState(() {
                                                   level1ActualObject = newValue;
                                                 });
-
                                                 print(level1ActualObject.name);
-
                                                 arrangeAccounts(1, 'actual');
                                               },
                                               items: level1ActualAccountsList
@@ -2427,11 +2454,9 @@ class _MyHomePageState extends State<MyHomePage>
                                               onChanged: (Account newValue) {
                                                 dummyAccount =
                                                     level2ActualObject;
-
                                                 setState(() {
                                                   level2ActualObject = newValue;
                                                 });
-
                                                 if (dummyAccount.id !=
                                                     newValue.id) {
                                                   arrangeAccounts(2, 'actual');
@@ -2551,7 +2576,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                 setState(() {
                                                   level3ActualObject = newValue;
                                                 });
-
                                                 // TODO probably not needed as change in level3 has no affect in anything
                                                 // arrangeAccounts(3, 'actual');
                                               },
@@ -2975,14 +2999,14 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 text: TextSpan(
                                                                     text:
                                                                         "${actList[index].comment.length > 0 ? actList[index].comment : 'no comment available'}\n\n",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          15,
-                                                                          fontStyle: FontStyle.italic
-                                                                    ),
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontStyle:
+                                                                            FontStyle
+                                                                                .italic),
                                                                     children: <
                                                                         TextSpan>[
                                                                       TextSpan(
@@ -3007,11 +3031,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       ),
                                                                       TextSpan(
                                                                         text:
-                                                                            'with an amount of ', style:
-                                                                      TextStyle(
-                                                                        fontSize:
-                                                                        18,
-                                                                      ),
+                                                                            'with an amount of ',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              18,
+                                                                        ),
                                                                       ),
                                                                       TextSpan(
                                                                         text:
@@ -3026,11 +3051,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       ),
                                                                       TextSpan(
                                                                         text:
-                                                                            'will be ', style:
-                                                                      TextStyle(
-                                                                        fontSize:
-                                                                        18,
-                                                                      ),
+                                                                            'will be ',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              18,
+                                                                        ),
                                                                       ),
                                                                       TextSpan(
                                                                         text:
