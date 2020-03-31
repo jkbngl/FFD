@@ -617,9 +617,11 @@ class _MyHomePageState extends State<MyHomePage>
           headers: params);
 
       var parsedActual = json.decode(actual);
-      var parsedBudget = json.decode(budget);
+      var parsedActualComparison = json.decode(actualComparison);
 
-      //homescreenData.clear();
+      var parsedBudget = json.decode(budget);
+      var parsedbudgetComparison = json.decode(budgetComparison);
+
 
       homescreenData[0].amount =
           parsedActual.length != 0 ? parsedActual[0]['sum'] : 0;
@@ -639,13 +641,6 @@ class _MyHomePageState extends State<MyHomePage>
       homescreenData[2].type = parsedBudget.length != 0
           ? 'OverallBudget'
           : "No Data found \nfor $year - $month";
-
-      final desktopTargetLineData = [
-        new OrdinalSales('2014', 25),
-        new OrdinalSales('2015', 60),
-        new OrdinalSales('2016', 100),
-        new OrdinalSales('2017', 110),
-      ];
 
       setState(() {});
     } catch (e) {
@@ -2041,9 +2036,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 Colors.white)),
                                                     subtitle: Text(
                                                         // #91
-                                                        /*
-                                                    homescreenData[1].amount.toStringAsFixed(2) +'\n' +
-                                                  */
                                                         homescreenData[2]
                                                             .amount
                                                             .toStringAsFixed(2),
