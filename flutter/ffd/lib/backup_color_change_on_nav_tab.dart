@@ -578,9 +578,20 @@ class _MyHomePageState extends State<MyHomePage>
     int parent_account = -1;
     int year = dateTimeHome.year;
     int month = showFullYearHome ? -1 : dateTimeHome.month;
+
+    // #98
+    DateTime comparisonDate = new DateTime(dateTimeHome.year, dateTimeHome.month - 1, dateTimeHome.day);
+
+
+    // If full year should be shown, compare also here with full last year, else use the year calculated
+    int comparisonYear = showFullYearHome ? dateTimeHome.year - 1 : comparisonDate.year;
+    int comparisonMonth = showFullYearHome ? -1 : comparisonDate.month;
+
+    print("Shown date: $year/$month");
+    print("Compared date: $comparisonYear/$comparisonMonth");
+
     String _type = 'actual';
 
-    print("$year - $month");
 
     var params = {
       "accesstoken": token,
@@ -591,10 +602,18 @@ class _MyHomePageState extends State<MyHomePage>
           'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type',
           headers: params);
 
+      var actualComparison = await http.read(
+          'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$comparisonYear&month=$comparisonMonth&_type=$_type',
+          headers: params);
+
       _type = 'budget';
 
       var budget = await http.read(
           'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type',
+          headers: params);
+
+      var budgetComparison = await http.read(
+          'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$comparisonYear&month=$comparisonMonth&_type=$_type',
           headers: params);
 
       var parsedActual = json.decode(actual);
