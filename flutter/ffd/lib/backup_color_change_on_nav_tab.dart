@@ -580,7 +580,7 @@ class _MyHomePageState extends State<MyHomePage>
     int month = showFullYearHome ? -1 : dateTimeHome.month;
 
     // #98
-    DateTime comparisonDate = new DateTime(dateTimeHome.year, dateTimeHome.month - 1, dateTimeHome.day);
+    DateTime comparisonDate = new DateTime(dateTimeHome.year, dateTimeHome.month - 1, 0 );
 
 
     // If full year should be shown, compare also here with full last year, else use the year calculated
