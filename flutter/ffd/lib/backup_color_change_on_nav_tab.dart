@@ -585,9 +585,12 @@ class _MyHomePageState extends State<MyHomePage>
     // #98
     DateTime comparisonDate =
         new DateTime(dateTimeHome.year, dateTimeHome.month - 1, 1);
+    // Get the current date
+    DateTime now = DateTime.now();
 
     // If full year should be shown, compare also here with full last year, else use the year calculated
-    int comparisonYear = showFullYearHome ? dateTimeHome.year - 1 : comparisonDate.year;
+    int comparisonYear =
+        showFullYearHome ? dateTimeHome.year - 1 : comparisonDate.year;
     int comparisonMonth = showFullYearHome ? -1 : comparisonDate.month;
 
     print("Shown date: $year/$month");
@@ -625,8 +628,21 @@ class _MyHomePageState extends State<MyHomePage>
       var parsedBudget = json.decode(budget);
       var parsedBudgetComparisonList = json.decode(budgetComparison);
 
-      parsedActualComparison = calculateRelativeComparison(parsedActualComparisonList.length != 0 ? parsedActualComparisonList[0]['sum'] : 0, comparisonYear, comparisonMonth);
-      parsedBudgetComparison = calculateRelativeComparison(parsedBudgetComparisonList.length != 0 ? parsedBudgetComparisonList[0]['sum'] : 99, comparisonYear, comparisonMonth);
+      parsedActualComparison = calculateRelativeComparison(
+          parsedActualComparisonList.length != 0
+              ? parsedActualComparisonList[0]['sum']
+              : 0,
+          comparisonYear,
+          comparisonMonth,
+          (dateTimeHome.year == now.year && dateTimeHome.month == now.month));
+
+      parsedBudgetComparison = calculateRelativeComparison(
+          parsedBudgetComparisonList.length != 0
+              ? parsedBudgetComparisonList[0]['sum']
+              : 99,
+          comparisonYear,
+          comparisonMonth,
+          (dateTimeHome.year == now.year && dateTimeHome.month == now.month));
 
       homescreenData[0].amount =
           parsedActual.length != 0 ? parsedActual[0]['sum'] : 0;
@@ -647,8 +663,10 @@ class _MyHomePageState extends State<MyHomePage>
           ? 'OverallBudget'
           : "No Data found \nfor $year - $month";
 
-      print("Comparison ACTUAL $parsedActualComparison vs ${homescreenData[0].amount}");
-      print("Comparison BUDGET $parsedBudgetComparison vs ${homescreenData[2].amount}");
+      print(
+          "Comparison ACTUAL $parsedActualComparison vs ${homescreenData[0].amount}");
+      print(
+          "Comparison BUDGET $parsedBudgetComparison vs ${homescreenData[2].amount}");
 
       setState(() {});
     } catch (e) {
@@ -667,19 +685,27 @@ class _MyHomePageState extends State<MyHomePage>
     }
   }
 
-  double calculateRelativeComparison(amount, year, month) {
+  double calculateRelativeComparison(amount, year, month, actualOrHistoric /* Are we comparing this month data or historic months data*/) {
+
     // Check how many percent of the year (when month = -1)/ month (when month does not equal -1) has gone by and return the relative amount
-    DateTime now = DateTime.now();
+    DateTime comparisonDate = DateTime(year, month, 1);
 
+    // Calculate variance by month
     if (month > 0) {
-      int lastDay = DateTime(now.year, now.month + 1, 0).day;
-      double percentOfMonth = now.day / lastDay;
+      // Get the last day of the previous month (comparisonDate Month since we add 1 month to the comparison Date e.g. 2013,3,0 = 28 of February)
+      int lastDay =
+          DateTime(comparisonDate.year, comparisonDate.month + 1, 0).day;
+      double percentOfMonth = comparisonDate.day / lastDay;
 
-      return num.parse((amount * percentOfMonth).toStringAsFixed(2));
-    } else {
-      double percentOfYear = now.month / 12;
+      // If we are loading actual data, multiply by percent else return the same value as we compare absolute values of finished months
+      return num.parse((amount * (actualOrHistoric ? percentOfMonth : 1)).toStringAsFixed(2));
+    }
+    // Calculate variance by year
+    else {
+      double percentOfYear = comparisonDate.month / 12;
 
-      return num.parse((amount * percentOfYear).toStringAsFixed(2));
+      // If we are loading actual data, multiply by percent else return the same value as we compare absolute values of finished months
+      return num.parse((amount * (actualOrHistoric ? percentOfYear : 1)).toStringAsFixed(2));
     }
   }
 
@@ -1999,8 +2025,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                             color:
                                                                 Colors.white)),
                                                     trailing: Icon(
-                                                      homescreenData[0]
-                                                          .amount > parsedActualComparison ? Icons.trending_up : Icons.trending_down,
+                                                      homescreenData[0].amount >
+                                                              parsedActualComparison
+                                                          ? Icons.trending_up
+                                                          : Icons.trending_down,
                                                       color: Color(0xffF5F5F6),
                                                       size: 12,
                                                     ),
@@ -2055,30 +2083,32 @@ class _MyHomePageState extends State<MyHomePage>
                                                     CrossAxisAlignment.center,
                                                 children: <Widget>[
                                                   ListTile(
-                                                      leading: Icon(
-                                                          Icons
-                                                              .account_balance_wallet,
-                                                          color: Colors.white,
-                                                          size: 45),
-                                                      title: Text('Budget',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white)),
-                                                      subtitle: Text(
-                                                          // #91
-                                                          homescreenData[2]
-                                                              .amount
-                                                              .toStringAsFixed(
-                                                                  2),
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white)),
+                                                    leading: Icon(
+                                                        Icons
+                                                            .account_balance_wallet,
+                                                        color: Colors.white,
+                                                        size: 45),
+                                                    title: Text('Budget',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white)),
+                                                    subtitle: Text(
+                                                        // #91
+                                                        homescreenData[2]
+                                                            .amount
+                                                            .toStringAsFixed(2),
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white)),
                                                     trailing: Icon(
-                                                      homescreenData[2]
-                                                          .amount > parsedBudgetComparison  ? Icons.trending_up : Icons.trending_down,
+                                                      homescreenData[2].amount >
+                                                              parsedBudgetComparison
+                                                          ? Icons.trending_up
+                                                          : Icons.trending_down,
                                                       color: Color(0xffF5F5F6),
                                                       size: 12,
-                                                    ),),
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
                                             ),
