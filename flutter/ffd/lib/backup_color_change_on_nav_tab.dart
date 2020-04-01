@@ -253,6 +253,9 @@ class _MyHomePageState extends State<MyHomePage>
   DateTime dateTimeBudget;
   DateTime dateTimeVisualizer;
 
+  var parsedActualComparison = 0.00;
+  var parsedBudgetComparison = 0.00;
+
   var visualizerData = [
     CompanySizeVsNumberOfCompanies("1-25", 10, -69, -69),
   ];
@@ -581,15 +584,15 @@ class _MyHomePageState extends State<MyHomePage>
 
     // #98
     DateTime comparisonDate =
-        new DateTime(dateTimeHome.year, dateTimeHome.month - 1, 0);
+        new DateTime(dateTimeHome.year, dateTimeHome.month - 1, 1);
 
     // If full year should be shown, compare also here with full last year, else use the year calculated
-    int comparisonYear =
-        showFullYearHome ? dateTimeHome.year - 1 : comparisonDate.year;
+    int comparisonYear = showFullYearHome ? dateTimeHome.year - 1 : comparisonDate.year;
     int comparisonMonth = showFullYearHome ? -1 : comparisonDate.month;
 
     print("Shown date: $year/$month");
     print("Compared date: $comparisonYear/$comparisonMonth");
+    print("Compared date: $comparisonDate");
 
     String _type = 'actual';
 
@@ -617,18 +620,13 @@ class _MyHomePageState extends State<MyHomePage>
           headers: params);
 
       var parsedActual = json.decode(actual);
-      var parsedActualComparison = json.decode(actualComparison);
+      var parsedActualComparisonList = json.decode(actualComparison);
 
       var parsedBudget = json.decode(budget);
-      var parsedbudgetComparison = json.decode(budgetComparison);
+      var parsedBudgetComparisonList = json.decode(budgetComparison);
 
-      parsedActualComparison = calculateRelativeComparison(
-          parsedActualComparison, comparisonYear, comparisonMonth);
-      parsedbudgetComparison = calculateRelativeComparison(
-          parsedbudgetComparison, comparisonYear, comparisonMonth);
-
-      print(parsedActualComparison);
-      print(parsedbudgetComparison);
+      parsedActualComparison = calculateRelativeComparison(parsedActualComparisonList.length != 0 ? parsedActualComparisonList[0]['sum'] : 0, comparisonYear, comparisonMonth);
+      parsedBudgetComparison = calculateRelativeComparison(parsedBudgetComparisonList.length != 0 ? parsedBudgetComparisonList[0]['sum'] : 99, comparisonYear, comparisonMonth);
 
       homescreenData[0].amount =
           parsedActual.length != 0 ? parsedActual[0]['sum'] : 0;
@@ -644,10 +642,13 @@ class _MyHomePageState extends State<MyHomePage>
           : "No Data found \nfor $year - $month";
 
       homescreenData[2].amount =
-          parsedBudget.length != 0 ? parsedBudget[0]['sum'] : 99;
+          parsedBudget.length != 0 ? parsedBudget[0]['sum'] : 0.000001;
       homescreenData[2].type = parsedBudget.length != 0
           ? 'OverallBudget'
           : "No Data found \nfor $year - $month";
+
+      print("Comparison ACTUAL $parsedActualComparison vs ${homescreenData[0].amount}");
+      print("Comparison BUDGET $parsedBudgetComparison vs ${homescreenData[2].amount}");
 
       setState(() {});
     } catch (e) {
@@ -674,11 +675,11 @@ class _MyHomePageState extends State<MyHomePage>
       int lastDay = DateTime(now.year, now.month + 1, 0).day;
       double percentOfMonth = now.day / lastDay;
 
-      return amount * percentOfMonth;
+      return num.parse((amount * percentOfMonth).toStringAsFixed(2));
     } else {
-
       double percentOfYear = now.month / 12;
-      return amount * percentOfYear;
+
+      return num.parse((amount * percentOfYear).toStringAsFixed(2));
     }
   }
 
@@ -1997,6 +1998,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                         style: TextStyle(
                                                             color:
                                                                 Colors.white)),
+                                                    trailing: Icon(
+                                                      homescreenData[0]
+                                                          .amount > parsedActualComparison ? Icons.trending_up : Icons.trending_down,
+                                                      color: Color(0xffF5F5F6),
+                                                      size: 12,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -2048,24 +2055,30 @@ class _MyHomePageState extends State<MyHomePage>
                                                     CrossAxisAlignment.center,
                                                 children: <Widget>[
                                                   ListTile(
-                                                    leading: Icon(
-                                                        Icons
-                                                            .account_balance_wallet,
-                                                        color: Colors.white,
-                                                        size: 45),
-                                                    title: Text('Budget',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white)),
-                                                    subtitle: Text(
-                                                        // #91
-                                                        homescreenData[2]
-                                                            .amount
-                                                            .toStringAsFixed(2),
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white)),
-                                                  ),
+                                                      leading: Icon(
+                                                          Icons
+                                                              .account_balance_wallet,
+                                                          color: Colors.white,
+                                                          size: 45),
+                                                      title: Text('Budget',
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .white)),
+                                                      subtitle: Text(
+                                                          // #91
+                                                          homescreenData[2]
+                                                              .amount
+                                                              .toStringAsFixed(
+                                                                  2),
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .white)),
+                                                    trailing: Icon(
+                                                      homescreenData[2]
+                                                          .amount > parsedBudgetComparison  ? Icons.trending_up : Icons.trending_down,
+                                                      color: Color(0xffF5F5F6),
+                                                      size: 12,
+                                                    ),),
                                                 ],
                                               ),
                                             ),
