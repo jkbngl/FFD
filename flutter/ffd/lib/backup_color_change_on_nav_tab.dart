@@ -603,6 +603,8 @@ class _MyHomePageState extends State<MyHomePage>
       "accesstoken": token,
     };
 
+    print(token);
+
     try {
       var actual = await http.read(
           'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type',
@@ -1892,6 +1894,7 @@ class _MyHomePageState extends State<MyHomePage>
               print(name);
               print(email);
               print(imageUrl);
+              print(token);
               _showProfile();
               //showCustomDialog(_currentIndex, 'help', -1);
             }),
