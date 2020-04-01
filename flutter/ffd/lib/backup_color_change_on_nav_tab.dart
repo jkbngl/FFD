@@ -580,18 +580,18 @@ class _MyHomePageState extends State<MyHomePage>
     int month = showFullYearHome ? -1 : dateTimeHome.month;
 
     // #98
-    DateTime comparisonDate = new DateTime(dateTimeHome.year, dateTimeHome.month - 1, 0 );
-
+    DateTime comparisonDate =
+        new DateTime(dateTimeHome.year, dateTimeHome.month - 1, 0);
 
     // If full year should be shown, compare also here with full last year, else use the year calculated
-    int comparisonYear = showFullYearHome ? dateTimeHome.year - 1 : comparisonDate.year;
+    int comparisonYear =
+        showFullYearHome ? dateTimeHome.year - 1 : comparisonDate.year;
     int comparisonMonth = showFullYearHome ? -1 : comparisonDate.month;
 
     print("Shown date: $year/$month");
     print("Compared date: $comparisonYear/$comparisonMonth");
 
     String _type = 'actual';
-
 
     var params = {
       "accesstoken": token,
@@ -622,6 +622,13 @@ class _MyHomePageState extends State<MyHomePage>
       var parsedBudget = json.decode(budget);
       var parsedbudgetComparison = json.decode(budgetComparison);
 
+      parsedActualComparison = calculateRelativeComparison(
+          parsedActualComparison, comparisonYear, comparisonMonth);
+      parsedbudgetComparison = calculateRelativeComparison(
+          parsedbudgetComparison, comparisonYear, comparisonMonth);
+
+      print(parsedActualComparison);
+      print(parsedbudgetComparison);
 
       homescreenData[0].amount =
           parsedActual.length != 0 ? parsedActual[0]['sum'] : 0;
@@ -656,6 +663,22 @@ class _MyHomePageState extends State<MyHomePage>
           ],
         ),
       );
+    }
+  }
+
+  double calculateRelativeComparison(amount, year, month) {
+    // Check how many percent of the year (when month = -1)/ month (when month does not equal -1) has gone by and return the relative amount
+    DateTime now = DateTime.now();
+
+    if (month > 0) {
+      int lastDay = DateTime(now.year, now.month + 1, 0).day;
+      double percentOfMonth = now.day / lastDay;
+
+      return amount * percentOfMonth;
+    } else {
+
+      double percentOfYear = now.month / 12;
+      return amount * percentOfYear;
     }
   }
 
