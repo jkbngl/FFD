@@ -2915,9 +2915,135 @@ class _MyHomePageState extends State<MyHomePage>
                                         showDialog(
                                           context: context,
                                           builder: (context) => new AlertDialog(
-                                            title: Text('Comment'),
-                                            content: new Text(
-                                              "${actList[index].comment}\n\n${actList[index].level1} > ${actList[index].level2} > ${actList[index].level3}\n\n${actList[index].costType}",
+                                            title: Text('Details', style: TextStyle(
+                                                color: Colors
+                                                .black,
+                                                fontSize:
+                                                25,
+                                                ),),
+                                            content: RichText(
+                                              text: TextSpan(
+                                                  text:
+                                                  "",
+                                                  style: TextStyle(
+                                                      color: Colors
+                                                          .black,
+                                                      fontSize:
+                                                      15,
+                                                      ),
+                                                  children: <
+                                                      TextSpan>[
+                                                    TextSpan(
+                                                      text:
+                                                      'Date:  ',
+                                                      style:
+                                                      TextStyle(
+                                                        fontSize:
+                                                        18,
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                      '${actList[index].date}\n',
+                                                      style: TextStyle(
+                                                          color: Color(
+                                                              0xFF0957FF),
+                                                          fontSize:
+                                                          18,
+                                                          fontWeight:
+                                                          FontWeight.bold,fontStyle:
+                                                          FontStyle
+                                                          .italic),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                      'Amount: ',
+                                                      style:
+                                                      TextStyle(
+                                                        fontSize:
+                                                        18,
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                      '${actList[index].amount}\n',
+                                                      style: TextStyle(
+                                                          color: Color(
+                                                              0xFF0957FF),
+                                                          fontSize:
+                                                          18,
+                                                          fontWeight:
+                                                          FontWeight.bold, fontStyle:
+                                                          FontStyle
+                                                          .italic),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                      'Level: ',
+                                                      style:
+                                                      TextStyle(
+                                                        fontSize:
+                                                        18,
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                      '${actList[index].level1} > ${actList[index].level2} > ${actList[index].level3}\n',
+                                                      style: TextStyle(
+                                                          color: Color(
+                                                              0xFF0957FF),
+                                                          fontSize:
+                                                          18,
+                                                          fontWeight:
+                                                          FontWeight.bold, fontStyle:
+                                                      FontStyle
+                                                          .italic),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                      'Costtype: ',
+                                                      style:
+                                                      TextStyle(
+                                                        fontSize:
+                                                        18,
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                      '${actList[index].costType}\n',
+                                                      style: TextStyle(
+                                                          color: Color(
+                                                              0xFF0957FF),
+                                                          fontSize:
+                                                          18,
+                                                          fontWeight:
+                                                          FontWeight.bold, fontStyle:
+                                                      FontStyle
+                                                          .italic),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                      'Comment: ',
+                                                      style:
+                                                      TextStyle(
+                                                        fontSize:
+                                                        18,
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                      '${actList[index].comment.length > 0 ? actList[index].comment : 'no comment available'}\n',
+                                                      style: TextStyle(
+                                                          color: Color(
+                                                              0xFF0957FF),
+                                                          fontSize:
+                                                          18,
+                                                          fontWeight:
+                                                          FontWeight.bold, fontStyle:
+                                                      FontStyle
+                                                          .italic),
+                                                    ),
+                                                  ]),
                                             ),
                                             actions: <Widget>[
                                               new FlatButton(
@@ -3803,9 +3929,135 @@ class _MyHomePageState extends State<MyHomePage>
                                         showDialog(
                                           context: context,
                                           builder: (context) => new AlertDialog(
-                                            title: Text('Comment'),
-                                            content: new Text(
-                                              "${bdgList[index].comment}\n\n${bdgList[index].level1} > ${bdgList[index].level2} > ${bdgList[index].level3}\n\n${bdgList[index].costType}",
+                                            title: Text('Details', style: TextStyle(
+                                              color: Colors
+                                                  .black,
+                                              fontSize:
+                                              25,
+                                            ),),
+                                            content: RichText(
+                                              text: TextSpan(
+                                                  text:
+                                                  "",
+                                                  style: TextStyle(
+                                                    color: Colors
+                                                        .black,
+                                                    fontSize:
+                                                    15,
+                                                  ),
+                                                  children: <
+                                                      TextSpan>[
+                                                    TextSpan(
+                                                      text:
+                                                      'Date:  ',
+                                                      style:
+                                                      TextStyle(
+                                                        fontSize:
+                                                        18,
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                      '${bdgList[index].date}\n',
+                                                      style: TextStyle(
+                                                          color: Color(
+                                                              0xFF0957FF),
+                                                          fontSize:
+                                                          18,
+                                                          fontWeight:
+                                                          FontWeight.bold,fontStyle:
+                                                      FontStyle
+                                                          .italic),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                      'Amount: ',
+                                                      style:
+                                                      TextStyle(
+                                                        fontSize:
+                                                        18,
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                      '${bdgList[index].amount}\n',
+                                                      style: TextStyle(
+                                                          color: Color(
+                                                              0xFF0957FF),
+                                                          fontSize:
+                                                          18,
+                                                          fontWeight:
+                                                          FontWeight.bold, fontStyle:
+                                                      FontStyle
+                                                          .italic),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                      'Level: ',
+                                                      style:
+                                                      TextStyle(
+                                                        fontSize:
+                                                        18,
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                      '${bdgList[index].level1} > ${bdgList[index].level2} > ${bdgList[index].level3}\n',
+                                                      style: TextStyle(
+                                                          color: Color(
+                                                              0xFF0957FF),
+                                                          fontSize:
+                                                          18,
+                                                          fontWeight:
+                                                          FontWeight.bold, fontStyle:
+                                                      FontStyle
+                                                          .italic),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                      'Costtype: ',
+                                                      style:
+                                                      TextStyle(
+                                                        fontSize:
+                                                        18,
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                      '${bdgList[index].costType}\n',
+                                                      style: TextStyle(
+                                                          color: Color(
+                                                              0xFF0957FF),
+                                                          fontSize:
+                                                          18,
+                                                          fontWeight:
+                                                          FontWeight.bold, fontStyle:
+                                                      FontStyle
+                                                          .italic),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                      'Comment: ',
+                                                      style:
+                                                      TextStyle(
+                                                        fontSize:
+                                                        18,
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                      '${bdgList[index].comment.length > 0 ? bdgList[index].comment : 'no comment available'}\n',
+                                                      style: TextStyle(
+                                                          color: Color(
+                                                              0xFF0957FF),
+                                                          fontSize:
+                                                          18,
+                                                          fontWeight:
+                                                          FontWeight.bold, fontStyle:
+                                                      FontStyle
+                                                          .italic),
+                                                    ),
+                                                  ]),
                                             ),
                                             actions: <Widget>[
                                               new FlatButton(
