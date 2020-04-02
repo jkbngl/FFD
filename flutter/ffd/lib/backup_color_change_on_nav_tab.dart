@@ -638,13 +638,16 @@ class _MyHomePageState extends State<MyHomePage>
           comparisonMonth,
           (dateTimeHome.year == now.year && dateTimeHome.month == now.month));
 
-      parsedBudgetComparison = calculateRelativeComparison(
+      parsedBudgetComparison = parsedBudgetComparisonList.length != 0
+          ? parsedBudgetComparisonList[0]['sum']
+          : 99;
+      /*parsedBudgetComparison = calculateRelativeComparison(
           parsedBudgetComparisonList.length != 0
               ? parsedBudgetComparisonList[0]['sum']
               : 99,
           comparisonYear,
           comparisonMonth,
-          (dateTimeHome.year == now.year && dateTimeHome.month == now.month));
+          (dateTimeHome.year == now.year && dateTimeHome.month == now.month));*/
 
       homescreenData[0].amount =
           parsedActual.length != 0 ? parsedActual[0]['sum'] : 0;
@@ -687,8 +690,8 @@ class _MyHomePageState extends State<MyHomePage>
     }
   }
 
-  double calculateRelativeComparison(amount, year, month, actualOrHistoric /* Are we comparing this month data or historic months data*/) {
-
+  double calculateRelativeComparison(amount, year, month,
+      actualOrHistoric /* Are we comparing this month data or historic months data*/) {
     // Check how many percent of the year (when month = -1)/ month (when month does not equal -1) has gone by and return the relative amount
     DateTime comparisonDate = DateTime(year, month, 1);
 
@@ -700,14 +703,16 @@ class _MyHomePageState extends State<MyHomePage>
       double percentOfMonth = comparisonDate.day / lastDay;
 
       // If we are loading actual data, multiply by percent else return the same value as we compare absolute values of finished months
-      return num.parse((amount * (actualOrHistoric ? percentOfMonth : 1)).toStringAsFixed(2));
+      return num.parse((amount * (actualOrHistoric ? percentOfMonth : 1))
+          .toStringAsFixed(2));
     }
     // Calculate variance by year
     else {
       double percentOfYear = comparisonDate.month / 12;
 
       // If we are loading actual data, multiply by percent else return the same value as we compare absolute values of finished months
-      return num.parse((amount * (actualOrHistoric ? percentOfYear : 1)).toStringAsFixed(2));
+      return num.parse(
+          (amount * (actualOrHistoric ? percentOfYear : 1)).toStringAsFixed(2));
     }
   }
 
