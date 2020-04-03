@@ -125,8 +125,10 @@ class CompanySizeVsNumberOfCompanies {
 class homescreenPie {
   String type;
   double amount;
+  final charts.Color color;
 
-  homescreenPie(this.type, this.amount);
+
+  homescreenPie(this.type, this.amount, this.color);
 }
 
 class MyHomePage extends StatefulWidget {
@@ -2185,7 +2187,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                   (homescreenPie dataPoint,
                                                           _) =>
                                                       dataPoint.amount,
-                                              seriesColor: charts.Color.black,
+                                              colorFn: (homescreenPie segment, _) => segment.color,
                                               data: homescreenData.sublist(0,
                                                   2) /*Only first 2 elements not also the overall budget*/
                                               )
