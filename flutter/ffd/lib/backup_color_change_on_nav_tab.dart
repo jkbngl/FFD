@@ -263,9 +263,9 @@ class _MyHomePageState extends State<MyHomePage>
   ];
 
   var homescreenData = [
-    homescreenPie('Dummy1', 10),
-    homescreenPie('Dummy2', 10),
-    homescreenPie('Dummy3', 10),
+    homescreenPie('Dummy1', 10, charts.MaterialPalette.red.shadeDefault),
+    homescreenPie('Dummy2', 10, charts.MaterialPalette.yellow.shadeDefault),
+    homescreenPie('Dummy3', 10, charts.MaterialPalette.green.shadeDefault),
   ];
 
   // booleans loaded from DB to check whether accounts, which account levels and costTypes should be used
