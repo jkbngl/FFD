@@ -263,8 +263,8 @@ class _MyHomePageState extends State<MyHomePage>
   ];
 
   var homescreenData = [
-    homescreenPie('Dummy1', 10, charts.MaterialPalette.red.shadeDefault),
-    homescreenPie('Dummy2', 10, charts.MaterialPalette.yellow.shadeDefault),
+    homescreenPie('Dummy1', 10, charts.ColorUtil.fromDartColor(Color(0xff003680))),
+    homescreenPie('Dummy2', 10, charts.ColorUtil.fromDartColor(Color(0xff0957FF))),
     homescreenPie('Dummy3', 10, charts.MaterialPalette.green.shadeDefault),
   ];
 
