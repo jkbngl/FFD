@@ -3011,10 +3011,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                   );
                                                 });
 
-                                            loadList(
-                                                'actual', actualListSortColumn);
-                                            showCustomDialog(
-                                                _currentIndex, 'help', -1);
                                           })
                                       : GestureDetector(
                                           onTap: () {
@@ -4041,7 +4037,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                       //   - switch the the opposite (either asc or desc whatever it was)
                                                       // When it was fresh switched to level1
                                                       //   - set it to the default -> desc
-                                                      budgetListSortType = budgetListSortType  == 'level1' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
+                                                      budgetListSortType = budgetListSortColumn  == 'level1' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
 
                                                       budgetListSortColumn  = 'created';
                                                       loadList('budget', budgetListSortColumn, budgetListSortType);
@@ -4055,7 +4051,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                       //   - switch the the opposite (either asc or desc whatever it was)
                                                       // When it was fresh switched to data_date
                                                       //   - set it to the default -> desc
-                                                      budgetListSortType = budgetListSortType  == 'data_date' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
+                                                      budgetListSortType = budgetListSortColumn  == 'data_date' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
 
                                                       budgetListSortColumn  = 'data_date';
                                                       loadList('budget', budgetListSortColumn, budgetListSortType);
@@ -4069,7 +4065,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                       //   - switch the the opposite (either asc or desc whatever it was)
                                                       // When it was fresh switched to amount
                                                       //   - set it to the default -> desc
-                                                      budgetListSortType = budgetListSortType  == 'amount' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
+                                                      budgetListSortType = budgetListSortColumn  == 'amount' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
 
                                                       budgetListSortColumn  = 'amount';
                                                       loadList('budget', budgetListSortColumn, budgetListSortType);
@@ -4083,7 +4079,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                       //   - switch the the opposite (either asc or desc whatever it was)
                                                       // When it was fresh switched to costtype
                                                       //   - set it to the default -> desc
-                                                      budgetListSortType = budgetListSortType  == 'costtype' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
+                                                      budgetListSortType = budgetListSortColumn  == 'costtype' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
 
                                                       budgetListSortColumn  = 'costtype';
                                                       loadList('budget', budgetListSortColumn, budgetListSortType);
@@ -4097,7 +4093,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                       //   - switch the the opposite (either asc or desc whatever it was)
                                                       // When it was fresh switched to level1
                                                       //   - set it to the default -> desc
-                                                      budgetListSortType = budgetListSortType  == 'level1' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
+                                                      budgetListSortType = budgetListSortColumn  == 'level1' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
 
                                                       budgetListSortColumn = 'level1';
                                                       loadList('budget', budgetListSortColumn, budgetListSortType);
