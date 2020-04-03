@@ -270,7 +270,10 @@ class _MyHomePageState extends State<MyHomePage>
   ];
 
   String actualListSortColumn = 'created';
+  String actualListSortType = 'desc';
+
   String budgetListSortColumn = 'created';
+  String budgetListSortType = 'desc';
 
   int sortOrder = 0;
 
@@ -2936,7 +2939,13 @@ class _MyHomePageState extends State<MyHomePage>
                                                     children: <Widget>[
                                                       SimpleDialogOption(
                                                         onPressed: () {
+                                                          // When its the same again
+                                                          //   - switch the the opposite (either asc or desc whatever it was)
+                                                          // When it was fresh switched to created
+                                                          //   - set it to the default -> desc
+                                                          actualListSortType = actualListSortColumn == 'created' ? (actualListSortType == 'asc' ? 'desc' : 'asc') : 'desc';
                                                           actualListSortColumn = 'created';
+
                                                           loadList('actual', actualListSortColumn);
                                                           Navigator.pop(context);
                                                         },
@@ -2944,6 +2953,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                       ),
                                                       SimpleDialogOption(
                                                         onPressed: () {
+                                                          // When its the same again
+                                                          //   - switch the the opposite (either asc or desc whatever it was)
+                                                          // When it was fresh switched to data_date
+                                                          //   - set it to the default -> desc
+                                                          actualListSortType = actualListSortColumn == 'data_date' ? (actualListSortType == 'asc' ? 'desc' : 'asc') : 'desc';
+
                                                           actualListSortColumn = 'data_date';
                                                           loadList('actual', actualListSortColumn);
                                                           Navigator.pop(context);
@@ -2952,6 +2967,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                       ),
                                                       SimpleDialogOption(
                                                         onPressed: () {
+                                                          // When its the same again
+                                                          //   - switch the the opposite (either asc or desc whatever it was)
+                                                          // When it was fresh switched to amount
+                                                          //   - set it to the default -> desc
+                                                          actualListSortType = actualListSortColumn == 'amount' ? (actualListSortType == 'asc' ? 'desc' : 'asc') : 'desc';
+
                                                           actualListSortColumn = 'amount';
                                                           loadList('actual', actualListSortColumn);
                                                           Navigator.pop(context);
@@ -2960,6 +2981,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                       ),
                                                       SimpleDialogOption(
                                                         onPressed: () {
+                                                          // When its the same again
+                                                          //   - switch the the opposite (either asc or desc whatever it was)
+                                                          // When it was fresh switched to costtype
+                                                          //   - set it to the default -> desc
+                                                          actualListSortType = actualListSortColumn == 'costtype' ? (actualListSortType == 'asc' ? 'desc' : 'asc') : 'desc';
+
                                                           actualListSortColumn = 'costtype';
                                                           loadList('actual', actualListSortColumn);
                                                           Navigator.pop(context);
@@ -2968,6 +2995,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                       ),
                                                       SimpleDialogOption(
                                                         onPressed: () {
+                                                          // When its the same again
+                                                          //   - switch the the opposite (either asc or desc whatever it was)
+                                                          // When it was fresh switched to level1
+                                                          //   - set it to the default -> desc
+                                                          actualListSortType = actualListSortColumn == 'level1' ? (actualListSortType == 'asc' ? 'desc' : 'asc') : 'desc';
+
                                                           actualListSortColumn = 'level1';
                                                           loadList('actual', actualListSortColumn);
                                                           Navigator.pop(context);
@@ -4004,6 +4037,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                 children: <Widget>[
                                                   SimpleDialogOption(
                                                     onPressed: () {
+                                                      // When its the same again
+                                                      //   - switch the the opposite (either asc or desc whatever it was)
+                                                      // When it was fresh switched to level1
+                                                      //   - set it to the default -> desc
+                                                      budgetListSortType = budgetListSortType  == 'level1' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
+
                                                       budgetListSortColumn  = 'created';
                                                       loadList('budget', budgetListSortColumn );
                                                       Navigator.pop(context);
@@ -4012,6 +4051,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                   ),
                                                   SimpleDialogOption(
                                                     onPressed: () {
+                                                      // When its the same again
+                                                      //   - switch the the opposite (either asc or desc whatever it was)
+                                                      // When it was fresh switched to data_date
+                                                      //   - set it to the default -> desc
+                                                      budgetListSortType = budgetListSortType  == 'data_date' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
+
                                                       budgetListSortColumn  = 'data_date';
                                                       loadList('budget', budgetListSortColumn );
                                                       Navigator.pop(context);
@@ -4020,6 +4065,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                   ),
                                                   SimpleDialogOption(
                                                     onPressed: () {
+                                                      // When its the same again
+                                                      //   - switch the the opposite (either asc or desc whatever it was)
+                                                      // When it was fresh switched to amount
+                                                      //   - set it to the default -> desc
+                                                      budgetListSortType = budgetListSortType  == 'amount' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
+
                                                       budgetListSortColumn  = 'amount';
                                                       loadList('budget', budgetListSortColumn );
                                                       Navigator.pop(context);
@@ -4028,6 +4079,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                   ),
                                                   SimpleDialogOption(
                                                     onPressed: () {
+                                                      // When its the same again
+                                                      //   - switch the the opposite (either asc or desc whatever it was)
+                                                      // When it was fresh switched to costtype
+                                                      //   - set it to the default -> desc
+                                                      budgetListSortType = budgetListSortType  == 'costtype' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
+
                                                       budgetListSortColumn  = 'costtype';
                                                       loadList('budget', budgetListSortColumn );
                                                       Navigator.pop(context);
@@ -4036,6 +4093,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                   ),
                                                   SimpleDialogOption(
                                                     onPressed: () {
+                                                      // When its the same again
+                                                      //   - switch the the opposite (either asc or desc whatever it was)
+                                                      // When it was fresh switched to level1
+                                                      //   - set it to the default -> desc
+                                                      budgetListSortType = budgetListSortType  == 'level1' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
+
                                                       budgetListSortColumn = 'level1';
                                                       loadList('budget', budgetListSortColumn );
                                                       Navigator.pop(context);
