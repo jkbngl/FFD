@@ -343,7 +343,7 @@ def readPreferences():
 
     return data
 
-def readListActualBudget(_type, sort):
+def readListActualBudget(_type, sort, sortType):
     """
     This function responds to a request for /api/ffd/Preferences
     with the complete lists of Preferences for the user
@@ -369,7 +369,7 @@ def readListActualBudget(_type, sort):
     cursor.execute(f"select  *\
                      from    ffd.{'act' if _type == 'actual' else 'bdg'}_data \
                      where   data_date > date_trunc('month', CURRENT_DATE) - INTERVAL '1 year' \
-                     and     user_fk = {userId} order by {sort} desc")
+                     and     user_fk = {userId} order by {sort} {sortType}")
     record = cursor.fetchall()
     # fetch the column names from the cursror
     columnnames = [desc[0] for desc in cursor.description]

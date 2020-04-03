@@ -224,6 +224,11 @@ paths:
           type: string
           required: true
           description: which column to sort for.
+        - in: query
+          name: sortType
+          type: string
+          required: true
+          description: asc or desc.
       tags:
         - "Amounts"
       summary: "Returns all actual or budget entries for the user in the last year"

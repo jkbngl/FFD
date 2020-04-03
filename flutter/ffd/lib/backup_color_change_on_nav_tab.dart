@@ -360,8 +360,8 @@ class _MyHomePageState extends State<MyHomePage>
     loadHomescreen();
     loadAmount();
 
-    loadList('actual', actualListSortColumn);
-    loadList('budget', budgetListSortColumn);
+    loadList('actual', actualListSortColumn, actualListSortType);
+    loadList('budget', budgetListSortColumn, budgetListSortType);
 
     // Await is needed here because else the sendBackend for generalAdmin will always overwrite the preferences with the default values defined in the code here
     await loadPreferences();
@@ -422,9 +422,9 @@ class _MyHomePageState extends State<MyHomePage>
     }
   }
 
-  loadList(String type, String sort) async {
+  loadList(String type, String sort, String sortType) async {
     String uri =
-        'http://192.168.0.21:5000/api/ffd/list/?_type=$type&sort=$sort';
+        'http://192.168.0.21:5000/api/ffd/list/?_type=$type&sort=$sort&sortType=$sortType';
 
     print(uri);
 
@@ -1149,9 +1149,9 @@ class _MyHomePageState extends State<MyHomePage>
 
     // When an entry was deleted or restored, or a new entry was made in the input page
     if (type == 'actlistdelete' || type == 'actual') {
-      loadList('actual', actualListSortColumn);
+      loadList('actual', actualListSortColumn, actualListSortType);
     } else if (type == 'bdglistdelete' || type == 'budget') {
-      loadList('budget', budgetListSortColumn);
+      loadList('budget', budgetListSortColumn, budgetListSortType);
     }
 
     /*
@@ -1785,10 +1785,10 @@ class _MyHomePageState extends State<MyHomePage>
       });
 
       checkForChanges(false, true, 'actual');
-      loadList('actual', actualListSortColumn);
+      loadList('actual', actualListSortColumn, actualListSortType);
     } else if (_currentIndex == 2) {
       checkForChanges(false, true, 'budget');
-      loadList('budget', budgetListSortColumn);
+      loadList('budget', budgetListSortColumn, budgetListSortType);
     } else if (_currentIndex == 3) {
       //print("REFRESHING ${visualizerData[0].companySize}");
       loadAmount();
@@ -2946,7 +2946,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                           actualListSortType = actualListSortColumn == 'created' ? (actualListSortType == 'asc' ? 'desc' : 'asc') : 'desc';
                                                           actualListSortColumn = 'created';
 
-                                                          loadList('actual', actualListSortColumn);
+                                                          loadList('actual', actualListSortColumn, actualListSortType);
                                                           Navigator.pop(context);
                                                         },
                                                         child: const Text('Date of creation'),
@@ -2960,7 +2960,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                           actualListSortType = actualListSortColumn == 'data_date' ? (actualListSortType == 'asc' ? 'desc' : 'asc') : 'desc';
 
                                                           actualListSortColumn = 'data_date';
-                                                          loadList('actual', actualListSortColumn);
+                                                          loadList('actual', actualListSortColumn, actualListSortType);
                                                           Navigator.pop(context);
                                                         },
                                                         child: const Text('Month where it is billed'),
@@ -2974,7 +2974,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                           actualListSortType = actualListSortColumn == 'amount' ? (actualListSortType == 'asc' ? 'desc' : 'asc') : 'desc';
 
                                                           actualListSortColumn = 'amount';
-                                                          loadList('actual', actualListSortColumn);
+                                                          loadList('actual', actualListSortColumn, actualListSortType);
                                                           Navigator.pop(context);
                                                         },
                                                         child: const Text('Amount of the entry'),
@@ -2988,7 +2988,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                           actualListSortType = actualListSortColumn == 'costtype' ? (actualListSortType == 'asc' ? 'desc' : 'asc') : 'desc';
 
                                                           actualListSortColumn = 'costtype';
-                                                          loadList('actual', actualListSortColumn);
+                                                          loadList('actual', actualListSortColumn, actualListSortType);
                                                           Navigator.pop(context);
                                                         },
                                                         child: const Text('By Costtype'),
@@ -3002,7 +3002,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                           actualListSortType = actualListSortColumn == 'level1' ? (actualListSortType == 'asc' ? 'desc' : 'asc') : 'desc';
 
                                                           actualListSortColumn = 'level1';
-                                                          loadList('actual', actualListSortColumn);
+                                                          loadList('actual', actualListSortColumn, actualListSortType);
                                                           Navigator.pop(context);
                                                         },
                                                         child: const Text('By levels'),
@@ -4044,7 +4044,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                       budgetListSortType = budgetListSortType  == 'level1' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
 
                                                       budgetListSortColumn  = 'created';
-                                                      loadList('budget', budgetListSortColumn );
+                                                      loadList('budget', budgetListSortColumn, budgetListSortType);
                                                       Navigator.pop(context);
                                                     },
                                                     child: const Text('Date of creation'),
@@ -4058,7 +4058,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                       budgetListSortType = budgetListSortType  == 'data_date' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
 
                                                       budgetListSortColumn  = 'data_date';
-                                                      loadList('budget', budgetListSortColumn );
+                                                      loadList('budget', budgetListSortColumn, budgetListSortType);
                                                       Navigator.pop(context);
                                                     },
                                                     child: const Text('Month where it is billed'),
@@ -4072,7 +4072,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                       budgetListSortType = budgetListSortType  == 'amount' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
 
                                                       budgetListSortColumn  = 'amount';
-                                                      loadList('budget', budgetListSortColumn );
+                                                      loadList('budget', budgetListSortColumn, budgetListSortType);
                                                       Navigator.pop(context);
                                                     },
                                                     child: const Text('Amount of the entry'),
@@ -4086,7 +4086,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                       budgetListSortType = budgetListSortType  == 'costtype' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
 
                                                       budgetListSortColumn  = 'costtype';
-                                                      loadList('budget', budgetListSortColumn );
+                                                      loadList('budget', budgetListSortColumn, budgetListSortType);
                                                       Navigator.pop(context);
                                                     },
                                                     child: const Text('By Costtype'),
@@ -4100,7 +4100,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                       budgetListSortType = budgetListSortType  == 'level1' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
 
                                                       budgetListSortColumn = 'level1';
-                                                      loadList('budget', budgetListSortColumn );
+                                                      loadList('budget', budgetListSortColumn, budgetListSortType);
                                                       Navigator.pop(context);
                                                     },
                                                     child: const Text('By levels'),
