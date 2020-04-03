@@ -414,7 +414,7 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   loadList(String type) async {
-    String uri = 'http://192.168.0.21:5000/api/ffd/list/?_type=$type';
+    String uri = 'http://192.168.0.21:5000/api/ffd/list/?_type=$type&sort=created';
 
     print(uri);
 

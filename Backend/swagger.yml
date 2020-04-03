@@ -13,6 +13,24 @@ basePath: "/api"
 
 # Paths supported by the server application
 paths:
+  /ffd/user/:
+    get:
+      operationId: "ffd.userExists"
+      tags:
+        - "User"
+      summary: "Checks if a user exists and if not creates him and returns the payload"
+      description: "checked if a user exists and sent the corresponding payload"
+      responses:
+        200:
+          description: "Successful read the list of accounts"
+          schema:
+            type: "array"
+            items:
+              properties:
+                created_:
+                  type: "string" 
+                mail_: 
+                  type: "string"
   /ffd/accounts/<level_type>:
     get:
       operationId: "ffd.readAccounts"
@@ -194,13 +212,18 @@ paths:
   /ffd/list/:
     get:
       operationId: "ffd.readListActualBudget"
-      #example: http://192.168.0.21:5000/api/ffd/amounts/?_type=1&interval=-1
+      #example: http://192.168.0.21:5000/api/ffd/amounts/?_type=1&sort=created
       parameters:
         - in: query
           name: _type
           type: string
           required: true
           description: actual or budget.
+        - in: query
+          name: sort
+          type: string
+          required: true
+          description: which column to sort for.
       tags:
         - "Amounts"
       summary: "Returns all actual or budget entries for the user in the last year"

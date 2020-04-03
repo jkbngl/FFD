@@ -256,8 +256,6 @@ def createDefaultChartOfCostTypes(userId):
         return True
         
         
-
-
 def readAccounts(level_type):
     """
     This function responds to a request for /api/ffd/level_type
@@ -304,6 +302,8 @@ def readPreferences():
     with the complete lists of Preferences for the user
 
     :return:        list of preferences
+
+    http://192.168.0.21:5000/api/ffd/preferences?user=1
     """
 
     headerAccesstoken = request.headers.get('accesstoken')
@@ -343,8 +343,17 @@ def readPreferences():
 
     return data
 
-def readListActualBudget(_type):
-    
+def readListActualBudget(_type, sort):
+    """
+    This function responds to a request for /api/ffd/Preferences
+    with the complete lists of Preferences for the user
+
+    :return:        list of preferences
+
+    http://192.168.0.21:5000/api/ffd/list/?_type=budget
+
+    """
+
     headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
 
@@ -360,7 +369,7 @@ def readListActualBudget(_type):
     cursor.execute(f"select  *\
                      from    ffd.{'act' if _type == 'actual' else 'bdg'}_data \
                      where   data_date > date_trunc('month', CURRENT_DATE) - INTERVAL '1 year' \
-                     and     user_fk = {userId} order by created desc")
+                     and     user_fk = {userId} order by {sort} desc")
     record = cursor.fetchall()
     # fetch the column names from the cursror
     columnnames = [desc[0] for desc in cursor.description]
@@ -386,6 +395,13 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
     with the complete lists of amounts for the specified params
 
     :return:        list of accounts
+
+    Examples:
+    http://192.168.0.21:5000/api/ffd/amounts/?level_type=2&cost_type=-99&parent_account=3&year=2020&month=2&_type=actual
+    http://192.168.0.21:5000/api/ffd/amounts/?level_type=3&cost_type=-99&parent_account=-100&year=2020&month=2&_type=actual
+    http://192.168.0.21:5000/api/ffd/amounts/?level_type=1&cost_type=-99&parent_account=-69&year=2020&month=2&_type=actual
+    http://192.168.0.21:5000/api/ffd/amounts/?level_type=1&cost_type=-99&parent_account=-69&year=2020&month=2&_type=actual
+    
     """
 
     headerAccesstoken = request.headers.get('accesstoken')
