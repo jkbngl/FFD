@@ -1476,19 +1476,23 @@ class _MyHomePageState extends State<MyHomePage>
     showDialog(
       context: context,
       builder: (context) => new AlertDialog(
-        title: Text("ERROR - ${e.runtimeType}"),
+        title: Text("ERROR - ${e.runtimeType}",
+          style: TextStyle(
+              color: Colors.black,
+              fontSize: 18,
+              fontWeight: FontWeight.bold),),
         content: RichText(
           text: TextSpan(
               text: "Make sure you have an active internet connection, and try to logout and log back in again",
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
+                  fontSize: 15,
+                  ),
               children: <TextSpan>[
                 TextSpan(
-                  text: '$e',
+                  text: '\n\n[$e]',
                   style:
-                  TextStyle(color: Color(0xFF0957FF), fontSize: 18),
+                  TextStyle(color: Colors.red, fontSize: 10),
                 )
               ]),
         ),
