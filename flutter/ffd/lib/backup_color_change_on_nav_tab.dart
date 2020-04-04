@@ -3083,7 +3083,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                   );
                                                 });
                                           })
-                                      : GestureDetector(
+                                      : (actList[index - 1].costType.toLowerCase().contains('') ? GestureDetector(
                                           onTap: () {
                                             print(
                                                 "Item ${actList[index - 1].id} clicked");
@@ -3537,7 +3537,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                         )
                                                       ]),
                                                 ])),
-                                          ));
+                                          )) : Container());
                                 })),
                       ]),
                     ),
