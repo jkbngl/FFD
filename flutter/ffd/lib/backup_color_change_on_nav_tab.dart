@@ -248,6 +248,9 @@ class _MyHomePageState extends State<MyHomePage>
   final actualTextFieldController = TextEditingController();
   final budgetTextFieldController = TextEditingController();
 
+  final actualSearchTextFieldController = TextEditingController();
+  final budgetSearchTextFieldController = TextEditingController();
+
   // Datetime object for selecting the date when the actual/ budget should be saved
   DateTime dateTimeHome;
   DateTime dateTimeActual;
@@ -1519,8 +1522,7 @@ class _MyHomePageState extends State<MyHomePage>
           ],
         ),
       );
-    }
-    else{
+    } else {
       print("ERRORDIALOG already active - $errorDialogActive");
     }
   }
@@ -2929,615 +2931,659 @@ class _MyHomePageState extends State<MyHomePage>
                                     1, // Length + 1 as the 0 index is the sort button, all other use index - 1
                                 itemBuilder: (BuildContext context, int index) {
                                   return index == 0
-                                      ? IconButton(
-                                          icon: Icon(Icons.sort),
-                                          color: Color(0xff003680),
-                                          alignment: Alignment.centerRight,
-                                          iconSize: 25,
-                                          onPressed: () {
-                                            return showDialog(
-                                                context: context,
-                                                barrierDismissible: true,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return SimpleDialog(
-                                                    title: const Text(
-                                                        'Order by ... '),
-                                                    children: <Widget>[
-                                                      SimpleDialogOption(
-                                                        onPressed: () {
-                                                          // When its the same again
-                                                          //   - switch the the opposite (either asc or desc whatever it was)
-                                                          // When it was fresh switched to created
-                                                          //   - set it to the default -> desc
-                                                          actualListSortType =
-                                                              actualListSortColumn ==
-                                                                      'created'
-                                                                  ? (actualListSortType ==
-                                                                          'asc'
-                                                                      ? 'desc'
-                                                                      : 'asc')
-                                                                  : 'desc';
-                                                          actualListSortColumn =
-                                                              'created';
+                                      ? Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                  Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment
+                                      .spaceEvenly,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment
+                                          .center,
+                                      children: <Widget>[
+                                        Flexible(child: TextFormField(
+                                                  autofocus: false,
+                                                  onChanged: (value) {
+                                                    setState(() {});
+                                                  },
+                                                  controller:
+                                                      actualSearchTextFieldController,
+                                                  decoration: InputDecoration(
+                                                    // hintText: 'Enter ur amount',
+                                                    //hintStyle: TextStyle(height: 1.75),
+                                                    labelText:
+                                                        'Search for amounts, comments and more',
+                                                    //increases the height of cursor
+                                                    icon: Icon(
+                                                      Icons.search,
+                                                    ),
+                                                  )), ),IconButton(
+                                            icon: Icon(Icons.clear),
+                                            color: Color(0xff003680),
+                                            alignment:
+                                            Alignment.centerRight,
+                                            iconSize: 25,
+                                            onPressed: () {setState(() {actualSearchTextFieldController.clear();});}),IconButton(
+                                            icon: Icon(Icons.sort),
+                                            color: Color(0xff003680),
+                                            alignment:
+                                            Alignment.centerRight,
+                                            iconSize: 25,
+                                            onPressed: () {
+                                              return showDialog(
+                                                  context: context,
+                                                  barrierDismissible:
+                                                  true,
+                                                  builder: (BuildContext
+                                                  context) {
+                                                    return SimpleDialog(
+                                                      title: const Text(
+                                                          'Order by ... '),
+                                                      children: <Widget>[
+                                                        SimpleDialogOption(
+                                                          onPressed: () {
+                                                            // When its the same again
+                                                            //   - switch the the opposite (either asc or desc whatever it was)
+                                                            // When it was fresh switched to created
+                                                            //   - set it to the default -> desc
+                                                            actualListSortType = actualListSortColumn ==
+                                                                'created'
+                                                                ? (actualListSortType ==
+                                                                'asc'
+                                                                ? 'desc'
+                                                                : 'asc')
+                                                                : 'desc';
+                                                            actualListSortColumn =
+                                                            'created';
 
-                                                          loadList(
-                                                              'actual',
-                                                              actualListSortColumn,
-                                                              actualListSortType);
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: const Text(
-                                                            'Date of creation'),
-                                                      ),
-                                                      SimpleDialogOption(
-                                                        onPressed: () {
-                                                          // When its the same again
-                                                          //   - switch the the opposite (either asc or desc whatever it was)
-                                                          // When it was fresh switched to data_date
-                                                          //   - set it to the default -> desc
-                                                          actualListSortType =
-                                                              actualListSortColumn ==
-                                                                      'data_date'
-                                                                  ? (actualListSortType ==
-                                                                          'asc'
-                                                                      ? 'desc'
-                                                                      : 'asc')
-                                                                  : 'desc';
+                                                            loadList(
+                                                                'actual',
+                                                                actualListSortColumn,
+                                                                actualListSortType);
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: const Text(
+                                                              'Date of creation'),
+                                                        ),
+                                                        SimpleDialogOption(
+                                                          onPressed: () {
+                                                            // When its the same again
+                                                            //   - switch the the opposite (either asc or desc whatever it was)
+                                                            // When it was fresh switched to data_date
+                                                            //   - set it to the default -> desc
+                                                            actualListSortType = actualListSortColumn ==
+                                                                'data_date'
+                                                                ? (actualListSortType ==
+                                                                'asc'
+                                                                ? 'desc'
+                                                                : 'asc')
+                                                                : 'desc';
 
-                                                          actualListSortColumn =
-                                                              'data_date';
-                                                          loadList(
-                                                              'actual',
-                                                              actualListSortColumn,
-                                                              actualListSortType);
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: const Text(
-                                                            'Month where it is billed'),
-                                                      ),
-                                                      SimpleDialogOption(
-                                                        onPressed: () {
-                                                          // When its the same again
-                                                          //   - switch the the opposite (either asc or desc whatever it was)
-                                                          // When it was fresh switched to amount
-                                                          //   - set it to the default -> desc
-                                                          actualListSortType =
-                                                              actualListSortColumn ==
-                                                                      'amount'
-                                                                  ? (actualListSortType ==
-                                                                          'asc'
-                                                                      ? 'desc'
-                                                                      : 'asc')
-                                                                  : 'desc';
+                                                            actualListSortColumn =
+                                                            'data_date';
+                                                            loadList(
+                                                                'actual',
+                                                                actualListSortColumn,
+                                                                actualListSortType);
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: const Text(
+                                                              'Month where it is billed'),
+                                                        ),
+                                                        SimpleDialogOption(
+                                                          onPressed: () {
+                                                            // When its the same again
+                                                            //   - switch the the opposite (either asc or desc whatever it was)
+                                                            // When it was fresh switched to amount
+                                                            //   - set it to the default -> desc
+                                                            actualListSortType = actualListSortColumn ==
+                                                                'amount'
+                                                                ? (actualListSortType ==
+                                                                'asc'
+                                                                ? 'desc'
+                                                                : 'asc')
+                                                                : 'desc';
 
-                                                          actualListSortColumn =
-                                                              'amount';
-                                                          loadList(
-                                                              'actual',
-                                                              actualListSortColumn,
-                                                              actualListSortType);
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: const Text(
-                                                            'Amount of the entry'),
-                                                      ),
-                                                      SimpleDialogOption(
-                                                        onPressed: () {
-                                                          // When its the same again
-                                                          //   - switch the the opposite (either asc or desc whatever it was)
-                                                          // When it was fresh switched to costtype
-                                                          //   - set it to the default -> desc
-                                                          actualListSortType =
-                                                              actualListSortColumn ==
-                                                                      'costtype'
-                                                                  ? (actualListSortType ==
-                                                                          'asc'
-                                                                      ? 'desc'
-                                                                      : 'asc')
-                                                                  : 'desc';
+                                                            actualListSortColumn =
+                                                            'amount';
+                                                            loadList(
+                                                                'actual',
+                                                                actualListSortColumn,
+                                                                actualListSortType);
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: const Text(
+                                                              'Amount of the entry'),
+                                                        ),
+                                                        SimpleDialogOption(
+                                                          onPressed: () {
+                                                            // When its the same again
+                                                            //   - switch the the opposite (either asc or desc whatever it was)
+                                                            // When it was fresh switched to costtype
+                                                            //   - set it to the default -> desc
+                                                            actualListSortType = actualListSortColumn ==
+                                                                'costtype'
+                                                                ? (actualListSortType ==
+                                                                'asc'
+                                                                ? 'desc'
+                                                                : 'asc')
+                                                                : 'desc';
 
-                                                          actualListSortColumn =
-                                                              'costtype';
-                                                          loadList(
-                                                              'actual',
-                                                              actualListSortColumn,
-                                                              actualListSortType);
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: const Text(
-                                                            'By Costtype'),
-                                                      ),
-                                                      SimpleDialogOption(
-                                                        onPressed: () {
-                                                          // When its the same again
-                                                          //   - switch the the opposite (either asc or desc whatever it was)
-                                                          // When it was fresh switched to level1
-                                                          //   - set it to the default -> desc
-                                                          actualListSortType =
-                                                              actualListSortColumn ==
-                                                                      'level1'
-                                                                  ? (actualListSortType ==
-                                                                          'asc'
-                                                                      ? 'desc'
-                                                                      : 'asc')
-                                                                  : 'desc';
+                                                            actualListSortColumn =
+                                                            'costtype';
+                                                            loadList(
+                                                                'actual',
+                                                                actualListSortColumn,
+                                                                actualListSortType);
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: const Text(
+                                                              'By Costtype'),
+                                                        ),
+                                                        SimpleDialogOption(
+                                                          onPressed: () {
+                                                            // When its the same again
+                                                            //   - switch the the opposite (either asc or desc whatever it was)
+                                                            // When it was fresh switched to level1
+                                                            //   - set it to the default -> desc
+                                                            actualListSortType = actualListSortColumn ==
+                                                                'level1'
+                                                                ? (actualListSortType ==
+                                                                'asc'
+                                                                ? 'desc'
+                                                                : 'asc')
+                                                                : 'desc';
 
-                                                          actualListSortColumn =
-                                                              'level1';
-                                                          loadList(
-                                                              'actual',
-                                                              actualListSortColumn,
-                                                              actualListSortType);
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: const Text(
-                                                            'By levels'),
-                                                      )
-                                                    ],
-                                                  );
-                                                });
-                                          })
-                                      : (actList[index - 1].costType.toLowerCase().contains('') ? GestureDetector(
-                                          onTap: () {
-                                            print(
-                                                "Item ${actList[index - 1].id} clicked");
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) =>
-                                                  new AlertDialog(
-                                                title: Text(
-                                                  'Details',
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 25,
-                                                  ),
-                                                ),
-                                                content: RichText(
-                                                  text: TextSpan(
-                                                      text: "",
+                                                            actualListSortColumn =
+                                                            'level1';
+                                                            loadList(
+                                                                'actual',
+                                                                actualListSortColumn,
+                                                                actualListSortType);
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: const Text(
+                                                              'By levels'),
+                                                        )
+                                                      ],
+                                                    );
+                                                  });
+                                            })]),
+
+                                            ])
+                                      : ((actList[index - 1]
+                                      .costType
+                                      .toLowerCase()
+                                      .contains(
+                                      actualSearchTextFieldController
+                                          .text) ||
+                                      actList[index - 1]
+                                          .level1
+                                          .toLowerCase()
+                                          .contains(
+                                          actualSearchTextFieldController
+                                              .text) ||
+                                      actList[index - 1]
+                                          .level2
+                                          .toLowerCase()
+                                          .contains(
+                                          actualSearchTextFieldController
+                                              .text) ||
+                                      actList[index - 1]
+                                          .level3
+                                          .toLowerCase()
+                                          .contains(
+                                          actualSearchTextFieldController
+                                              .text) ||
+                                      actList[index - 1]
+                                          .comment
+                                          .toLowerCase()
+                                          .contains(actualSearchTextFieldController.text) ||
+                                      actList[index - 1].amount.toString().contains(actualSearchTextFieldController.text) ||
+                                      actList[index - 1].level1.toLowerCase().contains(actualSearchTextFieldController.text) ||
+                                      actList[index - 1].date.toLowerCase().contains(actualSearchTextFieldController.text))
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                print(
+                                                    "Item ${actList[index - 1].id} clicked");
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      new AlertDialog(
+                                                    title: Text(
+                                                      'Details',
                                                       style: TextStyle(
                                                         color: Colors.black,
-                                                        fontSize: 15,
+                                                        fontSize: 25,
                                                       ),
-                                                      children: <TextSpan>[
-                                                        TextSpan(
-                                                          text: 'Date:  ',
+                                                    ),
+                                                    content: RichText(
+                                                      text: TextSpan(
+                                                          text: "",
                                                           style: TextStyle(
-                                                            fontSize: 18,
+                                                            color: Colors.black,
+                                                            fontSize: 15,
                                                           ),
-                                                        ),
-                                                        TextSpan(
-                                                          text:
-                                                              '${actList[index - 1].date}\n',
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0xFF0957FF),
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .italic),
-                                                        ),
-                                                        TextSpan(
-                                                          text: 'Amount: ',
-                                                          style: TextStyle(
-                                                            fontSize: 18,
-                                                          ),
-                                                        ),
-                                                        TextSpan(
-                                                          text:
-                                                              '${actList[index - 1].amount}\n',
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0xFF0957FF),
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .italic),
-                                                        ),
-                                                        TextSpan(
-                                                          text: 'Level: ',
-                                                          style: TextStyle(
-                                                            fontSize: 18,
-                                                          ),
-                                                        ),
-                                                        TextSpan(
-                                                          text:
-                                                              '${actList[index - 1].level1} > ${actList[index - 1].level2} > ${actList[index - 1].level3}\n',
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0xFF0957FF),
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .italic),
-                                                        ),
-                                                        TextSpan(
-                                                          text: 'Costtype: ',
-                                                          style: TextStyle(
-                                                            fontSize: 18,
-                                                          ),
-                                                        ),
-                                                        TextSpan(
-                                                          text:
-                                                              '${actList[index - 1].costType}\n',
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0xFF0957FF),
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .italic),
-                                                        ),
-                                                        TextSpan(
-                                                          text: 'Comment: ',
-                                                          style: TextStyle(
-                                                            fontSize: 18,
-                                                          ),
-                                                        ),
-                                                        TextSpan(
-                                                          text:
-                                                              '${actList[index - 1].comment.length > 0 ? actList[index - 1].comment : 'no comment available'}\n',
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0xFF0957FF),
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .italic),
-                                                        ),
-                                                      ]),
-                                                ),
-                                                actions: <Widget>[
-                                                  new FlatButton(
-                                                    child: new Text('DISMISS'),
-                                                    onPressed: () =>
-                                                        Navigator.of(context)
-                                                            .pop(),
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                          child: Container(
-                                            margin: const EdgeInsets.all(15.0),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors.blueAccent),
-                                              color:
-                                                  actList[index - 1].active == 1
+                                                          children: <TextSpan>[
+                                                            TextSpan(
+                                                              text: 'Date:  ',
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${actList[index - 1].date}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                            TextSpan(
+                                                              text: 'Amount: ',
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${actList[index - 1].amount}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                            TextSpan(
+                                                              text: 'Level: ',
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${actList[index - 1].level1} > ${actList[index - 1].level2} > ${actList[index - 1].level3}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  'Costtype: ',
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${actList[index - 1].costType}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                            TextSpan(
+                                                              text: 'Comment: ',
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${actList[index - 1].comment.length > 0 ? actList[index - 1].comment : 'no comment available'}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                          ]),
+                                                    ),
+                                                    actions: <Widget>[
+                                                      new FlatButton(
+                                                        child:
+                                                            new Text('DISMISS'),
+                                                        onPressed: () =>
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop(),
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                              child: Container(
+                                                margin:
+                                                    const EdgeInsets.all(15.0),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: Colors.blueAccent),
+                                                  color: actList[index - 1]
+                                                              .active ==
+                                                          1
                                                       ? Color(0xffEEEEEE)
                                                       : Colors.redAccent,
-                                              borderRadius:
-                                                  new BorderRadius.circular(
-                                                      30.0),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black12,
-                                                  blurRadius:
-                                                      5, // has the effect of softening the shadow
-                                                  spreadRadius:
-                                                      0, // has the effect of extending the shadow
-                                                  offset: Offset(
-                                                    7.0, // horizontal, move right 10
-                                                    7.0, // vertical, move down 10
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                            child: Center(
-                                                child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: <Widget>[
-                                                  SizedBox(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            .6,
-                                                    //height: 300.0,
-                                                    child: Column(
+                                                  borderRadius:
+                                                      new BorderRadius.circular(
+                                                          30.0),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black12,
+                                                      blurRadius:
+                                                          5, // has the effect of softening the shadow
+                                                      spreadRadius:
+                                                          0, // has the effect of extending the shadow
+                                                      offset: Offset(
+                                                        7.0, // horizontal, move right 10
+                                                        7.0, // vertical, move down 10
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                child: Center(
+                                                    child: Row(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
-                                                                .center,
+                                                                .spaceEvenly,
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .center,
                                                         children: <Widget>[
-                                                          SizedBox(height: 15),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width *
-                                                                      .1,
-                                                                  child: Icon(
-                                                                    Icons
-                                                                        .attach_money,
-                                                                    color: Color(
-                                                                        0xff0957FF),
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  "${actList[index - 1].date}",
-                                                                  style: TextStyle(
-                                                                      color: Color(
-                                                                          0xff0957FF),
-                                                                      fontSize:
-                                                                          25),
-                                                                ),
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width *
-                                                                      .1,
-                                                                  child:
-                                                                      Container(),
-                                                                ),
-                                                                Flexible(
-                                                                    child: Text(
-                                                                  "${actList[index - 1].comment.length > 0 ? actList[index - 1].comment : 'no comment available'}",
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Colors
-                                                                        .black,
-                                                                    fontStyle:
-                                                                        FontStyle
-                                                                            .italic,
-                                                                    fontSize:
-                                                                        15,
-                                                                  ),
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                )),
-                                                                Container(),
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        .1,
-                                                                    //height: 300.0,
-                                                                    child:
-                                                                        Container()),
-                                                                Flexible(
-                                                                    child: Text(
-                                                                  '${actList[index - 1].level1} > ${actList[index - 1].level2} > ${actList[index - 1].level3}',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          13),
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                ))
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 5,
-                                                          ),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        .1,
-                                                                    //height: 300.0,
-                                                                    child:
-                                                                        Container()),
-                                                                Flexible(
-                                                                    child: Text(
-                                                                  '${actList[index - 1].costType}',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          13),
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                ))
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 15,
-                                                          ),
-                                                        ]),
-                                                  ),
-                                                  Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                            '${actList[index - 1].amount}'),
-                                                        SizedBox(
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              .1,
-                                                          //height: 300.0,
-                                                          child: IconButton(
-                                                            icon: new Icon(
-                                                              actList[index - 1]
-                                                                          .active ==
-                                                                      1
-                                                                  ? Icons.delete
-                                                                  : Icons
-                                                                      .restore,
-                                                            ),
-                                                            color: Color(
-                                                                0xff0957FF),
-                                                            onPressed: () {
-                                                              showDialog(
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (context) =>
-                                                                        new AlertDialog(
-                                                                  title: Text(
-                                                                    "Are you sure?",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize:
-                                                                          25,
+                                                      SizedBox(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            .6,
+                                                        //height: 300.0,
+                                                        child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              SizedBox(
+                                                                  height: 15),
+                                                              Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                      width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          .1,
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .attach_money,
+                                                                        color: Color(
+                                                                            0xff0957FF),
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                  content:
-                                                                      RichText(
-                                                                    text: TextSpan(
-                                                                        text:
-                                                                            "${actList[index - 1].comment.length > 0 ? actList[index - 1].comment : 'no comment available'}\n\n",
-                                                                        style: TextStyle(
-                                                                            color: Colors
-                                                                                .black,
-                                                                            fontSize:
-                                                                                15,
-                                                                            fontStyle: FontStyle
-                                                                                .italic),
-                                                                        children: <
-                                                                            TextSpan>[
-                                                                          TextSpan(
+                                                                    Text(
+                                                                      "${actList[index - 1].date}",
+                                                                      style: TextStyle(
+                                                                          color: Color(
+                                                                              0xff0957FF),
+                                                                          fontSize:
+                                                                              25),
+                                                                    ),
+                                                                  ]),
+                                                              SizedBox(
+                                                                height: 10,
+                                                              ),
+                                                              Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                      width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          .1,
+                                                                      child:
+                                                                          Container(),
+                                                                    ),
+                                                                    Flexible(
+                                                                        child:
+                                                                            Text(
+                                                                      "${actList[index - 1].comment.length > 0 ? actList[index - 1].comment : 'no comment available'}",
+                                                                      style:
+                                                                          TextStyle(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontStyle:
+                                                                            FontStyle.italic,
+                                                                        fontSize:
+                                                                            15,
+                                                                      ),
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                    )),
+                                                                    Container(),
+                                                                  ]),
+                                                              SizedBox(
+                                                                height: 10,
+                                                              ),
+                                                              Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                        width: MediaQuery.of(context).size.width *
+                                                                            .1,
+                                                                        //height: 300.0,
+                                                                        child:
+                                                                            Container()),
+                                                                    Flexible(
+                                                                        child:
+                                                                            Text(
+                                                                      '${actList[index - 1].level1} > ${actList[index - 1].level2} > ${actList[index - 1].level3}',
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .black,
+                                                                          fontSize:
+                                                                              13),
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                    ))
+                                                                  ]),
+                                                              SizedBox(
+                                                                height: 5,
+                                                              ),
+                                                              Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                        width: MediaQuery.of(context).size.width *
+                                                                            .1,
+                                                                        //height: 300.0,
+                                                                        child:
+                                                                            Container()),
+                                                                    Flexible(
+                                                                        child:
+                                                                            Text(
+                                                                      '${actList[index - 1].costType}',
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .black,
+                                                                          fontSize:
+                                                                              13),
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                    ))
+                                                                  ]),
+                                                              SizedBox(
+                                                                height: 15,
+                                                              ),
+                                                            ]),
+                                                      ),
+                                                      Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                                '${actList[index - 1].amount}'),
+                                                            SizedBox(
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width *
+                                                                  .1,
+                                                              //height: 300.0,
+                                                              child: IconButton(
+                                                                icon: new Icon(
+                                                                  actList[index - 1]
+                                                                              .active ==
+                                                                          1
+                                                                      ? Icons
+                                                                          .delete
+                                                                      : Icons
+                                                                          .restore,
+                                                                ),
+                                                                color: Color(
+                                                                    0xff0957FF),
+                                                                onPressed: () {
+                                                                  showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (context) =>
+                                                                            new AlertDialog(
+                                                                      title:
+                                                                          Text(
+                                                                        "Are you sure?",
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                          fontSize:
+                                                                              25,
+                                                                        ),
+                                                                      ),
+                                                                      content:
+                                                                          RichText(
+                                                                        text: TextSpan(
                                                                             text:
-                                                                                'Entry from ',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontSize: 18,
-                                                                            ),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text:
-                                                                                '${actList[index - 1].date} ',
+                                                                                "${actList[index - 1].comment.length > 0 ? actList[index - 1].comment : 'no comment available'}\n\n",
                                                                             style: TextStyle(
-                                                                                color: Color(0xFF0957FF),
-                                                                                fontSize: 18,
-                                                                                fontWeight: FontWeight.bold),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text:
-                                                                                'with an amount of ',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontSize: 18,
-                                                                            ),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text:
-                                                                                '${actList[index - 1].amount} ',
-                                                                            style: TextStyle(
-                                                                                color: Color(0xFF0957FF),
-                                                                                fontSize: 18,
-                                                                                fontWeight: FontWeight.bold),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text:
-                                                                                'will be ',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontSize: 18,
-                                                                            ),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text:
-                                                                                '${actList[index - 1].active == 1 ? "deleted" : "restored"}',
-                                                                            style: TextStyle(
-                                                                                color: actList[index - 1].active == 1 ? Colors.red : Colors.green,
-                                                                                fontSize: 18,
-                                                                                fontWeight: FontWeight.bold),
-                                                                          ),
-                                                                        ]),
-                                                                  ),
-                                                                  actions: <
-                                                                      Widget>[
-                                                                    new FlatButton(
-                                                                      child: new Text(
-                                                                          'Cancel'),
-                                                                      onPressed:
-                                                                          () =>
+                                                                                color: Colors.black,
+                                                                                fontSize: 15,
+                                                                                fontStyle: FontStyle.italic),
+                                                                            children: <TextSpan>[
+                                                                              TextSpan(
+                                                                                text: 'Entry from ',
+                                                                                style: TextStyle(
+                                                                                  fontSize: 18,
+                                                                                ),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: '${actList[index - 1].date} ',
+                                                                                style: TextStyle(color: Color(0xFF0957FF), fontSize: 18, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: 'with an amount of ',
+                                                                                style: TextStyle(
+                                                                                  fontSize: 18,
+                                                                                ),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: '${actList[index - 1].amount} ',
+                                                                                style: TextStyle(color: Color(0xFF0957FF), fontSize: 18, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: 'will be ',
+                                                                                style: TextStyle(
+                                                                                  fontSize: 18,
+                                                                                ),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: '${actList[index - 1].active == 1 ? "deleted" : "restored"}',
+                                                                                style: TextStyle(color: actList[index - 1].active == 1 ? Colors.red : Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ]),
+                                                                      ),
+                                                                      actions: <
+                                                                          Widget>[
+                                                                        new FlatButton(
+                                                                          child:
+                                                                              new Text('Cancel'),
+                                                                          onPressed: () =>
                                                                               Navigator.of(context).pop(),
-                                                                    ),
-                                                                    new FlatButton(
-                                                                      child: new Text(
-                                                                          'Confirm'),
-                                                                      onPressed:
-                                                                          () {
-                                                                        actObjectToDelete
-                                                                            .id = actList[index -
-                                                                                1]
-                                                                            .id;
+                                                                        ),
+                                                                        new FlatButton(
+                                                                          child:
+                                                                              new Text('Confirm'),
+                                                                          onPressed:
+                                                                              () {
+                                                                            actObjectToDelete.id =
+                                                                                actList[index - 1].id;
 
-                                                                        sendBackend(
-                                                                            'actlistdelete',
-                                                                            false);
-                                                                        Navigator.of(context)
-                                                                            .pop();
-                                                                      },
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              );
-                                                            },
-                                                          ),
-                                                        )
-                                                      ]),
-                                                ])),
-                                          )) : Container());
+                                                                            sendBackend('actlistdelete',
+                                                                                false);
+                                                                            Navigator.of(context).pop();
+                                                                          },
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              ),
+                                                            )
+                                                          ]),
+                                                    ])),
+                                              ))
+                                          : Container());
                                 })),
                       ]),
                     ),
@@ -4088,615 +4134,647 @@ class _MyHomePageState extends State<MyHomePage>
                                     1, // Length + 1 as the 0 index is the sort button, all other use index - 1
                                 itemBuilder: (BuildContext context, int index) {
                                   return index == 0
-                                      ? IconButton(
-                                          icon: Icon(Icons.sort),
-                                          color: Color(0xff003680),
-                                          alignment: Alignment.centerRight,
-                                          iconSize: 25,
-                                          onPressed: () {
-                                            return showDialog(
-                                                context: context,
-                                                barrierDismissible: true,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return SimpleDialog(
-                                                    title: const Text(
-                                                        'Order by ... '),
-                                                    children: <Widget>[
-                                                      SimpleDialogOption(
-                                                        onPressed: () {
-                                                          // When its the same again
-                                                          //   - switch the the opposite (either asc or desc whatever it was)
-                                                          // When it was fresh switched to level1
-                                                          //   - set it to the default -> desc
-                                                          budgetListSortType =
-                                                              budgetListSortColumn ==
-                                                                      'level1'
-                                                                  ? (budgetListSortType ==
-                                                                          'asc'
-                                                                      ? 'desc'
-                                                                      : 'asc')
-                                                                  : 'desc';
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                  Flexible(child:TextFormField(
+                                                  autofocus: false,
+                                                  onChanged: (value) {
+                                                    setState(() {});
+                                                  },
+                                                  controller:
+                                                      budgetSearchTextFieldController,
+                                                  decoration: InputDecoration(
+                                                    // hintText: 'Enter ur amount',
+                                                    //hintStyle: TextStyle(height: 1.75),
+                                                    labelText:
+                                                        'Search for amounts, comments and more',
+                                                    //increases the height of cursor
+                                                    icon: Icon(
+                                                      Icons.search,
+                                                    ),
+                                                  ))),
+                                  IconButton(
+                                  icon: Icon(Icons.clear),
+                                  color: Color(0xff003680),
+                                  alignment:
+                                  Alignment.centerRight,
+                                  iconSize: 25,
+                                  onPressed: () {setState(() {budgetSearchTextFieldController.clear();});}),IconButton(
+                                                  icon: Icon(Icons.sort),
+                                                  color: Color(0xff003680),
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  iconSize: 25,
+                                                  onPressed: () {
+                                                    return showDialog(
+                                                        context: context,
+                                                        barrierDismissible:
+                                                            true,
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return SimpleDialog(
+                                                            title: const Text(
+                                                                'Order by ... '),
+                                                            children: <Widget>[
+                                                              SimpleDialogOption(
+                                                                onPressed: () {
+                                                                  // When its the same again
+                                                                  //   - switch the the opposite (either asc or desc whatever it was)
+                                                                  // When it was fresh switched to level1
+                                                                  //   - set it to the default -> desc
+                                                                  budgetListSortType = budgetListSortColumn ==
+                                                                          'level1'
+                                                                      ? (budgetListSortType ==
+                                                                              'asc'
+                                                                          ? 'desc'
+                                                                          : 'asc')
+                                                                      : 'desc';
 
-                                                          budgetListSortColumn =
-                                                              'created';
-                                                          loadList(
-                                                              'budget',
-                                                              budgetListSortColumn,
-                                                              budgetListSortType);
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: const Text(
-                                                            'Date of creation'),
-                                                      ),
-                                                      SimpleDialogOption(
-                                                        onPressed: () {
-                                                          // When its the same again
-                                                          //   - switch the the opposite (either asc or desc whatever it was)
-                                                          // When it was fresh switched to data_date
-                                                          //   - set it to the default -> desc
-                                                          budgetListSortType =
-                                                              budgetListSortColumn ==
-                                                                      'data_date'
-                                                                  ? (budgetListSortType ==
-                                                                          'asc'
-                                                                      ? 'desc'
-                                                                      : 'asc')
-                                                                  : 'desc';
+                                                                  budgetListSortColumn =
+                                                                      'created';
+                                                                  loadList(
+                                                                      'budget',
+                                                                      budgetListSortColumn,
+                                                                      budgetListSortType);
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                child: const Text(
+                                                                    'Date of creation'),
+                                                              ),
+                                                              SimpleDialogOption(
+                                                                onPressed: () {
+                                                                  // When its the same again
+                                                                  //   - switch the the opposite (either asc or desc whatever it was)
+                                                                  // When it was fresh switched to data_date
+                                                                  //   - set it to the default -> desc
+                                                                  budgetListSortType = budgetListSortColumn ==
+                                                                          'data_date'
+                                                                      ? (budgetListSortType ==
+                                                                              'asc'
+                                                                          ? 'desc'
+                                                                          : 'asc')
+                                                                      : 'desc';
 
-                                                          budgetListSortColumn =
-                                                              'data_date';
-                                                          loadList(
-                                                              'budget',
-                                                              budgetListSortColumn,
-                                                              budgetListSortType);
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: const Text(
-                                                            'Month where it is billed'),
-                                                      ),
-                                                      SimpleDialogOption(
-                                                        onPressed: () {
-                                                          // When its the same again
-                                                          //   - switch the the opposite (either asc or desc whatever it was)
-                                                          // When it was fresh switched to amount
-                                                          //   - set it to the default -> desc
-                                                          budgetListSortType =
-                                                              budgetListSortColumn ==
-                                                                      'amount'
-                                                                  ? (budgetListSortType ==
-                                                                          'asc'
-                                                                      ? 'desc'
-                                                                      : 'asc')
-                                                                  : 'desc';
+                                                                  budgetListSortColumn =
+                                                                      'data_date';
+                                                                  loadList(
+                                                                      'budget',
+                                                                      budgetListSortColumn,
+                                                                      budgetListSortType);
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                child: const Text(
+                                                                    'Month where it is billed'),
+                                                              ),
+                                                              SimpleDialogOption(
+                                                                onPressed: () {
+                                                                  // When its the same again
+                                                                  //   - switch the the opposite (either asc or desc whatever it was)
+                                                                  // When it was fresh switched to amount
+                                                                  //   - set it to the default -> desc
+                                                                  budgetListSortType = budgetListSortColumn ==
+                                                                          'amount'
+                                                                      ? (budgetListSortType ==
+                                                                              'asc'
+                                                                          ? 'desc'
+                                                                          : 'asc')
+                                                                      : 'desc';
 
-                                                          budgetListSortColumn =
-                                                              'amount';
-                                                          loadList(
-                                                              'budget',
-                                                              budgetListSortColumn,
-                                                              budgetListSortType);
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: const Text(
-                                                            'Amount of the entry'),
-                                                      ),
-                                                      SimpleDialogOption(
-                                                        onPressed: () {
-                                                          // When its the same again
-                                                          //   - switch the the opposite (either asc or desc whatever it was)
-                                                          // When it was fresh switched to costtype
-                                                          //   - set it to the default -> desc
-                                                          budgetListSortType =
-                                                              budgetListSortColumn ==
-                                                                      'costtype'
-                                                                  ? (budgetListSortType ==
-                                                                          'asc'
-                                                                      ? 'desc'
-                                                                      : 'asc')
-                                                                  : 'desc';
+                                                                  budgetListSortColumn =
+                                                                      'amount';
+                                                                  loadList(
+                                                                      'budget',
+                                                                      budgetListSortColumn,
+                                                                      budgetListSortType);
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                child: const Text(
+                                                                    'Amount of the entry'),
+                                                              ),
+                                                              SimpleDialogOption(
+                                                                onPressed: () {
+                                                                  // When its the same again
+                                                                  //   - switch the the opposite (either asc or desc whatever it was)
+                                                                  // When it was fresh switched to costtype
+                                                                  //   - set it to the default -> desc
+                                                                  budgetListSortType = budgetListSortColumn ==
+                                                                          'costtype'
+                                                                      ? (budgetListSortType ==
+                                                                              'asc'
+                                                                          ? 'desc'
+                                                                          : 'asc')
+                                                                      : 'desc';
 
-                                                          budgetListSortColumn =
-                                                              'costtype';
-                                                          loadList(
-                                                              'budget',
-                                                              budgetListSortColumn,
-                                                              budgetListSortType);
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: const Text(
-                                                            'By Costtype'),
-                                                      ),
-                                                      SimpleDialogOption(
-                                                        onPressed: () {
-                                                          // When its the same again
-                                                          //   - switch the the opposite (either asc or desc whatever it was)
-                                                          // When it was fresh switched to level1
-                                                          //   - set it to the default -> desc
-                                                          budgetListSortType =
-                                                              budgetListSortColumn ==
-                                                                      'level1'
-                                                                  ? (budgetListSortType ==
-                                                                          'asc'
-                                                                      ? 'desc'
-                                                                      : 'asc')
-                                                                  : 'desc';
+                                                                  budgetListSortColumn =
+                                                                      'costtype';
+                                                                  loadList(
+                                                                      'budget',
+                                                                      budgetListSortColumn,
+                                                                      budgetListSortType);
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                child: const Text(
+                                                                    'By Costtype'),
+                                                              ),
+                                                              SimpleDialogOption(
+                                                                onPressed: () {
+                                                                  // When its the same again
+                                                                  //   - switch the the opposite (either asc or desc whatever it was)
+                                                                  // When it was fresh switched to level1
+                                                                  //   - set it to the default -> desc
+                                                                  budgetListSortType = budgetListSortColumn ==
+                                                                          'level1'
+                                                                      ? (budgetListSortType ==
+                                                                              'asc'
+                                                                          ? 'desc'
+                                                                          : 'asc')
+                                                                      : 'desc';
 
-                                                          budgetListSortColumn =
-                                                              'level1';
-                                                          loadList(
-                                                              'budget',
-                                                              budgetListSortColumn,
-                                                              budgetListSortType);
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: const Text(
-                                                            'By levels'),
-                                                      )
-                                                    ],
-                                                  );
-                                                });
-                                          })
-                                      : GestureDetector(
-                                          onTap: () {
-                                            print(
-                                                "Item ${bdgList[index - 1].id} clicked");
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) =>
-                                                  new AlertDialog(
-                                                title: Text(
-                                                  'Details',
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 25,
-                                                  ),
-                                                ),
-                                                content: RichText(
-                                                  text: TextSpan(
-                                                      text: "",
+                                                                  budgetListSortColumn =
+                                                                      'level1';
+                                                                  loadList(
+                                                                      'budget',
+                                                                      budgetListSortColumn,
+                                                                      budgetListSortType);
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                child: const Text(
+                                                                    'By levels'),
+                                                              )
+                                                            ],
+                                                          );
+                                                        });
+                                                  })
+                                            ])
+                                      : ((bdgList[index - 1]
+                                                  .costType
+                                                  .toLowerCase()
+                                                  .contains(
+                                                      budgetSearchTextFieldController
+                                                          .text) ||
+                                              bdgList[index - 1]
+                                                  .level1
+                                                  .toLowerCase()
+                                                  .contains(
+                                                      budgetSearchTextFieldController
+                                                          .text) ||
+                                              bdgList[index - 1]
+                                                  .level2
+                                                  .toLowerCase()
+                                                  .contains(
+                                                      budgetSearchTextFieldController
+                                                          .text) ||
+                                              bdgList[index - 1]
+                                                  .level3
+                                                  .toLowerCase()
+                                                  .contains(
+                                                      budgetSearchTextFieldController
+                                                          .text) ||
+                                              bdgList[index - 1]
+                                                  .comment
+                                                  .toLowerCase()
+                                                  .contains(budgetSearchTextFieldController.text) ||
+                                              bdgList[index - 1].amount.toString().contains(budgetSearchTextFieldController.text) ||
+                                              bdgList[index - 1].level1.toLowerCase().contains(budgetSearchTextFieldController.text) ||
+                                              bdgList[index - 1].date.toLowerCase().contains(budgetSearchTextFieldController.text))
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                print(
+                                                    "Item ${bdgList[index - 1].id} clicked");
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      new AlertDialog(
+                                                    title: Text(
+                                                      'Details',
                                                       style: TextStyle(
                                                         color: Colors.black,
-                                                        fontSize: 15,
+                                                        fontSize: 25,
                                                       ),
-                                                      children: <TextSpan>[
-                                                        TextSpan(
-                                                          text: 'Date:  ',
+                                                    ),
+                                                    content: RichText(
+                                                      text: TextSpan(
+                                                          text: "",
                                                           style: TextStyle(
-                                                            fontSize: 18,
+                                                            color: Colors.black,
+                                                            fontSize: 15,
                                                           ),
-                                                        ),
-                                                        TextSpan(
-                                                          text:
-                                                              '${bdgList[index - 1].date}\n',
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0xFF0957FF),
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .italic),
-                                                        ),
-                                                        TextSpan(
-                                                          text: 'Amount: ',
-                                                          style: TextStyle(
-                                                            fontSize: 18,
-                                                          ),
-                                                        ),
-                                                        TextSpan(
-                                                          text:
-                                                              '${bdgList[index - 1].amount}\n',
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0xFF0957FF),
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .italic),
-                                                        ),
-                                                        TextSpan(
-                                                          text: 'Level: ',
-                                                          style: TextStyle(
-                                                            fontSize: 18,
-                                                          ),
-                                                        ),
-                                                        TextSpan(
-                                                          text:
-                                                              '${bdgList[index - 1].level1} > ${bdgList[index - 1].level2} > ${bdgList[index - 1].level3}\n',
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0xFF0957FF),
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .italic),
-                                                        ),
-                                                        TextSpan(
-                                                          text: 'Costtype: ',
-                                                          style: TextStyle(
-                                                            fontSize: 18,
-                                                          ),
-                                                        ),
-                                                        TextSpan(
-                                                          text:
-                                                              '${bdgList[index - 1].costType}\n',
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0xFF0957FF),
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .italic),
-                                                        ),
-                                                        TextSpan(
-                                                          text: 'Comment: ',
-                                                          style: TextStyle(
-                                                            fontSize: 18,
-                                                          ),
-                                                        ),
-                                                        TextSpan(
-                                                          text:
-                                                              '${bdgList[index - 1].comment.length > 0 ? bdgList[index - 1].comment : 'no comment available'}\n',
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0xFF0957FF),
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .italic),
-                                                        ),
-                                                      ]),
-                                                ),
-                                                actions: <Widget>[
-                                                  new FlatButton(
-                                                    child: new Text('DISMISS'),
-                                                    onPressed: () =>
-                                                        Navigator.of(context)
-                                                            .pop(),
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                          child: Container(
-                                            margin: const EdgeInsets.all(15.0),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors.blueAccent),
-                                              color:
-                                                  bdgList[index - 1].active == 1
+                                                          children: <TextSpan>[
+                                                            TextSpan(
+                                                              text: 'Date:  ',
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${bdgList[index - 1].date}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                            TextSpan(
+                                                              text: 'Amount: ',
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${bdgList[index - 1].amount}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                            TextSpan(
+                                                              text: 'Level: ',
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${bdgList[index - 1].level1} > ${bdgList[index - 1].level2} > ${bdgList[index - 1].level3}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  'Costtype: ',
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${bdgList[index - 1].costType}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                            TextSpan(
+                                                              text: 'Comment: ',
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${bdgList[index - 1].comment.length > 0 ? bdgList[index - 1].comment : 'no comment available'}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                          ]),
+                                                    ),
+                                                    actions: <Widget>[
+                                                      new FlatButton(
+                                                        child:
+                                                            new Text('DISMISS'),
+                                                        onPressed: () =>
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop(),
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                              child: Container(
+                                                margin:
+                                                    const EdgeInsets.all(15.0),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: Colors.blueAccent),
+                                                  color: bdgList[index - 1]
+                                                              .active ==
+                                                          1
                                                       ? Color(0xffEEEEEE)
                                                       : Colors.redAccent,
-                                              borderRadius:
-                                                  new BorderRadius.circular(
-                                                      30.0),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black12,
-                                                  blurRadius:
-                                                      5, // has the effect of softening the shadow
-                                                  spreadRadius:
-                                                      0, // has the effect of extending the shadow
-                                                  offset: Offset(
-                                                    7.0, // horizontal, move right 10
-                                                    7.0, // vertical, move down 10
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                            child: Center(
-                                                child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: <Widget>[
-                                                  SizedBox(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            .6,
-                                                    //height: 300.0,
-                                                    child: Column(
+                                                  borderRadius:
+                                                      new BorderRadius.circular(
+                                                          30.0),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black12,
+                                                      blurRadius:
+                                                          5, // has the effect of softening the shadow
+                                                      spreadRadius:
+                                                          0, // has the effect of extending the shadow
+                                                      offset: Offset(
+                                                        7.0, // horizontal, move right 10
+                                                        7.0, // vertical, move down 10
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                child: Center(
+                                                    child: Row(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
-                                                                .center,
+                                                                .spaceEvenly,
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .center,
                                                         children: <Widget>[
-                                                          SizedBox(height: 15),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width *
-                                                                      .1,
-                                                                  child: Icon(
-                                                                    Icons
-                                                                        .account_balance_wallet,
-                                                                    color: Color(
-                                                                        0xff0957FF),
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  "${bdgList[index - 1].date}",
-                                                                  style: TextStyle(
-                                                                      color: Color(
-                                                                          0xff0957FF),
-                                                                      fontSize:
-                                                                          25),
-                                                                ),
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width *
-                                                                      .1,
-                                                                  child:
-                                                                      Container(),
-                                                                ),
-                                                                Flexible(
-                                                                    child: Text(
-                                                                  "${bdgList[index - 1].comment.length > 0 ? bdgList[index - 1].comment : 'no comment available'}",
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontStyle:
-                                                                          FontStyle
+                                                      SizedBox(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            .6,
+                                                        //height: 300.0,
+                                                        child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              SizedBox(
+                                                                  height: 15),
+                                                              Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                      width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          .1,
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .account_balance_wallet,
+                                                                        color: Color(
+                                                                            0xff0957FF),
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      "${bdgList[index - 1].date}",
+                                                                      style: TextStyle(
+                                                                          color: Color(
+                                                                              0xff0957FF),
+                                                                          fontSize:
+                                                                              25),
+                                                                    ),
+                                                                  ]),
+                                                              SizedBox(
+                                                                height: 10,
+                                                              ),
+                                                              Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                      width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          .1,
+                                                                      child:
+                                                                          Container(),
+                                                                    ),
+                                                                    Flexible(
+                                                                        child:
+                                                                            Text(
+                                                                      "${bdgList[index - 1].comment.length > 0 ? bdgList[index - 1].comment : 'no comment available'}",
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .black,
+                                                                          fontStyle: FontStyle
                                                                               .italic,
-                                                                      fontSize:
-                                                                          15),
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                )),
-                                                                Container(),
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        .1,
-                                                                    //height: 300.0,
-                                                                    child:
-                                                                        Container()),
-                                                                Flexible(
-                                                                    child: Text(
-                                                                  '${bdgList[index - 1].level1} > ${bdgList[index - 1].level2} > ${bdgList[index - 1].level3}}',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          13),
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                )),
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 5,
-                                                          ),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        .1,
-                                                                    //height: 300.0,
-                                                                    child:
-                                                                        Container()),
-                                                                Flexible(
-                                                                    child: new Container(
-                                                                        padding: new EdgeInsets.only(right: 13.0),
-                                                                        child: Text(
-                                                                          '${bdgList[index - 1].costType}',
-                                                                          style: TextStyle(
-                                                                              color: Colors.black,
-                                                                              fontSize: 13),
-                                                                          overflow:
-                                                                              TextOverflow.ellipsis,
-                                                                        )))
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 15,
-                                                          ),
-                                                        ]),
-                                                  ),
-                                                  Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                            '${bdgList[index - 1].amount}'),
-                                                        SizedBox(
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              .1,
-                                                          //height: 300.0,
-                                                          child: IconButton(
-                                                            icon: new Icon(
-                                                              bdgList[index - 1]
-                                                                          .active ==
-                                                                      1
-                                                                  ? Icons.delete
-                                                                  : Icons
-                                                                      .restore,
-                                                            ),
-                                                            color: Color(
-                                                                0xff0957FF),
-                                                            onPressed: () {
-                                                              print(
-                                                                  'TODELETE + ${bdgList[index - 1].id}');
-
-                                                              showDialog(
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (context) =>
-                                                                        new AlertDialog(
-                                                                  title: Text(
-                                                                    "Are you sure?",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize:
-                                                                          25,
-                                                                    ),
-                                                                  ),
-                                                                  content:
-                                                                      RichText(
-                                                                    text: TextSpan(
-                                                                        text:
-                                                                            "${bdgList[index - 1].comment.length > 0 ? bdgList[index - 1].comment : 'no comment available'}\n\n",
-                                                                        style: TextStyle(
-                                                                            color: Colors
-                                                                                .black,
-                                                                            fontSize:
-                                                                                15,
-                                                                            fontStyle: FontStyle
-                                                                                .italic),
-                                                                        children: <
-                                                                            TextSpan>[
-                                                                          TextSpan(
-                                                                            text:
-                                                                                'Entry from ',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontSize: 18,
-                                                                            ),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text:
-                                                                                '${bdgList[index - 1].date} ',
-                                                                            style: TextStyle(
-                                                                                color: Color(0xFF0957FF),
-                                                                                fontSize: 18,
-                                                                                fontWeight: FontWeight.bold),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text:
-                                                                                'with an amount of ',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontSize: 18,
-                                                                            ),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text:
-                                                                                '${bdgList[index - 1].amount} ',
-                                                                            style: TextStyle(
-                                                                                color: Color(0xFF0957FF),
-                                                                                fontSize: 18,
-                                                                                fontWeight: FontWeight.bold),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text:
-                                                                                'will be ',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontSize: 18,
-                                                                            ),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text:
-                                                                                '${bdgList[index - 1].active == 1 ? "deleted" : "restored"}',
-                                                                            style: TextStyle(
-                                                                                color: bdgList[index - 1].active == 1 ? Colors.red : Colors.green,
-                                                                                fontSize: 18,
-                                                                                fontWeight: FontWeight.bold),
-                                                                          ),
-                                                                        ]),
-                                                                  ),
-                                                                  actions: <
-                                                                      Widget>[
-                                                                    new FlatButton(
-                                                                      child: new Text(
-                                                                          'Cancel'),
-                                                                      onPressed:
-                                                                          () =>
-                                                                              Navigator.of(context).pop(),
-                                                                    ),
-                                                                    new FlatButton(
-                                                                      child: new Text(
-                                                                          'Confirm'),
-                                                                      onPressed:
-                                                                          () {
-                                                                        bdgObjectToDelete
-                                                                            .id = bdgList[index -
-                                                                                1]
-                                                                            .id;
-
-                                                                        sendBackend(
-                                                                            'bdglistdelete',
-                                                                            false);
-                                                                        Navigator.of(context)
-                                                                            .pop();
-                                                                      },
-                                                                    )
-                                                                  ],
+                                                                          fontSize:
+                                                                              15),
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                    )),
+                                                                    Container(),
+                                                                  ]),
+                                                              SizedBox(
+                                                                height: 10,
+                                                              ),
+                                                              Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                        width: MediaQuery.of(context).size.width *
+                                                                            .1,
+                                                                        //height: 300.0,
+                                                                        child:
+                                                                            Container()),
+                                                                    Flexible(
+                                                                        child:
+                                                                            Text(
+                                                                      '${bdgList[index - 1].level1} > ${bdgList[index - 1].level2} > ${bdgList[index - 1].level3}}',
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .black,
+                                                                          fontSize:
+                                                                              13),
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                    )),
+                                                                  ]),
+                                                              SizedBox(
+                                                                height: 5,
+                                                              ),
+                                                              Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                        width: MediaQuery.of(context).size.width *
+                                                                            .1,
+                                                                        //height: 300.0,
+                                                                        child:
+                                                                            Container()),
+                                                                    Flexible(
+                                                                        child: new Container(
+                                                                            padding: new EdgeInsets.only(right: 13.0),
+                                                                            child: Text(
+                                                                              '${bdgList[index - 1].costType}',
+                                                                              style: TextStyle(color: Colors.black, fontSize: 13),
+                                                                              overflow: TextOverflow.ellipsis,
+                                                                            )))
+                                                                  ]),
+                                                              SizedBox(
+                                                                height: 15,
+                                                              ),
+                                                            ]),
+                                                      ),
+                                                      Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                                '${bdgList[index - 1].amount}'),
+                                                            SizedBox(
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width *
+                                                                  .1,
+                                                              //height: 300.0,
+                                                              child: IconButton(
+                                                                icon: new Icon(
+                                                                  bdgList[index - 1]
+                                                                              .active ==
+                                                                          1
+                                                                      ? Icons
+                                                                          .delete
+                                                                      : Icons
+                                                                          .restore,
                                                                 ),
-                                                              );
-                                                            },
-                                                          ),
-                                                        )
-                                                      ]),
-                                                ])),
-                                          ));
+                                                                color: Color(
+                                                                    0xff0957FF),
+                                                                onPressed: () {
+                                                                  print(
+                                                                      'TODELETE + ${bdgList[index - 1].id}');
+
+                                                                  showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (context) =>
+                                                                            new AlertDialog(
+                                                                      title:
+                                                                          Text(
+                                                                        "Are you sure?",
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                          fontSize:
+                                                                              25,
+                                                                        ),
+                                                                      ),
+                                                                      content:
+                                                                          RichText(
+                                                                        text: TextSpan(
+                                                                            text:
+                                                                                "${bdgList[index - 1].comment.length > 0 ? bdgList[index - 1].comment : 'no comment available'}\n\n",
+                                                                            style: TextStyle(
+                                                                                color: Colors.black,
+                                                                                fontSize: 15,
+                                                                                fontStyle: FontStyle.italic),
+                                                                            children: <TextSpan>[
+                                                                              TextSpan(
+                                                                                text: 'Entry from ',
+                                                                                style: TextStyle(
+                                                                                  fontSize: 18,
+                                                                                ),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: '${bdgList[index - 1].date} ',
+                                                                                style: TextStyle(color: Color(0xFF0957FF), fontSize: 18, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: 'with an amount of ',
+                                                                                style: TextStyle(
+                                                                                  fontSize: 18,
+                                                                                ),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: '${bdgList[index - 1].amount} ',
+                                                                                style: TextStyle(color: Color(0xFF0957FF), fontSize: 18, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: 'will be ',
+                                                                                style: TextStyle(
+                                                                                  fontSize: 18,
+                                                                                ),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: '${bdgList[index - 1].active == 1 ? "deleted" : "restored"}',
+                                                                                style: TextStyle(color: bdgList[index - 1].active == 1 ? Colors.red : Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ]),
+                                                                      ),
+                                                                      actions: <
+                                                                          Widget>[
+                                                                        new FlatButton(
+                                                                          child:
+                                                                              new Text('Cancel'),
+                                                                          onPressed: () =>
+                                                                              Navigator.of(context).pop(),
+                                                                        ),
+                                                                        new FlatButton(
+                                                                          child:
+                                                                              new Text('Confirm'),
+                                                                          onPressed:
+                                                                              () {
+                                                                            bdgObjectToDelete.id =
+                                                                                bdgList[index - 1].id;
+
+                                                                            sendBackend('bdglistdelete',
+                                                                                false);
+                                                                            Navigator.of(context).pop();
+                                                                          },
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              ),
+                                                            )
+                                                          ]),
+                                                    ])),
+                                              ))
+                                          : Container());
                                 })),
                       ]),
                     ),
