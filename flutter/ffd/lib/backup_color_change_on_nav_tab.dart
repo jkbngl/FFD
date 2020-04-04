@@ -383,8 +383,27 @@ class _MyHomePageState extends State<MyHomePage>
     showDialog(
       context: context,
       builder: (context) => new AlertDialog(
-        content: new Text(
-            'Welcome, good to see you here \n\nAre you up for a fact? did you know that: \n\n${parsedFact['text']}'),
+        content:  RichText(
+          text: TextSpan(
+            text:
+            'Welcome, good to see you here \n\nAre you up for a fact? did you know that: \n\n',
+            style: TextStyle(
+                color: Colors
+                    .black,
+                fontSize:
+                12,
+                fontStyle: FontStyle
+                    .italic),
+            children: <
+          TextSpan>[
+          TextSpan(
+          text:
+          '${parsedFact['text']}',
+            style:
+            TextStyle(
+              fontSize: 15,
+            ),
+          )],)),
         actions: <Widget>[
           new FlatButton(
             child: new Text('DISMISS'),
@@ -410,7 +429,7 @@ class _MyHomePageState extends State<MyHomePage>
       showDialog(
         context: context,
         builder: (context) => new AlertDialog(
-          content: new Text("ERROR - $e"),
+          content: new Text("ERROR\n${e.runtimeType}\n${e.toString()}\n$e"),
           actions: <Widget>[
             new FlatButton(
               child: new Text('DISMISS'),
