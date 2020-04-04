@@ -1498,7 +1498,7 @@ class _MyHomePageState extends State<MyHomePage>
             onPressed: () => Navigator.of(context).pop(),
           ),
           new FlatButton(
-            child: new Text('Logout'),
+            child: new Text('LOGOUT'),
             onPressed: () {
               signOutGoogle();
               Navigator.of(context).pushAndRemoveUntil(
