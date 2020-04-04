@@ -269,6 +269,9 @@ class _MyHomePageState extends State<MyHomePage>
     homescreenPie('Dummy3', 10, charts.MaterialPalette.green.shadeDefault),
   ];
 
+  // To make sure errorDialog is only shown once and not multiple times when multiple errors happen
+  bool errorDialogActive = false;
+
   String actualListSortColumn = 'created';
   String actualListSortType = 'desc';
 
@@ -383,27 +386,21 @@ class _MyHomePageState extends State<MyHomePage>
     showDialog(
       context: context,
       builder: (context) => new AlertDialog(
-        content:  RichText(
-          text: TextSpan(
-            text:
-            'Welcome, good to see you here \n\nAre you up for a fact? did you know that: \n\n',
-            style: TextStyle(
-                color: Colors
-                    .black,
-                fontSize:
-                12,
-                fontStyle: FontStyle
-                    .italic),
-            children: <
-          TextSpan>[
-          TextSpan(
+        content: RichText(
+            text: TextSpan(
           text:
-          '${parsedFact['text']}',
-            style:
-            TextStyle(
-              fontSize: 15,
-            ),
-          )],)),
+              'Welcome, good to see you here \n\nAre you up for a fact? did you know that: \n\n',
+          style: TextStyle(
+              color: Colors.black, fontSize: 12, fontStyle: FontStyle.italic),
+          children: <TextSpan>[
+            TextSpan(
+              text: '${parsedFact['text']}',
+              style: TextStyle(
+                fontSize: 15,
+              ),
+            )
+          ],
+        )),
         actions: <Widget>[
           new FlatButton(
             child: new Text('DISMISS'),
@@ -1472,48 +1469,60 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  errorDialog(e){
-    showDialog(
-      context: context,
-      builder: (context) => new AlertDialog(
-        title: Text("ERROR - ${e.runtimeType}",
-          style: TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.bold),),
-        content: RichText(
-          text: TextSpan(
-              text: "Make sure you have an active internet connection, and try to logout and log back in again",
-              style: TextStyle(
+  errorDialog(e) {
+    if (!errorDialogActive) {
+      errorDialogActive = true;
+
+      showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          title: Text(
+            "ERROR - ${e.runtimeType}",
+            style: TextStyle(
+                color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          content: RichText(
+            text: TextSpan(
+                text:
+                    "Make sure you have an active internet connection, and try to logout and log back in again",
+                style: TextStyle(
                   color: Colors.black,
                   fontSize: 15,
-                  ),
-              children: <TextSpan>[
-                TextSpan(
-                  text: '\n\n[$e]',
-                  style:
-                  TextStyle(color: Colors.red, fontSize: 10),
-                )
-              ]),
-        ),
-        actions: <Widget>[
-          new FlatButton(
-            child: new Text('DISMISS'),
-            onPressed: () => Navigator.of(context).pop(),
+                ),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: '\n\n$e',
+                    style: TextStyle(color: Colors.red, fontSize: 10),
+                  )
+                ]),
           ),
-          new FlatButton(
-            child: new Text('LOGOUT'),
-            onPressed: () {
-              signOutGoogle();
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) {
-                    return LoginPage();
-                  }), ModalRoute.withName('/'));
-            },
-          )
-        ],
-      ),
-    );
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('DISMISS'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                errorDialogActive = false;
+              },
+            ),
+            new FlatButton(
+              child: new Text('LOGOUT'),
+              onPressed: () {
+                errorDialogActive = false;
+
+                signOutGoogle();
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) {
+                  return LoginPage();
+                }), ModalRoute.withName('/'));
+              },
+            )
+          ],
+        ),
+      );
+    }
+    else{
+      print("ERRORDIALOG already active - $errorDialogActive");
+    }
   }
 
   commentInput(
@@ -2926,13 +2935,14 @@ class _MyHomePageState extends State<MyHomePage>
                                           alignment: Alignment.centerRight,
                                           iconSize: 25,
                                           onPressed: () {
-
                                             return showDialog(
                                                 context: context,
                                                 barrierDismissible: true,
-                                                builder: (BuildContext context) {
+                                                builder:
+                                                    (BuildContext context) {
                                                   return SimpleDialog(
-                                                    title: const Text('Order by ... '),
+                                                    title: const Text(
+                                                        'Order by ... '),
                                                     children: <Widget>[
                                                       SimpleDialogOption(
                                                         onPressed: () {
@@ -2940,13 +2950,26 @@ class _MyHomePageState extends State<MyHomePage>
                                                           //   - switch the the opposite (either asc or desc whatever it was)
                                                           // When it was fresh switched to created
                                                           //   - set it to the default -> desc
-                                                          actualListSortType = actualListSortColumn == 'created' ? (actualListSortType == 'asc' ? 'desc' : 'asc') : 'desc';
-                                                          actualListSortColumn = 'created';
+                                                          actualListSortType =
+                                                              actualListSortColumn ==
+                                                                      'created'
+                                                                  ? (actualListSortType ==
+                                                                          'asc'
+                                                                      ? 'desc'
+                                                                      : 'asc')
+                                                                  : 'desc';
+                                                          actualListSortColumn =
+                                                              'created';
 
-                                                          loadList('actual', actualListSortColumn, actualListSortType);
-                                                          Navigator.pop(context);
+                                                          loadList(
+                                                              'actual',
+                                                              actualListSortColumn,
+                                                              actualListSortType);
+                                                          Navigator.pop(
+                                                              context);
                                                         },
-                                                        child: const Text('Date of creation'),
+                                                        child: const Text(
+                                                            'Date of creation'),
                                                       ),
                                                       SimpleDialogOption(
                                                         onPressed: () {
@@ -2954,13 +2977,26 @@ class _MyHomePageState extends State<MyHomePage>
                                                           //   - switch the the opposite (either asc or desc whatever it was)
                                                           // When it was fresh switched to data_date
                                                           //   - set it to the default -> desc
-                                                          actualListSortType = actualListSortColumn == 'data_date' ? (actualListSortType == 'asc' ? 'desc' : 'asc') : 'desc';
+                                                          actualListSortType =
+                                                              actualListSortColumn ==
+                                                                      'data_date'
+                                                                  ? (actualListSortType ==
+                                                                          'asc'
+                                                                      ? 'desc'
+                                                                      : 'asc')
+                                                                  : 'desc';
 
-                                                          actualListSortColumn = 'data_date';
-                                                          loadList('actual', actualListSortColumn, actualListSortType);
-                                                          Navigator.pop(context);
+                                                          actualListSortColumn =
+                                                              'data_date';
+                                                          loadList(
+                                                              'actual',
+                                                              actualListSortColumn,
+                                                              actualListSortType);
+                                                          Navigator.pop(
+                                                              context);
                                                         },
-                                                        child: const Text('Month where it is billed'),
+                                                        child: const Text(
+                                                            'Month where it is billed'),
                                                       ),
                                                       SimpleDialogOption(
                                                         onPressed: () {
@@ -2968,13 +3004,26 @@ class _MyHomePageState extends State<MyHomePage>
                                                           //   - switch the the opposite (either asc or desc whatever it was)
                                                           // When it was fresh switched to amount
                                                           //   - set it to the default -> desc
-                                                          actualListSortType = actualListSortColumn == 'amount' ? (actualListSortType == 'asc' ? 'desc' : 'asc') : 'desc';
+                                                          actualListSortType =
+                                                              actualListSortColumn ==
+                                                                      'amount'
+                                                                  ? (actualListSortType ==
+                                                                          'asc'
+                                                                      ? 'desc'
+                                                                      : 'asc')
+                                                                  : 'desc';
 
-                                                          actualListSortColumn = 'amount';
-                                                          loadList('actual', actualListSortColumn, actualListSortType);
-                                                          Navigator.pop(context);
+                                                          actualListSortColumn =
+                                                              'amount';
+                                                          loadList(
+                                                              'actual',
+                                                              actualListSortColumn,
+                                                              actualListSortType);
+                                                          Navigator.pop(
+                                                              context);
                                                         },
-                                                        child: const Text('Amount of the entry'),
+                                                        child: const Text(
+                                                            'Amount of the entry'),
                                                       ),
                                                       SimpleDialogOption(
                                                         onPressed: () {
@@ -2982,13 +3031,26 @@ class _MyHomePageState extends State<MyHomePage>
                                                           //   - switch the the opposite (either asc or desc whatever it was)
                                                           // When it was fresh switched to costtype
                                                           //   - set it to the default -> desc
-                                                          actualListSortType = actualListSortColumn == 'costtype' ? (actualListSortType == 'asc' ? 'desc' : 'asc') : 'desc';
+                                                          actualListSortType =
+                                                              actualListSortColumn ==
+                                                                      'costtype'
+                                                                  ? (actualListSortType ==
+                                                                          'asc'
+                                                                      ? 'desc'
+                                                                      : 'asc')
+                                                                  : 'desc';
 
-                                                          actualListSortColumn = 'costtype';
-                                                          loadList('actual', actualListSortColumn, actualListSortType);
-                                                          Navigator.pop(context);
+                                                          actualListSortColumn =
+                                                              'costtype';
+                                                          loadList(
+                                                              'actual',
+                                                              actualListSortColumn,
+                                                              actualListSortType);
+                                                          Navigator.pop(
+                                                              context);
                                                         },
-                                                        child: const Text('By Costtype'),
+                                                        child: const Text(
+                                                            'By Costtype'),
                                                       ),
                                                       SimpleDialogOption(
                                                         onPressed: () {
@@ -2996,18 +3058,30 @@ class _MyHomePageState extends State<MyHomePage>
                                                           //   - switch the the opposite (either asc or desc whatever it was)
                                                           // When it was fresh switched to level1
                                                           //   - set it to the default -> desc
-                                                          actualListSortType = actualListSortColumn == 'level1' ? (actualListSortType == 'asc' ? 'desc' : 'asc') : 'desc';
+                                                          actualListSortType =
+                                                              actualListSortColumn ==
+                                                                      'level1'
+                                                                  ? (actualListSortType ==
+                                                                          'asc'
+                                                                      ? 'desc'
+                                                                      : 'asc')
+                                                                  : 'desc';
 
-                                                          actualListSortColumn = 'level1';
-                                                          loadList('actual', actualListSortColumn, actualListSortType);
-                                                          Navigator.pop(context);
+                                                          actualListSortColumn =
+                                                              'level1';
+                                                          loadList(
+                                                              'actual',
+                                                              actualListSortColumn,
+                                                              actualListSortType);
+                                                          Navigator.pop(
+                                                              context);
                                                         },
-                                                        child: const Text('By levels'),
+                                                        child: const Text(
+                                                            'By levels'),
                                                       )
                                                     ],
                                                   );
                                                 });
-
                                           })
                                       : GestureDetector(
                                           onTap: () {
@@ -4015,93 +4089,159 @@ class _MyHomePageState extends State<MyHomePage>
                                 itemBuilder: (BuildContext context, int index) {
                                   return index == 0
                                       ? IconButton(
-                                      icon: Icon(Icons.sort),
-                                      color: Color(0xff003680),
-                                      alignment: Alignment.centerRight,
-                                      iconSize: 25,
-                                      onPressed: () {
+                                          icon: Icon(Icons.sort),
+                                          color: Color(0xff003680),
+                                          alignment: Alignment.centerRight,
+                                          iconSize: 25,
+                                          onPressed: () {
+                                            return showDialog(
+                                                context: context,
+                                                barrierDismissible: true,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return SimpleDialog(
+                                                    title: const Text(
+                                                        'Order by ... '),
+                                                    children: <Widget>[
+                                                      SimpleDialogOption(
+                                                        onPressed: () {
+                                                          // When its the same again
+                                                          //   - switch the the opposite (either asc or desc whatever it was)
+                                                          // When it was fresh switched to level1
+                                                          //   - set it to the default -> desc
+                                                          budgetListSortType =
+                                                              budgetListSortColumn ==
+                                                                      'level1'
+                                                                  ? (budgetListSortType ==
+                                                                          'asc'
+                                                                      ? 'desc'
+                                                                      : 'asc')
+                                                                  : 'desc';
 
-                                        return showDialog(
-                                            context: context,
-                                            barrierDismissible: true,
-                                            builder: (BuildContext context) {
-                                              return SimpleDialog(
-                                                title: const Text('Order by ... '),
-                                                children: <Widget>[
-                                                  SimpleDialogOption(
-                                                    onPressed: () {
-                                                      // When its the same again
-                                                      //   - switch the the opposite (either asc or desc whatever it was)
-                                                      // When it was fresh switched to level1
-                                                      //   - set it to the default -> desc
-                                                      budgetListSortType = budgetListSortColumn  == 'level1' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
+                                                          budgetListSortColumn =
+                                                              'created';
+                                                          loadList(
+                                                              'budget',
+                                                              budgetListSortColumn,
+                                                              budgetListSortType);
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: const Text(
+                                                            'Date of creation'),
+                                                      ),
+                                                      SimpleDialogOption(
+                                                        onPressed: () {
+                                                          // When its the same again
+                                                          //   - switch the the opposite (either asc or desc whatever it was)
+                                                          // When it was fresh switched to data_date
+                                                          //   - set it to the default -> desc
+                                                          budgetListSortType =
+                                                              budgetListSortColumn ==
+                                                                      'data_date'
+                                                                  ? (budgetListSortType ==
+                                                                          'asc'
+                                                                      ? 'desc'
+                                                                      : 'asc')
+                                                                  : 'desc';
 
-                                                      budgetListSortColumn  = 'created';
-                                                      loadList('budget', budgetListSortColumn, budgetListSortType);
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: const Text('Date of creation'),
-                                                  ),
-                                                  SimpleDialogOption(
-                                                    onPressed: () {
-                                                      // When its the same again
-                                                      //   - switch the the opposite (either asc or desc whatever it was)
-                                                      // When it was fresh switched to data_date
-                                                      //   - set it to the default -> desc
-                                                      budgetListSortType = budgetListSortColumn  == 'data_date' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
+                                                          budgetListSortColumn =
+                                                              'data_date';
+                                                          loadList(
+                                                              'budget',
+                                                              budgetListSortColumn,
+                                                              budgetListSortType);
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: const Text(
+                                                            'Month where it is billed'),
+                                                      ),
+                                                      SimpleDialogOption(
+                                                        onPressed: () {
+                                                          // When its the same again
+                                                          //   - switch the the opposite (either asc or desc whatever it was)
+                                                          // When it was fresh switched to amount
+                                                          //   - set it to the default -> desc
+                                                          budgetListSortType =
+                                                              budgetListSortColumn ==
+                                                                      'amount'
+                                                                  ? (budgetListSortType ==
+                                                                          'asc'
+                                                                      ? 'desc'
+                                                                      : 'asc')
+                                                                  : 'desc';
 
-                                                      budgetListSortColumn  = 'data_date';
-                                                      loadList('budget', budgetListSortColumn, budgetListSortType);
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: const Text('Month where it is billed'),
-                                                  ),
-                                                  SimpleDialogOption(
-                                                    onPressed: () {
-                                                      // When its the same again
-                                                      //   - switch the the opposite (either asc or desc whatever it was)
-                                                      // When it was fresh switched to amount
-                                                      //   - set it to the default -> desc
-                                                      budgetListSortType = budgetListSortColumn  == 'amount' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
+                                                          budgetListSortColumn =
+                                                              'amount';
+                                                          loadList(
+                                                              'budget',
+                                                              budgetListSortColumn,
+                                                              budgetListSortType);
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: const Text(
+                                                            'Amount of the entry'),
+                                                      ),
+                                                      SimpleDialogOption(
+                                                        onPressed: () {
+                                                          // When its the same again
+                                                          //   - switch the the opposite (either asc or desc whatever it was)
+                                                          // When it was fresh switched to costtype
+                                                          //   - set it to the default -> desc
+                                                          budgetListSortType =
+                                                              budgetListSortColumn ==
+                                                                      'costtype'
+                                                                  ? (budgetListSortType ==
+                                                                          'asc'
+                                                                      ? 'desc'
+                                                                      : 'asc')
+                                                                  : 'desc';
 
-                                                      budgetListSortColumn  = 'amount';
-                                                      loadList('budget', budgetListSortColumn, budgetListSortType);
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: const Text('Amount of the entry'),
-                                                  ),
-                                                  SimpleDialogOption(
-                                                    onPressed: () {
-                                                      // When its the same again
-                                                      //   - switch the the opposite (either asc or desc whatever it was)
-                                                      // When it was fresh switched to costtype
-                                                      //   - set it to the default -> desc
-                                                      budgetListSortType = budgetListSortColumn  == 'costtype' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
+                                                          budgetListSortColumn =
+                                                              'costtype';
+                                                          loadList(
+                                                              'budget',
+                                                              budgetListSortColumn,
+                                                              budgetListSortType);
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: const Text(
+                                                            'By Costtype'),
+                                                      ),
+                                                      SimpleDialogOption(
+                                                        onPressed: () {
+                                                          // When its the same again
+                                                          //   - switch the the opposite (either asc or desc whatever it was)
+                                                          // When it was fresh switched to level1
+                                                          //   - set it to the default -> desc
+                                                          budgetListSortType =
+                                                              budgetListSortColumn ==
+                                                                      'level1'
+                                                                  ? (budgetListSortType ==
+                                                                          'asc'
+                                                                      ? 'desc'
+                                                                      : 'asc')
+                                                                  : 'desc';
 
-                                                      budgetListSortColumn  = 'costtype';
-                                                      loadList('budget', budgetListSortColumn, budgetListSortType);
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: const Text('By Costtype'),
-                                                  ),
-                                                  SimpleDialogOption(
-                                                    onPressed: () {
-                                                      // When its the same again
-                                                      //   - switch the the opposite (either asc or desc whatever it was)
-                                                      // When it was fresh switched to level1
-                                                      //   - set it to the default -> desc
-                                                      budgetListSortType = budgetListSortColumn  == 'level1' ? (budgetListSortType  == 'asc' ? 'desc' : 'asc') : 'desc';
-
-                                                      budgetListSortColumn = 'level1';
-                                                      loadList('budget', budgetListSortColumn, budgetListSortType);
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: const Text('By levels'),
-                                                  )
-                                                ],
-                                              );
-                                            });
-                                      })
+                                                          budgetListSortColumn =
+                                                              'level1';
+                                                          loadList(
+                                                              'budget',
+                                                              budgetListSortColumn,
+                                                              budgetListSortType);
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: const Text(
+                                                            'By levels'),
+                                                      )
+                                                    ],
+                                                  );
+                                                });
+                                          })
                                       : GestureDetector(
                                           onTap: () {
                                             print(
