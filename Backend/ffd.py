@@ -83,7 +83,7 @@ def getIdByMail(mail):
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-    cursor.execute(f"select id from ffd.user_dim where mail = '{mail['email']}'")
+    cursor.execute('select id from ffd.user_dim where mail =  %s', (mail['email'],))
 
     record = cursor.fetchall()
     # fetch the column names from the cursror
@@ -138,11 +138,10 @@ def userExists():
     if(userId < 0):
         connection = connect()
         cursor = connection.cursor()
-        command = f"INSERT INTO ffd.user_dim (name, mail) \
-                                  VALUES ('{mail['name'].upper()}', '{mail['email']}')"
-        logging.info(command)
-        cursor.execute(command)
+
+        cursor.execute("INSERT INTO ffd.user_dim (name, mail) VALUES (%s, %s)", (mail['name'].upper(), mail['email'],))
         connection.commit()
+
         cursor.close()
         connection.close()
 
@@ -158,8 +157,8 @@ def createDefaultChartOfAccount(userId):
     connection = connect()
     cursor = connection.cursor()
 
-    cursor.execute(f"INSERT INTO ffd.costtype_dim (name, comment, user_fk) VALUES ('VARIABLE', 'variable costs like eating out once a week', {userId});")
-    cursor.execute(f"INSERT INTO ffd.costtype_dim (name, comment, user_fk) VALUES ('FIX', 'fix costs like rent', {userId});")
+    cursor.execute("INSERT INTO ffd.costtype_dim (name, comment, user_fk) VALUES ('VARIABLE', 'variable costs like eating out once a week', %s);", (userId,))
+    cursor.execute("INSERT INTO ffd.costtype_dim (name, comment, user_fk) VALUES ('FIX', 'fix costs like rent', %s);", (userId,))
 
     connection.commit()
     cursor.close()
@@ -171,82 +170,82 @@ def createDefaultChartOfCostTypes(userId):
         cursor = connection.cursor()
 
         # CAR
-        cursor.execute(f"INSERT INTO   ffd.account_dim (name, comment, level_type, parent_account, user_fk) VALUES   ('CAR', 'all car related costs', 1, null, {userId}) RETURNING id;")
+        cursor.execute("INSERT INTO   ffd.account_dim (name, comment, level_type, parent_account, user_fk) VALUES   ('CAR', 'all car related costs', 1, null, %s) RETURNING id;", (userId,))
         parent_account_id = cursor.fetchone()[0]
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('GAS', 'all gas costs for the car', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('INSURANCE', 'all insurcance costs for the car', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('TAX', 'all tac costs for the car', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('TIRES', 'all costs for tires for the car', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'other car related costs', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('REPAIRS', 'all car related repair costs', 2, {parent_account_id}, {userId}) RETURNING id;")
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('GAS', 'all gas costs for the car', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('INSURANCE', 'all insurcance costs for the car', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('TAX', 'all tac costs for the car', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('TIRES', 'all costs for tires for the car', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'other car related costs', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('REPAIRS', 'all car related repair costs', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
         parent_account_id = cursor.fetchone()[0]
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('MOTOR', 'all motor repairs costs for the car', 3, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('BREAKS', 'all breaks repairs costs for the car', 3, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('WINDOWS','all windows repairs costs for the car', 3, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER','all other repairs costs for the car', 3, {parent_account_id}, {userId}) RETURNING id;")
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('MOTOR', 'all motor repairs costs for the car', 3, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('BREAKS', 'all breaks repairs costs for the car', 3, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('WINDOWS','all windows repairs costs for the car', 3, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER','all other repairs costs for the car', 3, %s, %s) RETURNING id;", (parent_account_id, userId,))
 
         # CLOTHES
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('CLOTHES', 'all clothes related costs', 1, null, {userId}) RETURNING id;")
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('CLOTHES', 'all clothes related costs', 1, null, %s) RETURNING id;", (userId,))
         parent_account_id = cursor.fetchone()[0]
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('SHOES', 'all costs for shoes', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('SHIRTS', 'all costs for shoes', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('TROUSERS', 'all costs for trousers', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('HOODIES', 'all costs for hoodies', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('CAPS', 'all costs for caps', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'all other clothes related costs', 2, {parent_account_id}, {userId}) RETURNING id;")
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('SHOES', 'all costs for shoes', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('SHIRTS', 'all costs for shoes', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('TROUSERS', 'all costs for trousers', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('HOODIES', 'all costs for hoodies', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('CAPS', 'all costs for caps', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'all other clothes related costs', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
 
         # CLOTHES
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('EATING OUT', 'all costs related to eating out', 1, null, {userId}) RETURNING id;")
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('EATING OUT', 'all costs related to eating out', 1, null, %s) RETURNING id;", (userId,))
         parent_account_id = cursor.fetchone()[0]
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('PIZZA', 'all costs for eating out when eating pizza', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('BURGER', 'all costs for eating out when eating burger', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('HEALTHY', 'all costs for eating out when eating healthy', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'all costs for eating out when eating other stuff', 2, {parent_account_id}, {userId}) RETURNING id;")
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('PIZZA', 'all costs for eating out when eating pizza', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('BURGER', 'all costs for eating out when eating burger', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('HEALTHY', 'all costs for eating out when eating healthy', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'all costs for eating out when eating other stuff', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
 
         # GROCERIES
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('GROCERIES', 'all costs related to groceries', 1, null, {userId}) RETURNING id;")
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('GROCERIES', 'all costs related to groceries', 1, null, %s) RETURNING id;", (userId,))
         parent_account_id = cursor.fetchone()[0]
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('FOR FAM', 'all costs for groceries for the family', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('FOR ME', 'all costs for groceries for myself', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'all other groceries related costs', 2, {parent_account_id}, {userId}) RETURNING id;")
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('FOR FAM', 'all costs for groceries for the family', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('FOR ME', 'all costs for groceries for myself', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'all other groceries related costs', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
 
         # PHONE
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('PHONE', 'all phone related costs', 1, null, {userId}) RETURNING id;")
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('PHONE', 'all phone related costs', 1, null, %s) RETURNING id;", (userId,))
         parent_account_id = cursor.fetchone()[0]
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('CONTRACT', 'all phone costs for contracts', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('NEW PHONE', 'all costs for new phones', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('ACCESSOIRES', 'all costs for accessoires of the phone, like covers', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'all other phone related costs', 2, {parent_account_id}, {userId}) RETURNING id;")
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('CONTRACT', 'all phone costs for contracts', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('NEW PHONE', 'all costs for new phones', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('ACCESSOIRES', 'all costs for accessoires of the phone, like covers', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'all other phone related costs', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
 
         # PRESENTS
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('PRESENTS', 'all costs for presents', 1, null, {userId}) RETURNING id;")
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('PRESENTS', 'all costs for presents', 1, null, %s) RETURNING id;", (userId,))
         parent_account_id = cursor.fetchone()[0]
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('FOR MAM', 'all costs for presents for mam', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('FOR DAD', 'all costs for presents for dad', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('FOR GF', 'all costs for presents for gf', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('FOR FRIENDS', 'all costs for presents for friends', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'all presents for other people', 2, {parent_account_id}, {userId}) RETURNING id;")
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('FOR MAM', 'all costs for presents for mam', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('FOR DAD', 'all costs for presents for dad', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('FOR GF', 'all costs for presents for gf', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('FOR FRIENDS', 'all costs for presents for friends', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'all presents for other people', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
 
         # TRAVEL
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('TRAVEL', 'all travel related costs', 1, null, {userId}) RETURNING id;")
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('TRAVEL', 'all travel related costs', 1, null, %s) RETURNING id;", (userId,))
         parent_account_id = cursor.fetchone()[0]
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('HOTEL', 'all hotel related costs', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('FLIGHTS', 'all flight related costs', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('EXCURSIONS', 'all excursions related costs', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'all other related costs for travels', 2, {parent_account_id}, {userId}) RETURNING id;")
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('HOTEL', 'all hotel related costs', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('FLIGHTS', 'all flight related costs', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('EXCURSIONS', 'all excursions related costs', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'all other related costs for travels', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
 
         # PUBLIC TRANSPORTATION
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('PUBLIC TRANSPORTATION', 'all public transportations related costs', 1, null, {userId}) RETURNING id;")
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('PUBLIC TRANSPORTATION', 'all public transportations related costs', 1, null, %s) RETURNING id;", (userId,))
         parent_account_id = cursor.fetchone()[0]
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('TRAIN', 'all train related costs', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('BUS', 'all bus related costs', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('CABLE CAR', 'all cable car related costs', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('CAR', 'cost for e.g. carsharing', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('SUBURBAN', 'all suburban related costs', 2, {parent_account_id}, {userId}) RETURNING id;")
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'all other public transportations related costs', 2, {parent_account_id}, {userId}) RETURNING id;")
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('TRAIN', 'all train related costs', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('BUS', 'all bus related costs', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('CABLE CAR', 'all cable car related costs', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('CAR', 'cost for e.g. carsharing', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('SUBURBAN', 'all suburban related costs', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'all other public transportations related costs', 2, %s, %s) RETURNING id;", (parent_account_id, userId,))
         
         # OTHER
-        cursor.execute(f"INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'all other   costs', 1, null, {userId}) RETURNING id;")
+        cursor.execute("INSERT INTO ffd.account_dim (name,   comment, level_type, parent_account, user_fk) VALUES ('OTHER', 'all other   costs', 1, null, %s) RETURNING id;", (userId,))
 
 
         connection.commit()
@@ -277,7 +276,8 @@ def readAccounts(level_type):
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-    cursor.execute(f"select * from ffd.account_dim acc where level_type = {level_type} and active = 1 and user_fk = {userId} order by name asc")
+    cursor.execute('select * from ffd.account_dim acc where level_type = %s and active = 1 and user_fk =  %s order by name asc', (level_type, userId,))
+
     record = cursor.fetchall()
     # fetch the column names from the cursror
     columnnames = [desc[0] for desc in cursor.description]
@@ -320,11 +320,12 @@ def readPreferences():
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
 
-    cursor.execute(f"select user_fk, group_fk, company_fk \
+    cursor.execute("select user_fk, group_fk, company_fk \
                           , costtypes_active, accounts_active \
                           , accountsLevel1_active, accountsLevel2_active, accountsLevel3_active \
                      from ffd.preference_dim \
-                     where  user_fk = {userId}")
+                     where  user_fk = %s", (userId,))
+
     record = cursor.fetchall()
     # fetch the column names from the cursror
     columnnames = [desc[0] for desc in cursor.description]
@@ -365,11 +366,21 @@ def readListActualBudget(_type, sort, sortType):
 
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
+    
+    logging.critical(_type)
 
-    cursor.execute(f"select  *\
-                     from    ffd.{'act' if _type == 'actual' else 'bdg'}_data \
-                     where   data_date > date_trunc('month', CURRENT_DATE) - INTERVAL '1 year' \
-                     and     user_fk = {userId} order by {sort} {sortType}")
+    if _type == 'actual':
+        
+        cursor.execute("select  *\
+                        from    ffd.act_data \
+                        where   data_date > date_trunc('month', CURRENT_DATE) - INTERVAL '1 year' \
+                        and     user_fk = %s order by %s %s" % (userId, sort, sortType,)) # % instead of komma because of the sort column
+    elif _type == 'budget':
+        cursor.execute("select  *\
+                        from    ffd.bdg_data \
+                        where   data_date > date_trunc('month', CURRENT_DATE) - INTERVAL '1 year' \
+                        and     user_fk = %s order by %s %s" % (userId, sort, sortType,))
+
     record = cursor.fetchall()
     # fetch the column names from the cursror
     columnnames = [desc[0] for desc in cursor.description]
@@ -407,9 +418,17 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
     headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
 
+    #85 check to prohibit SQL injections, as the query is dynamically build and can not be done in the normal way - not relly needed as its already declaere in the swagger, just to be sure
+    if type(level_type) == int and type(cost_type) == int and type(parent_account) == int and type(year) == int and type(month) == int and (_type == 'actual' or _type == 'budget'):
+        pass
+    else:
+        return mail, 404
+
     # Mail is ACCESS FORBIDDEN in this case
     if(errorMessage is not None):
         return mail, 403
+
+    
 
     # Used to concat the query depending on the parameters passed
     select_params = ''
@@ -463,6 +482,7 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
     cursor.execute(f"{select_params} from ffd.{'act' if _type == 'actual' else 'bdg'}_data {where_params}{group_params} order by sum desc")
+
     record = cursor.fetchall()
     # fetch the column names from the cursror
     columnnames = [desc[0] for desc in cursor.description]
@@ -503,7 +523,8 @@ def readCosttypes():
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-    cursor.execute(f"select * from ffd.costtype_dim where active = 1 and user_fk = {userId}")
+    cursor.execute('select * from ffd.costtype_dim where active = 1 and user_fk =  %s', (userId,))
+
     record = cursor.fetchall()
     # fetch the column names from the cursror
     columnnames = [desc[0] for desc in cursor.description]
@@ -573,12 +594,25 @@ def send():
 def sendActual(data, userId):
     connection = connect()
     cursor = connection.cursor()
-    command = f"INSERT INTO ffd.act_data (amount, comment, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk) \
-                                  VALUES ({data['amount']}, '{data['actualcomment']}', '{data['date']}', {data['year']}, {data['month']}, '{data['level1']}', {data['level1id']}, '{data['level2']}', {data['level2id']}, '{data['level3']}', {data['level3id']} \
-                                  , '{data['costtype']}', {data['costtypeid']}, {userId})"
     
-    logging.info(command)
-    cursor.execute(command)
+    cursor.execute("INSERT INTO ffd.act_data (amount, comment, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk) \
+                                  VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
+                                                                                        ( data['amount']
+                                                                                        , data['actualcomment']
+                                                                                        , data['date']
+                                                                                        , data['year']
+                                                                                        , data['month']
+                                                                                        , data['level1']
+                                                                                        , data['level1id']
+                                                                                        , data['level2']
+                                                                                        , data['level2id']
+                                                                                        , data['level3']
+                                                                                        , data['level3id']
+                                                                                        , data['costtype']
+                                                                                        , data['costtypeid']
+                                                                                        , userId
+                                                                                        ,))
+
     connection.commit()
     cursor.close()
     connection.close()
@@ -586,21 +620,31 @@ def sendActual(data, userId):
 def savePreferences(data, userId):
     connection = connect()
     cursor = connection.cursor()
-    command = f"insert into ffd.preference_dim (select {userId} as user, {data['group']} as group_fk, {data['company']} as company_fk, \
-                                                       {data['arecosttypesactive']} costtypes_active, {data['areaccountsactive']} accounts_active, \
-                                                       {data['arelevel1accountsactive']} accountslevel1_active, \
-                                                       {data['arelevel2accountsactive']} accountslevel2_active, \
-                                                       {data['arelevel3accountsactive']} accountslevel3_active) \
-                ON CONFLICT (user_fk)  \
-                do update set costtypes_active = EXCLUDED.costtypes_active , \
-                              accounts_active = EXCLUDED.accounts_active, \
-                              accountslevel1_active = EXCLUDED.accountslevel1_active, \
-                              accountslevel2_active = EXCLUDED.accountslevel2_active, \
-                              accountslevel3_active = EXCLUDED.accountslevel3_active "
-                
     
-    logging.info(command)
-    cursor.execute(command)
+    cursor.execute("insert into ffd.preference_dim (select    %s as user \
+                                                            , %s as group_fk \
+                                                            , %s as company_fk \
+                                                            , %s costtypes_active \
+                                                            , %s accounts_active \
+                                                            , %s accountslevel1_active \
+                                                            , %s accountslevel2_active \
+                                                            , %s accountslevel3_active) \
+            ON CONFLICT (user_fk)  \
+            do update set costtypes_active = EXCLUDED.costtypes_active , \
+                          accounts_active = EXCLUDED.accounts_active, \
+                          accountslevel1_active = EXCLUDED.accountslevel1_active, \
+                          accountslevel2_active = EXCLUDED.accountslevel2_active, \
+                          accountslevel3_active = EXCLUDED.accountslevel3_active ", 
+                                                                                        ( userId
+                                                                                        , data['group']
+                                                                                        , data['company']
+                                                                                        , data['arecosttypesactive']
+                                                                                        , data['areaccountsactive']
+                                                                                        , data['arelevel1accountsactive']
+                                                                                        , data['arelevel2accountsactive']
+                                                                                        , data['arelevel3accountsactive']
+                                                                                        ,))
+
     connection.commit()
     cursor.close()
     connection.close()
@@ -608,11 +652,24 @@ def savePreferences(data, userId):
 def sendBudget(data, userId):
     connection = connect()
     cursor = connection.cursor()
-    command = f"INSERT INTO ffd.bdg_data (amount, comment, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk) \
-                                  VALUES ({data['amount']}, '{data['budgetcomment']}', '{data['date']}', {data['year']}, {data['month']}, '{data['level1']}', {data['level1id']}, '{data['level2']}', {data['level2id']}, '{data['level3']}', {data['level3id']} \
-                                  , '{data['costtype']}', {data['costtypeid']}, {userId})"
-    logging.info(command)
-    cursor.execute(command)
+   
+    cursor.execute("INSERT INTO ffd.bdg_data (amount, comment, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk) \
+                                  VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
+                                                                                        ( data['amount']
+                                                                                        , data['budgetcomment']
+                                                                                        , data['date']
+                                                                                        , data['year']
+                                                                                        , data['month']
+                                                                                        , data['level1']
+                                                                                        , data['level1id']
+                                                                                        , data['level2']
+                                                                                        , data['level2id']
+                                                                                        , data['level3']
+                                                                                        , data['level3id']
+                                                                                        , data['costtype']
+                                                                                        , data['costtypeid']
+                                                                                        , userId
+                                                                                        ,))
     connection.commit()
     cursor.close()
     connection.close()
@@ -620,21 +677,29 @@ def sendBudget(data, userId):
 def deleteCostType(data, userId):
     connection = connect()
     cursor = connection.cursor()
-    command = f"update ffd.costtype_dim set active = 0 where id = {data['costtypetodeleteid']} and user_fk = {userId}"
-    logging.info(command)
-    cursor.execute(command)
+
+    cursor.execute("update ffd.costtype_dim set active = 0 where id = %s and user_fk = %s", 
+                                                                                        ( data['costtypetodeleteid']
+                                                                                        , userId
+                                                                                        ,))
+
     connection.commit()
+
     cursor.close()
     connection.close()
 
 def addCostType(data, userId):
     connection = connect()
     cursor = connection.cursor()
-    command = f"INSERT INTO ffd.costtype_dim (name, comment, user_fk, group_fk, company_fk) \
-                                  VALUES ('{data['costtypetoadd'].upper()}', '{data['costtypetoaddcomment']}' \
-                                  , {userId},  {data['group']},  {data['company']})"
-    logging.info(command)
-    cursor.execute(command)
+
+    cursor.execute("INSERT INTO ffd.costtype_dim (name, comment, user_fk, group_fk, company_fk) \
+                              VALUES (%s, %s , %s,  %s,  %s)",(   data['costtypetoadd'].upper()
+                                                                , data['costtypetoaddcomment']
+                                                                , userId
+                                                                , data['group']
+                                                                , data['company']
+                                                                ,))
+    
     connection.commit()
     cursor.close()
     connection.close()
@@ -656,11 +721,9 @@ def deleteAccount(data, userId):
         accounttodelete = data['adminaccountlevel1id']
 
     
-    command = f"update ffd.account_dim set active = 0 where id = {accounttodelete} and user_fk = {userId}"
-    logging.info(command)
-    
-    cursor.execute(command)
+    cursor.execute("update ffd.account_dim set active = 0 where id = %s and user_fk = %s",( accounttodelete, userId,))
     connection.commit()
+    
     cursor.close()
     connection.close()
 
@@ -670,57 +733,77 @@ def addAccount(data, userId):
     
     # If a name for a new level1 aacount was sent, enter a new level1 account
     if(data['accounttoaddlevel1']):
-        command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
-                                  VALUES ('{data['accounttoaddlevel1'].upper()}', '{data['accounttoaddlevel1comment']}', 1, null \
-                                  , {userId},  {data['group']},  {data['company']})"
-        logging.info(command)
-        cursor.execute(command)
+
+        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
+                                  VALUES (%s, %s, 1, null , %s,  %s,  %s)",(  data['accounttoaddlevel1'].upper()
+                                                                            , data['accounttoaddlevel1comment']
+                                                                            , userId
+                                                                            , data['group']
+                                                                            , data['company']
+                                                                            ,))
         connection.commit()
 
     # Check if a parent account for a new level2 was sent and a level2 account name, if yes create a new level2 account
     if(int(data['accountfornewlevel2parentaccount']) > 0 and data['accounttoaddlevel2']):
-        command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
-                                  VALUES ('{data['accounttoaddlevel2'].upper()}', '{data['accounttoaddlevel2comment']}', 2, {data['accountfornewlevel2parentaccount']} \
-                                  , {userId},  {data['group']},  {data['company']})"
-        logging.info(command)
-        cursor.execute(command)
+
+        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
+                                  VALUES (%s, %s, 2, %s, %s, %s, %s)",(    data['accounttoaddlevel2'].upper()
+                                                                        , data['accounttoaddlevel2comment']
+                                                                        , data['accountfornewlevel2parentaccount']
+                                                                        , userId
+                                                                        , data['group']
+                                                                        , data['company']
+                                                                        ,))
         connection.commit()
 
     # If no parent account for the new level2 was sent but a name for a new level 2 account and also a name for the level1 parent account
     elif(int(data['accountfornewlevel2parentaccount']) < 0 and data['accounttoaddlevel2'] and data['accounttoaddlevel1']):
         
         # Check if a name for a level1 was sent, get the id of that and set this account as the parent       
-        cursor.execute(f"select id from ffd.account_dim where level_type = 1 and name = '{data['accounttoaddlevel1'].upper()}'")
+        cursor.execute("select id from ffd.account_dim where level_type = 1 and name = %s", (data['accounttoaddlevel1'].upper(),))
         record = cursor.fetchall()
-        command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
-                                  VALUES ('{data['accounttoaddlevel2'].upper()}', '{data['accounttoaddlevel2comment']}', 2, {record[0][0]} \
-                                  , {userId},  {data['group']},  {data['company']})"
-        logging.info(command)
-        cursor.execute(command)
+
+        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
+                                  VALUES (%s, %s, 2, %s, %s, %s, %s)",(   data['accounttoaddlevel2'].upper()
+                                                                        , data['accounttoaddlevel2comment']
+                                                                        , record[0][0]
+                                                                        , userId
+                                                                        , data['group']
+                                                                        , data['company']
+                                                                        ,))
         connection.commit()
         
     
     # Check if a parent account for a new level3 was sent and a level3 account name, if yes create a new level3 account with the matching parent account
     if(int(data['accountfornewlevel3parentaccount']) > 0 and data['accounttoaddlevel3']):
-        command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
-                                  VALUES ('{data['accounttoaddlevel3'].upper()}', '{data['accounttoaddlevel3comment']}', 3, {data['accountfornewlevel3parentaccount']} \
-                                  , {userId},  {data['group']},  {data['company']})"
-        logging.info(command)
-        cursor.execute(command)
+        
+        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
+                                  VALUES (%s, %s, 3, %s, %s, %s, %s)",(   data['accounttoaddlevel3'].upper()
+                                                                        , data['accounttoaddlevel3comment']
+                                                                        , data['accountfornewlevel3parentaccount']
+                                                                        , userId
+                                                                        , data['group']
+                                                                        , data['company']
+                                                                        ,))
         connection.commit()
 
     # If no parent account for the new level3 was sent but a name for a new level 3 account and also a name for the level2 parent account
     elif(int(data['accountfornewlevel3parentaccount']) < 0 and data['accounttoaddlevel3'] and data['accounttoaddlevel2']):
 
         # Check if a name for a level1 was sent, get the id of that and set this account as the parent
-        cursor.execute(f"select id from ffd.account_dim where level_type = 2 and name = '{data['accounttoaddlevel2'].upper()}'")
+        cursor.execute("select id from ffd.account_dim where level_type = 2 and name = %s", (data['accounttoaddlevel2'].upper(),))
         record = cursor.fetchall()
-        command = f"INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
-                                  VALUES ('{data['accounttoaddlevel3'].upper()}', '{data['accounttoaddlevel3comment']}', 3, {record[0][0]} \
-                                  , {userId},  {data['group']},  {data['company']})"
-        logging.info(command)
-        cursor.execute(command)
+
+        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
+                                  VALUES (%s, %s, 3, %s, %s, %s,  %s)",(  data['accounttoaddlevel3'].upper()
+                                                                        , data['accounttoaddlevel3comment']
+                                                                        , record[0][0]
+                                                                        , userId
+                                                                        , data['group']
+                                                                        , data['company']
+                                                                        ,))
         connection.commit()
+
     cursor.close()
     connection.close()
 
@@ -730,14 +813,22 @@ def deleteEntry(type, data, userId):
     connection = connect()
     cursor = connection.cursor()
 
-    command = f"update ffd.{'act' if type == 'actual' else 'bdg'}_data \
-                set active = case when active = 1 then 0 else 1 end \
-                where id = {data['actlistitemtodelete'] if type == 'actual' else data['bdglistitemtodelete']} \
-                and user_fk = {userId}"
-    
-    logging.info(command)
-    cursor.execute(command)
+    if type == 'actual':
+        cursor.execute("update ffd.act_data \
+                        set active = case when active = 1 then 0 else 1 end \
+                        where id = %s \
+                        and user_fk = %s",(   data['actlistitemtodelete']
+                                            , userId
+                                            ,))
+    elif type == 'budget':
+        cursor.execute("update ffd.bdg_data \
+                        set active = case when active = 1 then 0 else 1 end \
+                        where id = %s \
+                        and user_fk = %s",(   data['bdglistitemtodelete']
+                                            , userId
+                                            ,))
     connection.commit()
+
     cursor.close()
     connection.close()
     

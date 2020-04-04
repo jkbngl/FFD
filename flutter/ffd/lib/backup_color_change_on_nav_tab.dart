@@ -4448,7 +4448,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             //   - set it to the default -> desc
                                                             budgetListSortType =
                                                             budgetListSortColumn ==
-                                                                'level1'
+                                                                'created'
                                                                 ? (budgetListSortType ==
                                                                 'asc'
                                                                 ? 'desc'
@@ -4464,7 +4464,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             Navigator.pop(
                                                                 context);
                                                           },
-                                                          child: const Text(
+                                                          child: Text(
                                                               'Date of creation'),
                                                         ),
                                                         SimpleDialogOption(
