@@ -426,18 +426,7 @@ class _MyHomePageState extends State<MyHomePage>
       var user = await http.read(uri, headers: params);
       print(user);
     } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => new AlertDialog(
-          content: new Text("ERROR\n${e.runtimeType}\n${e.toString()}\n$e"),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text('DISMISS'),
-              onPressed: () => Navigator.of(context).pop(),
-            )
-          ],
-        ),
-      );
+      errorDialog(e);
     }
   }
 
@@ -496,18 +485,7 @@ class _MyHomePageState extends State<MyHomePage>
         }
       }
     } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => new AlertDialog(
-          content: new Text("ERROR - $e"),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text('DISMISS'),
-              onPressed: () => Navigator.of(context).pop(),
-            )
-          ],
-        ),
-      );
+      errorDialog(e);
     }
 
     setState(() {});
@@ -552,18 +530,7 @@ class _MyHomePageState extends State<MyHomePage>
 
       setState(() {});
     } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => new AlertDialog(
-          content: new Text("ERROR - $e"),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text('DISMISS'),
-              onPressed: () => Navigator.of(context).pop(),
-            )
-          ],
-        ),
-      );
+      errorDialog(e);
     }
   }
 
@@ -591,18 +558,7 @@ class _MyHomePageState extends State<MyHomePage>
         }
       });
     } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => new AlertDialog(
-          content: new Text("ERROR - $e"),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text('DISMISS'),
-              onPressed: () => Navigator.of(context).pop(),
-            )
-          ],
-        ),
-      );
+      errorDialog(e);
     }
   }
 
@@ -706,18 +662,7 @@ class _MyHomePageState extends State<MyHomePage>
 
       setState(() {});
     } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => new AlertDialog(
-          content: new Text("ERROR - $e"),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text('DISMISS'),
-              onPressed: () => Navigator.of(context).pop(),
-            )
-          ],
-        ),
-      );
+      errorDialog(e);
     }
   }
 
@@ -1051,18 +996,7 @@ class _MyHomePageState extends State<MyHomePage>
       // needed to reinitialize dropdowns with new values
       setState(() {});
     } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => new AlertDialog(
-          content: new Text("ERROR - $e"),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text('DISMISS'),
-              onPressed: () => Navigator.of(context).pop(),
-            )
-          ],
-        ),
-      );
+      errorDialog(e);
     }
   }
 
@@ -1534,6 +1468,46 @@ class _MyHomePageState extends State<MyHomePage>
             )
           ],
         ),
+      ),
+    );
+  }
+
+  errorDialog(e){
+    showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        title: Text("ERROR - ${e.runtimeType}"),
+        content: RichText(
+          text: TextSpan(
+              text: "Make sure you have an active internet connection, and try to logout and log back in again",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+              children: <TextSpan>[
+                TextSpan(
+                  text: '$e',
+                  style:
+                  TextStyle(color: Color(0xFF0957FF), fontSize: 18),
+                )
+              ]),
+        ),
+        actions: <Widget>[
+          new FlatButton(
+            child: new Text('DISMISS'),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          new FlatButton(
+            child: new Text('Logout'),
+            onPressed: () {
+              signOutGoogle();
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) {
+                    return LoginPage();
+                  }), ModalRoute.withName('/'));
+            },
+          )
+        ],
       ),
     );
   }
