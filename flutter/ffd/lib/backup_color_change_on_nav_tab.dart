@@ -686,6 +686,7 @@ class _MyHomePageState extends State<MyHomePage>
       parsedBudgetComparison = parsedBudgetComparisonList.length != 0
           ? parsedBudgetComparisonList[0]['sum']
           : 99;
+
       /*parsedBudgetComparison = calculateRelativeComparison(
           parsedBudgetComparisonList.length != 0
               ? parsedBudgetComparisonList[0]['sum']
@@ -730,6 +731,7 @@ class _MyHomePageState extends State<MyHomePage>
       actualOrHistoric
       /* Are we comparing this month data or historic months data*/) {
     // Check how many percent of the year (when month = -1)/ month (when month does not equal -1) has gone by and return the relative amount
+    DateTime today = DateTime.now();
     DateTime comparisonDate = DateTime(year, month, 1);
 
     // Calculate variance by month
@@ -737,9 +739,15 @@ class _MyHomePageState extends State<MyHomePage>
       // Get the last day of the previous month (comparisonDate Month since we add 1 month to the comparison Date e.g. 2013,3,0 = 28 of February)
       int lastDay =
           DateTime(comparisonDate.year, comparisonDate.month + 1, 0).day;
-      double percentOfMonth = comparisonDate.day / lastDay;
+      double percentOfMonth = today.day / lastDay;
 
-      // If we are loading actual data, multiply by percent else return the same value as we compare absolute values of finished months
+      print("Last month amount: $amount");
+      print("Comparing actual data: $actualOrHistoric");
+      print("How much percent of the month has passed: $percentOfMonth");
+      print("Todays day: ${today.day}");
+      print("Last day of the last month: $lastDay");
+
+      // If we are loading actual data (current month), multiply by percent else return the same value as we compare absolute values of finished months (historic months)
       return num.parse((amount * (actualOrHistoric ? percentOfMonth : 1))
           .toStringAsFixed(2));
     }
