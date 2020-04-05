@@ -628,6 +628,22 @@ class _MyHomePageState extends State<MyHomePage>
                 level_type,
                 charts.ColorUtil.fromDartColor(Color(0xff003680))));
           }
+          else
+            {
+              visualizerTargetData.add(ChartObject(
+                  amounts['level$level_type'].toString(),
+                  amounts['sum'],
+                  amounts['level${level_type.toString()}_fk'],
+                  level_type,
+                  charts.ColorUtil.fromDartColor(Color(0xff003680))));
+              
+              visualizerData.add(ChartObject(
+                  amounts['level$level_type'].toString(),
+                  0,
+                  amounts['level${level_type.toString()}_fk'],
+                  level_type,
+                  charts.ColorUtil.fromDartColor(Color(0xff003680))));
+            }
         }
       }
 
@@ -5342,13 +5358,11 @@ class _MyHomePageState extends State<MyHomePage>
                                           ChartObject,
                                           String>(
                                           id: 'CompanySizeVsNumberOfCompanies',
-
                                           domainFn:
                                               (
                                               ChartObject sales,
                                               _) =>
                                           sales.accountName,
-
                                           measureFn:
                                               (
                                               ChartObject sales,
@@ -5373,7 +5387,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     customSeriesRenderers: [
                                       new charts.BarTargetLineRendererConfig<
                                           String>(
-                                        // ID used to link series to this renderer.
+                                          // ID used to link series to this renderer.
                                           customRendererId: 'customTargetLine',
                                           groupingType: charts.BarGroupingType
                                               .grouped)
