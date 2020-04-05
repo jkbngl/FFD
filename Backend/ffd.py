@@ -634,7 +634,12 @@ def savePreferences(data, userId):
                           accounts_active = EXCLUDED.accounts_active, \
                           accountslevel1_active = EXCLUDED.accountslevel1_active, \
                           accountslevel2_active = EXCLUDED.accountslevel2_active, \
-                          accountslevel3_active = EXCLUDED.accountslevel3_active ", 
+                          accountslevel3_active = EXCLUDED.accountslevel3_active, \
+                          updated = case when   ffd.preference_dim.costtypes_active        != EXCLUDED.costtypes_active or \
+                                                ffd.preference_dim.accounts_active         != EXCLUDED.accounts_active or \
+                                                ffd.preference_dim.accountslevel1_active   != EXCLUDED.accountslevel1_active or \
+                                                ffd.preference_dim.accountslevel2_active   != EXCLUDED.accountslevel2_active or \
+                                                ffd.preference_dim.accountslevel3_active   != EXCLUDED.accountslevel3_active then now() else ffd.preference_dim.updated end ", # Only update when something changed
                                                                                         ( userId
                                                                                         , data['group']
                                                                                         , data['company']
@@ -678,10 +683,10 @@ def deleteCostType(data, userId):
     connection = connect()
     cursor = connection.cursor()
 
-    cursor.execute("update ffd.costtype_dim set active = 0 where id = %s and user_fk = %s", 
-                                                                                        ( data['costtypetodeleteid']
-                                                                                        , userId
-                                                                                        ,))
+    cursor.execute("update ffd.costtype_dim set active = 0,  updated = now() where id = %s and user_fk = %s", 
+                                                                                                              (   data['costtypetodeleteid']
+                                                                                                                , userId
+                                                                                                                ,))
 
     connection.commit()
 
@@ -721,7 +726,7 @@ def deleteAccount(data, userId):
         accounttodelete = data['adminaccountlevel1id']
 
     
-    cursor.execute("update ffd.account_dim set active = 0 where id = %s and user_fk = %s",( accounttodelete, userId,))
+    cursor.execute("update ffd.account_dim set active = 0, updated = now() where id = %s and user_fk = %s",( accounttodelete, userId,))
     connection.commit()
     
     cursor.close()
@@ -815,14 +820,16 @@ def deleteEntry(type, data, userId):
 
     if type == 'actual':
         cursor.execute("update ffd.act_data \
-                        set active = case when active = 1 then 0 else 1 end \
+                        set active = case when active = 1 then 0 else 1 end, \
+                        updated = now() \
                         where id = %s \
                         and user_fk = %s",(   data['actlistitemtodelete']
                                             , userId
                                             ,))
     elif type == 'budget':
         cursor.execute("update ffd.bdg_data \
-                        set active = case when active = 1 then 0 else 1 end \
+                        set active = case when active = 1 then 0 else 1 end, \
+                        updated = now() \
                         where id = %s \
                         and user_fk = %s",(   data['bdglistitemtodelete']
                                             , userId
