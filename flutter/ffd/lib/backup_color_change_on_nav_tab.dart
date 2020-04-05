@@ -111,13 +111,13 @@ class CostType {
   }
 }
 
-class CompanySizeVsNumberOfCompanies {
-  String companySize;
-  double numberOfCompanies;
+class ChartObject {
+  String accountName;
+  double amount;
   int accountId;
   int accountLevel;
 
-  CompanySizeVsNumberOfCompanies(this.companySize, this.numberOfCompanies,
+  ChartObject(this.accountName, this.amount,
       this.accountId, this.accountLevel);
 }
 
@@ -316,11 +316,11 @@ class _MyHomePageState extends State<MyHomePage>
   var parsedBudgetComparison = 0.00;
 
   var visualizerData = [
-    CompanySizeVsNumberOfCompanies("1-25", 10, -69, -69),
+    ChartObject("1-25", 10, -69, -69),
   ];
 
   var visualizerTargetData = [
-    CompanySizeVsNumberOfCompanies("1-25", 10, -69, -69),
+    ChartObject("1-25", 10, -69, -69),
   ];
 
   var homescreenData = [
@@ -566,41 +566,65 @@ class _MyHomePageState extends State<MyHomePage>
         ? -1
         : dateTimeVisualizer
         .month; //if the whole year or all time should be shown, use no month filter
-    String _type = 'actual';
 
-    String uri =
-        'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type';
+    // Needed to distinguish between actual and budget, so has to be set on runTime
+    String _type = '';
+    String uri = '';
 
-    print(uri);
+    ChartObject needsToBeAdded = ChartObject('DUMMY', -99, -69, -69);
+
+
 
     var params = {
       "accesstoken": token,
     };
 
     try {
-      var amounts = await http.read(uri, headers: params);
+      _type = 'actual';
+      uri =
+      'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type';
+      var actualAmounts = await http.read(uri, headers: params);
 
-      var parsedAmounts = json.decode(amounts);
+      _type = 'budget';
+      uri =
+      'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type';
+      var budgetAmounts = await http.read(uri, headers: params);
 
-      final desktopSalesData = [new OrdinalSales('2069', 5)];
+      var parsedActualAmounts = json.decode(actualAmounts);
+      var parsedBudgetAmounts = json.decode(budgetAmounts);
 
       visualizerData.clear();
       visualizerTargetData.clear();
 
-      for (var amounts in parsedAmounts) {
-        visualizerData.add(CompanySizeVsNumberOfCompanies(
+      print(parsedActualAmounts);
+      print("#######");
+      print(parsedBudgetAmounts);
+
+      for (var amounts in parsedActualAmounts) {
+        visualizerData.add(ChartObject(
             amounts['level$level_type'].toString(),
             amounts['sum'],
             amounts['level${level_type.toString()}_fk'],
             level_type));
       }
 
-      for (var amounts in parsedAmounts) {
-        visualizerTargetData.add(CompanySizeVsNumberOfCompanies(
-            amounts['level$level_type'].toString(),
-            amounts['sum'] + 50,
-            amounts['level${level_type.toString()}_fk'],
-            level_type));
+      for (var amounts in parsedBudgetAmounts) {
+        if (amounts['level${level_type.toString()}_fk'] > 0) {    // Only show budgets with an account assigned
+
+          // Check if a corresponding actual exists
+          needsToBeAdded = visualizerData.firstWhere(
+                  (itemToCheck) => itemToCheck.accountName == amounts['level$level_type'].toString(),
+              orElse: () => null);
+
+          if(needsToBeAdded != null)
+          {
+            visualizerTargetData.add(ChartObject(
+                amounts['level$level_type'].toString(),
+                amounts['sum'] + 50,
+                amounts['level${level_type.toString()}_fk'],
+                level_type));
+          }
+        }
       }
 
       setState(() {});
@@ -1965,8 +1989,8 @@ class _MyHomePageState extends State<MyHomePage>
     if (selectedDatum.isNotEmpty) {
       //time = selectedDatum.first.datum.toString();
       selectedDatum.forEach((charts.SeriesDatum datumPair) {
-        print(datumPair.datum.numberOfCompanies);
-        print(datumPair.datum.companySize);
+        print(datumPair.datum.amount);
+        print(datumPair.datum.accountName);
         print(datumPair.datum.accountId);
         print(datumPair.datum.accountLevel);
 
@@ -1976,8 +2000,8 @@ class _MyHomePageState extends State<MyHomePage>
               datumPair.datum.accountLevel + 1; // we need to next higher one
 
           drilldownLevel += drilldownLevel.length > 0
-              ? " > " + datumPair.datum.companySize
-              : datumPair.datum.companySize;
+              ? " > " + datumPair.datum.accountName
+              : datumPair.datum.accountName;
         } else {
           showDialog(
             context: context,
@@ -5286,32 +5310,7 @@ class _MyHomePageState extends State<MyHomePage>
                                   child: charts.BarChart(
                                     [
                                       charts.Series<
-                                        CompanySizeVsNumberOfCompanies,
-                                        String>(
-                                        id: 'CompanySizeVsNumberOfCompanies',
-                                        colorFn: (_, __) =>
-                                            charts.ColorUtil.fromDartColor(
-                                                Color(0xFF0957FF)),
-                                        domainFn:
-                                            (
-                                            CompanySizeVsNumberOfCompanies sales,
-                                            _) =>
-                                        sales.companySize,
-
-                                        measureFn:
-                                            (
-                                            CompanySizeVsNumberOfCompanies sales,
-                                            _) =>
-                                        sales.numberOfCompanies,
-                                        labelAccessorFn:
-                                            (
-                                            CompanySizeVsNumberOfCompanies sales,
-                                            _) =>
-                                        '${sales.companySize}: ${sales
-                                            .numberOfCompanies.toString()}€',
-                                        data: visualizerData),
-                                      charts.Series<
-                                          CompanySizeVsNumberOfCompanies,
+                                          ChartObject,
                                           String>(
                                           id: 'CompanySizeVsNumberOfCompanies',
                                           colorFn: (_, __) =>
@@ -5319,22 +5318,49 @@ class _MyHomePageState extends State<MyHomePage>
                                                   Color(0xFF0957FF)),
                                           domainFn:
                                               (
-                                              CompanySizeVsNumberOfCompanies sales,
+                                              ChartObject sales,
                                               _) =>
-                                          sales.companySize,
+                                          sales.accountName,
 
                                           measureFn:
                                               (
-                                              CompanySizeVsNumberOfCompanies sales,
+                                              ChartObject sales,
                                               _) =>
-                                          sales.numberOfCompanies,
+                                          sales.amount,
                                           labelAccessorFn:
                                               (
-                                              CompanySizeVsNumberOfCompanies sales,
+                                              ChartObject sales,
                                               _) =>
-                                          '${sales.companySize}: ${sales
-                                              .numberOfCompanies.toString()}€',
-                                          data: visualizerTargetData)..setAttribute(charts.rendererIdKey, 'customTargetLine'),
+                                          '${sales.accountName}: ${sales
+                                              .amount.toString()}€',
+                                          data: visualizerData),
+                                      charts.Series<
+                                          ChartObject,
+                                          String>(
+                                          id: 'CompanySizeVsNumberOfCompanies',
+                                          colorFn: (_, __) =>
+                                              charts.ColorUtil.fromDartColor(
+                                                  Color(0xFF0957FF)),
+                                          domainFn:
+                                              (
+                                              ChartObject sales,
+                                              _) =>
+                                          sales.accountName,
+
+                                          measureFn:
+                                              (
+                                              ChartObject sales,
+                                              _) =>
+                                          sales.amount,
+                                          labelAccessorFn:
+                                              (
+                                              ChartObject sales,
+                                              _) =>
+                                          '${sales.accountName}: ${sales
+                                              .amount.toString()}€',
+                                          data: visualizerTargetData)
+                                        ..setAttribute(charts.rendererIdKey,
+                                            'customTargetLine'),
                                     ],
                                     animate: true,
                                     barGroupingType: charts.BarGroupingType
