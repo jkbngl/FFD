@@ -2585,30 +2585,38 @@ class _MyHomePageState extends State<MyHomePage>
                                                   onClear: () {
                                                     print("CLEARING");
 
-                                                    setState(() {
-                                                      level1ActualObject =
-                                                      level1ActualAccountsList[
-                                                      0];
-                                                    });
+                                                    //setState(() {
+                                                    //  level1ActualObject =
+                                                    //  level1ActualAccountsList[
+                                                    //  0];
+                                                    //});
                                                   },
                                                   onChanged: (value) {
-                                                    setState(() {
-                                                      level1ActualObject =
-                                                          value;
-                                                    });
+                                                    print("CLEAR BUTTON PRESSED: (${value == null})");
 
-                                                    print(
-                                                        "${level1ActualObject
-                                                            .id} - ${level1ActualObject
-                                                            .name}");
+                                                    if(value != null)
+                                                    {
+                                                      setState(() {
+                                                        level1ActualObject =
+                                                            value;
+                                                      });
 
-                                                    arrangeAccounts(
-                                                        1, 'actual');
+                                                      arrangeAccounts(
+                                                          1, 'actual');
 
-                                                    print(
-                                                        "${level2ActualObject
-                                                            .id} - ${level2ActualObject
-                                                            .name}");
+                                                      print(
+                                                          "${level2ActualObject
+                                                              .id} - ${level2ActualObject
+                                                              .name}");
+                                                    }
+                                                    else if(value == null)
+                                                    {
+                                                      setState(() {
+                                                        level1ActualObject =
+                                                        level1ActualAccountsList[
+                                                        0];
+                                                      });
+                                                    }
                                                   },
                                                   dialogBox: true,
                                                   isExpanded: true,
