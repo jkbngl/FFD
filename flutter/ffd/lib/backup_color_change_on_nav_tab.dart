@@ -2583,19 +2583,29 @@ class _MyHomePageState extends State<MyHomePage>
                                                   searchHint:
                                                   "Select one number",
                                                   onClear: () {
-                                                    print("CLEARING");
+                                                    print(
+                                                        "CLEARING in onClear");
 
-                                                    //setState(() {
-                                                    //  level1ActualObject =
-                                                    //  level1ActualAccountsList[
-                                                    //  0];
-                                                    //});
+                                                    setState(() {
+                                                      level1ActualObject =
+                                                      level1ActualAccountsList[
+                                                      0];
+
+                                                      level2ActualObject =
+                                                      level2ActualAccountsList[
+                                                      0];
+
+                                                      level3ActualObject =
+                                                      level3ActualAccountsList[
+                                                      0];
+                                                    });
                                                   },
                                                   onChanged: (value) {
-                                                    print("CLEAR BUTTON PRESSED: (${value == null})");
+                                                    print(
+                                                        "CLEAR BUTTON PRESSED: (${value ==
+                                                            null})");
 
-                                                    if(value != null)
-                                                    {
+                                                    if (value != null) {
                                                       setState(() {
                                                         level1ActualObject =
                                                             value;
@@ -2609,131 +2619,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                               .id} - ${level2ActualObject
                                                               .name}");
                                                     }
-                                                    else if(value == null)
-                                                    {
-                                                      setState(() {
-                                                        level1ActualObject =
-                                                        level1ActualAccountsList[
-                                                        0];
-                                                      });
-                                                    }
                                                   },
                                                   dialogBox: true,
                                                   isExpanded: true,
                                                 ),
                                               )
                                                   : Container(),
-                                              /*areLevel1AccountsActive
-                                        ? Container(
-                                            constraints: BoxConstraints.expand(
-                                              height: 100,
-                                              //width: MediaQuery.of(context).size.width * .8
-                                            ),
-                                            padding: const EdgeInsets.only(
-                                                left: 30.0,
-                                                top: 0,
-                                                right: 30,
-                                                bottom: 0),
-                                            //color: Colors.blue[600],
-                                            alignment: Alignment.center,
-                                            //child: Text('Submit'),
-                                            child: DropdownButton<Account>(
-                                              value: level1ActualObject,
-                                              hint: Text(
-                                                "Select a level 1 account",
-                                                /*style: TextStyle(
-                              color,
-                            ),*/
-                                              ),
-                                              icon: Icon(Icons.arrow_downward),
-                                              iconSize: 24,
-                                              elevation: 16,
-                                              style: TextStyle(
-                                                  color: Color(0xff0957FF)),
-                                              isExpanded: true,
-                                              underline: Container(
-                                                height: 2,
-                                                width: 5000,
-                                                color: Color(0xff0957FF),
-                                              ),
-                                              onChanged: (Account newValue) {
-                                                setState(() {
-                                                  level1ActualObject = newValue;
-                                                });
-                                                print(level1ActualObject.name);
-                                                arrangeAccounts(1, 'actual');
-                                              },
-                                              items: level1ActualAccountsList
-                                                  .map((Account account) {
-                                                return new DropdownMenuItem<
-                                                    Account>(
-                                                  value: account,
-                                                  child: new Text(
-                                                    account.name,
-                                                  ),
-                                                );
-                                              }).toList(),
-                                            ),
-                                          )
-                                        : Container(),
-                                    areLevel2AccountsActive
-                                        ? Container(
-                                            constraints: BoxConstraints.expand(
-                                              height: 50,
-                                            ),
-                                            padding: const EdgeInsets.only(
-                                                left: 30.0,
-                                                top: 0,
-                                                right: 30,
-                                                bottom: 0),
-                                            //color: Colors.blue[600],
-                                            alignment: Alignment.center,
-                                            //child: Text('Submit'),
-                                            child: DropdownButton<Account>(
-                                              value: level2ActualObject,
-                                              hint: Text(
-                                                "Select a level 2 account",
-                                                /*style: TextStyle(
-                              color,
-                            ),*/
-                                              ),
-                                              icon: Icon(Icons.arrow_downward),
-                                              iconSize: 24,
-                                              elevation: 16,
-                                              style: TextStyle(
-                                                  color: Color(0xff0957FF)),
-                                              isExpanded: true,
-                                              underline: Container(
-                                                height: 2,
-                                                width: 5000,
-                                                color: Color(0xff0957FF),
-                                              ),
-                                              onChanged: (Account newValue) {
-                                                dummyAccount =
-                                                    level2ActualObject;
-                                                setState(() {
-                                                  level2ActualObject = newValue;
-                                                });
-                                                if (dummyAccount.id !=
-                                                    newValue.id) {
-                                                  arrangeAccounts(2, 'actual');
-                                                } else {
-                                                  print("RESELECTED");
-                                                }
-                                              },
-                                              items: level2ActualAccountsList
-                                                  .map((Account account) {
-                                                return new DropdownMenuItem<
-                                                    Account>(
-                                                  value: account,
-                                                  child: new Text(
-                                                    account.name,
-                                                  ),
-                                                );
-                                              }).toList(),
-                                            ),
-                                          )
-                                        : Container(),*/
                                               areLevel2AccountsActive
                                                   ? Container(
                                                 padding:
@@ -2777,29 +2668,39 @@ class _MyHomePageState extends State<MyHomePage>
                                                   hint: "Select one number",
                                                   searchHint:
                                                   "Select one number",
-                                                  onClear: (value) {
+                                                  onClear: () {
                                                     setState(() {
                                                       level2ActualObject =
                                                       level2ActualAccountsList[
                                                       0];
+
+                                                      level3ActualObject =
+                                                      level3ActualAccountsList[
+                                                      0];
                                                     });
                                                   },
                                                   onChanged: (value) {
-                                                    // Check if a new value was selected or the same was reselected
-                                                    dummyAccount =
-                                                        level2ActualObject;
+                                                    print(
+                                                        "CLEAR BUTTON PRESSED: (${value ==
+                                                            null})");
 
-                                                    setState(() {
-                                                      level2ActualObject =
-                                                          value;
-                                                    });
+                                                    if (value != null) {
+                                                      // Check if a new value was selected or the same was reselected
+                                                      dummyAccount =
+                                                          level2ActualObject;
 
-                                                    if (dummyAccount.id !=
-                                                        value.id) {
-                                                      arrangeAccounts(
-                                                          2, 'actual');
-                                                    } else {
-                                                      print("RESELECTED");
+                                                      setState(() {
+                                                        level2ActualObject =
+                                                            value;
+                                                      });
+
+                                                      if (dummyAccount.id !=
+                                                          value.id) {
+                                                        arrangeAccounts(
+                                                            2, 'actual');
+                                                      } else {
+                                                        print("RESELECTED");
+                                                      }
                                                     }
                                                   },
                                                   dialogBox: true,
@@ -2807,56 +2708,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                 ),
                                               )
                                                   : Container(),
-                                              /*areLevel3AccountsActive
-                                        ? Container(
-                                            constraints: BoxConstraints.expand(
-                                              height: 100.0,
-                                            ),
-                                            padding: const EdgeInsets.only(
-                                                left: 30.0,
-                                                top: 0,
-                                                right: 30,
-                                                bottom: 0),
-                                            alignment: Alignment.center,
-                                            child: DropdownButton<Account>(
-                                              value: level3ActualObject,
-                                              hint: Text(
-                                                "Select a level 3 account",
-                                                /*style: TextStyle(
-                              color,
-                            ),*/
-                                              ),
-                                              icon: Icon(Icons.arrow_downward),
-                                              iconSize: 24,
-                                              elevation: 16,
-                                              style: TextStyle(
-                                                  color: Color(0xff0957FF)),
-                                              isExpanded: true,
-                                              underline: Container(
-                                                height: 2,
-                                                width: 5000,
-                                                color: Color(0xff0957FF),
-                                              ),
-                                              onChanged: (Account newValue) {
-                                                setState(() {
-                                                  level3ActualObject = newValue;
-                                                });
-                                                // TODO probably not needed as change in level3 has no affect in anything
-                                                // arrangeAccounts(3, 'actual');
-                                              },
-                                              items: level3ActualAccountsList
-                                                  .map((Account account) {
-                                                return new DropdownMenuItem<
-                                                    Account>(
-                                                  value: account,
-                                                  child: new Text(
-                                                    account.name,
-                                                  ),
-                                                );
-                                              }).toList(),
-                                            ),
-                                          )
-                                        : Container(),*/
+
                                               areLevel3AccountsActive
                                                   ? Container(
                                                 padding:
@@ -2899,7 +2751,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                   hint: "Select one number",
                                                   searchHint:
                                                   "Select one number",
-                                                  onClear: (value) {
+                                                  onClear: () {
                                                     setState(() {
                                                       level3ActualObject =
                                                       level3ActualAccountsList[
@@ -2908,10 +2760,16 @@ class _MyHomePageState extends State<MyHomePage>
                                                   },
                                                   // The default object is set again
                                                   onChanged: (value) {
-                                                    setState(() {
-                                                      level3ActualObject =
-                                                          value;
-                                                    });
+                                                    print(
+                                                        "CLEAR BUTTON PRESSED: (${value ==
+                                                            null})");
+
+                                                    if (value != null) {
+                                                      setState(() {
+                                                        level3ActualObject =
+                                                            value;
+                                                      });
+                                                    }
 
                                                     // TODO probably not needed as change in level3 has no affect in anything
                                                     // arrangeAccounts(3, 'actual');
@@ -2960,12 +2818,25 @@ class _MyHomePageState extends State<MyHomePage>
                                                       color:
                                                       Color(0xff0957FF),
                                                     ),
-                                                    onChanged:
-                                                        (CostType newValue) {
+                                                    onClear: () {
                                                       setState(() {
                                                         costTypeObjectActual =
-                                                            newValue;
+                                                        costTypesList[
+                                                        0];
                                                       });
+                                                    },
+                                                    onChanged:
+                                                        (CostType newValue) {
+                                                      print(
+                                                          "CLEAR BUTTON PRESSED: (${value ==
+                                                              null})");
+
+                                                      if (value != null) {
+                                                        setState(() {
+                                                          costTypeObjectActual =
+                                                              newValue;
+                                                        });
+                                                      };
                                                     },
                                                     items: costTypesList
                                                         .map((CostType type) {
@@ -4075,16 +3946,26 @@ class _MyHomePageState extends State<MyHomePage>
                                                       level1BudgetObject =
                                                       level1BudgetAccountsList[
                                                       0];
+
+                                                      level2BudgetObject =
+                                                      level2BudgetAccountsList[
+                                                      0];
+
+                                                      level3BudgetObject =
+                                                      level3BudgetAccountsList[
+                                                      0];
                                                     });
                                                   },
                                                   onChanged: (value) {
-                                                    setState(() {
-                                                      level1BudgetObject =
-                                                          value;
-                                                    });
+                                                    if (value != null) {
+                                                      setState(() {
+                                                        level1BudgetObject =
+                                                            value;
+                                                      });
 
-                                                    arrangeAccounts(
-                                                        1, 'budget');
+                                                      arrangeAccounts(
+                                                          1, 'budget');
+                                                    }
                                                   },
                                                   dialogBox: true,
                                                   isExpanded: true,
@@ -4139,29 +4020,39 @@ class _MyHomePageState extends State<MyHomePage>
                                                   "Select one number",
                                                   searchHint:
                                                   "Select one number",
-                                                  onClear: (value) {
+                                                  onClear: () {
                                                     setState(() {
                                                       level2BudgetObject =
                                                       level2BudgetAccountsList[
                                                       0];
+
+                                                      level3BudgetObject =
+                                                      level3BudgetAccountsList[
+                                                      0];
                                                     });
                                                   },
                                                   onChanged: (value) {
-                                                    // Check if a new value was selected or the same was reselected
-                                                    dummyAccount =
-                                                        level2BudgetObject;
+                                                    print(
+                                                        "CLEAR BUTTON PRESSED: (${value ==
+                                                            null})");
 
-                                                    setState(() {
-                                                      level2BudgetObject =
-                                                          value;
-                                                    });
+                                                    if (value != null) {
+                                                      // Check if a new value was selected or the same was reselected
+                                                      dummyAccount =
+                                                          level2BudgetObject;
 
-                                                    if (dummyAccount.id !=
-                                                        value.id) {
-                                                      arrangeAccounts(
-                                                          2, 'budget');
-                                                    } else {
-                                                      print("RESELECTED");
+                                                      setState(() {
+                                                        level2BudgetObject =
+                                                            value;
+                                                      });
+
+                                                      if (dummyAccount.id !=
+                                                          value.id) {
+                                                        arrangeAccounts(
+                                                            2, 'budget');
+                                                      } else {
+                                                        print("RESELECTED");
+                                                      }
                                                     }
                                                   },
                                                   dialogBox: true,
@@ -4216,7 +4107,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                   "Select one number",
                                                   searchHint:
                                                   "Select one number",
-                                                  onClear: (value) {
+                                                  onClear: () {
                                                     setState(() {
                                                       level3BudgetObject =
                                                       level3BudgetAccountsList[
@@ -4225,13 +4116,19 @@ class _MyHomePageState extends State<MyHomePage>
                                                   },
                                                   // The default object is set again
                                                   onChanged: (value) {
-                                                    setState(() {
-                                                      level3BudgetObject =
-                                                          value;
-                                                    });
+                                                    print(
+                                                        "CLEAR BUTTON PRESSED: (${value ==
+                                                            null})");
 
-                                                    // TODO probably not needed as change in level3 has no affect in anything
-                                                    // arrangeAccounts(3, 'actual');
+                                                    if (value != null) {
+                                                      setState(() {
+                                                        level3BudgetObject =
+                                                            value;
+                                                      });
+
+                                                      // TODO probably not needed as change in level3 has no affect in anything
+                                                      // arrangeAccounts(3, 'actual');
+                                                    }
                                                   },
                                                   dialogBox: true,
                                                   isExpanded: true,
@@ -4280,12 +4177,22 @@ class _MyHomePageState extends State<MyHomePage>
                                                       color: Color(
                                                           0xff0957FF),
                                                     ),
-                                                    onChanged: (CostType
-                                                    newValue) {
+                                                    onClear: () {
                                                       setState(() {
                                                         costTypeObjectBudget =
-                                                            newValue;
+                                                        costTypesList[
+                                                        0];
                                                       });
+                                                    },
+                                                    onChanged: (CostType
+                                                    newValue) {
+                                                      if(newValue != null)
+                                                      {
+                                                        setState(() {
+                                                          costTypeObjectBudget =
+                                                              newValue;
+                                                        });
+                                                      }
                                                     },
                                                     items: costTypesList
                                                         .map((CostType
@@ -5425,12 +5332,22 @@ class _MyHomePageState extends State<MyHomePage>
                                               width: 2000,
                                               color: Color(0xff0957FF),
                                             ),
-                                            onChanged: (CostType newValue) {
+                                            onClear: () {
                                               setState(() {
                                                 costTypeObjectVisualizer =
-                                                    newValue;
-                                                loadAmount();
+                                                costTypesList[
+                                                0];
                                               });
+                                            },
+                                            onChanged: (CostType newValue) {
+                                              if(newValue != null)
+                                              {
+                                                setState(() {
+                                                  costTypeObjectVisualizer =
+                                                      newValue;
+                                                  loadAmount();
+                                                });
+                                              }
                                             },
                                             items: costTypesList
                                                 .map((CostType type) {
@@ -5827,13 +5744,31 @@ class _MyHomePageState extends State<MyHomePage>
                                             width: 5000,
                                             color: Color(0xff0957FF),
                                           ),
-                                          onChanged: (Account newValue) {
+                                          onClear: () {
                                             setState(() {
                                               level1AdminObject =
-                                                  newValue;
-                                            });
+                                              level1AdminAccountsList[
+                                              0];
 
-                                            arrangeAccounts(1, 'admin');
+                                              level2AdminObject =
+                                              level2AdminAccountsList[
+                                              0];
+
+                                              level3AdminObject =
+                                              level3AdminAccountsList[
+                                              0];
+                                            });
+                                          },
+                                          onChanged: (Account newValue) {
+                                            if(newValue != null)
+                                            {
+                                              setState(() {
+                                                level1AdminObject =
+                                                    newValue;
+                                              });
+
+                                              arrangeAccounts(1, 'admin');
+                                            }
                                           },
                                           items: level1AdminAccountsList
                                               .map((Account account) {
@@ -5926,13 +5861,29 @@ class _MyHomePageState extends State<MyHomePage>
                                             width: 5000,
                                             color: Color(0xff0957FF),
                                           ),
-                                          onChanged: (Account newValue) {
+                                          onClear: () {
                                             setState(() {
                                               level2AdminObject =
-                                                  newValue;
-                                            });
+                                              level2AdminAccountsList[
+                                              0];
 
-                                            arrangeAccounts(2, 'admin');
+                                              level3AdminObject =
+                                              level3AdminAccountsList[
+                                              0];
+
+                                            });
+                                          },
+                                          onChanged: (Account newValue) {
+                                            if(newValue != null)
+                                            {
+                                              setState(() {
+                                                level2AdminObject =
+                                                    newValue;
+                                              });
+
+                                              arrangeAccounts(2, 'admin');
+                                            }
+
                                           },
                                           items: level2AdminAccountsList
                                               .map((Account account) {
@@ -6026,15 +5977,22 @@ class _MyHomePageState extends State<MyHomePage>
                                             width: 5000,
                                             color: Color(0xff0957FF),
                                           ),
-                                          onChanged: (Account newValue) {
+                                          onClear: () {
                                             setState(() {
                                               level3AdminObject =
-                                                  newValue;
+                                              level3AdminAccountsList[
+                                              0];
                                             });
-
-                                            // TODO probably not needed as change in level3 has no affect in anything
-                                            //arrangeAccounts(3, 'admin');
                                           },
+                                          onChanged: (Account newValue) {
+                                            if(newValue != null)
+                                            {
+                                              setState(() {
+                                                level3AdminObject =
+                                                    newValue;
+                                              });
+                                            }
+                                            },
                                           items: level3AdminAccountsList
                                               .map((Account account) {
                                             return new DropdownMenuItem<
@@ -6274,10 +6232,20 @@ class _MyHomePageState extends State<MyHomePage>
                                             width: 5000,
                                             color: Color(0xff0957FF),
                                           ),
-                                          onChanged: (CostType newValue) {
+                                          onClear: () {
                                             setState(() {
-                                              costTypeObjectAdmin = newValue;
+                                              costTypeObjectAdmin =
+                                              costTypesList[
+                                              0];
                                             });
+                                          },
+                                          onChanged: (CostType newValue) {
+                                            if(newValue != null)
+                                            {
+                                              setState(() {
+                                                costTypeObjectAdmin = newValue;
+                                              });
+                                            }
                                           },
                                           items: costTypesList
                                               .map((CostType costType) {
