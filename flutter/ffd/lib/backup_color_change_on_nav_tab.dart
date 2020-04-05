@@ -1176,8 +1176,10 @@ class _MyHomePageState extends State<MyHomePage>
     // When an entry was deleted or restored, or a new entry was made in the input page
     if (type == 'actlistdelete' || type == 'actual') {
       loadList('actual', actualListSortColumn, actualListSortType);
+      loadHomescreen();
     } else if (type == 'bdglistdelete' || type == 'budget') {
       loadList('budget', budgetListSortColumn, budgetListSortType);
+      loadHomescreen();
     }
 
     /*
