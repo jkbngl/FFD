@@ -319,6 +319,10 @@ class _MyHomePageState extends State<MyHomePage>
     CompanySizeVsNumberOfCompanies("1-25", 10, -69, -69),
   ];
 
+  var visualizerTargetData = [
+    CompanySizeVsNumberOfCompanies("1-25", 10, -69, -69),
+  ];
+
   var homescreenData = [
     homescreenPie(
         'Dummy1', 10, charts.ColorUtil.fromDartColor(Color(0xff003680))),
@@ -581,11 +585,20 @@ class _MyHomePageState extends State<MyHomePage>
       final desktopSalesData = [new OrdinalSales('2069', 5)];
 
       visualizerData.clear();
+      visualizerTargetData.clear();
 
       for (var amounts in parsedAmounts) {
         visualizerData.add(CompanySizeVsNumberOfCompanies(
             amounts['level$level_type'].toString(),
             amounts['sum'],
+            amounts['level${level_type.toString()}_fk'],
+            level_type));
+      }
+
+      for (var amounts in parsedAmounts) {
+        visualizerTargetData.add(CompanySizeVsNumberOfCompanies(
+            amounts['level$level_type'].toString(),
+            amounts['sum'] + 50,
             amounts['level${level_type.toString()}_fk'],
             level_type));
       }
@@ -1934,7 +1947,6 @@ class _MyHomePageState extends State<MyHomePage>
       checkForChanges(false, true, 'budget');
       loadList('budget', budgetListSortColumn, budgetListSortType);
     } else if (_currentIndex == 3) {
-      //print("REFRESHING ${visualizerData[0].companySize}");
       loadAmount();
     } else if (_currentIndex == 4) {
       checkForChanges(false, true, 'admin');
@@ -5274,6 +5286,31 @@ class _MyHomePageState extends State<MyHomePage>
                                   child: charts.BarChart(
                                     [
                                       charts.Series<
+                                        CompanySizeVsNumberOfCompanies,
+                                        String>(
+                                        id: 'CompanySizeVsNumberOfCompanies',
+                                        colorFn: (_, __) =>
+                                            charts.ColorUtil.fromDartColor(
+                                                Color(0xFF0957FF)),
+                                        domainFn:
+                                            (
+                                            CompanySizeVsNumberOfCompanies sales,
+                                            _) =>
+                                        sales.companySize,
+
+                                        measureFn:
+                                            (
+                                            CompanySizeVsNumberOfCompanies sales,
+                                            _) =>
+                                        sales.numberOfCompanies,
+                                        labelAccessorFn:
+                                            (
+                                            CompanySizeVsNumberOfCompanies sales,
+                                            _) =>
+                                        '${sales.companySize}: ${sales
+                                            .numberOfCompanies.toString()}€',
+                                        data: visualizerData),
+                                      charts.Series<
                                           CompanySizeVsNumberOfCompanies,
                                           String>(
                                           id: 'CompanySizeVsNumberOfCompanies',
@@ -5285,6 +5322,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               CompanySizeVsNumberOfCompanies sales,
                                               _) =>
                                           sales.companySize,
+
                                           measureFn:
                                               (
                                               CompanySizeVsNumberOfCompanies sales,
@@ -5296,9 +5334,19 @@ class _MyHomePageState extends State<MyHomePage>
                                               _) =>
                                           '${sales.companySize}: ${sales
                                               .numberOfCompanies.toString()}€',
-                                          data: visualizerData)
+                                          data: visualizerTargetData)..setAttribute(charts.rendererIdKey, 'customTargetLine'),
                                     ],
                                     animate: true,
+                                    barGroupingType: charts.BarGroupingType
+                                        .grouped,
+                                    customSeriesRenderers: [
+                                      new charts.BarTargetLineRendererConfig<
+                                          String>(
+                                        // ID used to link series to this renderer.
+                                          customRendererId: 'customTargetLine',
+                                          groupingType: charts.BarGroupingType
+                                              .grouped)
+                                    ],
                                     selectionModels: [
                                       new charts.SelectionModelConfig(
                                           type: charts.SelectionModelType.info,
