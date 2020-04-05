@@ -415,7 +415,11 @@ class _MyHomePageState extends State<MyHomePage>
     await getToken();
     await syncUserInBackend();
 
-    checkForChanges(true, fetchAccountsAndCostTypes, 'all');
+    // #89 replaces global calls with single calls per type
+    // checkForChanges(true, fetchAccountsAndCostTypes, 'all');
+    checkForChanges(true, fetchAccountsAndCostTypes, 'actual');
+    checkForChanges(true, fetchAccountsAndCostTypes, 'budget');
+    checkForChanges(true, fetchAccountsAndCostTypes, 'admin');
 
     // Keep loadHomescreen before loadAmount, because if not the state will be set 2 times and it will look strange
     loadHomescreen();
@@ -821,11 +825,13 @@ class _MyHomePageState extends State<MyHomePage>
             existingItem = level1AdminAccountsList.firstWhere(
                     (itemToCheck) => itemToCheck.id == accountToAdd.id,
                 orElse: () => null);
-          } else {
+          }
+          /* Removed as part of #89
+          else {
             existingItem = level1AccountsList.firstWhere(
                     (itemToCheck) => itemToCheck.id == accountToAdd.id,
                 orElse: () => null);
-          }
+          }*/
 
           accountsListStating.add(accountToAdd);
 
@@ -895,25 +901,48 @@ class _MyHomePageState extends State<MyHomePage>
             existingItem = level2AdminAccountsList.firstWhere(
                     (itemToCheck) => itemToCheck.id == accountToAdd.id,
                 orElse: () => null);
-          } else {
+          }
+          /* Removed as part of #89else {
             existingItem = level2AccountsList.firstWhere(
                     (itemToCheck) => itemToCheck.id == accountToAdd.id,
                 orElse: () => null);
-          }
+          }*/
 
           accountsListStating.add(accountToAdd);
 
           if (existingItem == null) {
             if (type == 'actual' || onStartup) {
-              level2ActualAccountsList.add(accountToAdd);
-
-              print("READDED");
+              // If there is already an level1 account selected, only add the ones which have the correct parentAccount
+              if (level1ActualObject.id > 0) {
+                if (accountToAdd.parentAccount == level1ActualObject.id) {
+                  level2ActualAccountsList.add(accountToAdd);
+                }
+              }
+              else {
+                level2ActualAccountsList.add(accountToAdd);
+              }
             }
             if (type == 'budget' || onStartup) {
-              level2BudgetAccountsList.add(accountToAdd);
+              // If there is already an level1 account selected, only add the ones which have the correct parentAccount
+              if (level1BudgetObject.id > 0) {
+                if (accountToAdd.parentAccount == level1ActualObject.id) {
+                  level2BudgetAccountsList.add(accountToAdd);
+                }
+              }
+              else {
+                level2BudgetAccountsList.add(accountToAdd);
+              }
             }
             if (type == 'admin' || onStartup) {
-              level2AdminAccountsList.add(accountToAdd);
+              // If there is already an level1 account selected, only add the ones which have the correct parentAccount
+              if (level1AdminObject.id > 0) {
+                if (accountToAdd.parentAccount == level1ActualObject.id) {
+                  level2AdminAccountsList.add(accountToAdd);
+                }
+              }
+              else {
+                level2AdminAccountsList.add(accountToAdd);
+              }
             }
 
             level2AccountsList.add(accountToAdd);
@@ -970,20 +999,41 @@ class _MyHomePageState extends State<MyHomePage>
             existingItem = level3AdminAccountsList.firstWhere(
                     (itemToCheck) => itemToCheck.id == accountToAdd.id,
                 orElse: () => null);
-          } else {
+          }
+          /* Removed as part of #89 else {
             existingItem = level3AccountsList.firstWhere(
                     (itemToCheck) => itemToCheck.id == accountToAdd.id,
                 orElse: () => null);
-          }
+          }*/
 
           accountsListStating.add(accountToAdd);
 
           if (existingItem == null) {
             level3AccountsList.add(accountToAdd);
 
-            level3ActualAccountsList.add(accountToAdd);
-            level3BudgetAccountsList.add(accountToAdd);
-            level3AdminAccountsList.add(accountToAdd);
+            if (level2ActualObject.id > 0) {
+              if (level2ActualObject.id == accountToAdd.parentAccount) {
+                level3ActualAccountsList.add(accountToAdd);
+              }
+            } else {
+              level3ActualAccountsList.add(accountToAdd);
+            }
+
+            if (level2BudgetObject.id > 0) {
+              if (level2BudgetObject.id == accountToAdd.parentAccount) {
+                level3BudgetAccountsList.add(accountToAdd);
+              }
+            } else {
+              level3BudgetAccountsList.add(accountToAdd);
+            }
+
+            if (level2AdminObject.id > 0) {
+              if (level2AdminObject.id == accountToAdd.parentAccount) {
+                level3AdminAccountsList.add(accountToAdd);
+              }
+            } else {
+              level3AdminAccountsList.add(accountToAdd);
+            }
           }
         }
 
@@ -2772,9 +2822,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                             value;
                                                       });
                                                     }
-
-                                                    // TODO probably not needed as change in level3 has no affect in anything
-                                                    // arrangeAccounts(3, 'actual');
                                                   },
                                                   dialogBox: true,
                                                   isExpanded: true,
@@ -4127,9 +4174,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                         level3BudgetObject =
                                                             value;
                                                       });
-
-                                                      // TODO probably not needed as change in level3 has no affect in anything
-                                                      // arrangeAccounts(3, 'actual');
                                                     }
                                                   },
                                                   dialogBox: true,
@@ -4188,8 +4232,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     },
                                                     onChanged: (CostType
                                                     newValue) {
-                                                      if(newValue != null)
-                                                      {
+                                                      if (newValue != null) {
                                                         setState(() {
                                                           costTypeObjectBudget =
                                                               newValue;
@@ -5342,8 +5385,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               });
                                             },
                                             onChanged: (CostType newValue) {
-                                              if(newValue != null)
-                                              {
+                                              if (newValue != null) {
                                                 setState(() {
                                                   costTypeObjectVisualizer =
                                                       newValue;
@@ -5762,8 +5804,7 @@ class _MyHomePageState extends State<MyHomePage>
                                             });
                                           },
                                           onChanged: (Account newValue) {
-                                            if(newValue != null)
-                                            {
+                                            if (newValue != null) {
                                               setState(() {
                                                 level1AdminObject =
                                                     newValue;
@@ -5872,12 +5913,10 @@ class _MyHomePageState extends State<MyHomePage>
                                               level3AdminObject =
                                               level3AdminAccountsList[
                                               0];
-
                                             });
                                           },
                                           onChanged: (Account newValue) {
-                                            if(newValue != null)
-                                            {
+                                            if (newValue != null) {
                                               setState(() {
                                                 level2AdminObject =
                                                     newValue;
@@ -5885,7 +5924,6 @@ class _MyHomePageState extends State<MyHomePage>
 
                                               arrangeAccounts(2, 'admin');
                                             }
-
                                           },
                                           items: level2AdminAccountsList
                                               .map((Account account) {
@@ -5987,14 +6025,13 @@ class _MyHomePageState extends State<MyHomePage>
                                             });
                                           },
                                           onChanged: (Account newValue) {
-                                            if(newValue != null)
-                                            {
+                                            if (newValue != null) {
                                               setState(() {
                                                 level3AdminObject =
                                                     newValue;
                                               });
                                             }
-                                            },
+                                          },
                                           items: level3AdminAccountsList
                                               .map((Account account) {
                                             return new DropdownMenuItem<
@@ -6242,8 +6279,7 @@ class _MyHomePageState extends State<MyHomePage>
                                             });
                                           },
                                           onChanged: (CostType newValue) {
-                                            if(newValue != null)
-                                            {
+                                            if (newValue != null) {
                                               setState(() {
                                                 costTypeObjectAdmin = newValue;
                                               });
