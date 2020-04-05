@@ -116,9 +116,11 @@ class ChartObject {
   double amount;
   int accountId;
   int accountLevel;
+  final charts.Color color;
+
 
   ChartObject(this.accountName, this.amount,
-      this.accountId, this.accountLevel);
+      this.accountId, this.accountLevel, this.color);
 }
 
 class homescreenPie {
@@ -316,11 +318,11 @@ class _MyHomePageState extends State<MyHomePage>
   var parsedBudgetComparison = 0.00;
 
   var visualizerData = [
-    ChartObject("1-25", 10, -69, -69),
+    ChartObject("1-25", 10, -69, -69, charts.ColorUtil.fromDartColor(Color(0xff0957FF))),
   ];
 
   var visualizerTargetData = [
-    ChartObject("1-25", 10, -69, -69),
+    ChartObject("1-25", 10, -69, -69, charts.ColorUtil.fromDartColor(Color(0xff003680))),
   ];
 
   var homescreenData = [
@@ -571,7 +573,7 @@ class _MyHomePageState extends State<MyHomePage>
     String _type = '';
     String uri = '';
 
-    ChartObject needsToBeAdded = ChartObject('DUMMY', -99, -69, -69);
+    ChartObject needsToBeAdded = ChartObject('DUMMY', -99, -69, -69, charts.ColorUtil.fromDartColor(Color(0xff003680)));
 
 
 
@@ -605,7 +607,8 @@ class _MyHomePageState extends State<MyHomePage>
             amounts['level$level_type'].toString(),
             amounts['sum'],
             amounts['level${level_type.toString()}_fk'],
-            level_type));
+            level_type,
+            charts.ColorUtil.fromDartColor(Color(0xff003680))));
       }
 
       for (var amounts in parsedBudgetAmounts) {
@@ -620,9 +623,10 @@ class _MyHomePageState extends State<MyHomePage>
           {
             visualizerTargetData.add(ChartObject(
                 amounts['level$level_type'].toString(),
-                amounts['sum'] + 50,
+                amounts['sum'],
                 amounts['level${level_type.toString()}_fk'],
-                level_type));
+                level_type,
+                charts.ColorUtil.fromDartColor(Color(0xff003680))));
           }
         }
       }
@@ -5338,9 +5342,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           ChartObject,
                                           String>(
                                           id: 'CompanySizeVsNumberOfCompanies',
-                                          colorFn: (_, __) =>
-                                              charts.ColorUtil.fromDartColor(
-                                                  Color(0xFF0957FF)),
+
                                           domainFn:
                                               (
                                               ChartObject sales,
@@ -5352,6 +5354,9 @@ class _MyHomePageState extends State<MyHomePage>
                                               ChartObject sales,
                                               _) =>
                                           sales.amount,
+                                          colorFn:
+                                              (ChartObject segment, _) =>
+                                          segment.color,
                                           labelAccessorFn:
                                               (
                                               ChartObject sales,
