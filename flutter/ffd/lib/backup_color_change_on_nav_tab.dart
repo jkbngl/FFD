@@ -15,6 +15,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'login_page.dart';
 import 'package:search_choices/search_choices.dart';
+import 'package:timezone/data/latest.dart';
 
 void main() => runApp(MyApp());
 
@@ -1233,6 +1234,7 @@ class _MyHomePageState extends State<MyHomePage>
       'timezoneOffsetMin': DateTime
           .now()
           .timeZoneOffset.inMinutes.toString(), // In Minutes for timezones which are half an hour shifted, like e.g. in India
+      'timeInUtc': DateTime.now().toUtc().toIso8601String(),
       'costtypetoadd': newCostTypeTextFieldController.text,
       'costtypetoaddcomment': newCostTypeCommentTextFieldController.text,
       'costtypetodeleteid': costTypeObjectAdmin.id.toString(),

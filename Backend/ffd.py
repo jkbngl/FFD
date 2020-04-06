@@ -1,4 +1,5 @@
 from datetime import datetime
+from datetime import timedelta
 import psycopg2
 import psycopg2.extras
 from flask import request
@@ -367,8 +368,6 @@ def readListActualBudget(_type, sort, sortType):
     connection = connect()
     cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
     
-    logging.critical(_type)
-
     if _type == 'actual':
         
         cursor.execute("select  *\
@@ -566,8 +565,6 @@ def send():
     if(errorMessage is not None):
         return mail, 403
 
-    logging.debug(data)
-
     if data['type'].lower() == 'actual':
         sendActual(data, userId)
     elif data['type'].lower() == 'budget':
@@ -591,12 +588,28 @@ def send():
     data['status'] = 'success'
     return data
 
+def getTimeZoneFromOffset(minutes):
+    utc_offset = timedelta(hours=minutes/60, minutes=minutes%60)
+    
+    now = datetime.now(pytz.utc) # current time
+
+    return {now.astimezone(tz).tzname() for tz in map(pytz.timezone, pytz.all_timezones_set) if now.astimezone(tz).utcoffset() == utc_offset}
+
+
 def sendActual(data, userId):
     connection = connect()
     cursor = connection.cursor()
-    
-    cursor.execute("INSERT INTO ffd.act_data (amount, comment, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk) \
-                                  VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
+
+    utcTime = datetime.now() + timedelta(minutes=int(data['timezoneOffsetMin']))
+
+    logging.critical(type(utcTime))
+    logging.critical(str(utcTime.strftime("%Y-%m-%d %H:%M:%S")))
+    logging.critical(type(str(utcTime.strftime("%Y-%m-%d %H:%M:%S"))))
+    logging.critical(getTimeZoneFromOffset(int(data['timezoneOffsetMin'])))
+    logging.critical(data['timeInUtc'])
+
+    cursor.execute("INSERT INTO ffd.act_data (amount, comment, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk, created) \
+                                  VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
                                                                                         ( data['amount']
                                                                                         , data['actualcomment']
                                                                                         , data['date']
@@ -611,6 +624,7 @@ def sendActual(data, userId):
                                                                                         , data['costtype']
                                                                                         , data['costtypeid']
                                                                                         , userId
+                                                                                        , data['timeInUtc']
                                                                                         ,))
 
     connection.commit()
@@ -658,8 +672,8 @@ def sendBudget(data, userId):
     connection = connect()
     cursor = connection.cursor()
    
-    cursor.execute("INSERT INTO ffd.bdg_data (amount, comment, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk) \
-                                  VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
+    cursor.execute("INSERT INTO ffd.bdg_data (amount, comment, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk, created) \
+                                  VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
                                                                                         ( data['amount']
                                                                                         , data['budgetcomment']
                                                                                         , data['date']
@@ -674,6 +688,7 @@ def sendBudget(data, userId):
                                                                                         , data['costtype']
                                                                                         , data['costtypeid']
                                                                                         , userId
+                                                                                        , data['timeInUtc']
                                                                                         ,))
     connection.commit()
     cursor.close()
@@ -697,13 +712,14 @@ def addCostType(data, userId):
     connection = connect()
     cursor = connection.cursor()
 
-    cursor.execute("INSERT INTO ffd.costtype_dim (name, comment, user_fk, group_fk, company_fk) \
-                              VALUES (%s, %s , %s,  %s,  %s)",(   data['costtypetoadd'].upper()
-                                                                , data['costtypetoaddcomment']
-                                                                , userId
-                                                                , data['group']
-                                                                , data['company']
-                                                                ,))
+    cursor.execute("INSERT INTO ffd.costtype_dim (name, comment, user_fk, group_fk, company_fk, created) \
+                              VALUES (%s, %s , %s,  %s,  %s, %s)",( data['costtypetoadd'].upper()
+                                                                  , data['costtypetoaddcomment']
+                                                                  , userId
+                                                                  , data['group']
+                                                                  , data['company']
+                                                                  , data['timeInUtc']
+                                                                  ,))
     
     connection.commit()
     cursor.close()
@@ -739,25 +755,28 @@ def addAccount(data, userId):
     # If a name for a new level1 aacount was sent, enter a new level1 account
     if(data['accounttoaddlevel1']):
 
-        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
-                                  VALUES (%s, %s, 1, null , %s,  %s,  %s)",(  data['accounttoaddlevel1'].upper()
+        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk, created) \
+                                  VALUES (%s, %s, 1, null , %s,  %s,  %s, %s)",(  data['accounttoaddlevel1'].upper()
                                                                             , data['accounttoaddlevel1comment']
                                                                             , userId
                                                                             , data['group']
                                                                             , data['company']
+                                                                            , data['timeInUtc']
                                                                             ,))
         connection.commit()
 
     # Check if a parent account for a new level2 was sent and a level2 account name, if yes create a new level2 account
     if(int(data['accountfornewlevel2parentaccount']) > 0 and data['accounttoaddlevel2']):
 
-        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
-                                  VALUES (%s, %s, 2, %s, %s, %s, %s)",(    data['accounttoaddlevel2'].upper()
+        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk, created) \
+                                  VALUES (%s, %s, 2, %s, %s, %s, %s, %s)",(    data['accounttoaddlevel2'].upper()
                                                                         , data['accounttoaddlevel2comment']
                                                                         , data['accountfornewlevel2parentaccount']
                                                                         , userId
                                                                         , data['group']
                                                                         , data['company']
+                                                                        , data['timeInUtc']
+
                                                                         ,))
         connection.commit()
 
@@ -768,13 +787,14 @@ def addAccount(data, userId):
         cursor.execute("select id from ffd.account_dim where level_type = 1 and name = %s", (data['accounttoaddlevel1'].upper(),))
         record = cursor.fetchall()
 
-        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
-                                  VALUES (%s, %s, 2, %s, %s, %s, %s)",(   data['accounttoaddlevel2'].upper()
+        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk, created) \
+                                  VALUES (%s, %s, 2, %s, %s, %s, %s, %s)",(   data['accounttoaddlevel2'].upper()
                                                                         , data['accounttoaddlevel2comment']
                                                                         , record[0][0]
                                                                         , userId
                                                                         , data['group']
                                                                         , data['company']
+                                                                        , data['timeInUtc']
                                                                         ,))
         connection.commit()
         
@@ -782,13 +802,14 @@ def addAccount(data, userId):
     # Check if a parent account for a new level3 was sent and a level3 account name, if yes create a new level3 account with the matching parent account
     if(int(data['accountfornewlevel3parentaccount']) > 0 and data['accounttoaddlevel3']):
         
-        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
-                                  VALUES (%s, %s, 3, %s, %s, %s, %s)",(   data['accounttoaddlevel3'].upper()
+        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk, created) \
+                                  VALUES (%s, %s, 3, %s, %s, %s, %s, %s)",(   data['accounttoaddlevel3'].upper()
                                                                         , data['accounttoaddlevel3comment']
                                                                         , data['accountfornewlevel3parentaccount']
                                                                         , userId
                                                                         , data['group']
                                                                         , data['company']
+                                                                        , data['timeInUtc']
                                                                         ,))
         connection.commit()
 
@@ -799,13 +820,14 @@ def addAccount(data, userId):
         cursor.execute("select id from ffd.account_dim where level_type = 2 and name = %s", (data['accounttoaddlevel2'].upper(),))
         record = cursor.fetchall()
 
-        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk) \
-                                  VALUES (%s, %s, 3, %s, %s, %s,  %s)",(  data['accounttoaddlevel3'].upper()
+        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk, created) \
+                                  VALUES (%s, %s, 3, %s, %s, %s,  %s, %s)",(  data['accounttoaddlevel3'].upper()
                                                                         , data['accounttoaddlevel3comment']
                                                                         , record[0][0]
                                                                         , userId
                                                                         , data['group']
                                                                         , data['company']
+                                                                        , data['timeInUtc']
                                                                         ,))
         connection.commit()
 
