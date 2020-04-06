@@ -15,7 +15,6 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'login_page.dart';
 import 'package:search_choices/search_choices.dart';
-import 'package:timezone/data/latest.dart';
 
 void main() => runApp(MyApp());
 
