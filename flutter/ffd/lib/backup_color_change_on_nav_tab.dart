@@ -636,7 +636,7 @@ class _MyHomePageState extends State<MyHomePage>
                   amounts['level${level_type.toString()}_fk'],
                   level_type,
                   charts.ColorUtil.fromDartColor(Color(0xff003680))));
-              
+
               visualizerData.add(ChartObject(
                   amounts['level$level_type'].toString(),
                   0,
@@ -1284,9 +1284,11 @@ class _MyHomePageState extends State<MyHomePage>
     if (type == 'actlistdelete' || type == 'actual') {
       loadList('actual', actualListSortColumn, actualListSortType);
       loadHomescreen();
+      loadAmount();
     } else if (type == 'bdglistdelete' || type == 'budget') {
       loadList('budget', budgetListSortColumn, budgetListSortType);
       loadHomescreen();
+      loadAmount();
     }
 
     /*
