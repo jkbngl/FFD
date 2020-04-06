@@ -1189,6 +1189,10 @@ class _MyHomePageState extends State<MyHomePage>
       "accesstoken": _token,
     };
 
+    print("OFFSET: ${DateTime
+        .now()
+        .timeZoneOffset.inMinutes}");
+
     var body = {
       'type': type,
       'amount': type == 'actual'
@@ -1226,9 +1230,9 @@ class _MyHomePageState extends State<MyHomePage>
       'month': type == 'actual'
           ? dateTimeActual.month.toString()
           : dateTimeBudget.month.toString(),
-      'timezone': DateTime
+      'timezoneOffsetMin': DateTime
           .now()
-          .timeZoneName,
+          .timeZoneOffset.inMinutes.toString(), // In Minutes for timezones which are half an hour shifted, like e.g. in India
       'costtypetoadd': newCostTypeTextFieldController.text,
       'costtypetoaddcomment': newCostTypeCommentTextFieldController.text,
       'costtypetodeleteid': costTypeObjectAdmin.id.toString(),
