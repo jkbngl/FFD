@@ -79,7 +79,8 @@ class Account {
 }
 
 class ListItem {
-  ListItem(this._type,
+  ListItem(
+      this._type,
       this.id,
       this.comment,
       this.amount,
@@ -127,9 +128,8 @@ class ChartObject {
   int accountLevel;
   final charts.Color color;
 
-
-  ChartObject(this.accountName, this.amount,
-      this.accountId, this.accountLevel, this.color);
+  ChartObject(this.accountName, this.amount, this.accountId, this.accountLevel,
+      this.color);
 }
 
 class homescreenPie {
@@ -149,52 +149,21 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-String MIN_DATETIME = (DateTime
-    .now()
-    .year - 5).toString() +
+String MIN_DATETIME = (DateTime.now().year - 5).toString() +
     '-' +
-    DateTime
-        .now()
-        .month
-        .toString()
-        .padLeft(2, '0') +
+    DateTime.now().month.toString().padLeft(2, '0') +
     '-' +
-    DateTime
-        .now()
-        .day
-        .toString()
-        .padLeft(2, '0');
-String MAX_DATETIME = (DateTime
-    .now()
-    .year + 5).toString() +
+    DateTime.now().day.toString().padLeft(2, '0');
+String MAX_DATETIME = (DateTime.now().year + 5).toString() +
     '-' +
-    DateTime
-        .now()
-        .month
-        .toString()
-        .padLeft(2, '0') +
+    DateTime.now().month.toString().padLeft(2, '0') +
     '-' +
-    DateTime
-        .now()
-        .day
-        .toString()
-        .padLeft(2, '0');
-String INIT_DATETIME = DateTime
-    .now()
-    .year
-    .toString() +
+    DateTime.now().day.toString().padLeft(2, '0');
+String INIT_DATETIME = DateTime.now().year.toString() +
     '-' +
-    DateTime
-        .now()
-        .month
-        .toString()
-        .padLeft(2, '0') +
+    DateTime.now().month.toString().padLeft(2, '0') +
     '-' +
-    DateTime
-        .now()
-        .day
-        .toString()
-        .padLeft(2, '0');
+    DateTime.now().day.toString().padLeft(2, '0');
 String _format = 'yyyy-MMMM';
 
 class _MyHomePageState extends State<MyHomePage>
@@ -222,34 +191,10 @@ class _MyHomePageState extends State<MyHomePage>
   CostType costTypeObjectVisualizer;
 
   // Items sent to backend to delete the entry in the DB
-  ListItem actObjectToDelete = new ListItem(
-      'actual',
-      -1,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null);
-  ListItem bdgObjectToDelete = new ListItem(
-      'actual',
-      -1,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null);
+  ListItem actObjectToDelete = new ListItem('actual', -1, null, null, null,
+      null, null, null, null, null, null, null, null);
+  ListItem bdgObjectToDelete = new ListItem('actual', -1, null, null, null,
+      null, null, null, null, null, null, null, null);
 
   double rating = 0;
 
@@ -258,7 +203,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   // Parent_account for visualizer page which is -1 when initializing and changed when clicked on a bar - has to be initialized with 1 as account level
   Account g_parent_account =
-  new Account(-69, 'DUMMY G_PARENT_ACCOUNT_FOR_VISUALISATION', null, 1);
+      new Account(-69, 'DUMMY G_PARENT_ACCOUNT_FOR_VISUALISATION', null, 1);
 
   // Text which shows the drilldown level
   String drilldownLevel = "";
@@ -327,11 +272,13 @@ class _MyHomePageState extends State<MyHomePage>
   var parsedBudgetComparison = 0.00;
 
   var visualizerData = [
-    ChartObject("1-25", 10, -69, -69, charts.ColorUtil.fromDartColor(Color(0xff0957FF))),
+    ChartObject("1-25", 10, -69, -69,
+        charts.ColorUtil.fromDartColor(Color(0xff0957FF))),
   ];
 
   var visualizerTargetData = [
-    ChartObject("1-25", 10, -69, -69, charts.ColorUtil.fromDartColor(Color(0xff003680))),
+    ChartObject("1-25", 10, -69, -69,
+        charts.ColorUtil.fromDartColor(Color(0xff003680))),
   ];
 
   var homescreenData = [
@@ -386,7 +333,6 @@ class _MyHomePageState extends State<MyHomePage>
 
   // Dynamic title at the top of the screen which is changed depending on which page is selected
   var appBarTitleText = new Text("FFD v2");
-
 
   @override
   void initState() {
@@ -458,30 +404,27 @@ class _MyHomePageState extends State<MyHomePage>
 
   welcomeDialog() async {
     var randomFact =
-    await http.read('https://uselessfacts.jsph.pl/random.json?language=en');
+        await http.read('https://uselessfacts.jsph.pl/random.json?language=en');
     var parsedFact = json.decode(randomFact);
 
     showDialog(
       context: context,
-      builder: (context) =>
-      new AlertDialog(
+      builder: (context) => new AlertDialog(
         content: RichText(
             text: TextSpan(
-              text:
+          text:
               'Welcome, good to see you here \n\nAre you up for a fact? did you know that: \n\n',
+          style: TextStyle(
+              color: Colors.black, fontSize: 12, fontStyle: FontStyle.italic),
+          children: <TextSpan>[
+            TextSpan(
+              text: '${parsedFact['text']}',
               style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 12,
-                  fontStyle: FontStyle.italic),
-              children: <TextSpan>[
-                TextSpan(
-                  text: '${parsedFact['text']}',
-                  style: TextStyle(
-                    fontSize: 15,
-                  ),
-                )
-              ],
-            )),
+                fontSize: 15,
+              ),
+            )
+          ],
+        )),
         actions: <Widget>[
           new FlatButton(
             child: new Text('DISMISS'),
@@ -577,15 +520,14 @@ class _MyHomePageState extends State<MyHomePage>
     int month = showFullYear || showAllTime
         ? -1
         : dateTimeVisualizer
-        .month; //if the whole year or all time should be shown, use no month filter
+            .month; //if the whole year or all time should be shown, use no month filter
 
     // Needed to distinguish between actual and budget, so has to be set on runTime
     String _type = '';
     String uri = '';
 
-    ChartObject needsToBeAdded = ChartObject('DUMMY', -99, -69, -69, charts.ColorUtil.fromDartColor(Color(0xff003680)));
-
-
+    ChartObject needsToBeAdded = ChartObject('DUMMY', -99, -69, -69,
+        charts.ColorUtil.fromDartColor(Color(0xff003680)));
 
     var params = {
       "accesstoken": token,
@@ -594,12 +536,12 @@ class _MyHomePageState extends State<MyHomePage>
     try {
       _type = 'actual';
       uri =
-      'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type';
+          'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type';
       var actualAmounts = await http.read(uri, headers: params);
 
       _type = 'budget';
       uri =
-      'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type';
+          'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type';
       var budgetAmounts = await http.read(uri, headers: params);
 
       var parsedActualAmounts = json.decode(actualAmounts);
@@ -622,38 +564,38 @@ class _MyHomePageState extends State<MyHomePage>
       }
 
       for (var amounts in parsedBudgetAmounts) {
-        if (amounts['level${level_type.toString()}_fk'] > 0) {    // Only show budgets with an account assigned
+        if (amounts['level${level_type.toString()}_fk'] > 0) {
+          // Only show budgets with an account assigned
 
           // Check if a corresponding actual exists
           needsToBeAdded = visualizerData.firstWhere(
-                  (itemToCheck) => itemToCheck.accountName == amounts['level$level_type'].toString(),
+              (itemToCheck) =>
+                  itemToCheck.accountName ==
+                  amounts['level$level_type'].toString(),
               orElse: () => null);
 
-          if(needsToBeAdded != null)
-          {
+          if (needsToBeAdded != null) {
             visualizerTargetData.add(ChartObject(
                 amounts['level$level_type'].toString(),
                 amounts['sum'],
                 amounts['level${level_type.toString()}_fk'],
                 level_type,
                 charts.ColorUtil.fromDartColor(Color(0xff003680))));
-          }
-          else
-            {
-              visualizerTargetData.add(ChartObject(
-                  amounts['level$level_type'].toString(),
-                  amounts['sum'],
-                  amounts['level${level_type.toString()}_fk'],
-                  level_type,
-                  charts.ColorUtil.fromDartColor(Color(0xff003680))));
+          } else {
+            visualizerTargetData.add(ChartObject(
+                amounts['level$level_type'].toString(),
+                amounts['sum'],
+                amounts['level${level_type.toString()}_fk'],
+                level_type,
+                charts.ColorUtil.fromDartColor(Color(0xff003680))));
 
-              visualizerData.add(ChartObject(
-                  amounts['level$level_type'].toString(),
-                  0,
-                  amounts['level${level_type.toString()}_fk'],
-                  level_type,
-                  charts.ColorUtil.fromDartColor(Color(0xff003680))));
-            }
+            visualizerData.add(ChartObject(
+                amounts['level$level_type'].toString(),
+                0,
+                amounts['level${level_type.toString()}_fk'],
+                level_type,
+                charts.ColorUtil.fromDartColor(Color(0xff003680))));
+          }
         }
       }
 
@@ -700,13 +642,13 @@ class _MyHomePageState extends State<MyHomePage>
 
     // #98
     DateTime comparisonDate =
-    new DateTime(dateTimeHome.year, dateTimeHome.month - 1, 1);
+        new DateTime(dateTimeHome.year, dateTimeHome.month - 1, 1);
     // Get the current date
     DateTime now = DateTime.now();
 
     // If full year should be shown, compare also here with full last year, else use the year calculated
     int comparisonYear =
-    showFullYearHome ? dateTimeHome.year - 1 : comparisonDate.year;
+        showFullYearHome ? dateTimeHome.year - 1 : comparisonDate.year;
     int comparisonMonth = showFullYearHome ? -1 : comparisonDate.month;
 
     print("Shown date: $year/$month");
@@ -767,7 +709,7 @@ class _MyHomePageState extends State<MyHomePage>
           (dateTimeHome.year == now.year && dateTimeHome.month == now.month));*/
 
       homescreenData[0].amount =
-      parsedActual.length != 0 ? parsedActual[0]['sum'] : 0;
+          parsedActual.length != 0 ? parsedActual[0]['sum'] : 0;
       homescreenData[0].type = parsedActual.length != 0
           ? 'Actual'
           : "No Data found \nfor $year - $month";
@@ -780,17 +722,15 @@ class _MyHomePageState extends State<MyHomePage>
           : "No Data found \nfor $year - $month";
 
       homescreenData[2].amount =
-      parsedBudget.length != 0 ? parsedBudget[0]['sum'] : 0.000001;
+          parsedBudget.length != 0 ? parsedBudget[0]['sum'] : 0.000001;
       homescreenData[2].type = parsedBudget.length != 0
           ? 'OverallBudget'
           : "No Data found \nfor $year - $month";
 
       print(
-          "Comparison ACTUAL $parsedActualComparison vs ${homescreenData[0]
-              .amount}");
+          "Comparison ACTUAL $parsedActualComparison vs ${homescreenData[0].amount}");
       print(
-          "Comparison BUDGET $parsedBudgetComparison vs ${homescreenData[2]
-              .amount}");
+          "Comparison BUDGET $parsedBudgetComparison vs ${homescreenData[2].amount}");
 
       setState(() {});
     } catch (e) {
@@ -798,8 +738,7 @@ class _MyHomePageState extends State<MyHomePage>
     }
   }
 
-  double calculateRelativeComparison(amount, year, month,
-      actualOrHistoric
+  double calculateRelativeComparison(amount, year, month, actualOrHistoric
       /* Are we comparing this month data or historic months data*/) {
     // Check how many percent of the year (when month = -1)/ month (when month does not equal -1) has gone by and return the relative amount
     DateTime today = DateTime.now();
@@ -882,15 +821,15 @@ class _MyHomePageState extends State<MyHomePage>
           Account existingItem;
           if (type == 'actual') {
             existingItem = level1ActualAccountsList.firstWhere(
-                    (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
                 orElse: () => null);
           } else if (type == 'budget') {
             existingItem = level1BudgetAccountsList.firstWhere(
-                    (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
                 orElse: () => null);
           } else if (type == 'admin') {
             existingItem = level1AdminAccountsList.firstWhere(
-                    (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
                 orElse: () => null);
           }
           /* Removed as part of #89
@@ -958,15 +897,15 @@ class _MyHomePageState extends State<MyHomePage>
           Account existingItem;
           if (type == 'actual') {
             existingItem = level2ActualAccountsList.firstWhere(
-                    (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
                 orElse: () => null);
           } else if (type == 'budget') {
             existingItem = level2BudgetAccountsList.firstWhere(
-                    (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
                 orElse: () => null);
           } else if (type == 'admin') {
             existingItem = level2AdminAccountsList.firstWhere(
-                    (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
                 orElse: () => null);
           }
           /* Removed as part of #89else {
@@ -984,8 +923,7 @@ class _MyHomePageState extends State<MyHomePage>
                 if (accountToAdd.parentAccount == level1ActualObject.id) {
                   level2ActualAccountsList.add(accountToAdd);
                 }
-              }
-              else {
+              } else {
                 level2ActualAccountsList.add(accountToAdd);
               }
             }
@@ -995,8 +933,7 @@ class _MyHomePageState extends State<MyHomePage>
                 if (accountToAdd.parentAccount == level1ActualObject.id) {
                   level2BudgetAccountsList.add(accountToAdd);
                 }
-              }
-              else {
+              } else {
                 level2BudgetAccountsList.add(accountToAdd);
               }
             }
@@ -1006,8 +943,7 @@ class _MyHomePageState extends State<MyHomePage>
                 if (accountToAdd.parentAccount == level1ActualObject.id) {
                   level2AdminAccountsList.add(accountToAdd);
                 }
-              }
-              else {
+              } else {
                 level2AdminAccountsList.add(accountToAdd);
               }
             }
@@ -1056,15 +992,15 @@ class _MyHomePageState extends State<MyHomePage>
           Account existingItem;
           if (type == 'actual') {
             existingItem = level3ActualAccountsList.firstWhere(
-                    (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
                 orElse: () => null);
           } else if (type == 'budget') {
             existingItem = level3BudgetAccountsList.firstWhere(
-                    (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
                 orElse: () => null);
           } else if (type == 'admin') {
             existingItem = level3AdminAccountsList.firstWhere(
-                    (itemToCheck) => itemToCheck.id == accountToAdd.id,
+                (itemToCheck) => itemToCheck.id == accountToAdd.id,
                 orElse: () => null);
           }
           /* Removed as part of #89 else {
@@ -1140,7 +1076,7 @@ class _MyHomePageState extends State<MyHomePage>
         for (var type in parsedCostTypes) {
           typeToAdd = new CostType(type['id'], type['name']);
           CostType existingItem = costTypesList.firstWhere(
-                  (itemToCheck) => itemToCheck.id == typeToAdd.id,
+              (itemToCheck) => itemToCheck.id == typeToAdd.id,
               orElse: () => null);
 
           costTypesListStating.add(typeToAdd);
@@ -1199,9 +1135,7 @@ class _MyHomePageState extends State<MyHomePage>
       "accesstoken": _token,
     };
 
-    print("OFFSET: ${DateTime
-        .now()
-        .timeZoneOffset.inMinutes}");
+    print("OFFSET: ${DateTime.now().timeZoneOffset.inMinutes}");
 
     var body = {
       'type': type,
@@ -1211,11 +1145,11 @@ class _MyHomePageState extends State<MyHomePage>
       'actualcomment': actualCommentTextFieldController.text,
       'budgetcomment': budgetCommentTextFieldController.text,
       'level1':
-      type == 'actual' ? level1ActualObject.name : level1BudgetObject.name,
+          type == 'actual' ? level1ActualObject.name : level1BudgetObject.name,
       'level2':
-      type == 'actual' ? level2ActualObject.name : level2BudgetObject.name,
+          type == 'actual' ? level2ActualObject.name : level2BudgetObject.name,
       'level3':
-      type == 'actual' ? level3ActualObject.name : level3BudgetObject.name,
+          type == 'actual' ? level3ActualObject.name : level3BudgetObject.name,
       'level1id': type == 'actual'
           ? level1ActualObject.id.toString()
           : level1BudgetObject.id.toString(),
@@ -1240,9 +1174,8 @@ class _MyHomePageState extends State<MyHomePage>
       'month': type == 'actual'
           ? dateTimeActual.month.toString()
           : dateTimeBudget.month.toString(),
-      'timezoneOffsetMin': DateTime
-          .now()
-          .timeZoneOffset.inMinutes.toString(), // In Minutes for timezones which are half an hour shifted, like e.g. in India
+      'timezoneOffsetMin': DateTime.now().timeZoneOffset.inMinutes.toString(),
+      // In Minutes for timezones which are half an hour shifted, like e.g. in India
       'timeInUtc': DateTime.now().toUtc().toIso8601String(),
       'costtypetoadd': newCostTypeTextFieldController.text,
       'costtypetoaddcomment': newCostTypeCommentTextFieldController.text,
@@ -1258,16 +1191,14 @@ class _MyHomePageState extends State<MyHomePage>
       'accounttoaddlevel2': newLevel2TextFieldController.text,
       'accounttoaddlevel3': newLevel3TextFieldController.text,
       'accounttoaddlevel1comment':
-      newAccountLevel1CommentTextFieldController.text,
+          newAccountLevel1CommentTextFieldController.text,
       'accounttoaddlevel2comment':
-      newAccountLevel2CommentTextFieldController.text,
+          newAccountLevel2CommentTextFieldController.text,
       'accounttoaddlevel3comment':
-      newAccountLevel3CommentTextFieldController.text,
-      'accountfornewlevel2parentaccount': level1AdminObject.id
-          .toString(),
+          newAccountLevel3CommentTextFieldController.text,
+      'accountfornewlevel2parentaccount': level1AdminObject.id.toString(),
       // ID of the selected level2 object, to match the parentID
-      'accountfornewlevel3parentaccount': level2AdminObject.id
-          .toString(),
+      'accountfornewlevel3parentaccount': level2AdminObject.id.toString(),
       // ID of the selected level2 object, to match the parentID - not needed for level1 as level1s have no parent
       'arecosttypesactive': areCostTypesActive.toString(),
       'areaccountsactive': areAccountsActive.toString(),
@@ -1332,126 +1263,126 @@ class _MyHomePageState extends State<MyHomePage>
       if (type == 'actual') {
         // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level2ActualObject = level2ActualAccountsList.firstWhere(
-                (account) =>
-            account.parentAccount == level1ActualObject.id &&
+            (account) =>
+                account.parentAccount == level1ActualObject.id &&
                 areLevel2AccountsActive,
             orElse: () => level2ActualAccountsList[0]);
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level2ActualAccountsList.retainWhere((account) =>
-        account.parentAccount == level1ActualObject.id || account.id < 0);
+            account.parentAccount == level1ActualObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level2AccountsList.retainWhere((account) =>
-        account.parentAccount == level1ActualObject.id || account.id < 0);
+            account.parentAccount == level1ActualObject.id || account.id < 0);
 
         // Same as above for level3
         level3ActualObject = level3ActualAccountsList.firstWhere(
-                (account) =>
-            account.parentAccount == level2ActualObject.id &&
+            (account) =>
+                account.parentAccount == level2ActualObject.id &&
                 areLevel3AccountsActive,
             orElse: () => level3ActualAccountsList[0]);
 
         level3ActualAccountsList.retainWhere((account) =>
-        account.parentAccount == level2ActualObject.id || account.id < 0);
+            account.parentAccount == level2ActualObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level3AccountsList.retainWhere((account) =>
-        account.parentAccount == level2ActualObject.id || account.id < 0);
+            account.parentAccount == level2ActualObject.id || account.id < 0);
       } else if (type == 'budget') {
         level2BudgetObject = level2BudgetAccountsList.firstWhere(
-                (account) =>
-            account.parentAccount == level1BudgetObject.id &&
+            (account) =>
+                account.parentAccount == level1BudgetObject.id &&
                 areLevel2AccountsActive,
             orElse: () => level2BudgetAccountsList[0]);
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level2BudgetAccountsList.retainWhere((account) =>
-        account.parentAccount == level1BudgetObject.id || account.id < 0);
+            account.parentAccount == level1BudgetObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level2AccountsList.retainWhere((account) =>
-        account.parentAccount == level1BudgetObject.id || account.id < 0);
+            account.parentAccount == level1BudgetObject.id || account.id < 0);
 
         // Same as above for level3
         level3BudgetObject = level3BudgetAccountsList.firstWhere(
-                (account) =>
-            account.parentAccount == level2BudgetObject.id &&
+            (account) =>
+                account.parentAccount == level2BudgetObject.id &&
                 areLevel3AccountsActive,
             orElse: () => level3BudgetAccountsList[0]);
 
         level3BudgetAccountsList.retainWhere((account) =>
-        account.parentAccount == level2BudgetObject.id || account.id < 0);
+            account.parentAccount == level2BudgetObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level3AccountsList.retainWhere((account) =>
-        account.parentAccount == level1BudgetObject.id || account.id < 0);
+            account.parentAccount == level1BudgetObject.id || account.id < 0);
       } else if (type == 'admin') {
         // For the admin, don't auto set the first matching parent account, as this might be confusing when I want to add a new account
         level2AdminObject = level2AdminAccountsList[0];
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level2AdminAccountsList.retainWhere((account) =>
-        account.parentAccount == level1AdminObject.id || account.id < 0);
+            account.parentAccount == level1AdminObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level2AccountsList.retainWhere((account) =>
-        account.parentAccount == level1AdminObject.id || account.id < 0);
+            account.parentAccount == level1AdminObject.id || account.id < 0);
 
         // Same as above for level3
         level3AdminObject = level3AdminAccountsList.firstWhere(
-                (account) => account.parentAccount == level2AdminObject.id,
+            (account) => account.parentAccount == level2AdminObject.id,
             orElse: () => level3AdminAccountsList[0]);
 
         level3AdminAccountsList.retainWhere((account) =>
-        account.parentAccount == level2AdminObject.id || account.id < 0);
+            account.parentAccount == level2AdminObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level3AccountsList.retainWhere((account) =>
-        account.parentAccount == level2AdminObject.id || account.id < 0);
+            account.parentAccount == level2AdminObject.id || account.id < 0);
       }
     } else if (level == 2) {
       if (type == 'actual') {
         // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3ActualObject = level3ActualAccountsList.firstWhere(
-                (account) =>
-            account.parentAccount == level2ActualObject.id &&
+            (account) =>
+                account.parentAccount == level2ActualObject.id &&
                 areLevel3AccountsActive,
             orElse: () => level3ActualAccountsList[0]);
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3ActualAccountsList.retainWhere((account) =>
-        account.parentAccount == level2ActualObject.id || account.id < 0);
+            account.parentAccount == level2ActualObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level3AccountsList.retainWhere((account) =>
-        account.parentAccount == level2ActualObject.id || account.id < 0);
+            account.parentAccount == level2ActualObject.id || account.id < 0);
       } else if (type == 'budget') {
         // Get the first account which matches the level1 account or the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3BudgetObject = level3BudgetAccountsList.firstWhere(
-                (account) =>
-            account.parentAccount == level2BudgetObject.id &&
+            (account) =>
+                account.parentAccount == level2BudgetObject.id &&
                 areLevel3AccountsActive,
             orElse: () => level3BudgetAccountsList[0]);
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3BudgetAccountsList.retainWhere((account) =>
-        account.parentAccount == level2BudgetObject.id || account.id < 0);
+            account.parentAccount == level2BudgetObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level3AccountsList.retainWhere((account) =>
-        account.parentAccount == level1BudgetObject.id || account.id < 0);
+            account.parentAccount == level1BudgetObject.id || account.id < 0);
       } else if (type == 'admin') {
         // For the admin, don't auto set the first matching parent account, as this might be confusing when I want to add a new account
         level3AdminObject = level3AdminAccountsList[0];
 
         // Remove all accounts which do not match the parent account but the default hardcoded account - all can not be deleted as the dropdown must not be empty
         level3AdminAccountsList.retainWhere((account) =>
-        account.parentAccount == level2AdminObject.id || account.id < 0);
+            account.parentAccount == level2AdminObject.id || account.id < 0);
 
         // Remove all accounts also from normal accounts list, as the check if the items are still in the list is done on this list soit has to contain the same items as the other lists
         level3AccountsList.retainWhere((account) =>
-        account.parentAccount == level2AdminObject.id || account.id < 0);
+            account.parentAccount == level2AdminObject.id || account.id < 0);
       }
     }
 
@@ -1626,8 +1557,8 @@ class _MyHomePageState extends State<MyHomePage>
             Text(
               token != null
                   ? token.substring(0, 20) +
-                  " - " +
-                  token.substring(token.length - 20, token.length)
+                      " - " +
+                      token.substring(token.length - 20, token.length)
                   : "initializing",
               style: TextStyle(
                   fontSize: 25,
@@ -1656,8 +1587,8 @@ class _MyHomePageState extends State<MyHomePage>
                 signOutGoogle();
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) {
-                      return LoginPage();
-                    }), ModalRoute.withName('/'));
+                  return LoginPage();
+                }), ModalRoute.withName('/'));
               },
               color: Colors.deepPurple,
               child: Padding(
@@ -1683,8 +1614,7 @@ class _MyHomePageState extends State<MyHomePage>
 
       showDialog(
         context: context,
-        builder: (context) =>
-        new AlertDialog(
+        builder: (context) => new AlertDialog(
           title: Text(
             "ERROR - ${e.runtimeType}",
             style: TextStyle(
@@ -1693,7 +1623,7 @@ class _MyHomePageState extends State<MyHomePage>
           content: RichText(
             text: TextSpan(
                 text:
-                "Make sure you have an active internet connection, and try to logout and log back in again",
+                    "Make sure you have an active internet connection, and try to logout and log back in again",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 15,
@@ -1721,8 +1651,8 @@ class _MyHomePageState extends State<MyHomePage>
                 signOutGoogle();
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) {
-                      return LoginPage();
-                    }), ModalRoute.withName('/'));
+                  return LoginPage();
+                }), ModalRoute.withName('/'));
               },
             )
           ],
@@ -1733,7 +1663,8 @@ class _MyHomePageState extends State<MyHomePage>
     }
   }
 
-  commentInput(BuildContext context,
+  commentInput(
+      BuildContext context,
       String type,
       TextEditingController dependingController,
       TextEditingController dependingController2,
@@ -1776,7 +1707,7 @@ class _MyHomePageState extends State<MyHomePage>
                         TextSpan(
                           text: '$level1OrCostTypeName',
                           style:
-                          TextStyle(color: Color(0xFF0957FF), fontSize: 18),
+                              TextStyle(color: Color(0xFF0957FF), fontSize: 18),
                         )
                       ]),
                 ),
@@ -1846,7 +1777,7 @@ class _MyHomePageState extends State<MyHomePage>
                         TextSpan(
                           text: '${dependingController2.text}',
                           style:
-                          TextStyle(color: Color(0xff73D700), fontSize: 18),
+                              TextStyle(color: Color(0xff73D700), fontSize: 18),
                         )
                       ]),
                 ),
@@ -1906,7 +1837,7 @@ class _MyHomePageState extends State<MyHomePage>
                         TextSpan(
                           text: '${dependingController3.text}',
                           style:
-                          TextStyle(color: Color(0xffDB002A), fontSize: 18),
+                              TextStyle(color: Color(0xffDB002A), fontSize: 18),
                         )
                       ]),
                 ),
@@ -1968,7 +1899,7 @@ class _MyHomePageState extends State<MyHomePage>
             // set your own image/icon widget
             title: "Code: $code",
             description:
-            "Tap a star to set your rating. Add more description here if you want.",
+                "Tap a star to set your rating. Add more description here if you want.",
             submitButton: "SUBMIT",
             alternativeButton: "Contact us instead?",
             // optional
@@ -2087,8 +2018,7 @@ class _MyHomePageState extends State<MyHomePage>
             onPressed: () {
               showDialog(
                 context: context,
-                builder: (context) =>
-                new AlertDialog(
+                builder: (context) => new AlertDialog(
                   title: Text("Are you sure?"),
                   content: new Text('Confirm Logout'),
                   actions: <Widget>[
@@ -2102,8 +2032,8 @@ class _MyHomePageState extends State<MyHomePage>
                         signOutGoogle();
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(builder: (context) {
-                              return LoginPage();
-                            }), ModalRoute.withName('/'));
+                          return LoginPage();
+                        }), ModalRoute.withName('/'));
                       },
                     )
                   ],
@@ -2159,27 +2089,32 @@ class _MyHomePageState extends State<MyHomePage>
             switch (index) {
               case 0:
                 {
-                  appBarTitleText = Text('FFD - Home- ${AppLocalizations.of(context).translate('Message')}');
+                  appBarTitleText = Text(
+                      'FFD - ${AppLocalizations.of(context).translate('titleHome')}');
                   break;
                 }
               case 1:
                 {
-                  appBarTitleText = Text('FFD - Actual');
+                  appBarTitleText = Text(
+                      'FFD - ${AppLocalizations.of(context).translate('titleActual')}');
                   break;
                 }
               case 2:
                 {
-                  appBarTitleText = Text('FFD - Budget');
+                  appBarTitleText = Text(
+                      'FFD - ${AppLocalizations.of(context).translate('titleBudget')}');
                   break;
                 }
               case 3:
                 {
-                  appBarTitleText = Text('FFD - Visualizer');
+                  appBarTitleText = Text(
+                      'FFD - ${AppLocalizations.of(context).translate('titleVisualizer')}');
                   break;
                 }
               case 4:
                 {
-                  appBarTitleText = Text('FFD - Settings');
+                  appBarTitleText = Text(
+                      'FFD - ${AppLocalizations.of(context).translate('titleSettings')}');
                   break;
                 }
             }
@@ -2193,12 +2128,11 @@ class _MyHomePageState extends State<MyHomePage>
                       enablePullDown: true,
                       onRefresh: () async {
                         await handleRefresh(_currentIndex);
-                        print("REFRESHING ON SCROLL");
                         // await Future.delayed(Duration(seconds: 2));
                         _refreshController.refreshCompleted();
                       },
                       child: ListView.builder(
-                        // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
+                          // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
                             return Container(
@@ -2211,26 +2145,24 @@ class _MyHomePageState extends State<MyHomePage>
                                     SizedBox(height: 10),
                                     Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                       children: <Widget>[
                                         GestureDetector(
                                           onTap: () {
-                                            print("Actual clicked");
                                             setState(() => _currentIndex = 1);
                                             _pageController.jumpToPage(1);
                                           },
                                           child: Container(
-                                            width: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .width *
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
                                                 .48,
                                             child: Card(
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                BorderRadius.circular(50.0),
+                                                    BorderRadius.circular(50.0),
                                               ),
                                               /*color: homescreenData[0].amount >
                                                 homescreenData[2].amount
@@ -2243,17 +2175,21 @@ class _MyHomePageState extends State<MyHomePage>
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.min,
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceEvenly,
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.center,
                                                 children: <Widget>[
                                                   ListTile(
                                                     leading: Icon(
                                                         Icons.monetization_on,
                                                         color: Colors.white,
                                                         size: 45),
-                                                    title: Text('Actual',
+                                                    title: Text(
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .translate(
+                                                                'titleActual'),
                                                         style: TextStyle(
                                                             color: Color(
                                                                 0xffF5F5F6))),
@@ -2263,10 +2199,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                             .toStringAsFixed(2),
                                                         style: TextStyle(
                                                             color:
-                                                            Colors.white)),
+                                                                Colors.white)),
                                                     trailing: Icon(
                                                       homescreenData[0].amount >
-                                                          parsedActualComparison
+                                                              parsedActualComparison
                                                           ? Icons.trending_up
                                                           : Icons.trending_down,
                                                       color: Color(0xffF5F5F6),
@@ -2280,33 +2216,31 @@ class _MyHomePageState extends State<MyHomePage>
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            print("Budget clicked");
                                             setState(() => _currentIndex = 2);
                                             _pageController.jumpToPage(2);
                                           },
                                           child: Container(
-                                            width: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .width *
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
                                                 .48,
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                              new BorderRadius.only(
+                                                  new BorderRadius.only(
                                                 topLeft:
-                                                const Radius.circular(50.0),
+                                                    const Radius.circular(50.0),
                                                 topRight:
-                                                const Radius.circular(50.0),
+                                                    const Radius.circular(50.0),
                                                 bottomLeft:
-                                                const Radius.circular(50.0),
+                                                    const Radius.circular(50.0),
                                                 bottomRight:
-                                                const Radius.circular(50.0),
+                                                    const Radius.circular(50.0),
                                               ),
                                             ),
                                             child: Card(
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                BorderRadius.circular(50.0),
+                                                    BorderRadius.circular(50.0),
                                               ),
                                               /*color: homescreenData[0].amount >
                                                 homescreenData[2].amount
@@ -2318,10 +2252,10 @@ class _MyHomePageState extends State<MyHomePage>
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.min,
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceEvenly,
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.center,
                                                 children: <Widget>[
                                                   ListTile(
                                                     leading: Icon(
@@ -2329,21 +2263,25 @@ class _MyHomePageState extends State<MyHomePage>
                                                             .account_balance_wallet,
                                                         color: Colors.white,
                                                         size: 45),
-                                                    title: Text('Budget',
+                                                    title: Text(
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .translate(
+                                                                'titleBudget'),
                                                         style: TextStyle(
                                                             color:
-                                                            Colors.white)),
+                                                                Colors.white)),
                                                     subtitle: Text(
-                                                      // #91
+                                                        // #91
                                                         homescreenData[2]
                                                             .amount
                                                             .toStringAsFixed(2),
                                                         style: TextStyle(
                                                             color:
-                                                            Colors.white)),
+                                                                Colors.white)),
                                                     trailing: Icon(
                                                       homescreenData[2].amount >
-                                                          parsedBudgetComparison
+                                                              parsedBudgetComparison
                                                           ? Icons.trending_up
                                                           : Icons.trending_down,
                                                       color: Color(0xffF5F5F6),
@@ -2360,7 +2298,8 @@ class _MyHomePageState extends State<MyHomePage>
                                     // TODO make with variable, just a test for #25
                                     SizedBox(height: 30),
                                     Text(
-                                      'Actual vs Budget',
+                                      AppLocalizations.of(context)
+                                          .translate('titlePieChart'),
                                       maxLines: 3,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
@@ -2371,9 +2310,9 @@ class _MyHomePageState extends State<MyHomePage>
                                     ),
                                     Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                         children: <Widget>[
                                           Switch(
                                             value: showFullYearHome,
@@ -2387,7 +2326,8 @@ class _MyHomePageState extends State<MyHomePage>
                                             activeColor: Color(0xff0957FF),
                                           ),
                                           Text(
-                                            'Full Year',
+                                            AppLocalizations.of(context)
+                                                .translate('FullYearSwitch'),
                                             maxLines: 3,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
@@ -2397,46 +2337,38 @@ class _MyHomePageState extends State<MyHomePage>
                                           ),
                                         ]),
                                     Container(
-                                      width: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .width,
+                                      width: MediaQuery.of(context).size.width,
                                       height:
-                                      MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height *
-                                          .4,
+                                          MediaQuery.of(context).size.height *
+                                              .4,
                                       child: charts.PieChart(
                                         [
                                           charts.Series<homescreenPie, String>(
                                               id:
-                                              'CompanySizeVsNumberOfCompanies',
+                                                  'CompanySizeVsNumberOfCompanies',
                                               domainFn:
                                                   (homescreenPie dataPoint,
-                                                  _) =>
-                                              dataPoint.type,
-                                              labelAccessorFn: (
-                                                  homescreenPie row,
-                                                  _) =>
-                                              '${row.type}\n${row.amount
-                                                  .toStringAsFixed(2)}€',
+                                                          _) =>
+                                                      dataPoint.type,
+                                              labelAccessorFn: (homescreenPie row,
+                                                      _) =>
+                                                  '${row.type}\n${row.amount.toStringAsFixed(2)}€',
                                               measureFn:
                                                   (homescreenPie dataPoint,
-                                                  _) =>
-                                              dataPoint.amount,
+                                                          _) =>
+                                                      dataPoint.amount,
                                               colorFn:
                                                   (homescreenPie segment, _) =>
-                                              segment.color,
+                                                      segment.color,
                                               data: homescreenData.sublist(0,
                                                   2) /*Only first 2 elements not also the overall budget*/
-                                          )
+                                              )
                                         ],
                                         defaultRenderer:
-                                        new charts.ArcRendererConfig(
+                                            new charts.ArcRendererConfig(
                                           arcRendererDecorators: [
                                             new charts.ArcLabelDecorator(
-                                              //labelPadding: 0,
+                                                //labelPadding: 0,
                                                 labelPosition: charts
                                                     .ArcLabelPosition.outside),
                                           ],
@@ -2448,21 +2380,20 @@ class _MyHomePageState extends State<MyHomePage>
                                     ),
                                     Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                            MainAxisAlignment.spaceEvenly,
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                         children: <Widget>[
                                           ButtonTheme(
                                             //minWidth: 150.0,
                                             height: 60.0,
                                             child: FlatButton(
-                                              onPressed: () =>
-                                                  _showDatePicker(
-                                                      'home', dateTimeHome),
+                                              onPressed: () => _showDatePicker(
+                                                  'home', dateTimeHome),
                                               shape: new RoundedRectangleBorder(
                                                 borderRadius:
-                                                new BorderRadius.circular(
-                                                    40.0),
+                                                    new BorderRadius.circular(
+                                                        40.0),
                                               ),
                                               color: Color(0xff003680),
                                               padding: EdgeInsets.all(10.0),
@@ -2470,10 +2401,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                 // Replace with a Row for horizontal icon + text
                                                 children: <Widget>[
                                                   Text(
-                                                      " ${dateTimeHome.year
-                                                          .toString()}-${dateTimeHome
-                                                          .month.toString()
-                                                          .padLeft(2, '0')}",
+                                                      " ${dateTimeHome.year.toString()}-${dateTimeHome.month.toString().padLeft(2, '0')}",
                                                       style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 17)),
@@ -2516,7 +2444,8 @@ class _MyHomePageState extends State<MyHomePage>
                                   color: Colors.white,
                                 ),
                                 Text(
-                                  "Input",
+                                  AppLocalizations.of(context)
+                                      .translate('TitleInputTab'),
                                   style: TextStyle(color: Colors.white),
                                 )
                               ]),
@@ -2537,7 +2466,8 @@ class _MyHomePageState extends State<MyHomePage>
                                   color: Colors.white,
                                 ),
                                 Text(
-                                  "Adjust",
+                                  AppLocalizations.of(context)
+                                      .translate('TitleListTab'),
                                   style: TextStyle(color: Colors.white),
                                 )
                               ]),
@@ -2553,488 +2483,460 @@ class _MyHomePageState extends State<MyHomePage>
                             slivers: [
                               SliverFillRemaining(
                                   child: SmartRefresher(
-                                    controller: _refreshController,
-                                    enablePullDown: true,
-                                    onRefresh: () async {
-                                      await handleRefresh(_currentIndex);
-                                      print("REFRESHING ON SCROLL");
-                                      //await Future.delayed(Duration(seconds: 2));
-                                      _refreshController.refreshCompleted();
-                                    },
-                                    child: ListView.builder(
-                                      // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
-                                        itemCount: 1,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return Column(
-                                            mainAxisAlignment:
+                                controller: _refreshController,
+                                enablePullDown: true,
+                                onRefresh: () async {
+                                  await handleRefresh(_currentIndex);
+                                  //await Future.delayed(Duration(seconds: 2));
+                                  _refreshController.refreshCompleted();
+                                },
+                                child: ListView.builder(
+                                    // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
+                                    itemCount: 1,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Column(
+                                        mainAxisAlignment:
                                             MainAxisAlignment.center,
-                                            crossAxisAlignment:
+                                        crossAxisAlignment:
                                             CrossAxisAlignment.center,
-                                            children: <Widget>[
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Row(
-                                                  mainAxisAlignment:
+                                        children: <Widget>[
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Row(
+                                              mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,
-                                                  crossAxisAlignment:
+                                              crossAxisAlignment:
                                                   CrossAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    ButtonTheme(
-                                                      //minWidth: 150.0,
-                                                      height: 60.0,
-                                                      child: FlatButton(
-                                                        onPressed: () =>
-                                                            _showDatePicker(
-                                                                'actual',
-                                                                dateTimeActual),
-                                                        shape:
+                                              children: <Widget>[
+                                                ButtonTheme(
+                                                  //minWidth: 150.0,
+                                                  height: 60.0,
+                                                  child: FlatButton(
+                                                    onPressed: () =>
+                                                        _showDatePicker(
+                                                            'actual',
+                                                            dateTimeActual),
+                                                    shape:
                                                         new RoundedRectangleBorder(
-                                                          borderRadius:
+                                                      borderRadius:
                                                           new BorderRadius
                                                               .circular(40.0),
-                                                        ),
-                                                        color: Color(
-                                                            0xff003680),
-                                                        padding:
-                                                        EdgeInsets.all(10.0),
-                                                        child: Row(
-                                                          // Replace with a Row for horizontal icon + text
-                                                          children: <Widget>[
-                                                            Text(
-                                                                " ${dateTimeActual
-                                                                    .year
-                                                                    .toString()}-${dateTimeActual
-                                                                    .month
-                                                                    .toString()
-                                                                    .padLeft(
-                                                                    2, '0')}",
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize: 17)),
-                                                            SizedBox(width: 10),
-                                                            Icon(
-                                                              Icons
-                                                                  .calendar_today,
-                                                              color: Colors
-                                                                  .white,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
                                                     ),
-                                                  ]),
-                                              Container(
-                                                padding: const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment: Alignment.center,
-                                                //child: Text('Submit'),
-                                                child: TextFormField(
-                                                  keyboardType: TextInputType
-                                                      .number,
-                                                  //keyboard with numbers only will appear to the screen
-                                                  style: TextStyle(
-                                                      height:
-                                                      2),
-                                                  //increases the height of cursor
-                                                  //autofocus: true,
-                                                  controller:
+                                                    color: Color(0xff003680),
+                                                    padding:
+                                                        EdgeInsets.all(10.0),
+                                                    child: Row(
+                                                      // Replace with a Row for horizontal icon + text
+                                                      children: <Widget>[
+                                                        Text(
+                                                            " ${dateTimeActual.year.toString()}-${dateTimeActual.month.toString().padLeft(2, '0')}",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 17)),
+                                                        SizedBox(width: 10),
+                                                        Icon(
+                                                          Icons.calendar_today,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ]),
+                                          Container(
+                                            padding: const EdgeInsets.only(
+                                                left: 30.0,
+                                                top: 0,
+                                                right: 30,
+                                                bottom: 0),
+                                            //color: Colors.blue[600],
+                                            alignment: Alignment.center,
+                                            //child: Text('Submit'),
+                                            child: TextFormField(
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              //keyboard with numbers only will appear to the screen
+                                              style: TextStyle(height: 2),
+                                              //increases the height of cursor
+                                              //autofocus: true,
+                                              controller:
                                                   actualTextFieldController,
-                                                  decoration: InputDecoration(
-                                                    // hintText: 'Enter ur amount',
-                                                    //hintStyle: TextStyle(height: 1.75),
-                                                      labelText:
-                                                      'Enter your amount',
-                                                      labelStyle: TextStyle(
-                                                          height: 0.5,
-                                                          color: Color(
-                                                              0xff0957FF)),
-                                                      //increases the height of cursor
-                                                      icon: Icon(
-                                                        Icons.attach_money,
-                                                        color: Color(
-                                                            0xff0957FF),
-                                                      ),
-                                                      //prefixIcon: Icon(Icons.attach_money),
-                                                      //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                                      enabledBorder:
+                                              decoration: InputDecoration(
+                                                  // hintText: 'Enter ur amount',
+                                                  //hintStyle: TextStyle(height: 1.75),
+                                                  labelText: AppLocalizations
+                                                          .of(context)
+                                                      .translate(
+                                                          'TextFieldAmountInput'),
+                                                  labelStyle: TextStyle(
+                                                      height: 0.5,
+                                                      color: Color(0xff0957FF)),
+                                                  //increases the height of cursor
+                                                  icon: Icon(
+                                                    Icons.attach_money,
+                                                    color: Color(0xff0957FF),
+                                                  ),
+                                                  //prefixIcon: Icon(Icons.attach_money),
+                                                  //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                  enabledBorder:
                                                       new UnderlineInputBorder(
                                                           borderSide:
-                                                          new BorderSide(
-                                                              color: Color(
-                                                                  0xff0957FF)))),
-                                                ),
-                                              ),
-                                              areLevel1AccountsActive
-                                                  ? Container(
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment: Alignment.center,
-                                                //child: Text('Submit'),
-                                                child: SearchChoices.single(
-                                                  items:
-                                                  level1ActualAccountsList
-                                                      .map((Account
-                                                  account) {
-                                                    return new DropdownMenuItem<
-                                                        Account>(
-                                                      value: account,
-                                                      child: new Text(
-                                                        account.name,
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                  style: TextStyle(
-                                                      color:
-                                                      Color(0xff0957FF)),
-                                                  value: level1ActualObject,
-                                                  underline: Container(
-                                                    height: 2,
-                                                    width: 5000,
-                                                    color: Color(0xff0957FF),
-                                                  ),
-                                                  hint: "Select one number",
-                                                  searchHint:
-                                                  "Select one number",
-                                                  onClear: () {
-                                                    print(
-                                                        "CLEARING in onClear");
-
-                                                    setState(() {
-                                                      level1ActualObject =
-                                                      level1ActualAccountsList[
-                                                      0];
-
-                                                      level2ActualObject =
-                                                      level2ActualAccountsList[
-                                                      0];
-
-                                                      level3ActualObject =
-                                                      level3ActualAccountsList[
-                                                      0];
-                                                    });
-                                                  },
-                                                  onChanged: (value) {
-                                                    print(
-                                                        "CLEAR BUTTON PRESSED: (${value ==
-                                                            null})");
-
-                                                    if (value != null) {
-                                                      setState(() {
-                                                        level1ActualObject =
-                                                            value;
-                                                      });
-
-                                                      arrangeAccounts(
-                                                          1, 'actual');
-
-                                                      print(
-                                                          "${level2ActualObject
-                                                              .id} - ${level2ActualObject
-                                                              .name}");
-                                                    }
-                                                  },
-                                                  dialogBox: true,
-                                                  isExpanded: true,
-                                                ),
-                                              )
-                                                  : Container(),
-                                              areLevel2AccountsActive
-                                                  ? Container(
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-
-                                                alignment: Alignment.center,
-                                                //child: Text('Submit'),
-                                                child: SearchChoices.single(
-                                                  items:
-                                                  level2ActualAccountsList
-                                                      .map((Account
-                                                  account) {
-                                                    return new DropdownMenuItem<
-                                                        Account>(
-                                                      value: account,
-                                                      child: new Text(
-                                                        account.name,
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                  style: TextStyle(
-                                                      color:
-                                                      Color(0xff0957FF)),
-                                                  value: level2ActualObject,
-                                                  readOnly: level1ActualObject
-                                                      .id <=
-                                                      0 ||
-                                                      level2ActualAccountsList
-                                                          .length ==
-                                                          1,
-                                                  underline: Container(
-                                                    height: 2,
-                                                    width: 5000,
-                                                    color: Color(0xff0957FF),
-                                                  ),
-                                                  hint: "Select one number",
-                                                  searchHint:
-                                                  "Select one number",
-                                                  onClear: () {
-                                                    setState(() {
-                                                      level2ActualObject =
-                                                      level2ActualAccountsList[
-                                                      0];
-
-                                                      level3ActualObject =
-                                                      level3ActualAccountsList[
-                                                      0];
-                                                    });
-                                                  },
-                                                  onChanged: (value) {
-                                                    print(
-                                                        "CLEAR BUTTON PRESSED: (${value ==
-                                                            null})");
-
-                                                    if (value != null) {
-                                                      // Check if a new value was selected or the same was reselected
-                                                      dummyAccount =
-                                                          level2ActualObject;
-
-                                                      setState(() {
-                                                        level2ActualObject =
-                                                            value;
-                                                      });
-
-                                                      if (dummyAccount.id !=
-                                                          value.id) {
-                                                        arrangeAccounts(
-                                                            2, 'actual');
-                                                      } else {
-                                                        print("RESELECTED");
-                                                      }
-                                                    }
-                                                  },
-                                                  dialogBox: true,
-                                                  isExpanded: true,
-                                                ),
-                                              )
-                                                  : Container(),
-
-                                              areLevel3AccountsActive
-                                                  ? Container(
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment: Alignment.center,
-                                                //child: Text('Submit'),
-                                                child: SearchChoices.single(
-                                                  items:
-                                                  level3ActualAccountsList
-                                                      .map((Account
-                                                  account) {
-                                                    return new DropdownMenuItem<
-                                                        Account>(
-                                                      value: account,
-                                                      child: new Text(
-                                                        account.name,
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                  style: TextStyle(
-                                                      color:
-                                                      Color(0xff0957FF)),
-                                                  value: level3ActualObject,
-                                                  readOnly: level2ActualObject
-                                                      .id <=
-                                                      0 ||
-                                                      level3ActualAccountsList
-                                                          .length ==
-                                                          1,
-                                                  underline: Container(
-                                                    height: 2,
-                                                    width: 5000,
-                                                    color: Color(0xff0957FF),
-                                                  ),
-                                                  hint: "Select one number",
-                                                  searchHint:
-                                                  "Select one number",
-                                                  onClear: () {
-                                                    setState(() {
-                                                      level3ActualObject =
-                                                      level3ActualAccountsList[
-                                                      0];
-                                                    });
-                                                  },
-                                                  // The default object is set again
-                                                  onChanged: (value) {
-                                                    print(
-                                                        "CLEAR BUTTON PRESSED: (${value ==
-                                                            null})");
-
-                                                    if (value != null) {
-                                                      setState(() {
-                                                        level3ActualObject =
-                                                            value;
-                                                      });
-                                                    }
-                                                  },
-                                                  dialogBox: true,
-                                                  isExpanded: true,
-                                                ),
-                                              )
-                                                  : Container(),
-                                              // #52 when a level is deactivated the widgets have no space between
-                                              // this adds a little white space between the widget
-                                              areLevel3AccountsActive
-                                                  ? Container()
-                                                  : SizedBox(height: 20),
-                                              areCostTypesActive
-                                                  ? Container(
-                                                constraints:
-                                                BoxConstraints.expand(
-                                                  height: 80,
-                                                  //width: MediaQuery.of(context).size.width * .8
-                                                ),
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment: Alignment.center,
-                                                //child: Text('Submit'),
-                                                child: Align(
-                                                  alignment:
-                                                  Alignment.topRight,
+                                                              new BorderSide(
+                                                                  color: Color(
+                                                                      0xff0957FF)))),
+                                            ),
+                                          ),
+                                          areLevel1AccountsActive
+                                              ? Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 30.0,
+                                                          top: 0,
+                                                          right: 30,
+                                                          bottom: 0),
+                                                  //color: Colors.blue[600],
+                                                  alignment: Alignment.center,
+                                                  //child: Text('Submit'),
                                                   child: SearchChoices.single(
-                                                    value:
-                                                    costTypeObjectActual,
-                                                    icon: Icon(
-                                                        Icons.arrow_downward),
-                                                    iconSize: 24,
-                                                    style: TextStyle(
-                                                        color: Color(
-                                                            0xff0957FF)),
-                                                    underline: Container(
-                                                      height: 2,
-                                                      width: 2000,
-                                                      color:
-                                                      Color(0xff0957FF),
-                                                    ),
-                                                    onClear: () {
-                                                      setState(() {
-                                                        costTypeObjectActual =
-                                                        costTypesList[
-                                                        0];
-                                                      });
-                                                    },
-                                                    onChanged:
-                                                        (CostType newValue) {
-                                                      print(
-                                                          "CLEAR BUTTON PRESSED: (${value ==
-                                                              null})");
-
-                                                      if (value != null) {
-                                                        setState(() {
-                                                          costTypeObjectActual =
-                                                              newValue;
-                                                        });
-                                                      };
-                                                    },
-                                                    items: costTypesList
-                                                        .map((CostType type) {
+                                                    items:
+                                                        level1ActualAccountsList
+                                                            .map((Account
+                                                                account) {
                                                       return new DropdownMenuItem<
-                                                          CostType>(
-                                                        value: type,
+                                                          Account>(
+                                                        value: account,
                                                         child: new Text(
-                                                          type.name,
+                                                          account.name,
                                                         ),
                                                       );
                                                     }).toList(),
-                                                  ),
-                                                ),
-                                              )
-                                                  : Container(),
-                                              ButtonBar(
-                                                mainAxisSize: MainAxisSize
-                                                    .min,
-                                                // this will take space as minimum as posible(to center)
-                                                children: <Widget>[
-                                                  ButtonTheme(
-                                                    minWidth: 75.0,
-                                                    height: 40.0,
-                                                    child: RaisedButton(
-                                                      child: Text('Discard'),
-                                                      color: Color(
-                                                          0xffEEEEEE), // EEEEEE
-                                                      onPressed: () {
-                                                        actualTextFieldController
-                                                            .text = '';
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xff0957FF)),
+                                                    value: level1ActualObject,
+                                                    underline: Container(
+                                                      height: 2,
+                                                      width: 5000,
+                                                      color: Color(0xff0957FF),
+                                                    ),
+                                                    hint: "Select one number",
+                                                    searchHint:
+                                                        "Select one number",
+                                                    onClear: () {
+                                                      setState(() {
+                                                        level1ActualObject =
+                                                            level1ActualAccountsList[
+                                                                0];
 
+                                                        level2ActualObject =
+                                                            level2ActualAccountsList[
+                                                                0];
+
+                                                        level3ActualObject =
+                                                            level3ActualAccountsList[
+                                                                0];
+                                                      });
+                                                    },
+                                                    onChanged: (value) {
+                                                      if (value != null) {
                                                         setState(() {
                                                           level1ActualObject =
-                                                          level1ActualAccountsList[
-                                                          0];
-                                                          level2ActualObject =
-                                                          level2ActualAccountsList[
-                                                          0];
-                                                          level3ActualObject =
-                                                          level3ActualAccountsList[
-                                                          0];
+                                                              value;
+                                                        });
 
+                                                        arrangeAccounts(
+                                                            1, 'actual');
+
+                                                        print(
+                                                            "${level2ActualObject.id} - ${level2ActualObject.name}");
+                                                      }
+                                                    },
+                                                    dialogBox: true,
+                                                    isExpanded: true,
+                                                  ),
+                                                )
+                                              : Container(),
+                                          areLevel2AccountsActive
+                                              ? Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 30.0,
+                                                          top: 0,
+                                                          right: 30,
+                                                          bottom: 0),
+                                                  //color: Colors.blue[600],
+
+                                                  alignment: Alignment.center,
+                                                  //child: Text('Submit'),
+                                                  child: SearchChoices.single(
+                                                    items:
+                                                        level2ActualAccountsList
+                                                            .map((Account
+                                                                account) {
+                                                      return new DropdownMenuItem<
+                                                          Account>(
+                                                        value: account,
+                                                        child: new Text(
+                                                          account.name,
+                                                        ),
+                                                      );
+                                                    }).toList(),
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xff0957FF)),
+                                                    value: level2ActualObject,
+                                                    readOnly: level1ActualObject
+                                                                .id <=
+                                                            0 ||
+                                                        level2ActualAccountsList
+                                                                .length ==
+                                                            1,
+                                                    underline: Container(
+                                                      height: 2,
+                                                      width: 5000,
+                                                      color: Color(0xff0957FF),
+                                                    ),
+                                                    hint: "Select one number",
+                                                    searchHint:
+                                                        "Select one number",
+                                                    onClear: () {
+                                                      setState(() {
+                                                        level2ActualObject =
+                                                            level2ActualAccountsList[
+                                                                0];
+
+                                                        level3ActualObject =
+                                                            level3ActualAccountsList[
+                                                                0];
+                                                      });
+                                                    },
+                                                    onChanged: (value) {
+                                                      if (value != null) {
+                                                        // Check if a new value was selected or the same was reselected
+                                                        dummyAccount =
+                                                            level2ActualObject;
+
+                                                        setState(() {
+                                                          level2ActualObject =
+                                                              value;
+                                                        });
+
+                                                        if (dummyAccount.id !=
+                                                            value.id) {
+                                                          arrangeAccounts(
+                                                              2, 'actual');
+                                                        } else {
+                                                          print("RESELECTED");
+                                                        }
+                                                      }
+                                                    },
+                                                    dialogBox: true,
+                                                    isExpanded: true,
+                                                  ),
+                                                )
+                                              : Container(),
+
+                                          areLevel3AccountsActive
+                                              ? Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 30.0,
+                                                          top: 0,
+                                                          right: 30,
+                                                          bottom: 0),
+                                                  //color: Colors.blue[600],
+                                                  alignment: Alignment.center,
+                                                  //child: Text('Submit'),
+                                                  child: SearchChoices.single(
+                                                    items:
+                                                        level3ActualAccountsList
+                                                            .map((Account
+                                                                account) {
+                                                      return new DropdownMenuItem<
+                                                          Account>(
+                                                        value: account,
+                                                        child: new Text(
+                                                          account.name,
+                                                        ),
+                                                      );
+                                                    }).toList(),
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xff0957FF)),
+                                                    value: level3ActualObject,
+                                                    readOnly: level2ActualObject
+                                                                .id <=
+                                                            0 ||
+                                                        level3ActualAccountsList
+                                                                .length ==
+                                                            1,
+                                                    underline: Container(
+                                                      height: 2,
+                                                      width: 5000,
+                                                      color: Color(0xff0957FF),
+                                                    ),
+                                                    hint: "Select one number",
+                                                    searchHint:
+                                                        "Select one number",
+                                                    onClear: () {
+                                                      setState(() {
+                                                        level3ActualObject =
+                                                            level3ActualAccountsList[
+                                                                0];
+                                                      });
+                                                    },
+                                                    // The default object is set again
+                                                    onChanged: (value) {
+                                                      if (value != null) {
+                                                        setState(() {
+                                                          level3ActualObject =
+                                                              value;
+                                                        });
+                                                      }
+                                                    },
+                                                    dialogBox: true,
+                                                    isExpanded: true,
+                                                  ),
+                                                )
+                                              : Container(),
+                                          // #52 when a level is deactivated the widgets have no space between
+                                          // this adds a little white space between the widget
+                                          areLevel3AccountsActive
+                                              ? Container()
+                                              : SizedBox(height: 20),
+                                          areCostTypesActive
+                                              ? Container(
+                                                  constraints:
+                                                      BoxConstraints.expand(
+                                                    height: 80,
+                                                    //width: MediaQuery.of(context).size.width * .8
+                                                  ),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 30.0,
+                                                          top: 0,
+                                                          right: 30,
+                                                          bottom: 0),
+                                                  //color: Colors.blue[600],
+                                                  alignment: Alignment.center,
+                                                  //child: Text('Submit'),
+                                                  child: Align(
+                                                    alignment:
+                                                        Alignment.topRight,
+                                                    child: SearchChoices.single(
+                                                      value:
+                                                          costTypeObjectActual,
+                                                      icon: Icon(
+                                                          Icons.arrow_downward),
+                                                      iconSize: 24,
+                                                      style: TextStyle(
+                                                          color: Color(
+                                                              0xff0957FF)),
+                                                      underline: Container(
+                                                        height: 2,
+                                                        width: 2000,
+                                                        color:
+                                                            Color(0xff0957FF),
+                                                      ),
+                                                      onClear: () {
+                                                        setState(() {
                                                           costTypeObjectActual =
-                                                          costTypesList[0];
+                                                              costTypesList[0];
                                                         });
                                                       },
-                                                    ),
-                                                  ),
-                                                  ButtonTheme(
-                                                    minWidth: 150.0,
-                                                    height: 60.0,
-                                                    child: RaisedButton(
-                                                      child: Text('Save',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17)),
-                                                      color: Color(
-                                                          0xff0957FF),
-                                                      //df7599 - 0957FF
-                                                      onPressed: () {
-                                                        commentInput(
-                                                            context,
-                                                            'actual',
-                                                            null,
-                                                            null,
-                                                            null);
+                                                      onChanged:
+                                                          (CostType newValue) {
+                                                        if (value != null) {
+                                                          setState(() {
+                                                            costTypeObjectActual =
+                                                                newValue;
+                                                          });
+                                                        }
+                                                        ;
                                                       },
+                                                      items: costTypesList
+                                                          .map((CostType type) {
+                                                        return new DropdownMenuItem<
+                                                            CostType>(
+                                                          value: type,
+                                                          child: new Text(
+                                                            type.name,
+                                                          ),
+                                                        );
+                                                      }).toList(),
                                                     ),
                                                   ),
-                                                ],
+                                                )
+                                              : Container(),
+                                          ButtonBar(
+                                            mainAxisSize: MainAxisSize.min,
+                                            // this will take space as minimum as posible(to center)
+                                            children: <Widget>[
+                                              ButtonTheme(
+                                                minWidth: 75.0,
+                                                height: 40.0,
+                                                child: RaisedButton(
+                                                  child: Text(
+                                                    AppLocalizations.of(context)
+                                                        .translate(
+                                                            'DiscardButton'),
+                                                  ),
+                                                  color: Color(
+                                                      0xffEEEEEE), // EEEEEE
+                                                  onPressed: () {
+                                                    actualTextFieldController
+                                                        .text = '';
+
+                                                    setState(() {
+                                                      level1ActualObject =
+                                                          level1ActualAccountsList[
+                                                              0];
+                                                      level2ActualObject =
+                                                          level2ActualAccountsList[
+                                                              0];
+                                                      level3ActualObject =
+                                                          level3ActualAccountsList[
+                                                              0];
+
+                                                      costTypeObjectActual =
+                                                          costTypesList[0];
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                              ButtonTheme(
+                                                minWidth: 150.0,
+                                                height: 60.0,
+                                                child: RaisedButton(
+                                                  child: Text(
+                                                      AppLocalizations.of(
+                                                              context)
+                                                          .translate(
+                                                              'SaveButton'),
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 17)),
+                                                  color: Color(0xff0957FF),
+                                                  //df7599 - 0957FF
+                                                  onPressed: () {
+                                                    commentInput(
+                                                        context,
+                                                        'actual',
+                                                        null,
+                                                        null,
+                                                        null);
+                                                  },
+                                                ),
                                               ),
                                             ],
-                                          );
-                                        }),
-                                  )),
+                                          ),
+                                        ],
+                                      );
+                                    }),
+                              )),
                             ],
                           ),
                         ),
@@ -3043,796 +2945,718 @@ class _MyHomePageState extends State<MyHomePage>
                             enablePullDown: true,
                             onRefresh: () async {
                               await handleRefresh(_currentIndex);
-                              print("REFRESHING ON SCROLL");
                               //await Future.delayed(Duration(seconds: 2));
                               _refreshController.refreshCompleted();
                             },
                             child: ListView.builder(
                                 padding: const EdgeInsets.all(8),
-                                itemCount: actList.length +
-                                    1,
+                                itemCount: actList.length + 1,
                                 // Length + 1 as the 0 index is the sort button, all other use index - 1
                                 itemBuilder: (BuildContext context, int index) {
                                   return index == 0
                                       ? Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment
-                                                .spaceEvenly,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment
-                                                .center,
-                                            children: <Widget>[
-                                              Flexible(child: TextFormField(
-                                                  autofocus: false,
-                                                  onChanged: (value) {
-                                                    setState(() {});
-                                                  },
-                                                  controller:
-                                                  actualSearchTextFieldController,
-                                                  decoration: InputDecoration(
-                                                    // hintText: 'Enter ur amount',
-                                                    //hintStyle: TextStyle(height: 1.75),
-                                                    labelText:
-                                                    'Search for amounts, comments and more',
-                                                    //increases the height of cursor
-                                                    icon: Icon(
-                                                      Icons.search,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Flexible(
+                                                      child: TextFormField(
+                                                          autofocus: false,
+                                                          onChanged: (value) {
+                                                            setState(() {});
+                                                          },
+                                                          controller:
+                                                              actualSearchTextFieldController,
+                                                          decoration:
+                                                              InputDecoration(
+                                                            // hintText: 'Enter ur amount',
+                                                            //hintStyle: TextStyle(height: 1.75),
+                                                            labelText: AppLocalizations
+                                                                    .of(context)
+                                                                .translate(
+                                                                    'ListSearchTextField'),
+                                                            //increases the height of cursor
+                                                            icon: Icon(
+                                                              Icons.search,
+                                                            ),
+                                                          )),
                                                     ),
-                                                  )),), IconButton(
-                                                  icon: Icon(Icons.clear),
-                                                  color: Color(0xff003680),
-                                                  alignment:
-                                                  Alignment.centerRight,
-                                                  iconSize: 25,
-                                                  onPressed: () {
-                                                    FocusScope.of(context)
-                                                        .unfocus();
-                                                    setState(() {
-                                                      actualSearchTextFieldController
-                                                          .clear();
-                                                    });
-                                                  }),
-                                              IconButton(
-                                                  icon: Icon(Icons.sort),
-                                                  color: Color(0xff003680),
-                                                  alignment:
-                                                  Alignment.centerRight,
-                                                  iconSize: 25,
-                                                  onPressed: () {
-                                                    return showDialog(
-                                                        context: context,
-                                                        barrierDismissible:
-                                                        true,
-                                                        builder: (BuildContext
-                                                        context) {
-                                                          return SimpleDialog(
-                                                            title: const Text(
-                                                                'Order by ... '),
-                                                            children: <Widget>[
-                                                              SimpleDialogOption(
-                                                                onPressed: () {
-                                                                  // When its the same again
-                                                                  //   - switch the the opposite (either asc or desc whatever it was)
-                                                                  // When it was fresh switched to created
-                                                                  //   - set it to the default -> desc
-                                                                  actualListSortType =
-                                                                  actualListSortColumn ==
-                                                                      'created'
-                                                                      ? (actualListSortType ==
-                                                                      'asc'
-                                                                      ? 'desc'
-                                                                      : 'asc')
-                                                                      : 'desc';
-                                                                  actualListSortColumn =
-                                                                  'created';
-
-                                                                  loadList(
-                                                                      'actual',
-                                                                      actualListSortColumn,
-                                                                      actualListSortType);
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                },
-                                                                child: const Text(
-                                                                    'Date of creation'),
-                                                              ),
-                                                              SimpleDialogOption(
-                                                                onPressed: () {
-                                                                  // When its the same again
-                                                                  //   - switch the the opposite (either asc or desc whatever it was)
-                                                                  // When it was fresh switched to data_date
-                                                                  //   - set it to the default -> desc
-                                                                  actualListSortType =
-                                                                  actualListSortColumn ==
-                                                                      'data_date'
-                                                                      ? (actualListSortType ==
-                                                                      'asc'
-                                                                      ? 'desc'
-                                                                      : 'asc')
-                                                                      : 'desc';
-
-                                                                  actualListSortColumn =
-                                                                  'data_date';
-                                                                  loadList(
-                                                                      'actual',
-                                                                      actualListSortColumn,
-                                                                      actualListSortType);
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                },
-                                                                child: const Text(
-                                                                    'Month where it is billed'),
-                                                              ),
-                                                              SimpleDialogOption(
-                                                                onPressed: () {
-                                                                  // When its the same again
-                                                                  //   - switch the the opposite (either asc or desc whatever it was)
-                                                                  // When it was fresh switched to amount
-                                                                  //   - set it to the default -> desc
-                                                                  actualListSortType =
-                                                                  actualListSortColumn ==
-                                                                      'amount'
-                                                                      ? (actualListSortType ==
-                                                                      'asc'
-                                                                      ? 'desc'
-                                                                      : 'asc')
-                                                                      : 'desc';
-
-                                                                  actualListSortColumn =
-                                                                  'amount';
-                                                                  loadList(
-                                                                      'actual',
-                                                                      actualListSortColumn,
-                                                                      actualListSortType);
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                },
-                                                                child: const Text(
-                                                                    'Amount of the entry'),
-                                                              ),
-                                                              SimpleDialogOption(
-                                                                onPressed: () {
-                                                                  // When its the same again
-                                                                  //   - switch the the opposite (either asc or desc whatever it was)
-                                                                  // When it was fresh switched to costtype
-                                                                  //   - set it to the default -> desc
-                                                                  actualListSortType =
-                                                                  actualListSortColumn ==
-                                                                      'costtype'
-                                                                      ? (actualListSortType ==
-                                                                      'asc'
-                                                                      ? 'desc'
-                                                                      : 'asc')
-                                                                      : 'desc';
-
-                                                                  actualListSortColumn =
-                                                                  'costtype';
-                                                                  loadList(
-                                                                      'actual',
-                                                                      actualListSortColumn,
-                                                                      actualListSortType);
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                },
-                                                                child: const Text(
-                                                                    'By Costtype'),
-                                                              ),
-                                                              SimpleDialogOption(
-                                                                onPressed: () {
-                                                                  // When its the same again
-                                                                  //   - switch the the opposite (either asc or desc whatever it was)
-                                                                  // When it was fresh switched to level1
-                                                                  //   - set it to the default -> desc
-                                                                  actualListSortType =
-                                                                  actualListSortColumn ==
-                                                                      'level1'
-                                                                      ? (actualListSortType ==
-                                                                      'asc'
-                                                                      ? 'desc'
-                                                                      : 'asc')
-                                                                      : 'desc';
-
-                                                                  actualListSortColumn =
-                                                                  'level1';
-                                                                  loadList(
-                                                                      'actual',
-                                                                      actualListSortColumn,
-                                                                      actualListSortType);
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                },
-                                                                child: const Text(
-                                                                    'By levels'),
-                                                              )
-                                                            ],
-                                                          );
-                                                        });
-                                                  })
-                                            ]),
-
-                                      ])
-                                      : ((actList[index - 1]
-                                      .costType
-                                      .toLowerCase()
-                                      .contains(
-                                      actualSearchTextFieldController
-                                          .text) ||
-                                      actList[index - 1]
-                                          .level1
-                                          .toLowerCase()
-                                          .contains(
-                                          actualSearchTextFieldController
-                                              .text) ||
-                                      actList[index - 1]
-                                          .level2
-                                          .toLowerCase()
-                                          .contains(
-                                          actualSearchTextFieldController
-                                              .text) ||
-                                      actList[index - 1]
-                                          .level3
-                                          .toLowerCase()
-                                          .contains(
-                                          actualSearchTextFieldController
-                                              .text) ||
-                                      actList[index - 1]
-                                          .comment
-                                          .toLowerCase()
-                                          .contains(
-                                          actualSearchTextFieldController
-                                              .text) ||
-                                      actList[index - 1].amount.toString()
-                                          .contains(
-                                          actualSearchTextFieldController
-                                              .text) ||
-                                      actList[index - 1].level1.toLowerCase()
-                                          .contains(
-                                          actualSearchTextFieldController
-                                              .text) ||
-                                      actList[index - 1].date.toLowerCase()
-                                          .contains(
-                                          actualSearchTextFieldController.text))
-                                      ? GestureDetector(
-                                      onTap: () {
-                                        print(
-                                            "Item ${actList[index - 1]
-                                                .id} clicked");
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) =>
-                                          new AlertDialog(
-                                            title: Text(
-                                              'Details',
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 25,
-                                              ),
-                                            ),
-                                            content: RichText(
-                                              text: TextSpan(
-                                                  text: "",
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15,
-                                                  ),
-                                                  children: <TextSpan>[
-                                                    TextSpan(
-                                                      text: 'Date:  ',
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${actList[index - 1]
-                                                          .date}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                    TextSpan(
-                                                      text: 'Amount: ',
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${actList[index - 1]
-                                                          .amount}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                    TextSpan(
-                                                      text: 'Level: ',
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${actList[index - 1]
-                                                          .level1} > ${actList[index -
-                                                          1]
-                                                          .level2} > ${actList[index -
-                                                          1].level3}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      'Costtype: ',
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${actList[index - 1]
-                                                          .costType}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                    TextSpan(
-                                                      text: 'Comment: ',
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${actList[index - 1]
-                                                          .comment.length > 0
-                                                          ? actList[index - 1]
-                                                          .comment
-                                                          : 'no comment available'}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                  ]),
-                                            ),
-                                            actions: <Widget>[
-                                              new FlatButton(
-                                                child:
-                                                new Text('DISMISS'),
-                                                onPressed: () =>
-                                                    Navigator.of(
-                                                        context)
-                                                        .pop(),
-                                              )
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                      child: Container(
-                                        margin:
-                                        const EdgeInsets.all(15.0),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Colors.blueAccent),
-                                          color: actList[index - 1]
-                                              .active ==
-                                              1
-                                              ? Color(0xffEEEEEE)
-                                              : Colors.redAccent,
-                                          borderRadius:
-                                          new BorderRadius.circular(
-                                              30.0),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.black12,
-                                              blurRadius:
-                                              5,
-                                              // has the effect of softening the shadow
-                                              spreadRadius:
-                                              0,
-                                              // has the effect of extending the shadow
-                                              offset: Offset(
-                                                7.0,
-                                                // horizontal, move right 10
-                                                7.0, // vertical, move down 10
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        child: Center(
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceEvenly,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment
-                                                    .center,
-                                                children: <Widget>[
-                                                  SizedBox(
-                                                    width: MediaQuery
-                                                        .of(
-                                                        context)
-                                                        .size
-                                                        .width *
-                                                        .6,
-                                                    //height: 300.0,
-                                                    child: Column(
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                        children: <Widget>[
-                                                          SizedBox(
-                                                              height: 15),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: MediaQuery
-                                                                      .of(
-                                                                      context)
-                                                                      .size
-                                                                      .width *
-                                                                      .1,
-                                                                  child:
-                                                                  Icon(
-                                                                    Icons
-                                                                        .attach_money,
-                                                                    color: Color(
-                                                                        0xff0957FF),
+                                                    IconButton(
+                                                        icon: Icon(Icons.clear),
+                                                        color:
+                                                            Color(0xff003680),
+                                                        alignment: Alignment
+                                                            .centerRight,
+                                                        iconSize: 25,
+                                                        onPressed: () {
+                                                          FocusScope.of(context)
+                                                              .unfocus();
+                                                          setState(() {
+                                                            actualSearchTextFieldController
+                                                                .clear();
+                                                          });
+                                                        }),
+                                                    IconButton(
+                                                        icon: Icon(Icons.sort),
+                                                        color:
+                                                            Color(0xff003680),
+                                                        alignment: Alignment
+                                                            .centerRight,
+                                                        iconSize: 25,
+                                                        onPressed: () {
+                                                          return showDialog(
+                                                              context: context,
+                                                              barrierDismissible:
+                                                                  true,
+                                                              builder:
+                                                                  (BuildContext
+                                                                      context) {
+                                                                return SimpleDialog(
+                                                                  title: Text(
+                                                                    AppLocalizations.of(
+                                                                            context)
+                                                                        .translate(
+                                                                            'OrderByText'),
                                                                   ),
-                                                                ),
-                                                                Text(
-                                                                  "${actList[index -
-                                                                      1].date}",
-                                                                  style: TextStyle(
-                                                                      color: Color(
-                                                                          0xff0957FF),
-                                                                      fontSize:
-                                                                      25),
-                                                                ),
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 10,
+                                                                  children: <
+                                                                      Widget>[
+                                                                    SimpleDialogOption(
+                                                                      onPressed:
+                                                                          () {
+                                                                        // When its the same again
+                                                                        //   - switch the the opposite (either asc or desc whatever it was)
+                                                                        // When it was fresh switched to created
+                                                                        //   - set it to the default -> desc
+                                                                        actualListSortType = actualListSortColumn ==
+                                                                                'created'
+                                                                            ? (actualListSortType == 'asc'
+                                                                                ? 'desc'
+                                                                                : 'asc')
+                                                                            : 'desc';
+                                                                        actualListSortColumn =
+                                                                            'created';
+
+                                                                        loadList(
+                                                                            'actual',
+                                                                            actualListSortColumn,
+                                                                            actualListSortType);
+                                                                        Navigator.pop(
+                                                                            context);
+                                                                      },
+                                                                      child:
+                                                                          Text(
+                                                                        AppLocalizations.of(context)
+                                                                            .translate('DateOfCreationOrderText'),
+                                                                      ),
+                                                                    ),
+                                                                    SimpleDialogOption(
+                                                                      onPressed:
+                                                                          () {
+                                                                        // When its the same again
+                                                                        //   - switch the the opposite (either asc or desc whatever it was)
+                                                                        // When it was fresh switched to data_date
+                                                                        //   - set it to the default -> desc
+                                                                        actualListSortType = actualListSortColumn ==
+                                                                                'data_date'
+                                                                            ? (actualListSortType == 'asc'
+                                                                                ? 'desc'
+                                                                                : 'asc')
+                                                                            : 'desc';
+
+                                                                        actualListSortColumn =
+                                                                            'data_date';
+                                                                        loadList(
+                                                                            'actual',
+                                                                            actualListSortColumn,
+                                                                            actualListSortType);
+                                                                        Navigator.pop(
+                                                                            context);
+                                                                      },
+                                                                      child:
+                                                                          Text(
+                                                                        AppLocalizations.of(context)
+                                                                            .translate('MonthBilledOrderText'),
+                                                                      ),
+                                                                    ),
+                                                                    SimpleDialogOption(
+                                                                        onPressed:
+                                                                            () {
+                                                                          // When its the same again
+                                                                          //   - switch the the opposite (either asc or desc whatever it was)
+                                                                          // When it was fresh switched to amount
+                                                                          //   - set it to the default -> desc
+                                                                          actualListSortType = actualListSortColumn == 'amount'
+                                                                              ? (actualListSortType == 'asc' ? 'desc' : 'asc')
+                                                                              : 'desc';
+
+                                                                          actualListSortColumn =
+                                                                              'amount';
+                                                                          loadList(
+                                                                              'actual',
+                                                                              actualListSortColumn,
+                                                                              actualListSortType);
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        },
+                                                                        child:
+                                                                            Text(
+                                                                          AppLocalizations.of(context)
+                                                                              .translate('AmountOrderText'),
+                                                                        )),
+                                                                    SimpleDialogOption(
+                                                                        onPressed:
+                                                                            () {
+                                                                          // When its the same again
+                                                                          //   - switch the the opposite (either asc or desc whatever it was)
+                                                                          // When it was fresh switched to costtype
+                                                                          //   - set it to the default -> desc
+                                                                          actualListSortType = actualListSortColumn == 'costtype'
+                                                                              ? (actualListSortType == 'asc' ? 'desc' : 'asc')
+                                                                              : 'desc';
+
+                                                                          actualListSortColumn =
+                                                                              'costtype';
+                                                                          loadList(
+                                                                              'actual',
+                                                                              actualListSortColumn,
+                                                                              actualListSortType);
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        },
+                                                                        child:
+                                                                            Text(
+                                                                          AppLocalizations.of(context)
+                                                                              .translate('CostTypeOrderText'),
+                                                                        )),
+                                                                    SimpleDialogOption(
+                                                                        onPressed:
+                                                                            () {
+                                                                          // When its the same again
+                                                                          //   - switch the the opposite (either asc or desc whatever it was)
+                                                                          // When it was fresh switched to level1
+                                                                          //   - set it to the default -> desc
+                                                                          actualListSortType = actualListSortColumn == 'level1'
+                                                                              ? (actualListSortType == 'asc' ? 'desc' : 'asc')
+                                                                              : 'desc';
+
+                                                                          actualListSortColumn =
+                                                                              'level1';
+                                                                          loadList(
+                                                                              'actual',
+                                                                              actualListSortColumn,
+                                                                              actualListSortType);
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        },
+                                                                        child:
+                                                                            Text(
+                                                                          AppLocalizations.of(context)
+                                                                              .translate('LevelOrderText'),
+                                                                        ))
+                                                                  ],
+                                                                );
+                                                              });
+                                                        })
+                                                  ]),
+                                            ])
+                                      : ((actList[index - 1].costType.toLowerCase().contains(actualSearchTextFieldController.text) ||
+                                              actList[index - 1]
+                                                  .level1
+                                                  .toLowerCase()
+                                                  .contains(actualSearchTextFieldController
+                                                      .text) ||
+                                              actList[index - 1]
+                                                  .level2
+                                                  .toLowerCase()
+                                                  .contains(actualSearchTextFieldController
+                                                      .text) ||
+                                              actList[index - 1]
+                                                  .level3
+                                                  .toLowerCase()
+                                                  .contains(actualSearchTextFieldController
+                                                      .text) ||
+                                              actList[index - 1]
+                                                  .comment
+                                                  .toLowerCase()
+                                                  .contains(actualSearchTextFieldController
+                                                      .text) ||
+                                              actList[index - 1]
+                                                  .amount
+                                                  .toString()
+                                                  .contains(
+                                                      actualSearchTextFieldController
+                                                          .text) ||
+                                              actList[index - 1]
+                                                  .level1
+                                                  .toLowerCase()
+                                                  .contains(actualSearchTextFieldController.text) ||
+                                              actList[index - 1].date.toLowerCase().contains(actualSearchTextFieldController.text))
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      new AlertDialog(
+                                                    title: Text(
+                                                      AppLocalizations.of(
+                                                              context)
+                                                          .translate(
+                                                              'DetailsListTitle'),
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 25,
+                                                      ),
+                                                    ),
+                                                    content: RichText(
+                                                      text: TextSpan(
+                                                          text: "",
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 15,
                                                           ),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: MediaQuery
+                                                          children: <TextSpan>[
+                                                            TextSpan(
+                                                              text: AppLocalizations
                                                                       .of(
-                                                                      context)
-                                                                      .size
-                                                                      .width *
-                                                                      .1,
-                                                                  child:
-                                                                  Container(),
-                                                                ),
-                                                                Flexible(
-                                                                    child:
+                                                                          context)
+                                                                  .translate(
+                                                                      'DetailsListDate'),
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${actList[index - 1].date}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                            TextSpan(
+                                                              text: AppLocalizations
+                                                                      .of(
+                                                                          context)
+                                                                  .translate(
+                                                                      'DetailsListAmount'),
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${actList[index - 1].amount}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                            TextSpan(
+                                                              text: AppLocalizations
+                                                                      .of(
+                                                                          context)
+                                                                  .translate(
+                                                                      'DetailsListLevel'),
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${actList[index - 1].level1} > ${actList[index - 1].level2} > ${actList[index - 1].level3}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                            TextSpan(
+                                                              text: AppLocalizations
+                                                                      .of(
+                                                                          context)
+                                                                  .translate(
+                                                                      'DetailsListCostType'),
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${actList[index - 1].costType}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                            TextSpan(
+                                                              text: AppLocalizations
+                                                                      .of(
+                                                                          context)
+                                                                  .translate(
+                                                                      'DetailsListCostType'),
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${actList[index - 1].comment.length > 0 ? actList[index - 1].comment : AppLocalizations.of(context).translate('noCommentAvailable')}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                          ]),
+                                                    ),
+                                                    actions: <Widget>[
+                                                      new FlatButton(
+                                                        child: new Text(
+                                                            AppLocalizations.of(
+                                                                    context)
+                                                                .translate(
+                                                                    'dismissDialog')),
+                                                        onPressed: () =>
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop(),
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                              child: Container(
+                                                margin:
+                                                    const EdgeInsets.all(15.0),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: Colors.blueAccent),
+                                                  color: actList[index - 1]
+                                                              .active ==
+                                                          1
+                                                      ? Color(0xffEEEEEE)
+                                                      : Colors.redAccent,
+                                                  borderRadius:
+                                                      new BorderRadius.circular(
+                                                          30.0),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black12,
+                                                      blurRadius: 5,
+                                                      // has the effect of softening the shadow
+                                                      spreadRadius: 0,
+                                                      // has the effect of extending the shadow
+                                                      offset: Offset(
+                                                        7.0,
+                                                        // horizontal, move right 10
+                                                        7.0, // vertical, move down 10
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                child: Center(
+                                                    child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: <Widget>[
+                                                      SizedBox(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            .6,
+                                                        //height: 300.0,
+                                                        child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              SizedBox(
+                                                                  height: 15),
+                                                              Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                      width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          .1,
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .attach_money,
+                                                                        color: Color(
+                                                                            0xff0957FF),
+                                                                      ),
+                                                                    ),
                                                                     Text(
-                                                                      "${actList[index -
-                                                                          1]
-                                                                          .comment
-                                                                          .length >
-                                                                          0
-                                                                          ? actList[index -
-                                                                          1]
-                                                                          .comment
-                                                                          : 'no comment available'}",
+                                                                      "${actList[index - 1].date}",
+                                                                      style: TextStyle(
+                                                                          color: Color(
+                                                                              0xff0957FF),
+                                                                          fontSize:
+                                                                              25),
+                                                                    ),
+                                                                  ]),
+                                                              SizedBox(
+                                                                height: 10,
+                                                              ),
+                                                              Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                      width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          .1,
+                                                                      child:
+                                                                          Container(),
+                                                                    ),
+                                                                    Flexible(
+                                                                        child:
+                                                                            Text(
+                                                                      "${actList[index - 1].comment.length > 0 ? actList[index - 1].comment : AppLocalizations.of(context).translate('noCommentAvailable')}",
                                                                       style:
-                                                                      TextStyle(
+                                                                          TextStyle(
                                                                         color: Colors
                                                                             .black,
                                                                         fontStyle:
-                                                                        FontStyle
-                                                                            .italic,
+                                                                            FontStyle.italic,
                                                                         fontSize:
-                                                                        15,
+                                                                            15,
                                                                       ),
                                                                       overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
+                                                                          TextOverflow
+                                                                              .ellipsis,
                                                                     )),
-                                                                Container(),
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                    width: MediaQuery
-                                                                        .of(
-                                                                        context)
-                                                                        .size
-                                                                        .width *
-                                                                        .1,
-                                                                    //height: 300.0,
-                                                                    child:
-                                                                    Container()),
-                                                                Flexible(
-                                                                    child:
-                                                                    Text(
-                                                                      '${actList[index -
-                                                                          1]
-                                                                          .level1} > ${actList[index -
-                                                                          1]
-                                                                          .level2} > ${actList[index -
-                                                                          1]
-                                                                          .level3}',
+                                                                    Container(),
+                                                                  ]),
+                                                              SizedBox(
+                                                                height: 10,
+                                                              ),
+                                                              Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                        width: MediaQuery.of(context).size.width *
+                                                                            .1,
+                                                                        //height: 300.0,
+                                                                        child:
+                                                                            Container()),
+                                                                    Flexible(
+                                                                        child:
+                                                                            Text(
+                                                                      '${actList[index - 1].level1} > ${actList[index - 1].level2} > ${actList[index - 1].level3}',
                                                                       style: TextStyle(
                                                                           color: Colors
                                                                               .black,
                                                                           fontSize:
-                                                                          13),
+                                                                              13),
                                                                       overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
+                                                                          TextOverflow
+                                                                              .ellipsis,
                                                                     ))
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 5,
-                                                          ),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                    width: MediaQuery
-                                                                        .of(
-                                                                        context)
-                                                                        .size
-                                                                        .width *
-                                                                        .1,
-                                                                    //height: 300.0,
-                                                                    child:
-                                                                    Container()),
-                                                                Flexible(
-                                                                    child:
-                                                                    Text(
-                                                                      '${actList[index -
-                                                                          1]
-                                                                          .costType}',
+                                                                  ]),
+                                                              SizedBox(
+                                                                height: 5,
+                                                              ),
+                                                              Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                        width: MediaQuery.of(context).size.width *
+                                                                            .1,
+                                                                        //height: 300.0,
+                                                                        child:
+                                                                            Container()),
+                                                                    Flexible(
+                                                                        child:
+                                                                            Text(
+                                                                      '${actList[index - 1].costType}',
                                                                       style: TextStyle(
                                                                           color: Colors
                                                                               .black,
                                                                           fontSize:
-                                                                          13),
+                                                                              13),
                                                                       overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
+                                                                          TextOverflow
+                                                                              .ellipsis,
                                                                     ))
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 15,
-                                                          ),
-                                                        ]),
-                                                  ),
-                                                  Column(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .start,
-                                                      children: [
-                                                        Text(
-                                                            '${actList[index -
-                                                                1].amount}'),
-                                                        SizedBox(
-                                                          width: MediaQuery
-                                                              .of(
-                                                              context)
-                                                              .size
-                                                              .width *
-                                                              .1,
-                                                          //height: 300.0,
-                                                          child: IconButton(
-                                                            icon: new Icon(
-                                                              actList[index - 1]
-                                                                  .active ==
-                                                                  1
-                                                                  ? Icons
-                                                                  .delete
-                                                                  : Icons
-                                                                  .restore,
-                                                            ),
-                                                            color: Color(
-                                                                0xff0957FF),
-                                                            onPressed: () {
-                                                              showDialog(
-                                                                context:
-                                                                context,
-                                                                builder:
-                                                                    (context) =>
-                                                                new AlertDialog(
-                                                                  title:
-                                                                  Text(
-                                                                    "Are you sure?",
-                                                                    style:
-                                                                    TextStyle(
-                                                                      fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                      fontSize:
-                                                                      25,
-                                                                    ),
-                                                                  ),
-                                                                  content:
-                                                                  RichText(
-                                                                    text: TextSpan(
-                                                                        text:
-                                                                        "${actList[index -
-                                                                            1]
-                                                                            .comment
-                                                                            .length >
-                                                                            0
-                                                                            ? actList[index -
-                                                                            1]
-                                                                            .comment
-                                                                            : 'no comment available'}\n\n",
-                                                                        style: TextStyle(
-                                                                            color: Colors
-                                                                                .black,
-                                                                            fontSize: 15,
-                                                                            fontStyle: FontStyle
-                                                                                .italic),
-                                                                        children: <
-                                                                            TextSpan>[
-                                                                          TextSpan(
-                                                                            text: 'Entry from ',
-                                                                            style: TextStyle(
-                                                                              fontSize: 18,
-                                                                            ),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: '${actList[index -
-                                                                                1]
-                                                                                .date} ',
-                                                                            style: TextStyle(
-                                                                                color: Color(
-                                                                                    0xFF0957FF),
-                                                                                fontSize: 18,
-                                                                                fontWeight: FontWeight
-                                                                                    .bold),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: 'with an amount of ',
-                                                                            style: TextStyle(
-                                                                              fontSize: 18,
-                                                                            ),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: '${actList[index -
-                                                                                1]
-                                                                                .amount} ',
-                                                                            style: TextStyle(
-                                                                                color: Color(
-                                                                                    0xFF0957FF),
-                                                                                fontSize: 18,
-                                                                                fontWeight: FontWeight
-                                                                                    .bold),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: 'will be ',
-                                                                            style: TextStyle(
-                                                                              fontSize: 18,
-                                                                            ),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: '${actList[index -
-                                                                                1]
-                                                                                .active ==
-                                                                                1
-                                                                                ? "deleted"
-                                                                                : "restored"}',
-                                                                            style: TextStyle(
-                                                                                color: actList[index -
-                                                                                    1]
-                                                                                    .active ==
-                                                                                    1
-                                                                                    ? Colors
-                                                                                    .red
-                                                                                    : Colors
-                                                                                    .green,
-                                                                                fontSize: 18,
-                                                                                fontWeight: FontWeight
-                                                                                    .bold),
-                                                                          ),
-                                                                        ]),
-                                                                  ),
-                                                                  actions: <
-                                                                      Widget>[
-                                                                    new FlatButton(
-                                                                      child:
-                                                                      new Text(
-                                                                          'Cancel'),
-                                                                      onPressed: () =>
-                                                                          Navigator
-                                                                              .of(
-                                                                              context)
-                                                                              .pop(),
-                                                                    ),
-                                                                    new FlatButton(
-                                                                      child:
-                                                                      new Text(
-                                                                          'Confirm'),
-                                                                      onPressed:
-                                                                          () {
-                                                                        actObjectToDelete
-                                                                            .id =
-                                                                            actList[index -
-                                                                                1]
-                                                                                .id;
-
-                                                                        sendBackend(
-                                                                            'actlistdelete',
-                                                                            false);
-                                                                        Navigator
-                                                                            .of(
-                                                                            context)
-                                                                            .pop();
-                                                                      },
-                                                                    )
-                                                                  ],
+                                                                  ]),
+                                                              SizedBox(
+                                                                height: 15,
+                                                              ),
+                                                            ]),
+                                                      ),
+                                                      Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                                '${actList[index - 1].amount}'),
+                                                            SizedBox(
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width *
+                                                                  .1,
+                                                              //height: 300.0,
+                                                              child: IconButton(
+                                                                icon: new Icon(
+                                                                  actList[index - 1]
+                                                                              .active ==
+                                                                          1
+                                                                      ? Icons
+                                                                          .delete
+                                                                      : Icons
+                                                                          .restore,
                                                                 ),
-                                                              );
-                                                            },
-                                                          ),
-                                                        )
-                                                      ]),
-                                                ])),
-                                      ))
-                                      : Container());
+                                                                color: Color(
+                                                                    0xff0957FF),
+                                                                onPressed: () {
+                                                                  showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (context) =>
+                                                                            new AlertDialog(
+                                                                      title:
+                                                                          Text(
+                                                                        AppLocalizations.of(context)
+                                                                            .translate('areYouSureDialog'),
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                          fontSize:
+                                                                              25,
+                                                                        ),
+                                                                      ),
+                                                                      content:
+                                                                          RichText(
+                                                                        text: TextSpan(
+                                                                            text:
+                                                                                "${actList[index - 1].comment.length > 0 ? actList[index - 1].comment : AppLocalizations.of(context).translate('noCommentAvailable')}\n\n",
+                                                                            style: TextStyle(
+                                                                                color: Colors.black,
+                                                                                fontSize: 15,
+                                                                                fontStyle: FontStyle.italic),
+                                                                            children: <TextSpan>[
+                                                                              TextSpan(
+                                                                                text: AppLocalizations.of(context).translate('EntryFrom'),
+                                                                                style: TextStyle(
+                                                                                  fontSize: 18,
+                                                                                ),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: '${actList[index - 1].date} ',
+                                                                                style: TextStyle(color: Color(0xFF0957FF), fontSize: 18, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: AppLocalizations.of(context).translate('withAnAmountOf'),
+                                                                                style: TextStyle(
+                                                                                  fontSize: 18,
+                                                                                ),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: '${actList[index - 1].amount} ',
+                                                                                style: TextStyle(color: Color(0xFF0957FF), fontSize: 18, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: AppLocalizations.of(context).translate('willBe'),
+                                                                                style: TextStyle(
+                                                                                  fontSize: 18,
+                                                                                ),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: '${actList[index - 1].active == 1 ? AppLocalizations.of(context).translate('deleted') : AppLocalizations.of(context).translate('restored')}',
+                                                                                style: TextStyle(color: actList[index - 1].active == 1 ? Colors.red : Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ]),
+                                                                      ),
+                                                                      actions: <
+                                                                          Widget>[
+                                                                        new FlatButton(
+                                                                          child:
+                                                                              new Text(AppLocalizations.of(context).translate('cancel')),
+                                                                          onPressed: () =>
+                                                                              Navigator.of(context).pop(),
+                                                                        ),
+                                                                        new FlatButton(
+                                                                          child:
+                                                                              new Text(AppLocalizations.of(context).translate('confirm')),
+                                                                          onPressed:
+                                                                              () {
+                                                                            actObjectToDelete.id =
+                                                                                actList[index - 1].id;
+
+                                                                            sendBackend('actlistdelete',
+                                                                                false);
+                                                                            Navigator.of(context).pop();
+                                                                          },
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              ),
+                                                            )
+                                                          ]),
+                                                    ])),
+                                              ))
+                                          : Container());
                                 })),
                       ]),
                     ),
@@ -3862,7 +3686,8 @@ class _MyHomePageState extends State<MyHomePage>
                                   color: Colors.white,
                                 ),
                                 Text(
-                                  "Input",
+                                  AppLocalizations.of(context)
+                                      .translate('TitleInputTab'),
                                   style: TextStyle(color: Colors.white),
                                 )
                               ]),
@@ -3883,7 +3708,8 @@ class _MyHomePageState extends State<MyHomePage>
                                   color: Colors.white,
                                 ),
                                 Text(
-                                  "Adjust",
+                                  AppLocalizations.of(context)
+                                      .translate('TitleListTab'),
                                   style: TextStyle(color: Colors.white),
                                 )
                               ]),
@@ -3903,30 +3729,29 @@ class _MyHomePageState extends State<MyHomePage>
                                     enablePullDown: true,
                                     onRefresh: () async {
                                       await handleRefresh(_currentIndex);
-                                      print("REFRESHING ON SCROLL");
                                       //await Future.delayed(Duration(seconds: 2));
                                       _refreshController.refreshCompleted();
                                     },
                                     child: ListView.builder(
-                                      // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
+                                        // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
                                         itemCount: 1,
                                         itemBuilder:
                                             (BuildContext context, int index) {
                                           return Column(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                                MainAxisAlignment.center,
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                                CrossAxisAlignment.center,
                                             children: <Widget>[
                                               SizedBox(
                                                 height: 10,
                                               ),
                                               Row(
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceEvenly,
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                      CrossAxisAlignment.center,
                                                   children: <Widget>[
                                                     ButtonTheme(
                                                       //minWidth: 150.0,
@@ -3937,38 +3762,32 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 'budget',
                                                                 dateTimeBudget),
                                                         shape:
-                                                        new RoundedRectangleBorder(
+                                                            new RoundedRectangleBorder(
                                                           borderRadius:
-                                                          new BorderRadius
-                                                              .circular(
-                                                              40.0),
+                                                              new BorderRadius
+                                                                      .circular(
+                                                                  40.0),
                                                         ),
                                                         color:
-                                                        Color(0xff003680),
+                                                            Color(0xff003680),
                                                         padding: EdgeInsets.all(
                                                             10.0),
                                                         child: Row(
                                                           // Replace with a Row for horizontal icon + text
                                                           children: <Widget>[
                                                             Text(
-                                                                " ${dateTimeBudget
-                                                                    .year
-                                                                    .toString()}-${dateTimeBudget
-                                                                    .month
-                                                                    .toString()
-                                                                    .padLeft(
-                                                                    2, '0')}",
+                                                                " ${dateTimeBudget.year.toString()}-${dateTimeBudget.month.toString().padLeft(2, '0')}",
                                                                 style: TextStyle(
                                                                     color: Colors
                                                                         .white,
                                                                     fontSize:
-                                                                    17)),
+                                                                        17)),
                                                             SizedBox(width: 10),
                                                             Icon(
                                                               Icons
                                                                   .calendar_today,
                                                               color:
-                                                              Colors.white,
+                                                                  Colors.white,
                                                             ),
                                                           ],
                                                         ),
@@ -3985,21 +3804,21 @@ class _MyHomePageState extends State<MyHomePage>
                                                 alignment: Alignment.center,
                                                 //child: Text('Submit'),
                                                 child: TextFormField(
-                                                  keyboardType: TextInputType
-                                                      .number,
+                                                  keyboardType:
+                                                      TextInputType.number,
                                                   //keyboard with numbers only will appear to the screen
-                                                  style: TextStyle(
-                                                      height:
-                                                      2),
+                                                  style: TextStyle(height: 2),
                                                   //increases the height of cursor
                                                   //autofocus: true,
                                                   controller:
-                                                  budgetTextFieldController,
+                                                      budgetTextFieldController,
                                                   decoration: InputDecoration(
-                                                    // hintText: 'Enter ur amount',
-                                                    //hintStyle: TextStyle(height: 1.75),
-                                                      labelText:
-                                                      'Enter your amount',
+                                                      // hintText: 'Enter ur amount',
+                                                      //hintStyle: TextStyle(height: 1.75),
+                                                      labelText: AppLocalizations
+                                                              .of(context)
+                                                          .translate(
+                                                              'TextFieldAmountInput'),
                                                       labelStyle: TextStyle(
                                                           height: 0.5,
                                                           color: Color(
@@ -4008,251 +3827,243 @@ class _MyHomePageState extends State<MyHomePage>
                                                       icon: Icon(
                                                         Icons.attach_money,
                                                         color:
-                                                        Color(0xff0957FF),
+                                                            Color(0xff0957FF),
                                                       ),
                                                       //prefixIcon: Icon(Icons.attach_money),
                                                       //labelStyle: TextStyle(color: Color(0xff0957FF)),
                                                       enabledBorder:
-                                                      new UnderlineInputBorder(
-                                                          borderSide:
-                                                          new BorderSide(
-                                                              color: Color(
-                                                                  0xff0957FF)))),
+                                                          new UnderlineInputBorder(
+                                                              borderSide:
+                                                                  new BorderSide(
+                                                                      color: Color(
+                                                                          0xff0957FF)))),
                                                 ),
                                               ),
                                               areLevel1AccountsActive
                                                   ? Container(
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment:
-                                                Alignment.center,
-                                                //child: Text('Submit'),
-                                                child:
-                                                SearchChoices.single(
-                                                  items:
-                                                  level1BudgetAccountsList
-                                                      .map((Account
-                                                  account) {
-                                                    return new DropdownMenuItem<
-                                                        Account>(
-                                                      value: account,
-                                                      child: new Text(
-                                                        account.name,
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 30.0,
+                                                              top: 0,
+                                                              right: 30,
+                                                              bottom: 0),
+                                                      //color: Colors.blue[600],
+                                                      alignment:
+                                                          Alignment.center,
+                                                      //child: Text('Submit'),
+                                                      child:
+                                                          SearchChoices.single(
+                                                        items:
+                                                            level1BudgetAccountsList
+                                                                .map((Account
+                                                                    account) {
+                                                          return new DropdownMenuItem<
+                                                              Account>(
+                                                            value: account,
+                                                            child: new Text(
+                                                              account.name,
+                                                            ),
+                                                          );
+                                                        }).toList(),
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xff0957FF)),
+                                                        value:
+                                                            level1BudgetObject,
+                                                        underline: Container(
+                                                          height: 2,
+                                                          width: 5000,
+                                                          color:
+                                                              Color(0xff0957FF),
+                                                        ),
+                                                        hint:
+                                                            "Select one number",
+                                                        searchHint:
+                                                            "Select one number",
+                                                        onClear: () {
+                                                          setState(() {
+                                                            level1BudgetObject =
+                                                                level1BudgetAccountsList[
+                                                                    0];
+
+                                                            level2BudgetObject =
+                                                                level2BudgetAccountsList[
+                                                                    0];
+
+                                                            level3BudgetObject =
+                                                                level3BudgetAccountsList[
+                                                                    0];
+                                                          });
+                                                        },
+                                                        onChanged: (value) {
+                                                          if (value != null) {
+                                                            setState(() {
+                                                              level1BudgetObject =
+                                                                  value;
+                                                            });
+
+                                                            arrangeAccounts(
+                                                                1, 'budget');
+                                                          }
+                                                        },
+                                                        dialogBox: true,
+                                                        isExpanded: true,
                                                       ),
-                                                    );
-                                                  }).toList(),
-                                                  style: TextStyle(
-                                                      color: Color(
-                                                          0xff0957FF)),
-                                                  value:
-                                                  level1BudgetObject,
-                                                  underline: Container(
-                                                    height: 2,
-                                                    width: 5000,
-                                                    color:
-                                                    Color(0xff0957FF),
-                                                  ),
-                                                  hint:
-                                                  "Select one number",
-                                                  searchHint:
-                                                  "Select one number",
-                                                  onClear: () {
-                                                    print("CLEARING");
-
-                                                    setState(() {
-                                                      level1BudgetObject =
-                                                      level1BudgetAccountsList[
-                                                      0];
-
-                                                      level2BudgetObject =
-                                                      level2BudgetAccountsList[
-                                                      0];
-
-                                                      level3BudgetObject =
-                                                      level3BudgetAccountsList[
-                                                      0];
-                                                    });
-                                                  },
-                                                  onChanged: (value) {
-                                                    if (value != null) {
-                                                      setState(() {
-                                                        level1BudgetObject =
-                                                            value;
-                                                      });
-
-                                                      arrangeAccounts(
-                                                          1, 'budget');
-                                                    }
-                                                  },
-                                                  dialogBox: true,
-                                                  isExpanded: true,
-                                                ),
-                                              )
+                                                    )
                                                   : Container(),
                                               areLevel2AccountsActive
                                                   ? Container(
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 30.0,
+                                                              top: 0,
+                                                              right: 30,
+                                                              bottom: 0),
+                                                      //color: Colors.blue[600],
 
-                                                alignment:
-                                                Alignment.center,
-                                                //child: Text('Submit'),
-                                                child:
-                                                SearchChoices.single(
-                                                  items:
-                                                  level2BudgetAccountsList
-                                                      .map((Account
-                                                  account) {
-                                                    return new DropdownMenuItem<
-                                                        Account>(
-                                                      value: account,
-                                                      child: new Text(
-                                                        account.name,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      //child: Text('Submit'),
+                                                      child:
+                                                          SearchChoices.single(
+                                                        items:
+                                                            level2BudgetAccountsList
+                                                                .map((Account
+                                                                    account) {
+                                                          return new DropdownMenuItem<
+                                                              Account>(
+                                                            value: account,
+                                                            child: new Text(
+                                                              account.name,
+                                                            ),
+                                                          );
+                                                        }).toList(),
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xff0957FF)),
+                                                        value:
+                                                            level2BudgetObject,
+                                                        readOnly: level1BudgetObject
+                                                                    .id <=
+                                                                0 ||
+                                                            level2BudgetAccountsList
+                                                                    .length ==
+                                                                1,
+                                                        underline: Container(
+                                                          height: 2,
+                                                          width: 5000,
+                                                          color:
+                                                              Color(0xff0957FF),
+                                                        ),
+                                                        hint:
+                                                            "Select one number",
+                                                        searchHint:
+                                                            "Select one number",
+                                                        onClear: () {
+                                                          setState(() {
+                                                            level2BudgetObject =
+                                                                level2BudgetAccountsList[
+                                                                    0];
+
+                                                            level3BudgetObject =
+                                                                level3BudgetAccountsList[
+                                                                    0];
+                                                          });
+                                                        },
+                                                        onChanged: (value) {
+                                                          if (value != null) {
+                                                            // Check if a new value was selected or the same was reselected
+                                                            dummyAccount =
+                                                                level2BudgetObject;
+
+                                                            setState(() {
+                                                              level2BudgetObject =
+                                                                  value;
+                                                            });
+
+                                                            if (dummyAccount
+                                                                    .id !=
+                                                                value.id) {
+                                                              arrangeAccounts(
+                                                                  2, 'budget');
+                                                            } else {
+                                                              print(
+                                                                  "RESELECTED");
+                                                            }
+                                                          }
+                                                        },
+                                                        dialogBox: true,
+                                                        isExpanded: true,
                                                       ),
-                                                    );
-                                                  }).toList(),
-                                                  style: TextStyle(
-                                                      color: Color(
-                                                          0xff0957FF)),
-                                                  value:
-                                                  level2BudgetObject,
-                                                  readOnly: level1BudgetObject
-                                                      .id <=
-                                                      0 ||
-                                                      level2BudgetAccountsList
-                                                          .length ==
-                                                          1,
-                                                  underline: Container(
-                                                    height: 2,
-                                                    width: 5000,
-                                                    color:
-                                                    Color(0xff0957FF),
-                                                  ),
-                                                  hint:
-                                                  "Select one number",
-                                                  searchHint:
-                                                  "Select one number",
-                                                  onClear: () {
-                                                    setState(() {
-                                                      level2BudgetObject =
-                                                      level2BudgetAccountsList[
-                                                      0];
-
-                                                      level3BudgetObject =
-                                                      level3BudgetAccountsList[
-                                                      0];
-                                                    });
-                                                  },
-                                                  onChanged: (value) {
-                                                    print(
-                                                        "CLEAR BUTTON PRESSED: (${value ==
-                                                            null})");
-
-                                                    if (value != null) {
-                                                      // Check if a new value was selected or the same was reselected
-                                                      dummyAccount =
-                                                          level2BudgetObject;
-
-                                                      setState(() {
-                                                        level2BudgetObject =
-                                                            value;
-                                                      });
-
-                                                      if (dummyAccount.id !=
-                                                          value.id) {
-                                                        arrangeAccounts(
-                                                            2, 'budget');
-                                                      } else {
-                                                        print("RESELECTED");
-                                                      }
-                                                    }
-                                                  },
-                                                  dialogBox: true,
-                                                  isExpanded: true,
-                                                ),
-                                              )
+                                                    )
                                                   : Container(),
                                               areLevel3AccountsActive
                                                   ? Container(
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment:
-                                                Alignment.center,
-                                                //child: Text('Submit'),
-                                                child:
-                                                SearchChoices.single(
-                                                  items:
-                                                  level3BudgetAccountsList
-                                                      .map((Account
-                                                  account) {
-                                                    return new DropdownMenuItem<
-                                                        Account>(
-                                                      value: account,
-                                                      child: new Text(
-                                                        account.name,
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 30.0,
+                                                              top: 0,
+                                                              right: 30,
+                                                              bottom: 0),
+                                                      //color: Colors.blue[600],
+                                                      alignment:
+                                                          Alignment.center,
+                                                      //child: Text('Submit'),
+                                                      child:
+                                                          SearchChoices.single(
+                                                        items:
+                                                            level3BudgetAccountsList
+                                                                .map((Account
+                                                                    account) {
+                                                          return new DropdownMenuItem<
+                                                              Account>(
+                                                            value: account,
+                                                            child: new Text(
+                                                              account.name,
+                                                            ),
+                                                          );
+                                                        }).toList(),
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xff0957FF)),
+                                                        value:
+                                                            level3BudgetObject,
+                                                        readOnly: level3BudgetObject
+                                                                    .id <=
+                                                                0 ||
+                                                            level3BudgetAccountsList
+                                                                    .length ==
+                                                                1,
+                                                        underline: Container(
+                                                          height: 2,
+                                                          width: 5000,
+                                                          color:
+                                                              Color(0xff0957FF),
+                                                        ),
+                                                        hint:
+                                                            "Select one number",
+                                                        searchHint:
+                                                            "Select one number",
+                                                        onClear: () {
+                                                          setState(() {
+                                                            level3BudgetObject =
+                                                                level3BudgetAccountsList[
+                                                                    0];
+                                                          });
+                                                        },
+                                                        // The default object is set again
+                                                        onChanged: (value) {
+                                                          if (value != null) {
+                                                            setState(() {
+                                                              level3BudgetObject =
+                                                                  value;
+                                                            });
+                                                          }
+                                                        },
+                                                        dialogBox: true,
+                                                        isExpanded: true,
                                                       ),
-                                                    );
-                                                  }).toList(),
-                                                  style: TextStyle(
-                                                      color: Color(
-                                                          0xff0957FF)),
-                                                  value:
-                                                  level3BudgetObject,
-                                                  readOnly: level3BudgetObject
-                                                      .id <=
-                                                      0 ||
-                                                      level3BudgetAccountsList
-                                                          .length ==
-                                                          1,
-                                                  underline: Container(
-                                                    height: 2,
-                                                    width: 5000,
-                                                    color:
-                                                    Color(0xff0957FF),
-                                                  ),
-                                                  hint:
-                                                  "Select one number",
-                                                  searchHint:
-                                                  "Select one number",
-                                                  onClear: () {
-                                                    setState(() {
-                                                      level3BudgetObject =
-                                                      level3BudgetAccountsList[
-                                                      0];
-                                                    });
-                                                  },
-                                                  // The default object is set again
-                                                  onChanged: (value) {
-                                                    print(
-                                                        "CLEAR BUTTON PRESSED: (${value ==
-                                                            null})");
-
-                                                    if (value != null) {
-                                                      setState(() {
-                                                        level3BudgetObject =
-                                                            value;
-                                                      });
-                                                    }
-                                                  },
-                                                  dialogBox: true,
-                                                  isExpanded: true,
-                                                ),
-                                              )
+                                                    )
                                                   : Container(),
                                               // #52 when a level is deactivated the widgets have no space between
                                               // this adds a little white space between the widget
@@ -4261,82 +4072,87 @@ class _MyHomePageState extends State<MyHomePage>
                                                   : SizedBox(height: 20),
                                               areCostTypesActive
                                                   ? Container(
-                                                constraints:
-                                                BoxConstraints.expand(
-                                                  height: 80,
-                                                  //width: MediaQuery.of(context).size.width * .8
-                                                ),
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment:
-                                                Alignment.center,
-                                                //child: Text('Submit'),
-                                                child: Align(
-                                                  alignment:
-                                                  Alignment.topRight,
-                                                  child: SearchChoices
-                                                      .single(
-                                                    value:
-                                                    costTypeObjectBudget,
-                                                    icon: Icon(Icons
-                                                        .arrow_downward),
-                                                    iconSize: 24,
-                                                    style: TextStyle(
-                                                        color: Color(
-                                                            0xff0957FF)),
-                                                    //isExpanded: true,
-                                                    underline: Container(
-                                                      height: 2,
-                                                      width: 2000,
-                                                      color: Color(
-                                                          0xff0957FF),
-                                                    ),
-                                                    onClear: () {
-                                                      setState(() {
-                                                        costTypeObjectBudget =
-                                                        costTypesList[
-                                                        0];
-                                                      });
-                                                    },
-                                                    onChanged: (CostType
-                                                    newValue) {
-                                                      if (newValue != null) {
-                                                        setState(() {
-                                                          costTypeObjectBudget =
-                                                              newValue;
-                                                        });
-                                                      }
-                                                    },
-                                                    items: costTypesList
-                                                        .map((CostType
-                                                    type) {
-                                                      return new DropdownMenuItem<
-                                                          CostType>(
-                                                        value: type,
-                                                        child: new Text(
-                                                          type.name,
+                                                      constraints:
+                                                          BoxConstraints.expand(
+                                                        height: 80,
+                                                        //width: MediaQuery.of(context).size.width * .8
+                                                      ),
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 30.0,
+                                                              top: 0,
+                                                              right: 30,
+                                                              bottom: 0),
+                                                      //color: Colors.blue[600],
+                                                      alignment:
+                                                          Alignment.center,
+                                                      //child: Text('Submit'),
+                                                      child: Align(
+                                                        alignment:
+                                                            Alignment.topRight,
+                                                        child: SearchChoices
+                                                            .single(
+                                                          value:
+                                                              costTypeObjectBudget,
+                                                          icon: Icon(Icons
+                                                              .arrow_downward),
+                                                          iconSize: 24,
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  0xff0957FF)),
+                                                          //isExpanded: true,
+                                                          underline: Container(
+                                                            height: 2,
+                                                            width: 2000,
+                                                            color: Color(
+                                                                0xff0957FF),
+                                                          ),
+                                                          onClear: () {
+                                                            setState(() {
+                                                              costTypeObjectBudget =
+                                                                  costTypesList[
+                                                                      0];
+                                                            });
+                                                          },
+                                                          onChanged: (CostType
+                                                              newValue) {
+                                                            if (newValue !=
+                                                                null) {
+                                                              setState(() {
+                                                                costTypeObjectBudget =
+                                                                    newValue;
+                                                              });
+                                                            }
+                                                          },
+                                                          items: costTypesList
+                                                              .map((CostType
+                                                                  type) {
+                                                            return new DropdownMenuItem<
+                                                                CostType>(
+                                                              value: type,
+                                                              child: new Text(
+                                                                type.name,
+                                                              ),
+                                                            );
+                                                          }).toList(),
                                                         ),
-                                                      );
-                                                    }).toList(),
-                                                  ),
-                                                ),
-                                              )
+                                                      ),
+                                                    )
                                                   : Container(),
                                               ButtonBar(
-                                                mainAxisSize: MainAxisSize
-                                                    .min,
+                                                mainAxisSize: MainAxisSize.min,
                                                 // this will take space as minimum as posible(to center)
                                                 children: <Widget>[
                                                   ButtonTheme(
                                                     minWidth: 75.0,
                                                     height: 40.0,
                                                     child: RaisedButton(
-                                                      child: Text('Discard'),
+                                                      child: Text(
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .translate(
+                                                                'DiscardButton'),
+                                                      ),
                                                       color: Color(
                                                           0xffEEEEEE), // EEEEEE
                                                       onPressed: () {
@@ -4344,17 +4160,17 @@ class _MyHomePageState extends State<MyHomePage>
                                                             .text = '';
                                                         setState(() {
                                                           level1BudgetObject =
-                                                          level1BudgetAccountsList[
-                                                          0];
+                                                              level1BudgetAccountsList[
+                                                                  0];
                                                           level2BudgetObject =
-                                                          level2BudgetAccountsList[
-                                                          0];
+                                                              level2BudgetAccountsList[
+                                                                  0];
                                                           level3BudgetObject =
-                                                          level3BudgetAccountsList[
-                                                          0];
+                                                              level3BudgetAccountsList[
+                                                                  0];
 
                                                           costTypeObjectBudget =
-                                                          costTypesList[0];
+                                                              costTypesList[0];
                                                         });
                                                         /*
                                 showDialog(
@@ -4385,13 +4201,16 @@ class _MyHomePageState extends State<MyHomePage>
                                                     minWidth: 150.0,
                                                     height: 60.0,
                                                     child: RaisedButton(
-                                                      child: Text('Save',
+                                                      child: Text(
+                                                          AppLocalizations.of(
+                                                                  context)
+                                                              .translate(
+                                                                  'SaveButton'),
                                                           style: TextStyle(
                                                               color:
-                                                              Colors.white,
+                                                                  Colors.white,
                                                               fontSize: 17)),
-                                                      color: Color(
-                                                          0xff0957FF),
+                                                      color: Color(0xff0957FF),
                                                       //df7599 - 0957FF
                                                       onPressed: () {
                                                         commentInput(
@@ -4417,788 +4236,707 @@ class _MyHomePageState extends State<MyHomePage>
                             enablePullDown: true,
                             onRefresh: () async {
                               await handleRefresh(_currentIndex);
-                              print("REFRESHING ON SCROLL");
                               //await Future.delayed(Duration(seconds: 2));
                               _refreshController.refreshCompleted();
                             },
                             child: ListView.builder(
                                 padding: const EdgeInsets.all(8),
-                                itemCount: bdgList.length +
-                                    1,
+                                itemCount: bdgList.length + 1,
                                 // Length + 1 as the 0 index is the sort button, all other use index - 1
                                 itemBuilder: (BuildContext context, int index) {
                                   return index == 0
                                       ? Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Flexible(child: TextFormField(
-                                            autofocus: false,
-                                            onChanged: (value) {
-                                              setState(() {});
-                                            },
-                                            controller:
-                                            budgetSearchTextFieldController,
-                                            decoration: InputDecoration(
-                                              // hintText: 'Enter ur amount',
-                                              //hintStyle: TextStyle(height: 1.75),
-                                              labelText:
-                                              'Search for amounts, comments and more',
-                                              //increases the height of cursor
-                                              icon: Icon(
-                                                Icons.search,
-                                              ),
-                                            ))),
-                                        IconButton(
-                                            icon: Icon(Icons.clear),
-                                            color: Color(0xff003680),
-                                            alignment:
-                                            Alignment.centerRight,
-                                            iconSize: 25,
-                                            onPressed: () {
-                                              setState(() {
-                                                FocusScope.of(context)
-                                                    .unfocus();
-                                                budgetSearchTextFieldController
-                                                    .clear();
-                                              });
-                                            }), IconButton(
-                                            icon: Icon(Icons.sort),
-                                            color: Color(0xff003680),
-                                            alignment:
-                                            Alignment.centerRight,
-                                            iconSize: 25,
-                                            onPressed: () {
-                                              return showDialog(
-                                                  context: context,
-                                                  barrierDismissible:
-                                                  true,
-                                                  builder: (BuildContext
-                                                  context) {
-                                                    return SimpleDialog(
-                                                      title: const Text(
-                                                          'Order by ... '),
-                                                      children: <Widget>[
-                                                        SimpleDialogOption(
-                                                          onPressed: () {
-                                                            // When its the same again
-                                                            //   - switch the the opposite (either asc or desc whatever it was)
-                                                            // When it was fresh switched to level1
-                                                            //   - set it to the default -> desc
-                                                            budgetListSortType =
-                                                            budgetListSortColumn ==
-                                                                'created'
-                                                                ? (budgetListSortType ==
-                                                                'asc'
-                                                                ? 'desc'
-                                                                : 'asc')
-                                                                : 'desc';
-
-                                                            budgetListSortColumn =
-                                                            'created';
-                                                            loadList(
-                                                                'budget',
-                                                                budgetListSortColumn,
-                                                                budgetListSortType);
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                          child: Text(
-                                                              'Date of creation'),
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                              Flexible(
+                                                  child: TextFormField(
+                                                      autofocus: false,
+                                                      onChanged: (value) {
+                                                        setState(() {});
+                                                      },
+                                                      controller:
+                                                          budgetSearchTextFieldController,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        // hintText: 'Enter ur amount',
+                                                        //hintStyle: TextStyle(height: 1.75),
+                                                        labelText: AppLocalizations
+                                                                .of(context)
+                                                            .translate(
+                                                                'ListSearchTextField'),
+                                                        //increases the height of cursor
+                                                        icon: Icon(
+                                                          Icons.search,
                                                         ),
-                                                        SimpleDialogOption(
-                                                          onPressed: () {
-                                                            // When its the same again
-                                                            //   - switch the the opposite (either asc or desc whatever it was)
-                                                            // When it was fresh switched to data_date
-                                                            //   - set it to the default -> desc
-                                                            budgetListSortType =
-                                                            budgetListSortColumn ==
-                                                                'data_date'
-                                                                ? (budgetListSortType ==
-                                                                'asc'
-                                                                ? 'desc'
-                                                                : 'asc')
-                                                                : 'desc';
+                                                      ))),
+                                              IconButton(
+                                                  icon: Icon(Icons.clear),
+                                                  color: Color(0xff003680),
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  iconSize: 25,
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      FocusScope.of(context)
+                                                          .unfocus();
+                                                      budgetSearchTextFieldController
+                                                          .clear();
+                                                    });
+                                                  }),
+                                              IconButton(
+                                                  icon: Icon(Icons.sort),
+                                                  color: Color(0xff003680),
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  iconSize: 25,
+                                                  onPressed: () {
+                                                    return showDialog(
+                                                        context: context,
+                                                        barrierDismissible:
+                                                            true,
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return SimpleDialog(
+                                                            title: Text(
+                                                                AppLocalizations.of(
+                                                                        context)
+                                                                    .translate(
+                                                                        'OrderByText')),
+                                                            children: <Widget>[
+                                                              SimpleDialogOption(
+                                                                onPressed: () {
+                                                                  // When its the same again
+                                                                  //   - switch the the opposite (either asc or desc whatever it was)
+                                                                  // When it was fresh switched to level1
+                                                                  //   - set it to the default -> desc
+                                                                  budgetListSortType = budgetListSortColumn ==
+                                                                          'created'
+                                                                      ? (budgetListSortType ==
+                                                                              'asc'
+                                                                          ? 'desc'
+                                                                          : 'asc')
+                                                                      : 'desc';
 
-                                                            budgetListSortColumn =
-                                                            'data_date';
-                                                            loadList(
-                                                                'budget',
-                                                                budgetListSortColumn,
-                                                                budgetListSortType);
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                          child: const Text(
-                                                              'Month where it is billed'),
-                                                        ),
-                                                        SimpleDialogOption(
-                                                          onPressed: () {
-                                                            // When its the same again
-                                                            //   - switch the the opposite (either asc or desc whatever it was)
-                                                            // When it was fresh switched to amount
-                                                            //   - set it to the default -> desc
-                                                            budgetListSortType =
-                                                            budgetListSortColumn ==
-                                                                'amount'
-                                                                ? (budgetListSortType ==
-                                                                'asc'
-                                                                ? 'desc'
-                                                                : 'asc')
-                                                                : 'desc';
+                                                                  budgetListSortColumn =
+                                                                      'created';
+                                                                  loadList(
+                                                                      'budget',
+                                                                      budgetListSortColumn,
+                                                                      budgetListSortType);
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                child: Text(AppLocalizations.of(
+                                                                        context)
+                                                                    .translate(
+                                                                        'DateOfCreationOrderText')),
+                                                              ),
+                                                              SimpleDialogOption(
+                                                                onPressed: () {
+                                                                  // When its the same again
+                                                                  //   - switch the the opposite (either asc or desc whatever it was)
+                                                                  // When it was fresh switched to data_date
+                                                                  //   - set it to the default -> desc
+                                                                  budgetListSortType = budgetListSortColumn ==
+                                                                          'data_date'
+                                                                      ? (budgetListSortType ==
+                                                                              'asc'
+                                                                          ? 'desc'
+                                                                          : 'asc')
+                                                                      : 'desc';
 
-                                                            budgetListSortColumn =
-                                                            'amount';
-                                                            loadList(
-                                                                'budget',
-                                                                budgetListSortColumn,
-                                                                budgetListSortType);
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                          child: const Text(
-                                                              'Amount of the entry'),
-                                                        ),
-                                                        SimpleDialogOption(
-                                                          onPressed: () {
-                                                            // When its the same again
-                                                            //   - switch the the opposite (either asc or desc whatever it was)
-                                                            // When it was fresh switched to costtype
-                                                            //   - set it to the default -> desc
-                                                            budgetListSortType =
-                                                            budgetListSortColumn ==
-                                                                'costtype'
-                                                                ? (budgetListSortType ==
-                                                                'asc'
-                                                                ? 'desc'
-                                                                : 'asc')
-                                                                : 'desc';
+                                                                  budgetListSortColumn =
+                                                                      'data_date';
+                                                                  loadList(
+                                                                      'budget',
+                                                                      budgetListSortColumn,
+                                                                      budgetListSortType);
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                child: Text(AppLocalizations.of(
+                                                                        context)
+                                                                    .translate(
+                                                                        'MonthBilledOrderText')),
+                                                              ),
+                                                              SimpleDialogOption(
+                                                                onPressed: () {
+                                                                  // When its the same again
+                                                                  //   - switch the the opposite (either asc or desc whatever it was)
+                                                                  // When it was fresh switched to amount
+                                                                  //   - set it to the default -> desc
+                                                                  budgetListSortType = budgetListSortColumn ==
+                                                                          'amount'
+                                                                      ? (budgetListSortType ==
+                                                                              'asc'
+                                                                          ? 'desc'
+                                                                          : 'asc')
+                                                                      : 'desc';
 
-                                                            budgetListSortColumn =
-                                                            'costtype';
-                                                            loadList(
-                                                                'budget',
-                                                                budgetListSortColumn,
-                                                                budgetListSortType);
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                          child: const Text(
-                                                              'By Costtype'),
-                                                        ),
-                                                        SimpleDialogOption(
-                                                          onPressed: () {
-                                                            // When its the same again
-                                                            //   - switch the the opposite (either asc or desc whatever it was)
-                                                            // When it was fresh switched to level1
-                                                            //   - set it to the default -> desc
-                                                            budgetListSortType =
-                                                            budgetListSortColumn ==
-                                                                'level1'
-                                                                ? (budgetListSortType ==
-                                                                'asc'
-                                                                ? 'desc'
-                                                                : 'asc')
-                                                                : 'desc';
+                                                                  budgetListSortColumn =
+                                                                      'amount';
+                                                                  loadList(
+                                                                      'budget',
+                                                                      budgetListSortColumn,
+                                                                      budgetListSortType);
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                child: Text(AppLocalizations.of(
+                                                                        context)
+                                                                    .translate(
+                                                                        'AmountOrderText')),
+                                                              ),
+                                                              SimpleDialogOption(
+                                                                onPressed: () {
+                                                                  // When its the same again
+                                                                  //   - switch the the opposite (either asc or desc whatever it was)
+                                                                  // When it was fresh switched to costtype
+                                                                  //   - set it to the default -> desc
+                                                                  budgetListSortType = budgetListSortColumn ==
+                                                                          'costtype'
+                                                                      ? (budgetListSortType ==
+                                                                              'asc'
+                                                                          ? 'desc'
+                                                                          : 'asc')
+                                                                      : 'desc';
 
-                                                            budgetListSortColumn =
-                                                            'level1';
-                                                            loadList(
-                                                                'budget',
-                                                                budgetListSortColumn,
-                                                                budgetListSortType);
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                          child: const Text(
-                                                              'By levels'),
-                                                        )
-                                                      ],
-                                                    );
-                                                  });
-                                            })
-                                      ])
+                                                                  budgetListSortColumn =
+                                                                      'costtype';
+                                                                  loadList(
+                                                                      'budget',
+                                                                      budgetListSortColumn,
+                                                                      budgetListSortType);
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                child: Text(AppLocalizations.of(
+                                                                        context)
+                                                                    .translate(
+                                                                        'CostTypeOrderText')),
+                                                              ),
+                                                              SimpleDialogOption(
+                                                                onPressed: () {
+                                                                  // When its the same again
+                                                                  //   - switch the the opposite (either asc or desc whatever it was)
+                                                                  // When it was fresh switched to level1
+                                                                  //   - set it to the default -> desc
+                                                                  budgetListSortType = budgetListSortColumn ==
+                                                                          'level1'
+                                                                      ? (budgetListSortType ==
+                                                                              'asc'
+                                                                          ? 'desc'
+                                                                          : 'asc')
+                                                                      : 'desc';
+
+                                                                  budgetListSortColumn =
+                                                                      'level1';
+                                                                  loadList(
+                                                                      'budget',
+                                                                      budgetListSortColumn,
+                                                                      budgetListSortType);
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                child: Text(AppLocalizations.of(
+                                                                        context)
+                                                                    .translate(
+                                                                        'LevelOrderText')),
+                                                              )
+                                                            ],
+                                                          );
+                                                        });
+                                                  })
+                                            ])
                                       : ((bdgList[index - 1]
-                                      .costType
-                                      .toLowerCase()
-                                      .contains(
-                                      budgetSearchTextFieldController
-                                          .text) ||
-                                      bdgList[index - 1]
-                                          .level1
-                                          .toLowerCase()
-                                          .contains(
-                                          budgetSearchTextFieldController
-                                              .text) ||
-                                      bdgList[index - 1]
-                                          .level2
-                                          .toLowerCase()
-                                          .contains(
-                                          budgetSearchTextFieldController
-                                              .text) ||
-                                      bdgList[index - 1]
-                                          .level3
-                                          .toLowerCase()
-                                          .contains(
-                                          budgetSearchTextFieldController
-                                              .text) ||
-                                      bdgList[index - 1]
-                                          .comment
-                                          .toLowerCase()
-                                          .contains(
-                                          budgetSearchTextFieldController
-                                              .text) ||
-                                      bdgList[index - 1].amount.toString()
-                                          .contains(
-                                          budgetSearchTextFieldController
-                                              .text) ||
-                                      bdgList[index - 1].level1.toLowerCase()
-                                          .contains(
-                                          budgetSearchTextFieldController
-                                              .text) ||
-                                      bdgList[index - 1].date.toLowerCase()
-                                          .contains(
-                                          budgetSearchTextFieldController.text))
-                                      ? GestureDetector(
-                                      onTap: () {
-                                        print(
-                                            "Item ${bdgList[index - 1]
-                                                .id} clicked");
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) =>
-                                          new AlertDialog(
-                                            title: Text(
-                                              'Details',
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 25,
-                                              ),
-                                            ),
-                                            content: RichText(
-                                              text: TextSpan(
-                                                  text: "",
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15,
-                                                  ),
-                                                  children: <TextSpan>[
-                                                    TextSpan(
-                                                      text: 'Date:  ',
+                                                  .costType
+                                                  .toLowerCase()
+                                                  .contains(budgetSearchTextFieldController
+                                                      .text) ||
+                                              bdgList[index - 1]
+                                                  .level1
+                                                  .toLowerCase()
+                                                  .contains(
+                                                      budgetSearchTextFieldController
+                                                          .text) ||
+                                              bdgList[index - 1]
+                                                  .level2
+                                                  .toLowerCase()
+                                                  .contains(
+                                                      budgetSearchTextFieldController
+                                                          .text) ||
+                                              bdgList[index - 1]
+                                                  .level3
+                                                  .toLowerCase()
+                                                  .contains(
+                                                      budgetSearchTextFieldController
+                                                          .text) ||
+                                              bdgList[index - 1]
+                                                  .comment
+                                                  .toLowerCase()
+                                                  .contains(budgetSearchTextFieldController.text) ||
+                                              bdgList[index - 1].amount.toString().contains(budgetSearchTextFieldController.text) ||
+                                              bdgList[index - 1].level1.toLowerCase().contains(budgetSearchTextFieldController.text) ||
+                                              bdgList[index - 1].date.toLowerCase().contains(budgetSearchTextFieldController.text))
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      new AlertDialog(
+                                                    title: Text(
+                                                      AppLocalizations.of(
+                                                              context)
+                                                          .translate(
+                                                              'DetailsListTitle'),
                                                       style: TextStyle(
-                                                        fontSize: 18,
+                                                        color: Colors.black,
+                                                        fontSize: 25,
                                                       ),
                                                     ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${bdgList[index - 1]
-                                                          .date}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                    TextSpan(
-                                                      text: 'Amount: ',
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${bdgList[index - 1]
-                                                          .amount}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                    TextSpan(
-                                                      text: 'Level: ',
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${bdgList[index - 1]
-                                                          .level1} > ${bdgList[index -
-                                                          1]
-                                                          .level2} > ${bdgList[index -
-                                                          1].level3}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      'Costtype: ',
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${bdgList[index - 1]
-                                                          .costType}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                    TextSpan(
-                                                      text: 'Comment: ',
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${bdgList[index - 1]
-                                                          .comment.length > 0
-                                                          ? bdgList[index - 1]
-                                                          .comment
-                                                          : 'no comment available'}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                  ]),
-                                            ),
-                                            actions: <Widget>[
-                                              new FlatButton(
-                                                child:
-                                                new Text('DISMISS'),
-                                                onPressed: () =>
-                                                    Navigator.of(
-                                                        context)
-                                                        .pop(),
-                                              )
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                      child: Container(
-                                        margin:
-                                        const EdgeInsets.all(15.0),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Colors.blueAccent),
-                                          color: bdgList[index - 1]
-                                              .active ==
-                                              1
-                                              ? Color(0xffEEEEEE)
-                                              : Colors.redAccent,
-                                          borderRadius:
-                                          new BorderRadius.circular(
-                                              30.0),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.black12,
-                                              blurRadius:
-                                              5,
-                                              // has the effect of softening the shadow
-                                              spreadRadius:
-                                              0,
-                                              // has the effect of extending the shadow
-                                              offset: Offset(
-                                                7.0,
-                                                // horizontal, move right 10
-                                                7.0, // vertical, move down 10
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        child: Center(
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceEvenly,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment
-                                                    .center,
-                                                children: <Widget>[
-                                                  SizedBox(
-                                                    width: MediaQuery
-                                                        .of(
-                                                        context)
-                                                        .size
-                                                        .width *
-                                                        .6,
-                                                    //height: 300.0,
-                                                    child: Column(
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                        children: <Widget>[
-                                                          SizedBox(
-                                                              height: 15),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: MediaQuery
-                                                                      .of(
-                                                                      context)
-                                                                      .size
-                                                                      .width *
-                                                                      .1,
-                                                                  child:
-                                                                  Icon(
-                                                                    Icons
-                                                                        .account_balance_wallet,
-                                                                    color: Color(
-                                                                        0xff0957FF),
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  "${bdgList[index -
-                                                                      1].date}",
-                                                                  style: TextStyle(
-                                                                      color: Color(
-                                                                          0xff0957FF),
-                                                                      fontSize:
-                                                                      25),
-                                                                ),
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 10,
+                                                    content: RichText(
+                                                      text: TextSpan(
+                                                          text: "",
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 15,
                                                           ),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: MediaQuery
+                                                          children: <TextSpan>[
+                                                            TextSpan(
+                                                              text: AppLocalizations
                                                                       .of(
-                                                                      context)
-                                                                      .size
-                                                                      .width *
-                                                                      .1,
-                                                                  child:
-                                                                  Container(),
-                                                                ),
-                                                                Flexible(
-                                                                    child:
+                                                                          context)
+                                                                  .translate(
+                                                                      'DetailsListDate'),
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${bdgList[index - 1].date}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                            TextSpan(
+                                                              text: AppLocalizations
+                                                                      .of(
+                                                                          context)
+                                                                  .translate(
+                                                                      'DetailsListAmount'),
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${bdgList[index - 1].amount}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                            TextSpan(
+                                                              text: AppLocalizations
+                                                                      .of(
+                                                                          context)
+                                                                  .translate(
+                                                                      'DetailsListLevel'),
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${bdgList[index - 1].level1} > ${bdgList[index - 1].level2} > ${bdgList[index - 1].level3}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                            TextSpan(
+                                                              text: AppLocalizations
+                                                                      .of(
+                                                                          context)
+                                                                  .translate(
+                                                                      'DetailsListCostType'),
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${bdgList[index - 1].costType}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                            TextSpan(
+                                                              text: AppLocalizations
+                                                                      .of(
+                                                                          context)
+                                                                  .translate(
+                                                                      'DetailsListComment'),
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text:
+                                                                  '${bdgList[index - 1].comment.length > 0 ? bdgList[index - 1].comment : AppLocalizations.of(context).translate('noCommentAvailable')}\n',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF0957FF),
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic),
+                                                            ),
+                                                          ]),
+                                                    ),
+                                                    actions: <Widget>[
+                                                      new FlatButton(
+                                                        child: new Text(
+                                                          AppLocalizations.of(
+                                                                  context)
+                                                              .translate(
+                                                                  'dismissDialog'),
+                                                        ),
+                                                        onPressed: () =>
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop(),
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                              child: Container(
+                                                margin:
+                                                    const EdgeInsets.all(15.0),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: Colors.blueAccent),
+                                                  color: bdgList[index - 1]
+                                                              .active ==
+                                                          1
+                                                      ? Color(0xffEEEEEE)
+                                                      : Colors.redAccent,
+                                                  borderRadius:
+                                                      new BorderRadius.circular(
+                                                          30.0),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black12,
+                                                      blurRadius: 5,
+                                                      // has the effect of softening the shadow
+                                                      spreadRadius: 0,
+                                                      // has the effect of extending the shadow
+                                                      offset: Offset(
+                                                        7.0,
+                                                        // horizontal, move right 10
+                                                        7.0, // vertical, move down 10
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                child: Center(
+                                                    child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: <Widget>[
+                                                      SizedBox(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            .6,
+                                                        //height: 300.0,
+                                                        child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              SizedBox(
+                                                                  height: 15),
+                                                              Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                      width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          .1,
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .account_balance_wallet,
+                                                                        color: Color(
+                                                                            0xff0957FF),
+                                                                      ),
+                                                                    ),
                                                                     Text(
-                                                                      "${bdgList[index -
-                                                                          1]
-                                                                          .comment
-                                                                          .length >
-                                                                          0
-                                                                          ? bdgList[index -
-                                                                          1]
-                                                                          .comment
-                                                                          : 'no comment available'}",
+                                                                      "${bdgList[index - 1].date}",
+                                                                      style: TextStyle(
+                                                                          color: Color(
+                                                                              0xff0957FF),
+                                                                          fontSize:
+                                                                              25),
+                                                                    ),
+                                                                  ]),
+                                                              SizedBox(
+                                                                height: 10,
+                                                              ),
+                                                              Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                      width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width *
+                                                                          .1,
+                                                                      child:
+                                                                          Container(),
+                                                                    ),
+                                                                    Flexible(
+                                                                        child:
+                                                                            Text(
+                                                                      "${bdgList[index - 1].comment.length > 0 ? bdgList[index - 1].comment : AppLocalizations.of(context).translate('noCommentAvailable')}",
                                                                       style: TextStyle(
                                                                           color: Colors
                                                                               .black,
                                                                           fontStyle: FontStyle
                                                                               .italic,
                                                                           fontSize:
-                                                                          15),
+                                                                              15),
                                                                       overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
+                                                                          TextOverflow
+                                                                              .ellipsis,
                                                                     )),
-                                                                Container(),
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                    width: MediaQuery
-                                                                        .of(
-                                                                        context)
-                                                                        .size
-                                                                        .width *
-                                                                        .1,
-                                                                    //height: 300.0,
-                                                                    child:
-                                                                    Container()),
-                                                                Flexible(
-                                                                    child:
-                                                                    Text(
-                                                                      '${bdgList[index -
-                                                                          1]
-                                                                          .level1} > ${bdgList[index -
-                                                                          1]
-                                                                          .level2} > ${bdgList[index -
-                                                                          1]
-                                                                          .level3}}',
+                                                                    Container(),
+                                                                  ]),
+                                                              SizedBox(
+                                                                height: 10,
+                                                              ),
+                                                              Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                        width: MediaQuery.of(context).size.width *
+                                                                            .1,
+                                                                        //height: 300.0,
+                                                                        child:
+                                                                            Container()),
+                                                                    Flexible(
+                                                                        child:
+                                                                            Text(
+                                                                      '${bdgList[index - 1].level1} > ${bdgList[index - 1].level2} > ${bdgList[index - 1].level3}}',
                                                                       style: TextStyle(
                                                                           color: Colors
                                                                               .black,
                                                                           fontSize:
-                                                                          13),
+                                                                              13),
                                                                       overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
+                                                                          TextOverflow
+                                                                              .ellipsis,
                                                                     )),
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 5,
-                                                          ),
-                                                          Row(
-                                                              mainAxisAlignment:
+                                                                  ]),
+                                                              SizedBox(
+                                                                height: 5,
+                                                              ),
+                                                              Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    SizedBox(
+                                                                        width: MediaQuery.of(context).size.width *
+                                                                            .1,
+                                                                        //height: 300.0,
+                                                                        child:
+                                                                            Container()),
+                                                                    Flexible(
+                                                                        child: new Container(
+                                                                            padding: new EdgeInsets.only(right: 13.0),
+                                                                            child: Text(
+                                                                              '${bdgList[index - 1].costType}',
+                                                                              style: TextStyle(color: Colors.black, fontSize: 13),
+                                                                              overflow: TextOverflow.ellipsis,
+                                                                            )))
+                                                                  ]),
+                                                              SizedBox(
+                                                                height: 15,
+                                                              ),
+                                                            ]),
+                                                      ),
+                                                      Column(
+                                                          mainAxisAlignment:
                                                               MainAxisAlignment
                                                                   .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                    width: MediaQuery
-                                                                        .of(
-                                                                        context)
-                                                                        .size
-                                                                        .width *
-                                                                        .1,
-                                                                    //height: 300.0,
-                                                                    child:
-                                                                    Container()),
-                                                                Flexible(
-                                                                    child: new Container(
-                                                                        padding: new EdgeInsets
-                                                                            .only(
-                                                                            right: 13.0),
-                                                                        child: Text(
-                                                                          '${bdgList[index -
-                                                                              1]
-                                                                              .costType}',
-                                                                          style: TextStyle(
-                                                                              color: Colors
-                                                                                  .black,
-                                                                              fontSize: 13),
-                                                                          overflow: TextOverflow
-                                                                              .ellipsis,
-                                                                        )))
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 15,
-                                                          ),
-                                                        ]),
-                                                  ),
-                                                  Column(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .start,
-                                                      children: [
-                                                        Text(
-                                                            '${bdgList[index -
-                                                                1].amount}'),
-                                                        SizedBox(
-                                                          width: MediaQuery
-                                                              .of(
-                                                              context)
-                                                              .size
-                                                              .width *
-                                                              .1,
-                                                          //height: 300.0,
-                                                          child: IconButton(
-                                                            icon: new Icon(
-                                                              bdgList[index - 1]
-                                                                  .active ==
-                                                                  1
-                                                                  ? Icons
-                                                                  .delete
-                                                                  : Icons
-                                                                  .restore,
-                                                            ),
-                                                            color: Color(
-                                                                0xff0957FF),
-                                                            onPressed: () {
-                                                              print(
-                                                                  'TODELETE + ${bdgList[index -
-                                                                      1].id}');
-
-                                                              showDialog(
-                                                                context:
-                                                                context,
-                                                                builder:
-                                                                    (context) =>
-                                                                new AlertDialog(
-                                                                  title:
-                                                                  Text(
-                                                                    "Are you sure?",
-                                                                    style:
-                                                                    TextStyle(
-                                                                      fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                      fontSize:
-                                                                      25,
-                                                                    ),
-                                                                  ),
-                                                                  content:
-                                                                  RichText(
-                                                                    text: TextSpan(
-                                                                        text:
-                                                                        "${bdgList[index -
-                                                                            1]
-                                                                            .comment
-                                                                            .length >
-                                                                            0
-                                                                            ? bdgList[index -
-                                                                            1]
-                                                                            .comment
-                                                                            : 'no comment available'}\n\n",
-                                                                        style: TextStyle(
-                                                                            color: Colors
-                                                                                .black,
-                                                                            fontSize: 15,
-                                                                            fontStyle: FontStyle
-                                                                                .italic),
-                                                                        children: <
-                                                                            TextSpan>[
-                                                                          TextSpan(
-                                                                            text: 'Entry from ',
-                                                                            style: TextStyle(
-                                                                              fontSize: 18,
-                                                                            ),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: '${bdgList[index -
-                                                                                1]
-                                                                                .date} ',
-                                                                            style: TextStyle(
-                                                                                color: Color(
-                                                                                    0xFF0957FF),
-                                                                                fontSize: 18,
-                                                                                fontWeight: FontWeight
-                                                                                    .bold),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: 'with an amount of ',
-                                                                            style: TextStyle(
-                                                                              fontSize: 18,
-                                                                            ),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: '${bdgList[index -
-                                                                                1]
-                                                                                .amount} ',
-                                                                            style: TextStyle(
-                                                                                color: Color(
-                                                                                    0xFF0957FF),
-                                                                                fontSize: 18,
-                                                                                fontWeight: FontWeight
-                                                                                    .bold),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: 'will be ',
-                                                                            style: TextStyle(
-                                                                              fontSize: 18,
-                                                                            ),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: '${bdgList[index -
-                                                                                1]
-                                                                                .active ==
-                                                                                1
-                                                                                ? "deleted"
-                                                                                : "restored"}',
-                                                                            style: TextStyle(
-                                                                                color: bdgList[index -
-                                                                                    1]
-                                                                                    .active ==
-                                                                                    1
-                                                                                    ? Colors
-                                                                                    .red
-                                                                                    : Colors
-                                                                                    .green,
-                                                                                fontSize: 18,
-                                                                                fontWeight: FontWeight
-                                                                                    .bold),
-                                                                          ),
-                                                                        ]),
-                                                                  ),
-                                                                  actions: <
-                                                                      Widget>[
-                                                                    new FlatButton(
-                                                                      child:
-                                                                      new Text(
-                                                                          'Cancel'),
-                                                                      onPressed: () =>
-                                                                          Navigator
-                                                                              .of(
-                                                                              context)
-                                                                              .pop(),
-                                                                    ),
-                                                                    new FlatButton(
-                                                                      child:
-                                                                      new Text(
-                                                                          'Confirm'),
-                                                                      onPressed:
-                                                                          () {
-                                                                        bdgObjectToDelete
-                                                                            .id =
-                                                                            bdgList[index -
-                                                                                1]
-                                                                                .id;
-
-                                                                        sendBackend(
-                                                                            'bdglistdelete',
-                                                                            false);
-                                                                        Navigator
-                                                                            .of(
-                                                                            context)
-                                                                            .pop();
-                                                                      },
-                                                                    )
-                                                                  ],
+                                                          children: [
+                                                            Text(
+                                                                '${bdgList[index - 1].amount}'),
+                                                            SizedBox(
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width *
+                                                                  .1,
+                                                              //height: 300.0,
+                                                              child: IconButton(
+                                                                icon: new Icon(
+                                                                  bdgList[index - 1]
+                                                                              .active ==
+                                                                          1
+                                                                      ? Icons
+                                                                          .delete
+                                                                      : Icons
+                                                                          .restore,
                                                                 ),
-                                                              );
-                                                            },
-                                                          ),
-                                                        )
-                                                      ]),
-                                                ])),
-                                      ))
-                                      : Container());
+                                                                color: Color(
+                                                                    0xff0957FF),
+                                                                onPressed: () {
+                                                                  showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (context) =>
+                                                                            new AlertDialog(
+                                                                      title:
+                                                                          Text(
+                                                                        AppLocalizations.of(context)
+                                                                            .translate('areYouSureDialog'),
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                          fontSize:
+                                                                              25,
+                                                                        ),
+                                                                      ),
+                                                                      content:
+                                                                          RichText(
+                                                                        text: TextSpan(
+                                                                            text:
+                                                                                "${bdgList[index - 1].comment.length > 0 ? bdgList[index - 1].comment : AppLocalizations.of(context).translate('noCommentAvailable')}\n\n",
+                                                                            style: TextStyle(
+                                                                                color: Colors.black,
+                                                                                fontSize: 15,
+                                                                                fontStyle: FontStyle.italic),
+                                                                            children: <TextSpan>[
+                                                                              TextSpan(
+                                                                                text: AppLocalizations.of(context).translate('EntryFrom'),
+                                                                                style: TextStyle(
+                                                                                  fontSize: 18,
+                                                                                ),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: '${bdgList[index - 1].date} ',
+                                                                                style: TextStyle(color: Color(0xFF0957FF), fontSize: 18, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: AppLocalizations.of(context).translate('withAnAmountOf'),
+                                                                                style: TextStyle(
+                                                                                  fontSize: 18,
+                                                                                ),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: '${bdgList[index - 1].amount} ',
+                                                                                style: TextStyle(color: Color(0xFF0957FF), fontSize: 18, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: AppLocalizations.of(context).translate('willBe'),
+                                                                                style: TextStyle(
+                                                                                  fontSize: 18,
+                                                                                ),
+                                                                              ),
+                                                                              TextSpan(
+                                                                                text: '${bdgList[index - 1].active == 1 ? AppLocalizations.of(context).translate('deleted') : AppLocalizations.of(context).translate('restored')}',
+                                                                                style: TextStyle(color: bdgList[index - 1].active == 1 ? Colors.red : Colors.green, fontSize: 18, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ]),
+                                                                      ),
+                                                                      actions: <
+                                                                          Widget>[
+                                                                        new FlatButton(
+                                                                          child:
+                                                                              new Text(
+                                                                            AppLocalizations.of(context).translate('cancel'),
+                                                                          ),
+                                                                          onPressed: () =>
+                                                                              Navigator.of(context).pop(),
+                                                                        ),
+                                                                        new FlatButton(
+                                                                          child:
+                                                                              new Text(
+                                                                            AppLocalizations.of(context).translate('confirm'),
+                                                                          ),
+                                                                          onPressed:
+                                                                              () {
+                                                                            bdgObjectToDelete.id =
+                                                                                bdgList[index - 1].id;
+
+                                                                            sendBackend('bdglistdelete',
+                                                                                false);
+                                                                            Navigator.of(context).pop();
+                                                                          },
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              ),
+                                                            )
+                                                          ]),
+                                                    ])),
+                                              ))
+                                          : Container());
                                 })),
                       ]),
                     ),
@@ -5214,12 +4952,11 @@ class _MyHomePageState extends State<MyHomePage>
                       enablePullDown: true,
                       onRefresh: () async {
                         await handleRefresh(_currentIndex);
-                        print("REFRESHING ON SCROLL");
                         //await Future.delayed(Duration(seconds: 2));
                         _refreshController.refreshCompleted();
                       },
                       child: ListView.builder(
-                        // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
+                          // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
                           itemCount: 1,
                           itemBuilder: (BuildContext context, int index) {
                             return Column(
@@ -5228,28 +4965,23 @@ class _MyHomePageState extends State<MyHomePage>
                               children: <Widget>[
                                 SizedBox(
                                   height:
-                                  MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * .05,
+                                      MediaQuery.of(context).size.height * .05,
                                 ),
                                 Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       ButtonTheme(
                                         //minWidth: 150.0,
                                         height: 60.0,
                                         child: FlatButton(
-                                          onPressed: () =>
-                                              _showDatePicker(
-                                                  'visualizer',
-                                                  dateTimeVisualizer),
+                                          onPressed: () => _showDatePicker(
+                                              'visualizer', dateTimeVisualizer),
                                           shape: new RoundedRectangleBorder(
                                             borderRadius:
-                                            new BorderRadius.circular(40.0),
+                                                new BorderRadius.circular(40.0),
                                           ),
                                           color: Color(0xff003680),
                                           padding: EdgeInsets.all(10.0),
@@ -5257,10 +4989,7 @@ class _MyHomePageState extends State<MyHomePage>
                                             // Replace with a Row for horizontal icon + text
                                             children: <Widget>[
                                               Text(
-                                                  " ${dateTimeVisualizer.year
-                                                      .toString()}-${dateTimeVisualizer
-                                                      .month.toString().padLeft(
-                                                      2, '0')}",
+                                                  " ${dateTimeVisualizer.year.toString()}-${dateTimeVisualizer.month.toString().padLeft(2, '0')}",
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 17)),
@@ -5280,9 +5009,9 @@ class _MyHomePageState extends State<MyHomePage>
                                   //child: Text('Submit'),
                                   child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Switch(
                                           value: showFullYear,
@@ -5297,7 +5026,8 @@ class _MyHomePageState extends State<MyHomePage>
                                           activeColor: Color(0xff0957FF),
                                         ),
                                         Text(
-                                          "Full Year",
+                                          AppLocalizations.of(context)
+                                              .translate('FullYearSwitch'),
                                           style: TextStyle(fontSize: 25),
                                         ),
                                         Switch(
@@ -5313,7 +5043,8 @@ class _MyHomePageState extends State<MyHomePage>
                                           activeColor: Color(0xff0957FF),
                                         ),
                                         Text(
-                                          "All Time",
+                                          AppLocalizations.of(context)
+                                              .translate('AllTimeSwitch'),
                                           style: TextStyle(fontSize: 25),
                                         ),
                                       ]),
@@ -5329,85 +5060,57 @@ class _MyHomePageState extends State<MyHomePage>
                                     child: Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        "Drilldown: " + drilldownLevel,
+                                        AppLocalizations.of(context)
+                                                .translate('drilldown') +
+                                            drilldownLevel,
                                       ),
                                     ),
                                   ),
                                 ),
                                 SizedBox(
-                                  width: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width,
+                                  width: MediaQuery.of(context).size.width,
                                   height:
-                                  MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * .4,
+                                      MediaQuery.of(context).size.height * .4,
                                   child: charts.BarChart(
                                     [
-                                      charts.Series<
-                                          ChartObject,
-                                          String>(
+                                      charts.Series<ChartObject, String>(
                                           id: 'CompanySizeVsNumberOfCompanies',
                                           colorFn: (_, __) =>
                                               charts.ColorUtil.fromDartColor(
                                                   Color(0xFF0957FF)),
-                                          domainFn:
-                                              (
-                                              ChartObject sales,
-                                              _) =>
-                                          sales.accountName,
-
-                                          measureFn:
-                                              (
-                                              ChartObject sales,
-                                              _) =>
-                                          sales.amount,
-                                          labelAccessorFn:
-                                              (
-                                              ChartObject sales,
-                                              _) =>
-                                          '${sales.accountName}: ${sales
-                                              .amount.toString()}€',
+                                          domainFn: (ChartObject sales, _) =>
+                                              sales.accountName,
+                                          measureFn: (ChartObject sales, _) =>
+                                              sales.amount,
+                                          labelAccessorFn: (ChartObject sales,
+                                                  _) =>
+                                              '${sales.accountName}: ${sales.amount.toString()}€',
                                           data: visualizerData),
-                                      charts.Series<
-                                          ChartObject,
-                                          String>(
+                                      charts.Series<ChartObject, String>(
                                           id: 'CompanySizeVsNumberOfCompanies',
-                                          domainFn:
-                                              (
-                                              ChartObject sales,
-                                              _) =>
-                                          sales.accountName,
-                                          measureFn:
-                                              (
-                                              ChartObject sales,
-                                              _) =>
-                                          sales.amount,
-                                          colorFn:
-                                              (ChartObject segment, _) =>
-                                          segment.color,
-                                          labelAccessorFn:
-                                              (
-                                              ChartObject sales,
-                                              _) =>
-                                          '${sales.accountName}: ${sales
-                                              .amount.toString()}€',
+                                          domainFn: (ChartObject sales, _) =>
+                                              sales.accountName,
+                                          measureFn: (ChartObject sales, _) =>
+                                              sales.amount,
+                                          colorFn: (ChartObject segment, _) =>
+                                              segment.color,
+                                          labelAccessorFn: (ChartObject sales,
+                                                  _) =>
+                                              '${sales.accountName}: ${sales.amount.toString()}€',
                                           data: visualizerTargetData)
                                         ..setAttribute(charts.rendererIdKey,
                                             'customTargetLine'),
                                     ],
                                     animate: true,
-                                    barGroupingType: charts.BarGroupingType
-                                        .grouped,
+                                    barGroupingType:
+                                        charts.BarGroupingType.grouped,
                                     customSeriesRenderers: [
                                       new charts.BarTargetLineRendererConfig<
-                                          String>(
+                                              String>(
                                           // ID used to link series to this renderer.
                                           customRendererId: 'customTargetLine',
-                                          groupingType: charts.BarGroupingType
-                                              .grouped)
+                                          groupingType:
+                                              charts.BarGroupingType.grouped)
                                     ],
                                     selectionModels: [
                                       new charts.SelectionModelConfig(
@@ -5417,26 +5120,33 @@ class _MyHomePageState extends State<MyHomePage>
                                     vertical: false,
                                     // Hide domain axis.
                                     barRendererDecorator:
-                                    new charts.BarLabelDecorator<String>(),
+                                        new charts.BarLabelDecorator<String>(),
                                     // Hide domain axis.
                                     domainAxis: new charts.OrdinalAxisSpec(
                                         renderSpec:
-                                        new charts.NoneRenderSpec()),
+                                            new charts.NoneRenderSpec()),
                                     behaviors: [
+                                      charts.ChartTitle(AppLocalizations.of(
+                                              context)
+                                          .translate('visualizerChartTitle')),
                                       charts.ChartTitle(
-                                          'Spendings per Accounts'),
-                                      charts.ChartTitle('Accounts',
+                                          AppLocalizations.of(context)
+                                              .translate(
+                                                  'visualizerChartYTitle'),
                                           behaviorPosition:
-                                          charts.BehaviorPosition.start),
-                                      charts.ChartTitle('Amounts',
+                                              charts.BehaviorPosition.start),
+                                      charts.ChartTitle(
+                                          AppLocalizations.of(context)
+                                              .translate(
+                                                  'visualizerChartXTitle'),
                                           behaviorPosition:
-                                          charts.BehaviorPosition.bottom)
+                                              charts.BehaviorPosition.bottom)
                                     ],
                                   ),
                                 ),
                                 Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Container(
                                         padding: const EdgeInsets.only(
@@ -5446,14 +5156,16 @@ class _MyHomePageState extends State<MyHomePage>
                                             bottom: 0),
                                         //child: Text('Submit'),
                                         child: RaisedButton(
-                                          child: Text('Reset'),
+                                          child: Text(
+                                              AppLocalizations.of(context)
+                                                  .translate('resetButton')),
                                           color: Color(0xffEEEEEE), // EEEEEE
                                           onPressed: () {
                                             setState(() {
                                               showAllTime = false;
                                               showFullYear = false;
                                               costTypeObjectVisualizer =
-                                              costTypesList[0];
+                                                  costTypesList[0];
                                               dateTimeVisualizer =
                                                   DateTime.parse(INIT_DATETIME);
 
@@ -5490,8 +5202,7 @@ class _MyHomePageState extends State<MyHomePage>
                                             onClear: () {
                                               setState(() {
                                                 costTypeObjectVisualizer =
-                                                costTypesList[
-                                                0];
+                                                    costTypesList[0];
                                               });
                                             },
                                             onChanged: (CostType newValue) {
@@ -5549,7 +5260,8 @@ class _MyHomePageState extends State<MyHomePage>
                                   color: Colors.white,
                                 ),
                                 Text(
-                                  "General",
+                                  AppLocalizations.of(context)
+                                      .translate('TitleGeneralTab'),
                                   style: TextStyle(color: Colors.white),
                                 )
                               ]),
@@ -5572,7 +5284,8 @@ class _MyHomePageState extends State<MyHomePage>
                                   color: Colors.white,
                                 ),
                                 Text(
-                                  "Accounts",
+                                  AppLocalizations.of(context)
+                                      .translate('TitleAccountsTab'),
                                   style: TextStyle(color: Colors.white),
                                 )
                               ]),
@@ -5592,7 +5305,8 @@ class _MyHomePageState extends State<MyHomePage>
                               children: <Widget>[
                                 Icon(Icons.home, color: Colors.white),
                                 Text(
-                                  "Costtypes",
+                                  AppLocalizations.of(context)
+                                      .translate('TitleGeneralTab'),
                                   style: TextStyle(color: Colors.white),
                                 )
                               ]),
@@ -5610,41 +5324,43 @@ class _MyHomePageState extends State<MyHomePage>
                                 enablePullDown: true,
                                 onRefresh: () async {
                                   await handleRefresh(_currentIndex);
-                                  print("REFRESHING ON SCROLL");
                                   //await Future.delayed(Duration(seconds: 2));
                                   _refreshController.refreshCompleted();
                                 },
                                 child: ListView.builder(
-                                  // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
+                                    // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
                                     itemCount: 1,
                                     itemBuilder:
                                         (BuildContext context, int index) {
                                       return Container(
-                                          height: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height *
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
                                               .7,
                                           child: Column(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                                  MainAxisAlignment.spaceEvenly,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: <Widget>[
                                                 Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                     crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .center,
+                                                        CrossAxisAlignment
+                                                            .center,
                                                     children: <Widget>[
-                                                      Text("Use Costtypes:",
+                                                      Text(
+                                                          AppLocalizations.of(
+                                                                  context)
+                                                              .translate(
+                                                                  'useCostTypes'),
                                                           style: TextStyle(
                                                               fontSize: 25)),
                                                       Switch(
                                                         value:
-                                                        areCostTypesActive,
+                                                            areCostTypesActive,
                                                         onChanged: (value) {
                                                           setState(() {
                                                             areCostTypesActive =
@@ -5652,26 +5368,30 @@ class _MyHomePageState extends State<MyHomePage>
                                                           });
                                                         },
                                                         activeTrackColor:
-                                                        Color(0xffEEEEEE),
+                                                            Color(0xffEEEEEE),
                                                         activeColor:
-                                                        Color(0xff0957FF),
+                                                            Color(0xff0957FF),
                                                       ),
                                                     ]),
                                                 Divider(color: Colors.black87),
                                                 Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                     crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .center,
+                                                        CrossAxisAlignment
+                                                            .center,
                                                     children: <Widget>[
-                                                      Text("Use Accounts:",
+                                                      Text(
+                                                          AppLocalizations.of(
+                                                                  context)
+                                                              .translate(
+                                                                  'useAccounts'),
                                                           style: TextStyle(
                                                               fontSize: 25)),
                                                       Switch(
                                                         value:
-                                                        areAccountsActive,
+                                                            areAccountsActive,
                                                         onChanged: (value) {
                                                           setState(() {
                                                             areAccountsActive =
@@ -5686,33 +5406,37 @@ class _MyHomePageState extends State<MyHomePage>
                                                           });
                                                         },
                                                         activeTrackColor:
-                                                        Color(0xffEEEEEE),
+                                                            Color(0xffEEEEEE),
                                                         activeColor:
-                                                        Color(0xff0957FF),
+                                                            Color(0xff0957FF),
                                                       ),
                                                     ]),
                                                 Container(
                                                   padding:
-                                                  const EdgeInsets.only(
-                                                      left: 0,
-                                                      top: 0,
-                                                      right: 0,
-                                                      bottom: 10),
+                                                      const EdgeInsets.only(
+                                                          left: 0,
+                                                          top: 0,
+                                                          right: 0,
+                                                          bottom: 10),
                                                 ),
                                                 Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                     crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .center,
+                                                        CrossAxisAlignment
+                                                            .center,
                                                     children: <Widget>[
-                                                      Text("Use Level 1:",
+                                                      Text(
+                                                          AppLocalizations.of(
+                                                                  context)
+                                                              .translate(
+                                                                  'useAccountsLevel1'),
                                                           style: TextStyle(
                                                               fontSize: 25)),
                                                       Switch(
                                                         value:
-                                                        areLevel1AccountsActive,
+                                                            areLevel1AccountsActive,
                                                         onChanged: (value) {
                                                           setState(() {
                                                             areLevel1AccountsActive =
@@ -5723,32 +5447,36 @@ class _MyHomePageState extends State<MyHomePage>
                                                             // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
                                                             if (!areLevel1AccountsActive) {
                                                               areLevel2AccountsActive =
-                                                              false;
+                                                                  false;
                                                               areLevel3AccountsActive =
-                                                              false;
+                                                                  false;
                                                             }
                                                           });
                                                         },
                                                         activeTrackColor:
-                                                        Color(0xffEEEEEE),
+                                                            Color(0xffEEEEEE),
                                                         activeColor:
-                                                        Color(0xff0957FF),
+                                                            Color(0xff0957FF),
                                                       ),
                                                     ]),
                                                 Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                     crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .center,
+                                                        CrossAxisAlignment
+                                                            .center,
                                                     children: <Widget>[
-                                                      Text("Use Level 2:",
+                                                      Text(
+                                                          AppLocalizations.of(
+                                                                  context)
+                                                              .translate(
+                                                                  'useAccountsLevel2'),
                                                           style: TextStyle(
                                                               fontSize: 25)),
                                                       Switch(
                                                         value:
-                                                        areLevel2AccountsActive,
+                                                            areLevel2AccountsActive,
                                                         onChanged: (value) {
                                                           setState(() {
                                                             areLevel2AccountsActive =
@@ -5757,36 +5485,39 @@ class _MyHomePageState extends State<MyHomePage>
                                                             // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
                                                             if (areLevel2AccountsActive) {
                                                               areLevel1AccountsActive =
-                                                              true;
+                                                                  true;
                                                               areAccountsActive =
-                                                              true;
-                                                            } else
-                                                            if (!areLevel2AccountsActive) {
+                                                                  true;
+                                                            } else if (!areLevel2AccountsActive) {
                                                               areLevel3AccountsActive =
-                                                              false;
+                                                                  false;
                                                             }
                                                           });
                                                         },
                                                         activeTrackColor:
-                                                        Color(0xffEEEEEE),
+                                                            Color(0xffEEEEEE),
                                                         activeColor:
-                                                        Color(0xff0957FF),
+                                                            Color(0xff0957FF),
                                                       ),
                                                     ]),
                                                 Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                     crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .center,
+                                                        CrossAxisAlignment
+                                                            .center,
                                                     children: <Widget>[
-                                                      Text("Use Level 3:",
+                                                      Text(
+                                                          AppLocalizations.of(
+                                                                  context)
+                                                              .translate(
+                                                                  'useAccountsLevel3'),
                                                           style: TextStyle(
                                                               fontSize: 25)),
                                                       Switch(
                                                         value:
-                                                        areLevel3AccountsActive,
+                                                            areLevel3AccountsActive,
                                                         onChanged: (value) {
                                                           setState(() {
                                                             areLevel3AccountsActive =
@@ -5795,32 +5526,37 @@ class _MyHomePageState extends State<MyHomePage>
                                                             // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
                                                             if (areLevel3AccountsActive) {
                                                               areAccountsActive =
-                                                              true;
+                                                                  true;
                                                               areLevel1AccountsActive =
-                                                              true;
+                                                                  true;
                                                               areLevel2AccountsActive =
-                                                              true;
+                                                                  true;
                                                             }
                                                           });
                                                         },
                                                         activeTrackColor:
-                                                        Color(0xffEEEEEE),
+                                                            Color(0xffEEEEEE),
                                                         activeColor:
-                                                        Color(0xff0957FF),
+                                                            Color(0xff0957FF),
                                                       ),
                                                     ]),
                                                 ButtonBar(
-                                                  mainAxisSize: MainAxisSize
-                                                      .min,
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
                                                   // this will take space as minimum as posible(to center)
                                                   children: <Widget>[
                                                     ButtonTheme(
                                                       minWidth: 75.0,
                                                       height: 50.0,
                                                       child: RaisedButton(
-                                                        child: Text('Discard'),
-                                                        color: Color(
-                                                            0xffEEEEEE),
+                                                        child: Text(
+                                                          AppLocalizations.of(
+                                                                  context)
+                                                              .translate(
+                                                                  'DiscardButton'),
+                                                        ),
+                                                        color:
+                                                            Color(0xffEEEEEE),
                                                         // EEEEEE
                                                         onPressed: () {
                                                           loadPreferences();
@@ -5831,13 +5567,17 @@ class _MyHomePageState extends State<MyHomePage>
                                                       minWidth: 150.0,
                                                       height: 70.0,
                                                       child: RaisedButton(
-                                                        child: Text('Save',
+                                                        child: Text(
+                                                            AppLocalizations.of(
+                                                                    context)
+                                                                .translate(
+                                                                    'SaveButton'),
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .white,
                                                                 fontSize: 20)),
-                                                        color: Color(
-                                                            0xff0957FF),
+                                                        color:
+                                                            Color(0xff0957FF),
                                                         //df7599 - 0957FF
                                                         onPressed: () {
                                                           sendBackend(
@@ -5859,355 +5599,359 @@ class _MyHomePageState extends State<MyHomePage>
                                 enablePullDown: true,
                                 onRefresh: () async {
                                   await handleRefresh(_currentIndex);
-                                  print("REFRESHING ON SCROLL");
-                                  //await Future.delayed(Duration(seconds: 2));
+
                                   _refreshController.refreshCompleted();
                                 },
                                 child: Column(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       SizedBox(
                                         height: 5,
                                       ),
-                                      Text("Account Administration",
+                                      Text(
+                                          AppLocalizations.of(context)
+                                              .translate(
+                                                  'accountAdministrationTitle'),
                                           style: TextStyle(fontSize: 25)),
                                       areLevel1AccountsActive
                                           ? Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 30.0,
-                                            top: 0,
-                                            right: 30,
-                                            bottom: 0),
-                                        alignment: Alignment.center,
-                                        child: SearchChoices.single(
-                                          value: level1AdminObject,
-                                          hint: Text(
-                                            "Select a level 1 account",
-                                          ),
-                                          icon:
-                                          Icon(Icons.arrow_downward),
-                                          iconSize: 24,
-                                          style: TextStyle(
-                                              color: Color(0xff0957FF)),
-                                          isExpanded: true,
-                                          underline: Container(
-                                            height: 2,
-                                            width: 5000,
-                                            color: Color(0xff0957FF),
-                                          ),
-                                          onClear: () {
-                                            setState(() {
-                                              level1AdminObject =
-                                              level1AdminAccountsList[
-                                              0];
+                                              padding: const EdgeInsets.only(
+                                                  left: 30.0,
+                                                  top: 0,
+                                                  right: 30,
+                                                  bottom: 0),
+                                              alignment: Alignment.center,
+                                              child: SearchChoices.single(
+                                                value: level1AdminObject,
+                                                hint: Text(
+                                                  "Select a level 1 account",
+                                                ),
+                                                icon:
+                                                    Icon(Icons.arrow_downward),
+                                                iconSize: 24,
+                                                style: TextStyle(
+                                                    color: Color(0xff0957FF)),
+                                                isExpanded: true,
+                                                underline: Container(
+                                                  height: 2,
+                                                  width: 5000,
+                                                  color: Color(0xff0957FF),
+                                                ),
+                                                onClear: () {
+                                                  setState(() {
+                                                    level1AdminObject =
+                                                        level1AdminAccountsList[
+                                                            0];
 
-                                              level2AdminObject =
-                                              level2AdminAccountsList[
-                                              0];
+                                                    level2AdminObject =
+                                                        level2AdminAccountsList[
+                                                            0];
 
-                                              level3AdminObject =
-                                              level3AdminAccountsList[
-                                              0];
-                                            });
-                                          },
-                                          onChanged: (Account newValue) {
-                                            if (newValue != null) {
-                                              setState(() {
-                                                level1AdminObject =
-                                                    newValue;
-                                              });
+                                                    level3AdminObject =
+                                                        level3AdminAccountsList[
+                                                            0];
+                                                  });
+                                                },
+                                                onChanged: (Account newValue) {
+                                                  if (newValue != null) {
+                                                    setState(() {
+                                                      level1AdminObject =
+                                                          newValue;
+                                                    });
 
-                                              arrangeAccounts(1, 'admin');
-                                            }
-                                          },
-                                          items: level1AdminAccountsList
-                                              .map((Account account) {
-                                            return new DropdownMenuItem<
-                                                Account>(
-                                              value: account,
-                                              child: new Text(
-                                                account.name,
+                                                    arrangeAccounts(1, 'admin');
+                                                  }
+                                                },
+                                                items: level1AdminAccountsList
+                                                    .map((Account account) {
+                                                  return new DropdownMenuItem<
+                                                      Account>(
+                                                    value: account,
+                                                    child: new Text(
+                                                      account.name,
+                                                    ),
+                                                  );
+                                                }).toList(),
                                               ),
-                                            );
-                                          }).toList(),
-                                        ),
-                                      )
+                                            )
                                           : Container(),
                                       areLevel1AccountsActive
                                           ? Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 30.0,
-                                            top: 0,
-                                            right: 30,
-                                            bottom: 0),
-                                        //color: Colors.blue[600],
-                                        alignment: Alignment.center,
-                                        //child: Text('Submit'),
-                                        child: TextFormField(
-                                          // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
-                                          style: TextStyle(
-                                              height:
-                                              2),
-                                          //increases the height of cursor
-                                          // autofocus: true,
-                                          controller:
-                                          newLevel1TextFieldController,
-                                          decoration: InputDecoration(
-                                              hintText:
-                                              'Select an existing or create a new level 1',
-                                              hintStyle: TextStyle(
-                                                  height: 1.75,
-                                                  color:
-                                                  Color(0xff0957FF)),
-                                              /*icon: Icon(
+                                              padding: const EdgeInsets.only(
+                                                  left: 30.0,
+                                                  top: 0,
+                                                  right: 30,
+                                                  bottom: 0),
+                                              //color: Colors.blue[600],
+                                              alignment: Alignment.center,
+                                              //child: Text('Submit'),
+                                              child: TextFormField(
+                                                // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
+                                                style: TextStyle(height: 2),
+                                                //increases the height of cursor
+                                                // autofocus: true,
+                                                controller:
+                                                    newLevel1TextFieldController,
+                                                decoration: InputDecoration(
+                                                    hintText: AppLocalizations
+                                                            .of(context)
+                                                        .translate(
+                                                            'enterNewLevel1AccountNameTextField'),
+                                                    hintStyle: TextStyle(
+                                                        height: 1.75,
+                                                        color:
+                                                            Color(0xff0957FF)),
+                                                    /*icon: Icon(
                                             Icons.attach_money,
                                             color: Color(0xff0957FF),
                                           ),*/
-                                              //prefixIcon: Icon(Icons.attach_money),
-                                              //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                              enabledBorder:
-                                              new UnderlineInputBorder(
-                                                  borderSide:
-                                                  new BorderSide(
-                                                      color: Color(
-                                                          0xff0957FF)))),
-                                        ),
-                                      )
+                                                    //prefixIcon: Icon(Icons.attach_money),
+                                                    //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                    enabledBorder:
+                                                        new UnderlineInputBorder(
+                                                            borderSide:
+                                                                new BorderSide(
+                                                                    color: Color(
+                                                                        0xff0957FF)))),
+                                              ),
+                                            )
                                           : Container(),
                                       SizedBox(
                                         height: 15,
                                       ),
                                       areLevel2AccountsActive
                                           ? Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 30.0,
-                                            top: 0,
-                                            right: 30,
-                                            bottom: 0),
-                                        //color: Colors.blue[600],
-                                        alignment: Alignment.center,
-                                        //child: Text('Submit'),
-                                        child: SearchChoices.single(
-                                          value: level2AdminObject,
-                                          hint: Text(
-                                            "Select a level 2 account",
-                                            /*style: TextStyle(
+                                              padding: const EdgeInsets.only(
+                                                  left: 30.0,
+                                                  top: 0,
+                                                  right: 30,
+                                                  bottom: 0),
+                                              //color: Colors.blue[600],
+                                              alignment: Alignment.center,
+                                              //child: Text('Submit'),
+                                              child: SearchChoices.single(
+                                                value: level2AdminObject,
+                                                hint: Text(
+                                                  "Select a level 2 account",
+                                                  /*style: TextStyle(
                               color,
                             ),*/
-                                          ),
-                                          readOnly:
-                                          level1AdminObject.id <= 0 ||
-                                              level2AdminAccountsList
-                                                  .length ==
-                                                  1,
-                                          icon:
-                                          Icon(Icons.arrow_downward),
-                                          iconSize: 24,
-                                          style: TextStyle(
-                                              color: Color(0xff0957FF)),
-                                          isExpanded: true,
-                                          underline: Container(
-                                            height: 2,
-                                            width: 5000,
-                                            color: Color(0xff0957FF),
-                                          ),
-                                          onClear: () {
-                                            setState(() {
-                                              level2AdminObject =
-                                              level2AdminAccountsList[
-                                              0];
+                                                ),
+                                                readOnly:
+                                                    level1AdminObject.id <= 0 ||
+                                                        level2AdminAccountsList
+                                                                .length ==
+                                                            1,
+                                                icon:
+                                                    Icon(Icons.arrow_downward),
+                                                iconSize: 24,
+                                                style: TextStyle(
+                                                    color: Color(0xff0957FF)),
+                                                isExpanded: true,
+                                                underline: Container(
+                                                  height: 2,
+                                                  width: 5000,
+                                                  color: Color(0xff0957FF),
+                                                ),
+                                                onClear: () {
+                                                  setState(() {
+                                                    level2AdminObject =
+                                                        level2AdminAccountsList[
+                                                            0];
 
-                                              level3AdminObject =
-                                              level3AdminAccountsList[
-                                              0];
-                                            });
-                                          },
-                                          onChanged: (Account newValue) {
-                                            if (newValue != null) {
-                                              setState(() {
-                                                level2AdminObject =
-                                                    newValue;
-                                              });
+                                                    level3AdminObject =
+                                                        level3AdminAccountsList[
+                                                            0];
+                                                  });
+                                                },
+                                                onChanged: (Account newValue) {
+                                                  if (newValue != null) {
+                                                    setState(() {
+                                                      level2AdminObject =
+                                                          newValue;
+                                                    });
 
-                                              arrangeAccounts(2, 'admin');
-                                            }
-                                          },
-                                          items: level2AdminAccountsList
-                                              .map((Account account) {
-                                            return new DropdownMenuItem<
-                                                Account>(
-                                              value: account,
-                                              child: new Text(
-                                                account.name,
+                                                    arrangeAccounts(2, 'admin');
+                                                  }
+                                                },
+                                                items: level2AdminAccountsList
+                                                    .map((Account account) {
+                                                  return new DropdownMenuItem<
+                                                      Account>(
+                                                    value: account,
+                                                    child: new Text(
+                                                      account.name,
+                                                    ),
+                                                  );
+                                                }).toList(),
                                               ),
-                                            );
-                                          }).toList(),
-                                        ),
-                                      )
+                                            )
                                           : Container(),
                                       areLevel2AccountsActive
                                           ? Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 30.0,
-                                            top: 0,
-                                            right: 30,
-                                            bottom: 0),
-                                        //color: Colors.blue[600],
-                                        alignment: Alignment.center,
+                                              padding: const EdgeInsets.only(
+                                                  left: 30.0,
+                                                  top: 0,
+                                                  right: 30,
+                                                  bottom: 0),
+                                              //color: Colors.blue[600],
+                                              alignment: Alignment.center,
 
-                                        //child: Text('Submit'),
-                                        child: TextFormField(
-                                          // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
-                                          style: TextStyle(
-                                              height:
-                                              2),
-                                          //increases the height of cursor
-                                          // autofocus: true,
-                                          controller:
-                                          newLevel2TextFieldController,
-                                          decoration: InputDecoration(
-                                              hintText:
-                                              'Select an existing or create a new level 2',
-                                              hintStyle: TextStyle(
-                                                  height: 1.75,
-                                                  color:
-                                                  Color(0xff0957FF)),
-                                              /*icon: Icon(
+                                              //child: Text('Submit'),
+                                              child: TextFormField(
+                                                // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
+                                                style: TextStyle(height: 2),
+                                                //increases the height of cursor
+                                                // autofocus: true,
+                                                controller:
+                                                    newLevel2TextFieldController,
+                                                decoration: InputDecoration(
+                                                    hintText: AppLocalizations
+                                                            .of(context)
+                                                        .translate(
+                                                            'enterNewLevel2AccountNameTextField'),
+                                                    hintStyle: TextStyle(
+                                                        height: 1.75,
+                                                        color:
+                                                            Color(0xff0957FF)),
+                                                    /*icon: Icon(
                                             Icons.attach_money,
                                             color: Color(0xff0957FF),
                                           ),*/
-                                              //prefixIcon: Icon(Icons.attach_money),
-                                              //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                              enabledBorder:
-                                              new UnderlineInputBorder(
-                                                  borderSide:
-                                                  new BorderSide(
-                                                      color: Color(
-                                                          0xff0957FF)))),
-                                        ),
-                                      )
+                                                    //prefixIcon: Icon(Icons.attach_money),
+                                                    //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                    enabledBorder:
+                                                        new UnderlineInputBorder(
+                                                            borderSide:
+                                                                new BorderSide(
+                                                                    color: Color(
+                                                                        0xff0957FF)))),
+                                              ),
+                                            )
                                           : Container(),
                                       SizedBox(
                                         height: 20,
                                       ),
                                       areLevel3AccountsActive
                                           ? Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 30.0,
-                                            top: 0,
-                                            right: 30,
-                                            bottom: 0),
-                                        //color: Colors.blue[600],
-                                        alignment: Alignment.center,
-                                        //child: Text('Submit'),
-                                        child: SearchChoices.single(
-                                          value: level3AdminObject,
-                                          hint: Text(
-                                            "Select a level 3 account",
-                                            /*style: TextStyle(
+                                              padding: const EdgeInsets.only(
+                                                  left: 30.0,
+                                                  top: 0,
+                                                  right: 30,
+                                                  bottom: 0),
+                                              //color: Colors.blue[600],
+                                              alignment: Alignment.center,
+                                              //child: Text('Submit'),
+                                              child: SearchChoices.single(
+                                                value: level3AdminObject,
+                                                hint: Text(
+                                                  "Select a level 3 account",
+                                                  /*style: TextStyle(
                               color,
                             ),*/
-                                          ),
-                                          readOnly:
-                                          level2AdminObject.id <= 0 ||
-                                              level3AdminAccountsList
-                                                  .length ==
-                                                  1,
-                                          icon:
-                                          Icon(Icons.arrow_downward),
-                                          iconSize: 24,
-                                          style: TextStyle(
-                                              color: Color(0xff0957FF)),
-                                          isExpanded: true,
-                                          underline: Container(
-                                            height: 2,
-                                            width: 5000,
-                                            color: Color(0xff0957FF),
-                                          ),
-                                          onClear: () {
-                                            setState(() {
-                                              level3AdminObject =
-                                              level3AdminAccountsList[
-                                              0];
-                                            });
-                                          },
-                                          onChanged: (Account newValue) {
-                                            if (newValue != null) {
-                                              setState(() {
-                                                level3AdminObject =
-                                                    newValue;
-                                              });
-                                            }
-                                          },
-                                          items: level3AdminAccountsList
-                                              .map((Account account) {
-                                            return new DropdownMenuItem<
-                                                Account>(
-                                              value: account,
-                                              child: new Text(
-                                                account.name,
+                                                ),
+                                                readOnly:
+                                                    level2AdminObject.id <= 0 ||
+                                                        level3AdminAccountsList
+                                                                .length ==
+                                                            1,
+                                                icon:
+                                                    Icon(Icons.arrow_downward),
+                                                iconSize: 24,
+                                                style: TextStyle(
+                                                    color: Color(0xff0957FF)),
+                                                isExpanded: true,
+                                                underline: Container(
+                                                  height: 2,
+                                                  width: 5000,
+                                                  color: Color(0xff0957FF),
+                                                ),
+                                                onClear: () {
+                                                  setState(() {
+                                                    level3AdminObject =
+                                                        level3AdminAccountsList[
+                                                            0];
+                                                  });
+                                                },
+                                                onChanged: (Account newValue) {
+                                                  if (newValue != null) {
+                                                    setState(() {
+                                                      level3AdminObject =
+                                                          newValue;
+                                                    });
+                                                  }
+                                                },
+                                                items: level3AdminAccountsList
+                                                    .map((Account account) {
+                                                  return new DropdownMenuItem<
+                                                      Account>(
+                                                    value: account,
+                                                    child: new Text(
+                                                      account.name,
+                                                    ),
+                                                  );
+                                                }).toList(),
                                               ),
-                                            );
-                                          }).toList(),
-                                        ),
-                                      )
+                                            )
                                           : Container(),
                                       areLevel3AccountsActive
                                           ? Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 30.0,
-                                            top: 0,
-                                            right: 30,
-                                            bottom: 0),
-                                        //color: Colors.blue[600],
-                                        alignment: Alignment.center,
-                                        //child: Text('Submit'),
-                                        child: TextFormField(
-                                          // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
-                                          style: TextStyle(
-                                              height:
-                                              2),
-                                          //increases the height of cursor
-                                          // autofocus: true,
-                                          controller:
-                                          newLevel3TextFieldController,
-                                          decoration: InputDecoration(
-                                              hintText:
-                                              'Select an existing or create a new level 3',
-                                              hintStyle: TextStyle(
-                                                  height: 1.75,
-                                                  color:
-                                                  Color(0xff0957FF)),
-                                              /*icon: Icon(
+                                              padding: const EdgeInsets.only(
+                                                  left: 30.0,
+                                                  top: 0,
+                                                  right: 30,
+                                                  bottom: 0),
+                                              //color: Colors.blue[600],
+                                              alignment: Alignment.center,
+                                              //child: Text('Submit'),
+                                              child: TextFormField(
+                                                // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
+                                                style: TextStyle(height: 2),
+                                                //increases the height of cursor
+                                                // autofocus: true,
+                                                controller:
+                                                    newLevel3TextFieldController,
+                                                decoration: InputDecoration(
+                                                    hintText: AppLocalizations
+                                                            .of(context)
+                                                        .translate(
+                                                            'enterNewLevel3AccountNameTextField'),
+                                                    hintStyle: TextStyle(
+                                                        height: 1.75,
+                                                        color:
+                                                            Color(0xff0957FF)),
+                                                    /*icon: Icon(
                                             Icons.attach_money,
                                             color: Color(0xff0957FF),
                                           ),*/
-                                              //prefixIcon: Icon(Icons.attach_money),
-                                              //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                              enabledBorder:
-                                              new UnderlineInputBorder(
-                                                  borderSide:
-                                                  new BorderSide(
-                                                      color: Color(
-                                                          0xff0957FF)))),
-                                        ),
-                                      )
+                                                    //prefixIcon: Icon(Icons.attach_money),
+                                                    //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                    enabledBorder:
+                                                        new UnderlineInputBorder(
+                                                            borderSide:
+                                                                new BorderSide(
+                                                                    color: Color(
+                                                                        0xff0957FF)))),
+                                              ),
+                                            )
                                           : Container(),
                                       ButtonBar(
-                                        mainAxisSize: MainAxisSize
-                                            .min,
+                                        mainAxisSize: MainAxisSize.min,
                                         // this will take space as minimum as posible(to center)
                                         children: <Widget>[
                                           ButtonTheme(
                                             minWidth: 75.0,
                                             height: 50.0,
                                             child: RaisedButton(
-                                              child: Text('Discard'),
+                                              child: Text(
+                                                AppLocalizations.of(context)
+                                                    .translate('DiscardButton'),
+                                              ),
                                               color:
-                                              Color(0xffEEEEEE), // EEEEEE
+                                                  Color(0xffEEEEEE), // EEEEEE
                                               onPressed: () {
                                                 newLevel1TextFieldController
                                                     .text = '';
@@ -6217,14 +5961,14 @@ class _MyHomePageState extends State<MyHomePage>
                                                     .text = '';
                                                 setState(() {
                                                   level1AdminObject =
-                                                  level1AdminAccountsList[
-                                                  0];
+                                                      level1AdminAccountsList[
+                                                          0];
                                                   level2AdminObject =
-                                                  level2AdminAccountsList[
-                                                  0];
+                                                      level2AdminAccountsList[
+                                                          0];
                                                   level3AdminObject =
-                                                  level3AdminAccountsList[
-                                                  0];
+                                                      level3AdminAccountsList[
+                                                          0];
                                                 });
                                               },
                                             ),
@@ -6233,14 +5977,17 @@ class _MyHomePageState extends State<MyHomePage>
                                             minWidth: 75.0,
                                             height: 50.0,
                                             child: RaisedButton(
-                                              child: Text('Delete \nSelected',
+                                              child: Text(
+                                                  AppLocalizations.of(context)
+                                                      .translate(
+                                                          'deleteSelectedButton'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 17,
                                                   )),
                                               color:
-                                              Colors.red, //df7599 - 0957FF
+                                                  Colors.red, //df7599 - 0957FF
                                               onPressed: () {
                                                 sendBackend(
                                                     'newaccountdelete', false);
@@ -6250,62 +5997,62 @@ class _MyHomePageState extends State<MyHomePage>
                                                   if (level3ActualObject.id ==
                                                       level3AdminObject.id) {
                                                     level3ActualObject =
-                                                    level3ActualAccountsList[
-                                                    0];
+                                                        level3ActualAccountsList[
+                                                            0];
                                                   }
 
                                                   if (level3BudgetObject.id ==
                                                       level3AdminObject.id) {
                                                     level3BudgetObject =
-                                                    level3BudgetAccountsList[
-                                                    0];
+                                                        level3BudgetAccountsList[
+                                                            0];
                                                   }
 
                                                   level3AdminObject =
-                                                  level3AdminAccountsList[
-                                                  0];
+                                                      level3AdminAccountsList[
+                                                          0];
                                                 } else if (level2AdminObject
-                                                    .id >
+                                                        .id >
                                                     0) {
                                                   // If the acount which has just been deleted was selected, unselect it
                                                   if (level2ActualObject.id ==
                                                       level2AdminObject.id) {
                                                     level2ActualObject =
-                                                    level2ActualAccountsList[
-                                                    0];
+                                                        level2ActualAccountsList[
+                                                            0];
                                                   }
 
                                                   if (level2BudgetObject.id ==
                                                       level2AdminObject.id) {
                                                     level2BudgetObject =
-                                                    level2BudgetAccountsList[
-                                                    0];
+                                                        level2BudgetAccountsList[
+                                                            0];
                                                   }
 
                                                   level2AdminObject =
-                                                  level2AdminAccountsList[
-                                                  0];
+                                                      level2AdminAccountsList[
+                                                          0];
                                                 } else if (level1AdminObject
-                                                    .id >
+                                                        .id >
                                                     0) {
                                                   // If the acount which has just been deleted was selected, unselect it
                                                   if (level1ActualObject.id ==
                                                       level1AdminObject.id) {
                                                     level1ActualObject =
-                                                    level1ActualAccountsList[
-                                                    0];
+                                                        level1ActualAccountsList[
+                                                            0];
                                                   }
 
                                                   if (level1BudgetObject.id ==
                                                       level1AdminObject.id) {
                                                     level1BudgetObject =
-                                                    level1BudgetAccountsList[
-                                                    0];
+                                                        level1BudgetAccountsList[
+                                                            0];
                                                   }
 
                                                   level1AdminObject =
-                                                  level1AdminAccountsList[
-                                                  0];
+                                                      level1AdminAccountsList[
+                                                          0];
                                                 }
                                               },
                                             ),
@@ -6314,7 +6061,9 @@ class _MyHomePageState extends State<MyHomePage>
                                             minWidth: 150.0,
                                             height: 70.0,
                                             child: RaisedButton(
-                                              child: Text('Save',
+                                              child: Text(
+                                                  AppLocalizations.of(context)
+                                                      .translate('SaveButton'),
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 20)),
@@ -6342,17 +6091,18 @@ class _MyHomePageState extends State<MyHomePage>
                                 enablePullDown: true,
                                 onRefresh: () async {
                                   await handleRefresh(_currentIndex);
-                                  print("REFRESHING ON SCROLL");
                                   //await Future.delayed(Duration(seconds: 2));
                                   _refreshController.refreshCompleted();
                                 },
                                 child: Column(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
-                                      Text("Costtype Administration",
+                                      Text(
+                                          AppLocalizations.of(context).translate(
+                                              'costTypesAdministrationTitle'),
                                           style: TextStyle(fontSize: 25)),
                                       Container(
                                         padding: const EdgeInsets.only(
@@ -6384,8 +6134,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           onClear: () {
                                             setState(() {
                                               costTypeObjectAdmin =
-                                              costTypesList[
-                                              0];
+                                                  costTypesList[0];
                                             });
                                           },
                                           onChanged: (CostType newValue) {
@@ -6418,16 +6167,16 @@ class _MyHomePageState extends State<MyHomePage>
                                         //child: Text('Submit'),
                                         child: TextFormField(
                                           // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
-                                          style: TextStyle(
-                                              height:
-                                              2),
+                                          style: TextStyle(height: 2),
                                           //increases the height of cursor
                                           // autofocus: true,
                                           controller:
-                                          newCostTypeTextFieldController,
+                                              newCostTypeTextFieldController,
                                           decoration: InputDecoration(
-                                              hintText:
-                                              'Select an existing or create a new Costtype',
+                                              hintText: AppLocalizations.of(
+                                                      context)
+                                                  .translate(
+                                                      'enterNewCostTypeNameTextField'),
                                               hintStyle: TextStyle(
                                                   height: 1.75,
                                                   color: Color(0xff0957FF)),
@@ -6438,10 +6187,10 @@ class _MyHomePageState extends State<MyHomePage>
                                               //prefixIcon: Icon(Icons.attach_money),
                                               //labelStyle: TextStyle(color: Color(0xff0957FF)),
                                               enabledBorder:
-                                              new UnderlineInputBorder(
-                                                  borderSide: new BorderSide(
-                                                      color: Color(
-                                                          0xff0957FF)))),
+                                                  new UnderlineInputBorder(
+                                                      borderSide: new BorderSide(
+                                                          color: Color(
+                                                              0xff0957FF)))),
                                         ),
                                       ),
                                       /*
@@ -6451,24 +6200,26 @@ class _MyHomePageState extends State<MyHomePage>
                                   */
 
                                       ButtonBar(
-                                        mainAxisSize: MainAxisSize
-                                            .min,
+                                        mainAxisSize: MainAxisSize.min,
                                         // this will take space as minimum as posible(to center)
                                         children: <Widget>[
                                           ButtonTheme(
                                             minWidth: 75.0,
                                             height: 50.0,
                                             child: RaisedButton(
-                                              child: Text('Discard'),
+                                              child: Text(
+                                                AppLocalizations.of(context)
+                                                    .translate('DiscardButton'),
+                                              ),
                                               color:
-                                              Color(0xffEEEEEE), // EEEEEE
+                                                  Color(0xffEEEEEE), // EEEEEE
                                               onPressed: () {
                                                 newCostTypeTextFieldController
                                                     .text = '';
 
                                                 setState(() {
                                                   costTypeObjectAdmin =
-                                                  costTypesList[0];
+                                                      costTypesList[0];
                                                 });
                                               },
                                             ),
@@ -6477,21 +6228,24 @@ class _MyHomePageState extends State<MyHomePage>
                                             minWidth: 75.0,
                                             height: 50.0,
                                             child: RaisedButton(
-                                              child: Text('Delete \nSelected',
+                                              child: Text(
+                                                  AppLocalizations.of(context)
+                                                      .translate(
+                                                          'deleteSelectedButton'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 17,
                                                   )),
                                               color:
-                                              Colors.red, //df7599 - 0957FF
+                                                  Colors.red, //df7599 - 0957FF
                                               onPressed: () {
                                                 sendBackend(
                                                     'newcosttypedelete', false);
 
                                                 // the here selected value was deleted and therefore is no more available, so set it to the first default value to not receive an error
                                                 costTypeObjectAdmin =
-                                                costTypesList[0];
+                                                    costTypesList[0];
                                               },
                                             ),
                                           ),
@@ -6499,7 +6253,9 @@ class _MyHomePageState extends State<MyHomePage>
                                             minWidth: 150.0,
                                             height: 70.0,
                                             child: RaisedButton(
-                                              child: Text('Save',
+                                              child: Text(
+                                                  AppLocalizations.of(context)
+                                                      .translate('SaveButton'),
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 20)),
@@ -6537,25 +6293,40 @@ class _MyHomePageState extends State<MyHomePage>
         },
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
-              title: Text('Home'),
+              title: Text(
+                AppLocalizations.of(context)
+                    .translate('homePageTitle'),
+              ),
               icon: Icon(Icons.home),
               activeColor: Color(0xff0957FF)),
           BottomNavyBarItem(
-              title: Text('Actuals'),
+              title: Text(
+    AppLocalizations.of(context)
+        .translate('actualPageTitle'),
+    ),
               icon: Icon(Icons.attach_money),
               activeColor: Colors.orange),
           BottomNavyBarItem(
-            title: Text('Budget'),
+            title: Text(
+              AppLocalizations.of(context)
+                  .translate('budgetPageTitle'),
+            ),
             icon: Icon(Icons.account_balance_wallet),
             activeColor: Colors.deepPurple,
           ),
           BottomNavyBarItem(
-            title: Text('Visualizer'),
+            title: Text(
+              AppLocalizations.of(context)
+                  .translate('visualizerPageTitle'),
+            ),
             icon: Icon(Icons.bubble_chart),
             activeColor: Colors.red,
           ),
           BottomNavyBarItem(
-            title: Text('Settings'),
+            title: Text(
+              AppLocalizations.of(context)
+                  .translate('settingsPageTitle'),
+            ),
             icon: Icon(Icons.settings),
             activeColor: Colors.green,
           ),
