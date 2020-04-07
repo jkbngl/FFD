@@ -1,6 +1,6 @@
-import 'dart:developer';
-import 'dart:io';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'dart:ui';
+import 'app_localizations.dart';
 
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:ffd/sign_in.dart';
@@ -22,7 +22,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FFD Demo - ${Localizations.localeOf(context).toString()}',
+      title: 'FFD Demo - ',
+      supportedLocales: [
+        Locale('en', 'US'),
+        Locale('ar', ''),
+      ],
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
       theme: ThemeData(
         primarySwatch: colorCustom,
       ),
@@ -375,9 +384,6 @@ class _MyHomePageState extends State<MyHomePage>
   Account level3AdminObject;
   CostType costTypeObjectAdmin;
 
-  // Test for #37
-  String locale = 'SOUS TAIROL';
-
   // Dynamic title at the top of the screen which is changed depending on which page is selected
   var appBarTitleText = new Text("FFD v2");
 
@@ -421,9 +427,6 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   void afterFirstLayout(BuildContext context) async {
-
-    locale = Localizations.localeOf(context).toString();
-
     // Resolves the issue that no data is available on login
     await getToken();
     await syncUserInBackend();
@@ -2156,27 +2159,27 @@ class _MyHomePageState extends State<MyHomePage>
             switch (index) {
               case 0:
                 {
-                  appBarTitleText = Text('FFD - Home - $locale');
+                  appBarTitleText = Text('FFD - Home- ${AppLocalizations.of(context).translate('Message')}');
                   break;
                 }
               case 1:
                 {
-                  appBarTitleText = Text('FFD - Actual - $locale');
+                  appBarTitleText = Text('FFD - Actual');
                   break;
                 }
               case 2:
                 {
-                  appBarTitleText = Text('FFD - Budget - $locale');
+                  appBarTitleText = Text('FFD - Budget');
                   break;
                 }
               case 3:
                 {
-                  appBarTitleText = Text('FFD - Visualizer - $locale');
+                  appBarTitleText = Text('FFD - Visualizer');
                   break;
                 }
               case 4:
                 {
-                  appBarTitleText = Text('FFD - Settings - $locale');
+                  appBarTitleText = Text('FFD - Settings');
                   break;
                 }
             }

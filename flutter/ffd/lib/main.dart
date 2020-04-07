@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'login_page.dart';
+import 'app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(MyApp());
 
@@ -26,10 +28,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FFD Login',
       theme: ThemeData(
           primarySwatch: colorCustom,
       ),
+      supportedLocales: [
+        Locale('en', 'US'),
+        Locale('ar', ''),
+      ],
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      title: 'FFD Login',
       home: LoginPage(),
     );
   }
