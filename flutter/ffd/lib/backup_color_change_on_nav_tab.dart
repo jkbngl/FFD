@@ -362,7 +362,6 @@ class _MyHomePageState extends State<MyHomePage>
     dateTimeBudget = DateTime.parse(INIT_DATETIME);
     dateTimeVisualizer = DateTime.parse(INIT_DATETIME);
 
-    welcomeDialog();
   }
 
   @override
@@ -373,6 +372,10 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   void afterFirstLayout(BuildContext context) async {
+
+    welcomeDialog();
+    print("welcomed");
+
     // Resolves the issue that no data is available on login
     await getToken();
     await syncUserInBackend();
@@ -403,36 +406,50 @@ class _MyHomePageState extends State<MyHomePage>
   final List<ListItem> bdgList = <ListItem>[];
 
   welcomeDialog() async {
-    var randomFact =
-        await http.read('https://uselessfacts.jsph.pl/random.json?language=en');
-    var parsedFact = json.decode(randomFact);
+    print("HERE");
+    String language = Localizations.localeOf(context).toString().split('_')[0];
 
-    showDialog(
-      context: context,
-      builder: (context) => new AlertDialog(
-        content: RichText(
-            text: TextSpan(
-          text:
-              'Welcome, good to see you here \n\nAre you up for a fact? did you know that: \n\n',
-          style: TextStyle(
-              color: Colors.black, fontSize: 12, fontStyle: FontStyle.italic),
-          children: <TextSpan>[
-            TextSpan(
-              text: '${parsedFact['text']}',
-              style: TextStyle(
-                fontSize: 15,
-              ),
+    try {
+
+      String url = 'https://uselessfacts.jsph.pl/random.json?language=$language';
+
+      print(url);
+      print(Localizations.localeOf(context).toString());
+
+      var randomFact =
+      await http.read(url);
+      var parsedFact = json.decode(randomFact);
+
+      showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          content: RichText(
+              text: TextSpan(
+                text:
+                'Welcome, good to see you here \n\nAre you up for a fact? did you know that: \n\n',
+                style: TextStyle(
+                    color: Colors.black, fontSize: 12, fontStyle: FontStyle.italic),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: '${parsedFact['text']}',
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  )
+                ],
+              )),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('DISMISS'),
+              onPressed: () => Navigator.of(context).pop(),
             )
           ],
-        )),
-        actions: <Widget>[
-          new FlatButton(
-            child: new Text('DISMISS'),
-            onPressed: () => Navigator.of(context).pop(),
-          )
-        ],
-      ),
-    );
+        ),
+      );
+
+    } catch (e) {
+      // errorDialog(e);
+    }
   }
 
   syncUserInBackend() async {
