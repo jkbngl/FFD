@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FFD Demo',
+      title: 'FFD Demo - ${Localizations.localeOf(context).toString()}',
       theme: ThemeData(
         primarySwatch: colorCustom,
       ),
@@ -375,8 +375,12 @@ class _MyHomePageState extends State<MyHomePage>
   Account level3AdminObject;
   CostType costTypeObjectAdmin;
 
+  // Test for #37
+  String locale = 'SOUS TAIROL';
+
   // Dynamic title at the top of the screen which is changed depending on which page is selected
   var appBarTitleText = new Text("FFD v2");
+
 
   @override
   void initState() {
@@ -417,6 +421,9 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   void afterFirstLayout(BuildContext context) async {
+
+    locale = Localizations.localeOf(context).toString();
+
     // Resolves the issue that no data is available on login
     await getToken();
     await syncUserInBackend();
@@ -2149,27 +2156,27 @@ class _MyHomePageState extends State<MyHomePage>
             switch (index) {
               case 0:
                 {
-                  appBarTitleText = Text('FFD - Home');
+                  appBarTitleText = Text('FFD - Home - $locale');
                   break;
                 }
               case 1:
                 {
-                  appBarTitleText = Text('FFD - Actual');
+                  appBarTitleText = Text('FFD - Actual - $locale');
                   break;
                 }
               case 2:
                 {
-                  appBarTitleText = Text('FFD - Budget');
+                  appBarTitleText = Text('FFD - Budget - $locale');
                   break;
                 }
               case 3:
                 {
-                  appBarTitleText = Text('FFD - Visualizer');
+                  appBarTitleText = Text('FFD - Visualizer - $locale');
                   break;
                 }
               case 4:
                 {
-                  appBarTitleText = Text('FFD - Settings');
+                  appBarTitleText = Text('FFD - Settings - $locale');
                   break;
                 }
             }
