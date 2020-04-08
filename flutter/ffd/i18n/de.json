@@ -79,7 +79,7 @@
   "code" : "Code",
   "drilldownError" : "Keine weiteren Details verfügbar",
   "drilldownErrorMoreLevel3" : "Keine Ebene tiefer gefunden",
-  "drilldownErrorParent" : "Keineen weiteres verknüpftes Konto gefunden",
+  "drilldownErrorParent" : "Kein weiteres verknüpftes Konto gefunden",
   "confirmLogout" : "Abmelden Bestätigen",
   "Message" : "This is English"
 }
