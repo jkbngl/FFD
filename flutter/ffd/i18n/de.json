@@ -81,5 +81,6 @@
   "drilldownErrorMoreLevel3" : "Keine Ebene tiefer gefunden",
   "drilldownErrorParent" : "Kein weiteres verknüpftes Konto gefunden",
   "confirmLogout" : "Abmelden Bestätigen",
+  "loginText" : "FFD - Anmelden",
   "Message" : "This is English"
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'backup_color_change_on_nav_tab.dart';
 import 'sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -20,7 +21,10 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'FFD Login',
+                AppLocalizations.of(
+                    context)
+                    .translate(
+                    'loginText'),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(

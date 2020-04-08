@@ -81,5 +81,6 @@
   "drilldownErrorMoreLevel3" : "No drilldown deeper than level3 allowed",
   "drilldownErrorParent" : "No deeper level available",
   "confirmLogout" : "Confirm Logout",
+  "loginText" : "FFD - Login",
   "Message" : "This is English"
 }
