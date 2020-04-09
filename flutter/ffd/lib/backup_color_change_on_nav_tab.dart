@@ -2511,7 +2511,7 @@ class _MyHomePageState extends State<MyHomePage>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Icon(
-                                  Icons.home,
+                                  Icons.add,
                                   color: Colors.white,
                                 ),
                                 Text(
@@ -2533,7 +2533,7 @@ class _MyHomePageState extends State<MyHomePage>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Icon(
-                                  Icons.home,
+                                  Icons.search,
                                   color: Colors.white,
                                 ),
                                 Text(
@@ -3955,7 +3955,7 @@ class _MyHomePageState extends State<MyHomePage>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Icon(
-                                  Icons.home,
+                                  Icons.add,
                                   color: Colors.white,
                                 ),
                                 Text(
@@ -3977,7 +3977,7 @@ class _MyHomePageState extends State<MyHomePage>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Icon(
-                                  Icons.home,
+                                  Icons.search,
                                   color: Colors.white,
                                 ),
                                 Text(
@@ -5718,7 +5718,7 @@ class _MyHomePageState extends State<MyHomePage>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Icon(
-                                  Icons.home,
+                                  Icons.settings,
                                   color: Colors.white,
                                 ),
                                 Text(
@@ -5742,7 +5742,7 @@ class _MyHomePageState extends State<MyHomePage>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Icon(
-                                  Icons.home,
+                                  Icons.library_books,
                                   color: Colors.white,
                                 ),
                                 Text(
@@ -5765,7 +5765,7 @@ class _MyHomePageState extends State<MyHomePage>
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Icon(Icons.home, color: Colors.white),
+                                Icon(Icons.account_balance_wallet, color: Colors.white),
                                 Text(
                                   AppLocalizations.of(context)
                                       .translate('TitleGeneralTab'),
