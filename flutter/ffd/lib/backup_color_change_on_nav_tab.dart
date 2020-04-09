@@ -784,6 +784,7 @@ class _MyHomePageState extends State<MyHomePage>
       homescreenData[0].type = parsedActual.length != 0
           ? 'Actual'
           : "No Data found \nfor $year - $month";
+      homescreenData[0].color = charts.ColorUtil.fromDartColor(Color(0xff003680));
 
       homescreenData[1].amount = parsedBudget.length != 0
           ? parsedBudget[0]['sum'] - homescreenData[0].amount
@@ -791,6 +792,7 @@ class _MyHomePageState extends State<MyHomePage>
       homescreenData[1].type = parsedBudget.length != 0
           ? 'Budget'
           : "No Data found \nfor $year - $month";
+      homescreenData[1].color = charts.ColorUtil.fromDartColor(Color(0xff0957FF));
 
       homescreenData[2].amount =
       parsedBudget.length != 0 ? parsedBudget[0]['sum'] : 0.000001;
