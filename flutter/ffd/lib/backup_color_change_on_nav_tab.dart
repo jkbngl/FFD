@@ -134,7 +134,7 @@ class ChartObject {
 class homescreenPie {
   String type;
   double amount;
-  final charts.Color color;
+  charts.Color color;
 
   homescreenPie(this.type, this.amount, this.color);
 }
@@ -797,6 +797,13 @@ class _MyHomePageState extends State<MyHomePage>
       homescreenData[2].type = parsedBudget.length != 0
           ? 'OverallBudget'
           : "No Data found \nfor $year - $month";
+
+      // #118
+      if(homescreenData[1].amount < 0)
+      {
+        homescreenData[1].color = charts.ColorUtil.fromDartColor(Color(0xffb71c1c));
+        homescreenData[1].color = charts.ColorUtil.fromDartColor(Color(0xffdd2c00));
+      }
 
       print(
           "Comparison ACTUAL $parsedActualComparison vs ${homescreenData[0]
