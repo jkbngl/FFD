@@ -799,9 +799,12 @@ class _MyHomePageState extends State<MyHomePage>
           : "No Data found \nfor $year - $month";
 
       // #118
-      if(homescreenData[1].amount < 0)
+      if(homescreenData[1].amount < 0)  // means no budget left
       {
-        homescreenData[1].color = charts.ColorUtil.fromDartColor(Color(0xffb71c1c));
+        // homescreenData[0].amount = homescreenData[2].amount;
+        // homescreenData[1].amount = 0;
+
+        homescreenData[0].color = charts.ColorUtil.fromDartColor(Color(0xffb71c1c));
         homescreenData[1].color = charts.ColorUtil.fromDartColor(Color(0xffdd2c00));
       }
 
