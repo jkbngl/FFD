@@ -5765,10 +5765,10 @@ class _MyHomePageState extends State<MyHomePage>
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Icon(Icons.account_balance_wallet, color: Colors.white),
+                                Icon(Icons.account_balance, color: Colors.white),
                                 Text(
                                   AppLocalizations.of(context)
-                                      .translate('TitleGeneralTab'),
+                                      .translate('TitleCostTypesTab'),
                                   style: TextStyle(color: Colors.white),
                                 )
                               ]),
