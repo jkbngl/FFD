@@ -485,7 +485,7 @@ class _MyHomePageState extends State<MyHomePage>
                     fontStyle: FontStyle.italic),
                 children: <TextSpan>[
                   TextSpan(
-                    text: '${parsedFact['text']}',
+                    text: parsedFact['text'],
                     style: TextStyle(
                       fontSize: 15,
                     ),
@@ -1938,6 +1938,46 @@ class _MyHomePageState extends State<MyHomePage>
     }
   }
 
+  getHelpTextByIndex( int index)
+  {
+    return "helping at page $index";
+  }
+
+  helpDialog(int index) {
+
+    String helpText = getHelpTextByIndex(index);
+
+    showDialog(
+        context: context,
+        barrierDismissible: true, // set to false if you want to force a rating
+        builder: (context) {
+          return RatingDialog(
+            icon: Icon(Icons.help),
+            // set your own image/icon widget
+            title: helpText,
+            description:
+            AppLocalizations.of(context).translate('wasGoodMessage'),
+            submitButton: AppLocalizations.of(context).translate('submitButton'),
+            alternativeButton: AppLocalizations.of(context).translate('contactUs'),
+            // optional
+            positiveComment: AppLocalizations.of(context).translate('happyText'),
+            // optional
+            negativeComment: AppLocalizations.of(context).translate('sadText'),
+            // optional
+            accentColor: Color(0xff0957FF),
+            // optional
+            onSubmitPressed: (int rating) {
+              print("onSubmitPressed: rating = $rating");
+              // TODO: open the app's page on Google Play / Apple App Store
+            },
+            onAlternativePressed: () {
+              print("onAlternativePressed: do something");
+              // TODO: maybe you want the user to contact you instead of rating a bad review
+            },
+          );
+        });
+  }
+
   showCustomDialog(int index, String page, int code) {
     Icon icon = Icon(Icons.device_unknown, size: 70);
     Color color = Colors.yellow;
@@ -2074,6 +2114,14 @@ class _MyHomePageState extends State<MyHomePage>
         title: appBarTitleText,
         actions: <Widget>[
           // action button
+          IconButton(
+              icon: Icon(Icons.help),
+              color: Color(0xffEEEEEE),
+              iconSize: 24,
+              onPressed: () {
+                helpDialog(_currentIndex);
+                //showCustomDialog(_currentIndex, 'help', -1);
+              }),
           IconButton(
             icon: Icon(Icons.exit_to_app),
             color: Color(0xffEEEEEE),

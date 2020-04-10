@@ -76,6 +76,7 @@
   "commentEnterDialog" : "Enter a comment for ",
   "comment" : "comment",
   "ratingMessage" : "Tap a star to set your rating. Add more description here if you want.",
+  "wasGoodMessage" : "How helpful was this page?",
   "code" : "Code",
   "drilldownError" : "No further drilldown possible",
   "drilldownErrorMoreLevel3" : "No drilldown deeper than level3 allowed",
