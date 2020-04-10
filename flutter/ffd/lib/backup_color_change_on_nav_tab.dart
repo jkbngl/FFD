@@ -1938,21 +1938,67 @@ class _MyHomePageState extends State<MyHomePage>
     }
   }
 
-  getHelpTextByIndex( int index)
+  getHelpTextByIndex(int index)
   {
-    return "helping at page $index";
+    return AppLocalizations.of(context).translate('page${index}HelpMessage');
   }
 
   helpDialog(int index) {
 
     String helpText = getHelpTextByIndex(index);
-
     showDialog(
+        context: context,
+        barrierDismissible: false,
+        //context: _scaffoldKey.currentContext,
+        builder: (context) {
+          return AlertDialog(
+            contentPadding: EdgeInsets.only(left: 25, right: 25),
+            title: Center(child: Text(AppLocalizations.of(context).translate('info'))),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            content: Container(
+              height: MediaQuery.of(context).size.height * 0.50,
+              width: MediaQuery.of(context).size.width * 0.50,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                        helpText
+                    )
+                  ],
+                ),
+              ),
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text(AppLocalizations.of(context).translate('confirm')),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+
+
+    /*showDialog(
         context: context,
         barrierDismissible: true, // set to false if you want to force a rating
         builder: (context) {
-          return RatingDialog(
-            icon: Icon(Icons.help),
+          return AlertDialog(
+            title: Text('Very, very large title', textScaleFactor: 5),
+            content: Text('Very, very large content', textScaleFactor: 5),
+            actions: <Widget>[
+              FlatButton(child: Text('Button 1'), onPressed: () {}),
+              FlatButton(child: Text('Button 2'), onPressed: () {}),
+            ],
+          );
+          /*RatingDialog(
+            icon: Icon(Icons.help, size: 15,),
             // set your own image/icon widget
             title: helpText,
             description:
@@ -1974,8 +2020,8 @@ class _MyHomePageState extends State<MyHomePage>
               print("onAlternativePressed: do something");
               // TODO: maybe you want the user to contact you instead of rating a bad review
             },
-          );
-        });
+          );*/
+        });*/
   }
 
   showCustomDialog(int index, String page, int code) {
