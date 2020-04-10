@@ -58,7 +58,7 @@
   "enterNewLevel2AccountNameTextField": "Select one above to delete or create a new level 2",
   "enterNewLevel3AccountNameTextField": "Select one above to delete or create a new level 3",
   "enterNewCostTypeNameTextField": "Select one above to delete or create a new Costtype",
-  "deleteSelectedButton": "'Delete \nSelected'",
+  "deleteSelectedButton": "Delete \nSelected",
   "homePageTitle" : "Home",
   "actualPageTitle" : "Actual",
   "budgetPageTitle" : "Budget",
