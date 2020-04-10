@@ -77,11 +77,17 @@
   "comment" : "comment",
   "ratingMessage" : "Tap a star to set your rating. Add more description here if you want.",
   "wasGoodMessage" : "How helpful was this page?",
+  "info": "Information",
   "code" : "Code",
   "drilldownError" : "No further drilldown possible",
   "drilldownErrorMoreLevel3" : "No drilldown deeper than level3 allowed",
   "drilldownErrorParent" : "No deeper level available",
   "confirmLogout" : "Confirm Logout",
   "loginText" : "FFD - Login",
+  "page0HelpMessage" : "This is the Home page of your App\nHere you can see in the top your expenses and your monthly budget\n\nIn the pie chart below the ration of your expenses and your budget\nTry to activate the switch, with this you can see the full year expenses and budget\n\nYou can also change the month and year\nThis also works in combination with the full year switch, to see your last year budget",
+  "page1HelpMessage" : "This is one of the two input pages of your App\n\nEXAMPLE:\nSimply enter the amount you spent on something, like e.g. your last car repair bill\nThen select the Level 1 Account, e.g. CAR\nThen go on with the Level 2 Account, e.g. REPAIRS\nThen if needed select the Level 3 Account, e.g. MOTOR\nLastly select the costtype, which could be variable, fix or whatever you like\nThen hit save and enter a comment if you want to\nThen you're already done, Good Job!\n\nIf you want to add an expense from last month, simply select the month you want in the date picker above\n\nIn the second tab you can search and order all your expenses, and also delete if they where entered wrong or no longer needed, same for budget in the next page",
+  "page2HelpMessage" : "This is second of the two input pages of your App\nThis is where you specify how much money you wanna spent on certain stuff\nYou can either simply enter all you're income in the Textfield and hit save\nOr you can say, I wanna spent 50 Dollar on GAS this, month and 200$ on EATING PIZZA\nYou decide\n\nIf you wanna know how to budget on e.g. CAR expenses, check the help button on the page to the left",
+  "page3HelpMessage" : "This is the page where you can analyze your Cashflow!\n\nCheck out how much you money you have spent on different things, like CAR, GROCERIES or CLOTHES\nIf you click on an expense bar, you can see the children of this expense, e.g. if you click on CAR you can see much money you spent on GAS or REPAIRS\n\nCheck out the 'Full Year' and 'All Time' switches, to check you yearly expenses and how much you have ever spent\n\nAt the top you can once again select the month and year of your expenses\n\nAdditionally you can optionally select the Costtype\n\nAnd if you're done, simply click 'Reset' and start from new!",
+  "page4HelpMessage" : "This is your administration page, where you can configure the look, structure and content of YOUR app!\n\nOn the first tab select, how you wannd structure your expenses: If you wanna use Costtypes and/ or Accounts, and if yes how many Accountlevels: 1, 2 or 3 (Don't forget the save)\n\nOn the second tab you can enter new accounts or delete no longer used ones\nEXAMPLE: \nIf you wanna save your expenses on e.g. toothpaste: Either select level1 GROCERIES and enter TOOTHPASTE in the Level 2 text field(the second one) or create a new level1 by entering TOOTHPASTE in the Level 1 Textfield(the first one)\nIf you do not have a CAR, select CAR in the first dropdown and hit 'DELETE SELECTED'!\n\nAnd the third tab is pretty much the same as the second tab just with Costtypes instead of Accounts",
   "Message" : "This is English"
 }

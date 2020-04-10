@@ -77,11 +77,17 @@
   "comment" : "Kommentar",
   "ratingMessage" : "Wir würden uns sehr über eine Bewertung freuen.",
   "wasGoodMessage" : "Wie sehr hat ihnen diese Information geholfen?",
+  "info": "Information",
   "code" : "Code",
   "drilldownError" : "Keine weiteren Details verfügbar",
   "drilldownErrorMoreLevel3" : "Keine Ebene tiefer gefunden",
   "drilldownErrorParent" : "Kein weiteres verknüpftes Konto gefunden",
   "confirmLogout" : "Abmelden Bestätigen",
   "loginText" : "FFD - Anmelden",
+  "page0HelpMessage" : "Dies ist die Zielseite Ihrer App. Hier sehen Sie oben Ihre Ausgaben und Ihr monatliches Budget. Im Kreisdiagramm unter der Ration Ihrer Ausgaben und Ihres Budgets können Sie sie bei Aktivierung des Schalters mit dem gesamten Jahr vergleichen Sie können auch versuchen, den Monat zu ändern. Dies funktioniert auch in Kombination mit dem Ganzjahreswechsel",
+  "page1HelpMessage" : "FFD - Login",
+  "page2HelpMessage" : "FFD - Login",
+  "page3HelpMessage" : "FFD - Login",
+  "page4HelpMessage" : "FFD - Login",
   "Message" : "This is English"
 }
