@@ -6061,7 +6061,7 @@ class _MyHomePageState extends State<MyHomePage>
                           constraints: BoxConstraints.expand(),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Color(0xff73D700),
+                            color: Color(0xff003680),
                           ),
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -6085,7 +6085,7 @@ class _MyHomePageState extends State<MyHomePage>
                           constraints: BoxConstraints.expand(),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Color(0xffDB002A),
+                            color: Color(0xff003680),
                           ),
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
