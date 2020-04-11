@@ -2610,7 +2610,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                         .outside),
                                               ],
                                               //strokeWidthPx: ,
-                                              arcWidth: 50,
+                                              arcWidth: (MediaQuery.of(context).size.width * .14).round(),
                                             ),
                                             animate: true,
                                           ),
@@ -6131,7 +6131,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                         Row(
                                                             mainAxisAlignment:
                                                             MainAxisAlignment
-                                                                .spaceEvenly,
+                                                                .center,
                                                             crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .center,
