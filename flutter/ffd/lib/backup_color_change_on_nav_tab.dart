@@ -2294,18 +2294,17 @@ class _MyHomePageState extends State<MyHomePage>
                         // await Future.delayed(Duration(seconds: 2));
                         _refreshController.refreshCompleted();
                       },
-                      child: ListView.builder(
-                        // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
-                          itemCount: 1,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              color: Color(0xfff9f9f9),
-                              //color: Color(0xffffffff),
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                      child: LayoutBuilder(
+                          builder: (context, constraint) {
+                            return SingleChildScrollView(
+                                child: ConstrainedBox(
+                                constraints: BoxConstraints(minHeight: constraint.maxHeight),
+                            child: IntrinsicHeight(
+                            child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.max,
                                   children: <Widget>[
-                                    SizedBox(height: 10),
                                     Row(
                                       mainAxisAlignment:
                                       MainAxisAlignment.center,
@@ -2461,7 +2460,6 @@ class _MyHomePageState extends State<MyHomePage>
                                       ],
                                     ),
                                     // TODO make with variable, just a test for #25
-                                    SizedBox(height: 30),
                                     Text(
                                       AppLocalizations.of(context)
                                           .translate('titlePieChart'),
@@ -2559,7 +2557,6 @@ class _MyHomePageState extends State<MyHomePage>
                                         children: <Widget>[
                                           ButtonTheme(
                                             //minWidth: 150.0,
-                                            height: 60.0,
                                             child: FlatButton(
                                               onPressed: () =>
                                                   _showDatePicker(
@@ -2582,7 +2579,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                       style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 17)),
-                                                  SizedBox(width: 10),
                                                   Icon(
                                                     Icons.calendar_today,
                                                     color: Colors.white,
@@ -2592,10 +2588,11 @@ class _MyHomePageState extends State<MyHomePage>
                                             ),
                                           ),
                                         ]),
-                                    SizedBox(height: 10),
                                   ]),
-                            );
-                          })),
+                                        ),
+                                        ));
+                          },
+                      )),
                 ),
               ],
             ),
