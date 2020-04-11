@@ -6946,6 +6946,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                           ),
                                                         ),
                                                         ButtonTheme(
+                                                          minWidth:  MediaQuery
+                                                              .of(context)
+                                                              .size
+                                                              .width * 0.33,
                                                           height: 70.0,
                                                           child: RaisedButton(
                                                             child: Text(
@@ -7163,6 +7167,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                           ),
                                                         ),
                                                         ButtonTheme(
+                                                          minWidth:  MediaQuery
+                                                              .of(context)
+                                                              .size
+                                                              .width * 0.33,
                                                           height: 70.0,
                                                           child: RaisedButton(
                                                             child: Text(
