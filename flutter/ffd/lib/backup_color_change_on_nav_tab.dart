@@ -784,7 +784,8 @@ class _MyHomePageState extends State<MyHomePage>
       homescreenData[0].type = parsedActual.length != 0
           ? 'Actual'
           : "No Data found \nfor $year - $month";
-      homescreenData[0].color = charts.ColorUtil.fromDartColor(Color(0xff003680));
+      homescreenData[0].color =
+          charts.ColorUtil.fromDartColor(Color(0xff003680));
 
       homescreenData[1].amount = parsedBudget.length != 0
           ? parsedBudget[0]['sum'] - homescreenData[0].amount
@@ -792,7 +793,8 @@ class _MyHomePageState extends State<MyHomePage>
       homescreenData[1].type = parsedBudget.length != 0
           ? 'Budget'
           : "No Data found \nfor $year - $month";
-      homescreenData[1].color = charts.ColorUtil.fromDartColor(Color(0xff0957FF));
+      homescreenData[1].color =
+          charts.ColorUtil.fromDartColor(Color(0xff0957FF));
 
       homescreenData[2].amount =
       parsedBudget.length != 0 ? parsedBudget[0]['sum'] : 0.000001;
@@ -801,13 +803,15 @@ class _MyHomePageState extends State<MyHomePage>
           : "No Data found \nfor $year - $month";
 
       // #118
-      if(homescreenData[1].amount < 0)  // means no budget left
-      {
+      if (homescreenData[1].amount < 0) // means no budget left
+          {
         // homescreenData[0].amount = homescreenData[2].amount;
         // homescreenData[1].amount = 0;
 
-        homescreenData[0].color = charts.ColorUtil.fromDartColor(Color(0xffb71c1c));
-        homescreenData[1].color = charts.ColorUtil.fromDartColor(Color(0xffdd2c00));
+        homescreenData[0].color =
+            charts.ColorUtil.fromDartColor(Color(0xffb71c1c));
+        homescreenData[1].color =
+            charts.ColorUtil.fromDartColor(Color(0xffdd2c00));
       }
 
       print(
@@ -1701,14 +1705,16 @@ class _MyHomePageState extends State<MyHomePage>
           ),
           actions: <Widget>[
             new FlatButton(
-              child: new Text(AppLocalizations.of(context).translate('dismissDialog')),
+              child: new Text(
+                  AppLocalizations.of(context).translate('dismissDialog')),
               onPressed: () {
                 Navigator.of(context).pop();
                 errorDialogActive = false;
               },
             ),
             new FlatButton(
-              child: new Text(AppLocalizations.of(context).translate('signOut')),
+              child: new Text(
+                  AppLocalizations.of(context).translate('signOut')),
               onPressed: () {
                 errorDialogActive = false;
 
@@ -1761,7 +1767,8 @@ class _MyHomePageState extends State<MyHomePage>
               title: Center(
                 child: RichText(
                   text: TextSpan(
-                      text: AppLocalizations.of(context).translate('commentEnterDialog'),
+                      text: AppLocalizations.of(context).translate(
+                          'commentEnterDialog'),
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -1777,17 +1784,21 @@ class _MyHomePageState extends State<MyHomePage>
               ),
               content: TextField(
                 controller: dependingController,
-                decoration: InputDecoration(hintText: AppLocalizations.of(context).translate('comment')),
+                decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context).translate(
+                        'comment')),
               ),
               actions: <Widget>[
                 new FlatButton(
-                  child: new Text(AppLocalizations.of(context).translate('cancel')),
+                  child: new Text(
+                      AppLocalizations.of(context).translate('cancel')),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                 ),
                 new FlatButton(
-                  child: new Text(AppLocalizations.of(context).translate('skip')),
+                  child: new Text(
+                      AppLocalizations.of(context).translate('skip')),
                   onPressed: () {
                     if (type == 'actual') {
                       sendBackend('actual', false);
@@ -1803,7 +1814,8 @@ class _MyHomePageState extends State<MyHomePage>
                   },
                 ),
                 new FlatButton(
-                  child: new Text(AppLocalizations.of(context).translate('SaveButton')),
+                  child: new Text(
+                      AppLocalizations.of(context).translate('SaveButton')),
                   onPressed: () {
                     if (type == 'actual') {
                       sendBackend('actual', false);
@@ -1831,7 +1843,8 @@ class _MyHomePageState extends State<MyHomePage>
               title: Center(
                 child: RichText(
                   text: TextSpan(
-                      text: AppLocalizations.of(context).translate('commentEnterDialog'),
+                      text: AppLocalizations.of(context).translate(
+                          'commentEnterDialog'),
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -1847,17 +1860,21 @@ class _MyHomePageState extends State<MyHomePage>
               ),
               content: TextField(
                 controller: newAccountLevel2CommentTextFieldController,
-                decoration: InputDecoration(hintText: AppLocalizations.of(context).translate('comment')),
+                decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context).translate(
+                        'comment')),
               ),
               actions: <Widget>[
                 new FlatButton(
-                  child: new Text(AppLocalizations.of(context).translate('cancel')),
+                  child: new Text(
+                      AppLocalizations.of(context).translate('cancel')),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                 ),
                 new FlatButton(
-                  child: new Text(AppLocalizations.of(context).translate('skip')),
+                  child: new Text(
+                      AppLocalizations.of(context).translate('skip')),
                   onPressed: () {
                     // Send directly to backend if no additional level3 was entered which has to be saved in the Backend -> DB
                     if (dependingController3.text.length <= 0) {
@@ -1868,7 +1885,8 @@ class _MyHomePageState extends State<MyHomePage>
                   },
                 ),
                 new FlatButton(
-                  child: new Text(AppLocalizations.of(context).translate('SaveButton')),
+                  child: new Text(
+                      AppLocalizations.of(context).translate('SaveButton')),
                   onPressed: () {
                     // Send directly to backend if no additional level3 was entered which has to be saved in the Backend -> DB
                     if (dependingController3.text.length <= 0) {
@@ -1891,7 +1909,8 @@ class _MyHomePageState extends State<MyHomePage>
               title: Center(
                 child: RichText(
                   text: TextSpan(
-                      text: AppLocalizations.of(context).translate('commentEnterDialog'),
+                      text: AppLocalizations.of(context).translate(
+                          'commentEnterDialog'),
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -1907,17 +1926,21 @@ class _MyHomePageState extends State<MyHomePage>
               ),
               content: TextField(
                 controller: newAccountLevel3CommentTextFieldController,
-                decoration: InputDecoration(hintText: AppLocalizations.of(context).translate('comment')),
+                decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context).translate(
+                        'comment')),
               ),
               actions: <Widget>[
                 new FlatButton(
-                  child: new Text(AppLocalizations.of(context).translate('cancel')),
+                  child: new Text(
+                      AppLocalizations.of(context).translate('cancel')),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                 ),
                 new FlatButton(
-                  child: new Text(AppLocalizations.of(context).translate('skip')),
+                  child: new Text(
+                      AppLocalizations.of(context).translate('skip')),
                   onPressed: () {
                     sendBackend('new${type}add', false);
 
@@ -1925,7 +1948,8 @@ class _MyHomePageState extends State<MyHomePage>
                   },
                 ),
                 new FlatButton(
-                  child: new Text(AppLocalizations.of(context).translate('save')),
+                  child: new Text(
+                      AppLocalizations.of(context).translate('save')),
                   onPressed: () {
                     sendBackend('new${type}add', false);
 
@@ -1938,13 +1962,11 @@ class _MyHomePageState extends State<MyHomePage>
     }
   }
 
-  getHelpTextByIndex(int index)
-  {
+  getHelpTextByIndex(int index) {
     return AppLocalizations.of(context).translate('page${index}HelpMessage');
   }
 
   helpDialog(int index) {
-
     String helpText = getHelpTextByIndex(index);
     showDialog(
         context: context,
@@ -1953,12 +1975,19 @@ class _MyHomePageState extends State<MyHomePage>
         builder: (context) {
           return AlertDialog(
             contentPadding: EdgeInsets.only(left: 25, right: 25),
-            title: Center(child: Text(AppLocalizations.of(context).translate('info'))),
+            title: Center(
+                child: Text(AppLocalizations.of(context).translate('info'))),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
             content: Container(
-              height: MediaQuery.of(context).size.height * 0.50,
-              width: MediaQuery.of(context).size.width * 0.50,
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.50,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width * 0.50,
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1975,7 +2004,8 @@ class _MyHomePageState extends State<MyHomePage>
             ),
             actions: <Widget>[
               new FlatButton(
-                child: new Text(AppLocalizations.of(context).translate('confirm')),
+                child: new Text(
+                    AppLocalizations.of(context).translate('confirm')),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -2049,10 +2079,13 @@ class _MyHomePageState extends State<MyHomePage>
             title: "${AppLocalizations.of(context).translate('code')}: $code",
             description:
             AppLocalizations.of(context).translate('ratingMessage'),
-            submitButton: AppLocalizations.of(context).translate('submitButton'),
-            alternativeButton: AppLocalizations.of(context).translate('contactUs'),
+            submitButton: AppLocalizations.of(context).translate(
+                'submitButton'),
+            alternativeButton: AppLocalizations.of(context).translate(
+                'contactUs'),
             // optional
-            positiveComment: AppLocalizations.of(context).translate('happyText'),
+            positiveComment: AppLocalizations.of(context).translate(
+                'happyText'),
             // optional
             negativeComment: AppLocalizations.of(context).translate('sadText'),
             // optional
@@ -2125,15 +2158,19 @@ class _MyHomePageState extends State<MyHomePage>
             builder: (BuildContext context) {
               // return object of type Dialog
               return AlertDialog(
-                title: new Text(AppLocalizations.of(context).translate('drilldownError')),
+                title: new Text(
+                    AppLocalizations.of(context).translate('drilldownError')),
                 content: new Text(datumPair.datum.accountLevel >= 3
-                    ? AppLocalizations.of(context).translate('drilldownErrorMoreLevel3')
-                    : AppLocalizations.of(context).translate('drilldownErrorParent')),
+                    ? AppLocalizations.of(context).translate(
+                    'drilldownErrorMoreLevel3')
+                    : AppLocalizations.of(context).translate(
+                    'drilldownErrorParent')),
                 // No drilldown possible as there is no deeper level available
                 actions: <Widget>[
                   // usually buttons at the bottom of the dialog
                   new FlatButton(
-                    child: new Text(AppLocalizations.of(context).translate('close')),
+                    child: new Text(
+                        AppLocalizations.of(context).translate('close')),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -2177,15 +2214,19 @@ class _MyHomePageState extends State<MyHomePage>
                 context: context,
                 builder: (context) =>
                 new AlertDialog(
-                  title: Text(AppLocalizations.of(context).translate('areYouSureDialog')),
-                  content: new Text(AppLocalizations.of(context).translate('confirmLogout')),
+                  title: Text(AppLocalizations.of(context).translate(
+                      'areYouSureDialog')),
+                  content: new Text(
+                      AppLocalizations.of(context).translate('confirmLogout')),
                   actions: <Widget>[
                     new FlatButton(
-                      child: new Text(AppLocalizations.of(context).translate('cancel')),
+                      child: new Text(AppLocalizations.of(context).translate(
+                          'cancel')),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     new FlatButton(
-                      child: new Text(AppLocalizations.of(context).translate('confirm')),
+                      child: new Text(AppLocalizations.of(context).translate(
+                          'confirm')),
                       onPressed: () {
                         signOutGoogle();
                         Navigator.of(context).pushAndRemoveUntil(
@@ -2295,303 +2336,330 @@ class _MyHomePageState extends State<MyHomePage>
                         _refreshController.refreshCompleted();
                       },
                       child: LayoutBuilder(
-                          builder: (context, constraint) {
-                            return SingleChildScrollView(
-                                child: ConstrainedBox(
-                                constraints: BoxConstraints(minHeight: constraint.maxHeight),
-                            child: IntrinsicHeight(
-                            child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                        builder: (context, constraint) {
+                          return SingleChildScrollView(
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                    minHeight: constraint.maxHeight),
+                                child: IntrinsicHeight(
+                                  child: Column(
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .spaceAround,
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .center,
+                                      mainAxisSize: MainAxisSize.max,
                                       children: <Widget>[
-                                        GestureDetector(
-                                          onTap: () {
-                                            setState(() => _currentIndex = 1);
-                                            _pageController.jumpToPage(1);
-                                          },
-                                          child: Container(
-                                            width: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .width *
-                                                .48,
-                                            child: Card(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                BorderRadius.circular(50.0),
-                                              ),
-                                              /*color: homescreenData[0].amount >
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() =>
+                                                _currentIndex = 1);
+                                                _pageController.jumpToPage(1);
+                                              },
+                                              child: Container(
+                                                width: MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .width *
+                                                    .48,
+                                                child: Card(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    BorderRadius.circular(50.0),
+                                                  ),
+                                                  /*color: homescreenData[0].amount >
                                                 homescreenData[2].amount
                                             ? Colors.red
                                             : Colors
                                                 .green, // If Actual bigger budget -> show as red
                                          */
-                                              color: Color(0xff003680),
-                                              elevation: 10,
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceEvenly,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                                children: <Widget>[
-                                                  ListTile(
-                                                    leading: Icon(
-                                                        Icons.monetization_on,
-                                                        color: Colors.white,
-                                                        size: 45),
-                                                    title: Text(
-                                                        AppLocalizations.of(
-                                                            context)
-                                                            .translate(
-                                                            'titleActual'),
-                                                        style: TextStyle(
-                                                            color: Color(
-                                                                0xffF5F5F6))),
-                                                    subtitle: Text(
-                                                        homescreenData[0]
-                                                            .amount
-                                                            .toStringAsFixed(2),
-                                                        style: TextStyle(
-                                                            color:
-                                                            Colors.white)),
-                                                    trailing: Icon(
-                                                      homescreenData[0].amount >
-                                                          parsedActualComparison
-                                                          ? Icons.trending_up
-                                                          : Icons.trending_down,
-                                                      color: Color(0xffF5F5F6),
-                                                      size: 12,
-                                                    ),
+                                                  color: Color(0xff003680),
+                                                  elevation: 10,
+                                                  child: Column(
+                                                    mainAxisSize: MainAxisSize
+                                                        .min,
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      ListTile(
+                                                        leading: Icon(
+                                                            Icons
+                                                                .monetization_on,
+                                                            color: Colors.white,
+                                                            size: 45),
+                                                        title: Text(
+                                                            AppLocalizations.of(
+                                                                context)
+                                                                .translate(
+                                                                'titleActual'),
+                                                            style: TextStyle(
+                                                                color: Color(
+                                                                    0xffF5F5F6))),
+                                                        subtitle: Text(
+                                                            homescreenData[0]
+                                                                .amount
+                                                                .toStringAsFixed(
+                                                                2),
+                                                            style: TextStyle(
+                                                                color:
+                                                                Colors.white)),
+                                                        trailing: Icon(
+                                                          homescreenData[0]
+                                                              .amount >
+                                                              parsedActualComparison
+                                                              ? Icons
+                                                              .trending_up
+                                                              : Icons
+                                                              .trending_down,
+                                                          color: Color(
+                                                              0xffF5F5F6),
+                                                          size: 12,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            setState(() => _currentIndex = 2);
-                                            _pageController.jumpToPage(2);
-                                          },
-                                          child: Container(
-                                            width: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .width *
-                                                .48,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                              new BorderRadius.only(
-                                                topLeft:
-                                                const Radius.circular(50.0),
-                                                topRight:
-                                                const Radius.circular(50.0),
-                                                bottomLeft:
-                                                const Radius.circular(50.0),
-                                                bottomRight:
-                                                const Radius.circular(50.0),
-                                              ),
-                                            ),
-                                            child: Card(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                BorderRadius.circular(50.0),
-                                              ),
-                                              /*color: homescreenData[0].amount >
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() =>
+                                                _currentIndex = 2);
+                                                _pageController.jumpToPage(2);
+                                              },
+                                              child: Container(
+                                                width: MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .width *
+                                                    .48,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  new BorderRadius.only(
+                                                    topLeft:
+                                                    const Radius.circular(50.0),
+                                                    topRight:
+                                                    const Radius.circular(50.0),
+                                                    bottomLeft:
+                                                    const Radius.circular(50.0),
+                                                    bottomRight:
+                                                    const Radius.circular(50.0),
+                                                  ),
+                                                ),
+                                                child: Card(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    BorderRadius.circular(50.0),
+                                                  ),
+                                                  /*color: homescreenData[0].amount >
                                                 homescreenData[2].amount
                                             ? Colors.red
                                             : Colors.green,
                                         */
-                                              color: Color(0xff003680),
-                                              elevation: 10,
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceEvenly,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                                children: <Widget>[
-                                                  ListTile(
-                                                    leading: Icon(
-                                                        Icons
-                                                            .account_balance_wallet,
-                                                        color: Colors.white,
-                                                        size: 45),
-                                                    title: Text(
-                                                        AppLocalizations.of(
-                                                            context)
-                                                            .translate(
-                                                            'titleBudget'),
-                                                        style: TextStyle(
-                                                            color:
-                                                            Colors.white)),
-                                                    subtitle: Text(
-                                                      // #91
-                                                        homescreenData[2]
-                                                            .amount
-                                                            .toStringAsFixed(2),
-                                                        style: TextStyle(
-                                                            color:
-                                                            Colors.white)),
-                                                    trailing: Icon(
-                                                      homescreenData[2].amount >
-                                                          parsedBudgetComparison
-                                                          ? Icons.trending_up
-                                                          : Icons.trending_down,
-                                                      color: Color(0xffF5F5F6),
-                                                      size: 12,
-                                                    ),
+                                                  color: Color(0xff003680),
+                                                  elevation: 10,
+                                                  child: Column(
+                                                    mainAxisSize: MainAxisSize
+                                                        .min,
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      ListTile(
+                                                        leading: Icon(
+                                                            Icons
+                                                                .account_balance_wallet,
+                                                            color: Colors.white,
+                                                            size: 45),
+                                                        title: Text(
+                                                            AppLocalizations.of(
+                                                                context)
+                                                                .translate(
+                                                                'titleBudget'),
+                                                            style: TextStyle(
+                                                                color:
+                                                                Colors.white)),
+                                                        subtitle: Text(
+                                                          // #91
+                                                            homescreenData[2]
+                                                                .amount
+                                                                .toStringAsFixed(
+                                                                2),
+                                                            style: TextStyle(
+                                                                color:
+                                                                Colors.white)),
+                                                        trailing: Icon(
+                                                          homescreenData[2]
+                                                              .amount >
+                                                              parsedBudgetComparison
+                                                              ? Icons
+                                                              .trending_up
+                                                              : Icons
+                                                              .trending_down,
+                                                          color: Color(
+                                                              0xffF5F5F6),
+                                                          size: 12,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    // TODO make with variable, just a test for #25
-                                    Text(
-                                      AppLocalizations.of(context)
-                                          .translate('titlePieChart'),
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          color: Colors.grey[800],
-                                          fontWeight: FontWeight.w900,
-                                          fontFamily: 'Open Sans',
-                                          fontSize: 30),
-                                    ),
-                                    Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          Switch(
-                                            value: showFullYearHome,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                showFullYearHome = value;
-                                                loadHomescreen();
-                                              });
-                                            },
-                                            activeTrackColor: Color(0xffEEEEEE),
-                                            activeColor: Color(0xff0957FF),
-                                          ),
-                                          Text(
-                                            AppLocalizations.of(context)
-                                                .translate('FullYearSwitch'),
-                                            maxLines: 3,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                color: Colors.grey[800],
-                                                fontWeight: FontWeight.w900,
-                                                fontSize: 25),
-                                          ),
-                                        ]),
-                                    Container(
-                                      width: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .width,
-                                      height:
-                                      MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height *
-                                          .4,
-                                      child: charts.PieChart(
-                                        [
-                                          charts.Series<homescreenPie, String>(
-                                              id:
-                                              'CompanySizeVsNumberOfCompanies',
-                                              domainFn:
-                                                  (homescreenPie dataPoint,
-                                                  _) =>
-                                              dataPoint.type,
-                                              labelAccessorFn: (
-                                                  homescreenPie row,
-                                                  _) =>
-                                              '${row.type}\n${row.amount
-                                                  .toStringAsFixed(2)}€',
-                                              measureFn:
-                                                  (homescreenPie dataPoint,
-                                                  _) =>
-                                              dataPoint.amount,
-                                              colorFn:
-                                                  (homescreenPie segment, _) =>
-                                              segment.color,
-                                              data: homescreenData.sublist(0,
-                                                  2) /*Only first 2 elements not also the overall budget*/
-                                          )
-                                        ],
-                                        defaultRenderer:
-                                        new charts.ArcRendererConfig(
-                                          arcRendererDecorators: [
-                                            new charts.ArcLabelDecorator(
-                                              //labelPadding: 0,
-                                                labelPosition: charts
-                                                    .ArcLabelPosition.outside),
                                           ],
-                                          //strokeWidthPx: ,
-                                          arcWidth: 50,
                                         ),
-                                        animate: true,
-                                      ),
-                                    ),
-                                    Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          ButtonTheme(
-                                            //minWidth: 150.0,
-                                            child: FlatButton(
-                                              onPressed: () =>
-                                                  _showDatePicker(
-                                                      'home', dateTimeHome),
-                                              shape: new RoundedRectangleBorder(
-                                                borderRadius:
-                                                new BorderRadius.circular(
-                                                    40.0),
+                                        // TODO make with variable, just a test for #25
+                                        Text(
+                                          AppLocalizations.of(context)
+                                              .translate('titlePieChart'),
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              color: Colors.grey[800],
+                                              fontWeight: FontWeight.w900,
+                                              fontFamily: 'Open Sans',
+                                              fontSize: 30),
+                                        ),
+                                        Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Switch(
+                                                value: showFullYearHome,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    showFullYearHome = value;
+                                                    loadHomescreen();
+                                                  });
+                                                },
+                                                activeTrackColor: Color(
+                                                    0xffEEEEEE),
+                                                activeColor: Color(0xff0957FF),
                                               ),
-                                              color: Color(0xff003680),
-                                              padding: EdgeInsets.all(10.0),
-                                              child: Row(
-                                                // Replace with a Row for horizontal icon + text
-                                                children: <Widget>[
-                                                  Text(
-                                                      " ${dateTimeHome.year
-                                                          .toString()}-${dateTimeHome
-                                                          .month.toString()
-                                                          .padLeft(2, '0')}",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 17)),
-                                                  Icon(
-                                                    Icons.calendar_today,
-                                                    color: Colors.white,
-                                                  ),
-                                                ],
+                                              Text(
+                                                AppLocalizations.of(context)
+                                                    .translate(
+                                                    'FullYearSwitch'),
+                                                maxLines: 3,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                    color: Colors.grey[800],
+                                                    fontWeight: FontWeight.w900,
+                                                    fontSize: 25),
                                               ),
+                                            ]),
+                                        Container(
+                                          width: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .width,
+                                          height:
+                                          MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height *
+                                              .4,
+                                          child: charts.PieChart(
+                                            [
+                                              charts.Series<
+                                                  homescreenPie,
+                                                  String>(
+                                                  id:
+                                                  'CompanySizeVsNumberOfCompanies',
+                                                  domainFn:
+                                                      (homescreenPie dataPoint,
+                                                      _) =>
+                                                  dataPoint.type,
+                                                  labelAccessorFn: (
+                                                      homescreenPie row,
+                                                      _) =>
+                                                  '${row.type}\n${row.amount
+                                                      .toStringAsFixed(2)}€',
+                                                  measureFn:
+                                                      (homescreenPie dataPoint,
+                                                      _) =>
+                                                  dataPoint.amount,
+                                                  colorFn:
+                                                      (homescreenPie segment,
+                                                      _) =>
+                                                  segment.color,
+                                                  data: homescreenData.sublist(
+                                                      0,
+                                                      2) /*Only first 2 elements not also the overall budget*/
+                                              )
+                                            ],
+                                            defaultRenderer:
+                                            new charts.ArcRendererConfig(
+                                              arcRendererDecorators: [
+                                                new charts.ArcLabelDecorator(
+                                                  //labelPadding: 0,
+                                                    labelPosition: charts
+                                                        .ArcLabelPosition
+                                                        .outside),
+                                              ],
+                                              //strokeWidthPx: ,
+                                              arcWidth: 50,
                                             ),
+                                            animate: true,
                                           ),
-                                        ]),
-                                  ]),
                                         ),
-                                        ));
-                          },
+                                        Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              ButtonTheme(
+                                                //minWidth: 150.0,
+                                                child: FlatButton(
+                                                  onPressed: () =>
+                                                      _showDatePicker(
+                                                          'home', dateTimeHome),
+                                                  shape: new RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    new BorderRadius.circular(
+                                                        40.0),
+                                                  ),
+                                                  color: Color(0xff003680),
+                                                  padding: EdgeInsets.all(10.0),
+                                                  child: Row(
+                                                    // Replace with a Row for horizontal icon + text
+                                                    children: <Widget>[
+                                                      Text(
+                                                          " ${dateTimeHome.year
+                                                              .toString()}-${dateTimeHome
+                                                              .month.toString()
+                                                              .padLeft(
+                                                              2, '0')}",
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .white,
+                                                              fontSize: 17)),
+                                                      Icon(
+                                                        Icons.calendar_today,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                      ]),
+                                ),
+                              ));
+                        },
                       )),
                 ),
               ],
@@ -2664,467 +2732,512 @@ class _MyHomePageState extends State<MyHomePage>
                                       //await Future.delayed(Duration(seconds: 2));
                                       _refreshController.refreshCompleted();
                                     },
-                                    child: ListView.builder(
-                                      // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
-                                        itemCount: 1,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            children: <Widget>[
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Row(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    ButtonTheme(
-                                                      //minWidth: 150.0,
-                                                      height: 60.0,
-                                                      child: FlatButton(
-                                                        onPressed: () =>
-                                                            _showDatePicker(
-                                                                'actual',
-                                                                dateTimeActual),
-                                                        shape:
-                                                        new RoundedRectangleBorder(
-                                                          borderRadius:
-                                                          new BorderRadius
-                                                              .circular(40.0),
-                                                        ),
-                                                        color: Color(
-                                                            0xff003680),
-                                                        padding:
-                                                        EdgeInsets.all(10.0),
-                                                        child: Row(
-                                                          // Replace with a Row for horizontal icon + text
+                                    child: LayoutBuilder(
+                                      builder: (context, constraint) {
+                                        return SingleChildScrollView(
+                                            child: ConstrainedBox(
+                                              constraints: BoxConstraints(
+                                                  minHeight: constraint
+                                                      .maxHeight),
+                                              child: IntrinsicHeight(
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      SizedBox(
+                                                        height: 10,
+                                                      ),
+                                                      Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                          crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
                                                           children: <Widget>[
-                                                            Text(
-                                                                " ${dateTimeActual
-                                                                    .year
-                                                                    .toString()}-${dateTimeActual
-                                                                    .month
-                                                                    .toString()
-                                                                    .padLeft(
-                                                                    2, '0')}",
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize: 17)),
-                                                            SizedBox(width: 10),
-                                                            Icon(
-                                                              Icons
-                                                                  .calendar_today,
-                                                              color: Colors
-                                                                  .white,
+                                                            ButtonTheme(
+                                                              //minWidth: 150.0,
+                                                              height: 60.0,
+                                                              child: FlatButton(
+                                                                onPressed: () =>
+                                                                    _showDatePicker(
+                                                                        'actual',
+                                                                        dateTimeActual),
+                                                                shape:
+                                                                new RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                  new BorderRadius
+                                                                      .circular(
+                                                                      40.0),
+                                                                ),
+                                                                color: Color(
+                                                                    0xff003680),
+                                                                padding:
+                                                                EdgeInsets.all(
+                                                                    10.0),
+                                                                child: Row(
+                                                                  // Replace with a Row for horizontal icon + text
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Text(
+                                                                        " ${dateTimeActual
+                                                                            .year
+                                                                            .toString()}-${dateTimeActual
+                                                                            .month
+                                                                            .toString()
+                                                                            .padLeft(
+                                                                            2,
+                                                                            '0')}",
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .white,
+                                                                            fontSize: 17)),
+                                                                    SizedBox(
+                                                                        width: 10),
+                                                                    Icon(
+                                                                      Icons
+                                                                          .calendar_today,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
                                                             ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ]),
-                                              Container(
-                                                padding: const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment: Alignment.center,
-                                                //child: Text('Submit'),
-                                                child: TextFormField(
-                                                  keyboardType:
-                                                  TextInputType.number,
-                                                  //keyboard with numbers only will appear to the screen
-                                                  style: TextStyle(height: 2),
-                                                  //increases the height of cursor
-                                                  //autofocus: true,
-                                                  controller:
-                                                  actualTextFieldController,
-                                                  decoration: InputDecoration(
-                                                    // hintText: 'Enter ur amount',
-                                                    //hintStyle: TextStyle(height: 1.75),
-                                                      labelText: AppLocalizations
-                                                          .of(context)
-                                                          .translate(
-                                                          'TextFieldAmountInput'),
-                                                      labelStyle: TextStyle(
-                                                          height: 0.5,
-                                                          color: Color(
-                                                              0xff0957FF)),
-                                                      //increases the height of cursor
-                                                      icon: Icon(
-                                                        Icons.attach_money,
-                                                        color: Color(
-                                                            0xff0957FF),
-                                                      ),
-                                                      //prefixIcon: Icon(Icons.attach_money),
-                                                      //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                                      enabledBorder:
-                                                      new UnderlineInputBorder(
-                                                          borderSide:
-                                                          new BorderSide(
-                                                              color: Color(
-                                                                  0xff0957FF)))),
-                                                ),
-                                              ),
-                                              areLevel1AccountsActive
-                                                  ? Container(
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment: Alignment.center,
-                                                //child: Text('Submit'),
-                                                child: SearchChoices.single(
-                                                  items:
-                                                  level1ActualAccountsList
-                                                      .map((Account
-                                                  account) {
-                                                    return new DropdownMenuItem<
-                                                        Account>(
-                                                      value: account,
-                                                      child: new Text(
-                                                        account.name,
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                  style: TextStyle(
-                                                      color:
-                                                      Color(0xff0957FF)),
-                                                  value: level1ActualObject,
-                                                  underline: Container(
-                                                    height: 2,
-                                                    width: 5000,
-                                                    color: Color(0xff0957FF),
-                                                  ),
-                                                  hint: "Select one number",
-                                                  searchHint:
-                                                  "Select one number",
-                                                  onClear: () {
-                                                    setState(() {
-                                                      level1ActualObject =
-                                                      level1ActualAccountsList[
-                                                      0];
-
-                                                      level2ActualObject =
-                                                      level2ActualAccountsList[
-                                                      0];
-
-                                                      level3ActualObject =
-                                                      level3ActualAccountsList[
-                                                      0];
-                                                    });
-                                                  },
-                                                  onChanged: (value) {
-                                                    if (value != null) {
-                                                      setState(() {
-                                                        level1ActualObject =
-                                                            value;
-                                                      });
-
-                                                      arrangeAccounts(
-                                                          1, 'actual');
-
-                                                      print(
-                                                          "${level2ActualObject
-                                                              .id} - ${level2ActualObject
-                                                              .name}");
-                                                    }
-                                                  },
-                                                  dialogBox: true,
-                                                  isExpanded: true,
-                                                ),
-                                              )
-                                                  : Container(),
-                                              areLevel2AccountsActive
-                                                  ? Container(
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-
-                                                alignment: Alignment.center,
-                                                //child: Text('Submit'),
-                                                child: SearchChoices.single(
-                                                  items:
-                                                  level2ActualAccountsList
-                                                      .map((Account
-                                                  account) {
-                                                    return new DropdownMenuItem<
-                                                        Account>(
-                                                      value: account,
-                                                      child: new Text(
-                                                        account.name,
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                  style: TextStyle(
-                                                      color:
-                                                      Color(0xff0957FF)),
-                                                  value: level2ActualObject,
-                                                  readOnly: level1ActualObject
-                                                      .id <=
-                                                      0 ||
-                                                      level2ActualAccountsList
-                                                          .length ==
-                                                          1,
-                                                  underline: Container(
-                                                    height: 2,
-                                                    width: 5000,
-                                                    color: Color(0xff0957FF),
-                                                  ),
-                                                  hint: "Select one number",
-                                                  searchHint:
-                                                  "Select one number",
-                                                  onClear: () {
-                                                    setState(() {
-                                                      level2ActualObject =
-                                                      level2ActualAccountsList[
-                                                      0];
-
-                                                      level3ActualObject =
-                                                      level3ActualAccountsList[
-                                                      0];
-                                                    });
-                                                  },
-                                                  onChanged: (value) {
-                                                    if (value != null) {
-                                                      // Check if a new value was selected or the same was reselected
-                                                      dummyAccount =
-                                                          level2ActualObject;
-
-                                                      setState(() {
-                                                        level2ActualObject =
-                                                            value;
-                                                      });
-
-                                                      if (dummyAccount.id !=
-                                                          value.id) {
-                                                        arrangeAccounts(
-                                                            2, 'actual');
-                                                      } else {
-                                                        print("RESELECTED");
-                                                      }
-                                                    }
-                                                  },
-                                                  dialogBox: true,
-                                                  isExpanded: true,
-                                                ),
-                                              )
-                                                  : Container(),
-
-                                              areLevel3AccountsActive
-                                                  ? Container(
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment: Alignment.center,
-                                                //child: Text('Submit'),
-                                                child: SearchChoices.single(
-                                                  items:
-                                                  level3ActualAccountsList
-                                                      .map((Account
-                                                  account) {
-                                                    return new DropdownMenuItem<
-                                                        Account>(
-                                                      value: account,
-                                                      child: new Text(
-                                                        account.name,
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                  style: TextStyle(
-                                                      color:
-                                                      Color(0xff0957FF)),
-                                                  value: level3ActualObject,
-                                                  readOnly: level2ActualObject
-                                                      .id <=
-                                                      0 ||
-                                                      level3ActualAccountsList
-                                                          .length ==
-                                                          1,
-                                                  underline: Container(
-                                                    height: 2,
-                                                    width: 5000,
-                                                    color: Color(0xff0957FF),
-                                                  ),
-                                                  hint: "Select one number",
-                                                  searchHint:
-                                                  "Select one number",
-                                                  onClear: () {
-                                                    setState(() {
-                                                      level3ActualObject =
-                                                      level3ActualAccountsList[
-                                                      0];
-                                                    });
-                                                  },
-                                                  // The default object is set again
-                                                  onChanged: (value) {
-                                                    if (value != null) {
-                                                      setState(() {
-                                                        level3ActualObject =
-                                                            value;
-                                                      });
-                                                    }
-                                                  },
-                                                  dialogBox: true,
-                                                  isExpanded: true,
-                                                ),
-                                              )
-                                                  : Container(),
-                                              // #52 when a level is deactivated the widgets have no space between
-                                              // this adds a little white space between the widget
-                                              areLevel3AccountsActive
-                                                  ? Container()
-                                                  : SizedBox(height: 20),
-                                              areCostTypesActive
-                                                  ? Container(
-                                                constraints:
-                                                BoxConstraints.expand(
-                                                  height: 80,
-                                                  //width: MediaQuery.of(context).size.width * .8
-                                                ),
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment: Alignment.center,
-                                                //child: Text('Submit'),
-                                                child: Align(
-                                                  alignment:
-                                                  Alignment.topRight,
-                                                  child: SearchChoices.single(
-                                                    value:
-                                                    costTypeObjectActual,
-                                                    icon: Icon(
-                                                        Icons.arrow_downward),
-                                                    iconSize: 24,
-                                                    style: TextStyle(
-                                                        color: Color(
-                                                            0xff0957FF)),
-                                                    underline: Container(
-                                                      height: 2,
-                                                      width: 2000,
-                                                      color:
-                                                      Color(0xff0957FF),
-                                                    ),
-                                                    onClear: () {
-                                                      setState(() {
-                                                        costTypeObjectActual =
-                                                        costTypesList[0];
-                                                      });
-                                                    },
-                                                    onChanged:
-                                                        (CostType newValue) {
-                                                      if (value != null) {
-                                                        setState(() {
-                                                          costTypeObjectActual =
-                                                              newValue;
-                                                        });
-                                                      }
-                                                      ;
-                                                    },
-                                                    items: costTypesList
-                                                        .map((CostType type) {
-                                                      return new DropdownMenuItem<
-                                                          CostType>(
-                                                        value: type,
-                                                        child: new Text(
-                                                          type.name,
-                                                        ),
-                                                      );
-                                                    }).toList(),
-                                                  ),
-                                                ),
-                                              )
-                                                  : Container(),
-                                              ButtonBar(
-                                                mainAxisSize: MainAxisSize.min,
-                                                // this will take space as minimum as posible(to center)
-                                                children: <Widget>[
-                                                  ButtonTheme(
-                                                    minWidth: 75.0,
-                                                    height: 40.0,
-                                                    child: RaisedButton(
-                                                      child: Text(
-                                                        AppLocalizations.of(
-                                                            context)
-                                                            .translate(
-                                                            'DiscardButton'),
-                                                      ),
-                                                      color: Color(
-                                                          0xffEEEEEE), // EEEEEE
-                                                      onPressed: () {
-                                                        actualTextFieldController
-                                                            .text = '';
-
-                                                        setState(() {
-                                                          level1ActualObject =
-                                                          level1ActualAccountsList[
-                                                          0];
-                                                          level2ActualObject =
-                                                          level2ActualAccountsList[
-                                                          0];
-                                                          level3ActualObject =
-                                                          level3ActualAccountsList[
-                                                          0];
-
-                                                          costTypeObjectActual =
-                                                          costTypesList[0];
-                                                        });
-                                                      },
-                                                    ),
-                                                  ),
-                                                  ButtonTheme(
-                                                    minWidth: 150.0,
-                                                    height: 60.0,
-                                                    child: RaisedButton(
-                                                      child: Text(
-                                                          AppLocalizations.of(
-                                                              context)
-                                                              .translate(
-                                                              'SaveButton'),
+                                                          ]),
+                                                      Container(
+                                                        padding: const EdgeInsets
+                                                            .only(
+                                                            left: 30.0,
+                                                            top: 0,
+                                                            right: 30,
+                                                            bottom: 0),
+                                                        //color: Colors.blue[600],
+                                                        alignment: Alignment
+                                                            .center,
+                                                        //child: Text('Submit'),
+                                                        child: TextFormField(
+                                                          keyboardType:
+                                                          TextInputType.number,
+                                                          //keyboard with numbers only will appear to the screen
                                                           style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17)),
-                                                      color: Color(0xff0957FF),
-                                                      //df7599 - 0957FF
-                                                      onPressed: () {
-                                                        commentInput(
-                                                            context,
-                                                            'actual',
-                                                            null,
-                                                            null,
-                                                            null);
-                                                      },
-                                                    ),
-                                                  ),
-                                                ],
+                                                              height: 2),
+                                                          //increases the height of cursor
+                                                          //autofocus: true,
+                                                          controller:
+                                                          actualTextFieldController,
+                                                          decoration: InputDecoration(
+                                                            // hintText: 'Enter ur amount',
+                                                            //hintStyle: TextStyle(height: 1.75),
+                                                              labelText: AppLocalizations
+                                                                  .of(context)
+                                                                  .translate(
+                                                                  'TextFieldAmountInput'),
+                                                              labelStyle: TextStyle(
+                                                                  height: 0.5,
+                                                                  color: Color(
+                                                                      0xff0957FF)),
+                                                              //increases the height of cursor
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .attach_money,
+                                                                color: Color(
+                                                                    0xff0957FF),
+                                                              ),
+                                                              //prefixIcon: Icon(Icons.attach_money),
+                                                              //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                              enabledBorder:
+                                                              new UnderlineInputBorder(
+                                                                  borderSide:
+                                                                  new BorderSide(
+                                                                      color: Color(
+                                                                          0xff0957FF)))),
+                                                        ),
+                                                      ),
+                                                      areLevel1AccountsActive
+                                                          ? Container(
+                                                        padding:
+                                                        const EdgeInsets.only(
+                                                            left: 30.0,
+                                                            top: 0,
+                                                            right: 30,
+                                                            bottom: 0),
+                                                        //color: Colors.blue[600],
+                                                        alignment: Alignment
+                                                            .center,
+                                                        //child: Text('Submit'),
+                                                        child: SearchChoices
+                                                            .single(
+                                                          items:
+                                                          level1ActualAccountsList
+                                                              .map((Account
+                                                          account) {
+                                                            return new DropdownMenuItem<
+                                                                Account>(
+                                                              value: account,
+                                                              child: new Text(
+                                                                account.name,
+                                                              ),
+                                                            );
+                                                          }).toList(),
+                                                          style: TextStyle(
+                                                              color:
+                                                              Color(
+                                                                  0xff0957FF)),
+                                                          value: level1ActualObject,
+                                                          underline: Container(
+                                                            height: 2,
+                                                            width: 5000,
+                                                            color: Color(
+                                                                0xff0957FF),
+                                                          ),
+                                                          hint: "Select one number",
+                                                          searchHint:
+                                                          "Select one number",
+                                                          onClear: () {
+                                                            setState(() {
+                                                              level1ActualObject =
+                                                              level1ActualAccountsList[
+                                                              0];
+
+                                                              level2ActualObject =
+                                                              level2ActualAccountsList[
+                                                              0];
+
+                                                              level3ActualObject =
+                                                              level3ActualAccountsList[
+                                                              0];
+                                                            });
+                                                          },
+                                                          onChanged: (value) {
+                                                            if (value != null) {
+                                                              setState(() {
+                                                                level1ActualObject =
+                                                                    value;
+                                                              });
+
+                                                              arrangeAccounts(
+                                                                  1, 'actual');
+
+                                                              print(
+                                                                  "${level2ActualObject
+                                                                      .id} - ${level2ActualObject
+                                                                      .name}");
+                                                            }
+                                                          },
+                                                          dialogBox: true,
+                                                          isExpanded: true,
+                                                        ),
+                                                      )
+                                                          : Container(),
+                                                      areLevel2AccountsActive
+                                                          ? Container(
+                                                        padding:
+                                                        const EdgeInsets.only(
+                                                            left: 30.0,
+                                                            top: 0,
+                                                            right: 30,
+                                                            bottom: 0),
+                                                        //color: Colors.blue[600],
+
+                                                        alignment: Alignment
+                                                            .center,
+                                                        //child: Text('Submit'),
+                                                        child: SearchChoices
+                                                            .single(
+                                                          items:
+                                                          level2ActualAccountsList
+                                                              .map((Account
+                                                          account) {
+                                                            return new DropdownMenuItem<
+                                                                Account>(
+                                                              value: account,
+                                                              child: new Text(
+                                                                account.name,
+                                                              ),
+                                                            );
+                                                          }).toList(),
+                                                          style: TextStyle(
+                                                              color:
+                                                              Color(
+                                                                  0xff0957FF)),
+                                                          value: level2ActualObject,
+                                                          readOnly: level1ActualObject
+                                                              .id <=
+                                                              0 ||
+                                                              level2ActualAccountsList
+                                                                  .length ==
+                                                                  1,
+                                                          underline: Container(
+                                                            height: 2,
+                                                            width: 5000,
+                                                            color: Color(
+                                                                0xff0957FF),
+                                                          ),
+                                                          hint: "Select one number",
+                                                          searchHint:
+                                                          "Select one number",
+                                                          onClear: () {
+                                                            setState(() {
+                                                              level2ActualObject =
+                                                              level2ActualAccountsList[
+                                                              0];
+
+                                                              level3ActualObject =
+                                                              level3ActualAccountsList[
+                                                              0];
+                                                            });
+                                                          },
+                                                          onChanged: (value) {
+                                                            if (value != null) {
+                                                              // Check if a new value was selected or the same was reselected
+                                                              dummyAccount =
+                                                                  level2ActualObject;
+
+                                                              setState(() {
+                                                                level2ActualObject =
+                                                                    value;
+                                                              });
+
+                                                              if (dummyAccount
+                                                                  .id !=
+                                                                  value.id) {
+                                                                arrangeAccounts(
+                                                                    2,
+                                                                    'actual');
+                                                              } else {
+                                                                print(
+                                                                    "RESELECTED");
+                                                              }
+                                                            }
+                                                          },
+                                                          dialogBox: true,
+                                                          isExpanded: true,
+                                                        ),
+                                                      )
+                                                          : Container(),
+
+                                                      areLevel3AccountsActive
+                                                          ? Container(
+                                                        padding:
+                                                        const EdgeInsets.only(
+                                                            left: 30.0,
+                                                            top: 0,
+                                                            right: 30,
+                                                            bottom: 0),
+                                                        //color: Colors.blue[600],
+                                                        alignment: Alignment
+                                                            .center,
+                                                        //child: Text('Submit'),
+                                                        child: SearchChoices
+                                                            .single(
+                                                          items:
+                                                          level3ActualAccountsList
+                                                              .map((Account
+                                                          account) {
+                                                            return new DropdownMenuItem<
+                                                                Account>(
+                                                              value: account,
+                                                              child: new Text(
+                                                                account.name,
+                                                              ),
+                                                            );
+                                                          }).toList(),
+                                                          style: TextStyle(
+                                                              color:
+                                                              Color(
+                                                                  0xff0957FF)),
+                                                          value: level3ActualObject,
+                                                          readOnly: level2ActualObject
+                                                              .id <=
+                                                              0 ||
+                                                              level3ActualAccountsList
+                                                                  .length ==
+                                                                  1,
+                                                          underline: Container(
+                                                            height: 2,
+                                                            width: 5000,
+                                                            color: Color(
+                                                                0xff0957FF),
+                                                          ),
+                                                          hint: "Select one number",
+                                                          searchHint:
+                                                          "Select one number",
+                                                          onClear: () {
+                                                            setState(() {
+                                                              level3ActualObject =
+                                                              level3ActualAccountsList[
+                                                              0];
+                                                            });
+                                                          },
+                                                          // The default object is set again
+                                                          onChanged: (value) {
+                                                            if (value != null) {
+                                                              setState(() {
+                                                                level3ActualObject =
+                                                                    value;
+                                                              });
+                                                            }
+                                                          },
+                                                          dialogBox: true,
+                                                          isExpanded: true,
+                                                        ),
+                                                      )
+                                                          : Container(),
+                                                      // #52 when a level is deactivated the widgets have no space between
+                                                      // this adds a little white space between the widget
+                                                      areLevel3AccountsActive
+                                                          ? Container()
+                                                          : SizedBox(
+                                                          height: 20),
+                                                      areCostTypesActive
+                                                          ? Container(
+                                                        constraints:
+                                                        BoxConstraints.expand(
+                                                          height: 80,
+                                                          //width: MediaQuery.of(context).size.width * .8
+                                                        ),
+                                                        padding:
+                                                        const EdgeInsets.only(
+                                                            left: 30.0,
+                                                            top: 0,
+                                                            right: 30,
+                                                            bottom: 0),
+                                                        //color: Colors.blue[600],
+                                                        alignment: Alignment
+                                                            .center,
+                                                        //child: Text('Submit'),
+                                                        child: Align(
+                                                          alignment:
+                                                          Alignment.topRight,
+                                                          child: SearchChoices
+                                                              .single(
+                                                            value:
+                                                            costTypeObjectActual,
+                                                            icon: Icon(
+                                                                Icons
+                                                                    .arrow_downward),
+                                                            iconSize: 24,
+                                                            style: TextStyle(
+                                                                color: Color(
+                                                                    0xff0957FF)),
+                                                            underline: Container(
+                                                              height: 2,
+                                                              width: 2000,
+                                                              color:
+                                                              Color(0xff0957FF),
+                                                            ),
+                                                            onClear: () {
+                                                              setState(() {
+                                                                costTypeObjectActual =
+                                                                costTypesList[0];
+                                                              });
+                                                            },
+                                                            onChanged:
+                                                                (
+                                                                CostType newValue) {
+                                                              if (value !=
+                                                                  null) {
+                                                                setState(() {
+                                                                  costTypeObjectActual =
+                                                                      newValue;
+                                                                });
+                                                              }
+                                                              ;
+                                                            },
+                                                            items: costTypesList
+                                                                .map((
+                                                                CostType type) {
+                                                              return new DropdownMenuItem<
+                                                                  CostType>(
+                                                                value: type,
+                                                                child: new Text(
+                                                                  type.name,
+                                                                ),
+                                                              );
+                                                            }).toList(),
+                                                          ),
+                                                        ),
+                                                      )
+                                                          : Container(),
+                                                      ButtonBar(
+                                                        mainAxisSize: MainAxisSize
+                                                            .min,
+                                                        // this will take space as minimum as posible(to center)
+                                                        children: <Widget>[
+                                                          ButtonTheme(
+                                                            minWidth: 75.0,
+                                                            height: 40.0,
+                                                            child: RaisedButton(
+                                                              child: Text(
+                                                                AppLocalizations
+                                                                    .of(
+                                                                    context)
+                                                                    .translate(
+                                                                    'DiscardButton'),
+                                                              ),
+                                                              color: Color(
+                                                                  0xffEEEEEE),
+                                                              // EEEEEE
+                                                              onPressed: () {
+                                                                actualTextFieldController
+                                                                    .text = '';
+
+                                                                setState(() {
+                                                                  level1ActualObject =
+                                                                  level1ActualAccountsList[
+                                                                  0];
+                                                                  level2ActualObject =
+                                                                  level2ActualAccountsList[
+                                                                  0];
+                                                                  level3ActualObject =
+                                                                  level3ActualAccountsList[
+                                                                  0];
+
+                                                                  costTypeObjectActual =
+                                                                  costTypesList[0];
+                                                                });
+                                                              },
+                                                            ),
+                                                          ),
+                                                          ButtonTheme(
+                                                            minWidth: 150.0,
+                                                            height: 60.0,
+                                                            child: RaisedButton(
+                                                              child: Text(
+                                                                  AppLocalizations
+                                                                      .of(
+                                                                      context)
+                                                                      .translate(
+                                                                      'SaveButton'),
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize: 17)),
+                                                              color: Color(
+                                                                  0xff0957FF),
+                                                              //df7599 - 0957FF
+                                                              onPressed: () {
+                                                                commentInput(
+                                                                    context,
+                                                                    'actual',
+                                                                    null,
+                                                                    null,
+                                                                    null);
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  )
                                               ),
-                                            ],
-                                          );
-                                        }),
+                                            ));
+                                      },
+                                    ),
                                   )),
                             ],
                           ),
@@ -4108,453 +4221,474 @@ class _MyHomePageState extends State<MyHomePage>
                                       //await Future.delayed(Duration(seconds: 2));
                                       _refreshController.refreshCompleted();
                                     },
-                                    child: ListView.builder(
-                                      // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
-                                        itemCount: 1,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            children: <Widget>[
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Row(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceEvenly,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    ButtonTheme(
-                                                      //minWidth: 150.0,
-                                                      height: 60.0,
-                                                      child: FlatButton(
-                                                        onPressed: () =>
-                                                            _showDatePicker(
-                                                                'budget',
-                                                                dateTimeBudget),
-                                                        shape:
-                                                        new RoundedRectangleBorder(
-                                                          borderRadius:
-                                                          new BorderRadius
-                                                              .circular(
-                                                              40.0),
-                                                        ),
-                                                        color:
-                                                        Color(0xff003680),
-                                                        padding: EdgeInsets.all(
-                                                            10.0),
-                                                        child: Row(
-                                                          // Replace with a Row for horizontal icon + text
+                                    child: LayoutBuilder(
+                                      builder: (context, constraint) {
+                                        return SingleChildScrollView(
+                                            child: ConstrainedBox(
+                                              constraints: BoxConstraints(
+                                                  minHeight: constraint
+                                                      .maxHeight),
+                                              child: IntrinsicHeight(
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      SizedBox(
+                                                        height: 10,
+                                                      ),
+                                                      Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                          crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
                                                           children: <Widget>[
-                                                            Text(
-                                                                " ${dateTimeBudget
-                                                                    .year
-                                                                    .toString()}-${dateTimeBudget
-                                                                    .month
-                                                                    .toString()
-                                                                    .padLeft(
-                                                                    2, '0')}",
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize:
-                                                                    17)),
-                                                            SizedBox(width: 10),
-                                                            Icon(
-                                                              Icons
-                                                                  .calendar_today,
-                                                              color:
-                                                              Colors.white,
+                                                            ButtonTheme(
+                                                              //minWidth: 150.0,
+                                                              height: 60.0,
+                                                              child: FlatButton(
+                                                                onPressed: () =>
+                                                                    _showDatePicker(
+                                                                        'budget',
+                                                                        dateTimeBudget),
+                                                                shape:
+                                                                new RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                  new BorderRadius
+                                                                      .circular(
+                                                                      40.0),
+                                                                ),
+                                                                color:
+                                                                Color(
+                                                                    0xff003680),
+                                                                padding: EdgeInsets
+                                                                    .all(
+                                                                    10.0),
+                                                                child: Row(
+                                                                  // Replace with a Row for horizontal icon + text
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Text(
+                                                                        " ${dateTimeBudget
+                                                                            .year
+                                                                            .toString()}-${dateTimeBudget
+                                                                            .month
+                                                                            .toString()
+                                                                            .padLeft(
+                                                                            2,
+                                                                            '0')}",
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .white,
+                                                                            fontSize:
+                                                                            17)),
+                                                                    SizedBox(
+                                                                        width: 10),
+                                                                    Icon(
+                                                                      Icons
+                                                                          .calendar_today,
+                                                                      color:
+                                                                      Colors
+                                                                          .white,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
                                                             ),
-                                                          ],
+                                                          ]),
+                                                      Container(
+                                                        padding: const EdgeInsets
+                                                            .only(
+                                                            left: 30.0,
+                                                            top: 0,
+                                                            right: 30,
+                                                            bottom: 0),
+                                                        //color: Colors.blue[600],
+                                                        alignment: Alignment
+                                                            .center,
+                                                        //child: Text('Submit'),
+                                                        child: TextFormField(
+                                                          keyboardType:
+                                                          TextInputType.number,
+                                                          //keyboard with numbers only will appear to the screen
+                                                          style: TextStyle(
+                                                              height: 2),
+                                                          //increases the height of cursor
+                                                          //autofocus: true,
+                                                          controller:
+                                                          budgetTextFieldController,
+                                                          decoration: InputDecoration(
+                                                            // hintText: 'Enter ur amount',
+                                                            //hintStyle: TextStyle(height: 1.75),
+                                                              labelText: AppLocalizations
+                                                                  .of(context)
+                                                                  .translate(
+                                                                  'TextFieldAmountInput'),
+                                                              labelStyle: TextStyle(
+                                                                  height: 0.5,
+                                                                  color: Color(
+                                                                      0xff0957FF)),
+                                                              //increases the height of cursor
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .attach_money,
+                                                                color:
+                                                                Color(
+                                                                    0xff0957FF),
+                                                              ),
+                                                              //prefixIcon: Icon(Icons.attach_money),
+                                                              //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                              enabledBorder:
+                                                              new UnderlineInputBorder(
+                                                                  borderSide:
+                                                                  new BorderSide(
+                                                                      color: Color(
+                                                                          0xff0957FF)))),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ]),
-                                              Container(
-                                                padding: const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment: Alignment.center,
-                                                //child: Text('Submit'),
-                                                child: TextFormField(
-                                                  keyboardType:
-                                                  TextInputType.number,
-                                                  //keyboard with numbers only will appear to the screen
-                                                  style: TextStyle(height: 2),
-                                                  //increases the height of cursor
-                                                  //autofocus: true,
-                                                  controller:
-                                                  budgetTextFieldController,
-                                                  decoration: InputDecoration(
-                                                    // hintText: 'Enter ur amount',
-                                                    //hintStyle: TextStyle(height: 1.75),
-                                                      labelText: AppLocalizations
-                                                          .of(context)
-                                                          .translate(
-                                                          'TextFieldAmountInput'),
-                                                      labelStyle: TextStyle(
-                                                          height: 0.5,
-                                                          color: Color(
-                                                              0xff0957FF)),
-                                                      //increases the height of cursor
-                                                      icon: Icon(
-                                                        Icons.attach_money,
-                                                        color:
-                                                        Color(0xff0957FF),
-                                                      ),
-                                                      //prefixIcon: Icon(Icons.attach_money),
-                                                      //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                                      enabledBorder:
-                                                      new UnderlineInputBorder(
-                                                          borderSide:
-                                                          new BorderSide(
+                                                      areLevel1AccountsActive
+                                                          ? Container(
+                                                        padding:
+                                                        const EdgeInsets.only(
+                                                            left: 30.0,
+                                                            top: 0,
+                                                            right: 30,
+                                                            bottom: 0),
+                                                        //color: Colors.blue[600],
+                                                        alignment:
+                                                        Alignment.center,
+                                                        //child: Text('Submit'),
+                                                        child:
+                                                        SearchChoices.single(
+                                                          items:
+                                                          level1BudgetAccountsList
+                                                              .map((Account
+                                                          account) {
+                                                            return new DropdownMenuItem<
+                                                                Account>(
+                                                              value: account,
+                                                              child: new Text(
+                                                                account.name,
+                                                              ),
+                                                            );
+                                                          }).toList(),
+                                                          style: TextStyle(
                                                               color: Color(
-                                                                  0xff0957FF)))),
-                                                ),
-                                              ),
-                                              areLevel1AccountsActive
-                                                  ? Container(
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment:
-                                                Alignment.center,
-                                                //child: Text('Submit'),
-                                                child:
-                                                SearchChoices.single(
-                                                  items:
-                                                  level1BudgetAccountsList
-                                                      .map((Account
-                                                  account) {
-                                                    return new DropdownMenuItem<
-                                                        Account>(
-                                                      value: account,
-                                                      child: new Text(
-                                                        account.name,
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                  style: TextStyle(
-                                                      color: Color(
-                                                          0xff0957FF)),
-                                                  value:
-                                                  level1BudgetObject,
-                                                  underline: Container(
-                                                    height: 2,
-                                                    width: 5000,
-                                                    color:
-                                                    Color(0xff0957FF),
-                                                  ),
-                                                  hint:
-                                                  "Select one number",
-                                                  searchHint:
-                                                  "Select one number",
-                                                  onClear: () {
-                                                    setState(() {
-                                                      level1BudgetObject =
-                                                      level1BudgetAccountsList[
-                                                      0];
+                                                                  0xff0957FF)),
+                                                          value:
+                                                          level1BudgetObject,
+                                                          underline: Container(
+                                                            height: 2,
+                                                            width: 5000,
+                                                            color:
+                                                            Color(0xff0957FF),
+                                                          ),
+                                                          hint:
+                                                          "Select one number",
+                                                          searchHint:
+                                                          "Select one number",
+                                                          onClear: () {
+                                                            setState(() {
+                                                              level1BudgetObject =
+                                                              level1BudgetAccountsList[
+                                                              0];
 
-                                                      level2BudgetObject =
-                                                      level2BudgetAccountsList[
-                                                      0];
+                                                              level2BudgetObject =
+                                                              level2BudgetAccountsList[
+                                                              0];
 
-                                                      level3BudgetObject =
-                                                      level3BudgetAccountsList[
-                                                      0];
-                                                    });
-                                                  },
-                                                  onChanged: (value) {
-                                                    if (value != null) {
-                                                      setState(() {
-                                                        level1BudgetObject =
-                                                            value;
-                                                      });
+                                                              level3BudgetObject =
+                                                              level3BudgetAccountsList[
+                                                              0];
+                                                            });
+                                                          },
+                                                          onChanged: (value) {
+                                                            if (value != null) {
+                                                              setState(() {
+                                                                level1BudgetObject =
+                                                                    value;
+                                                              });
 
-                                                      arrangeAccounts(
-                                                          1, 'budget');
-                                                    }
-                                                  },
-                                                  dialogBox: true,
-                                                  isExpanded: true,
-                                                ),
-                                              )
-                                                  : Container(),
-                                              areLevel2AccountsActive
-                                                  ? Container(
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-
-                                                alignment:
-                                                Alignment.center,
-                                                //child: Text('Submit'),
-                                                child:
-                                                SearchChoices.single(
-                                                  items:
-                                                  level2BudgetAccountsList
-                                                      .map((Account
-                                                  account) {
-                                                    return new DropdownMenuItem<
-                                                        Account>(
-                                                      value: account,
-                                                      child: new Text(
-                                                        account.name,
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                  style: TextStyle(
-                                                      color: Color(
-                                                          0xff0957FF)),
-                                                  value:
-                                                  level2BudgetObject,
-                                                  readOnly: level1BudgetObject
-                                                      .id <=
-                                                      0 ||
-                                                      level2BudgetAccountsList
-                                                          .length ==
-                                                          1,
-                                                  underline: Container(
-                                                    height: 2,
-                                                    width: 5000,
-                                                    color:
-                                                    Color(0xff0957FF),
-                                                  ),
-                                                  hint:
-                                                  "Select one number",
-                                                  searchHint:
-                                                  "Select one number",
-                                                  onClear: () {
-                                                    setState(() {
-                                                      level2BudgetObject =
-                                                      level2BudgetAccountsList[
-                                                      0];
-
-                                                      level3BudgetObject =
-                                                      level3BudgetAccountsList[
-                                                      0];
-                                                    });
-                                                  },
-                                                  onChanged: (value) {
-                                                    if (value != null) {
-                                                      // Check if a new value was selected or the same was reselected
-                                                      dummyAccount =
-                                                          level2BudgetObject;
-
-                                                      setState(() {
-                                                        level2BudgetObject =
-                                                            value;
-                                                      });
-
-                                                      if (dummyAccount
-                                                          .id !=
-                                                          value.id) {
-                                                        arrangeAccounts(
-                                                            2, 'budget');
-                                                      } else {
-                                                        print(
-                                                            "RESELECTED");
-                                                      }
-                                                    }
-                                                  },
-                                                  dialogBox: true,
-                                                  isExpanded: true,
-                                                ),
-                                              )
-                                                  : Container(),
-                                              areLevel3AccountsActive
-                                                  ? Container(
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment:
-                                                Alignment.center,
-                                                //child: Text('Submit'),
-                                                child:
-                                                SearchChoices.single(
-                                                  items:
-                                                  level3BudgetAccountsList
-                                                      .map((Account
-                                                  account) {
-                                                    return new DropdownMenuItem<
-                                                        Account>(
-                                                      value: account,
-                                                      child: new Text(
-                                                        account.name,
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                  style: TextStyle(
-                                                      color: Color(
-                                                          0xff0957FF)),
-                                                  value:
-                                                  level3BudgetObject,
-                                                  readOnly: level3BudgetObject
-                                                      .id <=
-                                                      0 ||
-                                                      level3BudgetAccountsList
-                                                          .length ==
-                                                          1,
-                                                  underline: Container(
-                                                    height: 2,
-                                                    width: 5000,
-                                                    color:
-                                                    Color(0xff0957FF),
-                                                  ),
-                                                  hint:
-                                                  "Select one number",
-                                                  searchHint:
-                                                  "Select one number",
-                                                  onClear: () {
-                                                    setState(() {
-                                                      level3BudgetObject =
-                                                      level3BudgetAccountsList[
-                                                      0];
-                                                    });
-                                                  },
-                                                  // The default object is set again
-                                                  onChanged: (value) {
-                                                    if (value != null) {
-                                                      setState(() {
-                                                        level3BudgetObject =
-                                                            value;
-                                                      });
-                                                    }
-                                                  },
-                                                  dialogBox: true,
-                                                  isExpanded: true,
-                                                ),
-                                              )
-                                                  : Container(),
-                                              // #52 when a level is deactivated the widgets have no space between
-                                              // this adds a little white space between the widget
-                                              areLevel3AccountsActive
-                                                  ? Container()
-                                                  : SizedBox(height: 20),
-                                              areCostTypesActive
-                                                  ? Container(
-                                                constraints:
-                                                BoxConstraints.expand(
-                                                  height: 80,
-                                                  //width: MediaQuery.of(context).size.width * .8
-                                                ),
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 30,
-                                                    bottom: 0),
-                                                //color: Colors.blue[600],
-                                                alignment:
-                                                Alignment.center,
-                                                //child: Text('Submit'),
-                                                child: Align(
-                                                  alignment:
-                                                  Alignment.topRight,
-                                                  child: SearchChoices
-                                                      .single(
-                                                    value:
-                                                    costTypeObjectBudget,
-                                                    icon: Icon(Icons
-                                                        .arrow_downward),
-                                                    iconSize: 24,
-                                                    style: TextStyle(
-                                                        color: Color(
-                                                            0xff0957FF)),
-                                                    //isExpanded: true,
-                                                    underline: Container(
-                                                      height: 2,
-                                                      width: 2000,
-                                                      color: Color(
-                                                          0xff0957FF),
-                                                    ),
-                                                    onClear: () {
-                                                      setState(() {
-                                                        costTypeObjectBudget =
-                                                        costTypesList[
-                                                        0];
-                                                      });
-                                                    },
-                                                    onChanged: (CostType
-                                                    newValue) {
-                                                      if (newValue !=
-                                                          null) {
-                                                        setState(() {
-                                                          costTypeObjectBudget =
-                                                              newValue;
-                                                        });
-                                                      }
-                                                    },
-                                                    items: costTypesList
-                                                        .map((CostType
-                                                    type) {
-                                                      return new DropdownMenuItem<
-                                                          CostType>(
-                                                        value: type,
-                                                        child: new Text(
-                                                          type.name,
+                                                              arrangeAccounts(
+                                                                  1, 'budget');
+                                                            }
+                                                          },
+                                                          dialogBox: true,
+                                                          isExpanded: true,
                                                         ),
-                                                      );
-                                                    }).toList(),
-                                                  ),
-                                                ),
-                                              )
-                                                  : Container(),
-                                              ButtonBar(
-                                                mainAxisSize: MainAxisSize.min,
-                                                // this will take space as minimum as posible(to center)
-                                                children: <Widget>[
-                                                  ButtonTheme(
-                                                    minWidth: 75.0,
-                                                    height: 40.0,
-                                                    child: RaisedButton(
-                                                      child: Text(
-                                                        AppLocalizations.of(
-                                                            context)
-                                                            .translate(
-                                                            'DiscardButton'),
-                                                      ),
-                                                      color: Color(
-                                                          0xffEEEEEE), // EEEEEE
-                                                      onPressed: () {
-                                                        budgetTextFieldController
-                                                            .text = '';
-                                                        setState(() {
-                                                          level1BudgetObject =
-                                                          level1BudgetAccountsList[
-                                                          0];
-                                                          level2BudgetObject =
-                                                          level2BudgetAccountsList[
-                                                          0];
-                                                          level3BudgetObject =
-                                                          level3BudgetAccountsList[
-                                                          0];
+                                                      )
+                                                          : Container(),
+                                                      areLevel2AccountsActive
+                                                          ? Container(
+                                                        padding:
+                                                        const EdgeInsets.only(
+                                                            left: 30.0,
+                                                            top: 0,
+                                                            right: 30,
+                                                            bottom: 0),
+                                                        //color: Colors.blue[600],
 
-                                                          costTypeObjectBudget =
-                                                          costTypesList[0];
-                                                        });
-                                                        /*
+                                                        alignment:
+                                                        Alignment.center,
+                                                        //child: Text('Submit'),
+                                                        child:
+                                                        SearchChoices.single(
+                                                          items:
+                                                          level2BudgetAccountsList
+                                                              .map((Account
+                                                          account) {
+                                                            return new DropdownMenuItem<
+                                                                Account>(
+                                                              value: account,
+                                                              child: new Text(
+                                                                account.name,
+                                                              ),
+                                                            );
+                                                          }).toList(),
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  0xff0957FF)),
+                                                          value:
+                                                          level2BudgetObject,
+                                                          readOnly: level1BudgetObject
+                                                              .id <=
+                                                              0 ||
+                                                              level2BudgetAccountsList
+                                                                  .length ==
+                                                                  1,
+                                                          underline: Container(
+                                                            height: 2,
+                                                            width: 5000,
+                                                            color:
+                                                            Color(0xff0957FF),
+                                                          ),
+                                                          hint:
+                                                          "Select one number",
+                                                          searchHint:
+                                                          "Select one number",
+                                                          onClear: () {
+                                                            setState(() {
+                                                              level2BudgetObject =
+                                                              level2BudgetAccountsList[
+                                                              0];
+
+                                                              level3BudgetObject =
+                                                              level3BudgetAccountsList[
+                                                              0];
+                                                            });
+                                                          },
+                                                          onChanged: (value) {
+                                                            if (value != null) {
+                                                              // Check if a new value was selected or the same was reselected
+                                                              dummyAccount =
+                                                                  level2BudgetObject;
+
+                                                              setState(() {
+                                                                level2BudgetObject =
+                                                                    value;
+                                                              });
+
+                                                              if (dummyAccount
+                                                                  .id !=
+                                                                  value.id) {
+                                                                arrangeAccounts(
+                                                                    2,
+                                                                    'budget');
+                                                              } else {
+                                                                print(
+                                                                    "RESELECTED");
+                                                              }
+                                                            }
+                                                          },
+                                                          dialogBox: true,
+                                                          isExpanded: true,
+                                                        ),
+                                                      )
+                                                          : Container(),
+                                                      areLevel3AccountsActive
+                                                          ? Container(
+                                                        padding:
+                                                        const EdgeInsets.only(
+                                                            left: 30.0,
+                                                            top: 0,
+                                                            right: 30,
+                                                            bottom: 0),
+                                                        //color: Colors.blue[600],
+                                                        alignment:
+                                                        Alignment.center,
+                                                        //child: Text('Submit'),
+                                                        child:
+                                                        SearchChoices.single(
+                                                          items:
+                                                          level3BudgetAccountsList
+                                                              .map((Account
+                                                          account) {
+                                                            return new DropdownMenuItem<
+                                                                Account>(
+                                                              value: account,
+                                                              child: new Text(
+                                                                account.name,
+                                                              ),
+                                                            );
+                                                          }).toList(),
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  0xff0957FF)),
+                                                          value:
+                                                          level3BudgetObject,
+                                                          readOnly: level3BudgetObject
+                                                              .id <=
+                                                              0 ||
+                                                              level3BudgetAccountsList
+                                                                  .length ==
+                                                                  1,
+                                                          underline: Container(
+                                                            height: 2,
+                                                            width: 5000,
+                                                            color:
+                                                            Color(0xff0957FF),
+                                                          ),
+                                                          hint:
+                                                          "Select one number",
+                                                          searchHint:
+                                                          "Select one number",
+                                                          onClear: () {
+                                                            setState(() {
+                                                              level3BudgetObject =
+                                                              level3BudgetAccountsList[
+                                                              0];
+                                                            });
+                                                          },
+                                                          // The default object is set again
+                                                          onChanged: (value) {
+                                                            if (value != null) {
+                                                              setState(() {
+                                                                level3BudgetObject =
+                                                                    value;
+                                                              });
+                                                            }
+                                                          },
+                                                          dialogBox: true,
+                                                          isExpanded: true,
+                                                        ),
+                                                      )
+                                                          : Container(),
+                                                      // #52 when a level is deactivated the widgets have no space between
+                                                      // this adds a little white space between the widget
+                                                      areLevel3AccountsActive
+                                                          ? Container()
+                                                          : SizedBox(
+                                                          height: 20),
+                                                      areCostTypesActive
+                                                          ? Container(
+                                                        constraints:
+                                                        BoxConstraints.expand(
+                                                          height: 80,
+                                                          //width: MediaQuery.of(context).size.width * .8
+                                                        ),
+                                                        padding:
+                                                        const EdgeInsets.only(
+                                                            left: 30.0,
+                                                            top: 0,
+                                                            right: 30,
+                                                            bottom: 0),
+                                                        //color: Colors.blue[600],
+                                                        alignment:
+                                                        Alignment.center,
+                                                        //child: Text('Submit'),
+                                                        child: Align(
+                                                          alignment:
+                                                          Alignment.topRight,
+                                                          child: SearchChoices
+                                                              .single(
+                                                            value:
+                                                            costTypeObjectBudget,
+                                                            icon: Icon(Icons
+                                                                .arrow_downward),
+                                                            iconSize: 24,
+                                                            style: TextStyle(
+                                                                color: Color(
+                                                                    0xff0957FF)),
+                                                            //isExpanded: true,
+                                                            underline: Container(
+                                                              height: 2,
+                                                              width: 2000,
+                                                              color: Color(
+                                                                  0xff0957FF),
+                                                            ),
+                                                            onClear: () {
+                                                              setState(() {
+                                                                costTypeObjectBudget =
+                                                                costTypesList[
+                                                                0];
+                                                              });
+                                                            },
+                                                            onChanged: (CostType
+                                                            newValue) {
+                                                              if (newValue !=
+                                                                  null) {
+                                                                setState(() {
+                                                                  costTypeObjectBudget =
+                                                                      newValue;
+                                                                });
+                                                              }
+                                                            },
+                                                            items: costTypesList
+                                                                .map((CostType
+                                                            type) {
+                                                              return new DropdownMenuItem<
+                                                                  CostType>(
+                                                                value: type,
+                                                                child: new Text(
+                                                                  type.name,
+                                                                ),
+                                                              );
+                                                            }).toList(),
+                                                          ),
+                                                        ),
+                                                      )
+                                                          : Container(),
+                                                      ButtonBar(
+                                                        mainAxisSize: MainAxisSize
+                                                            .min,
+                                                        // this will take space as minimum as posible(to center)
+                                                        children: <Widget>[
+                                                          ButtonTheme(
+                                                            minWidth: 75.0,
+                                                            height: 40.0,
+                                                            child: RaisedButton(
+                                                              child: Text(
+                                                                AppLocalizations
+                                                                    .of(
+                                                                    context)
+                                                                    .translate(
+                                                                    'DiscardButton'),
+                                                              ),
+                                                              color: Color(
+                                                                  0xffEEEEEE),
+                                                              // EEEEEE
+                                                              onPressed: () {
+                                                                budgetTextFieldController
+                                                                    .text = '';
+                                                                setState(() {
+                                                                  level1BudgetObject =
+                                                                  level1BudgetAccountsList[
+                                                                  0];
+                                                                  level2BudgetObject =
+                                                                  level2BudgetAccountsList[
+                                                                  0];
+                                                                  level3BudgetObject =
+                                                                  level3BudgetAccountsList[
+                                                                  0];
+
+                                                                  costTypeObjectBudget =
+                                                                  costTypesList[0];
+                                                                });
+                                                                /*
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -4576,39 +4710,45 @@ class _MyHomePageState extends State<MyHomePage>
                                   },
                                 );
                                 */
-                                                      },
-                                                    ),
-                                                  ),
-                                                  ButtonTheme(
-                                                    minWidth: 150.0,
-                                                    height: 60.0,
-                                                    child: RaisedButton(
-                                                      child: Text(
-                                                          AppLocalizations.of(
-                                                              context)
-                                                              .translate(
-                                                              'SaveButton'),
-                                                          style: TextStyle(
-                                                              color:
-                                                              Colors.white,
-                                                              fontSize: 17)),
-                                                      color: Color(0xff0957FF),
-                                                      //df7599 - 0957FF
-                                                      onPressed: () {
-                                                        commentInput(
-                                                            context,
-                                                            'budget',
-                                                            null,
-                                                            null,
-                                                            null);
-                                                      },
-                                                    ),
-                                                  ),
-                                                ],
+                                                              },
+                                                            ),
+                                                          ),
+                                                          ButtonTheme(
+                                                            minWidth: 150.0,
+                                                            height: 60.0,
+                                                            child: RaisedButton(
+                                                              child: Text(
+                                                                  AppLocalizations
+                                                                      .of(
+                                                                      context)
+                                                                      .translate(
+                                                                      'SaveButton'),
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                      Colors
+                                                                          .white,
+                                                                      fontSize: 17)),
+                                                              color: Color(
+                                                                  0xff0957FF),
+                                                              //df7599 - 0957FF
+                                                              onPressed: () {
+                                                                commentInput(
+                                                                    context,
+                                                                    'budget',
+                                                                    null,
+                                                                    null,
+                                                                    null);
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  )
                                               ),
-                                            ],
-                                          );
-                                        })),
+                                            ));
+                                      },
+                                    )),
                               ),
                             ],
                           ),
@@ -5504,298 +5644,377 @@ class _MyHomePageState extends State<MyHomePage>
                         //await Future.delayed(Duration(seconds: 2));
                         _refreshController.refreshCompleted();
                       },
-                      child: ListView.builder(
-                        // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
-                          itemCount: 1,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                SizedBox(
-                                  height:
-                                  MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * .05,
-                                ),
-                                Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      ButtonTheme(
-                                        //minWidth: 150.0,
-                                        height: 60.0,
-                                        child: FlatButton(
-                                          onPressed: () =>
-                                              _showDatePicker(
-                                                  'visualizer',
-                                                  dateTimeVisualizer),
-                                          shape: new RoundedRectangleBorder(
-                                            borderRadius:
-                                            new BorderRadius.circular(40.0),
-                                          ),
-                                          color: Color(0xff003680),
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Row(
-                                            // Replace with a Row for horizontal icon + text
-                                            children: <Widget>[
-                                              Text(
-                                                  " ${dateTimeVisualizer.year
-                                                      .toString()}-${dateTimeVisualizer
-                                                      .month.toString().padLeft(
-                                                      2, '0')}",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 17)),
-                                              SizedBox(width: 10),
-                                              Icon(
-                                                Icons.calendar_today,
-                                                color: Colors.white,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ]),
-                                Container(
-                                  //color: Colors.blue[600],
-                                  alignment: Alignment.center,
-                                  //child: Text('Submit'),
-                                  child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Switch(
-                                          value: showFullYear,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              showAllTime = false;
-                                              showFullYear = value;
-                                              loadAmount();
-                                            });
-                                          },
-                                          activeTrackColor: Color(0xffEEEEEE),
-                                          activeColor: Color(0xff0957FF),
-                                        ),
-                                        Text(
-                                          AppLocalizations.of(context)
-                                              .translate('FullYearSwitch'),
-                                          style: TextStyle(fontSize: 25),
-                                        ),
-                                        Switch(
-                                          value: showAllTime,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              showFullYear = false;
-                                              showAllTime = value;
-                                              loadAmount();
-                                            });
-                                          },
-                                          activeTrackColor: Color(0xffEEEEEE),
-                                          activeColor: Color(0xff0957FF),
-                                        ),
-                                        Text(
-                                          AppLocalizations.of(context)
-                                              .translate('AllTimeSwitch'),
-                                          style: TextStyle(fontSize: 25),
-                                        ),
-                                      ]),
-                                ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 30.0,
-                                        top: 0,
-                                        right: 0,
-                                        bottom: 0),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        AppLocalizations.of(context)
-                                            .translate('drilldown') +
-                                            drilldownLevel,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width,
-                                  height:
-                                  MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * .4,
-                                  child: charts.BarChart(
-                                    [
-                                      charts.Series<ChartObject, String>(
-                                          id: 'CompanySizeVsNumberOfCompanies',
-                                          colorFn: (_, __) =>
-                                              charts.ColorUtil.fromDartColor(
-                                                  Color(0xFF0957FF)),
-                                          domainFn: (ChartObject sales, _) =>
-                                          sales.accountName,
-                                          measureFn: (ChartObject sales, _) =>
-                                          sales.amount,
-                                          labelAccessorFn: (ChartObject sales,
-                                              _) =>
-                                          '${sales.accountName}: ${sales.amount
-                                              .toString()}€',
-                                          data: visualizerData),
-                                      charts.Series<ChartObject, String>(
-                                          id: 'CompanySizeVsNumberOfCompanies',
-                                          domainFn: (ChartObject sales, _) =>
-                                          sales.accountName,
-                                          measureFn: (ChartObject sales, _) =>
-                                          sales.amount,
-                                          colorFn: (ChartObject segment, _) =>
-                                          segment.color,
-                                          labelAccessorFn: (ChartObject sales,
-                                              _) =>
-                                          '${sales.accountName}: ${sales.amount
-                                              .toString()}€',
-                                          data: visualizerTargetData)
-                                        ..setAttribute(charts.rendererIdKey,
-                                            'customTargetLine'),
-                                    ],
-                                    animate: true,
-                                    barGroupingType:
-                                    charts.BarGroupingType.grouped,
-                                    customSeriesRenderers: [
-                                      new charts.BarTargetLineRendererConfig<
-                                          String>(
-                                        // ID used to link series to this renderer.
-                                          customRendererId: 'customTargetLine',
-                                          groupingType:
-                                          charts.BarGroupingType.grouped)
-                                    ],
-                                    selectionModels: [
-                                      new charts.SelectionModelConfig(
-                                          type: charts.SelectionModelType.info,
-                                          changedListener: _onSelectionChanged)
-                                    ],
-                                    vertical: false,
-                                    // Hide domain axis.
-                                    barRendererDecorator:
-                                    new charts.BarLabelDecorator<String>(),
-                                    // Hide domain axis.
-                                    domainAxis: new charts.OrdinalAxisSpec(
-                                        renderSpec:
-                                        new charts.NoneRenderSpec()),
-                                    behaviors: [
-                                      charts.ChartTitle(AppLocalizations.of(
-                                          context)
-                                          .translate('visualizerChartTitle')),
-                                      charts.ChartTitle(
-                                          AppLocalizations.of(context)
-                                              .translate(
-                                              'visualizerChartYTitle'),
-                                          behaviorPosition:
-                                          charts.BehaviorPosition.start),
-                                      charts.ChartTitle(
-                                          AppLocalizations.of(context)
-                                              .translate(
-                                              'visualizerChartXTitle'),
-                                          behaviorPosition:
-                                          charts.BehaviorPosition.bottom)
-                                    ],
-                                  ),
-                                ),
-                                Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 30.0,
-                                            top: 0,
-                                            right: 30,
-                                            bottom: 0),
-                                        //child: Text('Submit'),
-                                        child: RaisedButton(
-                                          child: Text(
-                                              AppLocalizations.of(context)
-                                                  .translate('resetButton')),
-                                          color: Color(0xffEEEEEE), // EEEEEE
-                                          onPressed: () {
-                                            setState(() {
-                                              showAllTime = false;
-                                              showFullYear = false;
-                                              costTypeObjectVisualizer =
-                                              costTypesList[0];
-                                              dateTimeVisualizer =
-                                                  DateTime.parse(INIT_DATETIME);
-
-                                              g_parent_account.accountLevel = 1;
-                                              g_parent_account.id = -69;
-
-                                              drilldownLevel = "";
-
-                                              loadAmount();
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 30.0,
-                                            top: 0,
-                                            right: 30,
-                                            bottom: 30),
-                                        //child: Text('Submit'),
-                                        child: Align(
-                                          alignment: Alignment.topRight,
-                                          child: SearchChoices.single(
-                                            value: costTypeObjectVisualizer,
-                                            icon: Icon(Icons.arrow_downward),
-                                            iconSize: 24,
-                                            style: TextStyle(
-                                                color: Color(0xff0957FF)),
-                                            underline: Container(
-                                              height: 2,
-                                              width: 2000,
-                                              color: Color(0xff0957FF),
+                      child: LayoutBuilder(
+                        builder: (context, constraint) {
+                          return SingleChildScrollView(
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                    minHeight: constraint.maxHeight),
+                                child: IntrinsicHeight(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .center,
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .center,
+                                      children: <Widget>[Column(
+                                          mainAxisAlignment: MainAxisAlignment
+                                              .spaceEvenly,
+                                          crossAxisAlignment: CrossAxisAlignment
+                                              .center,
+                                          children: <Widget>[
+                                            Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                                children: <Widget>[
+                                                  ButtonTheme(
+                                                    //minWidth: 150.0,
+                                                    height: 60.0,
+                                                    child: FlatButton(
+                                                      onPressed: () =>
+                                                          _showDatePicker(
+                                                              'visualizer',
+                                                              dateTimeVisualizer),
+                                                      shape: new RoundedRectangleBorder(
+                                                        borderRadius:
+                                                        new BorderRadius
+                                                            .circular(40.0),
+                                                      ),
+                                                      color: Color(0xff003680),
+                                                      padding: EdgeInsets.all(
+                                                          10.0),
+                                                      child: Row(
+                                                        // Replace with a Row for horizontal icon + text
+                                                        children: <Widget>[
+                                                          Text(
+                                                              " ${dateTimeVisualizer
+                                                                  .year
+                                                                  .toString()}-${dateTimeVisualizer
+                                                                  .month
+                                                                  .toString()
+                                                                  .padLeft(
+                                                                  2, '0')}",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 17)),
+                                                          SizedBox(width: 10),
+                                                          Icon(
+                                                            Icons
+                                                                .calendar_today,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ]),
+                                            Container(
+                                              //color: Colors.blue[600],
+                                              alignment: Alignment.center,
+                                              //child: Text('Submit'),
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Switch(
+                                                      value: showFullYear,
+                                                      onChanged: (value) {
+                                                        setState(() {
+                                                          showAllTime = false;
+                                                          showFullYear = value;
+                                                          loadAmount();
+                                                        });
+                                                      },
+                                                      activeTrackColor: Color(
+                                                          0xffEEEEEE),
+                                                      activeColor: Color(
+                                                          0xff0957FF),
+                                                    ),
+                                                    Text(
+                                                      AppLocalizations.of(
+                                                          context)
+                                                          .translate(
+                                                          'FullYearSwitch'),
+                                                      style: TextStyle(
+                                                          fontSize: 25),
+                                                    ),
+                                                    Switch(
+                                                      value: showAllTime,
+                                                      onChanged: (value) {
+                                                        setState(() {
+                                                          showFullYear = false;
+                                                          showAllTime = value;
+                                                          loadAmount();
+                                                        });
+                                                      },
+                                                      activeTrackColor: Color(
+                                                          0xffEEEEEE),
+                                                      activeColor: Color(
+                                                          0xff0957FF),
+                                                    ),
+                                                    Text(
+                                                      AppLocalizations.of(
+                                                          context)
+                                                          .translate(
+                                                          'AllTimeSwitch'),
+                                                      style: TextStyle(
+                                                          fontSize: 25),
+                                                    ),
+                                                  ]),
                                             ),
-                                            onClear: () {
-                                              setState(() {
-                                                costTypeObjectVisualizer =
-                                                costTypesList[0];
-                                              });
-                                            },
-                                            onChanged: (CostType newValue) {
-                                              if (newValue != null) {
-                                                setState(() {
-                                                  costTypeObjectVisualizer =
-                                                      newValue;
-                                                  loadAmount();
-                                                });
-                                              }
-                                            },
-                                            items: costTypesList
-                                                .map((CostType type) {
-                                              return new DropdownMenuItem<
-                                                  CostType>(
-                                                value: type,
-                                                child: new Text(
-                                                  type.name,
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Container(
+                                                padding: const EdgeInsets.only(
+                                                    left: 30.0,
+                                                    top: 0,
+                                                    right: 0,
+                                                    bottom: 0),
+                                                child: Align(
+                                                  alignment: Alignment
+                                                      .centerLeft,
+                                                  child: Text(
+                                                    AppLocalizations.of(context)
+                                                        .translate(
+                                                        'drilldown') +
+                                                        drilldownLevel,
+                                                  ),
                                                 ),
-                                              );
-                                            }).toList(),
-                                          ),
-                                        ),
-                                      ),
-                                    ])
-                              ],
-                            );
-                          })),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .width,
+                                              height:
+                                              MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .height * .4,
+                                              child: charts.BarChart(
+                                                [
+                                                  charts.Series<
+                                                      ChartObject,
+                                                      String>(
+                                                      id: 'CompanySizeVsNumberOfCompanies',
+                                                      colorFn: (_, __) =>
+                                                          charts.ColorUtil
+                                                              .fromDartColor(
+                                                              Color(
+                                                                  0xFF0957FF)),
+                                                      domainFn: (
+                                                          ChartObject sales,
+                                                          _) =>
+                                                      sales.accountName,
+                                                      measureFn: (
+                                                          ChartObject sales,
+                                                          _) =>
+                                                      sales.amount,
+                                                      labelAccessorFn: (
+                                                          ChartObject sales,
+                                                          _) =>
+                                                      '${sales
+                                                          .accountName}: ${sales
+                                                          .amount
+                                                          .toString()}€',
+                                                      data: visualizerData),
+                                                  charts.Series<
+                                                      ChartObject,
+                                                      String>(
+                                                      id: 'CompanySizeVsNumberOfCompanies',
+                                                      domainFn: (
+                                                          ChartObject sales,
+                                                          _) =>
+                                                      sales.accountName,
+                                                      measureFn: (
+                                                          ChartObject sales,
+                                                          _) =>
+                                                      sales.amount,
+                                                      colorFn: (
+                                                          ChartObject segment,
+                                                          _) =>
+                                                      segment.color,
+                                                      labelAccessorFn: (
+                                                          ChartObject sales,
+                                                          _) =>
+                                                      '${sales
+                                                          .accountName}: ${sales
+                                                          .amount
+                                                          .toString()}€',
+                                                      data: visualizerTargetData)
+                                                    ..setAttribute(
+                                                        charts.rendererIdKey,
+                                                        'customTargetLine'),
+                                                ],
+                                                animate: true,
+                                                barGroupingType:
+                                                charts.BarGroupingType.grouped,
+                                                customSeriesRenderers: [
+                                                  new charts
+                                                      .BarTargetLineRendererConfig<
+                                                      String>(
+                                                    // ID used to link series to this renderer.
+                                                      customRendererId: 'customTargetLine',
+                                                      groupingType:
+                                                      charts.BarGroupingType
+                                                          .grouped)
+                                                ],
+                                                selectionModels: [
+                                                  new charts
+                                                      .SelectionModelConfig(
+                                                      type: charts
+                                                          .SelectionModelType
+                                                          .info,
+                                                      changedListener: _onSelectionChanged)
+                                                ],
+                                                vertical: false,
+                                                // Hide domain axis.
+                                                barRendererDecorator:
+                                                new charts.BarLabelDecorator<
+                                                    String>(),
+                                                // Hide domain axis.
+                                                domainAxis: new charts
+                                                    .OrdinalAxisSpec(
+                                                    renderSpec:
+                                                    new charts
+                                                        .NoneRenderSpec()),
+                                                behaviors: [
+                                                  charts.ChartTitle(
+                                                      AppLocalizations.of(
+                                                          context)
+                                                          .translate(
+                                                          'visualizerChartTitle')),
+                                                  charts.ChartTitle(
+                                                      AppLocalizations.of(
+                                                          context)
+                                                          .translate(
+                                                          'visualizerChartYTitle'),
+                                                      behaviorPosition:
+                                                      charts.BehaviorPosition
+                                                          .start),
+                                                  charts.ChartTitle(
+                                                      AppLocalizations.of(
+                                                          context)
+                                                          .translate(
+                                                          'visualizerChartXTitle'),
+                                                      behaviorPosition:
+                                                      charts.BehaviorPosition
+                                                          .bottom)
+                                                ],
+                                              ),
+                                            ),
+                                            Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                                children: <Widget>[
+                                                  Container(
+                                                    padding: const EdgeInsets
+                                                        .only(
+                                                        left: 30.0,
+                                                        top: 0,
+                                                        right: 30,
+                                                        bottom: 0),
+                                                    //child: Text('Submit'),
+                                                    child: RaisedButton(
+                                                      child: Text(
+                                                          AppLocalizations.of(
+                                                              context)
+                                                              .translate(
+                                                              'resetButton')),
+                                                      color: Color(0xffEEEEEE),
+                                                      // EEEEEE
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          showAllTime = false;
+                                                          showFullYear = false;
+                                                          costTypeObjectVisualizer =
+                                                          costTypesList[0];
+                                                          dateTimeVisualizer =
+                                                              DateTime.parse(
+                                                                  INIT_DATETIME);
+
+                                                          g_parent_account
+                                                              .accountLevel = 1;
+                                                          g_parent_account.id =
+                                                          -69;
+
+                                                          drilldownLevel = "";
+
+                                                          loadAmount();
+                                                        });
+                                                      },
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    padding: const EdgeInsets
+                                                        .only(
+                                                        left: 30.0,
+                                                        top: 0,
+                                                        right: 30,
+                                                        bottom: 30),
+                                                    //child: Text('Submit'),
+                                                    child: Align(
+                                                      alignment: Alignment
+                                                          .topRight,
+                                                      child: SearchChoices
+                                                          .single(
+                                                        value: costTypeObjectVisualizer,
+                                                        icon: Icon(Icons
+                                                            .arrow_downward),
+                                                        iconSize: 24,
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xff0957FF)),
+                                                        underline: Container(
+                                                          height: 2,
+                                                          width: 2000,
+                                                          color: Color(
+                                                              0xff0957FF),
+                                                        ),
+                                                        onClear: () {
+                                                          setState(() {
+                                                            costTypeObjectVisualizer =
+                                                            costTypesList[0];
+                                                          });
+                                                        },
+                                                        onChanged: (
+                                                            CostType newValue) {
+                                                          if (newValue !=
+                                                              null) {
+                                                            setState(() {
+                                                              costTypeObjectVisualizer =
+                                                                  newValue;
+                                                              loadAmount();
+                                                            });
+                                                          }
+                                                        },
+                                                        items: costTypesList
+                                                            .map((
+                                                            CostType type) {
+                                                          return new DropdownMenuItem<
+                                                              CostType>(
+                                                            value: type,
+                                                            child: new Text(
+                                                              type.name,
+                                                            ),
+                                                          );
+                                                        }).toList(),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ]),
+                                          ])
+                                      ],
+                                    )
+                                ),
+                              ));
+                        },
+                      )),
                 ),
               ],
             ),
@@ -5868,7 +6087,8 @@ class _MyHomePageState extends State<MyHomePage>
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Icon(Icons.account_balance, color: Colors.white),
+                                Icon(
+                                    Icons.account_balance, color: Colors.white),
                                 Text(
                                   AppLocalizations.of(context)
                                       .translate('TitleCostTypesTab'),
@@ -5892,271 +6112,294 @@ class _MyHomePageState extends State<MyHomePage>
                                   //await Future.delayed(Duration(seconds: 2));
                                   _refreshController.refreshCompleted();
                                 },
-                                child: ListView.builder(
-                                  // Added  ListView.builder to make the page scrollable on small screens but keep smartrefresher
-                                    itemCount: 1,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return Container(
-                                          height: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height *
-                                              .7,
-                                          child: Column(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                              children: <Widget>[
-                                                Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .center,
-                                                    children: <Widget>[
-                                                      Text(
-                                                          AppLocalizations.of(
-                                                              context)
-                                                              .translate(
-                                                              'useCostTypes'),
-                                                          style: TextStyle(
-                                                              fontSize: 25)),
-                                                      Switch(
-                                                        value:
-                                                        areCostTypesActive,
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            areCostTypesActive =
-                                                                value;
-                                                          });
-                                                        },
-                                                        activeTrackColor:
-                                                        Color(0xffEEEEEE),
-                                                        activeColor:
-                                                        Color(0xff0957FF),
-                                                      ),
-                                                    ]),
-                                                Divider(color: Colors.black87),
-                                                Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .center,
-                                                    children: <Widget>[
-                                                      Text(
-                                                          AppLocalizations.of(
-                                                              context)
-                                                              .translate(
-                                                              'useAccounts'),
-                                                          style: TextStyle(
-                                                              fontSize: 25)),
-                                                      Switch(
-                                                        value:
-                                                        areAccountsActive,
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            areAccountsActive =
-                                                                value;
+                                child: LayoutBuilder(
+                                  builder: (context, constraint) {
+                                    return SingleChildScrollView(
+                                        child: ConstrainedBox(
+                                          constraints: BoxConstraints(
+                                              minHeight: constraint.maxHeight),
+                                          child: IntrinsicHeight(
+                                              child: Container(
 
-                                                            areLevel1AccountsActive =
-                                                                areAccountsActive;
-                                                            areLevel2AccountsActive =
-                                                                areAccountsActive;
-                                                            areLevel3AccountsActive =
-                                                                areAccountsActive;
-                                                          });
-                                                        },
-                                                        activeTrackColor:
-                                                        Color(0xffEEEEEE),
-                                                        activeColor:
-                                                        Color(0xff0957FF),
-                                                      ),
-                                                    ]),
-                                                Container(
-                                                  padding:
-                                                  const EdgeInsets.only(
-                                                      left: 0,
-                                                      top: 0,
-                                                      right: 0,
-                                                      bottom: 10),
-                                                ),
-                                                Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .center,
-                                                    children: <Widget>[
-                                                      Text(
-                                                          AppLocalizations.of(
-                                                              context)
-                                                              .translate(
-                                                              'useAccountsLevel1'),
-                                                          style: TextStyle(
-                                                              fontSize: 25)),
-                                                      Switch(
-                                                        value:
-                                                        areLevel1AccountsActive,
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            areLevel1AccountsActive =
-                                                                value;
-                                                            areAccountsActive =
-                                                                value;
+                                                  child: Column(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                      children: <Widget>[
+                                                        Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                            crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                  AppLocalizations
+                                                                      .of(
+                                                                      context)
+                                                                      .translate(
+                                                                      'useCostTypes'),
+                                                                  style: TextStyle(
+                                                                      fontSize: 25)),
+                                                              Switch(
+                                                                value:
+                                                                areCostTypesActive,
+                                                                onChanged: (
+                                                                    value) {
+                                                                  setState(() {
+                                                                    areCostTypesActive =
+                                                                        value;
+                                                                  });
+                                                                },
+                                                                activeTrackColor:
+                                                                Color(
+                                                                    0xffEEEEEE),
+                                                                activeColor:
+                                                                Color(
+                                                                    0xff0957FF),
+                                                              ),
+                                                            ]),
+                                                        Divider(color: Colors
+                                                            .black87),
+                                                        Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                            crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                  AppLocalizations
+                                                                      .of(
+                                                                      context)
+                                                                      .translate(
+                                                                      'useAccounts'),
+                                                                  style: TextStyle(
+                                                                      fontSize: 25)),
+                                                              Switch(
+                                                                value:
+                                                                areAccountsActive,
+                                                                onChanged: (
+                                                                    value) {
+                                                                  setState(() {
+                                                                    areAccountsActive =
+                                                                        value;
 
-                                                            // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
-                                                            if (!areLevel1AccountsActive) {
-                                                              areLevel2AccountsActive =
-                                                              false;
-                                                              areLevel3AccountsActive =
-                                                              false;
-                                                            }
-                                                          });
-                                                        },
-                                                        activeTrackColor:
-                                                        Color(0xffEEEEEE),
-                                                        activeColor:
-                                                        Color(0xff0957FF),
-                                                      ),
-                                                    ]),
-                                                Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .center,
-                                                    children: <Widget>[
-                                                      Text(
-                                                          AppLocalizations.of(
-                                                              context)
-                                                              .translate(
-                                                              'useAccountsLevel2'),
-                                                          style: TextStyle(
-                                                              fontSize: 25)),
-                                                      Switch(
-                                                        value:
-                                                        areLevel2AccountsActive,
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            areLevel2AccountsActive =
-                                                                value;
-
-                                                            // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
-                                                            if (areLevel2AccountsActive) {
-                                                              areLevel1AccountsActive =
-                                                              true;
-                                                              areAccountsActive =
-                                                              true;
-                                                            } else
-                                                            if (!areLevel2AccountsActive) {
-                                                              areLevel3AccountsActive =
-                                                              false;
-                                                            }
-                                                          });
-                                                        },
-                                                        activeTrackColor:
-                                                        Color(0xffEEEEEE),
-                                                        activeColor:
-                                                        Color(0xff0957FF),
-                                                      ),
-                                                    ]),
-                                                Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .center,
-                                                    children: <Widget>[
-                                                      Text(
-                                                          AppLocalizations.of(
-                                                              context)
-                                                              .translate(
-                                                              'useAccountsLevel3'),
-                                                          style: TextStyle(
-                                                              fontSize: 25)),
-                                                      Switch(
-                                                        value:
-                                                        areLevel3AccountsActive,
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            areLevel3AccountsActive =
-                                                                value;
-
-                                                            // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
-                                                            if (areLevel3AccountsActive) {
-                                                              areAccountsActive =
-                                                              true;
-                                                              areLevel1AccountsActive =
-                                                              true;
-                                                              areLevel2AccountsActive =
-                                                              true;
-                                                            }
-                                                          });
-                                                        },
-                                                        activeTrackColor:
-                                                        Color(0xffEEEEEE),
-                                                        activeColor:
-                                                        Color(0xff0957FF),
-                                                      ),
-                                                    ]),
-                                                ButtonBar(
-                                                  mainAxisSize:
-                                                  MainAxisSize.min,
-                                                  // this will take space as minimum as posible(to center)
-                                                  children: <Widget>[
-                                                    ButtonTheme(
-                                                      minWidth: 75.0,
-                                                      height: 50.0,
-                                                      child: RaisedButton(
-                                                        child: Text(
-                                                          AppLocalizations.of(
-                                                              context)
-                                                              .translate(
-                                                              'DiscardButton'),
+                                                                    areLevel1AccountsActive =
+                                                                        areAccountsActive;
+                                                                    areLevel2AccountsActive =
+                                                                        areAccountsActive;
+                                                                    areLevel3AccountsActive =
+                                                                        areAccountsActive;
+                                                                  });
+                                                                },
+                                                                activeTrackColor:
+                                                                Color(
+                                                                    0xffEEEEEE),
+                                                                activeColor:
+                                                                Color(
+                                                                    0xff0957FF),
+                                                              ),
+                                                            ]),
+                                                        Container(
+                                                          padding:
+                                                          const EdgeInsets.only(
+                                                              left: 0,
+                                                              top: 0,
+                                                              right: 0,
+                                                              bottom: 10),
                                                         ),
-                                                        color:
-                                                        Color(0xffEEEEEE),
-                                                        // EEEEEE
-                                                        onPressed: () {
-                                                          loadPreferences();
-                                                        },
-                                                      ),
-                                                    ),
-                                                    ButtonTheme(
-                                                      minWidth: 150.0,
-                                                      height: 70.0,
-                                                      child: RaisedButton(
-                                                        child: Text(
-                                                            AppLocalizations.of(
-                                                                context)
-                                                                .translate(
-                                                                'SaveButton'),
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 20)),
-                                                        color:
-                                                        Color(0xff0957FF),
-                                                        //df7599 - 0957FF
-                                                        onPressed: () {
-                                                          sendBackend(
-                                                              'generaladmin',
-                                                              false);
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ]));
-                                    })),
+                                                        Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                            crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                  AppLocalizations
+                                                                      .of(
+                                                                      context)
+                                                                      .translate(
+                                                                      'useAccountsLevel1'),
+                                                                  style: TextStyle(
+                                                                      fontSize: 25)),
+                                                              Switch(
+                                                                value:
+                                                                areLevel1AccountsActive,
+                                                                onChanged: (
+                                                                    value) {
+                                                                  setState(() {
+                                                                    areLevel1AccountsActive =
+                                                                        value;
+                                                                    areAccountsActive =
+                                                                        value;
+
+                                                                    // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
+                                                                    if (!areLevel1AccountsActive) {
+                                                                      areLevel2AccountsActive =
+                                                                      false;
+                                                                      areLevel3AccountsActive =
+                                                                      false;
+                                                                    }
+                                                                  });
+                                                                },
+                                                                activeTrackColor:
+                                                                Color(
+                                                                    0xffEEEEEE),
+                                                                activeColor:
+                                                                Color(
+                                                                    0xff0957FF),
+                                                              ),
+                                                            ]),
+                                                        Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                            crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                  AppLocalizations
+                                                                      .of(
+                                                                      context)
+                                                                      .translate(
+                                                                      'useAccountsLevel2'),
+                                                                  style: TextStyle(
+                                                                      fontSize: 25)),
+                                                              Switch(
+                                                                value:
+                                                                areLevel2AccountsActive,
+                                                                onChanged: (
+                                                                    value) {
+                                                                  setState(() {
+                                                                    areLevel2AccountsActive =
+                                                                        value;
+
+                                                                    // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
+                                                                    if (areLevel2AccountsActive) {
+                                                                      areLevel1AccountsActive =
+                                                                      true;
+                                                                      areAccountsActive =
+                                                                      true;
+                                                                    } else
+                                                                    if (!areLevel2AccountsActive) {
+                                                                      areLevel3AccountsActive =
+                                                                      false;
+                                                                    }
+                                                                  });
+                                                                },
+                                                                activeTrackColor:
+                                                                Color(
+                                                                    0xffEEEEEE),
+                                                                activeColor:
+                                                                Color(
+                                                                    0xff0957FF),
+                                                              ),
+                                                            ]),
+                                                        Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                            crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                  AppLocalizations
+                                                                      .of(
+                                                                      context)
+                                                                      .translate(
+                                                                      'useAccountsLevel3'),
+                                                                  style: TextStyle(
+                                                                      fontSize: 25)),
+                                                              Switch(
+                                                                value:
+                                                                areLevel3AccountsActive,
+                                                                onChanged: (
+                                                                    value) {
+                                                                  setState(() {
+                                                                    areLevel3AccountsActive =
+                                                                        value;
+
+                                                                    // Logic that does not allow invalid state of other levels, e.g. level3 active and level1 and level2 inactive
+                                                                    if (areLevel3AccountsActive) {
+                                                                      areAccountsActive =
+                                                                      true;
+                                                                      areLevel1AccountsActive =
+                                                                      true;
+                                                                      areLevel2AccountsActive =
+                                                                      true;
+                                                                    }
+                                                                  });
+                                                                },
+                                                                activeTrackColor:
+                                                                Color(
+                                                                    0xffEEEEEE),
+                                                                activeColor:
+                                                                Color(
+                                                                    0xff0957FF),
+                                                              ),
+                                                            ]),
+                                                        ButtonBar(
+                                                          alignment: MainAxisAlignment.center,
+                                                          children: <Widget>[
+                                                            ButtonTheme(
+                                                              height: 50.0,
+                                                              child: RaisedButton(
+                                                                child: Text(
+                                                                  AppLocalizations
+                                                                      .of(
+                                                                      context)
+                                                                      .translate(
+                                                                      'DiscardButton'),
+                                                                ),
+                                                                color:
+                                                                Color(
+                                                                    0xffEEEEEE),
+                                                                // EEEEEE
+                                                                onPressed: () {
+                                                                  loadPreferences();
+                                                                },
+                                                              ),
+                                                            ),
+                                                            ButtonTheme(
+                                                              height: 70.0,
+                                                              child: RaisedButton(
+                                                                child: Text(
+                                                                    AppLocalizations
+                                                                        .of(
+                                                                        context)
+                                                                        .translate(
+                                                                        'SaveButton'),
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize: 20)),
+                                                                color:
+                                                                Color(
+                                                                    0xff0957FF),
+                                                                //df7599 - 0957FF
+                                                                onPressed: () {
+                                                                  sendBackend(
+                                                                      'generaladmin',
+                                                                      false);
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ]))
+                                          ),
+                                        ));
+                                  },
+                                )),
                           ),
                         ]),
                         CustomScrollView(slivers: [
@@ -6169,486 +6412,564 @@ class _MyHomePageState extends State<MyHomePage>
 
                                   _refreshController.refreshCompleted();
                                 },
-                                child: Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                          AppLocalizations.of(context)
-                                              .translate(
-                                              'accountAdministrationTitle'),
-                                          style: TextStyle(fontSize: 25)),
-                                      areLevel1AccountsActive
-                                          ? Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 30.0,
-                                            top: 0,
-                                            right: 30,
-                                            bottom: 0),
-                                        alignment: Alignment.center,
-                                        child: SearchChoices.single(
-                                          value: level1AdminObject,
-                                          hint: Text(
-                                            "Select a level 1 account",
-                                          ),
-                                          icon:
-                                          Icon(Icons.arrow_downward),
-                                          iconSize: 24,
-                                          style: TextStyle(
-                                              color: Color(0xff0957FF)),
-                                          isExpanded: true,
-                                          underline: Container(
-                                            height: 2,
-                                            width: 5000,
-                                            color: Color(0xff0957FF),
-                                          ),
-                                          onClear: () {
-                                            setState(() {
-                                              level1AdminObject =
-                                              level1AdminAccountsList[
-                                              0];
+                                child: LayoutBuilder(
+                                  builder: (context, constraint) {
+                                    return SingleChildScrollView(
+                                        child: ConstrainedBox(
+                                          constraints: BoxConstraints(
+                                              minHeight: constraint.maxHeight),
+                                          child: IntrinsicHeight(
+                                              child: Column(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Text(
+                                                        AppLocalizations.of(
+                                                            context)
+                                                            .translate(
+                                                            'accountAdministrationTitle'),
+                                                        style: TextStyle(
+                                                            fontSize: 25)),
+                                                    areLevel1AccountsActive
+                                                        ? Container(
+                                                      padding: const EdgeInsets
+                                                          .only(
+                                                          left: 30.0,
+                                                          top: 0,
+                                                          right: 30,
+                                                          bottom: 0),
+                                                      alignment: Alignment
+                                                          .center,
+                                                      child: SearchChoices
+                                                          .single(
+                                                        value: level1AdminObject,
+                                                        hint: Text(
+                                                          "Select a level 1 account",
+                                                        ),
+                                                        icon:
+                                                        Icon(Icons
+                                                            .arrow_downward),
+                                                        iconSize: 24,
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xff0957FF)),
+                                                        isExpanded: true,
+                                                        underline: Container(
+                                                          height: 2,
+                                                          width: 5000,
+                                                          color: Color(
+                                                              0xff0957FF),
+                                                        ),
+                                                        onClear: () {
+                                                          setState(() {
+                                                            level1AdminObject =
+                                                            level1AdminAccountsList[
+                                                            0];
 
-                                              level2AdminObject =
-                                              level2AdminAccountsList[
-                                              0];
+                                                            level2AdminObject =
+                                                            level2AdminAccountsList[
+                                                            0];
 
-                                              level3AdminObject =
-                                              level3AdminAccountsList[
-                                              0];
-                                            });
-                                          },
-                                          onChanged: (Account newValue) {
-                                            if (newValue != null) {
-                                              setState(() {
-                                                level1AdminObject =
-                                                    newValue;
-                                              });
+                                                            level3AdminObject =
+                                                            level3AdminAccountsList[
+                                                            0];
+                                                          });
+                                                        },
+                                                        onChanged: (
+                                                            Account newValue) {
+                                                          if (newValue !=
+                                                              null) {
+                                                            setState(() {
+                                                              level1AdminObject =
+                                                                  newValue;
+                                                            });
 
-                                              arrangeAccounts(1, 'admin');
-                                            }
-                                          },
-                                          items: level1AdminAccountsList
-                                              .map((Account account) {
-                                            return new DropdownMenuItem<
-                                                Account>(
-                                              value: account,
-                                              child: new Text(
-                                                account.name,
-                                              ),
-                                            );
-                                          }).toList(),
-                                        ),
-                                      )
-                                          : Container(),
-                                      areLevel1AccountsActive
-                                          ? Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 30.0,
-                                            top: 0,
-                                            right: 30,
-                                            bottom: 0),
-                                        //color: Colors.blue[600],
-                                        alignment: Alignment.center,
-                                        //child: Text('Submit'),
-                                        child: TextFormField(
-                                          // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
-                                          style: TextStyle(height: 2),
-                                          //increases the height of cursor
-                                          // autofocus: true,
-                                          controller:
-                                          newLevel1TextFieldController,
-                                          decoration: InputDecoration(
-                                              hintText: AppLocalizations
-                                                  .of(context)
-                                                  .translate(
-                                                  'enterNewLevel1AccountNameTextField'),
-                                              hintStyle: TextStyle(
-                                                  height: 1.75,
-                                                  color:
-                                                  Color(0xff0957FF)),
-                                              /*icon: Icon(
+                                                            arrangeAccounts(
+                                                                1, 'admin');
+                                                          }
+                                                        },
+                                                        items: level1AdminAccountsList
+                                                            .map((
+                                                            Account account) {
+                                                          return new DropdownMenuItem<
+                                                              Account>(
+                                                            value: account,
+                                                            child: new Text(
+                                                              account.name,
+                                                            ),
+                                                          );
+                                                        }).toList(),
+                                                      ),
+                                                    )
+                                                        : Container(),
+                                                    areLevel1AccountsActive
+                                                        ? Container(
+                                                      padding: const EdgeInsets
+                                                          .only(
+                                                          left: 30.0,
+                                                          top: 0,
+                                                          right: 30,
+                                                          bottom: 0),
+                                                      //color: Colors.blue[600],
+                                                      alignment: Alignment
+                                                          .center,
+                                                      //child: Text('Submit'),
+                                                      child: TextFormField(
+                                                        // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
+                                                        style: TextStyle(
+                                                            height: 2),
+                                                        //increases the height of cursor
+                                                        // autofocus: true,
+                                                        controller:
+                                                        newLevel1TextFieldController,
+                                                        decoration: InputDecoration(
+                                                            hintText: AppLocalizations
+                                                                .of(context)
+                                                                .translate(
+                                                                'enterNewLevel1AccountNameTextField'),
+                                                            hintStyle: TextStyle(
+                                                                height: 1.75,
+                                                                color:
+                                                                Color(
+                                                                    0xff0957FF)),
+                                                            /*icon: Icon(
                                             Icons.attach_money,
                                             color: Color(0xff0957FF),
                                           ),*/
-                                              //prefixIcon: Icon(Icons.attach_money),
-                                              //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                              enabledBorder:
-                                              new UnderlineInputBorder(
-                                                  borderSide:
-                                                  new BorderSide(
-                                                      color: Color(
-                                                          0xff0957FF)))),
-                                        ),
-                                      )
-                                          : Container(),
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      areLevel2AccountsActive
-                                          ? Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 30.0,
-                                            top: 0,
-                                            right: 30,
-                                            bottom: 0),
-                                        //color: Colors.blue[600],
-                                        alignment: Alignment.center,
-                                        //child: Text('Submit'),
-                                        child: SearchChoices.single(
-                                          value: level2AdminObject,
-                                          hint: Text(
-                                            "Select a level 2 account",
-                                            /*style: TextStyle(
+                                                            //prefixIcon: Icon(Icons.attach_money),
+                                                            //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                            enabledBorder:
+                                                            new UnderlineInputBorder(
+                                                                borderSide:
+                                                                new BorderSide(
+                                                                    color: Color(
+                                                                        0xff0957FF)))),
+                                                      ),
+                                                    )
+                                                        : Container(),
+                                                    SizedBox(
+                                                      height: 15,
+                                                    ),
+                                                    areLevel2AccountsActive
+                                                        ? Container(
+                                                      padding: const EdgeInsets
+                                                          .only(
+                                                          left: 30.0,
+                                                          top: 0,
+                                                          right: 30,
+                                                          bottom: 0),
+                                                      //color: Colors.blue[600],
+                                                      alignment: Alignment
+                                                          .center,
+                                                      //child: Text('Submit'),
+                                                      child: SearchChoices
+                                                          .single(
+                                                        value: level2AdminObject,
+                                                        hint: Text(
+                                                          "Select a level 2 account",
+                                                          /*style: TextStyle(
                               color,
                             ),*/
-                                          ),
-                                          readOnly:
-                                          level1AdminObject.id <= 0 ||
-                                              level2AdminAccountsList
-                                                  .length ==
-                                                  1,
-                                          icon:
-                                          Icon(Icons.arrow_downward),
-                                          iconSize: 24,
-                                          style: TextStyle(
-                                              color: Color(0xff0957FF)),
-                                          isExpanded: true,
-                                          underline: Container(
-                                            height: 2,
-                                            width: 5000,
-                                            color: Color(0xff0957FF),
-                                          ),
-                                          onClear: () {
-                                            setState(() {
-                                              level2AdminObject =
-                                              level2AdminAccountsList[
-                                              0];
+                                                        ),
+                                                        readOnly:
+                                                        level1AdminObject.id <=
+                                                            0 ||
+                                                            level2AdminAccountsList
+                                                                .length ==
+                                                                1,
+                                                        icon:
+                                                        Icon(Icons
+                                                            .arrow_downward),
+                                                        iconSize: 24,
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xff0957FF)),
+                                                        isExpanded: true,
+                                                        underline: Container(
+                                                          height: 2,
+                                                          width: 5000,
+                                                          color: Color(
+                                                              0xff0957FF),
+                                                        ),
+                                                        onClear: () {
+                                                          setState(() {
+                                                            level2AdminObject =
+                                                            level2AdminAccountsList[
+                                                            0];
 
-                                              level3AdminObject =
-                                              level3AdminAccountsList[
-                                              0];
-                                            });
-                                          },
-                                          onChanged: (Account newValue) {
-                                            if (newValue != null) {
-                                              setState(() {
-                                                level2AdminObject =
-                                                    newValue;
-                                              });
+                                                            level3AdminObject =
+                                                            level3AdminAccountsList[
+                                                            0];
+                                                          });
+                                                        },
+                                                        onChanged: (
+                                                            Account newValue) {
+                                                          if (newValue !=
+                                                              null) {
+                                                            setState(() {
+                                                              level2AdminObject =
+                                                                  newValue;
+                                                            });
 
-                                              arrangeAccounts(2, 'admin');
-                                            }
-                                          },
-                                          items: level2AdminAccountsList
-                                              .map((Account account) {
-                                            return new DropdownMenuItem<
-                                                Account>(
-                                              value: account,
-                                              child: new Text(
-                                                account.name,
-                                              ),
-                                            );
-                                          }).toList(),
-                                        ),
-                                      )
-                                          : Container(),
-                                      areLevel2AccountsActive
-                                          ? Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 30.0,
-                                            top: 0,
-                                            right: 30,
-                                            bottom: 0),
-                                        //color: Colors.blue[600],
-                                        alignment: Alignment.center,
+                                                            arrangeAccounts(
+                                                                2, 'admin');
+                                                          }
+                                                        },
+                                                        items: level2AdminAccountsList
+                                                            .map((
+                                                            Account account) {
+                                                          return new DropdownMenuItem<
+                                                              Account>(
+                                                            value: account,
+                                                            child: new Text(
+                                                              account.name,
+                                                            ),
+                                                          );
+                                                        }).toList(),
+                                                      ),
+                                                    )
+                                                        : Container(),
+                                                    areLevel2AccountsActive
+                                                        ? Container(
+                                                      padding: const EdgeInsets
+                                                          .only(
+                                                          left: 30.0,
+                                                          top: 0,
+                                                          right: 30,
+                                                          bottom: 0),
+                                                      //color: Colors.blue[600],
+                                                      alignment: Alignment
+                                                          .center,
 
-                                        //child: Text('Submit'),
-                                        child: TextFormField(
-                                          // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
-                                          style: TextStyle(height: 2),
-                                          //increases the height of cursor
-                                          // autofocus: true,
-                                          controller:
-                                          newLevel2TextFieldController,
-                                          decoration: InputDecoration(
-                                              hintText: AppLocalizations
-                                                  .of(context)
-                                                  .translate(
-                                                  'enterNewLevel2AccountNameTextField'),
-                                              hintStyle: TextStyle(
-                                                  height: 1.75,
-                                                  color:
-                                                  Color(0xff0957FF)),
-                                              /*icon: Icon(
+                                                      //child: Text('Submit'),
+                                                      child: TextFormField(
+                                                        // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
+                                                        style: TextStyle(
+                                                            height: 2),
+                                                        //increases the height of cursor
+                                                        // autofocus: true,
+                                                        controller:
+                                                        newLevel2TextFieldController,
+                                                        decoration: InputDecoration(
+                                                            hintText: AppLocalizations
+                                                                .of(context)
+                                                                .translate(
+                                                                'enterNewLevel2AccountNameTextField'),
+                                                            hintStyle: TextStyle(
+                                                                height: 1.75,
+                                                                color:
+                                                                Color(
+                                                                    0xff0957FF)),
+                                                            /*icon: Icon(
                                             Icons.attach_money,
                                             color: Color(0xff0957FF),
                                           ),*/
-                                              //prefixIcon: Icon(Icons.attach_money),
-                                              //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                              enabledBorder:
-                                              new UnderlineInputBorder(
-                                                  borderSide:
-                                                  new BorderSide(
-                                                      color: Color(
-                                                          0xff0957FF)))),
-                                        ),
-                                      )
-                                          : Container(),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      areLevel3AccountsActive
-                                          ? Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 30.0,
-                                            top: 0,
-                                            right: 30,
-                                            bottom: 0),
-                                        //color: Colors.blue[600],
-                                        alignment: Alignment.center,
-                                        //child: Text('Submit'),
-                                        child: SearchChoices.single(
-                                          value: level3AdminObject,
-                                          hint: Text(
-                                            "Select a level 3 account",
-                                            /*style: TextStyle(
+                                                            //prefixIcon: Icon(Icons.attach_money),
+                                                            //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                            enabledBorder:
+                                                            new UnderlineInputBorder(
+                                                                borderSide:
+                                                                new BorderSide(
+                                                                    color: Color(
+                                                                        0xff0957FF)))),
+                                                      ),
+                                                    )
+                                                        : Container(),
+                                                    SizedBox(
+                                                      height: 20,
+                                                    ),
+                                                    areLevel3AccountsActive
+                                                        ? Container(
+                                                      padding: const EdgeInsets
+                                                          .only(
+                                                          left: 30.0,
+                                                          top: 0,
+                                                          right: 30,
+                                                          bottom: 0),
+                                                      //color: Colors.blue[600],
+                                                      alignment: Alignment
+                                                          .center,
+                                                      //child: Text('Submit'),
+                                                      child: SearchChoices
+                                                          .single(
+                                                        value: level3AdminObject,
+                                                        hint: Text(
+                                                          "Select a level 3 account",
+                                                          /*style: TextStyle(
                               color,
                             ),*/
-                                          ),
-                                          readOnly:
-                                          level2AdminObject.id <= 0 ||
-                                              level3AdminAccountsList
-                                                  .length ==
-                                                  1,
-                                          icon:
-                                          Icon(Icons.arrow_downward),
-                                          iconSize: 24,
-                                          style: TextStyle(
-                                              color: Color(0xff0957FF)),
-                                          isExpanded: true,
-                                          underline: Container(
-                                            height: 2,
-                                            width: 5000,
-                                            color: Color(0xff0957FF),
-                                          ),
-                                          onClear: () {
-                                            setState(() {
-                                              level3AdminObject =
-                                              level3AdminAccountsList[
-                                              0];
-                                            });
-                                          },
-                                          onChanged: (Account newValue) {
-                                            if (newValue != null) {
-                                              setState(() {
-                                                level3AdminObject =
-                                                    newValue;
-                                              });
-                                            }
-                                          },
-                                          items: level3AdminAccountsList
-                                              .map((Account account) {
-                                            return new DropdownMenuItem<
-                                                Account>(
-                                              value: account,
-                                              child: new Text(
-                                                account.name,
-                                              ),
-                                            );
-                                          }).toList(),
-                                        ),
-                                      )
-                                          : Container(),
-                                      areLevel3AccountsActive
-                                          ? Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 30.0,
-                                            top: 0,
-                                            right: 30,
-                                            bottom: 0),
-                                        //color: Colors.blue[600],
-                                        alignment: Alignment.center,
-                                        //child: Text('Submit'),
-                                        child: TextFormField(
-                                          // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
-                                          style: TextStyle(height: 2),
-                                          //increases the height of cursor
-                                          // autofocus: true,
-                                          controller:
-                                          newLevel3TextFieldController,
-                                          decoration: InputDecoration(
-                                              hintText: AppLocalizations
-                                                  .of(context)
-                                                  .translate(
-                                                  'enterNewLevel3AccountNameTextField'),
-                                              hintStyle: TextStyle(
-                                                  height: 1.75,
-                                                  color:
-                                                  Color(0xff0957FF)),
-                                              /*icon: Icon(
+                                                        ),
+                                                        readOnly:
+                                                        level2AdminObject.id <=
+                                                            0 ||
+                                                            level3AdminAccountsList
+                                                                .length ==
+                                                                1,
+                                                        icon:
+                                                        Icon(Icons
+                                                            .arrow_downward),
+                                                        iconSize: 24,
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xff0957FF)),
+                                                        isExpanded: true,
+                                                        underline: Container(
+                                                          height: 2,
+                                                          width: 5000,
+                                                          color: Color(
+                                                              0xff0957FF),
+                                                        ),
+                                                        onClear: () {
+                                                          setState(() {
+                                                            level3AdminObject =
+                                                            level3AdminAccountsList[
+                                                            0];
+                                                          });
+                                                        },
+                                                        onChanged: (
+                                                            Account newValue) {
+                                                          if (newValue !=
+                                                              null) {
+                                                            setState(() {
+                                                              level3AdminObject =
+                                                                  newValue;
+                                                            });
+                                                          }
+                                                        },
+                                                        items: level3AdminAccountsList
+                                                            .map((
+                                                            Account account) {
+                                                          return new DropdownMenuItem<
+                                                              Account>(
+                                                            value: account,
+                                                            child: new Text(
+                                                              account.name,
+                                                            ),
+                                                          );
+                                                        }).toList(),
+                                                      ),
+                                                    )
+                                                        : Container(),
+                                                    areLevel3AccountsActive
+                                                        ? Container(
+                                                      padding: const EdgeInsets
+                                                          .only(
+                                                          left: 30.0,
+                                                          top: 0,
+                                                          right: 30,
+                                                          bottom: 0),
+                                                      //color: Colors.blue[600],
+                                                      alignment: Alignment
+                                                          .center,
+                                                      //child: Text('Submit'),
+                                                      child: TextFormField(
+                                                        // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
+                                                        style: TextStyle(
+                                                            height: 2),
+                                                        //increases the height of cursor
+                                                        // autofocus: true,
+                                                        controller:
+                                                        newLevel3TextFieldController,
+                                                        decoration: InputDecoration(
+                                                            hintText: AppLocalizations
+                                                                .of(context)
+                                                                .translate(
+                                                                'enterNewLevel3AccountNameTextField'),
+                                                            hintStyle: TextStyle(
+                                                                height: 1.75,
+                                                                color:
+                                                                Color(
+                                                                    0xff0957FF)),
+                                                            /*icon: Icon(
                                             Icons.attach_money,
                                             color: Color(0xff0957FF),
                                           ),*/
-                                              //prefixIcon: Icon(Icons.attach_money),
-                                              //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                              enabledBorder:
-                                              new UnderlineInputBorder(
-                                                  borderSide:
-                                                  new BorderSide(
-                                                      color: Color(
-                                                          0xff0957FF)))),
-                                        ),
-                                      )
-                                          : Container(),
-                                      ButtonBar(
-                                        mainAxisSize: MainAxisSize.min,
-                                        // this will take space as minimum as posible(to center)
-                                        children: <Widget>[
-                                          ButtonTheme(
-                                            minWidth: 75.0,
-                                            height: 50.0,
-                                            child: RaisedButton(
-                                              child: Text(
-                                                AppLocalizations.of(context)
-                                                    .translate('DiscardButton'),
-                                              ),
-                                              color:
-                                              Color(0xffEEEEEE), // EEEEEE
-                                              onPressed: () {
-                                                newLevel1TextFieldController
-                                                    .text = '';
-                                                newLevel2TextFieldController
-                                                    .text = '';
-                                                newLevel3TextFieldController
-                                                    .text = '';
-                                                setState(() {
-                                                  level1AdminObject =
-                                                  level1AdminAccountsList[
-                                                  0];
-                                                  level2AdminObject =
-                                                  level2AdminAccountsList[
-                                                  0];
-                                                  level3AdminObject =
-                                                  level3AdminAccountsList[
-                                                  0];
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                          ButtonTheme(
-                                            minWidth: 75.0,
-                                            height: 50.0,
-                                            child: RaisedButton(
-                                              child: Text(
-                                                  AppLocalizations.of(context)
-                                                      .translate(
-                                                      'deleteSelectedButton'),
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 17,
-                                                  )),
-                                              color:
-                                              Colors.red, //df7599 - 0957FF
-                                              onPressed: () {
-                                                sendBackend(
-                                                    'newaccountdelete', false);
+                                                            //prefixIcon: Icon(Icons.attach_money),
+                                                            //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                            enabledBorder:
+                                                            new UnderlineInputBorder(
+                                                                borderSide:
+                                                                new BorderSide(
+                                                                    color: Color(
+                                                                        0xff0957FF)))),
+                                                      ),
+                                                    )
+                                                        : Container(),
+                                                    ButtonBar(
+                                                      alignment: MainAxisAlignment.center,
+                                                      children: <Widget>[
+                                                        ButtonTheme(
+                                                          height: 50.0,
+                                                          child: RaisedButton(
+                                                            child: Text(
+                                                              AppLocalizations
+                                                                  .of(context)
+                                                                  .translate(
+                                                                  'DiscardButton'),
+                                                            ),
+                                                            color:
+                                                            Color(0xffEEEEEE),
+                                                            // EEEEEE
+                                                            onPressed: () {
+                                                              newLevel1TextFieldController
+                                                                  .text = '';
+                                                              newLevel2TextFieldController
+                                                                  .text = '';
+                                                              newLevel3TextFieldController
+                                                                  .text = '';
+                                                              setState(() {
+                                                                level1AdminObject =
+                                                                level1AdminAccountsList[
+                                                                0];
+                                                                level2AdminObject =
+                                                                level2AdminAccountsList[
+                                                                0];
+                                                                level3AdminObject =
+                                                                level3AdminAccountsList[
+                                                                0];
+                                                              });
+                                                            },
+                                                          ),
+                                                        ),
+                                                        ButtonTheme(
+                                                          height: 50.0,
+                                                          child: RaisedButton(
+                                                            child: Text(
+                                                                AppLocalizations
+                                                                    .of(context)
+                                                                    .translate(
+                                                                    'deleteSelectedButton'),
+                                                                textAlign: TextAlign
+                                                                    .center,
+                                                                style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 17,
+                                                                )),
+                                                            color:
+                                                            Colors.red,
+                                                            //df7599 - 0957FF
+                                                            onPressed: () {
+                                                              sendBackend(
+                                                                  'newaccountdelete',
+                                                                  false);
 
-                                                if (level3AdminObject.id > 0) {
-                                                  // If the acount which has just been deleted was selected, unselect it
-                                                  if (level3ActualObject.id ==
-                                                      level3AdminObject.id) {
-                                                    level3ActualObject =
-                                                    level3ActualAccountsList[
-                                                    0];
-                                                  }
+                                                              if (level3AdminObject
+                                                                  .id > 0) {
+                                                                // If the acount which has just been deleted was selected, unselect it
+                                                                if (level3ActualObject
+                                                                    .id ==
+                                                                    level3AdminObject
+                                                                        .id) {
+                                                                  level3ActualObject =
+                                                                  level3ActualAccountsList[
+                                                                  0];
+                                                                }
 
-                                                  if (level3BudgetObject.id ==
-                                                      level3AdminObject.id) {
-                                                    level3BudgetObject =
-                                                    level3BudgetAccountsList[
-                                                    0];
-                                                  }
+                                                                if (level3BudgetObject
+                                                                    .id ==
+                                                                    level3AdminObject
+                                                                        .id) {
+                                                                  level3BudgetObject =
+                                                                  level3BudgetAccountsList[
+                                                                  0];
+                                                                }
 
-                                                  level3AdminObject =
-                                                  level3AdminAccountsList[
-                                                  0];
-                                                } else if (level2AdminObject
-                                                    .id >
-                                                    0) {
-                                                  // If the acount which has just been deleted was selected, unselect it
-                                                  if (level2ActualObject.id ==
-                                                      level2AdminObject.id) {
-                                                    level2ActualObject =
-                                                    level2ActualAccountsList[
-                                                    0];
-                                                  }
+                                                                level3AdminObject =
+                                                                level3AdminAccountsList[
+                                                                0];
+                                                              } else
+                                                              if (level2AdminObject
+                                                                  .id >
+                                                                  0) {
+                                                                // If the acount which has just been deleted was selected, unselect it
+                                                                if (level2ActualObject
+                                                                    .id ==
+                                                                    level2AdminObject
+                                                                        .id) {
+                                                                  level2ActualObject =
+                                                                  level2ActualAccountsList[
+                                                                  0];
+                                                                }
 
-                                                  if (level2BudgetObject.id ==
-                                                      level2AdminObject.id) {
-                                                    level2BudgetObject =
-                                                    level2BudgetAccountsList[
-                                                    0];
-                                                  }
+                                                                if (level2BudgetObject
+                                                                    .id ==
+                                                                    level2AdminObject
+                                                                        .id) {
+                                                                  level2BudgetObject =
+                                                                  level2BudgetAccountsList[
+                                                                  0];
+                                                                }
 
-                                                  level2AdminObject =
-                                                  level2AdminAccountsList[
-                                                  0];
-                                                } else if (level1AdminObject
-                                                    .id >
-                                                    0) {
-                                                  // If the acount which has just been deleted was selected, unselect it
-                                                  if (level1ActualObject.id ==
-                                                      level1AdminObject.id) {
-                                                    level1ActualObject =
-                                                    level1ActualAccountsList[
-                                                    0];
-                                                  }
+                                                                level2AdminObject =
+                                                                level2AdminAccountsList[
+                                                                0];
+                                                              } else
+                                                              if (level1AdminObject
+                                                                  .id >
+                                                                  0) {
+                                                                // If the acount which has just been deleted was selected, unselect it
+                                                                if (level1ActualObject
+                                                                    .id ==
+                                                                    level1AdminObject
+                                                                        .id) {
+                                                                  level1ActualObject =
+                                                                  level1ActualAccountsList[
+                                                                  0];
+                                                                }
 
-                                                  if (level1BudgetObject.id ==
-                                                      level1AdminObject.id) {
-                                                    level1BudgetObject =
-                                                    level1BudgetAccountsList[
-                                                    0];
-                                                  }
+                                                                if (level1BudgetObject
+                                                                    .id ==
+                                                                    level1AdminObject
+                                                                        .id) {
+                                                                  level1BudgetObject =
+                                                                  level1BudgetAccountsList[
+                                                                  0];
+                                                                }
 
-                                                  level1AdminObject =
-                                                  level1AdminAccountsList[
-                                                  0];
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                          ButtonTheme(
-                                            minWidth: 150.0,
-                                            height: 70.0,
-                                            child: RaisedButton(
-                                              child: Text(
-                                                  AppLocalizations.of(context)
-                                                      .translate('SaveButton'),
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 20)),
-                                              color: Color(
-                                                  0xff0957FF), //df7599 - 0957FF
-                                              onPressed: () {
-                                                commentInput(
-                                                    context,
-                                                    'account',
-                                                    newLevel1TextFieldController,
-                                                    newLevel2TextFieldController,
-                                                    newLevel3TextFieldController);
-                                              },
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ])),
+                                                                level1AdminObject =
+                                                                level1AdminAccountsList[
+                                                                0];
+                                                              }
+                                                            },
+                                                          ),
+                                                        ),
+                                                        ButtonTheme(
+                                                          height: 70.0,
+                                                          child: RaisedButton(
+                                                            child: Text(
+                                                                AppLocalizations
+                                                                    .of(context)
+                                                                    .translate(
+                                                                    'SaveButton'),
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize: 20)),
+                                                            color: Color(
+                                                                0xff0957FF),
+                                                            //df7599 - 0957FF
+                                                            onPressed: () {
+                                                              commentInput(
+                                                                  context,
+                                                                  'account',
+                                                                  newLevel1TextFieldController,
+                                                                  newLevel2TextFieldController,
+                                                                  newLevel3TextFieldController);
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ])),
+                                        ));
+                                  },
+                                )),
                           )
                         ]),
                         CustomScrollView(slivers: [
@@ -6661,187 +6982,210 @@ class _MyHomePageState extends State<MyHomePage>
                                   //await Future.delayed(Duration(seconds: 2));
                                   _refreshController.refreshCompleted();
                                 },
-                                child: Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                          AppLocalizations.of(context)
-                                              .translate(
-                                              'costTypesAdministrationTitle'),
-                                          style: TextStyle(fontSize: 25)),
-                                      Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 30.0,
-                                            top: 0,
-                                            right: 30,
-                                            bottom: 0),
-                                        //color: Colors.blue[600],
-                                        alignment: Alignment.center,
-                                        //child: Text('Submit'),
-                                        child: SearchChoices.single(
-                                          value: costTypeObjectAdmin,
-                                          hint: Text(
-                                            "Select a costtype to delete",
-                                            /*style: TextStyle(
+                                child: LayoutBuilder(
+                                  builder: (context, constraint) {
+                                    return SingleChildScrollView(
+                                        child: ConstrainedBox(
+                                          constraints: BoxConstraints(
+                                              minHeight: constraint.maxHeight),
+                                          child: IntrinsicHeight(
+                                              child:
+                                              Column(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Text(
+                                                        AppLocalizations.of(
+                                                            context)
+                                                            .translate(
+                                                            'costTypesAdministrationTitle'),
+                                                        style: TextStyle(
+                                                            fontSize: 25)),
+                                                    Container(
+                                                      padding: const EdgeInsets
+                                                          .only(
+                                                          left: 30.0,
+                                                          top: 0,
+                                                          right: 30,
+                                                          bottom: 0),
+                                                      //color: Colors.blue[600],
+                                                      alignment: Alignment
+                                                          .center,
+                                                      //child: Text('Submit'),
+                                                      child: SearchChoices
+                                                          .single(
+                                                        value: costTypeObjectAdmin,
+                                                        hint: Text(
+                                                          "Select a costtype to delete",
+                                                          /*style: TextStyle(
                               color,
                             ),*/
-                                          ),
-                                          icon: Icon(Icons.arrow_downward),
-                                          iconSize: 24,
-                                          style: TextStyle(
-                                              color: Color(0xff0957FF)),
-                                          isExpanded: true,
-                                          underline: Container(
-                                            height: 2,
-                                            width: 5000,
-                                            color: Color(0xff0957FF),
-                                          ),
-                                          onClear: () {
-                                            setState(() {
-                                              costTypeObjectAdmin =
-                                              costTypesList[0];
-                                            });
-                                          },
-                                          onChanged: (CostType newValue) {
-                                            if (newValue != null) {
-                                              setState(() {
-                                                costTypeObjectAdmin = newValue;
-                                              });
-                                            }
-                                          },
-                                          items: costTypesList
-                                              .map((CostType costType) {
-                                            return new DropdownMenuItem<
-                                                CostType>(
-                                              value: costType,
-                                              child: new Text(
-                                                costType.name,
-                                              ),
-                                            );
-                                          }).toList(),
-                                        ),
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 30.0,
-                                            top: 0,
-                                            right: 30,
-                                            bottom: 40),
-                                        //color: Colors.blue[600],
-                                        alignment: Alignment.center,
-                                        //child: Text('Submit'),
-                                        child: TextFormField(
-                                          // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
-                                          style: TextStyle(height: 2),
-                                          //increases the height of cursor
-                                          // autofocus: true,
-                                          controller:
-                                          newCostTypeTextFieldController,
-                                          decoration: InputDecoration(
-                                              hintText: AppLocalizations.of(
-                                                  context)
-                                                  .translate(
-                                                  'enterNewCostTypeNameTextField'),
-                                              hintStyle: TextStyle(
-                                                  height: 1.75,
-                                                  color: Color(0xff0957FF)),
-                                              /*icon: Icon(
-                                            Icons.attach_money,
-                                            color: Color(0xff0957FF),
-                                          ),*/
-                                              //prefixIcon: Icon(Icons.attach_money),
-                                              //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                              enabledBorder:
-                                              new UnderlineInputBorder(
-                                                  borderSide: new BorderSide(
-                                                      color: Color(
-                                                          0xff0957FF)))),
-                                        ),
-                                      ),
-                                      /*
-                                  Divider(
-                                    color: Colors.black,
-                                  ),
-                                  */
+                                                        ),
+                                                        icon: Icon(Icons
+                                                            .arrow_downward),
+                                                        iconSize: 24,
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xff0957FF)),
+                                                        isExpanded: true,
+                                                        underline: Container(
+                                                          height: 2,
+                                                          width: 5000,
+                                                          color: Color(
+                                                              0xff0957FF),
+                                                        ),
+                                                        onClear: () {
+                                                          setState(() {
+                                                            costTypeObjectAdmin =
+                                                            costTypesList[0];
+                                                          });
+                                                        },
+                                                        onChanged: (
+                                                            CostType newValue) {
+                                                          if (newValue !=
+                                                              null) {
+                                                            setState(() {
+                                                              costTypeObjectAdmin =
+                                                                  newValue;
+                                                            });
+                                                          }
+                                                        },
+                                                        items: costTypesList
+                                                            .map((
+                                                            CostType costType) {
+                                                          return new DropdownMenuItem<
+                                                              CostType>(
+                                                            value: costType,
+                                                            child: new Text(
+                                                              costType.name,
+                                                            ),
+                                                          );
+                                                        }).toList(),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      padding: const EdgeInsets
+                                                          .only(
+                                                          left: 30.0,
+                                                          top: 0,
+                                                          right: 30,
+                                                          bottom: 40),
+                                                      //color: Colors.blue[600],
+                                                      alignment: Alignment
+                                                          .center,
+                                                      //child: Text('Submit'),
+                                                      child: TextFormField(
+                                                        // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
+                                                        style: TextStyle(
+                                                            height: 2),
+                                                        controller:
+                                                        newCostTypeTextFieldController,
+                                                        decoration: InputDecoration(
+                                                            hintText: AppLocalizations
+                                                                .of(
+                                                                context)
+                                                                .translate(
+                                                                'enterNewCostTypeNameTextField'),
+                                                            hintStyle: TextStyle(
+                                                                height: 1.75,
+                                                                color: Color(
+                                                                    0xff0957FF)),
 
-                                      ButtonBar(
-                                        mainAxisSize: MainAxisSize.min,
-                                        // this will take space as minimum as posible(to center)
-                                        children: <Widget>[
-                                          ButtonTheme(
-                                            minWidth: 75.0,
-                                            height: 50.0,
-                                            child: RaisedButton(
-                                              child: Text(
-                                                AppLocalizations.of(context)
-                                                    .translate('DiscardButton'),
-                                              ),
-                                              color:
-                                              Color(0xffEEEEEE), // EEEEEE
-                                              onPressed: () {
-                                                newCostTypeTextFieldController
-                                                    .text = '';
+                                                            enabledBorder:
+                                                            new UnderlineInputBorder(
+                                                                borderSide: new BorderSide(
+                                                                    color: Color(
+                                                                        0xff0957FF)))),
+                                                      ),
+                                                    ),
+                                                    ButtonBar(
+                                                     alignment: MainAxisAlignment.center,
+                                                      children: <Widget>[
+                                                        ButtonTheme(
+                                                          height: 50.0,
+                                                          child: RaisedButton(
+                                                            child: Text(
+                                                              AppLocalizations
+                                                                  .of(context)
+                                                                  .translate(
+                                                                  'DiscardButton'),
+                                                            ),
+                                                            color:
+                                                            Color(0xffEEEEEE),
+                                                            // EEEEEE
+                                                            onPressed: () {
+                                                              newCostTypeTextFieldController
+                                                                  .text = '';
 
-                                                setState(() {
-                                                  costTypeObjectAdmin =
-                                                  costTypesList[0];
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                          ButtonTheme(
-                                            minWidth: 75.0,
-                                            height: 50.0,
-                                            child: RaisedButton(
-                                              child: Text(
-                                                  AppLocalizations.of(context)
-                                                      .translate(
-                                                      'deleteSelectedButton'),
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 17,
-                                                  )),
-                                              color:
-                                              Colors.red, //df7599 - 0957FF
-                                              onPressed: () {
-                                                sendBackend(
-                                                    'newcosttypedelete', false);
+                                                              setState(() {
+                                                                costTypeObjectAdmin =
+                                                                costTypesList[0];
+                                                              });
+                                                            },
+                                                          ),
+                                                        ),
+                                                        ButtonTheme(
+                                                          height: 50.0,
+                                                          child: RaisedButton(
+                                                            child: Text(
+                                                                AppLocalizations
+                                                                    .of(context)
+                                                                    .translate(
+                                                                    'deleteSelectedButton'),
+                                                                textAlign: TextAlign
+                                                                    .center,
+                                                                style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 17,
+                                                                )),
+                                                            color:
+                                                            Colors.red,
+                                                            //df7599 - 0957FF
+                                                            onPressed: () {
+                                                              sendBackend(
+                                                                  'newcosttypedelete',
+                                                                  false);
 
-                                                // the here selected value was deleted and therefore is no more available, so set it to the first default value to not receive an error
-                                                costTypeObjectAdmin =
-                                                costTypesList[0];
-                                              },
-                                            ),
-                                          ),
-                                          ButtonTheme(
-                                            minWidth: 150.0,
-                                            height: 70.0,
-                                            child: RaisedButton(
-                                              child: Text(
-                                                  AppLocalizations.of(context)
-                                                      .translate('SaveButton'),
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 20)),
-                                              color: Color(
-                                                  0xff0957FF), //df7599 - 0957FF
-                                              onPressed: () {
-                                                commentInput(
-                                                    context,
-                                                    'costtype',
-                                                    newCostTypeTextFieldController,
-                                                    null,
-                                                    null);
-                                              },
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ])),
+                                                              // the here selected value was deleted and therefore is no more available, so set it to the first default value to not receive an error
+                                                              costTypeObjectAdmin =
+                                                              costTypesList[0];
+                                                            },
+                                                          ),
+                                                        ),
+                                                        ButtonTheme(
+                                                          height: 70.0,
+                                                          child: RaisedButton(
+                                                            child: Text(
+                                                                AppLocalizations
+                                                                    .of(context)
+                                                                    .translate(
+                                                                    'SaveButton'),
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize: 20)),
+                                                            color: Color(
+                                                                0xff0957FF),
+                                                            //df7599 - 0957FF
+                                                            onPressed: () {
+                                                              commentInput(
+                                                                  context,
+                                                                  'costtype',
+                                                                  newCostTypeTextFieldController,
+                                                                  null,
+                                                                  null);
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ])),
+                                        ));
+                                  },
+                                )),
                           )
                         ]),
                       ]),
