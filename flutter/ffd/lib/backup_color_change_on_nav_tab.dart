@@ -2297,7 +2297,7 @@ class _MyHomePageState extends State<MyHomePage>
                 {
                   appBarTitleText = Text(
                       'FFD - ${AppLocalizations.of(context).translate(
-                          'titleActual')}');
+                          'titleExpenses')}');
                   break;
                 }
               case 2:
@@ -2399,7 +2399,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             AppLocalizations.of(
                                                                 context)
                                                                 .translate(
-                                                                'titleActual'),
+                                                                'titleExpenses'),
                                                             style: TextStyle(
                                                                 color: Color(
                                                                     0xffF5F5F6))),
@@ -5910,14 +5910,12 @@ class _MyHomePageState extends State<MyHomePage>
                                             ),
                                             Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                MainAxisAlignment.spaceBetween,
                                                 children: <Widget>[
                                                   Container(
                                                     padding: const EdgeInsets
                                                         .only(
-                                                        left: 30.0,
                                                         top: 0,
-                                                        right: 30,
                                                         bottom: 0),
                                                     //child: Text('Submit'),
                                                     child: RaisedButton(
@@ -5955,7 +5953,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                         .only(
                                                         left: 30.0,
                                                         top: 0,
-                                                        bottom: 30),
+                                                        ),
                                                     //child: Text('Submit'),
                                                     child: Align(
                                                       alignment: Alignment
@@ -5965,7 +5963,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                         value: costTypeObjectVisualizer,
                                                         icon: Icon(Icons
                                                             .arrow_downward),
-                                                        iconSize: 24,
                                                         style: TextStyle(
                                                             color: Color(
                                                                 0xff0957FF)),
@@ -7216,7 +7213,7 @@ class _MyHomePageState extends State<MyHomePage>
           BottomNavyBarItem(
               title: Text(
                 AppLocalizations.of(context)
-                    .translate('actualPageTitle'),
+                    .translate('expensesPageTitle'),
               ),
               icon: Icon(Icons.attach_money),
               activeColor: Colors.orange),
