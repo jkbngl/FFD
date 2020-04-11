@@ -1,7 +1,7 @@
 {
   "title": "Hallo!",
   "titleHome": "Startseite",
-  "titleActual": "Ausgaben",
+  "titleExpenses": "Ausgaben",
   "titleBudget": "Budget",
   "titleVisualizer": "Visualisierung",
   "titleSettings": "Einstellungen",
@@ -60,7 +60,7 @@
   "enterNewCostTypeNameTextField": "Einen Kostentypen oben auswählen um ihn löschen oder hier einen neues eingeben",
   "deleteSelectedButton": "Ausgewählten \nLöschen",
   "homePageTitle": "Startseite",
-  "actualPageTitle": "Ausgaben",
+  "expensesPageTitle": "Ausgaben",
   "budgetPageTitle": "Budget",
   "visualizerPageTitle": "Visualisierung",
   "settingsPageTitle": "Einstellungen",

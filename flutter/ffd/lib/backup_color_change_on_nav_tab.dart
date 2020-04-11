@@ -15,6 +15,8 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'login_page.dart';
 import 'package:search_choices/search_choices.dart';
+import 'dart:ui' as ui;
+
 
 void main() => runApp(MyApp());
 
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
       title: 'FFD Demo - ',
       supportedLocales: [
         Locale('en', 'US'),
-        Locale('ar', ''),
+        Locale('de', 'DE'),
       ],
       localizationsDelegates: [
         AppLocalizations.delegate,
@@ -465,6 +467,7 @@ class _MyHomePageState extends State<MyHomePage>
 
       print(url);
       print(Localizations.localeOf(context).toString());
+      print(Locale(ui.window.locale.languageCode, ui.window.locale.countryCode));
       print(language);
 
       var randomFact =
@@ -2283,6 +2286,15 @@ class _MyHomePageState extends State<MyHomePage>
               }
             }
 
+            // test for #56, does not make a lot of sense as the last page is a tabbar page, and this callback is never called
+            /*
+            if (index == 5 &&
+                (_pageController.page + 1) < 5) {
+              _pageController.animateTo(_pageController.page + 1);
+            }
+            */
+
+
             setState(() => _currentIndex = index);
 
             switch (index) {
@@ -2680,6 +2692,7 @@ class _MyHomePageState extends State<MyHomePage>
                     //constraints: BoxConstraints.expand(height: 50),
                     child: TabBar(indicatorColor: Color(0xff0957FF), tabs: [
                       Tab(
+
                         child: Container(
                           alignment: Alignment.center,
                           //constraints: BoxConstraints.expand(width: 200),
@@ -2700,6 +2713,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 )
                               ]),
                         ),
+
                       ),
                       Tab(
                         child: Container(
