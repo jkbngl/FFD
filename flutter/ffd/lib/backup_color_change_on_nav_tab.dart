@@ -2602,15 +2602,15 @@ class _MyHomePageState extends State<MyHomePage>
                                             ],
                                             defaultRenderer:
                                             new charts.ArcRendererConfig(
-                                              arcRendererDecorators: [
-                                                new charts.ArcLabelDecorator(
-                                                  //labelPadding: 0,
-                                                    labelPosition: charts
-                                                        .ArcLabelPosition
-                                                        .outside),
-                                              ],
-                                              //strokeWidthPx: ,
-                                              arcWidth: (MediaQuery.of(context).size.width * .14).round(),
+                                                arcRendererDecorators: [
+                                                  new charts.ArcLabelDecorator(
+                                                    //labelPadding: 0,
+                                                      labelPosition: charts
+                                                          .ArcLabelPosition
+                                                          .outside),
+                                                ],
+                                                //strokeWidthPx: ,
+                                                arcWidth: 50
                                             ),
                                             animate: true,
                                           ),
@@ -5910,7 +5910,7 @@ class _MyHomePageState extends State<MyHomePage>
                                             ),
                                             Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.center,
                                                 children: <Widget>[
                                                   Container(
                                                     padding: const EdgeInsets
@@ -5955,7 +5955,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                         .only(
                                                         left: 30.0,
                                                         top: 0,
-                                                        right: 30,
                                                         bottom: 30),
                                                     //child: Text('Submit'),
                                                     child: Align(
@@ -6348,7 +6347,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                               ),
                                                             ]),
                                                         ButtonBar(
-                                                          alignment: MainAxisAlignment.center,
+                                                          alignment: MainAxisAlignment
+                                                              .center,
                                                           children: <Widget>[
                                                             ButtonTheme(
                                                               height: 50.0,
@@ -6801,7 +6801,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                     )
                                                         : Container(),
                                                     ButtonBar(
-                                                      alignment: MainAxisAlignment.center,
+                                                      alignment: MainAxisAlignment
+                                                          .center,
                                                       children: <Widget>[
                                                         ButtonTheme(
                                                           height: 50.0,
@@ -7101,7 +7102,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                       ),
                                                     ),
                                                     ButtonBar(
-                                                     alignment: MainAxisAlignment.center,
+                                                      alignment: MainAxisAlignment
+                                                          .center,
                                                       children: <Widget>[
                                                         ButtonTheme(
                                                           height: 50.0,
