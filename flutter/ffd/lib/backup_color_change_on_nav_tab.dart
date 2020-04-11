@@ -2372,12 +2372,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                     borderRadius:
                                                     BorderRadius.circular(50.0),
                                                   ),
-                                                  /*color: homescreenData[0].amount >
-                                                homescreenData[2].amount
-                                            ? Colors.red
-                                            : Colors
-                                                .green, // If Actual bigger budget -> show as red
-                                         */
                                                   color: Color(0xff003680),
                                                   elevation: 10,
                                                   child: Column(
@@ -2394,15 +2388,22 @@ class _MyHomePageState extends State<MyHomePage>
                                                             Icons
                                                                 .monetization_on,
                                                             color: Colors.white,
-                                                            size: 45),
-                                                        title: Text(
-                                                            AppLocalizations.of(
-                                                                context)
-                                                                .translate(
-                                                                'titleExpenses'),
-                                                            style: TextStyle(
-                                                                color: Color(
-                                                                    0xffF5F5F6))),
+                                                            size: 40),
+                                                        title:
+                                                            Text(
+                                                                AppLocalizations
+                                                                    .of(
+                                                                    context)
+                                                                    .translate(
+                                                                    'titleExpenses'),
+                                                                style: TextStyle(
+                                                                    fontSize: 14,
+                                                                    color: Color(
+                                                                0xffF5F5F6)),
+                                                              overflow:
+                                                              TextOverflow
+                                                                  .ellipsis,
+                                                            ),
                                                         subtitle: Text(
                                                             homescreenData[0]
                                                                 .amount
@@ -2480,15 +2481,22 @@ class _MyHomePageState extends State<MyHomePage>
                                                             Icons
                                                                 .account_balance_wallet,
                                                             color: Colors.white,
-                                                            size: 45),
+                                                            size: 40),
                                                         title: Text(
-                                                            AppLocalizations.of(
+                                                            AppLocalizations
+                                                                .of(
                                                                 context)
                                                                 .translate(
                                                                 'titleBudget'),
                                                             style: TextStyle(
-                                                                color:
-                                                                Colors.white)),
+                                                                fontSize: 14,
+                                                                color: Color(
+                                                                    0xffF5F5F6)),
+                                                            overflow:
+                                                            TextOverflow
+                                                                .ellipsis,
+                                                          ),
+
                                                         subtitle: Text(
                                                           // #91
                                                             homescreenData[2]
@@ -5951,9 +5959,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                   Container(
                                                     padding: const EdgeInsets
                                                         .only(
-                                                        left: 30.0,
-                                                        top: 0,
-                                                        ),
+                                                      left: 30.0,
+                                                      top: 0,
+                                                    ),
                                                     //child: Text('Submit'),
                                                     child: Align(
                                                       alignment: Alignment
