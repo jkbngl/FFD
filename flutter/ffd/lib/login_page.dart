@@ -89,7 +89,10 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
-                'Sign in with Google',
+                  AppLocalizations.of(
+                      context)
+                      .translate(
+                      'signInGoogleText'),
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.grey,

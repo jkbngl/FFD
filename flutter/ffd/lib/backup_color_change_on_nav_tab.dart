@@ -26,8 +26,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'FFD Demo - ',
       supportedLocales: [
-        Locale('en', 'US'),
-        Locale('de', 'DE'),
+        Locale('en', ''),
+        Locale('de', ''),
       ],
       localizationsDelegates: [
         AppLocalizations.delegate,
@@ -467,7 +467,8 @@ class _MyHomePageState extends State<MyHomePage>
 
       print(url);
       print(Localizations.localeOf(context).toString());
-      print(Locale(ui.window.locale.languageCode, ui.window.locale.countryCode));
+      print(
+          Locale(ui.window.locale.languageCode, ui.window.locale.countryCode));
       print(language);
 
       var randomFact =
@@ -1818,7 +1819,7 @@ class _MyHomePageState extends State<MyHomePage>
                 ),
                 new FlatButton(
                   child: new Text(
-                      AppLocalizations.of(context).translate('SaveButton')),
+                      AppLocalizations.of(context).translate('addButton')),
                   onPressed: () {
                     if (type == 'actual') {
                       sendBackend('actual', false);
@@ -1889,7 +1890,7 @@ class _MyHomePageState extends State<MyHomePage>
                 ),
                 new FlatButton(
                   child: new Text(
-                      AppLocalizations.of(context).translate('SaveButton')),
+                      AppLocalizations.of(context).translate('addButton')),
                   onPressed: () {
                     // Send directly to backend if no additional level3 was entered which has to be saved in the Backend -> DB
                     if (dependingController3.text.length <= 0) {
@@ -2402,20 +2403,20 @@ class _MyHomePageState extends State<MyHomePage>
                                                             color: Colors.white,
                                                             size: 40),
                                                         title:
-                                                            Text(
-                                                                AppLocalizations
-                                                                    .of(
-                                                                    context)
-                                                                    .translate(
-                                                                    'titleExpenses'),
-                                                                style: TextStyle(
-                                                                    fontSize: 14,
-                                                                    color: Color(
-                                                                0xffF5F5F6)),
-                                                              overflow:
-                                                              TextOverflow
-                                                                  .ellipsis,
-                                                            ),
+                                                        Text(
+                                                          AppLocalizations
+                                                              .of(
+                                                              context)
+                                                              .translate(
+                                                              'titleExpenses'),
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color: Color(
+                                                                  0xffF5F5F6)),
+                                                          overflow:
+                                                          TextOverflow
+                                                              .ellipsis,
+                                                        ),
                                                         subtitle: Text(
                                                             homescreenData[0]
                                                                 .amount
@@ -2495,19 +2496,19 @@ class _MyHomePageState extends State<MyHomePage>
                                                             color: Colors.white,
                                                             size: 40),
                                                         title: Text(
-                                                            AppLocalizations
-                                                                .of(
-                                                                context)
-                                                                .translate(
-                                                                'titleBudget'),
-                                                            style: TextStyle(
-                                                                fontSize: 14,
-                                                                color: Color(
-                                                                    0xffF5F5F6)),
-                                                            overflow:
-                                                            TextOverflow
-                                                                .ellipsis,
-                                                          ),
+                                                          AppLocalizations
+                                                              .of(
+                                                              context)
+                                                              .translate(
+                                                              'titleBudget'),
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color: Color(
+                                                                  0xffF5F5F6)),
+                                                          overflow:
+                                                          TextOverflow
+                                                              .ellipsis,
+                                                        ),
 
                                                         subtitle: Text(
                                                           // #91
@@ -3234,7 +3235,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       .of(
                                                                       context)
                                                                       .translate(
-                                                                      'SaveButton'),
+                                                                      'addButton'),
                                                                   style: TextStyle(
                                                                       color: Colors
                                                                           .white,
@@ -4744,7 +4745,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       .of(
                                                                       context)
                                                                       .translate(
-                                                                      'SaveButton'),
+                                                                      'addButton'),
                                                                   style: TextStyle(
                                                                       color:
                                                                       Colors
@@ -5735,6 +5736,10 @@ class _MyHomePageState extends State<MyHomePage>
                                             Container(
                                               //color: Colors.blue[600],
                                               alignment: Alignment.center,
+                                              width: MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .width * .95,
                                               //child: Text('Submit'),
                                               child: Row(
                                                   mainAxisAlignment:
@@ -5756,14 +5761,26 @@ class _MyHomePageState extends State<MyHomePage>
                                                       activeColor: Color(
                                                           0xff0957FF),
                                                     ),
-                                                    Text(
-                                                      AppLocalizations.of(
-                                                          context)
-                                                          .translate(
-                                                          'FullYearSwitch'),
-                                                      style: TextStyle(
-                                                          fontSize: 25),
-                                                    ),
+                                                    Container(
+                                                      //color: Colors.blue[600],
+                                                        alignment: Alignment
+                                                            .center,
+                                                        width: MediaQuery
+                                                            .of(context)
+                                                            .size
+                                                            .width * .30,
+                                                        //child: Text('Submit'),
+                                                        child: FittedBox(child:
+                                                        Text(
+                                                          AppLocalizations.of(
+                                                              context)
+                                                              .translate(
+                                                              'FullYearSwitch'),
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style: TextStyle(
+                                                              fontSize: 25),
+                                                        ))),
                                                     Switch(
                                                       value: showAllTime,
                                                       onChanged: (value) {
@@ -5778,14 +5795,27 @@ class _MyHomePageState extends State<MyHomePage>
                                                       activeColor: Color(
                                                           0xff0957FF),
                                                     ),
-                                                    Text(
-                                                      AppLocalizations.of(
-                                                          context)
-                                                          .translate(
-                                                          'AllTimeSwitch'),
-                                                      style: TextStyle(
-                                                          fontSize: 25),
-                                                    ),
+                                                    Container(
+                                                      //color: Colors.blue[600],
+                                                        alignment: Alignment
+                                                            .center,
+                                                        width: MediaQuery
+                                                            .of(context)
+                                                            .size
+                                                            .width * .30,
+                                                        //child: Text('Submit'),
+                                                        child: FittedBox(
+                                                            child: Text(
+                                                              AppLocalizations
+                                                                  .of(
+                                                                  context)
+                                                                  .translate(
+                                                                  'AllTimeSwitch'),
+                                                              overflow: TextOverflow
+                                                                  .ellipsis,
+                                                              style: TextStyle(
+                                                                  fontSize: 25),
+                                                            ))),
                                                   ]),
                                             ),
                                             Align(
@@ -6444,9 +6474,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                   crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                                   children: <Widget>[
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
+                                                    SizedBox(height: 5,),
                                                     Text(
                                                         AppLocalizations.of(
                                                             context)
@@ -6547,21 +6575,16 @@ class _MyHomePageState extends State<MyHomePage>
                                                         controller:
                                                         newLevel1TextFieldController,
                                                         decoration: InputDecoration(
-                                                            hintText: AppLocalizations
+                                                          hintText: AppLocalizations
                                                                 .of(context)
                                                                 .translate(
                                                                 'enterNewLevel1AccountNameTextField'),
                                                             hintStyle: TextStyle(
                                                                 height: 1.75,
+                                                                fontSize: 12,
                                                                 color:
                                                                 Color(
                                                                     0xff0957FF)),
-                                                            /*icon: Icon(
-                                            Icons.attach_money,
-                                            color: Color(0xff0957FF),
-                                          ),*/
-                                                            //prefixIcon: Icon(Icons.attach_money),
-                                                            //labelStyle: TextStyle(color: Color(0xff0957FF)),
                                                             enabledBorder:
                                                             new UnderlineInputBorder(
                                                                 borderSide:
@@ -6681,6 +6704,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 'enterNewLevel2AccountNameTextField'),
                                                             hintStyle: TextStyle(
                                                                 height: 1.75,
+                                                                fontSize: 12,
                                                                 color:
                                                                 Color(
                                                                     0xff0957FF)),
@@ -6801,6 +6825,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 'enterNewLevel3AccountNameTextField'),
                                                             hintStyle: TextStyle(
                                                                 height: 1.75,
+                                                                fontSize: 12,
                                                                 color:
                                                                 Color(
                                                                     0xff0957FF)),
@@ -6819,19 +6844,23 @@ class _MyHomePageState extends State<MyHomePage>
                                                       ),
                                                     )
                                                         : Container(),
-                                                    ButtonBar(
+                                                    Container(child:
+                                                      ButtonBar(
                                                       alignment: MainAxisAlignment
                                                           .center,
                                                       children: <Widget>[
                                                         ButtonTheme(
                                                           height: 50.0,
                                                           child: RaisedButton(
-                                                            child: Text(
-                                                              AppLocalizations
-                                                                  .of(context)
-                                                                  .translate(
-                                                                  'DiscardButton'),
-                                                            ),
+                                                            child: FittedBox(
+                                                                child: Text(
+                                                                  AppLocalizations
+                                                                      .of(
+                                                                      context)
+                                                                      .translate(
+                                                                      'DiscardButton'),
+                                                                  overflow: TextOverflow.visible,
+                                                                )),
                                                             color:
                                                             Color(0xffEEEEEE),
                                                             // EEEEEE
@@ -6859,18 +6888,20 @@ class _MyHomePageState extends State<MyHomePage>
                                                         ButtonTheme(
                                                           height: 50.0,
                                                           child: RaisedButton(
-                                                            child: Text(
-                                                                AppLocalizations
-                                                                    .of(context)
-                                                                    .translate(
-                                                                    'deleteSelectedButton'),
-                                                                textAlign: TextAlign
-                                                                    .center,
-                                                                style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 17,
-                                                                )),
+                                                            child: FittedBox(
+                                                                child: Text(
+                                                                    AppLocalizations
+                                                                        .of(
+                                                                        context)
+                                                                        .translate(
+                                                                        'deleteSelectedButton'),
+                                                                    textAlign: TextAlign
+                                                                        .center,
+                                                                    overflow: TextOverflow.visible,
+                                                                    style: TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ))),
                                                             color:
                                                             Colors.red,
                                                             //df7599 - 0957FF
@@ -6960,21 +6991,16 @@ class _MyHomePageState extends State<MyHomePage>
                                                           ),
                                                         ),
                                                         ButtonTheme(
-                                                          minWidth:  MediaQuery
-                                                              .of(context)
-                                                              .size
-                                                              .width * 0.33,
                                                           height: 70.0,
                                                           child: RaisedButton(
-                                                            child: Text(
-                                                                AppLocalizations
-                                                                    .of(context)
-                                                                    .translate(
-                                                                    'SaveButton'),
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize: 20)),
+                                                            child: FittedBox(
+                                                                child: Text(
+                                                                    'Hinzufügen',
+                                                                    overflow: TextOverflow.visible,
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        ))),
                                                             color: Color(
                                                                 0xff0957FF),
                                                             //df7599 - 0957FF
@@ -6989,7 +7015,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                           ),
                                                         ),
                                                       ],
-                                                    ),
+                                                    )),
                                                   ])),
                                         ));
                                   },
@@ -7136,6 +7162,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   .of(context)
                                                                   .translate(
                                                                   'DiscardButton'),
+                                                              overflow: TextOverflow.visible,
                                                             ),
                                                             color:
                                                             Color(0xffEEEEEE),
@@ -7161,10 +7188,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     'deleteSelectedButton'),
                                                                 textAlign: TextAlign
                                                                     .center,
+                                                                overflow: TextOverflow.visible,
                                                                 style: TextStyle(
                                                                   color: Colors
                                                                       .white,
-                                                                  fontSize: 17,
                                                                 )),
                                                             color:
                                                             Colors.red,
@@ -7181,21 +7208,19 @@ class _MyHomePageState extends State<MyHomePage>
                                                           ),
                                                         ),
                                                         ButtonTheme(
-                                                          minWidth:  MediaQuery
-                                                              .of(context)
-                                                              .size
-                                                              .width * 0.33,
+
                                                           height: 70.0,
                                                           child: RaisedButton(
                                                             child: Text(
                                                                 AppLocalizations
                                                                     .of(context)
                                                                     .translate(
-                                                                    'SaveButton'),
+                                                                    'addButton'),
+                                                                overflow: TextOverflow.visible,
                                                                 style: TextStyle(
                                                                     color: Colors
                                                                         .white,
-                                                                    fontSize: 20)),
+                                                                )),
                                                             color: Color(
                                                                 0xff0957FF),
                                                             //df7599 - 0957FF

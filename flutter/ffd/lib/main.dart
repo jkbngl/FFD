@@ -22,18 +22,16 @@ Map<int, Color> color = {
 
 MaterialColor colorCustom = MaterialColor(0xFF0957FF, color);
 
-
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          primarySwatch: colorCustom,
+        primarySwatch: colorCustom,
       ),
       supportedLocales: [
-        Locale('en', 'US'),
-        Locale('de', 'DE'),
+        Locale('en', ''),
+        Locale('de', ''),
       ],
       localizationsDelegates: [
         AppLocalizations.delegate,
