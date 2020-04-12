@@ -1508,7 +1508,7 @@ class _MyHomePageState extends State<MyHomePage>
       context,
       pickerTheme: DateTimePickerTheme(
         showTitle: true,
-        confirm: Text(AppLocalizations.of(context).translate('SaveButton'),
+        confirm: Text(AppLocalizations.of(context).translate('saveButton'),
             style: TextStyle(color: Color(0xff0957FF))),
         cancel: Text(AppLocalizations.of(context).translate('cancel'),
             style: TextStyle(color: Colors.grey)),
@@ -1958,7 +1958,7 @@ class _MyHomePageState extends State<MyHomePage>
                 ),
                 new FlatButton(
                   child: new Text(
-                      AppLocalizations.of(context).translate('save')),
+                      AppLocalizations.of(context).translate('saveButton')),
                   onPressed: () {
                     sendBackend('new${type}add', false);
 
@@ -3079,7 +3079,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                           style: TextStyle(
                                                               color: level2ActualObject
                                                                   .id <=
-                                                                  0 ? Colors.grey :
+                                                                  0 ? Colors
+                                                                  .grey :
                                                               Color(
                                                                   0xff0957FF)),
                                                           value: level3ActualObject,
@@ -4485,20 +4486,23 @@ class _MyHomePageState extends State<MyHomePage>
                                                           style: TextStyle(
                                                               color: level1BudgetObject
                                                                   .id <=
-                                                                  0 ? Colors.grey : Color(
+                                                                  0 ? Colors
+                                                                  .grey : Color(
                                                                   0xff0957FF)),
                                                           value:
                                                           level2BudgetObject,
                                                           readOnly: level1BudgetObject
                                                               .id <=
-                                                              0 ,
+                                                              0,
                                                           underline: Container(
                                                             height: 2,
                                                             width: 5000,
                                                             color: level1BudgetObject
                                                                 .id <=
-                                                                0 ? Colors.grey :
-                                                              Color(0xff0957FF),
+                                                                0
+                                                                ? Colors.grey
+                                                                :
+                                                            Color(0xff0957FF),
                                                           ),
                                                           hint:
                                                           "Select one number",
@@ -4572,20 +4576,23 @@ class _MyHomePageState extends State<MyHomePage>
                                                           style: TextStyle(
                                                               color: level2BudgetObject
                                                                   .id <=
-                                                                  0 ? Colors.grey : Color(
+                                                                  0 ? Colors
+                                                                  .grey : Color(
                                                                   0xff0957FF)),
                                                           value:
                                                           level3BudgetObject,
                                                           readOnly: level2BudgetObject
                                                               .id <=
-                                                              0 ,
+                                                              0,
                                                           underline: Container(
                                                             height: 2,
                                                             width: 5000,
                                                             color: level2BudgetObject
                                                                 .id <=
-                                                                0 ? Colors.grey :
-                                                              Color(0xff0957FF),
+                                                                0
+                                                                ? Colors.grey
+                                                                :
+                                                            Color(0xff0957FF),
                                                           ),
                                                           hint:
                                                           "Select one number",
@@ -6438,7 +6445,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         .of(
                                                                         context)
                                                                         .translate(
-                                                                        'SaveButton'),
+                                                                        'saveButton'),
                                                                     style: TextStyle(
                                                                         color: Colors
                                                                             .white,
@@ -6636,15 +6643,21 @@ class _MyHomePageState extends State<MyHomePage>
                                                             .arrow_downward),
                                                         iconSize: 24,
                                                         style: TextStyle(
-                                                            color: level1AdminObject.id <=
-                                                                0 ? Colors.grey : Color(
+                                                            color: level1AdminObject
+                                                                .id <=
+                                                                0
+                                                                ? Colors.grey
+                                                                : Color(
                                                                 0xff0957FF)),
                                                         isExpanded: true,
                                                         underline: Container(
                                                           height: 2,
                                                           width: 5000,
-                                                          color: level1AdminObject.id <=
-                                                              0 ? Colors.grey : Color(
+                                                          color: level1AdminObject
+                                                              .id <=
+                                                              0
+                                                              ? Colors.grey
+                                                              : Color(
                                                               0xff0957FF),
                                                         ),
                                                         onClear: () {
@@ -6781,21 +6794,27 @@ class _MyHomePageState extends State<MyHomePage>
                                                         ),
                                                         readOnly:
                                                         level2AdminObject.id <=
-                                                            0 ,
+                                                            0,
                                                         icon:
                                                         Icon(Icons
                                                             .arrow_downward),
                                                         iconSize: 24,
                                                         style: TextStyle(
-                                                            color: level2AdminObject.id <=
-                                                                0 ? Colors.grey : Color(
+                                                            color: level2AdminObject
+                                                                .id <=
+                                                                0
+                                                                ? Colors.grey
+                                                                : Color(
                                                                 0xff0957FF)),
                                                         isExpanded: true,
                                                         underline: Container(
                                                           height: 2,
                                                           width: 5000,
-                                                          color: level2AdminObject.id <=
-                                                              0 ? Colors.grey : Color(
+                                                          color: level2AdminObject
+                                                              .id <=
+                                                              0
+                                                              ? Colors.grey
+                                                              : Color(
                                                               0xff0957FF),
                                                         ),
                                                         onClear: () {
@@ -7047,7 +7066,11 @@ class _MyHomePageState extends State<MyHomePage>
                                                           child: RaisedButton(
                                                             child: FittedBox(
                                                                 child: Text(
-                                                                    'Hinzufügen',
+                                                                    AppLocalizations
+                                                                        .of(
+                                                                        context)
+                                                                        .translate(
+                                                                        'addButton'),
                                                                     overflow: TextOverflow
                                                                         .visible,
                                                                     style: TextStyle(
@@ -7058,12 +7081,106 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 0xff0957FF),
                                                             //df7599 - 0957FF
                                                             onPressed: () {
-                                                              commentInput(
-                                                                  context,
-                                                                  'account',
-                                                                  newLevel1TextFieldController,
-                                                                  newLevel2TextFieldController,
-                                                                  newLevel3TextFieldController);
+                                                              showDialog(
+                                                                  context: context,
+                                                                  builder: (
+                                                                      context) {
+                                                                    return AlertDialog(
+                                                                      title: Center(
+                                                                        child: RichText(
+                                                                          text: TextSpan(
+                                                                              text: '${newLevel3TextFieldController
+                                                                                  .text}${newLevel2TextFieldController
+                                                                                  .text}${newLevel1TextFieldController
+                                                                                  .text}',
+                                                                              style: TextStyle(
+                                                                                  color:Color(
+                                                                                      0xff73D700),
+                                                                                  fontSize: 18,
+                                                                                  fontWeight: FontWeight
+                                                                                      .bold),
+                                                                              children: <
+                                                                                  TextSpan>[
+                                                                                TextSpan(
+                                                                                    text: ' ${AppLocalizations
+                                                                                        .of(
+                                                                                        context)
+                                                                                        .translate(
+                                                                                        'willBeAddedAsAChildOf')} ',
+                                                                                    style:
+                                                                                    TextStyle(
+                                                                                        color: Colors.black,
+                                                                                        fontSize: 18),
+                                                                                    children: <
+                                                                                        TextSpan>[
+                                                                                      TextSpan(
+                                                                                        text: '${level1AdminObject
+                                                                                            .id >
+                                                                                            0
+                                                                                            ? level1AdminObject
+                                                                                            .name
+                                                                                            : ''}${level2AdminObject
+                                                                                            .id >
+                                                                                            0
+                                                                                            ? (' > ' +
+                                                                                            level2AdminObject
+                                                                                                .name)
+                                                                                            : ''}${level3AdminObject
+                                                                                            .id >
+                                                                                            0
+                                                                                            ? (' > ' +
+                                                                                            level3AdminObject
+                                                                                                .name)
+                                                                                            : ''}',
+                                                                                        style: TextStyle(
+                                                                                            color: Color(
+                                                                                                0xff0957FF),
+                                                                                            fontSize: 18,
+                                                                                            fontWeight: FontWeight
+                                                                                                .bold),),
+                                                                                    ])
+                                                                              ]),
+                                                                        ),
+                                                                      ),
+                                                                      actions: <
+                                                                          Widget>[
+                                                                        new FlatButton(
+                                                                          child: new Text(
+                                                                              AppLocalizations
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .translate(
+                                                                                  'cancel')),
+                                                                          onPressed: () {
+                                                                            Navigator
+                                                                                .of(
+                                                                                context)
+                                                                                .pop();
+                                                                          },
+                                                                        ),
+                                                                        new FlatButton(
+                                                                          child: new Text(
+                                                                              AppLocalizations
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .translate(
+                                                                                  'addButton')),
+                                                                          onPressed: () {
+                                                                            Navigator
+                                                                                .of(
+                                                                                context)
+                                                                                .pop();
+                                                                            commentInput(
+                                                                                context,
+                                                                                'account',
+                                                                                newLevel1TextFieldController,
+                                                                                newLevel2TextFieldController,
+                                                                                newLevel3TextFieldController);
+                                                                          },
+                                                                        ),
+                                                                      ],
+                                                                    );
+                                                                  });
                                                             },
                                                           ),
                                                         ),

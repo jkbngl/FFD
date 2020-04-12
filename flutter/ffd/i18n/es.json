@@ -13,7 +13,7 @@
   "TitleListTab": "Historia",
   "TextFieldAmountInput": "Introduzca su cantidad",
   "DiscardButton": "Descarte",
-  "SaveButton": "Guardar",
+  "saveButton": "Guardar",
   "submitButton": "Envíe",
   "addButton": "Añade",
   "ListSearchTextField": "Búsqueda de cantidades, comentarios y más",
@@ -93,5 +93,6 @@
   "page4HelpMessage": "¡Esta es su página de administración donde puede configurar el aspecto, la estructura y el contenido de SU aplicación! \nEn la primera pestaña seleccione cómo quiere estructurar su salida: Si desea utilizar elementos de coste y/o cuentas, y si es así, cuántos niveles de cuenta: 1, 2 o 3 (no olvide ahorrar) En la segunda pestaña puede introducir nuevas cuentas o eliminar las cuentas que ya no se utilizan EJEMPLOS: si quieres ahorrar tus gastos, por ejemplo, para la pasta de dientes: Seleccione FONDOS BRUTOS del nivel 1 e introduzca PEGAMENTO DENTAL en el campo de texto del nivel 2 (el segundo) o cree un nuevo nivel 1 introduciendo PEGAMENTO DENTAL en el campo de texto del nivel 1 (el primero). Si no tienes un COCHE, selecciona COCHE en la primera lista desplegable y haz clic en 'BORRAR SELECCIONADO'! La tercera pestaña es más o menos la misma que la segunda, excepto que con 'Elementos de Costo en lugar de Cuentas",
   "signInGoogleText" : "Iniciar sesión con Google",
   "noDataFoundText": "No se encontraron datos para:",
+  "willBeAddedAsAChildOf": "se añadirá como un hijo de",
   "Message": "Esto es inglés"
 }

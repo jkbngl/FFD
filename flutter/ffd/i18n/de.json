@@ -13,7 +13,7 @@
   "TitleListTab": "Letzte",
   "TextFieldAmountInput": "Geben Sie Ihren Betrag ein",
   "DiscardButton": "Reset",
-  "SaveButton": "Speichern",
+  "saveButton": "Speichern",
   "addButton": "Hinzufügen",
   "submitButton": "Bestätigen",
   "ListSearchTextField": "Suche nach Beträgen, Kommentaren und mehr",
@@ -93,5 +93,6 @@
   "page4HelpMessage" : "FFD - Login",
   "signInGoogleText" : "Mit Google Anmelden",
   "noDataFoundText": "Keine Daten gefunden\nfür:",
+  "willBeAddedAsAChildOf": "wird hinzugefügt als Unteraccount von",
   "Message" : "This is English"
 }

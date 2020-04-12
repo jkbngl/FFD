@@ -93,5 +93,6 @@
   "page4HelpMessage": "Dies ist Ihre Verwaltungsseite, auf der Sie das Aussehen, die Struktur und den Inhalt IHRER Anwendung konfigurieren können! \n\n\n\n Wählen Sie auf der ersten Registerkarte aus, wie Sie Ihre Ausgaben strukturieren möchten: Wenn Sie Kostenarten und/oder Konten verwenden wollen, und wenn ja, wie viele Kontoebenen: 1, 2 oder 3 (Vergessen Sie nicht das Speichern)\n\n\nIm zweiten Reiter können Sie neue Konten eingeben oder nicht mehr benutzte löschen BEISPIELE: \n\wenn Sie Ihre Ausgaben z.B. für Zahnpasta sparen wollen: Entweder wählen Sie GROSSZWECKSTOFFE der Ebene 1 und geben Sie ZAHNPASTE in das Textfeld der Ebene 2 (das zweite) ein oder Sie erstellen eine neue Ebene1, indem Sie ZAHNPASTE in das Textfeld der Ebene 1 (das erste) eingeben. Wenn Sie kein CAR haben, wählen Sie CAR in der ersten Dropdown-Liste aus und klicken Sie auf 'AUSGEWÄHLTE LÖSCHEN'!\n\n\n Der dritte Reiter ist so ziemlich der gleiche wie der zweite Reiter, nur mit Kostenarten statt Konten",
   "signInGoogleText" : "Sign in with Google",
   "noDataFoundText": "No Data found \nfor:",
+  "willBeAddedAsAChildOf": "will be added as a child of",
   "Message" : "This is English"
 }

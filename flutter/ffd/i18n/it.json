@@ -13,7 +13,7 @@
   "TitleListTab": "Storia",
   "TextFieldAmountInput": "Inserire l'importo",
   "DiscardButton": "Scartare",
-  "SaveButton": "Salva",
+  "saveButton": "Salva",
   "submitButton": "Presentare",
   "addButton": "Aggiungi",
   "ListSearchTextField": "Cerca importi, commenti e altro ancora",
@@ -93,5 +93,6 @@
   "page4HelpMessage": "Questa è la vostra pagina di amministrazione dove potete configurare l'aspetto, la struttura e il contenuto della VOSTRA applicazione! \n \n \n \n Nella prima scheda selezionare come si desidera strutturare l'output: Se si desidera utilizzare elementi di costo e/o conti, e se sì, quanti livelli di conto: 1, 2 o 3 (non dimenticare di salvare)\n \n Nella seconda scheda è possibile inserire nuovi conti o cancellare i conti non più utilizzati ESEMPI: \n \n se volete risparmiare le spese, per esempio per il dentifricio: Selezionare FONDI GROSSI del livello 1 e inserire DENTI DI PASTA nel campo di testo del livello 2 (il secondo) oppure creare un nuovo livello 1 inserendo DENTI DI PASTA nel campo di testo del livello 1 (il primo). Se non si dispone di un'AUTO, selezionare CAR nel primo elenco a discesa e cliccare su 'CANCELLA SELEZTIONATO'!\n \n \n La terza scheda è più o meno la stessa della seconda, solo con elementi di costo al posto degli account",
   "signInGoogleText" : "Accedi con Google",
   "noDataFoundText": "Nessun dato trovato \nper:",
+  "willBeAddedAsAChildOf": "sarà aggiunto come figlio di",
   "Message" : "Questo è inglese"
 }
