@@ -59,6 +59,7 @@ flutter:
     - assets/
     - i18n/en.json
     - i18n/de.json
+    - i18n/it.json
 
 
   #  - images/a_dot_burr.jpeg
