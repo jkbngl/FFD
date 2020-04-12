@@ -1023,7 +1023,7 @@ class _MyHomePageState extends State<MyHomePage>
             if (type == 'budget' || onStartup) {
               // If there is already an level1 account selected, only add the ones which have the correct parentAccount
               if (level1BudgetObject.id > 0) {
-                if (accountToAdd.parentAccount == level1ActualObject.id) {
+                if (accountToAdd.parentAccount == level1BudgetObject.id) {
                   level2BudgetAccountsList.add(accountToAdd);
                 }
               } else {
@@ -1033,7 +1033,7 @@ class _MyHomePageState extends State<MyHomePage>
             if (type == 'admin' || onStartup) {
               // If there is already an level1 account selected, only add the ones which have the correct parentAccount
               if (level1AdminObject.id > 0) {
-                if (accountToAdd.parentAccount == level1ActualObject.id) {
+                if (accountToAdd.parentAccount == level1AdminObject.id) {
                   level2AdminAccountsList.add(accountToAdd);
                 }
               } else {
@@ -6575,7 +6575,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                         controller:
                                                         newLevel1TextFieldController,
                                                         decoration: InputDecoration(
-                                                          hintText: AppLocalizations
+                                                            hintText: AppLocalizations
                                                                 .of(context)
                                                                 .translate(
                                                                 'enterNewLevel1AccountNameTextField'),
@@ -6589,6 +6589,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             new UnderlineInputBorder(
                                                                 borderSide:
                                                                 new BorderSide(
+                                                                    width: 2,
                                                                     color: Color(
                                                                         0xff0957FF)))),
                                                       ),
@@ -6614,9 +6615,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                         value: level2AdminObject,
                                                         hint: Text(
                                                           "Select a level 2 account",
-                                                          /*style: TextStyle(
-                              color,
-                            ),*/
                                                         ),
                                                         readOnly:
                                                         level1AdminObject.id <=
@@ -6691,6 +6689,16 @@ class _MyHomePageState extends State<MyHomePage>
                                                       //child: Text('Submit'),
                                                       child: TextFormField(
                                                         // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
+                                                        enabled: !(level1AdminObject
+                                                            .id < 0 &&
+                                                            newLevel1TextFieldController
+                                                                .text.length <=
+                                                                0),
+                                                        readOnly: (level1AdminObject
+                                                            .id < 0 &&
+                                                            newLevel1TextFieldController
+                                                                .text.length <=
+                                                                0),
                                                         style: TextStyle(
                                                             height: 2),
                                                         //increases the height of cursor
@@ -6698,6 +6706,18 @@ class _MyHomePageState extends State<MyHomePage>
                                                         controller:
                                                         newLevel2TextFieldController,
                                                         decoration: InputDecoration(
+                                                            enabled: !(level1AdminObject
+                                                                .id < 0 &&
+                                                                newLevel1TextFieldController
+                                                                    .text
+                                                                    .length <=
+                                                                    0),
+                                                            disabledBorder: UnderlineInputBorder(
+                                                                borderSide:
+                                                                new BorderSide(
+                                                                    width: 1,
+                                                                    color: Colors
+                                                                        .grey)),
                                                             hintText: AppLocalizations
                                                                 .of(context)
                                                                 .translate(
@@ -6705,19 +6725,18 @@ class _MyHomePageState extends State<MyHomePage>
                                                             hintStyle: TextStyle(
                                                                 height: 1.75,
                                                                 fontSize: 12,
-                                                                color:
-                                                                Color(
-                                                                    0xff0957FF)),
-                                                            /*icon: Icon(
-                                            Icons.attach_money,
-                                            color: Color(0xff0957FF),
-                                          ),*/
-                                                            //prefixIcon: Icon(Icons.attach_money),
-                                                            //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                              color: (level1AdminObject
+                                                                  .id < 0 &&
+                                                                  newLevel1TextFieldController
+                                                                      .text.length <=
+                                                                      0) ? Colors.grey : Color(
+                                                                  0xff0957FF)
+                                                                ),
                                                             enabledBorder:
                                                             new UnderlineInputBorder(
                                                                 borderSide:
                                                                 new BorderSide(
+                                                                    width: 2,
                                                                     color: Color(
                                                                         0xff0957FF)))),
                                                       ),
@@ -6812,6 +6831,16 @@ class _MyHomePageState extends State<MyHomePage>
                                                       //child: Text('Submit'),
                                                       child: TextFormField(
                                                         // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
+                                                        enabled: !(level2AdminObject
+                                                            .id < 0 &&
+                                                            newLevel2TextFieldController
+                                                                .text.length <=
+                                                                0),
+                                                        readOnly: (level2AdminObject
+                                                            .id < 0 &&
+                                                            newLevel2TextFieldController
+                                                                .text.length <=
+                                                                0),
                                                         style: TextStyle(
                                                             height: 2),
                                                         //increases the height of cursor
@@ -6826,26 +6855,31 @@ class _MyHomePageState extends State<MyHomePage>
                                                             hintStyle: TextStyle(
                                                                 height: 1.75,
                                                                 fontSize: 12,
-                                                                color:
-                                                                Color(
-                                                                    0xff0957FF)),
-                                                            /*icon: Icon(
-                                            Icons.attach_money,
-                                            color: Color(0xff0957FF),
-                                          ),*/
-                                                            //prefixIcon: Icon(Icons.attach_money),
-                                                            //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                                color: (level2AdminObject
+                                                                    .id < 0 &&
+                                                                    newLevel2TextFieldController
+                                                                        .text.length <=
+                                                                        0) ? Colors.grey : Color(
+                                                                    0xff0957FF)
+                                                                ),
+                                                            disabledBorder: UnderlineInputBorder(
+                                                                borderSide:
+                                                                new BorderSide(
+                                                                    width: 1,
+                                                                    color: Colors
+                                                                        .grey)),
                                                             enabledBorder:
                                                             new UnderlineInputBorder(
                                                                 borderSide:
                                                                 new BorderSide(
+                                                                    width: 2,
                                                                     color: Color(
                                                                         0xff0957FF)))),
                                                       ),
                                                     )
                                                         : Container(),
                                                     Container(child:
-                                                      ButtonBar(
+                                                    ButtonBar(
                                                       alignment: MainAxisAlignment
                                                           .center,
                                                       children: <Widget>[
@@ -6859,7 +6893,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       context)
                                                                       .translate(
                                                                       'DiscardButton'),
-                                                                  overflow: TextOverflow.visible,
+                                                                  overflow: TextOverflow
+                                                                      .visible,
                                                                 )),
                                                             color:
                                                             Color(0xffEEEEEE),
@@ -6897,7 +6932,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         'deleteSelectedButton'),
                                                                     textAlign: TextAlign
                                                                         .center,
-                                                                    overflow: TextOverflow.visible,
+                                                                    overflow: TextOverflow
+                                                                        .visible,
                                                                     style: TextStyle(
                                                                       color: Colors
                                                                           .white,
@@ -6996,11 +7032,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                             child: FittedBox(
                                                                 child: Text(
                                                                     'Hinzufügen',
-                                                                    overflow: TextOverflow.visible,
+                                                                    overflow: TextOverflow
+                                                                        .visible,
                                                                     style: TextStyle(
-                                                                        color: Colors
-                                                                            .white,
-                                                                        ))),
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ))),
                                                             color: Color(
                                                                 0xff0957FF),
                                                             //df7599 - 0957FF
@@ -7162,7 +7199,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   .of(context)
                                                                   .translate(
                                                                   'DiscardButton'),
-                                                              overflow: TextOverflow.visible,
+                                                              overflow: TextOverflow
+                                                                  .visible,
                                                             ),
                                                             color:
                                                             Color(0xffEEEEEE),
@@ -7188,7 +7226,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     'deleteSelectedButton'),
                                                                 textAlign: TextAlign
                                                                     .center,
-                                                                overflow: TextOverflow.visible,
+                                                                overflow: TextOverflow
+                                                                    .visible,
                                                                 style: TextStyle(
                                                                   color: Colors
                                                                       .white,
@@ -7216,10 +7255,11 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     .of(context)
                                                                     .translate(
                                                                     'addButton'),
-                                                                overflow: TextOverflow.visible,
+                                                                overflow: TextOverflow
+                                                                    .visible,
                                                                 style: TextStyle(
-                                                                    color: Colors
-                                                                        .white,
+                                                                  color: Colors
+                                                                      .white,
                                                                 )),
                                                             color: Color(
                                                                 0xff0957FF),
