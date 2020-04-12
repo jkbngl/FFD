@@ -60,6 +60,7 @@ flutter:
     - i18n/en.json
     - i18n/de.json
     - i18n/it.json
+    - i18n/es.json
 
 
   #  - images/a_dot_burr.jpeg
