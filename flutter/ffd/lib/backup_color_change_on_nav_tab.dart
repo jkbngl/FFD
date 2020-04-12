@@ -785,7 +785,8 @@ class _MyHomePageState extends State<MyHomePage>
           comparisonMonth,
           (dateTimeHome.year == now.year && dateTimeHome.month == now.month));*/
 
-      String noDataFoundText = AppLocalizations.of(context).translate('noDataFoundText');
+      String noDataFoundText = AppLocalizations.of(context).translate(
+          'noDataFoundText');
 
       homescreenData[0].amount =
       parsedActual.length != 0 ? parsedActual[0]['sum'] : 0;
@@ -799,7 +800,7 @@ class _MyHomePageState extends State<MyHomePage>
           ? parsedBudget[0]['sum'] - homescreenData[0].amount
           : 99;
       homescreenData[1].type = parsedBudget.length != 0
-          ?  AppLocalizations.of(context).translate('titleBudget')
+          ? AppLocalizations.of(context).translate('titleBudget')
           : "$noDataFoundText $year/$month";
       homescreenData[1].color =
           charts.ColorUtil.fromDartColor(Color(0xff0957FF));
@@ -807,7 +808,7 @@ class _MyHomePageState extends State<MyHomePage>
       homescreenData[2].amount =
       parsedBudget.length != 0 ? parsedBudget[0]['sum'] : 0.000001;
       homescreenData[2].type = parsedBudget.length != 0
-          ?  AppLocalizations.of(context).translate('overallBudget')
+          ? AppLocalizations.of(context).translate('overallBudget')
           : "$noDataFoundText $year/$month";
 
       // #118
@@ -2892,10 +2893,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                             top: 0,
                                                             right: 30,
                                                             bottom: 0),
-                                                        //color: Colors.blue[600],
                                                         alignment: Alignment
                                                             .center,
-                                                        //child: Text('Submit'),
                                                         child: SearchChoices
                                                             .single(
                                                           items:
@@ -2988,20 +2987,24 @@ class _MyHomePageState extends State<MyHomePage>
                                                             );
                                                           }).toList(),
                                                           style: TextStyle(
-                                                              color:
+                                                              color: level1ActualObject
+                                                                  .id <=
+                                                                  0 ? Colors
+                                                                  .grey :
                                                               Color(
                                                                   0xff0957FF)),
                                                           value: level2ActualObject,
                                                           readOnly: level1ActualObject
                                                               .id <=
-                                                              0 ||
-                                                              level2ActualAccountsList
-                                                                  .length ==
-                                                                  1,
+                                                              0,
                                                           underline: Container(
                                                             height: 2,
                                                             width: 5000,
-                                                            color: Color(
+                                                            color: level1ActualObject
+                                                                .id <=
+                                                                0
+                                                                ? Colors.grey
+                                                                : Color(
                                                                 0xff0957FF),
                                                           ),
                                                           hint: "Select one number",
@@ -3074,20 +3077,23 @@ class _MyHomePageState extends State<MyHomePage>
                                                             );
                                                           }).toList(),
                                                           style: TextStyle(
-                                                              color:
+                                                              color: level2ActualObject
+                                                                  .id <=
+                                                                  0 ? Colors.grey :
                                                               Color(
                                                                   0xff0957FF)),
                                                           value: level3ActualObject,
                                                           readOnly: level2ActualObject
                                                               .id <=
-                                                              0 ||
-                                                              level3ActualAccountsList
-                                                                  .length ==
-                                                                  1,
+                                                              0,
                                                           underline: Container(
                                                             height: 2,
                                                             width: 5000,
-                                                            color: Color(
+                                                            color: level2ActualObject
+                                                                .id <=
+                                                                0
+                                                                ? Colors.grey
+                                                                : Color(
                                                                 0xff0957FF),
                                                           ),
                                                           hint: "Select one number",
@@ -4477,21 +4483,22 @@ class _MyHomePageState extends State<MyHomePage>
                                                             );
                                                           }).toList(),
                                                           style: TextStyle(
-                                                              color: Color(
+                                                              color: level1BudgetObject
+                                                                  .id <=
+                                                                  0 ? Colors.grey : Color(
                                                                   0xff0957FF)),
                                                           value:
                                                           level2BudgetObject,
                                                           readOnly: level1BudgetObject
                                                               .id <=
-                                                              0 ||
-                                                              level2BudgetAccountsList
-                                                                  .length ==
-                                                                  1,
+                                                              0 ,
                                                           underline: Container(
                                                             height: 2,
                                                             width: 5000,
-                                                            color:
-                                                            Color(0xff0957FF),
+                                                            color: level1BudgetObject
+                                                                .id <=
+                                                                0 ? Colors.grey :
+                                                              Color(0xff0957FF),
                                                           ),
                                                           hint:
                                                           "Select one number",
@@ -4563,21 +4570,22 @@ class _MyHomePageState extends State<MyHomePage>
                                                             );
                                                           }).toList(),
                                                           style: TextStyle(
-                                                              color: Color(
+                                                              color: level2BudgetObject
+                                                                  .id <=
+                                                                  0 ? Colors.grey : Color(
                                                                   0xff0957FF)),
                                                           value:
                                                           level3BudgetObject,
-                                                          readOnly: level3BudgetObject
+                                                          readOnly: level2BudgetObject
                                                               .id <=
-                                                              0 ||
-                                                              level3BudgetAccountsList
-                                                                  .length ==
-                                                                  1,
+                                                              0 ,
                                                           underline: Container(
                                                             height: 2,
                                                             width: 5000,
-                                                            color:
-                                                            Color(0xff0957FF),
+                                                            color: level2BudgetObject
+                                                                .id <=
+                                                                0 ? Colors.grey :
+                                                              Color(0xff0957FF),
                                                           ),
                                                           hint:
                                                           "Select one number",
@@ -6622,22 +6630,21 @@ class _MyHomePageState extends State<MyHomePage>
                                                         ),
                                                         readOnly:
                                                         level1AdminObject.id <=
-                                                            0 ||
-                                                            level2AdminAccountsList
-                                                                .length ==
-                                                                1,
+                                                            0,
                                                         icon:
                                                         Icon(Icons
                                                             .arrow_downward),
                                                         iconSize: 24,
                                                         style: TextStyle(
-                                                            color: Color(
+                                                            color: level1AdminObject.id <=
+                                                                0 ? Colors.grey : Color(
                                                                 0xff0957FF)),
                                                         isExpanded: true,
                                                         underline: Container(
                                                           height: 2,
                                                           width: 5000,
-                                                          color: Color(
+                                                          color: level1AdminObject.id <=
+                                                              0 ? Colors.grey : Color(
                                                               0xff0957FF),
                                                         ),
                                                         onClear: () {
@@ -6729,13 +6736,17 @@ class _MyHomePageState extends State<MyHomePage>
                                                             hintStyle: TextStyle(
                                                                 height: 1.75,
                                                                 fontSize: 12,
-                                                              color: (level1AdminObject
-                                                                  .id < 0 &&
-                                                                  newLevel1TextFieldController
-                                                                      .text.length <=
-                                                                      0) ? Colors.grey : Color(
-                                                                  0xff0957FF)
-                                                                ),
+                                                                color: (level1AdminObject
+                                                                    .id < 0 &&
+                                                                    newLevel1TextFieldController
+                                                                        .text
+                                                                        .length <=
+                                                                        0)
+                                                                    ? Colors
+                                                                    .grey
+                                                                    : Color(
+                                                                    0xff0957FF)
+                                                            ),
                                                             enabledBorder:
                                                             new UnderlineInputBorder(
                                                                 borderSide:
@@ -6766,28 +6777,25 @@ class _MyHomePageState extends State<MyHomePage>
                                                         value: level3AdminObject,
                                                         hint: Text(
                                                           "Select a level 3 account",
-                                                          /*style: TextStyle(
-                              color,
-                            ),*/
+
                                                         ),
                                                         readOnly:
                                                         level2AdminObject.id <=
-                                                            0 ||
-                                                            level3AdminAccountsList
-                                                                .length ==
-                                                                1,
+                                                            0 ,
                                                         icon:
                                                         Icon(Icons
                                                             .arrow_downward),
                                                         iconSize: 24,
                                                         style: TextStyle(
-                                                            color: Color(
+                                                            color: level2AdminObject.id <=
+                                                                0 ? Colors.grey : Color(
                                                                 0xff0957FF)),
                                                         isExpanded: true,
                                                         underline: Container(
                                                           height: 2,
                                                           width: 5000,
-                                                          color: Color(
+                                                          color: level2AdminObject.id <=
+                                                              0 ? Colors.grey : Color(
                                                               0xff0957FF),
                                                         ),
                                                         onClear: () {
@@ -6862,10 +6870,14 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 color: (level2AdminObject
                                                                     .id < 0 &&
                                                                     newLevel2TextFieldController
-                                                                        .text.length <=
-                                                                        0) ? Colors.grey : Color(
+                                                                        .text
+                                                                        .length <=
+                                                                        0)
+                                                                    ? Colors
+                                                                    .grey
+                                                                    : Color(
                                                                     0xff0957FF)
-                                                                ),
+                                                            ),
                                                             disabledBorder: UnderlineInputBorder(
                                                                 borderSide:
                                                                 new BorderSide(
