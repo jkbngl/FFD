@@ -3,6 +3,7 @@
   "titleHome": "Casa",
   "titleExpenses": "Spese",
   "titleBudget": "Budget",
+  "overallBudget": "Budget complessivo",
   "titleVisualizer": "Visualizer",
   "titleSettings": "Impostazioni",
   "titlePieChart": "Spese vs. Budget",
@@ -89,5 +90,6 @@
   "page3HelpMessage": "Questa è la pagina dove potete analizzare il vostro flusso di cassa! \n\n\n\nControllare quanto denaro avete speso per varie cose, come ad esempio VEICOLI AUTOMOBILI, PRODOTTI o ABBIGLIAMENTI\n Se cliccate su una barra, potete vedere i figli di queste spese, ad es. Se cliccate su MOTOR VEHICLE potete vedere quanti soldi avete speso per il GAS o la RIPARAZIONE, se avete speso qualcosa potete controllare i pulsanti 'Anno intero' e 'Tutto il tempo' per rivedere le vostre spese annuali e quanto avete speso. In alto è possibile selezionare il mese e l'anno che si desidera visualizzare",
   "page4HelpMessage": "Questa è la vostra pagina di amministrazione dove potete configurare l'aspetto, la struttura e il contenuto della VOSTRA applicazione! \n \n \n \n Nella prima scheda selezionare come si desidera strutturare l'output: Se si desidera utilizzare elementi di costo e/o conti, e se sì, quanti livelli di conto: 1, 2 o 3 (non dimenticare di salvare)\n \n Nella seconda scheda è possibile inserire nuovi conti o cancellare i conti non più utilizzati ESEMPI: \n \n se volete risparmiare le spese, per esempio per il dentifricio: Selezionare FONDI GROSSI del livello 1 e inserire DENTI DI PASTA nel campo di testo del livello 2 (il secondo) oppure creare un nuovo livello 1 inserendo DENTI DI PASTA nel campo di testo del livello 1 (il primo). Se non si dispone di un'AUTO, selezionare CAR nel primo elenco a discesa e cliccare su 'CANCELLA SELEZTIONATO'!\n \n \n La terza scheda è più o meno la stessa della seconda, solo con elementi di costo al posto degli account",
   "signInGoogleText" : "Accedi con Google",
+  "noDataFoundText": "Nessun dato trovato \nper:",
   "Message" : "Questo è inglese"
 }

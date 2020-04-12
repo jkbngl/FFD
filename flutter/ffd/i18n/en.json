@@ -3,6 +3,7 @@
   "titleHome": "Home",
   "titleExpenses": "Expenses",
   "titleBudget": "Budget",
+  "overallBudget": "Overall Budget",
   "titleVisualizer": "Visualizer",
   "titleSettings": "Settings",
   "titlePieChart": "Expenses vs. Budget",
@@ -90,5 +91,6 @@
   "page2HelpMessage": "Dies ist die zweite der beiden Eingabeseiten IHRER App\nHier geben Sie an, wie viel Geld Ihnen für diesen Monat zur Verfügung steht\n\n\n1. Sie können entweder einfach Ihr gesamtes Einkommen in das Textfeld eingeben und auf Sparen\n\n2 klicken. Oder Sie können sagen: Ich möchte diesen Monat 50 Dollar für GAS ausgeben und 200 Dollar für PIZZA\n\n\nSie entscheiden\n\n\n\Wenn Sie wissen wollen, wie Sie dieses Budget für CAR-Ausgaben eingeben können, klicken Sie auf den Hilfe-Button auf der linken Seite",
   "page3HelpMessage": "Dies ist die Seite, auf der Sie Ihren Cashflow analysieren können!\n\n\nKontrollieren Sie, wie viel Geld Sie für verschiedene Dinge ausgegeben haben, wie z.B. KRAFTFAHRZEUGE, ERZEUGNISSE oder KLEIDUNGEN\nWenn Sie auf einen Balken klicken, können Sie die Kinder dieser Ausgaben sehen, z.B. Wenn Sie auf KRAFTFAHRZEUG klicken, können Sie sehen, wie viel Geld Sie für GAS oder REPARATUREN ausgegeben haben, wenn Sie irgendetwas ausgegeben haben, können Sie die Schaltflächen 'Ganzes Jahr' und 'Alle Zeit' überprüfen, um Ihre jährlichen Ausgaben zu überprüfen und wie viel Sie jemals ausgegeben haben. Oben können Sie den Monat und das Jahr auswählen, die Sie sich ansehen möchten",
   "page4HelpMessage": "Dies ist Ihre Verwaltungsseite, auf der Sie das Aussehen, die Struktur und den Inhalt IHRER Anwendung konfigurieren können! \n\n\n\n Wählen Sie auf der ersten Registerkarte aus, wie Sie Ihre Ausgaben strukturieren möchten: Wenn Sie Kostenarten und/oder Konten verwenden wollen, und wenn ja, wie viele Kontoebenen: 1, 2 oder 3 (Vergessen Sie nicht das Speichern)\n\n\nIm zweiten Reiter können Sie neue Konten eingeben oder nicht mehr benutzte löschen BEISPIELE: \n\wenn Sie Ihre Ausgaben z.B. für Zahnpasta sparen wollen: Entweder wählen Sie GROSSZWECKSTOFFE der Ebene 1 und geben Sie ZAHNPASTE in das Textfeld der Ebene 2 (das zweite) ein oder Sie erstellen eine neue Ebene1, indem Sie ZAHNPASTE in das Textfeld der Ebene 1 (das erste) eingeben. Wenn Sie kein CAR haben, wählen Sie CAR in der ersten Dropdown-Liste aus und klicken Sie auf 'AUSGEWÄHLTE LÖSCHEN'!\n\n\n Der dritte Reiter ist so ziemlich der gleiche wie der zweite Reiter, nur mit Kostenarten statt Konten",  "signInGoogleText" : "Sign in with Google",
+  "noDataFoundText": "No Data found \nfor:",
   "Message" : "This is English"
 }

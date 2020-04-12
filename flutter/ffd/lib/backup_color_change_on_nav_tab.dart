@@ -784,11 +784,13 @@ class _MyHomePageState extends State<MyHomePage>
           comparisonMonth,
           (dateTimeHome.year == now.year && dateTimeHome.month == now.month));*/
 
+      String noDataFoundText = AppLocalizations.of(context).translate('noDataFoundText');
+
       homescreenData[0].amount =
       parsedActual.length != 0 ? parsedActual[0]['sum'] : 0;
       homescreenData[0].type = parsedActual.length != 0
-          ? 'Actual'
-          : "No Data found \nfor $year - $month";
+          ? AppLocalizations.of(context).translate('titleExpenses')
+          : "$noDataFoundText $year/$month";
       homescreenData[0].color =
           charts.ColorUtil.fromDartColor(Color(0xff003680));
 
@@ -796,16 +798,16 @@ class _MyHomePageState extends State<MyHomePage>
           ? parsedBudget[0]['sum'] - homescreenData[0].amount
           : 99;
       homescreenData[1].type = parsedBudget.length != 0
-          ? 'Budget'
-          : "No Data found \nfor $year - $month";
+          ?  AppLocalizations.of(context).translate('titleBudget')
+          : "$noDataFoundText $year/$month";
       homescreenData[1].color =
           charts.ColorUtil.fromDartColor(Color(0xff0957FF));
 
       homescreenData[2].amount =
       parsedBudget.length != 0 ? parsedBudget[0]['sum'] : 0.000001;
       homescreenData[2].type = parsedBudget.length != 0
-          ? 'OverallBudget'
-          : "No Data found \nfor $year - $month";
+          ?  AppLocalizations.of(context).translate('overallBudget')
+          : "$noDataFoundText $year/$month";
 
       // #118
       if (homescreenData[1].amount < 0) // means no budget left

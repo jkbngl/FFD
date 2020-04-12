@@ -3,6 +3,7 @@
   "titleHome": "Startseite",
   "titleExpenses": "Ausgaben",
   "titleBudget": "Budget",
+  "overallBudget": "Gesamtes Budget",
   "titleVisualizer": "Visualisierung",
   "titleSettings": "Einstellungen",
   "titlePieChart": "Ausgaben vs. Budget",
@@ -91,5 +92,6 @@
   "page3HelpMessage" : "FFD - Login",
   "page4HelpMessage" : "FFD - Login",
   "signInGoogleText" : "Mit Google Anmelden",
+  "noDataFoundText": "Keine Daten gefunden\nfür:",
   "Message" : "This is English"
 }
