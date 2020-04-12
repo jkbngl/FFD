@@ -10,6 +10,20 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  @override
+  void initState() {
+    signInWithGoogle().whenComplete(() {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) {
+            return MyHomePage();
+          },
+        ),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
