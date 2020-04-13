@@ -73,6 +73,7 @@
   "email" : "Email",
   "signOut" : "Sign Out",
   "error" : "ERROR",
+  "warning" : "Warning",
   "errorMessage" : "Make sure you have an active internet connection, and try to logout and log back in again",
   "commentEnterDialog" : "Enter a comment for ",
   "comment" : "comment",
@@ -93,5 +94,10 @@
   "signInGoogleText" : "Sign in with Google",
   "noDataFoundText": "No Data found \nfor:",
   "willBeAddedAsAChildOf": "will be added as a child of",
+  "errorInputEnterAmount": "Please make sure to enter an amount in the textfield at the top",
+  "errorDeleteNoAccountSelected": "Please make sure to select an account which should be deleted",
+  "errorDeleteNoCostTypeSelected": "Please make sure to select a costtype which should be deleted",
+  "errorAddNoNewCostTypeEntered": "Please enter a name for the new costtype",
+  "errorAddNoAccountEntered": "Please enter a name for the new account/s",
   "Message" : "This is English"
 }

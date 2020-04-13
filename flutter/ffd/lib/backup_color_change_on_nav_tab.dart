@@ -3256,12 +3256,65 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   0xff0957FF),
                                                               //df7599 - 0957FF
                                                               onPressed: () {
-                                                                commentInput(
-                                                                    context,
-                                                                    'actual',
-                                                                    null,
-                                                                    null,
-                                                                    null);
+                                                                if (actualTextFieldController
+                                                                    .text
+                                                                    .length >
+                                                                    0) {
+                                                                  commentInput(
+                                                                      context,
+                                                                      'actual',
+                                                                      null,
+                                                                      null,
+                                                                      null);
+                                                                }
+                                                                else {
+                                                                  showDialog(
+                                                                    context: context,
+                                                                    builder: (
+                                                                        BuildContext context) {
+                                                                      // return object of type Dialog
+                                                                      return AlertDialog(
+                                                                        title: new Text(
+                                                                          AppLocalizations
+                                                                              .of(
+                                                                              context)
+                                                                              .translate(
+                                                                              'warning')
+                                                                          ,
+                                                                          style: TextStyle(
+                                                                              color: Colors
+                                                                                  .orange,
+                                                                              fontSize: 25,
+                                                                              fontWeight: FontWeight
+                                                                                  .bold),),
+                                                                        content: new Text(
+                                                                          AppLocalizations
+                                                                              .of(
+                                                                              context)
+                                                                              .translate(
+                                                                              'errorInputEnterAmount'),
+                                                                          style: TextStyle(
+                                                                              fontWeight: FontWeight
+                                                                                  .bold,
+                                                                              fontSize: 20),),
+                                                                        actions: <
+                                                                            Widget>[
+                                                                          // usually buttons at the bottom of the dialog
+                                                                          new FlatButton(
+                                                                            child: new Text(
+                                                                                "Close"),
+                                                                            onPressed: () {
+                                                                              Navigator
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .pop();
+                                                                            },
+                                                                          ),
+                                                                        ],
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                }
                                                               },
                                                             ),
                                                           ),
@@ -4775,12 +4828,65 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   0xff0957FF),
                                                               //df7599 - 0957FF
                                                               onPressed: () {
-                                                                commentInput(
-                                                                    context,
-                                                                    'budget',
-                                                                    null,
-                                                                    null,
-                                                                    null);
+                                                                if (budgetTextFieldController
+                                                                    .text
+                                                                    .length >
+                                                                    0) {
+                                                                  commentInput(
+                                                                      context,
+                                                                      'budget',
+                                                                      null,
+                                                                      null,
+                                                                      null);
+                                                                }
+                                                                else {
+                                                                  showDialog(
+                                                                    context: context,
+                                                                    builder: (
+                                                                        BuildContext context) {
+                                                                      // return object of type Dialog
+                                                                      return AlertDialog(
+                                                                        title: new Text(
+                                                                          AppLocalizations
+                                                                              .of(
+                                                                              context)
+                                                                              .translate(
+                                                                              'warning')
+                                                                          ,
+                                                                          style: TextStyle(
+                                                                              color: Colors
+                                                                                  .orange,
+                                                                              fontSize: 25,
+                                                                              fontWeight: FontWeight
+                                                                                  .bold),),
+                                                                        content: new Text(
+                                                                          AppLocalizations
+                                                                              .of(
+                                                                              context)
+                                                                              .translate(
+                                                                              'errorInputEnterAmount'),
+                                                                          style: TextStyle(
+                                                                              fontWeight: FontWeight
+                                                                                  .bold,
+                                                                              fontSize: 20),),
+                                                                        actions: <
+                                                                            Widget>[
+                                                                          // usually buttons at the bottom of the dialog
+                                                                          new FlatButton(
+                                                                            child: new Text(
+                                                                                "Close"),
+                                                                            onPressed: () {
+                                                                              Navigator
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .pop();
+                                                                            },
+                                                                          ),
+                                                                        ],
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                }
                                                               },
                                                             ),
                                                           ),
@@ -6981,86 +7087,139 @@ class _MyHomePageState extends State<MyHomePage>
                                                             Colors.red,
                                                             //df7599 - 0957FF
                                                             onPressed: () {
-                                                              sendBackend(
-                                                                  'newaccountdelete',
-                                                                  false);
-
-                                                              if (level3AdminObject
-                                                                  .id > 0) {
-                                                                // If the acount which has just been deleted was selected, unselect it
-                                                                if (level3ActualObject
-                                                                    .id ==
-                                                                    level3AdminObject
-                                                                        .id) {
-                                                                  level3ActualObject =
-                                                                  level3ActualAccountsList[
-                                                                  0];
-                                                                }
-
-                                                                if (level3BudgetObject
-                                                                    .id ==
-                                                                    level3AdminObject
-                                                                        .id) {
-                                                                  level3BudgetObject =
-                                                                  level3BudgetAccountsList[
-                                                                  0];
-                                                                }
-
-                                                                level3AdminObject =
-                                                                level3AdminAccountsList[
-                                                                0];
-                                                              } else
-                                                              if (level2AdminObject
-                                                                  .id >
-                                                                  0) {
-                                                                // If the acount which has just been deleted was selected, unselect it
-                                                                if (level2ActualObject
-                                                                    .id ==
-                                                                    level2AdminObject
-                                                                        .id) {
-                                                                  level2ActualObject =
-                                                                  level2ActualAccountsList[
-                                                                  0];
-                                                                }
-
-                                                                if (level2BudgetObject
-                                                                    .id ==
-                                                                    level2AdminObject
-                                                                        .id) {
-                                                                  level2BudgetObject =
-                                                                  level2BudgetAccountsList[
-                                                                  0];
-                                                                }
-
-                                                                level2AdminObject =
-                                                                level2AdminAccountsList[
-                                                                0];
-                                                              } else
+                                                              // #139
                                                               if (level1AdminObject
-                                                                  .id >
-                                                                  0) {
-                                                                // If the acount which has just been deleted was selected, unselect it
-                                                                if (level1ActualObject
-                                                                    .id ==
-                                                                    level1AdminObject
-                                                                        .id) {
-                                                                  level1ActualObject =
-                                                                  level1ActualAccountsList[
+                                                                  .id > 0) {
+                                                                sendBackend(
+                                                                    'newaccountdelete',
+                                                                    false);
+
+                                                                if
+                                                                (level3AdminObject
+                                                                    .id > 0) {
+                                                                  // If the acount which has just been deleted was selected, unselect it
+                                                                  if (level3ActualObject
+                                                                      .id ==
+                                                                      level3AdminObject
+                                                                          .id) {
+                                                                    level3ActualObject =
+                                                                    level3ActualAccountsList[
+                                                                    0];
+                                                                  }
+
+                                                                  if (level3BudgetObject
+                                                                      .id ==
+                                                                      level3AdminObject
+                                                                          .id) {
+                                                                    level3BudgetObject =
+                                                                    level3BudgetAccountsList[
+                                                                    0];
+                                                                  }
+
+                                                                  level3AdminObject =
+                                                                  level3AdminAccountsList[
+                                                                  0];
+                                                                } else
+                                                                if (level2AdminObject
+                                                                    .id >
+                                                                    0) {
+                                                                  // If the acount which has just been deleted was selected, unselect it
+                                                                  if (level2ActualObject
+                                                                      .id ==
+                                                                      level2AdminObject
+                                                                          .id) {
+                                                                    level2ActualObject =
+                                                                    level2ActualAccountsList[
+                                                                    0];
+                                                                  }
+
+                                                                  if (level2BudgetObject
+                                                                      .id ==
+                                                                      level2AdminObject
+                                                                          .id) {
+                                                                    level2BudgetObject =
+                                                                    level2BudgetAccountsList[
+                                                                    0];
+                                                                  }
+
+                                                                  level2AdminObject =
+                                                                  level2AdminAccountsList[
+                                                                  0];
+                                                                } else
+                                                                if (level1AdminObject
+                                                                    .id >
+                                                                    0) {
+                                                                  // If the acount which has just been deleted was selected, unselect it
+                                                                  if (level1ActualObject
+                                                                      .id ==
+                                                                      level1AdminObject
+                                                                          .id) {
+                                                                    level1ActualObject =
+                                                                    level1ActualAccountsList[
+                                                                    0];
+                                                                  }
+
+                                                                  if (level1BudgetObject
+                                                                      .id ==
+                                                                      level1AdminObject
+                                                                          .id) {
+                                                                    level1BudgetObject =
+                                                                    level1BudgetAccountsList[
+                                                                    0];
+                                                                  }
+
+                                                                  level1AdminObject =
+                                                                  level1AdminAccountsList[
                                                                   0];
                                                                 }
-
-                                                                if (level1BudgetObject
-                                                                    .id ==
-                                                                    level1AdminObject
-                                                                        .id) {
-                                                                  level1BudgetObject =
-                                                                  level1BudgetAccountsList[
-                                                                  0];
-                                                                }
-
-                                                                level1AdminObject =
-                                                                level1AdminAccountsList[
-                                                                0];
+                                                              }
+                                                              else {
+                                                                showDialog(
+                                                                  context: context,
+                                                                  builder: (
+                                                                      BuildContext context) {
+                                                                    // return object of type Dialog
+                                                                    return AlertDialog(
+                                                                      title: new Text(
+                                                                        AppLocalizations
+                                                                            .of(
+                                                                            context)
+                                                                            .translate(
+                                                                            'warning')
+                                                                        ,
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .orange,
+                                                                            fontSize: 25,
+                                                                            fontWeight: FontWeight
+                                                                                .bold),),
+                                                                      content: new Text(
+                                                                        AppLocalizations
+                                                                            .of(
+                                                                            context)
+                                                                            .translate(
+                                                                            'errorDeleteNoAccountSelected'),
+                                                                        style: TextStyle(
+                                                                            fontWeight: FontWeight
+                                                                                .bold,
+                                                                            fontSize: 20),),
+                                                                      actions: <
+                                                                          Widget>[
+                                                                        // usually buttons at the bottom of the dialog
+                                                                        new FlatButton(
+                                                                          child: new Text(
+                                                                              "Close"),
+                                                                          onPressed: () {
+                                                                            Navigator
+                                                                                .of(
+                                                                                context)
+                                                                                .pop();
+                                                                          },
+                                                                        ),
+                                                                      ],
+                                                                    );
+                                                                  },
+                                                                );
                                                               }
                                                             },
                                                           ),
@@ -7085,106 +7244,169 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 0xff0957FF),
                                                             //df7599 - 0957FF
                                                             onPressed: () {
-                                                              showDialog(
+                                                              if (newLevel1TextFieldController
+                                                                  .text
+                                                                  .length >
+                                                                  0 ||
+                                                                  newLevel2TextFieldController
+                                                                      .text
+                                                                      .length >
+                                                                      0 ||
+                                                                  newLevel3TextFieldController
+                                                                      .text
+                                                                      .length >
+                                                                      0) {
+                                                                showDialog(
+                                                                    context: context,
+                                                                    builder: (
+                                                                        context) {
+                                                                      return AlertDialog(
+                                                                        title: Center(
+                                                                          child: RichText(
+                                                                            text: TextSpan(
+                                                                                text: '${newLevel3TextFieldController
+                                                                                    .text}${newLevel2TextFieldController
+                                                                                    .text}${newLevel1TextFieldController
+                                                                                    .text}',
+                                                                                style: TextStyle(
+                                                                                    color: Color(
+                                                                                        0xff73D700),
+                                                                                    fontSize: 18,
+                                                                                    fontWeight: FontWeight
+                                                                                        .bold),
+                                                                                children: <
+                                                                                    TextSpan>[
+                                                                                  TextSpan(
+                                                                                      text: ' ${AppLocalizations
+                                                                                          .of(
+                                                                                          context)
+                                                                                          .translate(
+                                                                                          'willBeAddedAsAChildOf')} ',
+                                                                                      style:
+                                                                                      TextStyle(
+                                                                                          color: Colors
+                                                                                              .black,
+                                                                                          fontSize: 18),
+                                                                                      children: <
+                                                                                          TextSpan>[
+                                                                                        TextSpan(
+                                                                                          text: '${level1AdminObject
+                                                                                              .id >
+                                                                                              0
+                                                                                              ? level1AdminObject
+                                                                                              .name
+                                                                                              : ''}${level2AdminObject
+                                                                                              .id >
+                                                                                              0
+                                                                                              ? (' > ' +
+                                                                                              level2AdminObject
+                                                                                                  .name)
+                                                                                              : ''}${level3AdminObject
+                                                                                              .id >
+                                                                                              0
+                                                                                              ? (' > ' +
+                                                                                              level3AdminObject
+                                                                                                  .name)
+                                                                                              : ''}',
+                                                                                          style: TextStyle(
+                                                                                              color: Color(
+                                                                                                  0xff0957FF),
+                                                                                              fontSize: 18,
+                                                                                              fontWeight: FontWeight
+                                                                                                  .bold),),
+                                                                                      ])
+                                                                                ]),
+                                                                          ),
+                                                                        ),
+                                                                        actions: <
+                                                                            Widget>[
+                                                                          new FlatButton(
+                                                                            child: new Text(
+                                                                                AppLocalizations
+                                                                                    .of(
+                                                                                    context)
+                                                                                    .translate(
+                                                                                    'cancel')),
+                                                                            onPressed: () {
+                                                                              Navigator
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .pop();
+                                                                            },
+                                                                          ),
+                                                                          new FlatButton(
+                                                                            child: new Text(
+                                                                                AppLocalizations
+                                                                                    .of(
+                                                                                    context)
+                                                                                    .translate(
+                                                                                    'addButton')),
+                                                                            onPressed: () {
+                                                                              Navigator
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .pop()
+                                                                              ;
+                                                                              commentInput(
+                                                                                  context,
+                                                                                  'account',
+                                                                                  newLevel1TextFieldController,
+                                                                                  newLevel2TextFieldController,
+                                                                                  newLevel3TextFieldController);
+                                                                            },
+                                                                          ),
+                                                                        ],
+                                                                      );
+                                                                    });
+                                                              }
+                                                              else {
+                                                                showDialog(
                                                                   context: context,
                                                                   builder: (
-                                                                      context) {
+                                                                      BuildContext context) {
+                                                                    // return object of type Dialog
                                                                     return AlertDialog(
-                                                                      title: Center(
-                                                                        child: RichText(
-                                                                          text: TextSpan(
-                                                                              text: '${newLevel3TextFieldController
-                                                                                  .text}${newLevel2TextFieldController
-                                                                                  .text}${newLevel1TextFieldController
-                                                                                  .text}',
-                                                                              style: TextStyle(
-                                                                                  color:Color(
-                                                                                      0xff73D700),
-                                                                                  fontSize: 18,
-                                                                                  fontWeight: FontWeight
-                                                                                      .bold),
-                                                                              children: <
-                                                                                  TextSpan>[
-                                                                                TextSpan(
-                                                                                    text: ' ${AppLocalizations
-                                                                                        .of(
-                                                                                        context)
-                                                                                        .translate(
-                                                                                        'willBeAddedAsAChildOf')} ',
-                                                                                    style:
-                                                                                    TextStyle(
-                                                                                        color: Colors.black,
-                                                                                        fontSize: 18),
-                                                                                    children: <
-                                                                                        TextSpan>[
-                                                                                      TextSpan(
-                                                                                        text: '${level1AdminObject
-                                                                                            .id >
-                                                                                            0
-                                                                                            ? level1AdminObject
-                                                                                            .name
-                                                                                            : ''}${level2AdminObject
-                                                                                            .id >
-                                                                                            0
-                                                                                            ? (' > ' +
-                                                                                            level2AdminObject
-                                                                                                .name)
-                                                                                            : ''}${level3AdminObject
-                                                                                            .id >
-                                                                                            0
-                                                                                            ? (' > ' +
-                                                                                            level3AdminObject
-                                                                                                .name)
-                                                                                            : ''}',
-                                                                                        style: TextStyle(
-                                                                                            color: Color(
-                                                                                                0xff0957FF),
-                                                                                            fontSize: 18,
-                                                                                            fontWeight: FontWeight
-                                                                                                .bold),),
-                                                                                    ])
-                                                                              ]),
-                                                                        ),
-                                                                      ),
+                                                                      title: new Text(
+                                                                        AppLocalizations
+                                                                            .of(
+                                                                            context)
+                                                                            .translate(
+                                                                            'warning')
+                                                                        ,
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .orange,
+                                                                            fontSize: 25,
+                                                                            fontWeight: FontWeight
+                                                                                .bold),),
+                                                                      content: new Text(
+                                                                        AppLocalizations
+                                                                            .of(
+                                                                            context)
+                                                                            .translate(
+                                                                            'errorAddNoNewCostTypeEntered'),
+                                                                        style: TextStyle(
+                                                                            fontWeight: FontWeight
+                                                                                .bold,
+                                                                            fontSize: 20),),
                                                                       actions: <
                                                                           Widget>[
+                                                                        // usually buttons at the bottom of the dialog
                                                                         new FlatButton(
                                                                           child: new Text(
-                                                                              AppLocalizations
-                                                                                  .of(
-                                                                                  context)
-                                                                                  .translate(
-                                                                                  'cancel')),
+                                                                              "Close"),
                                                                           onPressed: () {
                                                                             Navigator
                                                                                 .of(
                                                                                 context)
                                                                                 .pop();
-                                                                          },
-                                                                        ),
-                                                                        new FlatButton(
-                                                                          child: new Text(
-                                                                              AppLocalizations
-                                                                                  .of(
-                                                                                  context)
-                                                                                  .translate(
-                                                                                  'addButton')),
-                                                                          onPressed: () {
-                                                                            Navigator
-                                                                                .of(
-                                                                                context)
-                                                                                .pop();
-                                                                            commentInput(
-                                                                                context,
-                                                                                'account',
-                                                                                newLevel1TextFieldController,
-                                                                                newLevel2TextFieldController,
-                                                                                newLevel3TextFieldController);
                                                                           },
                                                                         ),
                                                                       ],
                                                                     );
-                                                                  });
+                                                                  },
+                                                                );
+                                                              }
                                                             },
                                                           ),
                                                         ),
@@ -7374,13 +7596,65 @@ class _MyHomePageState extends State<MyHomePage>
                                                             Colors.red,
                                                             //df7599 - 0957FF
                                                             onPressed: () {
-                                                              sendBackend(
-                                                                  'newcosttypedelete',
-                                                                  false);
+                                                              if (costTypeObjectAdmin
+                                                                  .id > 0) {
+                                                                sendBackend(
+                                                                    'newcosttypedelete',
+                                                                    false);
 
-                                                              // the here selected value was deleted and therefore is no more available, so set it to the first default value to not receive an error
-                                                              costTypeObjectAdmin =
-                                                              costTypesList[0];
+                                                                // the here selected value was deleted and therefore is no more available, so set it to the first default value to not receive an error
+                                                                costTypeObjectAdmin
+                                                                =
+                                                                costTypesList[0];
+                                                              }
+                                                              else {
+                                                                showDialog(
+                                                                  context: context,
+                                                                  builder: (
+                                                                      BuildContext context) {
+                                                                    // return object of type Dialog
+                                                                    return AlertDialog(
+                                                                      title: new Text(
+                                                                        AppLocalizations
+                                                                            .of(
+                                                                            context)
+                                                                            .translate(
+                                                                            'warning')
+                                                                        ,
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .orange,
+                                                                            fontSize: 25,
+                                                                            fontWeight: FontWeight
+                                                                                .bold),),
+                                                                      content: new Text(
+                                                                        AppLocalizations
+                                                                            .of(
+                                                                            context)
+                                                                            .translate(
+                                                                            'errorDeleteNoCostTypeSelected'),
+                                                                        style: TextStyle(
+                                                                            fontWeight: FontWeight
+                                                                                .bold,
+                                                                            fontSize: 20),),
+                                                                      actions: <
+                                                                          Widget>[
+                                                                        // usually buttons at the bottom of the dialog
+                                                                        new FlatButton(
+                                                                          child: new Text(
+                                                                              "Close"),
+                                                                          onPressed: () {
+                                                                            Navigator
+                                                                                .of(
+                                                                                context)
+                                                                                .pop();
+                                                                          },
+                                                                        ),
+                                                                      ],
+                                                                    );
+                                                                  },
+                                                                );
+                                                              }
                                                             },
                                                           ),
                                                         ),
@@ -7403,12 +7677,64 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 0xff0957FF),
                                                             //df7599 - 0957FF
                                                             onPressed: () {
-                                                              commentInput(
-                                                                  context,
-                                                                  'costtype',
-                                                                  newCostTypeTextFieldController,
-                                                                  null,
-                                                                  null);
+                                                              if (newCostTypeTextFieldController
+                                                                  .text.length >
+                                                                  0) {
+                                                                commentInput(
+                                                                    context,
+                                                                    'costtype',
+                                                                    newCostTypeTextFieldController,
+                                                                    null,
+                                                                    null);
+                                                              }
+                                                              else {
+                                                                showDialog(
+                                                                  context: context,
+                                                                  builder: (
+                                                                      BuildContext context) {
+                                                                    // return object of type Dialog
+                                                                    return AlertDialog(
+                                                                      title: new Text(
+                                                                        AppLocalizations
+                                                                            .of(
+                                                                            context)
+                                                                            .translate(
+                                                                            'warning')
+                                                                        ,
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .orange,
+                                                                            fontSize: 25,
+                                                                            fontWeight: FontWeight
+                                                                                .bold),),
+                                                                      content: new Text(
+                                                                        AppLocalizations
+                                                                            .of(
+                                                                            context)
+                                                                            .translate(
+                                                                            'errorAddNoNewCostTypeEntered'),
+                                                                        style: TextStyle(
+                                                                            fontWeight: FontWeight
+                                                                                .bold,
+                                                                            fontSize: 20),),
+                                                                      actions: <
+                                                                          Widget>[
+                                                                        // usually buttons at the bottom of the dialog
+                                                                        new FlatButton(
+                                                                          child: new Text(
+                                                                              "Close"),
+                                                                          onPressed: () {
+                                                                            Navigator
+                                                                                .of(
+                                                                                context)
+                                                                                .pop();
+                                                                          },
+                                                                        ),
+                                                                      ],
+                                                                    );
+                                                                  },
+                                                                );
+                                                              }
                                                             },
                                                           ),
                                                         ),

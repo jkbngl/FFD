@@ -74,6 +74,7 @@
   "email" : "Email",
   "signOut" : "Abmelden",
   "error" : "FEHLER",
+  "warning" : "Warnung",
   "errorMessage" : "Bitte stelle sicher dass du eine aktive Internetverbindung hast und versuche dich ab- und wieder anzumeleden",
   "commentEnterDialog" : "Kommentar für  ",
   "comment" : "Kommentar",
@@ -94,5 +95,10 @@
   "signInGoogleText" : "Mit Google Anmelden",
   "noDataFoundText": "Keine Daten gefunden\nfür:",
   "willBeAddedAsAChildOf": "wird hinzugefügt als Unteraccount von",
+  "errorInputEnterAmount": "Bitte stellen Sie sicher, dass Sie einen Betrag in das Textfeld oben eingeben.",
+  "errorDeleteNoAccountSelected": "Bitte stellen Sie sicher, dass Sie ein Konto auswählen, das gelöscht werden soll",
+  "errorDeleteNoCostTypeSelected": "Bitte stellen Sie sicher, dass Sie einen Kostentyp auswählen, welcher gelöscht werden soll",
+  "errorAddNoNewCostTypeEntered": "Bitte geben Sie einen Namen für die neue Kostentyp ein",
+  "errorAddNoAccountEntered": "Bitte geben Sie einen Namen für das/die neue(n) Konto/Konten ein",
   "Message" : "This is English"
 }

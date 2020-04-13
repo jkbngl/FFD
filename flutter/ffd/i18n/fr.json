@@ -73,6 +73,7 @@
   "email" : "Courriel",
   "signOut" : "Déconnexion",
   "error" : "ERREUR",
+  "warning" : "Avertissement",
   "errorMessage" : "Assurez-vous que vous avez une connexion internet active, et essayez de vous déconnecter et de vous reconnecter",
   "commentEnterDialog" : "Entrez un commentaire pour ",
   "comment" : "commentaire",
@@ -93,5 +94,10 @@
   "signInGoogleText" : "Se connecter avec Google",
   "noDataFoundText" : "Aucune donnée trouvée",
   "willBeAddedAsAChildOf" : "sera ajouté en tant qu'enfant de",
+  "errorInputEnterAmount": "Veuillez vous assurer d'entrer un montant dans le champ de texte en haut",
+  "errorDeleteNoAccountSelected": "Por favor, asegúrese de seleccionar una cuenta que debe ser eliminada",
+  "errorDeleteNoCostTypeSelected": "Veuillez vous assurer de sélectionner un compte qui doit être supprimé",
+  "errorAddNoNewCostTypeEntered": "Veuillez entrer un nom pour le nouveau type de coût",
+  "errorAddNoAccountEntered": "Veuillez saisir un nom pour le(s) nouveau(x) compte(s)",
   "Message" : "Ceci est en anglais"
 }

@@ -74,6 +74,7 @@
   "email" : "Correo electrónico",
   "signOut" : "Firme la salida",
   "error": "ERROR",
+  "warning" : "Advertencia",
   "errorMessage" : "Asegúrate de que tienes una conexión a Internet activa, e intenta desconectarte y volver a conectarte",
   "commentEnterDialog" : "Introduzca un comentario para ",
   "comment" : "comentario",
@@ -94,5 +95,10 @@
   "signInGoogleText" : "Iniciar sesión con Google",
   "noDataFoundText": "No se encontraron datos para:",
   "willBeAddedAsAChildOf": "se añadirá como un hijo de",
+  "errorInputEnterAmount": "Por favor, asegúrese de introducir una cantidad en el campo de texto de la parte superior",
+  "errorDeleteNoAccountSelected": "Por favor, asegúrese de seleccionar una cuenta que debe ser eliminada",
+  "errorDeleteNoCostTypeSelected": "Por favor, asegúrese de seleccionar un tipo de coste que debe ser eliminado",
+  "errorAddNoNewCostTypeEntered": "Por favor, introduzca un nombre para el nuevo tipo de coste",
+  "errorAddNoAccountEntered": "Por favor, introduzca un nombre para la nueva cuenta o cuentas.",
   "Message": "Esto es inglés"
 }
