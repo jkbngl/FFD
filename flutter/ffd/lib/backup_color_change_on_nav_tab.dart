@@ -7384,7 +7384,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             .of(
                                                                             context)
                                                                             .translate(
-                                                                            'errorAddNoNewCostTypeEntered'),
+                                                                            'errorAddNoAccountEntered'),
                                                                         style: TextStyle(
                                                                             fontWeight: FontWeight
                                                                                 .bold,
