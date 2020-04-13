@@ -87,7 +87,7 @@
   "drilldownErrorParent" : "Kein weiteres verknüpftes Konto gefunden",
   "confirmLogout" : "Abmelden Bestätigen",
   "loginText" : "FFD - Anmelden",
-  "page0HelpMessage" : "Dies ist die Zielseite Ihrer App. Hier sehen Sie oben Ihre Ausgaben und Ihr monatliches Budget. Im Kreisdiagramm unter der Ration Ihrer Ausgaben und Ihres Budgets können Sie sie bei Aktivierung des Schalters mit dem gesamten Jahr vergleichen Sie können auch versuchen, den Monat zu ändern. Dies funktioniert auch in Kombination mit dem Ganzjahreswechsel",
+  "page0HelpMessage" : "Dies ist die Zielseite Ihrer App. Hier sehen Sie oben Ihre Ausgaben und Ihr monatliches Budget. Im Kreisdiagramm unter der Ration Ihrer Ausgaben und Ihres Budgets können Sie sie bei Aktivierung des Schalters mit dem gesamten Jahr vergleichen Sie können auch versuchen, den Monat zu ändern. Dies funktioniert auch in Kombination mit dem Ganzjahreswechsel\n\n\nWelche Trends zeigen die Karten:\nAusgaben: Wenn Sie sich den laufenden Monat anschauen, dividiert er den Betrag des letzten Monats durch die Tage des letzten Monats und multipliziert ihn mit der Anzahl der Tage des laufenden Monats. Wenn dieser Betrag größer ist als der Betrag des laufenden Monats, zeigt er einen Abwärtstrend, wenn nicht sogar einen Aufwärtstrend. Wenn Sie einen historischen Monat oder ein Budget beobachten, vergleicht es einfach den Betrag in diesem Monat mit dem Betrag im letzten Monat und zeigt einen Aufwärtstrend, wenn sein Betrag größer ist als der Betrag im laufenden Monat, und einen Abwärtstrend, wenn sein Betrag kleiner ist.",
   "page1HelpMessage" : "FFD - Login",
   "page2HelpMessage" : "FFD - Login",
   "page3HelpMessage" : "FFD - Login",
