@@ -1357,6 +1357,19 @@ class _MyHomePageState extends State<MyHomePage>
         ],
       ),
     );*/
+
+    clearCommentTextFields();
+  }
+
+  clearCommentTextFields()
+  {
+    // #117
+    newAccountLevel1CommentTextFieldController.clear();
+    newAccountLevel2CommentTextFieldController.clear();
+    newAccountLevel3CommentTextFieldController.clear();
+    newCostTypeCommentTextFieldController.clear();
+    actualCommentTextFieldController.clear();
+    budgetCommentTextFieldController.clear();
   }
 
   arrangeAccounts(int level, String type) async {
