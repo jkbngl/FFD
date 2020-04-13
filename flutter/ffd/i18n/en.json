@@ -13,7 +13,7 @@
   "TitleListTab": "History",
   "TextFieldAmountInput": "Enter your amount",
   "DiscardButton": "Discard",
-  "SaveButton": "Save",
+  "saveButton": "Save",
   "submitButton": "Submit",
   "addButton": "Add",
   "ListSearchTextField": "Search for amounts, comments and more",
