@@ -133,7 +133,8 @@ class ChartObject {
   double budgetEntry;
   final charts.Color color;
 
-  ChartObject(this.accountName, this.amount, this.accountId, this.accountLevel, this.budgetEntry,
+  ChartObject(this.accountName, this.amount, this.accountId, this.accountLevel,
+      this.budgetEntry,
       this.color);
 }
 
@@ -337,7 +338,7 @@ class _MyHomePageState extends State<MyHomePage>
   ];
 
   var visualizerTargetData = [
-    ChartObject("1-25", 10, -69, -69,  -69,
+    ChartObject("1-25", 10, -69, -69, -69,
         charts.ColorUtil.fromDartColor(Color(0xff003680))),
   ];
 
@@ -682,22 +683,33 @@ class _MyHomePageState extends State<MyHomePage>
                 amounts['level${level_type.toString()}_fk'],
                 level_type,
                 // #116
-                visualizerTargetData.firstWhere(
-                        (itemToCheck) => itemToCheck.accountName == amounts['level$level_type'].toString() && itemToCheck.accountLevel == level_type,
-                    orElse: () => ChartObject("1-25", 10, -69, -69,  -69,
-                        charts.ColorUtil.fromDartColor(Color(0xff003680)))).amount,
+                visualizerTargetData
+                    .firstWhere(
+                        (itemToCheck) =>
+                    itemToCheck.accountName ==
+                        amounts['level$level_type'].toString() &&
+                        itemToCheck.accountLevel == level_type,
+                    orElse: () =>
+                        ChartObject("1-25", 10, -69, -69, -69,
+                            charts.ColorUtil.fromDartColor(Color(0xff003680))))
+                    .amount,
                 charts.ColorUtil.fromDartColor(Color(0xff003680))));
           }
         }
       }
 
-      for(ChartObject item in visualizerData){
-        if(item.budgetEntry < 0)
-        {
-          item.budgetEntry = visualizerTargetData.firstWhere(
-                  (itemToCheck) => itemToCheck.accountName == item.accountName && itemToCheck.accountLevel == item.accountLevel,
-              orElse: () => ChartObject("1-25", 10, -69, -69,  -69,
-                  charts.ColorUtil.fromDartColor(Color(0xff003680)))).amount;
+      for (ChartObject item in visualizerData) {
+        if (item.budgetEntry < 0) {
+          item.budgetEntry = visualizerTargetData
+              .firstWhere(
+                  (itemToCheck) =>
+              itemToCheck.accountName == item.accountName &&
+                  itemToCheck.accountLevel == item.accountLevel,
+              orElse: () =>
+                  ChartObject("1-25", -69, -69, -69, -69,
+                      charts.ColorUtil.fromDartColor(Color(0xff003680))))
+              .amount;
+
           print(item.accountName);
         }
       }
@@ -1386,8 +1398,7 @@ class _MyHomePageState extends State<MyHomePage>
     clearCommentTextFields();
   }
 
-  clearCommentTextFields()
-  {
+  clearCommentTextFields() {
     // #117
     newAccountLevel1CommentTextFieldController.clear();
     newAccountLevel2CommentTextFieldController.clear();
