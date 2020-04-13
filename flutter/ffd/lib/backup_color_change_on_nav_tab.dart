@@ -6048,6 +6048,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                           setState(() {
                                                             costTypeObjectVisualizer =
                                                             costTypesList[0];
+
+                                                            // #140
+                                                            loadAmount();
                                                           });
                                                         },
                                                         onChanged: (
