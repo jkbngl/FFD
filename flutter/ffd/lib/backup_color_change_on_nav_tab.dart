@@ -7311,6 +7311,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 'enterNewCostTypeNameTextField'),
                                                             hintStyle: TextStyle(
                                                                 height: 1.75,
+                                                                fontSize: 12,
                                                                 color: Color(
                                                                     0xff0957FF)),
 
