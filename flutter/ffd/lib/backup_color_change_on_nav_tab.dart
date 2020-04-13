@@ -6048,9 +6048,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                       '${sales
                                                           .accountName}: ${sales
                                                           .amount
-                                                          .toString()}€ / ${sales
+                                                          .toString()}€ ${sales.budgetEntry > 0 ? ' / ' + sales
                                                           .budgetEntry
-                                                          .toString()}€',
+                                                          .toString(): ''}€',
                                                       data: visualizerData),
                                                   charts.Series<
                                                       ChartObject,
