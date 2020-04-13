@@ -130,9 +130,10 @@ class ChartObject {
   double amount;
   int accountId;
   int accountLevel;
+  double budgetEntry;
   final charts.Color color;
 
-  ChartObject(this.accountName, this.amount, this.accountId, this.accountLevel,
+  ChartObject(this.accountName, this.amount, this.accountId, this.accountLevel, this.budgetEntry,
       this.color);
 }
 
@@ -331,12 +332,12 @@ class _MyHomePageState extends State<MyHomePage>
   var parsedBudgetComparison = 0.00;
 
   var visualizerData = [
-    ChartObject("1-25", 10, -69, -69,
+    ChartObject("1-25", 10, -69, -69, -69,
         charts.ColorUtil.fromDartColor(Color(0xff0957FF))),
   ];
 
   var visualizerTargetData = [
-    ChartObject("1-25", 10, -69, -69,
+    ChartObject("1-25", 10, -69, -69,  -69,
         charts.ColorUtil.fromDartColor(Color(0xff003680))),
   ];
 
@@ -604,7 +605,7 @@ class _MyHomePageState extends State<MyHomePage>
     String _type = '';
     String uri = '';
 
-    ChartObject needsToBeAdded = ChartObject('DUMMY', -99, -69, -69,
+    ChartObject needsToBeAdded = ChartObject('DUMMY', -99, -69, -69, -69,
         charts.ColorUtil.fromDartColor(Color(0xff003680)));
 
     var params = {
@@ -638,6 +639,7 @@ class _MyHomePageState extends State<MyHomePage>
             amounts['sum'],
             amounts['level${level_type.toString()}_fk'],
             level_type,
+            -69,
             charts.ColorUtil.fromDartColor(Color(0xff003680))));
       }
 
@@ -652,19 +654,26 @@ class _MyHomePageState extends State<MyHomePage>
                   amounts['level$level_type'].toString(),
               orElse: () => null);
 
+          // Has already been added as an expense and therefore needs only to be added to the budget column
           if (needsToBeAdded != null) {
             visualizerTargetData.add(ChartObject(
                 amounts['level$level_type'].toString(),
                 amounts['sum'],
                 amounts['level${level_type.toString()}_fk'],
                 level_type,
+                // #116
+                -69,
                 charts.ColorUtil.fromDartColor(Color(0xff003680))));
-          } else {
+          }
+          // Has not been added as an expense and therefore is added as an expense with an amount of zero
+          else {
             visualizerTargetData.add(ChartObject(
                 amounts['level$level_type'].toString(),
                 amounts['sum'],
                 amounts['level${level_type.toString()}_fk'],
                 level_type,
+                // #116
+                -69,
                 charts.ColorUtil.fromDartColor(Color(0xff003680))));
 
             visualizerData.add(ChartObject(
@@ -672,8 +681,24 @@ class _MyHomePageState extends State<MyHomePage>
                 0,
                 amounts['level${level_type.toString()}_fk'],
                 level_type,
+                // #116
+                visualizerTargetData.firstWhere(
+                        (itemToCheck) => itemToCheck.accountName == amounts['level$level_type'].toString() && itemToCheck.accountLevel == level_type,
+                    orElse: () => ChartObject("1-25", 10, -69, -69,  -69,
+                        charts.ColorUtil.fromDartColor(Color(0xff003680)))).amount,
                 charts.ColorUtil.fromDartColor(Color(0xff003680))));
           }
+        }
+      }
+
+      for(ChartObject item in visualizerData){
+        if(item.budgetEntry < 0)
+        {
+          item.budgetEntry = visualizerTargetData.firstWhere(
+                  (itemToCheck) => itemToCheck.accountName == item.accountName && itemToCheck.accountLevel == item.accountLevel,
+              orElse: () => ChartObject("1-25", 10, -69, -69,  -69,
+                  charts.ColorUtil.fromDartColor(Color(0xff003680)))).amount;
+          print(item.accountName);
         }
       }
 
@@ -6012,6 +6037,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                       '${sales
                                                           .accountName}: ${sales
                                                           .amount
+                                                          .toString()}€ / ${sales
+                                                          .budgetEntry
                                                           .toString()}€',
                                                       data: visualizerData),
                                                   charts.Series<
