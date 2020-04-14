@@ -68,6 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                     Icon(Icons.account_balance_wallet, color: Colors.grey[800])
                   ]),
               SizedBox(height: 50),
+              //CircularProgressIndicator(backgroundColor: Colors.grey[800],),
               _signInButton(),
             ],
           ),

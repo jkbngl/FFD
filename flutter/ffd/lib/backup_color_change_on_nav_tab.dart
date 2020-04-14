@@ -1797,6 +1797,7 @@ class _MyHomePageState extends State<MyHomePage>
       TextEditingController dependingController,
       TextEditingController dependingController2,
       TextEditingController dependingController3) async {
+
     // cache the name of the entered level1 or costtype to display it in the title of the comment dialog
     var level1OrCostTypeName = type != 'actual' && type != 'budget'
         ? dependingController.text
@@ -1817,6 +1818,9 @@ class _MyHomePageState extends State<MyHomePage>
         type == 'actual' ||
         type == 'budget' ||
         newLevel1TextFieldController.text.length > 0) {
+
+      print("trying to enter a comment for a new level 1, amongst other");
+
       await showDialog(
           context: context,
           builder: (context) {
@@ -1893,9 +1897,14 @@ class _MyHomePageState extends State<MyHomePage>
               ],
             );
           });
+    } else {
+      print("No comment for new level1 needed");
     }
 
     if (dependingController2 != null && dependingController2.text.length > 0) {
+      print("trying to input comment for level 2");
+
+
       await showDialog(
           context: context,
           builder: (context) {
@@ -1959,6 +1968,8 @@ class _MyHomePageState extends State<MyHomePage>
               ],
             );
           });
+    } else {
+      print("skipped input of level 2");
     }
 
     if (dependingController3 != null && dependingController3.text.length > 0) {
@@ -7384,7 +7395,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                               0
                                                                                               ? level2AdminObject
                                                                                               .name
-                                                                                              : '')} > '
+                                                                                              : '')}'
                                                                                               /*'${newLevel3TextFieldController
                                                                                               .text
                                                                                               .length >
@@ -7461,17 +7472,22 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                     .translate(
                                                                                     'addButton')),
                                                                             onPressed: () {
-                                                                              Navigator
-                                                                                  .of(
-                                                                                  context)
-                                                                                  .pop()
-                                                                              ;
+
+
                                                                               commentInput(
                                                                                   context,
                                                                                   'account',
                                                                                   newLevel1TextFieldController,
                                                                                   newLevel2TextFieldController,
                                                                                   newLevel3TextFieldController);
+
+                                                                              /*
+                                                                              Navigator
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .pop();
+                                                                              */
+
                                                                             },
                                                                           ),
                                                                         ],
