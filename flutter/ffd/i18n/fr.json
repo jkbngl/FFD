@@ -9,6 +9,7 @@
   "titlePieChart" : "Dépenses vs. budget",
   "FullYearSwitch" : "Année complète",
   "AllTimeSwitch" : "tout le temps",
+  "scheduleSwitch": "Reprogrammer cette entrée",
   "TitleInputTab" : "Entrée",
   "TitleListTab" : "Histoire",
   "TextFieldAmountInput" : "Entrez votre montant",

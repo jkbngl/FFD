@@ -9,6 +9,7 @@
   "titlePieChart": "Expenses vs. Budget",
   "FullYearSwitch": "Full Year",
   "AllTimeSwitch": "All Time",
+  "scheduleSwitch": "Reschedule this entry",
   "TitleInputTab": "Input",
   "TitleListTab": "History",
   "TextFieldAmountInput": "Enter your amount",

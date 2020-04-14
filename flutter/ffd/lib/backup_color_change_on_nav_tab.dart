@@ -1797,7 +1797,6 @@ class _MyHomePageState extends State<MyHomePage>
       TextEditingController dependingController,
       TextEditingController dependingController2,
       TextEditingController dependingController3) async {
-
     // cache the name of the entered level1 or costtype to display it in the title of the comment dialog
     var level1OrCostTypeName = type != 'actual' && type != 'budget'
         ? dependingController.text
@@ -1818,85 +1817,179 @@ class _MyHomePageState extends State<MyHomePage>
         type == 'actual' ||
         type == 'budget' ||
         newLevel1TextFieldController.text.length > 0) {
-
       print("trying to enter a comment for a new level 1, amongst other");
 
-      await showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              //Enter a comment for '
-
-              title: Center(
-                child: RichText(
-                  text: TextSpan(
-                      text: AppLocalizations.of(context).translate(
-                          'commentEnterDialog'),
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: '$level1OrCostTypeName',
-                          style:
-                          TextStyle(color: Color(0xFF0957FF), fontSize: 18),
+      if (type == 'actual' || type == 'budget') {
+        await showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Center(
+                  child: RichText(
+                    text: TextSpan(
+                        text: AppLocalizations.of(context).translate(
+                            'commentEnterDialog'),
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: '$level1OrCostTypeName',
+                            style:
+                            TextStyle(color: Color(0xFF0957FF), fontSize: 18),
+                          )
+                        ]),
+                  ),
+                ),
+                content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      TextField(
+                        controller: dependingController,
+                        decoration: InputDecoration(
+                            hintText: AppLocalizations.of(context).translate(
+                                'comment')),
+                      ),
+                      Row(
+                        children: <Widget>[Switch(
+                        value: showFullYearHome,
+                        onChanged: (value) {
+                          setState(() {
+                            showFullYearHome = value;
+                            loadHomescreen();
+                          });
+                        },
+                        activeTrackColor: Color(
+                            0xffEEEEEE),
+                        activeColor: Color(0xff0957FF),
+                      ),
+                        Text(
+                          AppLocalizations.of(context)
+                              .translate(
+                              'scheduleSwitch'),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: Colors.grey[800],
+                              fontWeight: FontWeight.w900,
+                              fontSize: 15),
                         )
-                      ]),
-                ),
-              ),
-              content:
-                    TextField(
-                      controller: dependingController,
-                      decoration: InputDecoration(
-                          hintText: AppLocalizations.of(context).translate(
-                              'comment')),
-                    ),
-              actions: <Widget>[
-                new FlatButton(
-                  child: new Text(
-                      AppLocalizations.of(context).translate('cancel')),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                new FlatButton(
-                  child: new Text(
-                      AppLocalizations.of(context).translate('skip')),
-                  onPressed: () {
-                    if (type == 'actual') {
-                      sendBackend('actual', false);
-                    } else if (type == 'budget') {
-                      sendBackend('budget', false);
-                    } else if (type != 'account') {
-                      sendBackend('new${type}add', false);
-                    } else if (dependingController2.text.length <= 0) {
-                      sendBackend('new${type}add', false);
-                    }
+                      ],)
+                    ]),
+                actions: <Widget>[
+                  new FlatButton(
+                    child: new Text(
+                        AppLocalizations.of(context).translate('cancel')),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  new FlatButton(
+                    child: new Text(
+                        AppLocalizations.of(context).translate('skip')),
+                    onPressed: () {
+                      if (type == 'actual') {
+                        sendBackend('actual', false);
+                      } else if (type == 'budget') {
+                        sendBackend('budget', false);
+                      } else if (type != 'account') {
+                        sendBackend('new${type}add', false);
+                      } else if (dependingController2.text.length <= 0) {
+                        sendBackend('new${type}add', false);
+                      }
 
-                    Navigator.of(context).pop();
-                  },
-                ),
-                new FlatButton(
-                  child: new Text(
-                      AppLocalizations.of(context).translate('addButton')),
-                  onPressed: () {
-                    if (type == 'actual') {
-                      sendBackend('actual', false);
-                    } else if (type == 'budget') {
-                      sendBackend('budget', false);
-                    } else if (type != 'account') {
-                      sendBackend('new${type}add', false);
-                    } else if (dependingController2.text.length <= 0) {
-                      sendBackend('new${type}add', false);
-                    }
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  new FlatButton(
+                    child: new Text(
+                        AppLocalizations.of(context).translate('addButton')),
+                    onPressed: () {
+                      if (type == 'actual') {
+                        sendBackend('actual', false);
+                      } else if (type == 'budget') {
+                        sendBackend('budget', false);
+                      }
 
-                    Navigator.of(context).pop();
-                  },
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            });
+      } else {
+        await showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Center(
+                  child: RichText(
+                    text: TextSpan(
+                        text: AppLocalizations.of(context).translate(
+                            'commentEnterDialog'),
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: '$level1OrCostTypeName',
+                            style:
+                            TextStyle(color: Color(0xFF0957FF), fontSize: 18),
+                          )
+                        ]),
+                  ),
                 ),
-              ],
-            );
-          });
+                content: TextField(
+                  controller: dependingController,
+                  decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context).translate(
+                          'comment')),
+                ),
+                actions: <Widget>[
+                  new FlatButton(
+                    child: new Text(
+                        AppLocalizations.of(context).translate('cancel')),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  new FlatButton(
+                    child: new Text(
+                        AppLocalizations.of(context).translate('skip')),
+                    onPressed: () {
+                      if (type != 'account') {
+                        sendBackend('new${type}add', false);
+                      } else if (dependingController2.text.length <= 0) {
+                        sendBackend('new${type}add', false);
+                      }
+
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  new FlatButton(
+                    child: new Text(
+                        AppLocalizations.of(context).translate('addButton')),
+                    onPressed: () {
+                      if (type == 'actual') {
+                        sendBackend('actual', false);
+                      } else if (type == 'budget') {
+                        sendBackend('budget', false);
+                      } else if (type != 'account') {
+                        sendBackend('new${type}add', false);
+                      } else if (dependingController2.text.length <= 0) {
+                        sendBackend('new${type}add', false);
+                      }
+
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            });
+      }
     } else {
       print("No comment for new level1 needed");
     }
@@ -7335,7 +7428,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                     .length >
                                                                                     0
                                                                                     ? (newLevel1TextFieldController
-                                                                                    .text + " > ")
+                                                                                    .text +
+                                                                                    " > ")
                                                                                     : ""}'
                                                                                     '${newLevel2TextFieldController
                                                                                     .text
@@ -7396,7 +7490,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                               ? level2AdminObject
                                                                                               .name
                                                                                               : '')}'
-                                                                                              /*'${newLevel3TextFieldController
+                                                                                          /*'${newLevel3TextFieldController
                                                                                               .text
                                                                                               .length >
                                                                                               0
@@ -7472,8 +7566,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                     .translate(
                                                                                     'addButton')),
                                                                             onPressed: () {
-
-
                                                                               commentInput(
                                                                                   context,
                                                                                   'account',
@@ -7481,12 +7573,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                   newLevel2TextFieldController,
                                                                                   newLevel3TextFieldController);
 
-                                                                              /*
-                                                                              Navigator
-                                                                                  .of(
-                                                                                  context)
-                                                                                  .pop();
-                                                                              */
+                                                                              //Navigator.pop(context);
+
 
                                                                             },
                                                                           ),
