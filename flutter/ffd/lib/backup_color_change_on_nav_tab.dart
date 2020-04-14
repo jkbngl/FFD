@@ -1428,7 +1428,9 @@ class _MyHomePageState extends State<MyHomePage>
     showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
+          return StatefulBuilder(
+              builder: (context, setState) {
+                return AlertDialog(
             title: Center(
               child: RichText(
                 text: TextSpan(
@@ -1457,6 +1459,9 @@ class _MyHomePageState extends State<MyHomePage>
                       value: scheduleYear,
                       onChanged: (value) {
                         setState(() {
+                          scheduleMonth = false;
+                          scheduleWeek = false;
+                          scheduleDay = false;
                           scheduleYear = value;
                         });
                       },
@@ -1481,6 +1486,10 @@ class _MyHomePageState extends State<MyHomePage>
                       value: scheduleMonth,
                       onChanged: (value) {
                         setState(() {
+                          scheduleYear = false;
+                          scheduleWeek = false;
+                          scheduleDay = false;
+
                           scheduleMonth = value;
                         });
                       },
@@ -1505,6 +1514,10 @@ class _MyHomePageState extends State<MyHomePage>
                       value: scheduleWeek,
                       onChanged: (value) {
                         setState(() {
+                          scheduleYear = false;
+                          scheduleMonth = false;
+                          scheduleDay = false;
+
                           scheduleWeek = value;
                         });
                       },
@@ -1529,6 +1542,10 @@ class _MyHomePageState extends State<MyHomePage>
                       value: scheduleDay,
                       onChanged: (value) {
                         setState(() {
+                          scheduleYear = false;
+                          scheduleMonth = false;
+                          scheduleWeek = false;
+
                           scheduleDay = value;
                         });
                       },
@@ -1631,7 +1648,7 @@ class _MyHomePageState extends State<MyHomePage>
                 },
               ),
             ],
-          );
+          );});
         });
   }
 
