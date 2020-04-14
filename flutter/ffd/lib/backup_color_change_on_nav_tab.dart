@@ -1453,6 +1453,56 @@ class _MyHomePageState extends State<MyHomePage>
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+                        Text(
+                          AppLocalizations.of(context)
+                              .translate(
+                              'forTheNext'),
+                          maxLines: 3,
+                          textAlign: TextAlign.left,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: Colors.grey[800],
+                              fontWeight: FontWeight.w900,
+                              fontSize: 15),
+                        ),
+                        Flexible(
+                            child: TextFormField(
+                              keyboardType:
+                              TextInputType.number,
+                              //keyboard with numbers only will appear to the screen
+                              style: TextStyle(
+                                  height: 2),
+                              controller:
+                              scheduleAmountTextFieldController,
+                              decoration: InputDecoration(
+                                // hintText: 'Enter ur amount',
+                                //hintStyle: TextStyle(height: 1.75),
+                                  labelText: AppLocalizations
+                                      .of(context)
+                                      .translate(
+                                      'scheduleExample'),
+                                  labelStyle: TextStyle(
+                                      fontSize: 13,
+                                      ),
+                                  //increases the height of cursor
+                                  //prefixIcon: Icon(Icons.attach_money),
+                                  //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                  enabledBorder:
+                                  new UnderlineInputBorder()),
+                            )),
+                        SizedBox(height: 10,),
+                        Text(
+                          AppLocalizations.of(context)
+                              .translate(
+                              'interval'),
+                          maxLines: 3,
+                          textAlign: TextAlign.left,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: Colors.grey[800],
+                              fontWeight: FontWeight.w900,
+                              fontSize: 15),
+                        ),
                         Row(
                           children: <Widget>[Switch(
                             value: scheduleYear,
@@ -1483,20 +1533,20 @@ class _MyHomePageState extends State<MyHomePage>
                         Row(
                           children: <Widget>[
                             Switch(
-                            value: scheduleMonth,
-                            onChanged: (value) {
-                              setState(() {
-                                scheduleYear = false;
-                                scheduleWeek = false;
-                                scheduleDay = false;
+                              value: scheduleMonth,
+                              onChanged: (value) {
+                                setState(() {
+                                  scheduleYear = false;
+                                  scheduleWeek = false;
+                                  scheduleDay = false;
 
-                                scheduleMonth = value;
-                              });
-                            },
-                            activeTrackColor: Color(
-                                0xffEEEEEE),
-                            activeColor: Color(0xff0957FF),
-                          ),
+                                  scheduleMonth = value;
+                                });
+                              },
+                              activeTrackColor: Color(
+                                  0xffEEEEEE),
+                              activeColor: Color(0xff0957FF),
+                            ),
                             Text(
                               AppLocalizations.of(context)
                                   .translate(
@@ -1566,49 +1616,6 @@ class _MyHomePageState extends State<MyHomePage>
                                   fontSize: 15),
                             )
                           ],),
-                        Text(
-                          AppLocalizations.of(context)
-                              .translate(
-                              'forTheNext'),
-                          maxLines: 3,
-                          textAlign: TextAlign.left,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              color: Colors.grey[800],
-                              fontWeight: FontWeight.w900,
-                              fontSize: 15),
-                        ),
-                        Flexible(
-                            child: TextFormField(
-                              keyboardType:
-                              TextInputType.number,
-                              //keyboard with numbers only will appear to the screen
-                              style: TextStyle(
-                                  height: 2),
-                              controller:
-                              scheduleAmountTextFieldController,
-                              decoration: InputDecoration(
-                                // hintText: 'Enter ur amount',
-                                //hintStyle: TextStyle(height: 1.75),
-                                  labelText: AppLocalizations
-                                      .of(context)
-                                      .translate(
-                                      'scheduleExample'),
-                                  labelStyle: TextStyle(
-                                      height: 0.5,
-                                      color: Color(
-                                          0xff0957FF)),
-                                  //increases the height of cursor
-                                  //prefixIcon: Icon(Icons.attach_money),
-                                  //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                  enabledBorder:
-                                  new UnderlineInputBorder(
-                                      borderSide:
-                                      new BorderSide(
-                                          color: Color(
-                                              0xff0957FF)))),
-                            )),
-
                       ]),
                   actions: <Widget>[
                     new FlatButton(

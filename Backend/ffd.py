@@ -581,8 +581,10 @@ def send():
         savePreferences(data, userId)
     elif data['type'].lower() == 'actlistdelete':
         deleteEntry('actual', data, userId)
-    elif data['type'].lower() == 'bdglistdelete':
-        deleteEntry('budget', data, userId)
+    elif data['type'].lower() == 'actualschedule':
+        sendSchedule(data, userId)
+    elif data['type'].lower() == 'budgetschedule':
+        sendSchedule(data, userId)
     
 
     data['status'] = 'success'
@@ -630,6 +632,22 @@ def sendActual(data, userId):
     connection.commit()
     cursor.close()
     connection.close()
+
+def sendSchedule(data, userId):
+
+    amountOfSchedules = int(data['scheduleInterval'])
+
+    logging.critical(data['scheduleYear'])
+    logging.critical(data['scheduleMonth'])
+    logging.critical(data['scheduleWeek'])
+    logging.critical(data['scheduleDay'])
+    logging.critical(data['scheduleInterval'])
+
+    for i in range(0, amountOfSchedules):
+        pass
+        #sendActual()
+
+
 
 def savePreferences(data, userId):
     connection = connect()

@@ -17,6 +17,7 @@
   "day": "Day",
   "scheduleExample": "E.g. 5",
   "forTheNext": "For the next: ",
+  "interval": "Intervall: ",
   "TitleInputTab": "Input",
   "TitleListTab": "History",
   "TextFieldAmountInput": "Enter your amount",
