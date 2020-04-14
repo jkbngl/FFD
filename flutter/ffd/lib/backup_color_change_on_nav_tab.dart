@@ -374,6 +374,17 @@ class _MyHomePageState extends State<MyHomePage>
   bool showAllTimeHome = false;
   bool showAllTime = false;
 
+  // bools for scheduling of multiple entries
+  bool scheduleEntries = false;
+  bool scheduleYear = false;
+  bool scheduleMonth = false;
+  bool scheduleWeek = false;
+  bool scheduleDay = false;
+  final scheduleAmountTextFieldController = TextEditingController();
+
+
+
+
   // Controllers used which store the value of the new accounts/ CostTypes added
   final newLevel1TextFieldController = TextEditingController();
   final newLevel2TextFieldController = TextEditingController();
@@ -1350,6 +1361,11 @@ class _MyHomePageState extends State<MyHomePage>
       'arelevel3accountsactive': areLevel3AccountsActive.toString(),
       'actlistitemtodelete': actObjectToDelete.id.toString(),
       'bdglistitemtodelete': bdgObjectToDelete.id.toString(),
+      'scheduleYear': scheduleYear.toString(),
+      'scheduleMonth': scheduleMonth.toString(),
+      'scheduleWeek': scheduleWeek.toString(),
+      'scheduleDay': scheduleDay.toString(),
+      'scheduleInterval': scheduleAmountTextFieldController.text,
       'status': 'IP',
       'mailFrontend': email,
       'group': '-1',
@@ -1374,10 +1390,20 @@ class _MyHomePageState extends State<MyHomePage>
       loadList('actual', actualListSortColumn, actualListSortType);
       loadHomescreen();
       loadAmount();
+
+      if (scheduleEntries) {
+        showScheduleDialog(type);
+        scheduleEntries = false;
+      }
     } else if (type == 'bdglistdelete' || type == 'budget') {
       loadList('budget', budgetListSortColumn, budgetListSortType);
       loadHomescreen();
       loadAmount();
+
+      if (scheduleEntries) {
+        showScheduleDialog(type);
+        scheduleEntries = false;
+      }
     }
 
     /*
@@ -1396,6 +1422,217 @@ class _MyHomePageState extends State<MyHomePage>
     );*/
 
     clearCommentTextFields();
+  }
+
+  showScheduleDialog(String type) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Center(
+              child: RichText(
+                text: TextSpan(
+                    text: AppLocalizations.of(context).translate(
+                        'enterAgain'),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: AppLocalizations.of(context).translate(
+                            'enterAgain'),
+                        style:
+                        TextStyle(color: Color(0xFF0957FF), fontSize: 18),
+                      )
+                    ]),
+              ),
+            ),
+            content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[Switch(
+                      value: scheduleYear,
+                      onChanged: (value) {
+                        setState(() {
+                          scheduleYear = value;
+                        });
+                      },
+                      activeTrackColor: Color(
+                          0xffEEEEEE),
+                      activeColor: Color(0xff0957FF),
+                    ),
+                      Text(
+                        AppLocalizations.of(context)
+                            .translate(
+                            'year'),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: Colors.grey[800],
+                            fontWeight: FontWeight.w900,
+                            fontSize: 15),
+                      )
+                    ],),
+                  Row(
+                    children: <Widget>[Switch(
+                      value: scheduleMonth,
+                      onChanged: (value) {
+                        setState(() {
+                          scheduleMonth = value;
+                        });
+                      },
+                      activeTrackColor: Color(
+                          0xffEEEEEE),
+                      activeColor: Color(0xff0957FF),
+                    ),
+                      Text(
+                        AppLocalizations.of(context)
+                            .translate(
+                            'month'),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: Colors.grey[800],
+                            fontWeight: FontWeight.w900,
+                            fontSize: 15),
+                      )
+                    ],),
+                  Row(
+                    children: <Widget>[Switch(
+                      value: scheduleWeek,
+                      onChanged: (value) {
+                        setState(() {
+                          scheduleWeek = value;
+                        });
+                      },
+                      activeTrackColor: Color(
+                          0xffEEEEEE),
+                      activeColor: Color(0xff0957FF),
+                    ),
+                      Text(
+                        AppLocalizations.of(context)
+                            .translate(
+                            'week'),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: Colors.grey[800],
+                            fontWeight: FontWeight.w900,
+                            fontSize: 15),
+                      )
+                    ],)
+                  , Row(
+                    children: <Widget>[Switch(
+                      value: scheduleDay,
+                      onChanged: (value) {
+                        setState(() {
+                          scheduleDay = value;
+                        });
+                      },
+                      activeTrackColor: Color(
+                          0xffEEEEEE),
+                      activeColor: Color(0xff0957FF),
+                    ),
+                      Text(
+                        AppLocalizations.of(context)
+                            .translate(
+                            'day'),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: Colors.grey[800],
+                            fontWeight: FontWeight.w900,
+                            fontSize: 15),
+                      )
+                    ],),
+                  Text(
+                    AppLocalizations.of(context)
+                        .translate(
+                        'forTheNext'),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color: Colors.grey[800],
+                        fontWeight: FontWeight.w900,
+                        fontSize: 15),
+                  ),
+                  Container(
+                    padding: const EdgeInsets
+                        .only(
+                        left: 30.0,
+                        top: 0,
+                        right: 30,
+                        bottom: 0),
+                    //color: Colors.blue[600],
+                    alignment: Alignment
+                        .center,
+                    //child: Text('Submit'),
+                    child: TextFormField(
+                      keyboardType:
+                      TextInputType.number,
+                      //keyboard with numbers only will appear to the screen
+                      style: TextStyle(
+                          height: 2),
+                      //increases the height of cursor
+                      //autofocus: true,
+                      controller:
+                      scheduleAmountTextFieldController,
+                      decoration: InputDecoration(
+                        // hintText: 'Enter ur amount',
+                        //hintStyle: TextStyle(height: 1.75),
+                          labelText: AppLocalizations
+                              .of(context)
+                              .translate(
+                              'scheduleExample'),
+                          labelStyle: TextStyle(
+                              height: 0.5,
+                              color: Color(
+                                  0xff0957FF)),
+                          //increases the height of cursor
+                          icon: Icon(
+                            Icons
+                                .refresh,
+                            color: Color(
+                                0xff0957FF),
+                          ),
+                          //prefixIcon: Icon(Icons.attach_money),
+                          //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                          enabledBorder:
+                          new UnderlineInputBorder(
+                              borderSide:
+                              new BorderSide(
+                                  color: Color(
+                                      0xff0957FF)))),
+                    ),
+                  ),
+                ]),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text(
+                    AppLocalizations.of(context).translate('cancel')),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                child: new Text(
+                    AppLocalizations.of(context).translate('addButton')),
+                onPressed: () {
+                  if (type == 'actual') {
+                    sendBackend('actualschedule', false);
+                  } else if (type == 'budget') {
+                    sendBackend('budgetschedule', false);
+                  }
+
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
 
   clearCommentTextFields() {
@@ -1854,29 +2091,28 @@ class _MyHomePageState extends State<MyHomePage>
                       ),
                       Row(
                         children: <Widget>[Switch(
-                        value: showFullYearHome,
-                        onChanged: (value) {
-                          setState(() {
-                            showFullYearHome = value;
-                            loadHomescreen();
-                          });
-                        },
-                        activeTrackColor: Color(
-                            0xffEEEEEE),
-                        activeColor: Color(0xff0957FF),
-                      ),
-                        Text(
-                          AppLocalizations.of(context)
-                              .translate(
-                              'scheduleSwitch'),
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              color: Colors.grey[800],
-                              fontWeight: FontWeight.w900,
-                              fontSize: 15),
-                        )
-                      ],)
+                          value: scheduleEntries,
+                          onChanged: (value) {
+                            setState(() {
+                              scheduleEntries = value;
+                            });
+                          },
+                          activeTrackColor: Color(
+                              0xffEEEEEE),
+                          activeColor: Color(0xff0957FF),
+                        ),
+                          Text(
+                            AppLocalizations.of(context)
+                                .translate(
+                                'scheduleSwitch'),
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: Colors.grey[800],
+                                fontWeight: FontWeight.w900,
+                                fontSize: 15),
+                          )
+                        ],)
                     ]),
                 actions: <Widget>[
                   new FlatButton(
