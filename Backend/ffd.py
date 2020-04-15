@@ -666,10 +666,11 @@ def sendSchedule(data, userId):
         logging.critical(data['year'])
         logging.critical(data['month'])
         
-        if(data['type'] == 'actualschedule'):
+        # Add a SCHEDULE to the end of the comment to make sure that people understand that it was auto scheduled, only the first time though
+        if(data['type'] == 'actualschedule' and i == 1):
             data['actualcomment'] += ' - SCHEDULED'
             sendActual(data, userId)
-        elif(data['type'] == 'budgetschedule'):
+        elif(data['type'] == 'budgetschedule' and i == 1):
             data['budgetcomment'] += ' - SCHEDULED'
             sendBudget(data, userId)
 
