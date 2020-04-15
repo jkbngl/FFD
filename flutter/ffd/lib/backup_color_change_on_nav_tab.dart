@@ -2381,6 +2381,10 @@ class _MyHomePageState extends State<MyHomePage>
             );
           });
     }
+
+
+    // Test #145 - works perfect, closes the accountInputExplainDialog (showing in the background) after all comments were entered
+    Navigator.of(context, rootNavigator: true).pop();
   }
 
   getHelpTextByIndex(int index) {
