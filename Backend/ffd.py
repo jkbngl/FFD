@@ -582,6 +582,8 @@ def send():
         savePreferences(data, userId)
     elif data['type'].lower() == 'actlistdelete':
         deleteEntry('actual', data, userId)
+    elif data['type'].lower() == 'bdglistdelete':
+        deleteEntry('budget', data, userId)
     elif data['type'].lower() == 'actualschedule':
         sendSchedule(data, userId)
     elif data['type'].lower() == 'budgetschedule':
