@@ -1384,7 +1384,8 @@ class _MyHomePageState extends State<MyHomePage>
     }
 
     // When an entry was deleted or restored, or a new entry was made in the input page
-    if (type == 'actlistdelete' || type == 'actual' || type == 'actualschedule') {
+    if (type == 'actlistdelete' || type == 'actual' ||
+        type == 'actualschedule') {
       loadList('actual', actualListSortColumn, actualListSortType);
       loadHomescreen();
       loadAmount();
@@ -1393,7 +1394,8 @@ class _MyHomePageState extends State<MyHomePage>
         showScheduleDialog(type);
         scheduleEntries = false;
       }
-    } else if (type == 'bdglistdelete' || type == 'budget' || type == 'budgetschedule') {
+    } else if (type == 'bdglistdelete' || type == 'budget' ||
+        type == 'budgetschedule') {
       loadList('budget', budgetListSortColumn, budgetListSortType);
       loadHomescreen();
       loadAmount();
@@ -1448,175 +1450,185 @@ class _MyHomePageState extends State<MyHomePage>
                           ]),
                     ),
                   ),
-                  content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          AppLocalizations.of(context)
-                              .translate(
-                              'forTheNext'),
-                          maxLines: 3,
-                          textAlign: TextAlign.left,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              color: Colors.grey[800],
-                              fontWeight: FontWeight.w900,
-                              fontSize: 15),
-                        ),
-                        Flexible(
-                            child: TextFormField(
-                              keyboardType:
-                              TextInputType.number,
-                              //keyboard with numbers only will appear to the screen
-                              style: TextStyle(
-                                  height: 2),
-                              controller:
-                              scheduleAmountTextFieldController,
-                              decoration: InputDecoration(
-                                // hintText: 'Enter ur amount',
-                                //hintStyle: TextStyle(height: 1.75),
-                                  labelText: AppLocalizations
-                                      .of(context)
-                                      .translate(
-                                      'scheduleExample'),
-                                  labelStyle: TextStyle(
-                                      fontSize: 13,
-                                      ),
-                                  //increases the height of cursor
-                                  //prefixIcon: Icon(Icons.attach_money),
-                                  //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                  enabledBorder:
-                                  new UnderlineInputBorder()),
-                            )),
-                        SizedBox(height: 10,),
-                        Text(
-                          AppLocalizations.of(context)
-                              .translate(
-                              'interval'),
-                          maxLines: 3,
-                          textAlign: TextAlign.left,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              color: Colors.grey[800],
-                              fontWeight: FontWeight.w900,
-                              fontSize: 15),
-                        ),
-                        Row(
-                          children: <Widget>[Switch(
-                            value: scheduleYear,
-                            onChanged: (value) {
-                              setState(() {
-                                scheduleMonth = false;
-                                scheduleWeek = false;
-                                scheduleDay = false;
-                                scheduleYear = value;
-                              });
-                            },
-                            activeTrackColor: Color(
-                                0xffEEEEEE),
-                            activeColor: Color(0xff0957FF),
-                          ),
-                            Text(
-                              AppLocalizations.of(context)
-                                  .translate(
-                                  'year'),
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: Colors.grey[800],
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 15),
-                            )
-                          ],),
-                        Row(
-                          children: <Widget>[
-                            Switch(
-                              value: scheduleMonth,
-                              onChanged: (value) {
-                                setState(() {
-                                  scheduleYear = false;
-                                  scheduleWeek = false;
-                                  scheduleDay = false;
+                  content: LayoutBuilder(
+                      builder: (context, constraint) {
+                        return SingleChildScrollView(
+                            child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                    minHeight: constraint.minHeight),
+                                child: IntrinsicHeight(
+                                    child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .start,
+                                        crossAxisAlignment: CrossAxisAlignment
+                                            .start,
+                                        children: <Widget>[
+                                          Text(
+                                            AppLocalizations.of(context)
+                                                .translate(
+                                                'forTheNext'),
+                                            maxLines: 3,
+                                            textAlign: TextAlign.left,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                color: Colors.grey[800],
+                                                fontWeight: FontWeight.w900,
+                                                fontSize: 15),
+                                          ),
+                                          Flexible(
+                                              child: TextFormField(
+                                                keyboardType:
+                                                TextInputType.number,
+                                                //keyboard with numbers only will appear to the screen
+                                                style: TextStyle(
+                                                    height: 2),
+                                                controller:
+                                                scheduleAmountTextFieldController,
+                                                decoration: InputDecoration(
+                                                  // hintText: 'Enter ur amount',
+                                                  //hintStyle: TextStyle(height: 1.75),
+                                                    labelText: AppLocalizations
+                                                        .of(context)
+                                                        .translate(
+                                                        'scheduleExample'),
+                                                    labelStyle: TextStyle(
+                                                      fontSize: 13,
+                                                    ),
+                                                    //increases the height of cursor
+                                                    //prefixIcon: Icon(Icons.attach_money),
+                                                    //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                    enabledBorder:
+                                                    new UnderlineInputBorder()),
+                                              )),
+                                          SizedBox(height: 10,),
+                                          Text(
+                                            AppLocalizations.of(context)
+                                                .translate(
+                                                'interval'),
+                                            maxLines: 3,
+                                            textAlign: TextAlign.left,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                color: Colors.grey[800],
+                                                fontWeight: FontWeight.w900,
+                                                fontSize: 15),
+                                          ),
+                                          Row(
+                                            children: <Widget>[Switch(
+                                              value: scheduleYear,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  scheduleMonth = false;
+                                                  scheduleWeek = false;
+                                                  scheduleDay = false;
+                                                  scheduleYear = value;
+                                                });
+                                              },
+                                              activeTrackColor: Color(
+                                                  0xffEEEEEE),
+                                              activeColor: Color(0xff0957FF),
+                                            ),
+                                              Text(
+                                                AppLocalizations.of(context)
+                                                    .translate(
+                                                    'year'),
+                                                maxLines: 3,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                    color: Colors.grey[800],
+                                                    fontWeight: FontWeight.w900,
+                                                    fontSize: 15),
+                                              )
+                                            ],),
+                                          Row(
+                                            children: <Widget>[
+                                              Switch(
+                                                value: scheduleMonth,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    scheduleYear = false;
+                                                    scheduleWeek = false;
+                                                    scheduleDay = false;
 
-                                  scheduleMonth = value;
-                                });
-                              },
-                              activeTrackColor: Color(
-                                  0xffEEEEEE),
-                              activeColor: Color(0xff0957FF),
-                            ),
-                            Text(
-                              AppLocalizations.of(context)
-                                  .translate(
-                                  'month'),
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: Colors.grey[800],
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 15),
-                            )
-                          ],),
-                        Row(
-                          children: <Widget>[Switch(
-                            value: scheduleWeek,
-                            onChanged: (value) {
-                              setState(() {
-                                scheduleYear = false;
-                                scheduleMonth = false;
-                                scheduleDay = false;
+                                                    scheduleMonth = value;
+                                                  });
+                                                },
+                                                activeTrackColor: Color(
+                                                    0xffEEEEEE),
+                                                activeColor: Color(0xff0957FF),
+                                              ),
+                                              Text(
+                                                AppLocalizations.of(context)
+                                                    .translate(
+                                                    'month'),
+                                                maxLines: 3,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                    color: Colors.grey[800],
+                                                    fontWeight: FontWeight.w900,
+                                                    fontSize: 15),
+                                              )
+                                            ],),
+                                          Row(
+                                            children: <Widget>[Switch(
+                                              value: scheduleWeek,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  scheduleYear = false;
+                                                  scheduleMonth = false;
+                                                  scheduleDay = false;
 
-                                scheduleWeek = value;
-                              });
-                            },
-                            activeTrackColor: Color(
-                                0xffEEEEEE),
-                            activeColor: Color(0xff0957FF),
-                          ),
-                            Text(
-                              AppLocalizations.of(context)
-                                  .translate(
-                                  'week'),
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: Colors.grey[800],
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 15),
-                            )
-                          ],)
-                        , Row(
-                          children: <Widget>[
-                            Switch(
-                              value: scheduleDay,
-                              onChanged: (value) {
-                                setState(() {
-                                  scheduleYear = false;
-                                  scheduleMonth = false;
-                                  scheduleWeek = false;
+                                                  scheduleWeek = value;
+                                                });
+                                              },
+                                              activeTrackColor: Color(
+                                                  0xffEEEEEE),
+                                              activeColor: Color(0xff0957FF),
+                                            ),
+                                              Text(
+                                                AppLocalizations.of(context)
+                                                    .translate(
+                                                    'week'),
+                                                maxLines: 3,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                    color: Colors.grey[800],
+                                                    fontWeight: FontWeight.w900,
+                                                    fontSize: 15),
+                                              )
+                                            ],)
+                                          , Row(
+                                            children: <Widget>[
+                                              Switch(
+                                                value: scheduleDay,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    scheduleYear = false;
+                                                    scheduleMonth = false;
+                                                    scheduleWeek = false;
 
-                                  scheduleDay = value;
-                                });
-                              },
-                              activeTrackColor: Color(
-                                  0xffEEEEEE),
-                              activeColor: Color(0xff0957FF),
-                            ),
-                            Text(
-                              AppLocalizations.of(context)
-                                  .translate(
-                                  'day'),
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: Colors.grey[800],
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 15),
-                            )
-                          ],),
-                      ]),
+                                                    scheduleDay = value;
+                                                  });
+                                                },
+                                                activeTrackColor: Color(
+                                                    0xffEEEEEE),
+                                                activeColor: Color(0xff0957FF),
+                                              ),
+                                              Text(
+                                                AppLocalizations.of(context)
+                                                    .translate(
+                                                    'day'),
+                                                maxLines: 3,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                    color: Colors.grey[800],
+                                                    fontWeight: FontWeight.w900,
+                                                    fontSize: 15),
+                                              )
+                                            ],),
+                                        ]))));
+                      }),
                   actions: <Widget>[
                     new FlatButton(
                       child: new Text(
