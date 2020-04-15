@@ -1287,7 +1287,7 @@ class _MyHomePageState extends State<MyHomePage>
 
     var body = {
       'type': type,
-      'amount': type == 'actual'
+      'amount': type == 'actual' || type == 'actualSchedule'
           ? actualTextFieldController.text
           : budgetTextFieldController.text,
       'actualcomment': actualCommentTextFieldController.text,

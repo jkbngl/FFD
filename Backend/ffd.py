@@ -649,7 +649,7 @@ def sendSchedule(data, userId):
             deltaDate = datetimeObj + relativedelta(years=i)
         elif(data['scheduleMonth'] == 'true'):
             logging.critical('scheduleMonth')
-            deltaDate = datetimeObj + relativedelta(month=i)
+            deltaDate = datetimeObj + relativedelta(months=i)
         elif(data['scheduleWeek'] == 'true'):
             logging.critical('scheduleWeek')
             deltaDate = datetimeObj + relativedelta(weeks=i)
@@ -666,12 +666,12 @@ def sendSchedule(data, userId):
         logging.critical(data['year'])
         logging.critical(data['month'])
         
-    if(data['type'] == 'actualschedule'):
-        data['actualcomment'] += ' - SCHEDULED'
-        sendActual(data, userId)
-    elif(data['type'] == 'budgetschedule'):
-        data['budgetcomment'] += ' - SCHEDULED'
-        sendBudget(data, userId)
+        if(data['type'] == 'actualschedule'):
+            data['actualcomment'] += ' - SCHEDULED'
+            sendActual(data, userId)
+        elif(data['type'] == 'budgetschedule'):
+            data['budgetcomment'] += ' - SCHEDULED'
+            sendBudget(data, userId)
 
     for i in range(0, amountOfSchedules):
         pass
