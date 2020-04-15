@@ -634,50 +634,44 @@ def sendSchedule(data, userId):
 
     # 2020-04-15 00:00:00.000
 
-    if(data['type'] == 'actualschedule'):
-        data['actualcomment'] += ' - SCHEDULED'
-    elif(data['type'] == 'budgetschedule'):
-        data['budgetcomment'] += ' - SCHEDULED'
+    
 
     # Cache the data as the baseData as we are changing the data, we wont change the baseDate and the other functions dont use the baseData attribute
     data['baseDate'] = data['date']
 
-    if(bool(data['scheduleYear']) is True):
+    
+    for i in range(1, amountOfSchedules):
 
-        for i in range(1, amountOfSchedules):
+        datetimeObj = datetime.strptime(data['baseDate'], '%Y-%m-%d %H:%M:%S.%f')
 
-            datetimeObj = datetime.strptime(data['baseDate'], '%Y-%m-%d %H:%M:%S.%f')
-
+        if(data['scheduleYear'] == 'true'):
+            logging.critical('scheduleYear')
             deltaDate = datetimeObj + relativedelta(years=i)
+        elif(data['scheduleMonth'] == 'true'):
+            logging.critical('scheduleMonth')
+            deltaDate = datetimeObj + relativedelta(month=i)
+        elif(data['scheduleWeek'] == 'true'):
+            logging.critical('scheduleWeek')
+            deltaDate = datetimeObj + relativedelta(weeks=i)
+        elif(data['scheduleDay'] == 'true'):
+            logging.critical('scheduleDay')
+            deltaDate = datetimeObj + relativedelta(days=i)
+
+        data['date'] = str(deltaDate)
+        data['year'] = str(deltaDate.year)
+        data['month'] = str(deltaDate.month)
+    
+    
+        logging.critical(data['date'])
+        logging.critical(data['year'])
+        logging.critical(data['month'])
         
-            data['date'] = str(deltaDate)
-            data['year'] = str(deltaDate.year)
-            data['month'] = str(deltaDate.month)
-
-            
-
-    elif(data['scheduleMonth'] is True):
-        for i in range(1, amountOfSchedules):
-            pass
-
-    elif(data['scheduleWeek'] is True):
-        for i in range(1, amountOfSchedules):
-            pass
-
-    elif(data['scheduleWeek'] is True):
-        for i in range(1, amountOfSchedules):
-            pass
-    
-    
-    
-    logging.critical(data['date'])
-    logging.critical(data['year'])
-    logging.critical(data['month'])
-    logging.critical(data['scheduleYear'])
-    logging.critical(data['scheduleMonth'])
-    logging.critical(data['scheduleWeek'])
-    logging.critical(data['scheduleDay'])
-    logging.critical(data['scheduleInterval'])
+    if(data['type'] == 'actualschedule'):
+        data['actualcomment'] += ' - SCHEDULED'
+        sendActual(data, userId)
+    elif(data['type'] == 'budgetschedule'):
+        data['budgetcomment'] += ' - SCHEDULED'
+        sendBudget(data, userId)
 
     for i in range(0, amountOfSchedules):
         pass
