@@ -10,11 +10,12 @@ import pytz
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import auth
+from dateutil.relativedelta import relativedelta
 
 config = ConfigParser()
 config.read('config.ini')
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s:%(levelname)s:%(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 
 # Firebase app instance, needs to be declared globally as it may only be initialized once and if handled in def state is lost on next run
 app = None
@@ -604,12 +605,6 @@ def sendActual(data, userId):
 
     utcTime = datetime.now() + timedelta(minutes=int(data['timezoneOffsetMin']))
 
-    logging.critical(type(utcTime))
-    logging.critical(str(utcTime.strftime("%Y-%m-%d %H:%M:%S")))
-    logging.critical(type(str(utcTime.strftime("%Y-%m-%d %H:%M:%S"))))
-    logging.critical(getTimeZoneFromOffset(int(data['timezoneOffsetMin'])))
-    logging.critical(data['timeInUtc'])
-
     cursor.execute("INSERT INTO ffd.act_data (amount, comment, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk, created) \
                                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
                                                                                         ( data['amount']
@@ -635,8 +630,49 @@ def sendActual(data, userId):
 
 def sendSchedule(data, userId):
 
-    amountOfSchedules = int(data['scheduleInterval'])
+    amountOfSchedules = int(data['scheduleInterval']) + 1
 
+    # 2020-04-15 00:00:00.000
+
+    if(data['type'] == 'actualschedule'):
+        data['actualcomment'] += ' - SCHEDULED'
+    elif(data['type'] == 'budgetschedule'):
+        data['budgetcomment'] += ' - SCHEDULED'
+
+    # Cache the data as the baseData as we are changing the data, we wont change the baseDate and the other functions dont use the baseData attribute
+    data['baseDate'] = data['date']
+
+    if(bool(data['scheduleYear']) is True):
+
+        for i in range(1, amountOfSchedules):
+
+            datetimeObj = datetime.strptime(data['baseDate'], '%Y-%m-%d %H:%M:%S.%f')
+
+            deltaDate = datetimeObj + relativedelta(years=i)
+        
+            data['date'] = str(deltaDate)
+            data['year'] = str(deltaDate.year)
+            data['month'] = str(deltaDate.month)
+
+            
+
+    elif(data['scheduleMonth'] is True):
+        for i in range(1, amountOfSchedules):
+            pass
+
+    elif(data['scheduleWeek'] is True):
+        for i in range(1, amountOfSchedules):
+            pass
+
+    elif(data['scheduleWeek'] is True):
+        for i in range(1, amountOfSchedules):
+            pass
+    
+    
+    
+    logging.critical(data['date'])
+    logging.critical(data['year'])
+    logging.critical(data['month'])
     logging.critical(data['scheduleYear'])
     logging.critical(data['scheduleMonth'])
     logging.critical(data['scheduleWeek'])
