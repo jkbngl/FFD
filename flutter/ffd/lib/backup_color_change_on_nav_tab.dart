@@ -2075,8 +2075,6 @@ class _MyHomePageState extends State<MyHomePage>
         type == 'actual' ||
         type == 'budget' ||
         newLevel1TextFieldController.text.length > 0) {
-      print("trying to enter a comment for a new level 1, amongst other");
-
       if (type == 'actual' || type == 'budget') {
         await showDialog(
             context: context,
@@ -7510,88 +7508,163 @@ class _MyHomePageState extends State<MyHomePage>
                                                               // #139
                                                               if (level1AdminObject
                                                                   .id > 0) {
-                                                                sendBackend(
-                                                                    'newaccountdelete',
-                                                                    false);
+                                                                showDialog(
+                                                                  context: context,
+                                                                  builder: (
+                                                                      BuildContext context) {
+                                                                    // return object of type Dialog
+                                                                    return AlertDialog(
+                                                                      title: new Text(
+                                                                        AppLocalizations
+                                                                            .of(
+                                                                            context)
+                                                                            .translate(
+                                                                            'warning')
+                                                                        ,
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .orange,
+                                                                            fontSize: 25,
+                                                                            fontWeight: FontWeight
+                                                                                .bold),),
+                                                                      content: new Text(
+                                                                        // Show the highest non undefined value, if 3 is undefined 2 if both 1 if 3 is not undefined then 3
+                                                                          (level3AdminObject
+                                                                            .id >
+                                                                            0
+                                                                            ? level3AdminObject
+                                                                            .name
+                                                                            : (level2AdminObject
+                                                                            .id >
+                                                                            0
+                                                                            ? level2AdminObject
+                                                                            .name
+                                                                            : level1AdminObject
+                                                                            .name)) + " " +
+                                                                            AppLocalizations
+                                                                                .of(
+                                                                                context)
+                                                                                .translate(
+                                                                                'willBe') +
+                                                                            AppLocalizations
+                                                                                .of(
+                                                                                context)
+                                                                                .translate(
+                                                                                'deleted'),
+                                                                        style: TextStyle(
+                                                                            fontWeight: FontWeight
+                                                                                .bold,
+                                                                            fontSize: 20),),
+                                                                      actions: <
+                                                                          Widget>[
+                                                                        // usually buttons at the bottom of the dialog
+                                                                        new FlatButton(
+                                                                          child: new Text(
+                                                                              "Close"),
+                                                                          onPressed: () {
+                                                                            Navigator
+                                                                                .of(
+                                                                                context)
+                                                                                .pop();
+                                                                          },
+                                                                        ),
+                                                                        new FlatButton(
+                                                                          child: new Text(
+                                                                              "confirm"),
+                                                                          onPressed: () {
+                                                                            sendBackend(
+                                                                                'newaccountdelete',
+                                                                                false);
 
-                                                                if
-                                                                (level3AdminObject
-                                                                    .id > 0) {
-                                                                  // If the acount which has just been deleted was selected, unselect it
-                                                                  if (level3ActualObject
-                                                                      .id ==
-                                                                      level3AdminObject
-                                                                          .id) {
-                                                                    level3ActualObject =
-                                                                    level3ActualAccountsList[
-                                                                    0];
-                                                                  }
+                                                                            if
+                                                                            (level3AdminObject
+                                                                                .id >
+                                                                                0) {
+                                                                              // If the acount which has just been deleted was selected, unselect it
+                                                                              if (level3ActualObject
+                                                                                  .id ==
+                                                                                  level3AdminObject
+                                                                                      .id) {
+                                                                                level3ActualObject =
+                                                                                level3ActualAccountsList[
+                                                                                0];
+                                                                              }
 
-                                                                  if (level3BudgetObject
-                                                                      .id ==
-                                                                      level3AdminObject
-                                                                          .id) {
-                                                                    level3BudgetObject =
-                                                                    level3BudgetAccountsList[
-                                                                    0];
-                                                                  }
+                                                                              if (level3BudgetObject
+                                                                                  .id ==
+                                                                                  level3AdminObject
+                                                                                      .id) {
+                                                                                level3BudgetObject =
+                                                                                level3BudgetAccountsList[
+                                                                                0];
+                                                                              }
 
-                                                                  level3AdminObject =
-                                                                  level3AdminAccountsList[
-                                                                  0];
-                                                                } else
-                                                                if (level2AdminObject
-                                                                    .id >
-                                                                    0) {
-                                                                  // If the acount which has just been deleted was selected, unselect it
-                                                                  if (level2ActualObject
-                                                                      .id ==
-                                                                      level2AdminObject
-                                                                          .id) {
-                                                                    level2ActualObject =
-                                                                    level2ActualAccountsList[
-                                                                    0];
-                                                                  }
+                                                                              level3AdminObject =
+                                                                              level3AdminAccountsList[
+                                                                              0];
+                                                                            } else
+                                                                            if (level2AdminObject
+                                                                                .id >
+                                                                                0) {
+                                                                              // If the acount which has just been deleted was selected, unselect it
+                                                                              if (level2ActualObject
+                                                                                  .id ==
+                                                                                  level2AdminObject
+                                                                                      .id) {
+                                                                                level2ActualObject =
+                                                                                level2ActualAccountsList[
+                                                                                0];
+                                                                              }
 
-                                                                  if (level2BudgetObject
-                                                                      .id ==
-                                                                      level2AdminObject
-                                                                          .id) {
-                                                                    level2BudgetObject =
-                                                                    level2BudgetAccountsList[
-                                                                    0];
-                                                                  }
+                                                                              if (level2BudgetObject
+                                                                                  .id ==
+                                                                                  level2AdminObject
+                                                                                      .id) {
+                                                                                level2BudgetObject =
+                                                                                level2BudgetAccountsList[
+                                                                                0];
+                                                                              }
 
-                                                                  level2AdminObject =
-                                                                  level2AdminAccountsList[
-                                                                  0];
-                                                                } else
-                                                                if (level1AdminObject
-                                                                    .id >
-                                                                    0) {
-                                                                  // If the acount which has just been deleted was selected, unselect it
-                                                                  if (level1ActualObject
-                                                                      .id ==
-                                                                      level1AdminObject
-                                                                          .id) {
-                                                                    level1ActualObject =
-                                                                    level1ActualAccountsList[
-                                                                    0];
-                                                                  }
+                                                                              level2AdminObject =
+                                                                              level2AdminAccountsList[
+                                                                              0];
+                                                                            } else
+                                                                            if (level1AdminObject
+                                                                                .id >
+                                                                                0) {
+                                                                              // If the acount which has just been deleted was selected, unselect it
+                                                                              if (level1ActualObject
+                                                                                  .id ==
+                                                                                  level1AdminObject
+                                                                                      .id) {
+                                                                                level1ActualObject =
+                                                                                level1ActualAccountsList[
+                                                                                0];
+                                                                              }
 
-                                                                  if (level1BudgetObject
-                                                                      .id ==
-                                                                      level1AdminObject
-                                                                          .id) {
-                                                                    level1BudgetObject =
-                                                                    level1BudgetAccountsList[
-                                                                    0];
-                                                                  }
+                                                                              if (level1BudgetObject
+                                                                                  .id ==
+                                                                                  level1AdminObject
+                                                                                      .id) {
+                                                                                level1BudgetObject =
+                                                                                level1BudgetAccountsList[
+                                                                                0];
+                                                                              }
 
-                                                                  level1AdminObject =
-                                                                  level1AdminAccountsList[
-                                                                  0];
-                                                                }
+                                                                              level1AdminObject =
+                                                                              level1AdminAccountsList[
+                                                                              0];
+                                                                            };
+                                                                            Navigator
+                                                                                .of(
+                                                                                context)
+                                                                                .pop();
+                                                                          },
+                                                                        ),
+                                                                      ],
+                                                                    );
+                                                                  },
+                                                                );
                                                               }
                                                               else {
                                                                 showDialog(
