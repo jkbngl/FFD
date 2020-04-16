@@ -2055,7 +2055,6 @@ class _MyHomePageState extends State<MyHomePage>
       TextEditingController dependingController,
       TextEditingController dependingController2,
       TextEditingController dependingController3) async {
-
     // cache the name of the entered level1 or costtype to display it in the title of the comment dialog
     var level1OrCostTypeName = type != 'actual' && type != 'budget'
         ? dependingController.text
@@ -2382,13 +2381,11 @@ class _MyHomePageState extends State<MyHomePage>
 
 
     // #147 restricted to only accounts, because only accounts have the explanation dialog
-    if(type == 'account')
-    {
+    if (type == 'account') {
       // Test #145 - works perfect, closes the accountInputExplainDialog (showing in the background) after all comments were entered
       Navigator.of(context, rootNavigator: true).pop();
       //Navigator.of(context, rootNavigator: false).pop();
     }
-
   }
 
   getHelpTextByIndex(int index) {
@@ -7535,7 +7532,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                 .bold),),
                                                                       content: new Text(
                                                                         // Show the highest non undefined value, if 3 is undefined 2 if both 1 if 3 is not undefined then 3
-                                                                          (level3AdminObject
+                                                                        (level3AdminObject
                                                                             .id >
                                                                             0
                                                                             ? level3AdminObject
@@ -7546,7 +7543,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             ? level2AdminObject
                                                                             .name
                                                                             : level1AdminObject
-                                                                            .name)) + " " +
+                                                                            .name)) +
+                                                                            " " +
                                                                             AppLocalizations
                                                                                 .of(
                                                                                 context)
@@ -8159,14 +8157,80 @@ class _MyHomePageState extends State<MyHomePage>
                                                             onPressed: () {
                                                               if (costTypeObjectAdmin
                                                                   .id > 0) {
-                                                                sendBackend(
-                                                                    'newcosttypedelete',
-                                                                    false);
+                                                                showDialog(
+                                                                  context: context,
+                                                                  builder: (
+                                                                      BuildContext context) {
+                                                                    // return object of type Dialog
+                                                                    return AlertDialog(
+                                                                      title: new Text(
+                                                                        AppLocalizations
+                                                                            .of(
+                                                                            context)
+                                                                            .translate(
+                                                                            'warning')
+                                                                        ,
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .orange,
+                                                                            fontSize: 25,
+                                                                            fontWeight: FontWeight
+                                                                                .bold),),
+                                                                      content: new Text(
+                                                                        // Show the highest non undefined value, if 3 is undefined 2 if both 1 if 3 is not undefined then 3
+                                                                        (costTypeObjectAdmin
+                                                                            .name) +
+                                                                            " " +
+                                                                            AppLocalizations
+                                                                                .of(
+                                                                                context)
+                                                                                .translate(
+                                                                                'willBe') +
+                                                                            AppLocalizations
+                                                                                .of(
+                                                                                context)
+                                                                                .translate(
+                                                                                'deleted'),
+                                                                        style: TextStyle(
+                                                                            fontWeight: FontWeight
+                                                                                .bold,
+                                                                            fontSize: 20),),
+                                                                      actions: <
+                                                                          Widget>[
+                                                                        // usually buttons at the bottom of the dialog
+                                                                        new FlatButton(
+                                                                          child: new Text(
+                                                                              "Close"),
+                                                                          onPressed: () {
+                                                                            Navigator
+                                                                                .of(
+                                                                                context)
+                                                                                .pop();
+                                                                          },
+                                                                        ),
+                                                                        new FlatButton(
+                                                                          child: new Text(
+                                                                              "confirm"),
+                                                                          onPressed: () {
+                                                                            sendBackend(
+                                                                                'newcosttypedelete',
+                                                                                false);
 
-                                                                // the here selected value was deleted and therefore is no more available, so set it to the first default value to not receive an error
-                                                                costTypeObjectAdmin
-                                                                =
-                                                                costTypesList[0];
+                                                                            // the here selected value was deleted and therefore is no more available, so set it to the first default value to not receive an error
+                                                                            costTypeObjectAdmin
+                                                                            =
+                                                                            costTypesList[0];
+
+                                                                            Navigator
+                                                                                .of(
+                                                                                context)
+                                                                                .pop();
+                                                                          },
+                                                                        ),
+                                                                      ],
+                                                                    );
+                                                                  },
+                                                                );
                                                               }
                                                               else {
                                                                 showDialog(
