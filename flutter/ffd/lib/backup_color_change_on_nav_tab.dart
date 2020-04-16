@@ -2055,6 +2055,7 @@ class _MyHomePageState extends State<MyHomePage>
       TextEditingController dependingController,
       TextEditingController dependingController2,
       TextEditingController dependingController3) async {
+
     // cache the name of the entered level1 or costtype to display it in the title of the comment dialog
     var level1OrCostTypeName = type != 'actual' && type != 'budget'
         ? dependingController.text
@@ -2380,9 +2381,14 @@ class _MyHomePageState extends State<MyHomePage>
     }
 
 
-    // Test #145 - works perfect, closes the accountInputExplainDialog (showing in the background) after all comments were entered
-    Navigator.of(context, rootNavigator: true).pop();
-    //Navigator.of(context, rootNavigator: false).pop();
+    // #147 restricted to only accounts, because only accounts have the explanation dialog
+    if(type == 'account')
+    {
+      // Test #145 - works perfect, closes the accountInputExplainDialog (showing in the background) after all comments were entered
+      Navigator.of(context, rootNavigator: true).pop();
+      //Navigator.of(context, rootNavigator: false).pop();
+    }
+
   }
 
   getHelpTextByIndex(int index) {
