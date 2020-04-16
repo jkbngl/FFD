@@ -2254,7 +2254,6 @@ class _MyHomePageState extends State<MyHomePage>
     if (dependingController2 != null && dependingController2.text.length > 0) {
       print("trying to input comment for level 2");
 
-
       await showDialog(
           context: context,
           builder: (context) {
@@ -2323,7 +2322,7 @@ class _MyHomePageState extends State<MyHomePage>
     }
 
     if (dependingController3 != null && dependingController3.text.length > 0) {
-      showDialog(
+      await showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
@@ -2385,6 +2384,7 @@ class _MyHomePageState extends State<MyHomePage>
 
     // Test #145 - works perfect, closes the accountInputExplainDialog (showing in the background) after all comments were entered
     Navigator.of(context, rootNavigator: true).pop();
+    //Navigator.of(context, rootNavigator: false).pop();
   }
 
   getHelpTextByIndex(int index) {
@@ -7689,24 +7689,35 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                     .length >
                                                                                     0
                                                                                     ? (newLevel1TextFieldController
-                                                                                    .text +
-                                                                                    " > ")
+                                                                                    .text)
                                                                                     : ""}'
                                                                                     '${newLevel2TextFieldController
                                                                                     .text
                                                                                     .length >
                                                                                     0
-                                                                                    ? (newLevel2TextFieldController
-                                                                                    .text +
-                                                                                    " > ")
+                                                                                    ? (
+                                                                                    (newLevel1TextFieldController
+                                                                                        .text
+                                                                                        .length >
+                                                                                        0
+                                                                                        ? " > "
+                                                                                        : "") +
+                                                                                        newLevel2TextFieldController
+                                                                                            .text)
                                                                                     : ""}'
                                                                                     '${newLevel3TextFieldController
                                                                                     .text
                                                                                     .length >
                                                                                     0
-                                                                                    ? (newLevel3TextFieldController
-                                                                                    .text +
-                                                                                    " > ")
+                                                                                    ? (
+                                                                                    (newLevel2TextFieldController
+                                                                                        .text
+                                                                                        .length >
+                                                                                        0
+                                                                                        ? " > "
+                                                                                        : "") +
+                                                                                        newLevel3TextFieldController
+                                                                                            .text)
                                                                                     : ""}',
                                                                                 style: TextStyle(
                                                                                     color: Color(
@@ -7730,7 +7741,17 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                       children: <
                                                                                           TextSpan>[
                                                                                         TextSpan(
-                                                                                          text: '${newLevel1TextFieldController
+                                                                                          text: (level1AdminObject
+                                                                                              .id
+                                                                                              +
+                                                                                              level2AdminObject
+                                                                                                  .id
+                                                                                              +
+                                                                                              level3AdminObject
+                                                                                                  .id
+                                                                                          ) >
+                                                                                              0
+                                                                                              ? ('${newLevel1TextFieldController
                                                                                               .text
                                                                                               .length >
                                                                                               0
@@ -7740,7 +7761,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                               0
                                                                                               ? level1AdminObject
                                                                                               .name
-                                                                                              : '')} > ${newLevel2TextFieldController
+                                                                                              : '')} ${newLevel2TextFieldController
                                                                                               .text
                                                                                               .length >
                                                                                               0
@@ -7748,9 +7769,16 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                               : (level2AdminObject
                                                                                               .id >
                                                                                               0
-                                                                                              ? level2AdminObject
-                                                                                              .name
-                                                                                              : '')}'
+                                                                                              ? " >" +
+                                                                                              level2AdminObject
+                                                                                                  .name
+                                                                                              : '')}')
+                                                                                              : AppLocalizations
+                                                                                              .of(
+                                                                                              context)
+                                                                                              .translate(
+                                                                                              'noAccount')
+                                                                                          // Level 3 can never be a child
                                                                                           /*'${newLevel3TextFieldController
                                                                                               .text
                                                                                               .length >
@@ -7763,36 +7791,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                               .name
                                                                                               : '')
                                                                                           }'*/,
-                                                                                          /*text: '${level1AdminObject
-                                                                                              .id >
-                                                                                              0 && // #143
-                                                                                              newLevel1TextFieldController
-                                                                                                  .text
-                                                                                                  .length ==
-                                                                                                  0
-                                                                                              ? level1AdminObject
-                                                                                              .name
-                                                                                              : ''}${level2AdminObject
-                                                                                              .id >
-                                                                                              0 && // #143
-                                                                                              newLevel2TextFieldController
-                                                                                                  .text
-                                                                                                  .length ==
-                                                                                                  0
-                                                                                              ? (' > ' +
-                                                                                              level2AdminObject
-                                                                                                  .name)
-                                                                                              : ' > ' + newLevel1TextFieldController.text}${level3AdminObject
-                                                                                              .id >
-                                                                                              0 && // #143
-                                                                                              newLevel3TextFieldController
-                                                                                                  .text
-                                                                                                  .length ==
-                                                                                                  0
-                                                                                              ? (' > ' +
-                                                                                              level3AdminObject
-                                                                                                  .name)
-                                                                                              : ' > ' + newLevel3TextFieldController.text}',*/
                                                                                           style: TextStyle(
                                                                                               color: Color(
                                                                                                   0xff0957FF),

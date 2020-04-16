@@ -109,5 +109,6 @@
   "errorDeleteNoCostTypeSelected": "Si prega di selezionare un tipo di costo che deve essere cancellato",
   "errorAddNoNewCostTypeEntered": "Si prega di inserire un nome per il nuovo tipo di costo",
   "errorAddNoAccountEntered": "Inserire un nome per il nuovo conto/conti",
+  "noAccount": "NESSUN CONTO",
   "Message" : "Questo è inglese"
 }

@@ -108,5 +108,6 @@
   "errorDeleteNoCostTypeSelected": "Please make sure to select a costtype which should be deleted",
   "errorAddNoNewCostTypeEntered": "Please enter a name for the new costtype",
   "errorAddNoAccountEntered": "Please enter a name for the new account/s",
+  "noAccount": "NO ACCOUNT",
   "Message" : "This is English"
 }
