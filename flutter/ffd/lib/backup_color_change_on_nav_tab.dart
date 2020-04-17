@@ -2631,6 +2631,66 @@ class _MyHomePageState extends State<MyHomePage>
     });
   }
 
+  handleOrderDialog(int index, String type) {
+    String passedType = '';
+    /*
+     Mapping:
+     0 -> created
+     0 -> data_date
+     0 -> amount
+     0 -> costtype
+     0 -> level1
+     */
+
+    switch (index) {
+      case 0:
+        {
+          passedType = 'created';
+        }
+        break;
+
+      case 1:
+        {
+          passedType = 'data_date';
+        }
+        break;
+      case 2:
+        {
+          passedType = 'created';
+        }
+        break;
+      case 3:
+        {
+          passedType = 'amount';
+        }
+        break;
+      case 4:
+        {
+          passedType = 'level1';
+        }
+        break;
+    }
+
+    // When its the same again
+    //   - switch the the opposite (either asc or desc whatever it was)
+    // When it was fresh switched to data_date
+    //   - set it to the default -> desc
+
+    if(type == 'actual') {
+      actualListSortType =
+      actualListSortColumn == passedType ? (actualListSortType == 'asc'
+          ? 'desc'
+          : 'asc') : 'desc';
+      actualListSortColumn = passedType;
+    }
+
+
+      loadList(
+          type,
+          type == 'actual' ? actualListSortColumn : budgetListSortColumn,
+          type == 'actual' ? actualListSortType : budgetListSortType);
+  }
+
   final RefreshController _refreshController = RefreshController();
 
   @override
@@ -3843,7 +3903,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                       context: context,
                                                       builder: (
                                                           BuildContext context) {
-                                                        int selectedRadio = 0;
                                                         return AlertDialog(
                                                           content: StatefulBuilder(
                                                             builder: (
@@ -3854,31 +3913,55 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     .min,
                                                                 children: List<
                                                                     Widget>.generate(
-                                                                    sortOrders.length, (
+                                                                    sortOrders
+                                                                        .length, (
                                                                     int index) {
                                                                   return Row(
-                                                                    children: <Widget>[
-                                                                      Radio<bool>(
+                                                                    children: <
+                                                                        Widget>[
+                                                                      Radio<
+                                                                          bool>(
                                                                         groupValue: true,
                                                                         value: sortOrders[index],
-                                                                        onChanged: (bool newValue) {
+                                                                        onChanged: (
+                                                                            bool newValue) {
                                                                           setState(() {
-                                                                            print(newValue);
+                                                                            print(
+                                                                                newValue);
 
-                                                                            sortOrders[0] = false;
-                                                                            sortOrders[1] = false;
-                                                                            sortOrders[2] = false;
-                                                                            sortOrders[3] = false;
-                                                                            sortOrders[4] = false;
+                                                                            sortOrders[0] =
+                                                                            false;
+                                                                            sortOrders[1] =
+                                                                            false;
+                                                                            sortOrders[2] =
+                                                                            false;
+                                                                            sortOrders[3] =
+                                                                            false;
+                                                                            sortOrders[4] =
+                                                                            false;
 
-                                                                            sortOrders[index] = true;
-
+                                                                            sortOrders[index] =
+                                                                            true;
                                                                           });
 
+                                                                          handleOrderDialog(
+                                                                              index,
+                                                                              'actual');
 
+                                                                          Navigator
+                                                                              .pop(
+                                                                              context);
+
+                                                                          print("POPPRED");
                                                                         },
                                                                       ),
-                                                                      Text(sortOrders[index].toString() + " - " + index.toString()),
+                                                                      Text(
+                                                                          sortOrders[index]
+                                                                              .toString() +
+                                                                              " - " +
+                                                                              index
+                                                                                  .toString(),
+                                                                      ),
                                                                     ],
                                                                   );
                                                                 }),
