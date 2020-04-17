@@ -461,11 +461,11 @@ class _MyHomePageState extends State<MyHomePage>
     sortActualOrders.add(sortByCosttypeActual);
     sortActualOrders.add(sortByLevelActual);
 
-    sortBudgetOrders.add(sortByCreatedActual);
-    sortBudgetOrders.add(sortByDataDateActual);
-    sortBudgetOrders.add(sortByAmountActual);
-    sortBudgetOrders.add(sortByCosttypeActual);
-    sortBudgetOrders.add(sortByLevelActual);
+    sortBudgetOrders.add(sortByCreatedBudget);
+    sortBudgetOrders.add(sortByDataDateBudget);
+    sortBudgetOrders.add(sortByAmountBudget);
+    sortBudgetOrders.add(sortByCosttypeBudget);
+    sortBudgetOrders.add(sortByLevelBudget);
   }
 
   @override
