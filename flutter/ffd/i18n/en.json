@@ -27,6 +27,8 @@
   "addButton": "Add",
   "ListSearchTextField": "Search for amounts, comments and more",
   "OrderByText": "Order by ...",
+  "orderAsc": "Ascending",
+  "orderDesc": "Descending",
   "DateOfCreationOrderText": "Date of creation",
   "0OrderText": "Date of creation",
   "MonthBilledOrderText": "Month where its billed",

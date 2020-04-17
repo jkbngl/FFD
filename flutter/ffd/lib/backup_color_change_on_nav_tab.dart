@@ -353,22 +353,36 @@ class _MyHomePageState extends State<MyHomePage>
   // To make sure errorDialog is only shown once and not multiple times when multiple errors happen
   bool errorDialogActive = false;
 
+
+
+  // Standard sorting logic
   String actualListSortColumn = 'created';
   String actualListSortType = 'desc';
 
   String budgetListSortColumn = 'created';
   String budgetListSortType = 'desc';
 
-  List<bool> sortOrders = <bool>[];
-  bool sortByCreated = true;
-  bool sortByDataDate = false;
-  bool sortByAmount = false;
-  bool sortByCosttype = false;
-  bool sortByLevel = false;
-  bool selectedItem = null;
-
-
   int sortOrder = 0;
+
+  // New sorting with radio button
+  List<bool> sortActualOrders = <bool>[];
+  bool sortByCreatedActual = true;
+  bool sortByDataDateActual = false;
+  bool sortByAmountActual = false;
+  bool sortByCosttypeActual = false;
+  bool sortByLevelActual = false;
+
+  List<bool> sortBudgetOrders = <bool>[];
+  bool sortByCreatedBudget = true;
+  bool sortByDataDateBudget = false;
+  bool sortByAmountBudget = false;
+  bool sortByCosttypeBudget = false;
+  bool sortByLevelBudget = false;
+
+  // Default value for the switch in the dialog
+  bool sortActualDescending = true;
+  bool sortBudgetDescending = true;
+
 
   // booleans loaded from DB to check whether accounts, which account levels and costTypes should be used
   bool areAccountsActive = true;
@@ -441,13 +455,11 @@ class _MyHomePageState extends State<MyHomePage>
     dateTimeBudget = DateTime.parse(INIT_DATETIME);
     dateTimeVisualizer = DateTime.parse(INIT_DATETIME);
 
-    sortOrders.add(sortByCreated);
-    sortOrders.add(sortByDataDate);
-    sortOrders.add(sortByAmount);
-    sortOrders.add(sortByCosttype);
-    sortOrders.add(sortByLevel);
-
-    selectedItem = sortByCreated;
+    sortActualOrders.add(sortByCreatedActual);
+    sortActualOrders.add(sortByDataDateActual);
+    sortActualOrders.add(sortByAmountActual);
+    sortActualOrders.add(sortByCosttypeActual);
+    sortActualOrders.add(sortByLevelActual);
   }
 
   @override
@@ -2642,7 +2654,16 @@ class _MyHomePageState extends State<MyHomePage>
      0 -> level1
      */
 
+    print(index);
+
     switch (index) {
+      // Default value when only the switch is changed, use the same column again
+      case -1:
+        {
+          passedType = type == 'actual' ? actualListSortColumn : budgetListSortColumn;
+        }
+        break;
+
       case 0:
         {
           passedType = 'created';
@@ -2656,12 +2677,12 @@ class _MyHomePageState extends State<MyHomePage>
         break;
       case 2:
         {
-          passedType = 'created';
+          passedType = 'amount';
         }
         break;
       case 3:
         {
-          passedType = 'amount';
+          passedType = 'costtype';
         }
         break;
       case 4:
@@ -2676,19 +2697,20 @@ class _MyHomePageState extends State<MyHomePage>
     // When it was fresh switched to data_date
     //   - set it to the default -> desc
 
-    if(type == 'actual') {
-      actualListSortType =
-      actualListSortColumn == passedType ? (actualListSortType == 'asc'
-          ? 'desc'
-          : 'asc') : 'desc';
+    if (type == 'actual') {
+      actualListSortType = sortActualDescending == true ? 'desc' : 'asc';
       actualListSortColumn = passedType;
+    } else if(type == 'budget')
+    {
+      budgetListSortType = sortBudgetDescending == true ? 'desc' : 'asc';
+      budgetListSortColumn = passedType;
     }
 
 
-      loadList(
-          type,
-          type == 'actual' ? actualListSortColumn : budgetListSortColumn,
-          type == 'actual' ? actualListSortType : budgetListSortType);
+    loadList(
+        type,
+        type == 'actual' ? actualListSortColumn : budgetListSortColumn,
+        type == 'actual' ? actualListSortType : budgetListSortType);
   }
 
   final RefreshController _refreshController = RefreshController();
@@ -3909,63 +3931,105 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 BuildContext context,
                                                                 StateSetter setState) {
                                                               return Column(
-                                                                mainAxisSize: MainAxisSize
-                                                                    .min,
-                                                                children: List<
-                                                                    Widget>.generate(
-                                                                    sortOrders
-                                                                        .length, (
-                                                                    int index) {
-                                                                  return Row(
-                                                                    children: <
-                                                                        Widget>[
-                                                                      Radio<
-                                                                          bool>(
-                                                                        groupValue: true,
-                                                                        value: sortOrders[index],
-                                                                        onChanged: (
-                                                                            bool newValue) {
-                                                                          setState(() {
-                                                                            print(
-                                                                                newValue);
+                                                                  mainAxisSize: MainAxisSize
+                                                                      .min,
+                                                                  children: List<
+                                                                      Widget>.generate(
+                                                                      sortActualOrders
+                                                                          .length +
+                                                                          1 /* + 1 because position zero is the sort switch*/, (
+                                                                      int index) {
+                                                                    return
+                                                                      index == 0
+                                                                          ?
+                                                                      Row(
+                                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                                          children: <
+                                                                              Widget>[
+                                                                            Text( AppLocalizations
+                                                                                .of(
+                                                                                context)
+                                                                                .translate(
+                                                                                'orderAsc'), overflow: TextOverflow.ellipsis,),
+                                                                            Switch(
+                                                                              value: sortActualDescending  ,
+                                                                              onChanged: (
+                                                                                  value) {
+                                                                                setState(() {
+                                                                                  sortActualDescending  =
+                                                                                      value;
+                                                                                  handleOrderDialog(-1, 'actual');
+                                                                                  Navigator
+                                                                                      .pop(
+                                                                                      context);
 
-                                                                            sortOrders[0] =
-                                                                            false;
-                                                                            sortOrders[1] =
-                                                                            false;
-                                                                            sortOrders[2] =
-                                                                            false;
-                                                                            sortOrders[3] =
-                                                                            false;
-                                                                            sortOrders[4] =
-                                                                            false;
+                                                                                });
+                                                                              },
+                                                                              activeTrackColor: Color(
+                                                                                  0xffEEEEEE),
+                                                                              activeColor: Color(
+                                                                                  0xff0957FF),
+                                                                            ),
+                                                                            Text(AppLocalizations
+                                                                                .of(
+                                                                                context)
+                                                                                .translate(
+                                                                                'orderDesc'), overflow: TextOverflow.ellipsis,),
+                                                                          ])
+                                                                          : Row(
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Radio<
+                                                                              bool>(
+                                                                            groupValue: true,
+                                                                            value: sortActualOrders[index -
+                                                                                1],
+                                                                            onChanged: (
+                                                                                bool newValue) {
+                                                                              setState(() {
+                                                                                print(
+                                                                                    newValue);
 
-                                                                            sortOrders[index] =
-                                                                            true;
-                                                                          });
+                                                                                sortActualOrders[0] =
+                                                                                false;
+                                                                                sortActualOrders[1] =
+                                                                                false;
+                                                                                sortActualOrders[2] =
+                                                                                false;
+                                                                                sortActualOrders[3] =
+                                                                                false;
+                                                                                sortActualOrders[4] =
+                                                                                false;
 
-                                                                          handleOrderDialog(
-                                                                              index,
-                                                                              'actual');
+                                                                                sortActualOrders[index -
+                                                                                    1] =
+                                                                                true;
+                                                                              });
 
-                                                                          Navigator
-                                                                              .pop(
-                                                                              context);
+                                                                              handleOrderDialog(
+                                                                                  (index -
+                                                                                      1),
+                                                                                  'actual');
 
-                                                                          print("POPPRED");
-                                                                        },
-                                                                      ),
-                                                                      Text(
-                                                                          AppLocalizations
-                                                                              .of(
-                                                                              context)
-                                                                              .translate(
-                                                                              '${index}OrderText'),
-                                                                      ),
-                                                                    ],
-                                                                  );
-                                                                }),
-                                                              );
+                                                                              Navigator
+                                                                                  .pop(
+                                                                                  context);
+
+                                                                              print(
+                                                                                  "POPPRED");
+                                                                            },
+                                                                          ),
+                                                                          Text(
+                                                                            AppLocalizations
+                                                                                .of(
+                                                                                context)
+                                                                                .translate(
+                                                                                '${index -
+                                                                                    1}OrderText'),
+                                                                          ),
+                                                                        ],
+                                                                      );
+                                                                  }));
                                                             },
                                                           ),
                                                         );
