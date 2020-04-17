@@ -460,6 +460,12 @@ class _MyHomePageState extends State<MyHomePage>
     sortActualOrders.add(sortByAmountActual);
     sortActualOrders.add(sortByCosttypeActual);
     sortActualOrders.add(sortByLevelActual);
+
+    sortBudgetOrders.add(sortByCreatedActual);
+    sortBudgetOrders.add(sortByDataDateActual);
+    sortBudgetOrders.add(sortByAmountActual);
+    sortBudgetOrders.add(sortByCosttypeActual);
+    sortBudgetOrders.add(sortByLevelActual);
   }
 
   @override
@@ -3917,11 +3923,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                       .centerRight,
                                                   iconSize: 25,
                                                   onPressed: () {
-                                                    showDialog
-                                                    <
-                                                        void
-                                                    >
-                                                      (
+                                                    showDialog<void>(
                                                       context: context,
                                                       builder: (
                                                           BuildContext context) {
@@ -5601,7 +5603,118 @@ class _MyHomePageState extends State<MyHomePage>
                                             Alignment.centerRight,
                                             iconSize: 25,
                                             onPressed: () {
-                                              return showDialog(
+                                              showDialog<void>(
+                                                context: context,
+                                                builder: (
+                                                    BuildContext context) {
+                                                  return AlertDialog(
+                                                    content: StatefulBuilder(
+                                                      builder: (
+                                                          BuildContext context,
+                                                          StateSetter setState) {
+                                                        return Column(
+                                                            mainAxisSize: MainAxisSize
+                                                                .min,
+                                                            children: List<
+                                                                Widget>.generate(
+                                                                sortBudgetOrders
+                                                                    .length +
+                                                                    1 /* + 1 because position zero is the sort switch*/, (
+                                                                int index) {
+                                                              return
+                                                                index == 0
+                                                                    ?
+                                                                Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                    children: <
+                                                                        Widget>[
+                                                                      Text( AppLocalizations
+                                                                          .of(
+                                                                          context)
+                                                                          .translate(
+                                                                          'orderAsc'), overflow: TextOverflow.ellipsis,),
+                                                                      Switch(
+                                                                        value: sortBudgetDescending  ,
+                                                                        onChanged: (
+                                                                            value) {
+                                                                          setState(() {
+                                                                            sortBudgetDescending  =
+                                                                                value;
+                                                                            handleOrderDialog(-1, 'budget');
+                                                                            Navigator
+                                                                                .pop(
+                                                                                context);
+
+                                                                          });
+                                                                        },
+                                                                        activeTrackColor: Color(
+                                                                            0xffEEEEEE),
+                                                                        activeColor: Color(
+                                                                            0xff0957FF),
+                                                                      ),
+                                                                      Text(AppLocalizations
+                                                                          .of(
+                                                                          context)
+                                                                          .translate(
+                                                                          'orderDesc'), overflow: TextOverflow.ellipsis,),
+                                                                    ])
+                                                                    : Row(
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Radio<
+                                                                        bool>(
+                                                                      groupValue: true,
+                                                                      value: sortBudgetOrders[index -
+                                                                          1],
+                                                                      onChanged: (
+                                                                          bool newValue) {
+                                                                        setState(() {
+                                                                          print(
+                                                                              newValue);
+
+                                                                          sortBudgetOrders[0] =
+                                                                          false;
+                                                                          sortBudgetOrders[1] =
+                                                                          false;
+                                                                          sortBudgetOrders[2] =
+                                                                          false;
+                                                                          sortBudgetOrders[3] =
+                                                                          false;
+                                                                          sortBudgetOrders[4] =
+                                                                          false;
+
+                                                                          sortBudgetOrders[index -
+                                                                              1] =
+                                                                          true;
+                                                                        });
+
+                                                                        handleOrderDialog(
+                                                                            (index -
+                                                                                1),
+                                                                            'budget');
+
+                                                                        Navigator
+                                                                            .pop(
+                                                                            context);
+                                                                      },
+                                                                    ),
+                                                                    Text(
+                                                                      AppLocalizations
+                                                                          .of(
+                                                                          context)
+                                                                          .translate(
+                                                                          '${index -
+                                                                              1}OrderText'),
+                                                                    ),
+                                                                  ],
+                                                                );
+                                                            }));
+                                                      },
+                                                    ),
+                                                  );
+                                                },);
+
+                                              /*return showDialog(
                                                   context: context,
                                                   barrierDismissible:
                                                   true,
@@ -5771,7 +5884,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                         )
                                                       ],
                                                     );
-                                                  });
+                                                  });*/
                                             })
                                       ])
                                       : ((bdgList[index - 1]
