@@ -3956,11 +3956,11 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         },
                                                                       ),
                                                                       Text(
-                                                                          sortOrders[index]
-                                                                              .toString() +
-                                                                              " - " +
-                                                                              index
-                                                                                  .toString(),
+                                                                          AppLocalizations
+                                                                              .of(
+                                                                              context)
+                                                                              .translate(
+                                                                              '${index}OrderText'),
                                                                       ),
                                                                     ],
                                                                   );
