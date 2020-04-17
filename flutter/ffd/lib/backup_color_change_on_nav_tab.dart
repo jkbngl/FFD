@@ -359,6 +359,15 @@ class _MyHomePageState extends State<MyHomePage>
   String budgetListSortColumn = 'created';
   String budgetListSortType = 'desc';
 
+  List<bool> sortOrders = <bool>[];
+  bool sortByCreated = true;
+  bool sortByDataDate = false;
+  bool sortByAmount = false;
+  bool sortByCosttype = false;
+  bool sortByLevel = false;
+  bool selectedItem = null;
+
+
   int sortOrder = 0;
 
   // booleans loaded from DB to check whether accounts, which account levels and costTypes should be used
@@ -431,6 +440,14 @@ class _MyHomePageState extends State<MyHomePage>
     dateTimeActual = DateTime.parse(INIT_DATETIME);
     dateTimeBudget = DateTime.parse(INIT_DATETIME);
     dateTimeVisualizer = DateTime.parse(INIT_DATETIME);
+
+    sortOrders.add(sortByCreated);
+    sortOrders.add(sortByDataDate);
+    sortOrders.add(sortByAmount);
+    sortOrders.add(sortByCosttype);
+    sortOrders.add(sortByLevel);
+
+    selectedItem = sortByCreated;
   }
 
   @override
@@ -3818,7 +3835,60 @@ class _MyHomePageState extends State<MyHomePage>
                                                       .centerRight,
                                                   iconSize: 25,
                                                   onPressed: () {
-                                                    return showDialog(
+                                                    showDialog
+                                                    <
+                                                        void
+                                                    >
+                                                      (
+                                                      context: context,
+                                                      builder: (
+                                                          BuildContext context) {
+                                                        int selectedRadio = 0;
+                                                        return AlertDialog(
+                                                          content: StatefulBuilder(
+                                                            builder: (
+                                                                BuildContext context,
+                                                                StateSetter setState) {
+                                                              return Column(
+                                                                mainAxisSize: MainAxisSize
+                                                                    .min,
+                                                                children: List<
+                                                                    Widget>.generate(
+                                                                    sortOrders.length, (
+                                                                    int index) {
+                                                                  return Row(
+                                                                    children: <Widget>[
+                                                                      Radio<bool>(
+                                                                        groupValue: true,
+                                                                        value: sortOrders[index],
+                                                                        onChanged: (bool newValue) {
+                                                                          setState(() {
+                                                                            print(newValue);
+
+                                                                            sortOrders[0] = false;
+                                                                            sortOrders[1] = false;
+                                                                            sortOrders[2] = false;
+                                                                            sortOrders[3] = false;
+                                                                            sortOrders[4] = false;
+
+                                                                            sortOrders[index] = true;
+
+                                                                          });
+
+
+                                                                        },
+                                                                      ),
+                                                                      Text(sortOrders[index].toString() + " - " + index.toString()),
+                                                                    ],
+                                                                  );
+                                                                }),
+                                                              );
+                                                            },
+                                                          ),
+                                                        );
+                                                      },);
+
+                                                    /*return showDialog(
                                                         context: context,
                                                         barrierDismissible:
                                                         true,
@@ -3901,6 +3971,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       context)
                                                                       .translate(
                                                                       'MonthBilledOrderText'),
+                                                                  style: TextStyle(
+                                                                    decoration: TextDecoration
+                                                                        .underline,
+                                                                  ),
                                                                 ),
                                                               ),
                                                               SimpleDialogOption(
@@ -4007,7 +4081,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   ))
                                                             ],
                                                           );
-                                                        });
+                                                        });*/
                                                   })
                                             ]),
                                       ])
