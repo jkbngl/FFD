@@ -3234,9 +3234,10 @@ class _MyHomePageState extends State<MyHomePage>
 
                         child: Container(
                           alignment: Alignment.center,
-                          //constraints: BoxConstraints.expand(width: 200),
-                          width: 2000,
-                          color: Color(0xff003680),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xff003680),
+                          ),
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -3258,8 +3259,10 @@ class _MyHomePageState extends State<MyHomePage>
                         child: Container(
                           alignment: Alignment.center,
                           //constraints: BoxConstraints.expand(width: 200),
-                          width: 2000,
-                          color: Color(0xff003680),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xff003680),
+                          ),
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -3740,6 +3743,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                             minWidth: 75.0,
                                                             height: 40.0,
                                                             child: RaisedButton(
+                                                              shape: RoundedRectangleBorder(
+                                                                borderRadius: new BorderRadius.circular(50.0),
+                                                              ),
                                                               child: Text(
                                                                 AppLocalizations
                                                                     .of(
@@ -3775,6 +3781,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                             minWidth: 150.0,
                                                             height: 60.0,
                                                             child: RaisedButton(
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius: new BorderRadius.circular(50.0),
+                                                              ),
                                                               child: Text(
                                                                   AppLocalizations
                                                                       .of(
@@ -4912,8 +4921,10 @@ class _MyHomePageState extends State<MyHomePage>
                         child: Container(
                           alignment: Alignment.center,
                           //constraints: BoxConstraints.expand(width: 200),
-                          width: 2000,
-                          color: Color(0xff003680),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xff003680),
+                          ),
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -4934,8 +4945,10 @@ class _MyHomePageState extends State<MyHomePage>
                         child: Container(
                           alignment: Alignment.center,
                           //constraints: BoxConstraints.expand(width: 200),
-                          width: 2000,
-                          color: Color(0xff003680),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xff003680),
+                          ),
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -5418,6 +5431,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                             minWidth: 75.0,
                                                             height: 40.0,
                                                             child: RaisedButton(
+                                                              shape: RoundedRectangleBorder(
+                                                                borderRadius: new BorderRadius.circular(50.0),
+                                                              ),
                                                               child: Text(
                                                                 AppLocalizations
                                                                     .of(
@@ -5474,6 +5490,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                             minWidth: 150.0,
                                                             height: 60.0,
                                                             child: RaisedButton(
+                                                              shape: RoundedRectangleBorder(
+                                                                borderRadius: new BorderRadius.circular(50.0),
+                                                              ),
                                                               child: Text(
                                                                   AppLocalizations
                                                                       .of(
@@ -6889,6 +6908,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                         bottom: 0),
                                                     //child: Text('Submit'),
                                                     child: RaisedButton(
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: new BorderRadius.circular(50.0),
+                                                      ),
                                                       child: Text(
                                                           AppLocalizations.of(
                                                               context)
@@ -7323,6 +7345,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                             ButtonTheme(
                                                               height: 50.0,
                                                               child: RaisedButton(
+                                                                shape: RoundedRectangleBorder(
+                                                                  borderRadius: new BorderRadius.circular(50.0),
+                                                                ),
                                                                 child: Text(
                                                                   AppLocalizations
                                                                       .of(
@@ -7342,6 +7367,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                             ButtonTheme(
                                                               height: 70.0,
                                                               child: RaisedButton(
+                                                                shape: RoundedRectangleBorder(
+                                                                  borderRadius: new BorderRadius.circular(50.0),
+                                                                ),
                                                                 child: Text(
                                                                     AppLocalizations
                                                                         .of(
@@ -7823,6 +7851,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                         ButtonTheme(
                                                           height: 50.0,
                                                           child: RaisedButton(
+                                                            shape: RoundedRectangleBorder(
+                                                              borderRadius: new BorderRadius.circular(50.0),
+                                                            ),
                                                             child: FittedBox(
                                                                 child: Text(
                                                                   AppLocalizations
@@ -7860,6 +7891,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                         ButtonTheme(
                                                           height: 50.0,
                                                           child: RaisedButton(
+                                                            shape: RoundedRectangleBorder(
+                                                              borderRadius: new BorderRadius.circular(50.0),
+                                                            ),
                                                             child: FittedBox(
                                                                 child: Text(
                                                                     AppLocalizations
@@ -8095,6 +8129,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                         ButtonTheme(
                                                           height: 70.0,
                                                           child: RaisedButton(
+                                                            shape: RoundedRectangleBorder(
+                                                              borderRadius: new BorderRadius.circular(50.0),
+                                                            ),
                                                             child: FittedBox(
                                                                 child: Text(
                                                                     AppLocalizations
@@ -8484,6 +8521,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                         ButtonTheme(
                                                           height: 50.0,
                                                           child: RaisedButton(
+                                                            shape: RoundedRectangleBorder(
+                                                              borderRadius: new BorderRadius.circular(50.0),
+                                                            ),
                                                             child: Text(
                                                               AppLocalizations
                                                                   .of(context)
@@ -8509,6 +8549,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                         ButtonTheme(
                                                           height: 50.0,
                                                           child: RaisedButton(
+                                                            shape: RoundedRectangleBorder(
+                                                              borderRadius: new BorderRadius.circular(50.0),
+                                                            ),
                                                             child: Text(
                                                                 AppLocalizations
                                                                     .of(context)
@@ -8658,6 +8701,9 @@ class _MyHomePageState extends State<MyHomePage>
 
                                                           height: 70.0,
                                                           child: RaisedButton(
+                                                            shape: RoundedRectangleBorder(
+                                                              borderRadius: new BorderRadius.circular(50.0),
+                                                            ),
                                                             child: Text(
                                                                 AppLocalizations
                                                                     .of(context)
