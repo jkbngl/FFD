@@ -4017,6 +4017,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             groupValue: true,
                                                                             value: sortActualOrders[index -
                                                                                 1],
+                                                                            activeColor: Color(0xFF0957FF),
                                                                             onChanged: (
                                                                                 bool newValue) {
                                                                               setState(() {
@@ -5720,6 +5721,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       groupValue: true,
                                                                       value: sortBudgetOrders[index -
                                                                           1],
+                                                                      activeColor: Color(0xFF0957FF),
                                                                       onChanged: (
                                                                           bool newValue) {
                                                                         setState(() {
