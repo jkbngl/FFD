@@ -511,7 +511,7 @@ class _MyHomePageState extends State<MyHomePage>
     String language = Localizations.localeOf(context).toString().split('_')[0];
 
     try {
-      String url = 'https://uselessfacts.jsph.pl/random.json?language=$language';
+      String url = 'https://uselessfacts.jsph.pl/random.json?language=${language == 'en' || language == 'de' ? language : 'en'}';
 
       print(url);
       print(Localizations.localeOf(context).toString());
