@@ -354,7 +354,6 @@ class _MyHomePageState extends State<MyHomePage>
   bool errorDialogActive = false;
 
 
-
   // Standard sorting logic
   String actualListSortColumn = 'created';
   String actualListSortType = 'desc';
@@ -2663,10 +2662,11 @@ class _MyHomePageState extends State<MyHomePage>
     print(index);
 
     switch (index) {
-      // Default value when only the switch is changed, use the same column again
+    // Default value when only the switch is changed, use the same column again
       case -1:
         {
-          passedType = type == 'actual' ? actualListSortColumn : budgetListSortColumn;
+          passedType =
+          type == 'actual' ? actualListSortColumn : budgetListSortColumn;
         }
         break;
 
@@ -2706,8 +2706,7 @@ class _MyHomePageState extends State<MyHomePage>
     if (type == 'actual') {
       actualListSortType = sortActualDescending == true ? 'desc' : 'asc';
       actualListSortColumn = passedType;
-    } else if(type == 'budget')
-    {
+    } else if (type == 'budget') {
       budgetListSortType = sortBudgetDescending == true ? 'desc' : 'asc';
       budgetListSortColumn = passedType;
     }
@@ -3945,26 +3944,31 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       index == 0
                                                                           ?
                                                                       Row(
-                                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                                          mainAxisAlignment: MainAxisAlignment
+                                                                              .center,
                                                                           children: <
                                                                               Widget>[
-                                                                            Text( AppLocalizations
-                                                                                .of(
-                                                                                context)
-                                                                                .translate(
-                                                                                'orderAsc'), overflow: TextOverflow.ellipsis,),
+                                                                            Text(
+                                                                              AppLocalizations
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .translate(
+                                                                                  'orderAsc'),
+                                                                              overflow: TextOverflow
+                                                                                  .ellipsis,),
                                                                             Switch(
-                                                                              value: sortActualDescending  ,
+                                                                              value: sortActualDescending,
                                                                               onChanged: (
                                                                                   value) {
                                                                                 setState(() {
-                                                                                  sortActualDescending  =
+                                                                                  sortActualDescending =
                                                                                       value;
-                                                                                  handleOrderDialog(-1, 'actual');
+                                                                                  handleOrderDialog(
+                                                                                      -1,
+                                                                                      'actual');
                                                                                   Navigator
                                                                                       .pop(
                                                                                       context);
-
                                                                                 });
                                                                               },
                                                                               activeTrackColor: Color(
@@ -3972,11 +3976,14 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               activeColor: Color(
                                                                                   0xff0957FF),
                                                                             ),
-                                                                            Text(AppLocalizations
-                                                                                .of(
-                                                                                context)
-                                                                                .translate(
-                                                                                'orderDesc'), overflow: TextOverflow.ellipsis,),
+                                                                            Text(
+                                                                              AppLocalizations
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .translate(
+                                                                                  'orderDesc'),
+                                                                              overflow: TextOverflow
+                                                                                  .ellipsis,),
                                                                           ])
                                                                           : Row(
                                                                         children: <
@@ -4016,19 +4023,18 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               Navigator
                                                                                   .pop(
                                                                                   context);
-
-                                                                              print(
-                                                                                  "POPPRED");
-                                                                            },
+                                                                              },
                                                                           ),
-                                                                          Text(
+                                                                          Flexible(child: Text(
                                                                             AppLocalizations
                                                                                 .of(
                                                                                 context)
                                                                                 .translate(
                                                                                 '${index -
                                                                                     1}OrderText'),
-                                                                          ),
+                                                                            overflow: TextOverflow
+                                                                                .clip,
+                                                                          )),
                                                                         ],
                                                                       );
                                                                   }));
@@ -5625,26 +5631,31 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 index == 0
                                                                     ?
                                                                 Row(
-                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                    mainAxisAlignment: MainAxisAlignment
+                                                                        .center,
                                                                     children: <
                                                                         Widget>[
-                                                                      Text( AppLocalizations
-                                                                          .of(
-                                                                          context)
-                                                                          .translate(
-                                                                          'orderAsc'), overflow: TextOverflow.ellipsis,),
+                                                                      Text(
+                                                                        AppLocalizations
+                                                                            .of(
+                                                                            context)
+                                                                            .translate(
+                                                                            'orderAsc'),
+                                                                        overflow: TextOverflow
+                                                                            .ellipsis,),
                                                                       Switch(
-                                                                        value: sortBudgetDescending  ,
+                                                                        value: sortBudgetDescending,
                                                                         onChanged: (
                                                                             value) {
                                                                           setState(() {
-                                                                            sortBudgetDescending  =
+                                                                            sortBudgetDescending =
                                                                                 value;
-                                                                            handleOrderDialog(-1, 'budget');
+                                                                            handleOrderDialog(
+                                                                                -1,
+                                                                                'budget');
                                                                             Navigator
                                                                                 .pop(
                                                                                 context);
-
                                                                           });
                                                                         },
                                                                         activeTrackColor: Color(
@@ -5652,11 +5663,14 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         activeColor: Color(
                                                                             0xff0957FF),
                                                                       ),
-                                                                      Text(AppLocalizations
-                                                                          .of(
-                                                                          context)
-                                                                          .translate(
-                                                                          'orderDesc'), overflow: TextOverflow.ellipsis,),
+                                                                      Text(
+                                                                        AppLocalizations
+                                                                            .of(
+                                                                            context)
+                                                                            .translate(
+                                                                            'orderDesc'),
+                                                                        overflow: TextOverflow
+                                                                            .ellipsis,),
                                                                     ])
                                                                     : Row(
                                                                   children: <
@@ -5698,14 +5712,16 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             context);
                                                                       },
                                                                     ),
-                                                                    Text(
+                                                                    Flexible(child: Text(
                                                                       AppLocalizations
                                                                           .of(
                                                                           context)
                                                                           .translate(
                                                                           '${index -
                                                                               1}OrderText'),
-                                                                    ),
+                                                                      overflow: TextOverflow
+                                                                          .clip,
+                                                                    )),
                                                                   ],
                                                                 );
                                                             }));
