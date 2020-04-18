@@ -31,15 +31,12 @@ dependencies:
   firebase_auth: ^0.15.2
   google_sign_in: ^4.0.4
   search_choices: ^1.0.13
-  flutter_launcher_icons: ^0.7.0
+  flutter_launcher_icons: ^0.7.4
 
 flutter_icons:
+  image_path: "assets/launcher/icon.png"
+  android: false
   ios: true
-  android: true
-  image_path_ios: "assets/icon.png"
-  image_path_android: "assets/icon.png"
-  #adaptive_icon_background: "assets/background.png"
-  #adaptive_icon_foreground: "assets/foreground.png"
 
 
   # The following adds the Cupertino Icons font to your application.
