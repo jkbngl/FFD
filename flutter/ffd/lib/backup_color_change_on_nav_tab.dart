@@ -2718,6 +2718,18 @@ class _MyHomePageState extends State<MyHomePage>
         type == 'actual' ? actualListSortType : budgetListSortType);
   }
 
+  String numberValidator(String value) {
+    if(value == null) {
+      return null;
+    }
+    final n = num.tryParse(value);
+    if(n == null) {
+      return '"$value" is not a valid number';
+    }
+    return null;
+  }
+
+
   final RefreshController _refreshController = RefreshController();
 
   @override
@@ -3378,6 +3390,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                           //autofocus: true,
                                                           controller:
                                                           actualTextFieldController,
+                                                          validator: numberValidator,
                                                           decoration: InputDecoration(
                                                             // hintText: 'Enter ur amount',
                                                             //hintStyle: TextStyle(height: 1.75),
@@ -3779,7 +3792,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 if (actualTextFieldController
                                                                     .text
                                                                     .length >
-                                                                    0) {
+                                                                    0 && numberValidator(actualTextFieldController
+                                                                    .text
+                                                                ) == null) {
                                                                   commentInput(
                                                                       context,
                                                                       'actual',
@@ -5054,6 +5069,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                           //autofocus: true,
                                                           controller:
                                                           budgetTextFieldController,
+                                                          validator: numberValidator,
                                                           decoration: InputDecoration(
                                                             // hintText: 'Enter ur amount',
                                                             //hintStyle: TextStyle(height: 1.75),
@@ -5476,7 +5492,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 if (budgetTextFieldController
                                                                     .text
                                                                     .length >
-                                                                    0) {
+                                                                    0 && numberValidator(budgetTextFieldController
+                                                                    .text
+                                                                    ) == null) {
+
+                                                                  print(numberValidator(budgetTextFieldController.text));
+
                                                                   commentInput(
                                                                       context,
                                                                       'budget',

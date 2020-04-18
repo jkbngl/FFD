@@ -111,7 +111,7 @@
   "signInGoogleText" : "Accedi con Google",
   "noDataFoundText": "Nessun dato trovato \nper:",
   "willBeAddedAsAChildOf": "sarà aggiunto come figlio di",
-  "errorInputEnterAmount": "Assicuratevi di inserire un importo nel campo di testo in alto",
+  "errorInputEnterAmount": "Assicuratevi di inserire un importo valido nel campo di testo in alto",
   "errorDeleteNoAccountSelected": "Assicuratevi di selezionare un conto che deve essere cancellato",
   "errorDeleteNoCostTypeSelected": "Si prega di selezionare un tipo di costo che deve essere cancellato",
   "errorAddNoNewCostTypeEntered": "Si prega di inserire un nome per il nuovo tipo di costo",
