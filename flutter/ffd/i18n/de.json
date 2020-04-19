@@ -15,7 +15,7 @@
   "month": "Monat",
   "week": "Woche",
   "day": "Tag",
-  "forTheNext": "For the next: ",
+  "forTheNext": "Für die nächsten: ",
   "scheduleExample": "Z.b. 5",
   "interval": "Intervall: ",
   "TitleInputTab": "Eingabe",
@@ -120,5 +120,6 @@
   "errorAddNoNewCostTypeEntered": "Bitte geben Sie einen Namen für die neue Kostentyp ein",
   "errorAddNoAccountEntered": "Bitte geben Sie einen Namen für das/die neue(n) Konto/Konten ein",
   "noAccount": "KEIN KONTO",
-  "Message" : "This is English"
+  "slideToConfirm": "Wischen um zum Bestätigen",
+  "Message" : "das ist deutsch"
 }

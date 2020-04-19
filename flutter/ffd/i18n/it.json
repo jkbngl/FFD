@@ -15,7 +15,7 @@
   "month": "Mese",
   "week": "Settimana",
   "day": "Giorno",
-  "forTheNext": "Für die nächsten: ",
+  "forTheNext": "Per i prossimi: ",
   "scheduleExample": "Es. 5",
   "interval": "Intervallo: ",
   "TitleInputTab": "Ingresso",
@@ -50,7 +50,7 @@
   "areYouSureDialog": "Sei sicuro?",
   "EntryFrom": "Entrata da: ",
   "withAnAmountOf": "con una quantità di",
-  "willBe": "sarà",
+  "willBe": "sarà ",
   "deleted": "cancellato",
   "restored": "restaurato",
   "cancel": "Cancella",
@@ -120,5 +120,6 @@
   "errorAddNoNewCostTypeEntered": "Si prega di inserire un nome per il nuovo tipo di costo",
   "errorAddNoAccountEntered": "Inserire un nome per il nuovo conto/conti",
   "noAccount": "NESSUN CONTO",
+  "slideToConfirm": "Scorrere per confermare",
   "Message" : "Questo è inglese"
 }

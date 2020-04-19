@@ -15,6 +15,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'login_page.dart';
 import 'package:search_choices/search_choices.dart';
+import 'package:slide_to_confirm/slide_to_confirm.dart';
 import 'dart:ui' as ui;
 
 
@@ -511,7 +512,8 @@ class _MyHomePageState extends State<MyHomePage>
     String language = Localizations.localeOf(context).toString().split('_')[0];
 
     try {
-      String url = 'https://uselessfacts.jsph.pl/random.json?language=${language == 'en' || language == 'de' ? language : 'en'}';
+      String url = 'https://uselessfacts.jsph.pl/random.json?language=${language ==
+          'en' || language == 'de' ? language : 'en'}';
 
       print(url);
       print(Localizations.localeOf(context).toString());
@@ -1632,7 +1634,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                     fontSize: 15),
                                               )
                                             ],)
-                                          , Row(
+                                          ,
+                                          Row(
                                             children: <Widget>[
                                               Switch(
                                                 value: scheduleDay,
@@ -1659,9 +1662,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                     color: Colors.grey[800],
                                                     fontWeight: FontWeight.w900,
                                                     fontSize: 15),
-                                              )
+                                              ),
+
                                             ],),
-                                        ]))));
+
+                                        ])))
+                        );
                       }),
                   actions: <Widget>[
                     new FlatButton(
@@ -1671,27 +1677,45 @@ class _MyHomePageState extends State<MyHomePage>
                         Navigator.of(context).pop();
                       },
                     ),
-                    new FlatButton(
-                      child: new Text(
-                          AppLocalizations.of(context).translate('addButton')),
-                      onPressed: () {
-                        if(scheduleAmountTextFieldController.text.length > 0 && numberValidator(scheduleAmountTextFieldController.text) == null && (scheduleYear || scheduleMonth || scheduleWeek || scheduleWeek) && int.parse(scheduleAmountTextFieldController.text) < 100)
-                        {
-                          if (type == 'actual') {
-                            sendBackend('actualschedule', false);
-                          } else if (type == 'budget') {
-                            sendBackend('budgetschedule', false);
-                          }
+                    new Container(
+                      margin: EdgeInsets.only(
+                          left: 2, right: 2, bottom: 10),
+                      child: ConfirmationSlider(
+                        text: AppLocalizations.of(context).translate(
+                            'slideToConfirm'),
+                        foregroundColor: Color(
+                            0xff0957FF),
+                        onConfirmation: () {
+                          if (scheduleAmountTextFieldController.text.length > 0 &&
+                              numberValidator(
+                                  scheduleAmountTextFieldController.text) ==
+                                  null &&
+                              (scheduleYear || scheduleMonth || scheduleWeek ||
+                                  scheduleWeek) &&
+                              int.parse(scheduleAmountTextFieldController.text) <
+                                  100) {
+                            if (type == 'actual') {
+                              sendBackend('actualschedule', false);
+                            } else if (type == 'budget') {
+                              sendBackend('budgetschedule', false);
+                            }
 
-                          Navigator.of(context).pop();
-                        } else
-                          {
-                            String errorMessage = scheduleAmountTextFieldController.text.length == 0 ? 'errorInputEnterAmount' : (numberValidator(scheduleAmountTextFieldController.text) != null ? 'errorInputInvalidAmount' : (!(scheduleYear || scheduleMonth || scheduleWeek || scheduleWeek) ? 'errorInputNoScheduleSelected' : 'errorInputToBigSchedule'));
+                            Navigator.of(context).pop();
+                          } else {
+                            String errorMessage = scheduleAmountTextFieldController
+                                .text.length == 0
+                                ? 'errorInputEnterAmount'
+                                : (numberValidator(
+                                scheduleAmountTextFieldController.text) != null
+                                ? 'errorInputInvalidAmount'
+                                : (!(scheduleYear || scheduleMonth ||
+                                scheduleWeek || scheduleWeek)
+                                ? 'errorInputNoScheduleSelected'
+                                : 'errorInputToBigSchedule'));
 
                             showDialog(
                               context: context,
-                              builder: (
-                                  BuildContext context) {
+                              builder: (BuildContext context) {
                                 // return object of type Dialog
                                 return AlertDialog(
                                   title: new Text(
@@ -1735,8 +1759,88 @@ class _MyHomePageState extends State<MyHomePage>
                               },
                             );
                           }
-                      },
+                        },
+                      ),
                     ),
+                    /*new FlatButton(
+                      child: new Text(
+                          AppLocalizations.of(context).translate('addButton')),
+                      onPressed: () {
+                        if (scheduleAmountTextFieldController.text.length > 0 &&
+                            numberValidator(
+                                scheduleAmountTextFieldController.text) ==
+                                null &&
+                            (scheduleYear || scheduleMonth || scheduleWeek ||
+                                scheduleWeek) &&
+                            int.parse(scheduleAmountTextFieldController.text) <
+                                100) {
+                          if (type == 'actual') {
+                            sendBackend('actualschedule', false);
+                          } else if (type == 'budget') {
+                            sendBackend('budgetschedule', false);
+                          }
+
+                          Navigator.of(context).pop();
+                        } else {
+                          String errorMessage = scheduleAmountTextFieldController
+                              .text.length == 0
+                              ? 'errorInputEnterAmount'
+                              : (numberValidator(
+                              scheduleAmountTextFieldController.text) != null
+                              ? 'errorInputInvalidAmount'
+                              : (!(scheduleYear || scheduleMonth ||
+                              scheduleWeek || scheduleWeek)
+                              ? 'errorInputNoScheduleSelected'
+                              : 'errorInputToBigSchedule'));
+
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              // return object of type Dialog
+                              return AlertDialog(
+                                title: new Text(
+                                  AppLocalizations
+                                      .of(
+                                      context)
+                                      .translate(
+                                      'warning')
+                                  ,
+                                  style: TextStyle(
+                                      color: Colors
+                                          .orange,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight
+                                          .bold),),
+                                content: new Text(
+                                  AppLocalizations
+                                      .of(
+                                      context)
+                                      .translate(
+                                      errorMessage),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight
+                                          .bold,
+                                      fontSize: 20),),
+                                actions: <
+                                    Widget>[
+                                  // usually buttons at the bottom of the dialog
+                                  new FlatButton(
+                                    child: new Text(
+                                        "Close"),
+                                    onPressed: () {
+                                      Navigator
+                                          .of(
+                                          context)
+                                          .pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+                      },
+                    ),*/
                   ],
                 );
               });
@@ -2228,7 +2332,8 @@ class _MyHomePageState extends State<MyHomePage>
                       Navigator.of(context).pop();
                     },
                   ),
-                  new FlatButton(
+                  // 158 skip button is no longer used
+                  /*new FlatButton(
                     child: new Text(
                         AppLocalizations.of(context).translate('skip')),
                     onPressed: () {
@@ -2244,8 +2349,27 @@ class _MyHomePageState extends State<MyHomePage>
 
                       Navigator.of(context).pop();
                     },
+                  ),*/
+                  new Container(
+                    margin: EdgeInsets.only(
+                        left: 2, right: 2, bottom: 10),
+                    child: ConfirmationSlider(
+                      text: AppLocalizations.of(context).translate(
+                          'slideToConfirm'),
+                      foregroundColor: Color(
+                          0xff0957FF),
+                      onConfirmation: () {
+                        if (type == 'actual') {
+                          sendBackend('actual', false);
+                        } else if (type == 'budget') {
+                          sendBackend('budget', false);
+                        }
+
+                        Navigator.of(context).pop();
+                      },
+                    ),
                   ),
-                  new FlatButton(
+                  /*new FlatButton(
                     child: new Text(
                         AppLocalizations.of(context).translate('addButton')),
                     onPressed: () {
@@ -2257,7 +2381,7 @@ class _MyHomePageState extends State<MyHomePage>
 
                       Navigator.of(context).pop();
                     },
-                  ),
+                  ),*/
                 ],
               );
             });
@@ -2298,7 +2422,7 @@ class _MyHomePageState extends State<MyHomePage>
                       Navigator.of(context).pop();
                     },
                   ),
-                  new FlatButton(
+                  /*new FlatButton(
                     child: new Text(
                         AppLocalizations.of(context).translate('skip')),
                     onPressed: () {
@@ -2310,8 +2434,32 @@ class _MyHomePageState extends State<MyHomePage>
 
                       Navigator.of(context).pop();
                     },
+                  ),*/
+                  new Container(
+                    margin: EdgeInsets.only(
+                        left: 2, right: 2, bottom: 10),
+                    child: ConfirmationSlider(
+                      text: AppLocalizations.of(context).translate(
+                          'slideToConfirm'),
+                      foregroundColor: Color(
+                          0xff0957FF),
+                      onConfirmation: () {
+                        if (type == 'actual') {
+                          sendBackend('actual', false);
+                        } else if (type == 'budget') {
+                          sendBackend('budget', false);
+                        } else if (type != 'account') {
+                          sendBackend('new${type}add', false);
+                        } else if (dependingController2.text.length <= 0) {
+                          sendBackend('new${type}add', false);
+                        }
+
+                        Navigator.of(context).pop();
+                      },
+                    ),
                   ),
-                  new FlatButton(
+
+                  /*new FlatButton(
                     child: new Text(
                         AppLocalizations.of(context).translate('addButton')),
                     onPressed: () {
@@ -2327,7 +2475,7 @@ class _MyHomePageState extends State<MyHomePage>
 
                       Navigator.of(context).pop();
                     },
-                  ),
+                  ),*/
                 ],
               );
             });
@@ -2375,7 +2523,8 @@ class _MyHomePageState extends State<MyHomePage>
                     Navigator.of(context).pop();
                   },
                 ),
-                new FlatButton(
+                // #158
+                /*new FlatButton(
                   child: new Text(
                       AppLocalizations.of(context).translate('skip')),
                   onPressed: () {
@@ -2386,8 +2535,26 @@ class _MyHomePageState extends State<MyHomePage>
 
                     Navigator.of(context).pop();
                   },
+                ),*/
+                new Container(
+                  margin: EdgeInsets.only(
+                      left: 2, right: 2, bottom: 10),
+                  child: ConfirmationSlider(
+                    text: AppLocalizations.of(context).translate(
+                        'slideToConfirm'),
+                    foregroundColor: Color(
+                        0xff0957FF),
+                    onConfirmation: () {
+                      // Send directly to backend if no additional level3 was entered which has to be saved in the Backend -> DB
+                      if (dependingController3.text.length <= 0) {
+                        sendBackend('new${type}add', false);
+                      }
+
+                      Navigator.of(context).pop();
+                    },
+                  ),
                 ),
-                new FlatButton(
+                /*new FlatButton(
                   child: new Text(
                       AppLocalizations.of(context).translate('addButton')),
                   onPressed: () {
@@ -2398,7 +2565,7 @@ class _MyHomePageState extends State<MyHomePage>
 
                     Navigator.of(context).pop();
                   },
-                ),
+                ),*/
               ],
             );
           });
@@ -2443,7 +2610,8 @@ class _MyHomePageState extends State<MyHomePage>
                     Navigator.of(context).pop();
                   },
                 ),
-                new FlatButton(
+                // 158
+                /*new FlatButton(
                   child: new Text(
                       AppLocalizations.of(context).translate('skip')),
                   onPressed: () {
@@ -2451,7 +2619,23 @@ class _MyHomePageState extends State<MyHomePage>
 
                     Navigator.of(context).pop();
                   },
+                ),*/
+                new Container(
+                  margin: EdgeInsets.only(
+                      left: 2, right: 2, bottom: 10),
+                  child: ConfirmationSlider(
+                    text: AppLocalizations.of(context).translate(
+                        'slideToConfirm'),
+                    foregroundColor: Color(
+                        0xff0957FF),
+                    onConfirmation: () {
+                      sendBackend('new${type}add', false);
+
+                      Navigator.of(context).pop();
+                    },
+                  ),
                 ),
+                /*
                 new FlatButton(
                   child: new Text(
                       AppLocalizations.of(context).translate('saveButton')),
@@ -2460,7 +2644,7 @@ class _MyHomePageState extends State<MyHomePage>
 
                     Navigator.of(context).pop();
                   },
-                ),
+                ),*/
               ],
             );
           });
@@ -2772,11 +2956,11 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   String numberValidator(String value) {
-    if(value == null) {
+    if (value == null) {
       return null;
     }
     final n = num.tryParse(value);
-    if(n == null) {
+    if (n == null) {
       return '"$value" is not a valid number';
     }
     return null;
@@ -3797,7 +3981,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                             height: 40.0,
                                                             child: RaisedButton(
                                                               shape: RoundedRectangleBorder(
-                                                                borderRadius: new BorderRadius.circular(50.0),
+                                                                borderRadius: new BorderRadius
+                                                                    .circular(
+                                                                    50.0),
                                                               ),
                                                               child: Text(
                                                                 AppLocalizations
@@ -3835,7 +4021,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                             height: 60.0,
                                                             child: RaisedButton(
                                                               shape: RoundedRectangleBorder(
-                                                                  borderRadius: new BorderRadius.circular(50.0),
+                                                                borderRadius: new BorderRadius
+                                                                    .circular(
+                                                                    50.0),
                                                               ),
                                                               child: Text(
                                                                   AppLocalizations
@@ -3854,9 +4042,11 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 if (actualTextFieldController
                                                                     .text
                                                                     .length >
-                                                                    0 && numberValidator(actualTextFieldController
-                                                                    .text
-                                                                ) == null) {
+                                                                    0 &&
+                                                                    numberValidator(
+                                                                        actualTextFieldController
+                                                                            .text
+                                                                    ) == null) {
                                                                   commentInput(
                                                                       context,
                                                                       'actual',
@@ -3886,18 +4076,21 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                   .bold),),
                                                                         content: new Text(
                                                                           // #157 differentiate message betweeen nothing entered and invalid number entered
-                                                                            actualTextFieldController
-                                                                                .text
-                                                                                .length == 0 ?
-                                                                                AppLocalizations
+                                                                          actualTextFieldController
+                                                                              .text
+                                                                              .length ==
+                                                                              0
+                                                                              ?
+                                                                          AppLocalizations
                                                                               .of(
                                                                               context)
                                                                               .translate(
-                                                                              'errorInputEnterAmount') : AppLocalizations
-                                                                                .of(
-                                                                                context)
-                                                                                .translate(
-                                                                                'errorInputInvalidAmount'),
+                                                                              'errorInputEnterAmount')
+                                                                              : AppLocalizations
+                                                                              .of(
+                                                                              context)
+                                                                              .translate(
+                                                                              'errorInputInvalidAmount'),
                                                                           style: TextStyle(
                                                                               fontWeight: FontWeight
                                                                                   .bold,
@@ -4078,7 +4271,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             groupValue: true,
                                                                             value: sortActualOrders[index -
                                                                                 1],
-                                                                            activeColor: Color(0xFF0957FF),
+                                                                            activeColor: Color(
+                                                                                0xFF0957FF),
                                                                             onChanged: (
                                                                                 bool newValue) {
                                                                               setState(() {
@@ -4109,18 +4303,19 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               Navigator
                                                                                   .pop(
                                                                                   context);
-                                                                              },
+                                                                            },
                                                                           ),
-                                                                          Flexible(child: Text(
-                                                                            AppLocalizations
-                                                                                .of(
-                                                                                context)
-                                                                                .translate(
-                                                                                '${index -
-                                                                                    1}OrderText'),
-                                                                            overflow: TextOverflow
-                                                                                .clip,
-                                                                          )),
+                                                                          Flexible(
+                                                                              child: Text(
+                                                                                AppLocalizations
+                                                                                    .of(
+                                                                                    context)
+                                                                                    .translate(
+                                                                                    '${index -
+                                                                                        1}OrderText'),
+                                                                                overflow: TextOverflow
+                                                                                    .clip,
+                                                                              )),
                                                                         ],
                                                                       );
                                                                   }));
@@ -4930,7 +5125,31 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               context)
                                                                               .pop(),
                                                                     ),
-                                                                    new FlatButton(
+                                                                    new Container(
+                                                                      margin: EdgeInsets.only(
+                                                                          left: 2, right: 2, bottom: 10),
+                                                                      child: ConfirmationSlider(
+                                                                        text:  AppLocalizations.of(context).translate('slideToConfirm'),
+                                                                        foregroundColor: Color(
+                                                                            0xff0957FF),
+                                                                        onConfirmation: () {
+                                                                          actObjectToDelete
+                                                                              .id =
+                                                                              actList[index -
+                                                                                  1]
+                                                                                  .id;
+
+                                                                          sendBackend(
+                                                                              'actlistdelete',
+                                                                              false);
+                                                                          Navigator
+                                                                              .of(
+                                                                              context)
+                                                                              .pop();
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                    /*new FlatButton(
                                                                       child:
                                                                       new Text(
                                                                           AppLocalizations
@@ -4954,7 +5173,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             context)
                                                                             .pop();
                                                                       },
-                                                                    )
+                                                                    )*/
                                                                   ],
                                                                 ),
                                                               );
@@ -5494,7 +5713,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                             height: 40.0,
                                                             child: RaisedButton(
                                                               shape: RoundedRectangleBorder(
-                                                                borderRadius: new BorderRadius.circular(50.0),
+                                                                borderRadius: new BorderRadius
+                                                                    .circular(
+                                                                    50.0),
                                                               ),
                                                               child: Text(
                                                                 AppLocalizations
@@ -5524,27 +5745,27 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   costTypesList[0];
                                                                 });
                                                                 /*
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    // return object of type Dialog
-                                    return AlertDialog(
-                                      title: new Text("Alert Dialog title"),
-                                      content: new Text(
-                                          "Alert Dialog body: costtype"),
-                                      actions: <Widget>[
-                                        // usually buttons at the bottom of the dialog
-                                        new FlatButton(
-                                          child: new Text("Close"),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                                */
+                                                                showDialog(
+                                                                  context: context,
+                                                                  builder: (BuildContext context) {
+                                                                    // return object of type Dialog
+                                                                    return AlertDialog(
+                                                                      title: new Text("Alert Dialog title"),
+                                                                      content: new Text(
+                                                                          "Alert Dialog body: costtype"),
+                                                                      actions: <Widget>[
+                                                                        // usually buttons at the bottom of the dialog
+                                                                        new FlatButton(
+                                                                          child: new Text("Close"),
+                                                                          onPressed: () {
+                                                                            Navigator.of(context).pop();
+                                                                          },
+                                                                        ),
+                                                                      ],
+                                                                    );
+                                                                  },
+                                                                );
+                                                                */
                                                               },
                                                             ),
                                                           ),
@@ -5553,7 +5774,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                             height: 60.0,
                                                             child: RaisedButton(
                                                               shape: RoundedRectangleBorder(
-                                                                borderRadius: new BorderRadius.circular(50.0),
+                                                                borderRadius: new BorderRadius
+                                                                    .circular(
+                                                                    50.0),
                                                               ),
                                                               child: Text(
                                                                   AppLocalizations
@@ -5573,11 +5796,15 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 if (budgetTextFieldController
                                                                     .text
                                                                     .length >
-                                                                    0 && numberValidator(budgetTextFieldController
-                                                                    .text
+                                                                    0 &&
+                                                                    numberValidator(
+                                                                        budgetTextFieldController
+                                                                            .text
                                                                     ) == null) {
-
-                                                                  print(numberValidator(budgetTextFieldController.text));
+                                                                  print(
+                                                                      numberValidator(
+                                                                          budgetTextFieldController
+                                                                              .text));
 
                                                                   commentInput(
                                                                       context,
@@ -5610,12 +5837,15 @@ class _MyHomePageState extends State<MyHomePage>
                                                                           // #157 differentiate message betweeen nothing entered and invalid number entered
                                                                           budgetTextFieldController
                                                                               .text
-                                                                              .length == 0 ?
+                                                                              .length ==
+                                                                              0
+                                                                              ?
                                                                           AppLocalizations
                                                                               .of(
                                                                               context)
                                                                               .translate(
-                                                                              'errorInputEnterAmount') : AppLocalizations
+                                                                              'errorInputEnterAmount')
+                                                                              : AppLocalizations
                                                                               .of(
                                                                               context)
                                                                               .translate(
@@ -5790,7 +6020,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       groupValue: true,
                                                                       value: sortBudgetOrders[index -
                                                                           1],
-                                                                      activeColor: Color(0xFF0957FF),
+                                                                      activeColor: Color(
+                                                                          0xFF0957FF),
                                                                       onChanged: (
                                                                           bool newValue) {
                                                                         setState(() {
@@ -5823,16 +6054,17 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             context);
                                                                       },
                                                                     ),
-                                                                    Flexible(child: Text(
-                                                                      AppLocalizations
-                                                                          .of(
-                                                                          context)
-                                                                          .translate(
-                                                                          '${index -
-                                                                              1}OrderText'),
-                                                                      overflow: TextOverflow
-                                                                          .clip,
-                                                                    )),
+                                                                    Flexible(
+                                                                        child: Text(
+                                                                          AppLocalizations
+                                                                              .of(
+                                                                              context)
+                                                                              .translate(
+                                                                              '${index -
+                                                                                  1}OrderText'),
+                                                                          overflow: TextOverflow
+                                                                              .clip,
+                                                                        )),
                                                                   ],
                                                                 );
                                                             }));
@@ -6616,7 +6848,31 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               context)
                                                                               .pop(),
                                                                     ),
-                                                                    new FlatButton(
+                                                                    new Container(
+                                                                      margin: EdgeInsets.only(
+                                                                          left: 2, right: 2, bottom: 10),
+                                                                      child: ConfirmationSlider(
+                                                                        text:  AppLocalizations.of(context).translate('slideToConfirm'),
+                                                                        foregroundColor: Color(
+                                                                            0xff0957FF),
+                                                                        onConfirmation: () {
+                                                                          bdgObjectToDelete
+                                                                              .id =
+                                                                              bdgList[index -
+                                                                                  1]
+                                                                                  .id;
+
+                                                                          sendBackend(
+                                                                              'bdglistdelete',
+                                                                              false);
+                                                                          Navigator
+                                                                              .of(
+                                                                              context)
+                                                                              .pop();
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                    /*new FlatButton(
                                                                       child:
                                                                       new Text(
                                                                         AppLocalizations
@@ -6641,7 +6897,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             context)
                                                                             .pop();
                                                                       },
-                                                                    )
+                                                                    )*/
                                                                   ],
                                                                 ),
                                                               );
@@ -6980,7 +7236,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                     //child: Text('Submit'),
                                                     child: RaisedButton(
                                                       shape: RoundedRectangleBorder(
-                                                        borderRadius: new BorderRadius.circular(50.0),
+                                                        borderRadius: new BorderRadius
+                                                            .circular(50.0),
                                                       ),
                                                       child: Text(
                                                           AppLocalizations.of(
@@ -7417,7 +7674,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                               height: 50.0,
                                                               child: RaisedButton(
                                                                 shape: RoundedRectangleBorder(
-                                                                  borderRadius: new BorderRadius.circular(50.0),
+                                                                  borderRadius: new BorderRadius
+                                                                      .circular(
+                                                                      50.0),
                                                                 ),
                                                                 child: Text(
                                                                   AppLocalizations
@@ -7439,7 +7698,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                               height: 70.0,
                                                               child: RaisedButton(
                                                                 shape: RoundedRectangleBorder(
-                                                                  borderRadius: new BorderRadius.circular(50.0),
+                                                                  borderRadius: new BorderRadius
+                                                                      .circular(
+                                                                      50.0),
                                                                 ),
                                                                 child: Text(
                                                                     AppLocalizations
@@ -7923,7 +8184,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                           height: 50.0,
                                                           child: RaisedButton(
                                                             shape: RoundedRectangleBorder(
-                                                              borderRadius: new BorderRadius.circular(50.0),
+                                                              borderRadius: new BorderRadius
+                                                                  .circular(
+                                                                  50.0),
                                                             ),
                                                             child: FittedBox(
                                                                 child: Text(
@@ -7963,7 +8226,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                           height: 50.0,
                                                           child: RaisedButton(
                                                             shape: RoundedRectangleBorder(
-                                                              borderRadius: new BorderRadius.circular(50.0),
+                                                              borderRadius: new BorderRadius
+                                                                  .circular(
+                                                                  50.0),
                                                             ),
                                                             child: FittedBox(
                                                                 child: Text(
@@ -8048,7 +8313,106 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                 .pop();
                                                                           },
                                                                         ),
-                                                                        new FlatButton(
+                                                                        new Container(
+                                                                          margin: EdgeInsets.only(
+                                                                              left: 2, right: 2, bottom: 10),
+                                                                          child: ConfirmationSlider(
+                                                                            text:  AppLocalizations.of(context).translate('slideToConfirm'),
+                                                                            foregroundColor: Color(
+                                                                                0xff0957FF),
+                                                                            onConfirmation: () {
+                                                                              sendBackend(
+                                                                                  'newaccountdelete',
+                                                                                  false);
+
+                                                                              if
+                                                                              (level3AdminObject
+                                                                                  .id >
+                                                                                  0) {
+                                                                                // If the acount which has just been deleted was selected, unselect it
+                                                                                if (level3ActualObject
+                                                                                    .id ==
+                                                                                    level3AdminObject
+                                                                                        .id) {
+                                                                                  level3ActualObject =
+                                                                                  level3ActualAccountsList[
+                                                                                  0];
+                                                                                }
+
+                                                                                if (level3BudgetObject
+                                                                                    .id ==
+                                                                                    level3AdminObject
+                                                                                        .id) {
+                                                                                  level3BudgetObject =
+                                                                                  level3BudgetAccountsList[
+                                                                                  0];
+                                                                                }
+
+                                                                                level3AdminObject =
+                                                                                level3AdminAccountsList[
+                                                                                0];
+                                                                              } else
+                                                                              if (level2AdminObject
+                                                                                  .id >
+                                                                                  0) {
+                                                                                // If the acount which has just been deleted was selected, unselect it
+                                                                                if (level2ActualObject
+                                                                                    .id ==
+                                                                                    level2AdminObject
+                                                                                        .id) {
+                                                                                  level2ActualObject =
+                                                                                  level2ActualAccountsList[
+                                                                                  0];
+                                                                                }
+
+                                                                                if (level2BudgetObject
+                                                                                    .id ==
+                                                                                    level2AdminObject
+                                                                                        .id) {
+                                                                                  level2BudgetObject =
+                                                                                  level2BudgetAccountsList[
+                                                                                  0];
+                                                                                }
+
+                                                                                level2AdminObject =
+                                                                                level2AdminAccountsList[
+                                                                                0];
+                                                                              } else
+                                                                              if (level1AdminObject
+                                                                                  .id >
+                                                                                  0) {
+                                                                                // If the acount which has just been deleted was selected, unselect it
+                                                                                if (level1ActualObject
+                                                                                    .id ==
+                                                                                    level1AdminObject
+                                                                                        .id) {
+                                                                                  level1ActualObject =
+                                                                                  level1ActualAccountsList[
+                                                                                  0];
+                                                                                }
+
+                                                                                if (level1BudgetObject
+                                                                                    .id ==
+                                                                                    level1AdminObject
+                                                                                        .id) {
+                                                                                  level1BudgetObject =
+                                                                                  level1BudgetAccountsList[
+                                                                                  0];
+                                                                                }
+
+                                                                                level1AdminObject =
+                                                                                level1AdminAccountsList[
+                                                                                0];
+                                                                              };
+
+                                                                              Navigator
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .pop();
+                                                                            },
+                                                                          ),
+                                                                        ),
+                                                                        /*new FlatButton(
                                                                           child: new Text(
                                                                               "confirm"),
                                                                           onPressed: () {
@@ -8140,7 +8504,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                 context)
                                                                                 .pop();
                                                                           },
-                                                                        ),
+                                                                        ),*/
                                                                       ],
                                                                     );
                                                                   },
@@ -8201,7 +8565,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                           height: 70.0,
                                                           child: RaisedButton(
                                                             shape: RoundedRectangleBorder(
-                                                              borderRadius: new BorderRadius.circular(50.0),
+                                                              borderRadius: new BorderRadius
+                                                                  .circular(
+                                                                  50.0),
                                                             ),
                                                             child: FittedBox(
                                                                 child: Text(
@@ -8325,7 +8691,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                               : (level2AdminObject
                                                                                               .id >
                                                                                               0
-                                                                                              ? " >" +
+                                                                                              ? " > " +
                                                                                               level2AdminObject
                                                                                                   .name
                                                                                               : '')}')
@@ -8373,7 +8739,26 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                   .pop();
                                                                             },
                                                                           ),
-                                                                          new FlatButton(
+                                                                          new Container(
+                                                                            margin: EdgeInsets.only(
+                                                                                left: 2, right: 2, bottom: 10),
+                                                                            child: ConfirmationSlider(
+                                                                              text:  AppLocalizations.of(context).translate('slideToConfirm'),
+                                                                              foregroundColor: Color(
+                                                                                  0xff0957FF),
+                                                                              onConfirmation: () {
+                                                                                commentInput(
+                                                                                    context,
+                                                                                    'account',
+                                                                                    newLevel1TextFieldController,
+                                                                                    newLevel2TextFieldController,
+                                                                                    newLevel3TextFieldController);
+
+                                                                                //Navigator.pop(context);
+                                                                              },
+                                                                            ),
+                                                                          ),
+                                                                          /*new FlatButton(
                                                                             child: new Text(
                                                                                 AppLocalizations
                                                                                     .of(
@@ -8392,7 +8777,7 @@ class _MyHomePageState extends State<MyHomePage>
 
 
                                                                             },
-                                                                          ),
+                                                                          ),*/
                                                                         ],
                                                                       );
                                                                     });
@@ -8593,7 +8978,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                           height: 50.0,
                                                           child: RaisedButton(
                                                             shape: RoundedRectangleBorder(
-                                                              borderRadius: new BorderRadius.circular(50.0),
+                                                              borderRadius: new BorderRadius
+                                                                  .circular(
+                                                                  50.0),
                                                             ),
                                                             child: Text(
                                                               AppLocalizations
@@ -8621,7 +9008,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                           height: 50.0,
                                                           child: RaisedButton(
                                                             shape: RoundedRectangleBorder(
-                                                              borderRadius: new BorderRadius.circular(50.0),
+                                                              borderRadius: new BorderRadius
+                                                                  .circular(
+                                                                  50.0),
                                                             ),
                                                             child: Text(
                                                                 AppLocalizations
@@ -8693,7 +9082,31 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                 .pop();
                                                                           },
                                                                         ),
-                                                                        new FlatButton(
+                                                                        new Container(
+                                                                          margin: EdgeInsets.only(
+                                                                              left: 2, right: 2, bottom: 10),
+                                                                          child: ConfirmationSlider(
+                                                                            text:  AppLocalizations.of(context).translate('slideToConfirm'),
+                                                                            foregroundColor: Color(
+                                                                                0xff0957FF),
+                                                                            onConfirmation: () {
+                                                                              sendBackend(
+                                                                                  'newcosttypedelete',
+                                                                                  false);
+
+                                                                              // the here selected value was deleted and therefore is no more available, so set it to the first default value to not receive an error
+                                                                              costTypeObjectAdmin
+                                                                              =
+                                                                              costTypesList[0];
+
+                                                                              Navigator
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .pop();
+                                                                            },
+                                                                          ),
+                                                                        ),
+                                                                        /*new FlatButton(
                                                                           child: new Text(
                                                                               "confirm"),
                                                                           onPressed: () {
@@ -8711,7 +9124,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                 context)
                                                                                 .pop();
                                                                           },
-                                                                        ),
+                                                                        ),*/
                                                                       ],
                                                                     );
                                                                   },
@@ -8773,7 +9186,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                           height: 70.0,
                                                           child: RaisedButton(
                                                             shape: RoundedRectangleBorder(
-                                                              borderRadius: new BorderRadius.circular(50.0),
+                                                              borderRadius: new BorderRadius
+                                                                  .circular(
+                                                                  50.0),
                                                             ),
                                                             child: Text(
                                                                 AppLocalizations

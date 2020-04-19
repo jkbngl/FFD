@@ -119,5 +119,6 @@
   "errorAddNoNewCostTypeEntered": "Please enter a name for the new costtype",
   "errorAddNoAccountEntered": "Please enter a name for the new account/s",
   "noAccount": "NO ACCOUNT",
+  "slideToConfirm": "Slide to confirm",
   "Message" : "This is English"
 }

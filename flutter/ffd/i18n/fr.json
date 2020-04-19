@@ -50,7 +50,7 @@
   "areYouSureDialog" : "Etes-vous sûr ?",
   "EntryFrom" : "Entrée de: ",
   "withAnAmountOf" : "avec un montant de",
-  "willBe" : "sera",
+  "willBe" : "sera ",
   "deleted" : "supprimé",
   "restored" : "restauré",
   "cancel" : "Annuler",
@@ -119,5 +119,6 @@
   "errorAddNoNewCostTypeEntered": "Veuillez entrer un nom pour le nouveau type de coût",
   "errorAddNoAccountEntered": "Veuillez saisir un nom pour le(s) nouveau(x) compte(s)",
   "noAccount": "PAS DE COMPTE",
+  "slideToConfirm": "Diapositive pour confirmer",
   "Message" : "Ceci est en anglais"
 }
