@@ -3885,11 +3885,19 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               fontWeight: FontWeight
                                                                                   .bold),),
                                                                         content: new Text(
-                                                                          AppLocalizations
+                                                                          // #157 differentiate message betweeen nothing entered and invalid number entered
+                                                                            actualTextFieldController
+                                                                                .text
+                                                                                .length == 0 ?
+                                                                                AppLocalizations
                                                                               .of(
                                                                               context)
                                                                               .translate(
-                                                                              'errorInputEnterAmount'),
+                                                                              'errorInputEnterAmount') : AppLocalizations
+                                                                                .of(
+                                                                                context)
+                                                                                .translate(
+                                                                                'errorInputInvalidAmount'),
                                                                           style: TextStyle(
                                                                               fontWeight: FontWeight
                                                                                   .bold,
@@ -5599,11 +5607,19 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               fontWeight: FontWeight
                                                                                   .bold),),
                                                                         content: new Text(
+                                                                          // #157 differentiate message betweeen nothing entered and invalid number entered
+                                                                          budgetTextFieldController
+                                                                              .text
+                                                                              .length == 0 ?
                                                                           AppLocalizations
                                                                               .of(
                                                                               context)
                                                                               .translate(
-                                                                              'errorInputEnterAmount'),
+                                                                              'errorInputEnterAmount') : AppLocalizations
+                                                                              .of(
+                                                                              context)
+                                                                              .translate(
+                                                                              'errorInputInvalidAmount'),
                                                                           style: TextStyle(
                                                                               fontWeight: FontWeight
                                                                                   .bold,
