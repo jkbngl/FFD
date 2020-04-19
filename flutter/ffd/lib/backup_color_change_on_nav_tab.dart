@@ -480,8 +480,9 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   void afterFirstLayout(BuildContext context) async {
-
-    currentlyLoading = true;
+    setState(() {
+      currentlyLoading = true;
+    });
 
     welcomeDialog();
 
@@ -961,6 +962,14 @@ class _MyHomePageState extends State<MyHomePage>
     }
   }
 
+  _showLoadWidget() {
+    return Center(
+        child: SpinKitRing(
+          color: Color(0xff0957FF),
+          size: 50.0,));
+  }
+
+
   void checkForChanges(bool onStartup, bool fetch, String type) async {
     print("Checking for changes $onStartup - $fetch, for type $type");
 
@@ -1313,6 +1322,11 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   void sendBackend(String type, bool onStartup) async {
+    // #60
+    setState(() {
+      currentlyLoading = true;
+    });
+
     var url = 'http://192.168.0.21:5000/api/ffd/';
     String _token = token;
 
@@ -1467,6 +1481,10 @@ class _MyHomePageState extends State<MyHomePage>
     );*/
 
     clearCommentTextFields();
+    // #60
+    setState(() {
+      currentlyLoading = false;
+    });
   }
 
   showScheduleDialog(String type) {
@@ -1695,13 +1713,15 @@ class _MyHomePageState extends State<MyHomePage>
                         foregroundColor: Color(
                             0xff0957FF),
                         onConfirmation: () {
-                          if (scheduleAmountTextFieldController.text.length > 0 &&
+                          if (scheduleAmountTextFieldController.text.length >
+                              0 &&
                               numberValidator(
                                   scheduleAmountTextFieldController.text) ==
                                   null &&
                               (scheduleYear || scheduleMonth || scheduleWeek ||
                                   scheduleDay) &&
-                              int.parse(scheduleAmountTextFieldController.text) <
+                              int.parse(
+                                  scheduleAmountTextFieldController.text) <
                                   100) {
                             if (type == 'actual') {
                               sendBackend('actualschedule', false);
@@ -3128,335 +3148,368 @@ class _MyHomePageState extends State<MyHomePage>
                                 constraints: BoxConstraints(
                                     minHeight: constraint.maxHeight),
                                 child: IntrinsicHeight(
-                                  child: Column(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .spaceAround,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .center,
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: <Widget>[
-                                        Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                    child: Stack(children: <Widget>[
+                                      Column(
+                                          mainAxisAlignment: MainAxisAlignment
+                                              .spaceAround,
+                                          crossAxisAlignment: CrossAxisAlignment
+                                              .center,
+                                          mainAxisSize: MainAxisSize.max,
                                           children: <Widget>[
-                                            GestureDetector(
-                                              onTap: () {
-                                                setState(() =>
-                                                _currentIndex = 1);
-                                                _pageController.jumpToPage(1);
-                                              },
-                                              child: Container(
-                                                width: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .width *
-                                                    .48,
-                                                child: Card(
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                    BorderRadius.circular(50.0),
-                                                  ),
-                                                  color: Color(0xff003680),
-                                                  elevation: 10,
-                                                  child: Column(
-                                                    mainAxisSize: MainAxisSize
-                                                        .min,
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                    children: <Widget>[
-                                                      ListTile(
-                                                        leading: Icon(
-                                                            Icons
-                                                                .monetization_on,
-                                                            color: Colors.white,
-                                                            size: 40),
-                                                        title:
-                                                        Text(
-                                                          AppLocalizations
-                                                              .of(
-                                                              context)
-                                                              .translate(
-                                                              'titleExpenses'),
-                                                          style: TextStyle(
-                                                              fontSize: 14,
-                                                              color: Color(
-                                                                  0xffF5F5F6)),
-                                                          overflow:
-                                                          TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                        subtitle: Text(
-                                                            homescreenData[0]
-                                                                .amount
-                                                                .toStringAsFixed(
-                                                                2),
-                                                            style: TextStyle(
-                                                                color:
-                                                                Colors.white)),
-                                                        trailing: Icon(
-                                                          homescreenData[0]
-                                                              .amount >
-                                                              parsedActualComparison
-                                                              ? Icons
-                                                              .trending_up
-                                                              : Icons
-                                                              .trending_down,
-                                                          color: Color(
-                                                              0xffF5F5F6),
-                                                          size: 12,
-                                                        ),
+                                            Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                              children: <Widget>[
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() =>
+                                                    _currentIndex = 1);
+                                                    _pageController.jumpToPage(
+                                                        1);
+                                                  },
+                                                  child: Container(
+                                                    width: MediaQuery
+                                                        .of(context)
+                                                        .size
+                                                        .width *
+                                                        .48,
+                                                    child: Card(
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius:
+                                                        BorderRadius.circular(
+                                                            50.0),
                                                       ),
-                                                    ],
+                                                      color: Color(0xff003680),
+                                                      elevation: 10,
+                                                      child: Column(
+                                                        mainAxisSize: MainAxisSize
+                                                            .min,
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                        children: <Widget>[
+                                                          ListTile(
+                                                            leading: Icon(
+                                                                Icons
+                                                                    .monetization_on,
+                                                                color: Colors
+                                                                    .white,
+                                                                size: 40),
+                                                            title:
+                                                            Text(
+                                                              AppLocalizations
+                                                                  .of(
+                                                                  context)
+                                                                  .translate(
+                                                                  'titleExpenses'),
+                                                              style: TextStyle(
+                                                                  fontSize: 14,
+                                                                  color: Color(
+                                                                      0xffF5F5F6)),
+                                                              overflow:
+                                                              TextOverflow
+                                                                  .ellipsis,
+                                                            ),
+                                                            subtitle: Text(
+                                                                homescreenData[0]
+                                                                    .amount
+                                                                    .toStringAsFixed(
+                                                                    2),
+                                                                style: TextStyle(
+                                                                    color:
+                                                                    Colors
+                                                                        .white)),
+                                                            trailing: Icon(
+                                                              homescreenData[0]
+                                                                  .amount >
+                                                                  parsedActualComparison
+                                                                  ? Icons
+                                                                  .trending_up
+                                                                  : Icons
+                                                                  .trending_down,
+                                                              color: Color(
+                                                                  0xffF5F5F6),
+                                                              size: 12,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                setState(() =>
-                                                _currentIndex = 2);
-                                                _pageController.jumpToPage(2);
-                                              },
-                                              child: Container(
-                                                width: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .width *
-                                                    .48,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  new BorderRadius.only(
-                                                    topLeft:
-                                                    const Radius.circular(50.0),
-                                                    topRight:
-                                                    const Radius.circular(50.0),
-                                                    bottomLeft:
-                                                    const Radius.circular(50.0),
-                                                    bottomRight:
-                                                    const Radius.circular(50.0),
-                                                  ),
-                                                ),
-                                                child: Card(
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                    BorderRadius.circular(50.0),
-                                                  ),
-                                                  /*color: homescreenData[0].amount >
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() =>
+                                                    _currentIndex = 2);
+                                                    _pageController.jumpToPage(
+                                                        2);
+                                                  },
+                                                  child: Container(
+                                                    width: MediaQuery
+                                                        .of(context)
+                                                        .size
+                                                        .width *
+                                                        .48,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                      new BorderRadius.only(
+                                                        topLeft:
+                                                        const Radius.circular(
+                                                            50.0),
+                                                        topRight:
+                                                        const Radius.circular(
+                                                            50.0),
+                                                        bottomLeft:
+                                                        const Radius.circular(
+                                                            50.0),
+                                                        bottomRight:
+                                                        const Radius.circular(
+                                                            50.0),
+                                                      ),
+                                                    ),
+                                                    child: Card(
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius:
+                                                        BorderRadius.circular(
+                                                            50.0),
+                                                      ),
+                                                      /*color: homescreenData[0].amount >
                                                 homescreenData[2].amount
                                             ? Colors.red
                                             : Colors.green,
                                         */
-                                                  color: Color(0xff003680),
-                                                  elevation: 10,
-                                                  child: Column(
-                                                    mainAxisSize: MainAxisSize
-                                                        .min,
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                    children: <Widget>[
-                                                      ListTile(
-                                                        leading: Icon(
-                                                            Icons
-                                                                .account_balance_wallet,
-                                                            color: Colors.white,
-                                                            size: 40),
-                                                        title: Text(
-                                                          AppLocalizations
-                                                              .of(
-                                                              context)
-                                                              .translate(
-                                                              'titleBudget'),
-                                                          style: TextStyle(
-                                                              fontSize: 14,
-                                                              color: Color(
-                                                                  0xffF5F5F6)),
-                                                          overflow:
-                                                          TextOverflow
-                                                              .ellipsis,
-                                                        ),
+                                                      color: Color(0xff003680),
+                                                      elevation: 10,
+                                                      child: Column(
+                                                        mainAxisSize: MainAxisSize
+                                                            .min,
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                        children: <Widget>[
+                                                          ListTile(
+                                                            leading: Icon(
+                                                                Icons
+                                                                    .account_balance_wallet,
+                                                                color: Colors
+                                                                    .white,
+                                                                size: 40),
+                                                            title: Text(
+                                                              AppLocalizations
+                                                                  .of(
+                                                                  context)
+                                                                  .translate(
+                                                                  'titleBudget'),
+                                                              style: TextStyle(
+                                                                  fontSize: 14,
+                                                                  color: Color(
+                                                                      0xffF5F5F6)),
+                                                              overflow:
+                                                              TextOverflow
+                                                                  .ellipsis,
+                                                            ),
 
-                                                        subtitle: Text(
-                                                          // #91
-                                                            homescreenData[2]
-                                                                .amount
-                                                                .toStringAsFixed(
-                                                                2),
-                                                            style: TextStyle(
-                                                                color:
-                                                                Colors.white)),
-                                                        trailing: Icon(
-                                                          homescreenData[2]
-                                                              .amount >
-                                                              parsedBudgetComparison
-                                                              ? Icons
-                                                              .trending_up
-                                                              : Icons
-                                                              .trending_down,
-                                                          color: Color(
-                                                              0xffF5F5F6),
-                                                          size: 12,
-                                                        ),
+                                                            subtitle: Text(
+                                                              // #91
+                                                                homescreenData[2]
+                                                                    .amount
+                                                                    .toStringAsFixed(
+                                                                    2),
+                                                                style: TextStyle(
+                                                                    color:
+                                                                    Colors
+                                                                        .white)),
+                                                            trailing: Icon(
+                                                              homescreenData[2]
+                                                                  .amount >
+                                                                  parsedBudgetComparison
+                                                                  ? Icons
+                                                                  .trending_up
+                                                                  : Icons
+                                                                  .trending_down,
+                                                              color: Color(
+                                                                  0xffF5F5F6),
+                                                              size: 12,
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                        // TODO make with variable, just a test for #25
-                                        currentlyLoading ? SpinKitRing(
-                                          color: Color(0xff0957FF),
-                                          size: 50.0,
-                                        ) : Container(),
-                                        Text(
-                                          AppLocalizations.of(context)
-                                              .translate('titlePieChart'),
-                                          maxLines: 3,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              color: Colors.grey[800],
-                                              fontWeight: FontWeight.w900,
-                                              fontFamily: 'Open Sans',
-                                              fontSize: 30),
-                                        ),
-                                        Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            children: <Widget>[
-                                              Switch(
-                                                value: showFullYearHome,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    currentlyLoading = true;
-                                                    showFullYearHome = value;
-                                                    loadHomescreen();
-                                                    currentlyLoading = false;
-                                                  });
-                                                },
-                                                activeTrackColor: Color(
-                                                    0xffEEEEEE),
-                                                activeColor: Color(0xff0957FF),
-                                              ),
-                                              Text(
-                                                AppLocalizations.of(context)
-                                                    .translate(
-                                                    'FullYearSwitch'),
-                                                maxLines: 3,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                    color: Colors.grey[800],
-                                                    fontWeight: FontWeight.w900,
-                                                    fontSize: 25),
-                                              ),
-                                            ]),
-                                        Container(
-                                          width: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .width,
-                                          height:
-                                          MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height *
-                                              .4,
-                                          child: charts.PieChart(
-                                            [
-                                              charts.Series<
-                                                  homescreenPie,
-                                                  String>(
-                                                  id:
-                                                  'CompanySizeVsNumberOfCompanies',
-                                                  domainFn:
-                                                      (homescreenPie dataPoint,
-                                                      _) =>
-                                                  dataPoint.type,
-                                                  labelAccessorFn: (
-                                                      homescreenPie row,
-                                                      _) =>
-                                                  '${row.type}\n${row.amount
-                                                      .toStringAsFixed(2)}€',
-                                                  measureFn:
-                                                      (homescreenPie dataPoint,
-                                                      _) =>
-                                                  dataPoint.amount,
-                                                  colorFn:
-                                                      (homescreenPie segment,
-                                                      _) =>
-                                                  segment.color,
-                                                  data: homescreenData.sublist(
-                                                      0,
-                                                      2) /*Only first 2 elements not also the overall budget*/
-                                              )
-                                            ],
-                                            defaultRenderer:
-                                            new charts.ArcRendererConfig(
-                                                arcRendererDecorators: [
-                                                  new charts.ArcLabelDecorator(
-                                                    //labelPadding: 0,
-                                                      labelPosition: charts
-                                                          .ArcLabelPosition
-                                                          .outside),
+                                            // TODO make with variable, just a test for #25
+                                            Text(
+                                              AppLocalizations.of(context)
+                                                  .translate('titlePieChart'),
+                                              maxLines: 3,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                  color: Colors.grey[800],
+                                                  fontWeight: FontWeight.w900,
+                                                  fontFamily: 'Open Sans',
+                                                  fontSize: 30),
+                                            ),
+                                            Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Switch(
+                                                    value: showFullYearHome,
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        currentlyLoading = true;
+                                                        showFullYearHome =
+                                                            value;
+                                                        loadHomescreen();
+                                                        currentlyLoading =
+                                                        false;
+                                                      });
+                                                    },
+                                                    activeTrackColor: Color(
+                                                        0xffEEEEEE),
+                                                    activeColor: Color(
+                                                        0xff0957FF),
+                                                  ),
+                                                  Text(
+                                                    AppLocalizations.of(context)
+                                                        .translate(
+                                                        'FullYearSwitch'),
+                                                    maxLines: 3,
+                                                    overflow: TextOverflow
+                                                        .ellipsis,
+                                                    style: TextStyle(
+                                                        color: Colors.grey[800],
+                                                        fontWeight: FontWeight
+                                                            .w900,
+                                                        fontSize: 25),
+                                                  ),
+                                                ]),
+                                            Container(
+                                              width: MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .width,
+                                              height:
+                                              MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .height *
+                                                  .4,
+                                              child: charts.PieChart(
+                                                [
+                                                  charts.Series<
+                                                      homescreenPie,
+                                                      String>(
+                                                      id:
+                                                      'CompanySizeVsNumberOfCompanies',
+                                                      domainFn:
+                                                          (
+                                                          homescreenPie dataPoint,
+                                                          _) =>
+                                                      dataPoint.type,
+                                                      labelAccessorFn: (
+                                                          homescreenPie row,
+                                                          _) =>
+                                                      '${row.type}\n${row.amount
+                                                          .toStringAsFixed(
+                                                          2)}€',
+                                                      measureFn:
+                                                          (
+                                                          homescreenPie dataPoint,
+                                                          _) =>
+                                                      dataPoint.amount,
+                                                      colorFn:
+                                                          (
+                                                          homescreenPie segment,
+                                                          _) =>
+                                                      segment.color,
+                                                      data: homescreenData
+                                                          .sublist(
+                                                          0,
+                                                          2) /*Only first 2 elements not also the overall budget*/
+                                                  )
                                                 ],
-                                                //strokeWidthPx: ,
-                                                arcWidth: 50
-                                            ),
-                                            animate: true,
-                                          ),
-                                        ),
-                                        Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            children: <Widget>[
-                                              ButtonTheme(
-                                                //minWidth: 150.0,
-                                                child: FlatButton(
-                                                  onPressed: () =>
-                                                      _showDatePicker(
-                                                          'home', dateTimeHome),
-                                                  shape: new RoundedRectangleBorder(
-                                                    borderRadius:
-                                                    new BorderRadius.circular(
-                                                        40.0),
-                                                  ),
-                                                  color: Color(0xff003680),
-                                                  padding: EdgeInsets.all(10.0),
-                                                  child: Row(
-                                                    // Replace with a Row for horizontal icon + text
-                                                    children: <Widget>[
-                                                      Text(
-                                                          " ${dateTimeHome.year
-                                                              .toString()}-${dateTimeHome
-                                                              .month.toString()
-                                                              .padLeft(
-                                                              2, '0')}",
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17)),
-                                                      Icon(
-                                                        Icons.calendar_today,
-                                                        color: Colors.white,
-                                                      ),
+                                                defaultRenderer:
+                                                new charts.ArcRendererConfig(
+                                                    arcRendererDecorators: [
+                                                      new charts
+                                                          .ArcLabelDecorator(
+                                                        //labelPadding: 0,
+                                                          labelPosition: charts
+                                                              .ArcLabelPosition
+                                                              .outside),
                                                     ],
-                                                  ),
+                                                    //strokeWidthPx: ,
+                                                    arcWidth: 50
                                                 ),
+                                                animate: true,
                                               ),
-                                            ]),
-                                      ]),
+                                            ),
+                                            Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                                children: <Widget>[
+                                                  ButtonTheme(
+                                                    //minWidth: 150.0,
+                                                    child: FlatButton(
+                                                      onPressed: () =>
+                                                          _showDatePicker(
+                                                              'home',
+                                                              dateTimeHome),
+                                                      shape: new RoundedRectangleBorder(
+                                                        borderRadius:
+                                                        new BorderRadius
+                                                            .circular(
+                                                            40.0),
+                                                      ),
+                                                      color: Color(0xff003680),
+                                                      padding: EdgeInsets.all(
+                                                          10.0),
+                                                      child: Row(
+                                                        // Replace with a Row for horizontal icon + text
+                                                        children: <Widget>[
+                                                          Text(
+                                                              " ${dateTimeHome
+                                                                  .year
+                                                                  .toString()}-${dateTimeHome
+                                                                  .month
+                                                                  .toString()
+                                                                  .padLeft(
+                                                                  2, '0')}",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 17)),
+                                                          Icon(
+                                                            Icons
+                                                                .calendar_today,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ]),
+                                          ]),
+                                      currentlyLoading
+                                          ?
+                                      _showLoadWidget()
+                                          : Container(),
+                                    ],)
                                 ),
                               ));
                         },
@@ -3529,607 +3582,635 @@ class _MyHomePageState extends State<MyHomePage>
                             slivers: [
                               SliverFillRemaining(
                                   child: SmartRefresher(
-                                    controller: _refreshController,
-                                    enablePullDown: true,
-                                    onRefresh: () async {
-                                      await handleRefresh(_currentIndex);
-                                      _refreshController.refreshCompleted();
-                                    },
-                                    child: LayoutBuilder(
-                                      builder: (context, constraint) {
-                                        return SingleChildScrollView(
-                                            child: ConstrainedBox(
-                                              constraints: BoxConstraints(
-                                                  minHeight: constraint
-                                                      .maxHeight),
-                                              child: IntrinsicHeight(
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                    children: <Widget>[
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      currentlyLoading ? SpinKitRing(
-                                                        color: Color(0xff0957FF),
-                                                        size: 50.0,
-                                                      ) : Container(),
-                                                      Row(
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                          crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                          children: <Widget>[
-                                                            ButtonTheme(
-                                                              //minWidth: 150.0,
-                                                              height: 60.0,
-                                                              child: FlatButton(
-                                                                onPressed: () =>
-                                                                    _showDatePicker(
-                                                                        'actual',
-                                                                        dateTimeActual),
-                                                                shape:
-                                                                new RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                  new BorderRadius
-                                                                      .circular(
-                                                                      40.0),
-                                                                ),
-                                                                color: Color(
-                                                                    0xff003680),
-                                                                padding:
-                                                                EdgeInsets.all(
-                                                                    10.0),
-                                                                child: Row(
-                                                                  // Replace with a Row for horizontal icon + text
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Text(
-                                                                        " ${dateTimeActual
-                                                                            .year
-                                                                            .toString()}-${dateTimeActual
-                                                                            .month
-                                                                            .toString()
-                                                                            .padLeft(
-                                                                            2,
-                                                                            '0')}",
-                                                                        style: TextStyle(
-                                                                            color: Colors
-                                                                                .white,
-                                                                            fontSize: 17)),
-                                                                    SizedBox(
-                                                                        width: 10),
-                                                                    Icon(
-                                                                      Icons
-                                                                          .calendar_today,
-                                                                      color: Colors
-                                                                          .white,
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ]),
-                                                      Container(
-                                                        padding: const EdgeInsets
-                                                            .only(
-                                                            left: 30.0,
-                                                            top: 0,
-                                                            right: 30,
-                                                            bottom: 0),
-                                                        //color: Colors.blue[600],
-                                                        alignment: Alignment
+                                      controller: _refreshController,
+                                      enablePullDown: true,
+                                      onRefresh: () async {
+                                        await handleRefresh(_currentIndex);
+                                        _refreshController.refreshCompleted();
+                                      },
+                                      child: Stack(
+                                        children: <Widget>[LayoutBuilder(
+                                          builder: (context, constraint) {
+                                            return SingleChildScrollView(
+                                                child: ConstrainedBox(
+                                                  constraints: BoxConstraints(
+                                                      minHeight: constraint
+                                                          .maxHeight),
+                                                  child: IntrinsicHeight(
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment
                                                             .center,
-                                                        //child: Text('Submit'),
-                                                        child: TextFormField(
-                                                          keyboardType:
-                                                          TextInputType.number,
-                                                          //keyboard with numbers only will appear to the screen
-                                                          style: TextStyle(
-                                                              height: 2),
-                                                          //increases the height of cursor
-                                                          //autofocus: true,
-                                                          controller:
-                                                          actualTextFieldController,
-                                                          validator: numberValidator,
-                                                          decoration: InputDecoration(
-                                                            // hintText: 'Enter ur amount',
-                                                            //hintStyle: TextStyle(height: 1.75),
-                                                              labelText: AppLocalizations
-                                                                  .of(context)
-                                                                  .translate(
-                                                                  'TextFieldAmountInput'),
-                                                              labelStyle: TextStyle(
-                                                                  height: 0.5,
-                                                                  color: Color(
-                                                                      0xff0957FF)),
+                                                        children: <Widget>[
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Row(
+                                                              mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceEvenly,
+                                                              crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                              children: <
+                                                                  Widget>[
+                                                                ButtonTheme(
+                                                                  //minWidth: 150.0,
+                                                                  height: 60.0,
+                                                                  child: FlatButton(
+                                                                    onPressed: () =>
+                                                                        _showDatePicker(
+                                                                            'actual',
+                                                                            dateTimeActual),
+                                                                    shape:
+                                                                    new RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                      new BorderRadius
+                                                                          .circular(
+                                                                          40.0),
+                                                                    ),
+                                                                    color: Color(
+                                                                        0xff003680),
+                                                                    padding:
+                                                                    EdgeInsets
+                                                                        .all(
+                                                                        10.0),
+                                                                    child: Row(
+                                                                      // Replace with a Row for horizontal icon + text
+                                                                      children: <
+                                                                          Widget>[
+                                                                        Text(
+                                                                            " ${dateTimeActual
+                                                                                .year
+                                                                                .toString()}-${dateTimeActual
+                                                                                .month
+                                                                                .toString()
+                                                                                .padLeft(
+                                                                                2,
+                                                                                '0')}",
+                                                                            style: TextStyle(
+                                                                                color: Colors
+                                                                                    .white,
+                                                                                fontSize: 17)),
+                                                                        SizedBox(
+                                                                            width: 10),
+                                                                        Icon(
+                                                                          Icons
+                                                                              .calendar_today,
+                                                                          color: Colors
+                                                                              .white,
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ]),
+                                                          Container(
+                                                            padding: const EdgeInsets
+                                                                .only(
+                                                                left: 30.0,
+                                                                top: 0,
+                                                                right: 30,
+                                                                bottom: 0),
+                                                            //color: Colors.blue[600],
+                                                            alignment: Alignment
+                                                                .center,
+                                                            //child: Text('Submit'),
+                                                            child: TextFormField(
+                                                              keyboardType:
+                                                              TextInputType
+                                                                  .number,
+                                                              //keyboard with numbers only will appear to the screen
+                                                              style: TextStyle(
+                                                                  height: 2),
                                                               //increases the height of cursor
-                                                              icon: Icon(
-                                                                Icons
-                                                                    .attach_money,
+                                                              //autofocus: true,
+                                                              controller:
+                                                              actualTextFieldController,
+                                                              validator: numberValidator,
+                                                              decoration: InputDecoration(
+                                                                // hintText: 'Enter ur amount',
+                                                                //hintStyle: TextStyle(height: 1.75),
+                                                                  labelText: AppLocalizations
+                                                                      .of(
+                                                                      context)
+                                                                      .translate(
+                                                                      'TextFieldAmountInput'),
+                                                                  labelStyle: TextStyle(
+                                                                      height: 0.5,
+                                                                      color: Color(
+                                                                          0xff0957FF)),
+                                                                  //increases the height of cursor
+                                                                  icon: Icon(
+                                                                    Icons
+                                                                        .attach_money,
+                                                                    color: Color(
+                                                                        0xff0957FF),
+                                                                  ),
+                                                                  //prefixIcon: Icon(Icons.attach_money),
+                                                                  //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                                  enabledBorder:
+                                                                  new UnderlineInputBorder(
+                                                                      borderSide:
+                                                                      new BorderSide(
+                                                                          color: Color(
+                                                                              0xff0957FF)))),
+                                                            ),
+                                                          ),
+                                                          areLevel1AccountsActive
+                                                              ? Container(
+                                                            padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                left: 30.0,
+                                                                top: 0,
+                                                                right: 30,
+                                                                bottom: 0),
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child: SearchChoices
+                                                                .single(
+                                                              items:
+                                                              level1ActualAccountsList
+                                                                  .map((Account
+                                                              account) {
+                                                                return new DropdownMenuItem<
+                                                                    Account>(
+                                                                  value: account,
+                                                                  child: new Text(
+                                                                    account
+                                                                        .name,
+                                                                  ),
+                                                                );
+                                                              }).toList(),
+                                                              style: TextStyle(
+                                                                  color:
+                                                                  Color(
+                                                                      0xff0957FF)),
+                                                              value: level1ActualObject,
+                                                              underline: Container(
+                                                                height: 2,
+                                                                width: 5000,
                                                                 color: Color(
                                                                     0xff0957FF),
                                                               ),
-                                                              //prefixIcon: Icon(Icons.attach_money),
-                                                              //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                                              enabledBorder:
-                                                              new UnderlineInputBorder(
-                                                                  borderSide:
-                                                                  new BorderSide(
-                                                                      color: Color(
-                                                                          0xff0957FF)))),
-                                                        ),
-                                                      ),
-                                                      areLevel1AccountsActive
-                                                          ? Container(
-                                                        padding:
-                                                        const EdgeInsets.only(
-                                                            left: 30.0,
-                                                            top: 0,
-                                                            right: 30,
-                                                            bottom: 0),
-                                                        alignment: Alignment
-                                                            .center,
-                                                        child: SearchChoices
-                                                            .single(
-                                                          items:
-                                                          level1ActualAccountsList
-                                                              .map((Account
-                                                          account) {
-                                                            return new DropdownMenuItem<
-                                                                Account>(
-                                                              value: account,
-                                                              child: new Text(
-                                                                account.name,
-                                                              ),
-                                                            );
-                                                          }).toList(),
-                                                          style: TextStyle(
-                                                              color:
-                                                              Color(
-                                                                  0xff0957FF)),
-                                                          value: level1ActualObject,
-                                                          underline: Container(
-                                                            height: 2,
-                                                            width: 5000,
-                                                            color: Color(
-                                                                0xff0957FF),
-                                                          ),
-                                                          hint: "Select one number",
-                                                          searchHint:
-                                                          "Select one number",
-                                                          onClear: () {
-                                                            setState(() {
-                                                              level1ActualObject =
-                                                              level1ActualAccountsList[
-                                                              0];
-
-                                                              level2ActualObject =
-                                                              level2ActualAccountsList[
-                                                              0];
-
-                                                              level3ActualObject =
-                                                              level3ActualAccountsList[
-                                                              0];
-                                                            });
-                                                          },
-                                                          onChanged: (value) {
-                                                            if (value != null) {
-                                                              setState(() {
-                                                                level1ActualObject =
-                                                                    value;
-                                                              });
-
-                                                              arrangeAccounts(
-                                                                  1, 'actual');
-
-                                                              print(
-                                                                  "${level2ActualObject
-                                                                      .id} - ${level2ActualObject
-                                                                      .name}");
-                                                            }
-                                                          },
-                                                          dialogBox: true,
-                                                          isExpanded: true,
-                                                        ),
-                                                      )
-                                                          : Container(),
-                                                      areLevel2AccountsActive
-                                                          ? Container(
-                                                        padding:
-                                                        const EdgeInsets.only(
-                                                            left: 30.0,
-                                                            top: 0,
-                                                            right: 30,
-                                                            bottom: 0),
-                                                        //color: Colors.blue[600],
-
-                                                        alignment: Alignment
-                                                            .center,
-                                                        //child: Text('Submit'),
-                                                        child: SearchChoices
-                                                            .single(
-                                                          items:
-                                                          level2ActualAccountsList
-                                                              .map((Account
-                                                          account) {
-                                                            return new DropdownMenuItem<
-                                                                Account>(
-                                                              value: account,
-                                                              child: new Text(
-                                                                account.name,
-                                                              ),
-                                                            );
-                                                          }).toList(),
-                                                          style: TextStyle(
-                                                              color: level1ActualObject
-                                                                  .id <=
-                                                                  0 ? Colors
-                                                                  .grey :
-                                                              Color(
-                                                                  0xff0957FF)),
-                                                          value: level2ActualObject,
-                                                          readOnly: level1ActualObject
-                                                              .id <=
-                                                              0,
-                                                          underline: Container(
-                                                            height: 2,
-                                                            width: 5000,
-                                                            color: level1ActualObject
-                                                                .id <=
-                                                                0
-                                                                ? Colors.grey
-                                                                : Color(
-                                                                0xff0957FF),
-                                                          ),
-                                                          hint: "Select one number",
-                                                          searchHint:
-                                                          "Select one number",
-                                                          onClear: () {
-                                                            setState(() {
-                                                              level2ActualObject =
-                                                              level2ActualAccountsList[
-                                                              0];
-
-                                                              level3ActualObject =
-                                                              level3ActualAccountsList[
-                                                              0];
-                                                            });
-                                                          },
-                                                          onChanged: (value) {
-                                                            if (value != null) {
-                                                              // Check if a new value was selected or the same was reselected
-                                                              dummyAccount =
-                                                                  level2ActualObject;
-
-                                                              setState(() {
-                                                                level2ActualObject =
-                                                                    value;
-                                                              });
-
-                                                              if (dummyAccount
-                                                                  .id !=
-                                                                  value.id) {
-                                                                arrangeAccounts(
-                                                                    2,
-                                                                    'actual');
-                                                              } else {
-                                                                print(
-                                                                    "RESELECTED");
-                                                              }
-                                                            }
-                                                          },
-                                                          dialogBox: true,
-                                                          isExpanded: true,
-                                                        ),
-                                                      )
-                                                          : Container(),
-
-                                                      areLevel3AccountsActive
-                                                          ? Container(
-                                                        padding:
-                                                        const EdgeInsets.only(
-                                                            left: 30.0,
-                                                            top: 0,
-                                                            right: 30,
-                                                            bottom: 0),
-                                                        //color: Colors.blue[600],
-                                                        alignment: Alignment
-                                                            .center,
-                                                        //child: Text('Submit'),
-                                                        child: SearchChoices
-                                                            .single(
-                                                          items:
-                                                          level3ActualAccountsList
-                                                              .map((Account
-                                                          account) {
-                                                            return new DropdownMenuItem<
-                                                                Account>(
-                                                              value: account,
-                                                              child: new Text(
-                                                                account.name,
-                                                              ),
-                                                            );
-                                                          }).toList(),
-                                                          style: TextStyle(
-                                                              color: level2ActualObject
-                                                                  .id <=
-                                                                  0 ? Colors
-                                                                  .grey :
-                                                              Color(
-                                                                  0xff0957FF)),
-                                                          value: level3ActualObject,
-                                                          readOnly: level2ActualObject
-                                                              .id <=
-                                                              0,
-                                                          underline: Container(
-                                                            height: 2,
-                                                            width: 5000,
-                                                            color: level2ActualObject
-                                                                .id <=
-                                                                0
-                                                                ? Colors.grey
-                                                                : Color(
-                                                                0xff0957FF),
-                                                          ),
-                                                          hint: "Select one number",
-                                                          searchHint:
-                                                          "Select one number",
-                                                          onClear: () {
-                                                            setState(() {
-                                                              level3ActualObject =
-                                                              level3ActualAccountsList[
-                                                              0];
-                                                            });
-                                                          },
-                                                          // The default object is set again
-                                                          onChanged: (value) {
-                                                            if (value != null) {
-                                                              setState(() {
-                                                                level3ActualObject =
-                                                                    value;
-                                                              });
-                                                            }
-                                                          },
-                                                          dialogBox: true,
-                                                          isExpanded: true,
-                                                        ),
-                                                      )
-                                                          : Container(),
-                                                      // #52 when a level is deactivated the widgets have no space between
-                                                      // this adds a little white space between the widget
-                                                      areLevel3AccountsActive
-                                                          ? Container()
-                                                          : SizedBox(
-                                                          height: 20),
-                                                      areCostTypesActive
-                                                          ? Container(
-                                                        constraints:
-                                                        BoxConstraints.expand(
-                                                          height: 80,
-                                                          //width: MediaQuery.of(context).size.width * .8
-                                                        ),
-                                                        padding:
-                                                        const EdgeInsets.only(
-                                                            left: 30.0,
-                                                            top: 0,
-                                                            right: 30,
-                                                            bottom: 0),
-                                                        //color: Colors.blue[600],
-                                                        alignment: Alignment
-                                                            .center,
-                                                        //child: Text('Submit'),
-                                                        child: Align(
-                                                          alignment:
-                                                          Alignment.topRight,
-                                                          child: SearchChoices
-                                                              .single(
-                                                            value:
-                                                            costTypeObjectActual,
-                                                            icon: Icon(
-                                                                Icons
-                                                                    .arrow_downward),
-                                                            iconSize: 24,
-                                                            style: TextStyle(
-                                                                color: Color(
-                                                                    0xff0957FF)),
-                                                            underline: Container(
-                                                              height: 2,
-                                                              width: 2000,
-                                                              color:
-                                                              Color(0xff0957FF),
-                                                            ),
-                                                            onClear: () {
-                                                              setState(() {
-                                                                costTypeObjectActual =
-                                                                costTypesList[0];
-                                                              });
-                                                            },
-                                                            onChanged:
-                                                                (
-                                                                CostType newValue) {
-                                                              if (value !=
-                                                                  null) {
-                                                                setState(() {
-                                                                  costTypeObjectActual =
-                                                                      newValue;
-                                                                });
-                                                              }
-                                                              ;
-                                                            },
-                                                            items: costTypesList
-                                                                .map((
-                                                                CostType type) {
-                                                              return new DropdownMenuItem<
-                                                                  CostType>(
-                                                                value: type,
-                                                                child: new Text(
-                                                                  type.name,
-                                                                ),
-                                                              );
-                                                            }).toList(),
-                                                          ),
-                                                        ),
-                                                      )
-                                                          : Container(),
-                                                      ButtonBar(
-                                                        mainAxisSize: MainAxisSize
-                                                            .min,
-                                                        // this will take space as minimum as posible(to center)
-                                                        children: <Widget>[
-                                                          ButtonTheme(
-                                                            minWidth: 75.0,
-                                                            height: 40.0,
-                                                            child: RaisedButton(
-                                                              shape: RoundedRectangleBorder(
-                                                                borderRadius: new BorderRadius
-                                                                    .circular(
-                                                                    50.0),
-                                                              ),
-                                                              child: Text(
-                                                                AppLocalizations
-                                                                    .of(
-                                                                    context)
-                                                                    .translate(
-                                                                    'DiscardButton'),
-                                                              ),
-                                                              color: Color(
-                                                                  0xffEEEEEE),
-                                                              // EEEEEE
-                                                              onPressed: () {
-                                                                actualTextFieldController
-                                                                    .text = '';
-
+                                                              hint: "Select one number",
+                                                              searchHint:
+                                                              "Select one number",
+                                                              onClear: () {
                                                                 setState(() {
                                                                   level1ActualObject =
                                                                   level1ActualAccountsList[
                                                                   0];
+
                                                                   level2ActualObject =
                                                                   level2ActualAccountsList[
                                                                   0];
+
                                                                   level3ActualObject =
                                                                   level3ActualAccountsList[
                                                                   0];
-
-                                                                  costTypeObjectActual =
-                                                                  costTypesList[0];
                                                                 });
                                                               },
-                                                            ),
-                                                          ),
-                                                          ButtonTheme(
-                                                            minWidth: 150.0,
-                                                            height: 60.0,
-                                                            child: RaisedButton(
-                                                              shape: RoundedRectangleBorder(
-                                                                borderRadius: new BorderRadius
-                                                                    .circular(
-                                                                    50.0),
-                                                              ),
-                                                              child: Text(
-                                                                  AppLocalizations
-                                                                      .of(
-                                                                      context)
-                                                                      .translate(
-                                                                      'addButton'),
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontSize: 17)),
-                                                              color: Color(
-                                                                  0xff0957FF),
-                                                              //df7599 - 0957FF
-                                                              onPressed: () {
-                                                                if (actualTextFieldController
-                                                                    .text
-                                                                    .length >
-                                                                    0 &&
-                                                                    numberValidator(
-                                                                        actualTextFieldController
-                                                                            .text
-                                                                    ) == null) {
-                                                                  commentInput(
-                                                                      context,
-                                                                      'actual',
-                                                                      null,
-                                                                      null,
-                                                                      null);
-                                                                }
-                                                                else {
-                                                                  showDialog(
-                                                                    context: context,
-                                                                    builder: (
-                                                                        BuildContext context) {
-                                                                      // return object of type Dialog
-                                                                      return AlertDialog(
-                                                                        title: new Text(
-                                                                          AppLocalizations
-                                                                              .of(
-                                                                              context)
-                                                                              .translate(
-                                                                              'warning')
-                                                                          ,
-                                                                          style: TextStyle(
-                                                                              color: Colors
-                                                                                  .orange,
-                                                                              fontSize: 25,
-                                                                              fontWeight: FontWeight
-                                                                                  .bold),),
-                                                                        content: new Text(
-                                                                          // #157 differentiate message betweeen nothing entered and invalid number entered
-                                                                          actualTextFieldController
-                                                                              .text
-                                                                              .length ==
-                                                                              0
-                                                                              ?
-                                                                          AppLocalizations
-                                                                              .of(
-                                                                              context)
-                                                                              .translate(
-                                                                              'errorInputEnterAmount')
-                                                                              : AppLocalizations
-                                                                              .of(
-                                                                              context)
-                                                                              .translate(
-                                                                              'errorInputInvalidAmount'),
-                                                                          style: TextStyle(
-                                                                              fontWeight: FontWeight
-                                                                                  .bold,
-                                                                              fontSize: 20),),
-                                                                        actions: <
-                                                                            Widget>[
-                                                                          // usually buttons at the bottom of the dialog
-                                                                          new FlatButton(
-                                                                            child: new Text(
-                                                                                "Close"),
-                                                                            onPressed: () {
-                                                                              Navigator
-                                                                                  .of(
-                                                                                  context)
-                                                                                  .pop();
-                                                                            },
-                                                                          ),
-                                                                        ],
-                                                                      );
-                                                                    },
-                                                                  );
+                                                              onChanged: (
+                                                                  value) {
+                                                                if (value !=
+                                                                    null) {
+                                                                  setState(() {
+                                                                    level1ActualObject =
+                                                                        value;
+                                                                  });
+
+                                                                  arrangeAccounts(
+                                                                      1,
+                                                                      'actual');
+
+                                                                  print(
+                                                                      "${level2ActualObject
+                                                                          .id} - ${level2ActualObject
+                                                                          .name}");
                                                                 }
                                                               },
+                                                              dialogBox: true,
+                                                              isExpanded: true,
                                                             ),
+                                                          )
+                                                              : Container(),
+                                                          areLevel2AccountsActive
+                                                              ? Container(
+                                                            padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                left: 30.0,
+                                                                top: 0,
+                                                                right: 30,
+                                                                bottom: 0),
+                                                            //color: Colors.blue[600],
+
+                                                            alignment: Alignment
+                                                                .center,
+                                                            //child: Text('Submit'),
+                                                            child: SearchChoices
+                                                                .single(
+                                                              items:
+                                                              level2ActualAccountsList
+                                                                  .map((Account
+                                                              account) {
+                                                                return new DropdownMenuItem<
+                                                                    Account>(
+                                                                  value: account,
+                                                                  child: new Text(
+                                                                    account
+                                                                        .name,
+                                                                  ),
+                                                                );
+                                                              }).toList(),
+                                                              style: TextStyle(
+                                                                  color: level1ActualObject
+                                                                      .id <=
+                                                                      0 ? Colors
+                                                                      .grey :
+                                                                  Color(
+                                                                      0xff0957FF)),
+                                                              value: level2ActualObject,
+                                                              readOnly: level1ActualObject
+                                                                  .id <=
+                                                                  0,
+                                                              underline: Container(
+                                                                height: 2,
+                                                                width: 5000,
+                                                                color: level1ActualObject
+                                                                    .id <=
+                                                                    0
+                                                                    ? Colors
+                                                                    .grey
+                                                                    : Color(
+                                                                    0xff0957FF),
+                                                              ),
+                                                              hint: "Select one number",
+                                                              searchHint:
+                                                              "Select one number",
+                                                              onClear: () {
+                                                                setState(() {
+                                                                  level2ActualObject =
+                                                                  level2ActualAccountsList[
+                                                                  0];
+
+                                                                  level3ActualObject =
+                                                                  level3ActualAccountsList[
+                                                                  0];
+                                                                });
+                                                              },
+                                                              onChanged: (
+                                                                  value) {
+                                                                if (value !=
+                                                                    null) {
+                                                                  // Check if a new value was selected or the same was reselected
+                                                                  dummyAccount =
+                                                                      level2ActualObject;
+
+                                                                  setState(() {
+                                                                    level2ActualObject =
+                                                                        value;
+                                                                  });
+
+                                                                  if (dummyAccount
+                                                                      .id !=
+                                                                      value
+                                                                          .id) {
+                                                                    arrangeAccounts(
+                                                                        2,
+                                                                        'actual');
+                                                                  } else {
+                                                                    print(
+                                                                        "RESELECTED");
+                                                                  }
+                                                                }
+                                                              },
+                                                              dialogBox: true,
+                                                              isExpanded: true,
+                                                            ),
+                                                          )
+                                                              : Container(),
+
+                                                          areLevel3AccountsActive
+                                                              ? Container(
+                                                            padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                left: 30.0,
+                                                                top: 0,
+                                                                right: 30,
+                                                                bottom: 0),
+                                                            //color: Colors.blue[600],
+                                                            alignment: Alignment
+                                                                .center,
+                                                            //child: Text('Submit'),
+                                                            child: SearchChoices
+                                                                .single(
+                                                              items:
+                                                              level3ActualAccountsList
+                                                                  .map((Account
+                                                              account) {
+                                                                return new DropdownMenuItem<
+                                                                    Account>(
+                                                                  value: account,
+                                                                  child: new Text(
+                                                                    account
+                                                                        .name,
+                                                                  ),
+                                                                );
+                                                              }).toList(),
+                                                              style: TextStyle(
+                                                                  color: level2ActualObject
+                                                                      .id <=
+                                                                      0 ? Colors
+                                                                      .grey :
+                                                                  Color(
+                                                                      0xff0957FF)),
+                                                              value: level3ActualObject,
+                                                              readOnly: level2ActualObject
+                                                                  .id <=
+                                                                  0,
+                                                              underline: Container(
+                                                                height: 2,
+                                                                width: 5000,
+                                                                color: level2ActualObject
+                                                                    .id <=
+                                                                    0
+                                                                    ? Colors
+                                                                    .grey
+                                                                    : Color(
+                                                                    0xff0957FF),
+                                                              ),
+                                                              hint: "Select one number",
+                                                              searchHint:
+                                                              "Select one number",
+                                                              onClear: () {
+                                                                setState(() {
+                                                                  level3ActualObject =
+                                                                  level3ActualAccountsList[
+                                                                  0];
+                                                                });
+                                                              },
+                                                              // The default object is set again
+                                                              onChanged: (
+                                                                  value) {
+                                                                if (value !=
+                                                                    null) {
+                                                                  setState(() {
+                                                                    level3ActualObject =
+                                                                        value;
+                                                                  });
+                                                                }
+                                                              },
+                                                              dialogBox: true,
+                                                              isExpanded: true,
+                                                            ),
+                                                          )
+                                                              : Container(),
+                                                          // #52 when a level is deactivated the widgets have no space between
+                                                          // this adds a little white space between the widget
+                                                          areLevel3AccountsActive
+                                                              ? Container()
+                                                              : SizedBox(
+                                                              height: 20),
+                                                          areCostTypesActive
+                                                              ? Container(
+                                                            constraints:
+                                                            BoxConstraints
+                                                                .expand(
+                                                              height: 80,
+                                                              //width: MediaQuery.of(context).size.width * .8
+                                                            ),
+                                                            padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                left: 30.0,
+                                                                top: 0,
+                                                                right: 30,
+                                                                bottom: 0),
+                                                            //color: Colors.blue[600],
+                                                            alignment: Alignment
+                                                                .center,
+                                                            //child: Text('Submit'),
+                                                            child: Align(
+                                                              alignment:
+                                                              Alignment
+                                                                  .topRight,
+                                                              child: SearchChoices
+                                                                  .single(
+                                                                value:
+                                                                costTypeObjectActual,
+                                                                icon: Icon(
+                                                                    Icons
+                                                                        .arrow_downward),
+                                                                iconSize: 24,
+                                                                style: TextStyle(
+                                                                    color: Color(
+                                                                        0xff0957FF)),
+                                                                underline: Container(
+                                                                  height: 2,
+                                                                  width: 2000,
+                                                                  color:
+                                                                  Color(
+                                                                      0xff0957FF),
+                                                                ),
+                                                                onClear: () {
+                                                                  setState(() {
+                                                                    costTypeObjectActual =
+                                                                    costTypesList[0];
+                                                                  });
+                                                                },
+                                                                onChanged:
+                                                                    (
+                                                                    CostType newValue) {
+                                                                  if (value !=
+                                                                      null) {
+                                                                    setState(() {
+                                                                      costTypeObjectActual =
+                                                                          newValue;
+                                                                    });
+                                                                  }
+                                                                  ;
+                                                                },
+                                                                items: costTypesList
+                                                                    .map((
+                                                                    CostType type) {
+                                                                  return new DropdownMenuItem<
+                                                                      CostType>(
+                                                                    value: type,
+                                                                    child: new Text(
+                                                                      type.name,
+                                                                    ),
+                                                                  );
+                                                                }).toList(),
+                                                              ),
+                                                            ),
+                                                          )
+                                                              : Container(),
+                                                          ButtonBar(
+                                                            mainAxisSize: MainAxisSize
+                                                                .min,
+                                                            // this will take space as minimum as posible(to center)
+                                                            children: <Widget>[
+                                                              ButtonTheme(
+                                                                minWidth: 75.0,
+                                                                height: 40.0,
+                                                                child: RaisedButton(
+                                                                  shape: RoundedRectangleBorder(
+                                                                    borderRadius: new BorderRadius
+                                                                        .circular(
+                                                                        50.0),
+                                                                  ),
+                                                                  child: Text(
+                                                                    AppLocalizations
+                                                                        .of(
+                                                                        context)
+                                                                        .translate(
+                                                                        'DiscardButton'),
+                                                                  ),
+                                                                  color: Color(
+                                                                      0xffEEEEEE),
+                                                                  // EEEEEE
+                                                                  onPressed: () {
+                                                                    actualTextFieldController
+                                                                        .text =
+                                                                    '';
+
+                                                                    setState(() {
+                                                                      level1ActualObject =
+                                                                      level1ActualAccountsList[
+                                                                      0];
+                                                                      level2ActualObject =
+                                                                      level2ActualAccountsList[
+                                                                      0];
+                                                                      level3ActualObject =
+                                                                      level3ActualAccountsList[
+                                                                      0];
+
+                                                                      costTypeObjectActual =
+                                                                      costTypesList[0];
+                                                                    });
+                                                                  },
+                                                                ),
+                                                              ),
+                                                              ButtonTheme(
+                                                                minWidth: 150.0,
+                                                                height: 60.0,
+                                                                child: RaisedButton(
+                                                                  shape: RoundedRectangleBorder(
+                                                                    borderRadius: new BorderRadius
+                                                                        .circular(
+                                                                        50.0),
+                                                                  ),
+                                                                  child: Text(
+                                                                      AppLocalizations
+                                                                          .of(
+                                                                          context)
+                                                                          .translate(
+                                                                          'addButton'),
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontSize: 17)),
+                                                                  color: Color(
+                                                                      0xff0957FF),
+                                                                  //df7599 - 0957FF
+                                                                  onPressed: () {
+                                                                    if (actualTextFieldController
+                                                                        .text
+                                                                        .length >
+                                                                        0 &&
+                                                                        numberValidator(
+                                                                            actualTextFieldController
+                                                                                .text
+                                                                        ) ==
+                                                                            null) {
+                                                                      commentInput(
+                                                                          context,
+                                                                          'actual',
+                                                                          null,
+                                                                          null,
+                                                                          null);
+                                                                    }
+                                                                    else {
+                                                                      showDialog(
+                                                                        context: context,
+                                                                        builder: (
+                                                                            BuildContext context) {
+                                                                          // return object of type Dialog
+                                                                          return AlertDialog(
+                                                                            title: new Text(
+                                                                              AppLocalizations
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .translate(
+                                                                                  'warning')
+                                                                              ,
+                                                                              style: TextStyle(
+                                                                                  color: Colors
+                                                                                      .orange,
+                                                                                  fontSize: 25,
+                                                                                  fontWeight: FontWeight
+                                                                                      .bold),),
+                                                                            content: new Text(
+                                                                              // #157 differentiate message betweeen nothing entered and invalid number entered
+                                                                              actualTextFieldController
+                                                                                  .text
+                                                                                  .length ==
+                                                                                  0
+                                                                                  ?
+                                                                              AppLocalizations
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .translate(
+                                                                                  'errorInputEnterAmount')
+                                                                                  : AppLocalizations
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .translate(
+                                                                                  'errorInputInvalidAmount'),
+                                                                              style: TextStyle(
+                                                                                  fontWeight: FontWeight
+                                                                                      .bold,
+                                                                                  fontSize: 20),),
+                                                                            actions: <
+                                                                                Widget>[
+                                                                              // usually buttons at the bottom of the dialog
+                                                                              new FlatButton(
+                                                                                child: new Text(
+                                                                                    "Close"),
+                                                                                onPressed: () {
+                                                                                  Navigator
+                                                                                      .of(
+                                                                                      context)
+                                                                                      .pop();
+                                                                                },
+                                                                              ),
+                                                                            ],
+                                                                          );
+                                                                        },
+                                                                      );
+                                                                    }
+                                                                  },
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
-                                                      ),
-                                                    ],
-                                                  )
-                                              ),
-                                            ));
-                                      },
-                                    ),
+                                                      )
+                                                  ),
+                                                ));
+                                          },
+                                        ), currentlyLoading
+                                            ?
+                                        _showLoadWidget()
+                                            : Container(),
+                                        ],)
                                   )),
                             ],
                           ),
@@ -4142,194 +4223,195 @@ class _MyHomePageState extends State<MyHomePage>
                               _refreshController.refreshCompleted();
                             },
                             child: ListView.builder(
-                                padding: const EdgeInsets.all(8),
-                                itemCount: actList.length + 1,
-                                // Length + 1 as the 0 index is the sort button, all other use index - 1
-                                itemBuilder: (BuildContext context, int index) {
-                                  return index == 0
-                                      ? Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment
-                                                .spaceEvenly,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            children: <Widget>[
-                                              Flexible(
-                                                child: TextFormField(
-                                                    autofocus: false,
-                                                    onChanged: (value) {
-                                                      setState(() {});
-                                                    },
-                                                    controller:
-                                                    actualSearchTextFieldController,
-                                                    decoration:
-                                                    InputDecoration(
-                                                      // hintText: 'Enter ur amount',
-                                                      //hintStyle: TextStyle(height: 1.75),
-                                                      labelText: AppLocalizations
-                                                          .of(context)
-                                                          .translate(
-                                                          'ListSearchTextField'),
-                                                      //increases the height of cursor
-                                                      icon: Icon(
-                                                        Icons.search,
-                                                      ),
-                                                    )),
-                                              ),
-                                              IconButton(
-                                                  icon: Icon(Icons.clear),
-                                                  color:
-                                                  Color(0xff003680),
-                                                  alignment: Alignment
-                                                      .centerRight,
-                                                  iconSize: 25,
-                                                  onPressed: () {
-                                                    FocusScope.of(context)
-                                                        .unfocus();
-                                                    setState(() {
-                                                      actualSearchTextFieldController
-                                                          .clear();
-                                                    });
-                                                  }),
-                                              IconButton(
-                                                  icon: Icon(Icons.sort),
-                                                  color:
-                                                  Color(0xff003680),
-                                                  alignment: Alignment
-                                                      .centerRight,
-                                                  iconSize: 25,
-                                                  onPressed: () {
-                                                    showDialog<void>(
-                                                      context: context,
-                                                      builder: (
-                                                          BuildContext context) {
-                                                        return AlertDialog(
-                                                          content: StatefulBuilder(
-                                                            builder: (
-                                                                BuildContext context,
-                                                                StateSetter setState) {
-                                                              return Column(
-                                                                  mainAxisSize: MainAxisSize
-                                                                      .min,
-                                                                  children: List<
-                                                                      Widget>.generate(
-                                                                      sortActualOrders
-                                                                          .length +
-                                                                          1 /* + 1 because position zero is the sort switch*/, (
-                                                                      int index) {
-                                                                    return
-                                                                      index == 0
-                                                                          ?
-                                                                      Row(
-                                                                          mainAxisAlignment: MainAxisAlignment
-                                                                              .center,
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Text(
-                                                                              AppLocalizations
-                                                                                  .of(
-                                                                                  context)
-                                                                                  .translate(
-                                                                                  'orderAsc'),
-                                                                              overflow: TextOverflow
-                                                                                  .ellipsis,),
-                                                                            Switch(
-                                                                              value: sortActualDescending,
-                                                                              onChanged: (
-                                                                                  value) {
-                                                                                setState(() {
-                                                                                  sortActualDescending =
-                                                                                      value;
-                                                                                  handleOrderDialog(
-                                                                                      -1,
-                                                                                      'actual');
-                                                                                  Navigator
-                                                                                      .pop(
-                                                                                      context);
-                                                                                });
-                                                                              },
-                                                                              activeTrackColor: Color(
-                                                                                  0xffEEEEEE),
-                                                                              activeColor: Color(
-                                                                                  0xff0957FF),
-                                                                            ),
-                                                                            Text(
-                                                                              AppLocalizations
-                                                                                  .of(
-                                                                                  context)
-                                                                                  .translate(
-                                                                                  'orderDesc'),
-                                                                              overflow: TextOverflow
-                                                                                  .ellipsis,),
-                                                                          ])
-                                                                          : Row(
-                                                                        children: <
-                                                                            Widget>[
-                                                                          Radio<
-                                                                              bool>(
-                                                                            groupValue: true,
-                                                                            value: sortActualOrders[index -
-                                                                                1],
-                                                                            activeColor: Color(
-                                                                                0xFF0957FF),
-                                                                            onChanged: (
-                                                                                bool newValue) {
-                                                                              setState(() {
-                                                                                print(
-                                                                                    newValue);
-
-                                                                                sortActualOrders[0] =
-                                                                                false;
-                                                                                sortActualOrders[1] =
-                                                                                false;
-                                                                                sortActualOrders[2] =
-                                                                                false;
-                                                                                sortActualOrders[3] =
-                                                                                false;
-                                                                                sortActualOrders[4] =
-                                                                                false;
-
-                                                                                sortActualOrders[index -
-                                                                                    1] =
-                                                                                true;
-                                                                              });
-
-                                                                              handleOrderDialog(
-                                                                                  (index -
-                                                                                      1),
-                                                                                  'actual');
-
-                                                                              Navigator
-                                                                                  .pop(
-                                                                                  context);
-                                                                            },
-                                                                          ),
-                                                                          Flexible(
-                                                                              child: Text(
+                                  padding: const EdgeInsets.all(8),
+                                  itemCount: actList.length + 1, // Length + 1 as the 0 index is the sort button, all other use index - 1
+                                  itemBuilder: (BuildContext context,
+                                      int index) {
+                                    return Stack(children: <Widget>[index == 0
+                                        ? Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment
+                                                  .spaceEvenly,
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                              children: <Widget>[
+                                                Flexible(
+                                                  child: TextFormField(
+                                                      autofocus: false,
+                                                      onChanged: (value) {
+                                                        setState(() {});
+                                                      },
+                                                      controller:
+                                                      actualSearchTextFieldController,
+                                                      decoration:
+                                                      InputDecoration(
+                                                        // hintText: 'Enter ur amount',
+                                                        //hintStyle: TextStyle(height: 1.75),
+                                                        labelText: AppLocalizations
+                                                            .of(context)
+                                                            .translate(
+                                                            'ListSearchTextField'),
+                                                        //increases the height of cursor
+                                                        icon: Icon(
+                                                          Icons.search,
+                                                        ),
+                                                      )),
+                                                ),
+                                                IconButton(
+                                                    icon: Icon(Icons.clear),
+                                                    color:
+                                                    Color(0xff003680),
+                                                    alignment: Alignment
+                                                        .centerRight,
+                                                    iconSize: 25,
+                                                    onPressed: () {
+                                                      FocusScope.of(context)
+                                                          .unfocus();
+                                                      setState(() {
+                                                        actualSearchTextFieldController
+                                                            .clear();
+                                                      });
+                                                    }),
+                                                IconButton(
+                                                    icon: Icon(Icons.sort),
+                                                    color:
+                                                    Color(0xff003680),
+                                                    alignment: Alignment
+                                                        .centerRight,
+                                                    iconSize: 25,
+                                                    onPressed: () {
+                                                      showDialog<void>(
+                                                        context: context,
+                                                        builder: (
+                                                            BuildContext context) {
+                                                          return AlertDialog(
+                                                            content: StatefulBuilder(
+                                                              builder: (
+                                                                  BuildContext context,
+                                                                  StateSetter setState) {
+                                                                return Column(
+                                                                    mainAxisSize: MainAxisSize
+                                                                        .min,
+                                                                    children: List<
+                                                                        Widget>.generate(
+                                                                        sortActualOrders
+                                                                            .length +
+                                                                            1 /* + 1 because position zero is the sort switch*/, (
+                                                                        int index) {
+                                                                      return
+                                                                        index ==
+                                                                            0
+                                                                            ?
+                                                                        Row(
+                                                                            mainAxisAlignment: MainAxisAlignment
+                                                                                .center,
+                                                                            children: <
+                                                                                Widget>[
+                                                                              Text(
                                                                                 AppLocalizations
                                                                                     .of(
                                                                                     context)
                                                                                     .translate(
-                                                                                    '${index -
-                                                                                        1}OrderText'),
+                                                                                    'orderAsc'),
                                                                                 overflow: TextOverflow
-                                                                                    .clip,
-                                                                              )),
-                                                                        ],
-                                                                      );
-                                                                  }));
-                                                            },
-                                                          ),
-                                                        );
-                                                      },);
+                                                                                    .ellipsis,),
+                                                                              Switch(
+                                                                                value: sortActualDescending,
+                                                                                onChanged: (
+                                                                                    value) {
+                                                                                  setState(() {
+                                                                                    sortActualDescending =
+                                                                                        value;
+                                                                                    handleOrderDialog(
+                                                                                        -1,
+                                                                                        'actual');
+                                                                                    Navigator
+                                                                                        .pop(
+                                                                                        context);
+                                                                                  });
+                                                                                },
+                                                                                activeTrackColor: Color(
+                                                                                    0xffEEEEEE),
+                                                                                activeColor: Color(
+                                                                                    0xff0957FF),
+                                                                              ),
+                                                                              Text(
+                                                                                AppLocalizations
+                                                                                    .of(
+                                                                                    context)
+                                                                                    .translate(
+                                                                                    'orderDesc'),
+                                                                                overflow: TextOverflow
+                                                                                    .ellipsis,),
+                                                                            ])
+                                                                            : Row(
+                                                                          children: <
+                                                                              Widget>[
+                                                                            Radio<
+                                                                                bool>(
+                                                                              groupValue: true,
+                                                                              value: sortActualOrders[index -
+                                                                                  1],
+                                                                              activeColor: Color(
+                                                                                  0xFF0957FF),
+                                                                              onChanged: (
+                                                                                  bool newValue) {
+                                                                                setState(() {
+                                                                                  print(
+                                                                                      newValue);
 
-                                                    /*return showDialog(
+                                                                                  sortActualOrders[0] =
+                                                                                  false;
+                                                                                  sortActualOrders[1] =
+                                                                                  false;
+                                                                                  sortActualOrders[2] =
+                                                                                  false;
+                                                                                  sortActualOrders[3] =
+                                                                                  false;
+                                                                                  sortActualOrders[4] =
+                                                                                  false;
+
+                                                                                  sortActualOrders[index -
+                                                                                      1] =
+                                                                                  true;
+                                                                                });
+
+                                                                                handleOrderDialog(
+                                                                                    (index -
+                                                                                        1),
+                                                                                    'actual');
+
+                                                                                Navigator
+                                                                                    .pop(
+                                                                                    context);
+                                                                              },
+                                                                            ),
+                                                                            Flexible(
+                                                                                child: Text(
+                                                                                  AppLocalizations
+                                                                                      .of(
+                                                                                      context)
+                                                                                      .translate(
+                                                                                      '${index -
+                                                                                          1}OrderText'),
+                                                                                  overflow: TextOverflow
+                                                                                      .clip,
+                                                                                )),
+                                                                          ],
+                                                                        );
+                                                                    }));
+                                                              },
+                                                            ),
+                                                          );
+                                                        },);
+
+                                                      /*return showDialog(
                                                         context: context,
                                                         barrierDismissible:
                                                         true,
@@ -4523,494 +4605,336 @@ class _MyHomePageState extends State<MyHomePage>
                                                             ],
                                                           );
                                                         });*/
-                                                  })
-                                            ]),
-                                      ])
-                                      : ((actList[index - 1].costType
-                                      .toLowerCase().contains(
-                                      actualSearchTextFieldController.text) ||
-                                      actList[index - 1]
-                                          .level1
-                                          .toLowerCase()
-                                          .contains(
-                                          actualSearchTextFieldController
-                                              .text) ||
-                                      actList[index - 1]
-                                          .level2
-                                          .toLowerCase()
-                                          .contains(
-                                          actualSearchTextFieldController
-                                              .text) ||
-                                      actList[index - 1]
-                                          .level3
-                                          .toLowerCase()
-                                          .contains(
-                                          actualSearchTextFieldController
-                                              .text) ||
-                                      actList[index - 1]
-                                          .comment
-                                          .toLowerCase()
-                                          .contains(
-                                          actualSearchTextFieldController
-                                              .text) ||
-                                      actList[index - 1]
-                                          .amount
-                                          .toString()
-                                          .contains(
-                                          actualSearchTextFieldController
-                                              .text) ||
-                                      actList[index - 1]
-                                          .level1
-                                          .toLowerCase()
-                                          .contains(
-                                          actualSearchTextFieldController
-                                              .text) ||
-                                      actList[index - 1].date.toLowerCase()
-                                          .contains(
-                                          actualSearchTextFieldController.text))
-                                      ? GestureDetector(
-                                      onTap: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) =>
-                                          new AlertDialog(
-                                            title: Text(
-                                              AppLocalizations.of(
-                                                  context)
-                                                  .translate(
-                                                  'DetailsListTitle'),
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 25,
+                                                    })
+                                              ]),
+                                        ])
+                                        : ((actList[index - 1].costType
+                                        .toLowerCase().contains(
+                                        actualSearchTextFieldController.text) ||
+                                        actList[index - 1]
+                                            .level1
+                                            .toLowerCase()
+                                            .contains(
+                                            actualSearchTextFieldController
+                                                .text) ||
+                                        actList[index - 1]
+                                            .level2
+                                            .toLowerCase()
+                                            .contains(
+                                            actualSearchTextFieldController
+                                                .text) ||
+                                        actList[index - 1]
+                                            .level3
+                                            .toLowerCase()
+                                            .contains(
+                                            actualSearchTextFieldController
+                                                .text) ||
+                                        actList[index - 1]
+                                            .comment
+                                            .toLowerCase()
+                                            .contains(
+                                            actualSearchTextFieldController
+                                                .text) ||
+                                        actList[index - 1]
+                                            .amount
+                                            .toString()
+                                            .contains(
+                                            actualSearchTextFieldController
+                                                .text) ||
+                                        actList[index - 1]
+                                            .level1
+                                            .toLowerCase()
+                                            .contains(
+                                            actualSearchTextFieldController
+                                                .text) ||
+                                        actList[index - 1].date.toLowerCase()
+                                            .contains(
+                                            actualSearchTextFieldController
+                                                .text))
+                                        ? GestureDetector(
+                                        onTap: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                            new AlertDialog(
+                                              title: Text(
+                                                AppLocalizations.of(
+                                                    context)
+                                                    .translate(
+                                                    'DetailsListTitle'),
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 25,
+                                                ),
                                               ),
+                                              content: RichText(
+                                                text: TextSpan(
+                                                    text: "",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15,
+                                                    ),
+                                                    children: <TextSpan>[
+                                                      TextSpan(
+                                                        text: AppLocalizations
+                                                            .of(
+                                                            context)
+                                                            .translate(
+                                                            'DetailsListDate'),
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                        ),
+                                                      ),
+                                                      TextSpan(
+                                                        text:
+                                                        '${actList[index - 1]
+                                                            .date}\n',
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xFF0957FF),
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold,
+                                                            fontStyle:
+                                                            FontStyle
+                                                                .italic),
+                                                      ),
+                                                      TextSpan(
+                                                        text: AppLocalizations
+                                                            .of(
+                                                            context)
+                                                            .translate(
+                                                            'DetailsListAmount'),
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                        ),
+                                                      ),
+                                                      TextSpan(
+                                                        text:
+                                                        '${actList[index - 1]
+                                                            .amount}\n',
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xFF0957FF),
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold,
+                                                            fontStyle:
+                                                            FontStyle
+                                                                .italic),
+                                                      ),
+                                                      TextSpan(
+                                                        text: AppLocalizations
+                                                            .of(
+                                                            context)
+                                                            .translate(
+                                                            'DetailsListLevel'),
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                        ),
+                                                      ),
+                                                      TextSpan(
+                                                        text:
+                                                        '${actList[index - 1]
+                                                            .level1} > ${actList[index -
+                                                            1]
+                                                            .level2} > ${actList[index -
+                                                            1].level3}\n',
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xFF0957FF),
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold,
+                                                            fontStyle:
+                                                            FontStyle
+                                                                .italic),
+                                                      ),
+                                                      TextSpan(
+                                                        text: AppLocalizations
+                                                            .of(
+                                                            context)
+                                                            .translate(
+                                                            'DetailsListCostType'),
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                        ),
+                                                      ),
+                                                      TextSpan(
+                                                        text:
+                                                        '${actList[index - 1]
+                                                            .costType}\n',
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xFF0957FF),
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold,
+                                                            fontStyle:
+                                                            FontStyle
+                                                                .italic),
+                                                      ),
+                                                      TextSpan(
+                                                        text: AppLocalizations
+                                                            .of(
+                                                            context)
+                                                            .translate(
+                                                            'DetailsListCostType'),
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                        ),
+                                                      ),
+                                                      TextSpan(
+                                                        text:
+                                                        '${actList[index - 1]
+                                                            .comment.length > 0
+                                                            ? actList[index - 1]
+                                                            .comment
+                                                            : AppLocalizations
+                                                            .of(
+                                                            context).translate(
+                                                            'noCommentAvailable')}\n',
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xFF0957FF),
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold,
+                                                            fontStyle:
+                                                            FontStyle
+                                                                .italic),
+                                                      ),
+                                                    ]),
+                                              ),
+                                              actions: <Widget>[
+                                                new FlatButton(
+                                                  child: new Text(
+                                                      AppLocalizations.of(
+                                                          context)
+                                                          .translate(
+                                                          'dismissDialog')),
+                                                  onPressed: () =>
+                                                      Navigator.of(
+                                                          context)
+                                                          .pop(),
+                                                )
+                                              ],
                                             ),
-                                            content: RichText(
-                                              text: TextSpan(
-                                                  text: "",
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15,
-                                                  ),
-                                                  children: <TextSpan>[
-                                                    TextSpan(
-                                                      text: AppLocalizations
-                                                          .of(
-                                                          context)
-                                                          .translate(
-                                                          'DetailsListDate'),
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${actList[index - 1]
-                                                          .date}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                    TextSpan(
-                                                      text: AppLocalizations
-                                                          .of(
-                                                          context)
-                                                          .translate(
-                                                          'DetailsListAmount'),
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${actList[index - 1]
-                                                          .amount}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                    TextSpan(
-                                                      text: AppLocalizations
-                                                          .of(
-                                                          context)
-                                                          .translate(
-                                                          'DetailsListLevel'),
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${actList[index - 1]
-                                                          .level1} > ${actList[index -
-                                                          1]
-                                                          .level2} > ${actList[index -
-                                                          1].level3}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                    TextSpan(
-                                                      text: AppLocalizations
-                                                          .of(
-                                                          context)
-                                                          .translate(
-                                                          'DetailsListCostType'),
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${actList[index - 1]
-                                                          .costType}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                    TextSpan(
-                                                      text: AppLocalizations
-                                                          .of(
-                                                          context)
-                                                          .translate(
-                                                          'DetailsListCostType'),
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${actList[index - 1]
-                                                          .comment.length > 0
-                                                          ? actList[index - 1]
-                                                          .comment
-                                                          : AppLocalizations.of(
-                                                          context).translate(
-                                                          'noCommentAvailable')}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                  ]),
-                                            ),
-                                            actions: <Widget>[
-                                              new FlatButton(
-                                                child: new Text(
-                                                    AppLocalizations.of(
-                                                        context)
-                                                        .translate(
-                                                        'dismissDialog')),
-                                                onPressed: () =>
-                                                    Navigator.of(
-                                                        context)
-                                                        .pop(),
+                                          );
+                                        },
+                                        child: Container(
+                                          margin:
+                                          const EdgeInsets.all(15.0),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Colors.blueAccent),
+                                            color: actList[index - 1]
+                                                .active ==
+                                                1
+                                                ? Color(0xffEEEEEE)
+                                                : Colors.redAccent,
+                                            borderRadius:
+                                            new BorderRadius.circular(
+                                                30.0),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black12,
+                                                blurRadius: 5,
+                                                // has the effect of softening the shadow
+                                                spreadRadius: 0,
+                                                // has the effect of extending the shadow
+                                                offset: Offset(
+                                                  7.0,
+                                                  // horizontal, move right 10
+                                                  7.0, // vertical, move down 10
+                                                ),
                                               )
                                             ],
                                           ),
-                                        );
-                                      },
-                                      child: Container(
-                                        margin:
-                                        const EdgeInsets.all(15.0),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Colors.blueAccent),
-                                          color: actList[index - 1]
-                                              .active ==
-                                              1
-                                              ? Color(0xffEEEEEE)
-                                              : Colors.redAccent,
-                                          borderRadius:
-                                          new BorderRadius.circular(
-                                              30.0),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.black12,
-                                              blurRadius: 5,
-                                              // has the effect of softening the shadow
-                                              spreadRadius: 0,
-                                              // has the effect of extending the shadow
-                                              offset: Offset(
-                                                7.0,
-                                                // horizontal, move right 10
-                                                7.0, // vertical, move down 10
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        child: Center(
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceEvenly,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment
-                                                    .center,
-                                                children: <Widget>[
-                                                  SizedBox(
-                                                    width: MediaQuery
-                                                        .of(
-                                                        context)
-                                                        .size
-                                                        .width *
-                                                        .6,
-                                                    //height: 300.0,
-                                                    child: Column(
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                        children: <Widget>[
-                                                          SizedBox(
-                                                              height: 15),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: MediaQuery
-                                                                      .of(
-                                                                      context)
-                                                                      .size
-                                                                      .width *
-                                                                      .1,
-                                                                  child:
-                                                                  Icon(
-                                                                    Icons
-                                                                        .attach_money,
-                                                                    color: Color(
-                                                                        0xff0957FF),
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  "${actList[index -
-                                                                      1].date}",
-                                                                  style: TextStyle(
+                                          child: Center(
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceEvenly,
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .center,
+                                                  children: <Widget>[
+                                                    SizedBox(
+                                                      width: MediaQuery
+                                                          .of(
+                                                          context)
+                                                          .size
+                                                          .width *
+                                                          .6,
+                                                      //height: 300.0,
+                                                      child: Column(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                          crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                          children: <Widget>[
+                                                            SizedBox(
+                                                                height: 15),
+                                                            Row(
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                                children: [
+                                                                  SizedBox(
+                                                                    width: MediaQuery
+                                                                        .of(
+                                                                        context)
+                                                                        .size
+                                                                        .width *
+                                                                        .1,
+                                                                    child:
+                                                                    Icon(
+                                                                      Icons
+                                                                          .attach_money,
                                                                       color: Color(
                                                                           0xff0957FF),
-                                                                      fontSize:
-                                                                      25),
-                                                                ),
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: MediaQuery
-                                                                      .of(
-                                                                      context)
-                                                                      .size
-                                                                      .width *
-                                                                      .1,
-                                                                  child:
-                                                                  Container(),
-                                                                ),
-                                                                Flexible(
-                                                                    child:
-                                                                    Text(
-                                                                      "${actList[index -
-                                                                          1]
-                                                                          .comment
-                                                                          .length >
-                                                                          0
-                                                                          ? actList[index -
-                                                                          1]
-                                                                          .comment
-                                                                          : AppLocalizations
-                                                                          .of(
-                                                                          context)
-                                                                          .translate(
-                                                                          'noCommentAvailable')}",
-                                                                      style:
-                                                                      TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontStyle:
-                                                                        FontStyle
-                                                                            .italic,
-                                                                        fontSize:
-                                                                        15,
-                                                                      ),
-                                                                      overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                    )),
-                                                                Container(),
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                    width: MediaQuery
-                                                                        .of(
-                                                                        context)
-                                                                        .size
-                                                                        .width *
-                                                                        .1,
-                                                                    //height: 300.0,
-                                                                    child:
-                                                                    Container()),
-                                                                Flexible(
-                                                                    child:
-                                                                    Text(
-                                                                      '${actList[index -
-                                                                          1]
-                                                                          .level1} > ${actList[index -
-                                                                          1]
-                                                                          .level2} > ${actList[index -
-                                                                          1]
-                                                                          .level3}',
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .black,
-                                                                          fontSize:
-                                                                          13),
-                                                                      overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                    ))
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 5,
-                                                          ),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                    width: MediaQuery
-                                                                        .of(
-                                                                        context)
-                                                                        .size
-                                                                        .width *
-                                                                        .1,
-                                                                    //height: 300.0,
-                                                                    child:
-                                                                    Container()),
-                                                                Flexible(
-                                                                    child:
-                                                                    Text(
-                                                                      '${actList[index -
-                                                                          1]
-                                                                          .costType}',
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .black,
-                                                                          fontSize:
-                                                                          13),
-                                                                      overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                    ))
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 15,
-                                                          ),
-                                                        ]),
-                                                  ),
-                                                  Column(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .start,
-                                                      children: [
-                                                        Text(
-                                                            '${actList[index -
-                                                                1].amount}'),
-                                                        SizedBox(
-                                                          width: MediaQuery
-                                                              .of(
-                                                              context)
-                                                              .size
-                                                              .width *
-                                                              .1,
-                                                          //height: 300.0,
-                                                          child: IconButton(
-                                                            icon: new Icon(
-                                                              actList[index - 1]
-                                                                  .active ==
-                                                                  1
-                                                                  ? Icons
-                                                                  .delete
-                                                                  : Icons
-                                                                  .restore,
-                                                            ),
-                                                            color: Color(
-                                                                0xff0957FF),
-                                                            onPressed: () {
-                                                              showDialog(
-                                                                context:
-                                                                context,
-                                                                builder:
-                                                                    (context) =>
-                                                                new AlertDialog(
-                                                                  title:
-                                                                  Text(
-                                                                    AppLocalizations
-                                                                        .of(
-                                                                        context)
-                                                                        .translate(
-                                                                        'areYouSureDialog'),
-                                                                    style:
-                                                                    TextStyle(
-                                                                      fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                      fontSize:
-                                                                      25,
                                                                     ),
                                                                   ),
-                                                                  content:
-                                                                  RichText(
-                                                                    text: TextSpan(
-                                                                        text:
+                                                                  Text(
+                                                                    "${actList[index -
+                                                                        1]
+                                                                        .date}",
+                                                                    style: TextStyle(
+                                                                        color: Color(
+                                                                            0xff0957FF),
+                                                                        fontSize:
+                                                                        25),
+                                                                  ),
+                                                                ]),
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            Row(
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                                children: [
+                                                                  SizedBox(
+                                                                    width: MediaQuery
+                                                                        .of(
+                                                                        context)
+                                                                        .size
+                                                                        .width *
+                                                                        .1,
+                                                                    child:
+                                                                    Container(),
+                                                                  ),
+                                                                  Flexible(
+                                                                      child:
+                                                                      Text(
                                                                         "${actList[index -
                                                                             1]
                                                                             .comment
@@ -5023,138 +4947,308 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             .of(
                                                                             context)
                                                                             .translate(
-                                                                            'noCommentAvailable')}\n\n",
+                                                                            'noCommentAvailable')}",
+                                                                        style:
+                                                                        TextStyle(
+                                                                          color: Colors
+                                                                              .black,
+                                                                          fontStyle:
+                                                                          FontStyle
+                                                                              .italic,
+                                                                          fontSize:
+                                                                          15,
+                                                                        ),
+                                                                        overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                      )),
+                                                                  Container(),
+                                                                ]),
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            Row(
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                                children: [
+                                                                  SizedBox(
+                                                                      width: MediaQuery
+                                                                          .of(
+                                                                          context)
+                                                                          .size
+                                                                          .width *
+                                                                          .1,
+                                                                      //height: 300.0,
+                                                                      child:
+                                                                      Container()),
+                                                                  Flexible(
+                                                                      child:
+                                                                      Text(
+                                                                        '${actList[index -
+                                                                            1]
+                                                                            .level1} > ${actList[index -
+                                                                            1]
+                                                                            .level2} > ${actList[index -
+                                                                            1]
+                                                                            .level3}',
                                                                         style: TextStyle(
                                                                             color: Colors
                                                                                 .black,
-                                                                            fontSize: 15,
-                                                                            fontStyle: FontStyle
-                                                                                .italic),
-                                                                        children: <
-                                                                            TextSpan>[
-                                                                          TextSpan(
-                                                                            text: AppLocalizations
-                                                                                .of(
-                                                                                context)
-                                                                                .translate(
-                                                                                'EntryFrom'),
-                                                                            style: TextStyle(
-                                                                              fontSize: 18,
-                                                                            ),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: '${actList[index -
-                                                                                1]
-                                                                                .date} ',
-                                                                            style: TextStyle(
-                                                                                color: Color(
-                                                                                    0xFF0957FF),
-                                                                                fontSize: 18,
-                                                                                fontWeight: FontWeight
-                                                                                    .bold),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: AppLocalizations
-                                                                                .of(
-                                                                                context)
-                                                                                .translate(
-                                                                                'withAnAmountOf'),
-                                                                            style: TextStyle(
-                                                                              fontSize: 18,
-                                                                            ),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: '${actList[index -
-                                                                                1]
-                                                                                .amount} ',
-                                                                            style: TextStyle(
-                                                                                color: Color(
-                                                                                    0xFF0957FF),
-                                                                                fontSize: 18,
-                                                                                fontWeight: FontWeight
-                                                                                    .bold),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: AppLocalizations
-                                                                                .of(
-                                                                                context)
-                                                                                .translate(
-                                                                                'willBe'),
-                                                                            style: TextStyle(
-                                                                              fontSize: 18,
-                                                                            ),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: '${actList[index -
-                                                                                1]
-                                                                                .active ==
-                                                                                1
-                                                                                ? AppLocalizations
-                                                                                .of(
-                                                                                context)
-                                                                                .translate(
-                                                                                'deleted')
-                                                                                : AppLocalizations
-                                                                                .of(
-                                                                                context)
-                                                                                .translate(
-                                                                                'restored')}',
-                                                                            style: TextStyle(
-                                                                                color: actList[index -
-                                                                                    1]
-                                                                                    .active ==
-                                                                                    1
-                                                                                    ? Colors
-                                                                                    .red
-                                                                                    : Colors
-                                                                                    .green,
-                                                                                fontSize: 18,
-                                                                                fontWeight: FontWeight
-                                                                                    .bold),
-                                                                          ),
-                                                                        ]),
-                                                                  ),
-                                                                  actions: <
-                                                                      Widget>[
-                                                                    new FlatButton(
+                                                                            fontSize:
+                                                                            13),
+                                                                        overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                      ))
+                                                                ]),
+                                                            SizedBox(
+                                                              height: 5,
+                                                            ),
+                                                            Row(
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                                children: [
+                                                                  SizedBox(
+                                                                      width: MediaQuery
+                                                                          .of(
+                                                                          context)
+                                                                          .size
+                                                                          .width *
+                                                                          .1,
+                                                                      //height: 300.0,
                                                                       child:
-                                                                      new Text(
-                                                                          AppLocalizations
+                                                                      Container()),
+                                                                  Flexible(
+                                                                      child:
+                                                                      Text(
+                                                                        '${actList[index -
+                                                                            1]
+                                                                            .costType}',
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .black,
+                                                                            fontSize:
+                                                                            13),
+                                                                        overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                      ))
+                                                                ]),
+                                                            SizedBox(
+                                                              height: 15,
+                                                            ),
+                                                          ]),
+                                                    ),
+                                                    Column(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .start,
+                                                        children: [
+                                                          Text(
+                                                              '${actList[index -
+                                                                  1].amount}'),
+                                                          SizedBox(
+                                                            width: MediaQuery
+                                                                .of(
+                                                                context)
+                                                                .size
+                                                                .width *
+                                                                .1,
+                                                            //height: 300.0,
+                                                            child: IconButton(
+                                                              icon: new Icon(
+                                                                actList[index -
+                                                                    1]
+                                                                    .active ==
+                                                                    1
+                                                                    ? Icons
+                                                                    .delete
+                                                                    : Icons
+                                                                    .restore,
+                                                              ),
+                                                              color: Color(
+                                                                  0xff0957FF),
+                                                              onPressed: () {
+                                                                showDialog(
+                                                                  context:
+                                                                  context,
+                                                                  builder:
+                                                                      (
+                                                                      context) =>
+                                                                  new AlertDialog(
+                                                                    title:
+                                                                    Text(
+                                                                      AppLocalizations
+                                                                          .of(
+                                                                          context)
+                                                                          .translate(
+                                                                          'areYouSureDialog'),
+                                                                      style:
+                                                                      TextStyle(
+                                                                        fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                        fontSize:
+                                                                        25,
+                                                                      ),
+                                                                    ),
+                                                                    content:
+                                                                    RichText(
+                                                                      text: TextSpan(
+                                                                          text:
+                                                                          "${actList[index -
+                                                                              1]
+                                                                              .comment
+                                                                              .length >
+                                                                              0
+                                                                              ? actList[index -
+                                                                              1]
+                                                                              .comment
+                                                                              : AppLocalizations
                                                                               .of(
                                                                               context)
                                                                               .translate(
-                                                                              'cancel')),
-                                                                      onPressed: () =>
-                                                                          Navigator
-                                                                              .of(
-                                                                              context)
-                                                                              .pop(),
-                                                                    ),
-                                                                    new Container(
-                                                                      margin: EdgeInsets.only(
-                                                                          left: 2, right: 2, bottom: 10),
-                                                                      child: ConfirmationSlider(
-                                                                        text:  AppLocalizations.of(context).translate('slideToConfirm'),
-                                                                        foregroundColor: Color(
-                                                                            0xff0957FF),
-                                                                        onConfirmation: () {
-                                                                          actObjectToDelete
-                                                                              .id =
-                                                                              actList[index -
+                                                                              'noCommentAvailable')}\n\n",
+                                                                          style: TextStyle(
+                                                                              color: Colors
+                                                                                  .black,
+                                                                              fontSize: 15,
+                                                                              fontStyle: FontStyle
+                                                                                  .italic),
+                                                                          children: <
+                                                                              TextSpan>[
+                                                                            TextSpan(
+                                                                              text: AppLocalizations
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .translate(
+                                                                                  'EntryFrom'),
+                                                                              style: TextStyle(
+                                                                                fontSize: 18,
+                                                                              ),
+                                                                            ),
+                                                                            TextSpan(
+                                                                              text: '${actList[index -
                                                                                   1]
-                                                                                  .id;
-
-                                                                          sendBackend(
-                                                                              'actlistdelete',
-                                                                              false);
-                                                                          Navigator
+                                                                                  .date} ',
+                                                                              style: TextStyle(
+                                                                                  color: Color(
+                                                                                      0xFF0957FF),
+                                                                                  fontSize: 18,
+                                                                                  fontWeight: FontWeight
+                                                                                      .bold),
+                                                                            ),
+                                                                            TextSpan(
+                                                                              text: AppLocalizations
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .translate(
+                                                                                  'withAnAmountOf'),
+                                                                              style: TextStyle(
+                                                                                fontSize: 18,
+                                                                              ),
+                                                                            ),
+                                                                            TextSpan(
+                                                                              text: '${actList[index -
+                                                                                  1]
+                                                                                  .amount} ',
+                                                                              style: TextStyle(
+                                                                                  color: Color(
+                                                                                      0xFF0957FF),
+                                                                                  fontSize: 18,
+                                                                                  fontWeight: FontWeight
+                                                                                      .bold),
+                                                                            ),
+                                                                            TextSpan(
+                                                                              text: AppLocalizations
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .translate(
+                                                                                  'willBe'),
+                                                                              style: TextStyle(
+                                                                                fontSize: 18,
+                                                                              ),
+                                                                            ),
+                                                                            TextSpan(
+                                                                              text: '${actList[index -
+                                                                                  1]
+                                                                                  .active ==
+                                                                                  1
+                                                                                  ? AppLocalizations
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .translate(
+                                                                                  'deleted')
+                                                                                  : AppLocalizations
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .translate(
+                                                                                  'restored')}',
+                                                                              style: TextStyle(
+                                                                                  color: actList[index -
+                                                                                      1]
+                                                                                      .active ==
+                                                                                      1
+                                                                                      ? Colors
+                                                                                      .red
+                                                                                      : Colors
+                                                                                      .green,
+                                                                                  fontSize: 18,
+                                                                                  fontWeight: FontWeight
+                                                                                      .bold),
+                                                                            ),
+                                                                          ]),
+                                                                    ),
+                                                                    actions: <
+                                                                        Widget>[
+                                                                      new FlatButton(
+                                                                        child:
+                                                                        new Text(
+                                                                            AppLocalizations
+                                                                                .of(
+                                                                                context)
+                                                                                .translate(
+                                                                                'cancel')),
+                                                                        onPressed: () =>
+                                                                            Navigator
+                                                                                .of(
+                                                                                context)
+                                                                                .pop(),
+                                                                      ),
+                                                                      new Container(
+                                                                        margin: EdgeInsets
+                                                                            .only(
+                                                                            left: 2,
+                                                                            right: 2,
+                                                                            bottom: 10),
+                                                                        child: ConfirmationSlider(
+                                                                          text: AppLocalizations
                                                                               .of(
                                                                               context)
-                                                                              .pop();
-                                                                        },
+                                                                              .translate(
+                                                                              'slideToConfirm'),
+                                                                          foregroundColor: Color(
+                                                                              0xff0957FF),
+                                                                          onConfirmation: () {
+                                                                            actObjectToDelete
+                                                                                .id =
+                                                                                actList[index -
+                                                                                    1]
+                                                                                    .id;
+
+                                                                            sendBackend(
+                                                                                'actlistdelete',
+                                                                                false);
+                                                                            Navigator
+                                                                                .of(
+                                                                                context)
+                                                                                .pop();
+                                                                          },
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                    /*new FlatButton(
+                                                                      /*new FlatButton(
                                                                       child:
                                                                       new Text(
                                                                           AppLocalizations
@@ -5179,17 +5273,21 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             .pop();
                                                                       },
                                                                     )*/
-                                                                  ],
-                                                                ),
-                                                              );
-                                                            },
-                                                          ),
-                                                        )
-                                                      ]),
-                                                ])),
-                                      ))
-                                      : Container());
-                                })),
+                                                                    ],
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          )
+                                                        ]),
+                                                  ])),
+                                        ))
+                                        : Container())
+                                      , currentlyLoading && index == 2 // to show a bit more in the middle and only one circle, instead of one per item in the listview
+                                        ?
+                                    _showLoadWidget()
+                                        : Container(),],);
+                                  })),
                       ]),
                     ),
                   )
@@ -5267,488 +5365,500 @@ class _MyHomePageState extends State<MyHomePage>
                                       await handleRefresh(_currentIndex);
                                       _refreshController.refreshCompleted();
                                     },
-                                    child: LayoutBuilder(
-                                      builder: (context, constraint) {
-                                        return SingleChildScrollView(
-                                            child: ConstrainedBox(
-                                              constraints: BoxConstraints(
-                                                  minHeight: constraint
-                                                      .maxHeight),
-                                              child: IntrinsicHeight(
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                    children: <Widget>[
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Row(
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                          crossAxisAlignment:
-                                                          CrossAxisAlignment
+                                    child: Stack(
+                                      children: <Widget>[LayoutBuilder(
+                                        builder: (context, constraint) {
+                                          return SingleChildScrollView(
+                                              child: ConstrainedBox(
+                                                constraints: BoxConstraints(
+                                                    minHeight: constraint
+                                                        .maxHeight),
+                                                child: IntrinsicHeight(
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                      children: <Widget>[
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                            crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                            children: <Widget>[
+                                                              ButtonTheme(
+                                                                //minWidth: 150.0,
+                                                                height: 60.0,
+                                                                child: FlatButton(
+                                                                  onPressed: () =>
+                                                                      _showDatePicker(
+                                                                          'budget',
+                                                                          dateTimeBudget),
+                                                                  shape:
+                                                                  new RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                    new BorderRadius
+                                                                        .circular(
+                                                                        40.0),
+                                                                  ),
+                                                                  color:
+                                                                  Color(
+                                                                      0xff003680),
+                                                                  padding: EdgeInsets
+                                                                      .all(
+                                                                      10.0),
+                                                                  child: Row(
+                                                                    // Replace with a Row for horizontal icon + text
+                                                                    children: <
+                                                                        Widget>[
+                                                                      Text(
+                                                                          " ${dateTimeBudget
+                                                                              .year
+                                                                              .toString()}-${dateTimeBudget
+                                                                              .month
+                                                                              .toString()
+                                                                              .padLeft(
+                                                                              2,
+                                                                              '0')}",
+                                                                          style: TextStyle(
+                                                                              color: Colors
+                                                                                  .white,
+                                                                              fontSize:
+                                                                              17)),
+                                                                      SizedBox(
+                                                                          width: 10),
+                                                                      Icon(
+                                                                        Icons
+                                                                            .calendar_today,
+                                                                        color:
+                                                                        Colors
+                                                                            .white,
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ]),
+                                                        Container(
+                                                          padding: const EdgeInsets
+                                                              .only(
+                                                              left: 30.0,
+                                                              top: 0,
+                                                              right: 30,
+                                                              bottom: 0),
+                                                          //color: Colors.blue[600],
+                                                          alignment: Alignment
                                                               .center,
-                                                          children: <Widget>[
-                                                            ButtonTheme(
-                                                              //minWidth: 150.0,
-                                                              height: 60.0,
-                                                              child: FlatButton(
-                                                                onPressed: () =>
-                                                                    _showDatePicker(
-                                                                        'budget',
-                                                                        dateTimeBudget),
-                                                                shape:
-                                                                new RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                  new BorderRadius
-                                                                      .circular(
-                                                                      40.0),
-                                                                ),
-                                                                color:
-                                                                Color(
-                                                                    0xff003680),
-                                                                padding: EdgeInsets
-                                                                    .all(
-                                                                    10.0),
-                                                                child: Row(
-                                                                  // Replace with a Row for horizontal icon + text
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Text(
-                                                                        " ${dateTimeBudget
-                                                                            .year
-                                                                            .toString()}-${dateTimeBudget
-                                                                            .month
-                                                                            .toString()
-                                                                            .padLeft(
-                                                                            2,
-                                                                            '0')}",
-                                                                        style: TextStyle(
-                                                                            color: Colors
-                                                                                .white,
-                                                                            fontSize:
-                                                                            17)),
-                                                                    SizedBox(
-                                                                        width: 10),
-                                                                    Icon(
-                                                                      Icons
-                                                                          .calendar_today,
-                                                                      color:
-                                                                      Colors
-                                                                          .white,
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ]),
-                                                      Container(
-                                                        padding: const EdgeInsets
-                                                            .only(
-                                                            left: 30.0,
-                                                            top: 0,
-                                                            right: 30,
-                                                            bottom: 0),
-                                                        //color: Colors.blue[600],
-                                                        alignment: Alignment
-                                                            .center,
-                                                        //child: Text('Submit'),
-                                                        child: TextFormField(
-                                                          keyboardType:
-                                                          TextInputType.number,
-                                                          //keyboard with numbers only will appear to the screen
-                                                          style: TextStyle(
-                                                              height: 2),
-                                                          //increases the height of cursor
-                                                          //autofocus: true,
-                                                          controller:
-                                                          budgetTextFieldController,
-                                                          validator: numberValidator,
-                                                          decoration: InputDecoration(
-                                                            // hintText: 'Enter ur amount',
-                                                            //hintStyle: TextStyle(height: 1.75),
-                                                              labelText: AppLocalizations
-                                                                  .of(context)
-                                                                  .translate(
-                                                                  'TextFieldAmountInput'),
-                                                              labelStyle: TextStyle(
-                                                                  height: 0.5,
-                                                                  color: Color(
-                                                                      0xff0957FF)),
-                                                              //increases the height of cursor
-                                                              icon: Icon(
-                                                                Icons
-                                                                    .attach_money,
-                                                                color:
-                                                                Color(
-                                                                    0xff0957FF),
-                                                              ),
-                                                              //prefixIcon: Icon(Icons.attach_money),
-                                                              //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                                              enabledBorder:
-                                                              new UnderlineInputBorder(
-                                                                  borderSide:
-                                                                  new BorderSide(
-                                                                      color: Color(
-                                                                          0xff0957FF)))),
-                                                        ),
-                                                      ),
-                                                      areLevel1AccountsActive
-                                                          ? Container(
-                                                        padding:
-                                                        const EdgeInsets.only(
-                                                            left: 30.0,
-                                                            top: 0,
-                                                            right: 30,
-                                                            bottom: 0),
-                                                        //color: Colors.blue[600],
-                                                        alignment:
-                                                        Alignment.center,
-                                                        //child: Text('Submit'),
-                                                        child:
-                                                        SearchChoices.single(
-                                                          items:
-                                                          level1BudgetAccountsList
-                                                              .map((Account
-                                                          account) {
-                                                            return new DropdownMenuItem<
-                                                                Account>(
-                                                              value: account,
-                                                              child: new Text(
-                                                                account.name,
-                                                              ),
-                                                            );
-                                                          }).toList(),
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0xff0957FF)),
-                                                          value:
-                                                          level1BudgetObject,
-                                                          underline: Container(
-                                                            height: 2,
-                                                            width: 5000,
-                                                            color:
-                                                            Color(0xff0957FF),
-                                                          ),
-                                                          hint:
-                                                          "Select one number",
-                                                          searchHint:
-                                                          "Select one number",
-                                                          onClear: () {
-                                                            setState(() {
-                                                              level1BudgetObject =
-                                                              level1BudgetAccountsList[
-                                                              0];
-
-                                                              level2BudgetObject =
-                                                              level2BudgetAccountsList[
-                                                              0];
-
-                                                              level3BudgetObject =
-                                                              level3BudgetAccountsList[
-                                                              0];
-                                                            });
-                                                          },
-                                                          onChanged: (value) {
-                                                            if (value != null) {
-                                                              setState(() {
-                                                                level1BudgetObject =
-                                                                    value;
-                                                              });
-
-                                                              arrangeAccounts(
-                                                                  1, 'budget');
-                                                            }
-                                                          },
-                                                          dialogBox: true,
-                                                          isExpanded: true,
-                                                        ),
-                                                      )
-                                                          : Container(),
-                                                      areLevel2AccountsActive
-                                                          ? Container(
-                                                        padding:
-                                                        const EdgeInsets.only(
-                                                            left: 30.0,
-                                                            top: 0,
-                                                            right: 30,
-                                                            bottom: 0),
-                                                        //color: Colors.blue[600],
-
-                                                        alignment:
-                                                        Alignment.center,
-                                                        //child: Text('Submit'),
-                                                        child:
-                                                        SearchChoices.single(
-                                                          items:
-                                                          level2BudgetAccountsList
-                                                              .map((Account
-                                                          account) {
-                                                            return new DropdownMenuItem<
-                                                                Account>(
-                                                              value: account,
-                                                              child: new Text(
-                                                                account.name,
-                                                              ),
-                                                            );
-                                                          }).toList(),
-                                                          style: TextStyle(
-                                                              color: level1BudgetObject
-                                                                  .id <=
-                                                                  0 ? Colors
-                                                                  .grey : Color(
-                                                                  0xff0957FF)),
-                                                          value:
-                                                          level2BudgetObject,
-                                                          readOnly: level1BudgetObject
-                                                              .id <=
-                                                              0,
-                                                          underline: Container(
-                                                            height: 2,
-                                                            width: 5000,
-                                                            color: level1BudgetObject
-                                                                .id <=
-                                                                0
-                                                                ? Colors.grey
-                                                                :
-                                                            Color(0xff0957FF),
-                                                          ),
-                                                          hint:
-                                                          "Select one number",
-                                                          searchHint:
-                                                          "Select one number",
-                                                          onClear: () {
-                                                            setState(() {
-                                                              level2BudgetObject =
-                                                              level2BudgetAccountsList[
-                                                              0];
-
-                                                              level3BudgetObject =
-                                                              level3BudgetAccountsList[
-                                                              0];
-                                                            });
-                                                          },
-                                                          onChanged: (value) {
-                                                            if (value != null) {
-                                                              // Check if a new value was selected or the same was reselected
-                                                              dummyAccount =
-                                                                  level2BudgetObject;
-
-                                                              setState(() {
-                                                                level2BudgetObject =
-                                                                    value;
-                                                              });
-
-                                                              if (dummyAccount
-                                                                  .id !=
-                                                                  value.id) {
-                                                                arrangeAccounts(
-                                                                    2,
-                                                                    'budget');
-                                                              } else {
-                                                                print(
-                                                                    "RESELECTED");
-                                                              }
-                                                            }
-                                                          },
-                                                          dialogBox: true,
-                                                          isExpanded: true,
-                                                        ),
-                                                      )
-                                                          : Container(),
-                                                      areLevel3AccountsActive
-                                                          ? Container(
-                                                        padding:
-                                                        const EdgeInsets.only(
-                                                            left: 30.0,
-                                                            top: 0,
-                                                            right: 30,
-                                                            bottom: 0),
-                                                        //color: Colors.blue[600],
-                                                        alignment:
-                                                        Alignment.center,
-                                                        //child: Text('Submit'),
-                                                        child:
-                                                        SearchChoices.single(
-                                                          items:
-                                                          level3BudgetAccountsList
-                                                              .map((Account
-                                                          account) {
-                                                            return new DropdownMenuItem<
-                                                                Account>(
-                                                              value: account,
-                                                              child: new Text(
-                                                                account.name,
-                                                              ),
-                                                            );
-                                                          }).toList(),
-                                                          style: TextStyle(
-                                                              color: level2BudgetObject
-                                                                  .id <=
-                                                                  0 ? Colors
-                                                                  .grey : Color(
-                                                                  0xff0957FF)),
-                                                          value:
-                                                          level3BudgetObject,
-                                                          readOnly: level2BudgetObject
-                                                              .id <=
-                                                              0,
-                                                          underline: Container(
-                                                            height: 2,
-                                                            width: 5000,
-                                                            color: level2BudgetObject
-                                                                .id <=
-                                                                0
-                                                                ? Colors.grey
-                                                                :
-                                                            Color(0xff0957FF),
-                                                          ),
-                                                          hint:
-                                                          "Select one number",
-                                                          searchHint:
-                                                          "Select one number",
-                                                          onClear: () {
-                                                            setState(() {
-                                                              level3BudgetObject =
-                                                              level3BudgetAccountsList[
-                                                              0];
-                                                            });
-                                                          },
-                                                          // The default object is set again
-                                                          onChanged: (value) {
-                                                            if (value != null) {
-                                                              setState(() {
-                                                                level3BudgetObject =
-                                                                    value;
-                                                              });
-                                                            }
-                                                          },
-                                                          dialogBox: true,
-                                                          isExpanded: true,
-                                                        ),
-                                                      )
-                                                          : Container(),
-                                                      // #52 when a level is deactivated the widgets have no space between
-                                                      // this adds a little white space between the widget
-                                                      areLevel3AccountsActive
-                                                          ? Container()
-                                                          : SizedBox(
-                                                          height: 20),
-                                                      areCostTypesActive
-                                                          ? Container(
-                                                        constraints:
-                                                        BoxConstraints.expand(
-                                                          height: 80,
-                                                          //width: MediaQuery.of(context).size.width * .8
-                                                        ),
-                                                        padding:
-                                                        const EdgeInsets.only(
-                                                            left: 30.0,
-                                                            top: 0,
-                                                            right: 30,
-                                                            bottom: 0),
-                                                        //color: Colors.blue[600],
-                                                        alignment:
-                                                        Alignment.center,
-                                                        //child: Text('Submit'),
-                                                        child: Align(
-                                                          alignment:
-                                                          Alignment.topRight,
-                                                          child: SearchChoices
-                                                              .single(
-                                                            value:
-                                                            costTypeObjectBudget,
-                                                            icon: Icon(Icons
-                                                                .arrow_downward),
-                                                            iconSize: 24,
+                                                          //child: Text('Submit'),
+                                                          child: TextFormField(
+                                                            keyboardType:
+                                                            TextInputType
+                                                                .number,
+                                                            //keyboard with numbers only will appear to the screen
                                                             style: TextStyle(
-                                                                color: Color(
-                                                                    0xff0957FF)),
-                                                            //isExpanded: true,
-                                                            underline: Container(
-                                                              height: 2,
-                                                              width: 2000,
-                                                              color: Color(
-                                                                  0xff0957FF),
-                                                            ),
-                                                            onClear: () {
-                                                              setState(() {
-                                                                costTypeObjectBudget =
-                                                                costTypesList[
-                                                                0];
-                                                              });
-                                                            },
-                                                            onChanged: (CostType
-                                                            newValue) {
-                                                              if (newValue !=
-                                                                  null) {
-                                                                setState(() {
-                                                                  costTypeObjectBudget =
-                                                                      newValue;
-                                                                });
-                                                              }
-                                                            },
-                                                            items: costTypesList
-                                                                .map((CostType
-                                                            type) {
+                                                                height: 2),
+                                                            //increases the height of cursor
+                                                            //autofocus: true,
+                                                            controller:
+                                                            budgetTextFieldController,
+                                                            validator: numberValidator,
+                                                            decoration: InputDecoration(
+                                                              // hintText: 'Enter ur amount',
+                                                              //hintStyle: TextStyle(height: 1.75),
+                                                                labelText: AppLocalizations
+                                                                    .of(context)
+                                                                    .translate(
+                                                                    'TextFieldAmountInput'),
+                                                                labelStyle: TextStyle(
+                                                                    height: 0.5,
+                                                                    color: Color(
+                                                                        0xff0957FF)),
+                                                                //increases the height of cursor
+                                                                icon: Icon(
+                                                                  Icons
+                                                                      .attach_money,
+                                                                  color:
+                                                                  Color(
+                                                                      0xff0957FF),
+                                                                ),
+                                                                //prefixIcon: Icon(Icons.attach_money),
+                                                                //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                                enabledBorder:
+                                                                new UnderlineInputBorder(
+                                                                    borderSide:
+                                                                    new BorderSide(
+                                                                        color: Color(
+                                                                            0xff0957FF)))),
+                                                          ),
+                                                        ),
+                                                        areLevel1AccountsActive
+                                                            ? Container(
+                                                          padding:
+                                                          const EdgeInsets.only(
+                                                              left: 30.0,
+                                                              top: 0,
+                                                              right: 30,
+                                                              bottom: 0),
+                                                          //color: Colors.blue[600],
+                                                          alignment:
+                                                          Alignment.center,
+                                                          //child: Text('Submit'),
+                                                          child:
+                                                          SearchChoices.single(
+                                                            items:
+                                                            level1BudgetAccountsList
+                                                                .map((Account
+                                                            account) {
                                                               return new DropdownMenuItem<
-                                                                  CostType>(
-                                                                value: type,
+                                                                  Account>(
+                                                                value: account,
                                                                 child: new Text(
-                                                                  type.name,
+                                                                  account.name,
                                                                 ),
                                                               );
                                                             }).toList(),
-                                                          ),
-                                                        ),
-                                                      )
-                                                          : Container(),
-                                                      ButtonBar(
-                                                        mainAxisSize: MainAxisSize
-                                                            .min,
-                                                        // this will take space as minimum as posible(to center)
-                                                        children: <Widget>[
-                                                          ButtonTheme(
-                                                            minWidth: 75.0,
-                                                            height: 40.0,
-                                                            child: RaisedButton(
-                                                              shape: RoundedRectangleBorder(
-                                                                borderRadius: new BorderRadius
-                                                                    .circular(
-                                                                    50.0),
-                                                              ),
-                                                              child: Text(
-                                                                AppLocalizations
-                                                                    .of(
-                                                                    context)
-                                                                    .translate(
-                                                                    'DiscardButton'),
-                                                              ),
-                                                              color: Color(
-                                                                  0xffEEEEEE),
-                                                              // EEEEEE
-                                                              onPressed: () {
-                                                                budgetTextFieldController
-                                                                    .text = '';
+                                                            style: TextStyle(
+                                                                color: Color(
+                                                                    0xff0957FF)),
+                                                            value:
+                                                            level1BudgetObject,
+                                                            underline: Container(
+                                                              height: 2,
+                                                              width: 5000,
+                                                              color:
+                                                              Color(0xff0957FF),
+                                                            ),
+                                                            hint:
+                                                            "Select one number",
+                                                            searchHint:
+                                                            "Select one number",
+                                                            onClear: () {
+                                                              setState(() {
+                                                                level1BudgetObject =
+                                                                level1BudgetAccountsList[
+                                                                0];
+
+                                                                level2BudgetObject =
+                                                                level2BudgetAccountsList[
+                                                                0];
+
+                                                                level3BudgetObject =
+                                                                level3BudgetAccountsList[
+                                                                0];
+                                                              });
+                                                            },
+                                                            onChanged: (value) {
+                                                              if (value !=
+                                                                  null) {
                                                                 setState(() {
                                                                   level1BudgetObject =
-                                                                  level1BudgetAccountsList[
-                                                                  0];
-                                                                  level2BudgetObject =
-                                                                  level2BudgetAccountsList[
-                                                                  0];
-                                                                  level3BudgetObject =
-                                                                  level3BudgetAccountsList[
-                                                                  0];
-
-                                                                  costTypeObjectBudget =
-                                                                  costTypesList[0];
+                                                                      value;
                                                                 });
-                                                                /*
+
+                                                                arrangeAccounts(
+                                                                    1,
+                                                                    'budget');
+                                                              }
+                                                            },
+                                                            dialogBox: true,
+                                                            isExpanded: true,
+                                                          ),
+                                                        )
+                                                            : Container(),
+                                                        areLevel2AccountsActive
+                                                            ? Container(
+                                                          padding:
+                                                          const EdgeInsets.only(
+                                                              left: 30.0,
+                                                              top: 0,
+                                                              right: 30,
+                                                              bottom: 0),
+                                                          //color: Colors.blue[600],
+
+                                                          alignment:
+                                                          Alignment.center,
+                                                          //child: Text('Submit'),
+                                                          child:
+                                                          SearchChoices.single(
+                                                            items:
+                                                            level2BudgetAccountsList
+                                                                .map((Account
+                                                            account) {
+                                                              return new DropdownMenuItem<
+                                                                  Account>(
+                                                                value: account,
+                                                                child: new Text(
+                                                                  account.name,
+                                                                ),
+                                                              );
+                                                            }).toList(),
+                                                            style: TextStyle(
+                                                                color: level1BudgetObject
+                                                                    .id <=
+                                                                    0
+                                                                    ? Colors
+                                                                    .grey
+                                                                    : Color(
+                                                                    0xff0957FF)),
+                                                            value:
+                                                            level2BudgetObject,
+                                                            readOnly: level1BudgetObject
+                                                                .id <=
+                                                                0,
+                                                            underline: Container(
+                                                              height: 2,
+                                                              width: 5000,
+                                                              color: level1BudgetObject
+                                                                  .id <=
+                                                                  0
+                                                                  ? Colors.grey
+                                                                  :
+                                                              Color(0xff0957FF),
+                                                            ),
+                                                            hint:
+                                                            "Select one number",
+                                                            searchHint:
+                                                            "Select one number",
+                                                            onClear: () {
+                                                              setState(() {
+                                                                level2BudgetObject =
+                                                                level2BudgetAccountsList[
+                                                                0];
+
+                                                                level3BudgetObject =
+                                                                level3BudgetAccountsList[
+                                                                0];
+                                                              });
+                                                            },
+                                                            onChanged: (value) {
+                                                              if (value !=
+                                                                  null) {
+                                                                // Check if a new value was selected or the same was reselected
+                                                                dummyAccount =
+                                                                    level2BudgetObject;
+
+                                                                setState(() {
+                                                                  level2BudgetObject =
+                                                                      value;
+                                                                });
+
+                                                                if (dummyAccount
+                                                                    .id !=
+                                                                    value.id) {
+                                                                  arrangeAccounts(
+                                                                      2,
+                                                                      'budget');
+                                                                } else {
+                                                                  print(
+                                                                      "RESELECTED");
+                                                                }
+                                                              }
+                                                            },
+                                                            dialogBox: true,
+                                                            isExpanded: true,
+                                                          ),
+                                                        )
+                                                            : Container(),
+                                                        areLevel3AccountsActive
+                                                            ? Container(
+                                                          padding:
+                                                          const EdgeInsets.only(
+                                                              left: 30.0,
+                                                              top: 0,
+                                                              right: 30,
+                                                              bottom: 0),
+                                                          //color: Colors.blue[600],
+                                                          alignment:
+                                                          Alignment.center,
+                                                          //child: Text('Submit'),
+                                                          child:
+                                                          SearchChoices.single(
+                                                            items:
+                                                            level3BudgetAccountsList
+                                                                .map((Account
+                                                            account) {
+                                                              return new DropdownMenuItem<
+                                                                  Account>(
+                                                                value: account,
+                                                                child: new Text(
+                                                                  account.name,
+                                                                ),
+                                                              );
+                                                            }).toList(),
+                                                            style: TextStyle(
+                                                                color: level2BudgetObject
+                                                                    .id <=
+                                                                    0
+                                                                    ? Colors
+                                                                    .grey
+                                                                    : Color(
+                                                                    0xff0957FF)),
+                                                            value:
+                                                            level3BudgetObject,
+                                                            readOnly: level2BudgetObject
+                                                                .id <=
+                                                                0,
+                                                            underline: Container(
+                                                              height: 2,
+                                                              width: 5000,
+                                                              color: level2BudgetObject
+                                                                  .id <=
+                                                                  0
+                                                                  ? Colors.grey
+                                                                  :
+                                                              Color(0xff0957FF),
+                                                            ),
+                                                            hint:
+                                                            "Select one number",
+                                                            searchHint:
+                                                            "Select one number",
+                                                            onClear: () {
+                                                              setState(() {
+                                                                level3BudgetObject =
+                                                                level3BudgetAccountsList[
+                                                                0];
+                                                              });
+                                                            },
+                                                            // The default object is set again
+                                                            onChanged: (value) {
+                                                              if (value !=
+                                                                  null) {
+                                                                setState(() {
+                                                                  level3BudgetObject =
+                                                                      value;
+                                                                });
+                                                              }
+                                                            },
+                                                            dialogBox: true,
+                                                            isExpanded: true,
+                                                          ),
+                                                        )
+                                                            : Container(),
+                                                        // #52 when a level is deactivated the widgets have no space between
+                                                        // this adds a little white space between the widget
+                                                        areLevel3AccountsActive
+                                                            ? Container()
+                                                            : SizedBox(
+                                                            height: 20),
+                                                        areCostTypesActive
+                                                            ? Container(
+                                                          constraints:
+                                                          BoxConstraints.expand(
+                                                            height: 80,
+                                                            //width: MediaQuery.of(context).size.width * .8
+                                                          ),
+                                                          padding:
+                                                          const EdgeInsets.only(
+                                                              left: 30.0,
+                                                              top: 0,
+                                                              right: 30,
+                                                              bottom: 0),
+                                                          //color: Colors.blue[600],
+                                                          alignment:
+                                                          Alignment.center,
+                                                          //child: Text('Submit'),
+                                                          child: Align(
+                                                            alignment:
+                                                            Alignment.topRight,
+                                                            child: SearchChoices
+                                                                .single(
+                                                              value:
+                                                              costTypeObjectBudget,
+                                                              icon: Icon(Icons
+                                                                  .arrow_downward),
+                                                              iconSize: 24,
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xff0957FF)),
+                                                              //isExpanded: true,
+                                                              underline: Container(
+                                                                height: 2,
+                                                                width: 2000,
+                                                                color: Color(
+                                                                    0xff0957FF),
+                                                              ),
+                                                              onClear: () {
+                                                                setState(() {
+                                                                  costTypeObjectBudget =
+                                                                  costTypesList[
+                                                                  0];
+                                                                });
+                                                              },
+                                                              onChanged: (
+                                                                  CostType
+                                                                  newValue) {
+                                                                if (newValue !=
+                                                                    null) {
+                                                                  setState(() {
+                                                                    costTypeObjectBudget =
+                                                                        newValue;
+                                                                  });
+                                                                }
+                                                              },
+                                                              items: costTypesList
+                                                                  .map((CostType
+                                                              type) {
+                                                                return new DropdownMenuItem<
+                                                                    CostType>(
+                                                                  value: type,
+                                                                  child: new Text(
+                                                                    type.name,
+                                                                  ),
+                                                                );
+                                                              }).toList(),
+                                                            ),
+                                                          ),
+                                                        )
+                                                            : Container(),
+                                                        ButtonBar(
+                                                          mainAxisSize: MainAxisSize
+                                                              .min,
+                                                          // this will take space as minimum as posible(to center)
+                                                          children: <Widget>[
+                                                            ButtonTheme(
+                                                              minWidth: 75.0,
+                                                              height: 40.0,
+                                                              child: RaisedButton(
+                                                                shape: RoundedRectangleBorder(
+                                                                  borderRadius: new BorderRadius
+                                                                      .circular(
+                                                                      50.0),
+                                                                ),
+                                                                child: Text(
+                                                                  AppLocalizations
+                                                                      .of(
+                                                                      context)
+                                                                      .translate(
+                                                                      'DiscardButton'),
+                                                                ),
+                                                                color: Color(
+                                                                    0xffEEEEEE),
+                                                                // EEEEEE
+                                                                onPressed: () {
+                                                                  budgetTextFieldController
+                                                                      .text =
+                                                                  '';
+                                                                  setState(() {
+                                                                    level1BudgetObject =
+                                                                    level1BudgetAccountsList[
+                                                                    0];
+                                                                    level2BudgetObject =
+                                                                    level2BudgetAccountsList[
+                                                                    0];
+                                                                    level3BudgetObject =
+                                                                    level3BudgetAccountsList[
+                                                                    0];
+
+                                                                    costTypeObjectBudget =
+                                                                    costTypesList[0];
+                                                                  });
+                                                                  /*
                                                                 showDialog(
                                                                   context: context,
                                                                   builder: (BuildContext context) {
@@ -5770,123 +5880,128 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   },
                                                                 );
                                                                 */
-                                                              },
-                                                            ),
-                                                          ),
-                                                          ButtonTheme(
-                                                            minWidth: 150.0,
-                                                            height: 60.0,
-                                                            child: RaisedButton(
-                                                              shape: RoundedRectangleBorder(
-                                                                borderRadius: new BorderRadius
-                                                                    .circular(
-                                                                    50.0),
+                                                                },
                                                               ),
-                                                              child: Text(
-                                                                  AppLocalizations
-                                                                      .of(
-                                                                      context)
-                                                                      .translate(
-                                                                      'addButton'),
-                                                                  style: TextStyle(
-                                                                      color:
-                                                                      Colors
-                                                                          .white,
-                                                                      fontSize: 17)),
-                                                              color: Color(
-                                                                  0xff0957FF),
-                                                              //df7599 - 0957FF
-                                                              onPressed: () {
-                                                                if (budgetTextFieldController
-                                                                    .text
-                                                                    .length >
-                                                                    0 &&
-                                                                    numberValidator(
-                                                                        budgetTextFieldController
-                                                                            .text
-                                                                    ) == null) {
-                                                                  print(
+                                                            ),
+                                                            ButtonTheme(
+                                                              minWidth: 150.0,
+                                                              height: 60.0,
+                                                              child: RaisedButton(
+                                                                shape: RoundedRectangleBorder(
+                                                                  borderRadius: new BorderRadius
+                                                                      .circular(
+                                                                      50.0),
+                                                                ),
+                                                                child: Text(
+                                                                    AppLocalizations
+                                                                        .of(
+                                                                        context)
+                                                                        .translate(
+                                                                        'addButton'),
+                                                                    style: TextStyle(
+                                                                        color:
+                                                                        Colors
+                                                                            .white,
+                                                                        fontSize: 17)),
+                                                                color: Color(
+                                                                    0xff0957FF),
+                                                                //df7599 - 0957FF
+                                                                onPressed: () {
+                                                                  if (budgetTextFieldController
+                                                                      .text
+                                                                      .length >
+                                                                      0 &&
                                                                       numberValidator(
                                                                           budgetTextFieldController
-                                                                              .text));
-
-                                                                  commentInput(
-                                                                      context,
-                                                                      'budget',
-                                                                      null,
-                                                                      null,
-                                                                      null);
-                                                                }
-                                                                else {
-                                                                  showDialog(
-                                                                    context: context,
-                                                                    builder: (
-                                                                        BuildContext context) {
-                                                                      // return object of type Dialog
-                                                                      return AlertDialog(
-                                                                        title: new Text(
-                                                                          AppLocalizations
-                                                                              .of(
-                                                                              context)
-                                                                              .translate(
-                                                                              'warning')
-                                                                          ,
-                                                                          style: TextStyle(
-                                                                              color: Colors
-                                                                                  .orange,
-                                                                              fontSize: 25,
-                                                                              fontWeight: FontWeight
-                                                                                  .bold),),
-                                                                        content: new Text(
-                                                                          // #157 differentiate message betweeen nothing entered and invalid number entered
-                                                                          budgetTextFieldController
                                                                               .text
-                                                                              .length ==
-                                                                              0
-                                                                              ?
-                                                                          AppLocalizations
-                                                                              .of(
-                                                                              context)
-                                                                              .translate(
-                                                                              'errorInputEnterAmount')
-                                                                              : AppLocalizations
-                                                                              .of(
-                                                                              context)
-                                                                              .translate(
-                                                                              'errorInputInvalidAmount'),
-                                                                          style: TextStyle(
-                                                                              fontWeight: FontWeight
-                                                                                  .bold,
-                                                                              fontSize: 20),),
-                                                                        actions: <
-                                                                            Widget>[
-                                                                          // usually buttons at the bottom of the dialog
-                                                                          new FlatButton(
-                                                                            child: new Text(
-                                                                                "Close"),
-                                                                            onPressed: () {
-                                                                              Navigator
-                                                                                  .of(
-                                                                                  context)
-                                                                                  .pop();
-                                                                            },
-                                                                          ),
-                                                                        ],
-                                                                      );
-                                                                    },
-                                                                  );
-                                                                }
-                                                              },
+                                                                      ) ==
+                                                                          null) {
+                                                                    print(
+                                                                        numberValidator(
+                                                                            budgetTextFieldController
+                                                                                .text));
+
+                                                                    commentInput(
+                                                                        context,
+                                                                        'budget',
+                                                                        null,
+                                                                        null,
+                                                                        null);
+                                                                  }
+                                                                  else {
+                                                                    showDialog(
+                                                                      context: context,
+                                                                      builder: (
+                                                                          BuildContext context) {
+                                                                        // return object of type Dialog
+                                                                        return AlertDialog(
+                                                                          title: new Text(
+                                                                            AppLocalizations
+                                                                                .of(
+                                                                                context)
+                                                                                .translate(
+                                                                                'warning')
+                                                                            ,
+                                                                            style: TextStyle(
+                                                                                color: Colors
+                                                                                    .orange,
+                                                                                fontSize: 25,
+                                                                                fontWeight: FontWeight
+                                                                                    .bold),),
+                                                                          content: new Text(
+                                                                            // #157 differentiate message betweeen nothing entered and invalid number entered
+                                                                            budgetTextFieldController
+                                                                                .text
+                                                                                .length ==
+                                                                                0
+                                                                                ?
+                                                                            AppLocalizations
+                                                                                .of(
+                                                                                context)
+                                                                                .translate(
+                                                                                'errorInputEnterAmount')
+                                                                                : AppLocalizations
+                                                                                .of(
+                                                                                context)
+                                                                                .translate(
+                                                                                'errorInputInvalidAmount'),
+                                                                            style: TextStyle(
+                                                                                fontWeight: FontWeight
+                                                                                    .bold,
+                                                                                fontSize: 20),),
+                                                                          actions: <
+                                                                              Widget>[
+                                                                            // usually buttons at the bottom of the dialog
+                                                                            new FlatButton(
+                                                                              child: new Text(
+                                                                                  "Close"),
+                                                                              onPressed: () {
+                                                                                Navigator
+                                                                                    .of(
+                                                                                    context)
+                                                                                    .pop();
+                                                                              },
+                                                                            ),
+                                                                          ],
+                                                                        );
+                                                                      },
+                                                                    );
+                                                                  }
+                                                                },
+                                                              ),
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  )
-                                              ),
-                                            ));
-                                      },
-                                    )),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    )
+                                                ),
+                                              ));
+                                        },
+                                      ), currentlyLoading
+                                          ?
+                                      _showLoadWidget()
+                                          : Container(),
+                                      ],)),
                               ),
                             ],
                           ),
@@ -5898,185 +6013,188 @@ class _MyHomePageState extends State<MyHomePage>
                               await handleRefresh(_currentIndex);
                               _refreshController.refreshCompleted();
                             },
-                            child: ListView.builder(
-                                padding: const EdgeInsets.all(8),
-                                itemCount: bdgList.length + 1,
-                                // Length + 1 as the 0 index is the sort button, all other use index - 1
-                                itemBuilder: (BuildContext context, int index) {
-                                  return index == 0
-                                      ? Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Flexible(
-                                            child: TextFormField(
-                                                autofocus: false,
-                                                onChanged: (value) {
-                                                  setState(() {});
-                                                },
-                                                controller:
-                                                budgetSearchTextFieldController,
-                                                decoration:
-                                                InputDecoration(
-                                                  // hintText: 'Enter ur amount',
-                                                  //hintStyle: TextStyle(height: 1.75),
-                                                  labelText: AppLocalizations
-                                                      .of(context)
-                                                      .translate(
-                                                      'ListSearchTextField'),
-                                                  //increases the height of cursor
-                                                  icon: Icon(
-                                                    Icons.search,
-                                                  ),
-                                                ))),
-                                        IconButton(
-                                            icon: Icon(Icons.clear),
-                                            color: Color(0xff003680),
-                                            alignment:
-                                            Alignment.centerRight,
-                                            iconSize: 25,
-                                            onPressed: () {
-                                              setState(() {
-                                                FocusScope.of(context)
-                                                    .unfocus();
-                                                budgetSearchTextFieldController
-                                                    .clear();
-                                              });
-                                            }),
-                                        IconButton(
-                                            icon: Icon(Icons.sort),
-                                            color: Color(0xff003680),
-                                            alignment:
-                                            Alignment.centerRight,
-                                            iconSize: 25,
-                                            onPressed: () {
-                                              showDialog<void>(
-                                                context: context,
-                                                builder: (
-                                                    BuildContext context) {
-                                                  return AlertDialog(
-                                                    content: StatefulBuilder(
-                                                      builder: (
-                                                          BuildContext context,
-                                                          StateSetter setState) {
-                                                        return Column(
-                                                            mainAxisSize: MainAxisSize
-                                                                .min,
-                                                            children: List<
-                                                                Widget>.generate(
-                                                                sortBudgetOrders
-                                                                    .length +
-                                                                    1 /* + 1 because position zero is the sort switch*/, (
-                                                                int index) {
-                                                              return
-                                                                index == 0
-                                                                    ?
-                                                                Row(
-                                                                    mainAxisAlignment: MainAxisAlignment
-                                                                        .center,
-                                                                    children: <
-                                                                        Widget>[
-                                                                      Text(
-                                                                        AppLocalizations
-                                                                            .of(
-                                                                            context)
-                                                                            .translate(
-                                                                            'orderAsc'),
-                                                                        overflow: TextOverflow
-                                                                            .ellipsis,),
-                                                                      Switch(
-                                                                        value: sortBudgetDescending,
-                                                                        onChanged: (
-                                                                            value) {
-                                                                          setState(() {
-                                                                            sortBudgetDescending =
-                                                                                value;
-                                                                            handleOrderDialog(
-                                                                                -1,
-                                                                                'budget');
-                                                                            Navigator
-                                                                                .pop(
-                                                                                context);
-                                                                          });
-                                                                        },
-                                                                        activeTrackColor: Color(
-                                                                            0xffEEEEEE),
-                                                                        activeColor: Color(
-                                                                            0xff0957FF),
-                                                                      ),
-                                                                      Text(
-                                                                        AppLocalizations
-                                                                            .of(
-                                                                            context)
-                                                                            .translate(
-                                                                            'orderDesc'),
-                                                                        overflow: TextOverflow
-                                                                            .ellipsis,),
-                                                                    ])
-                                                                    : Row(
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Radio<
-                                                                        bool>(
-                                                                      groupValue: true,
-                                                                      value: sortBudgetOrders[index -
-                                                                          1],
-                                                                      activeColor: Color(
-                                                                          0xFF0957FF),
-                                                                      onChanged: (
-                                                                          bool newValue) {
-                                                                        setState(() {
-                                                                          print(
-                                                                              newValue);
-
-                                                                          sortBudgetOrders[0] =
-                                                                          false;
-                                                                          sortBudgetOrders[1] =
-                                                                          false;
-                                                                          sortBudgetOrders[2] =
-                                                                          false;
-                                                                          sortBudgetOrders[3] =
-                                                                          false;
-                                                                          sortBudgetOrders[4] =
-                                                                          false;
-
-                                                                          sortBudgetOrders[index -
-                                                                              1] =
-                                                                          true;
-                                                                        });
-
-                                                                        handleOrderDialog(
-                                                                            (index -
-                                                                                1),
-                                                                            'budget');
-
-                                                                        Navigator
-                                                                            .pop(
-                                                                            context);
-                                                                      },
-                                                                    ),
-                                                                    Flexible(
-                                                                        child: Text(
+                            child: Stack(children: <Widget>[
+                              ListView.builder(
+                                  padding: const EdgeInsets.all(8),
+                                  itemCount: bdgList.length + 1,
+                                  // Length + 1 as the 0 index is the sort button, all other use index - 1
+                                  itemBuilder: (BuildContext context,
+                                      int index) {
+                                    return Stack(children: <Widget>[
+                                      index == 0
+                                        ? Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Flexible(
+                                              child: TextFormField(
+                                                  autofocus: false,
+                                                  onChanged: (value) {
+                                                    setState(() {});
+                                                  },
+                                                  controller:
+                                                  budgetSearchTextFieldController,
+                                                  decoration:
+                                                  InputDecoration(
+                                                    // hintText: 'Enter ur amount',
+                                                    //hintStyle: TextStyle(height: 1.75),
+                                                    labelText: AppLocalizations
+                                                        .of(context)
+                                                        .translate(
+                                                        'ListSearchTextField'),
+                                                    //increases the height of cursor
+                                                    icon: Icon(
+                                                      Icons.search,
+                                                    ),
+                                                  ))),
+                                          IconButton(
+                                              icon: Icon(Icons.clear),
+                                              color: Color(0xff003680),
+                                              alignment:
+                                              Alignment.centerRight,
+                                              iconSize: 25,
+                                              onPressed: () {
+                                                setState(() {
+                                                  FocusScope.of(context)
+                                                      .unfocus();
+                                                  budgetSearchTextFieldController
+                                                      .clear();
+                                                });
+                                              }),
+                                          IconButton(
+                                              icon: Icon(Icons.sort),
+                                              color: Color(0xff003680),
+                                              alignment:
+                                              Alignment.centerRight,
+                                              iconSize: 25,
+                                              onPressed: () {
+                                                showDialog<void>(
+                                                  context: context,
+                                                  builder: (
+                                                      BuildContext context) {
+                                                    return AlertDialog(
+                                                      content: StatefulBuilder(
+                                                        builder: (
+                                                            BuildContext context,
+                                                            StateSetter setState) {
+                                                          return Column(
+                                                              mainAxisSize: MainAxisSize
+                                                                  .min,
+                                                              children: List<
+                                                                  Widget>.generate(
+                                                                  sortBudgetOrders
+                                                                      .length +
+                                                                      1 /* + 1 because position zero is the sort switch*/, (
+                                                                  int index) {
+                                                                return
+                                                                  index == 0
+                                                                      ?
+                                                                  Row(
+                                                                      mainAxisAlignment: MainAxisAlignment
+                                                                          .center,
+                                                                      children: <
+                                                                          Widget>[
+                                                                        Text(
                                                                           AppLocalizations
                                                                               .of(
                                                                               context)
                                                                               .translate(
-                                                                              '${index -
-                                                                                  1}OrderText'),
+                                                                              'orderAsc'),
                                                                           overflow: TextOverflow
-                                                                              .clip,
-                                                                        )),
-                                                                  ],
-                                                                );
-                                                            }));
-                                                      },
-                                                    ),
-                                                  );
-                                                },);
+                                                                              .ellipsis,),
+                                                                        Switch(
+                                                                          value: sortBudgetDescending,
+                                                                          onChanged: (
+                                                                              value) {
+                                                                            setState(() {
+                                                                              sortBudgetDescending =
+                                                                                  value;
+                                                                              handleOrderDialog(
+                                                                                  -1,
+                                                                                  'budget');
+                                                                              Navigator
+                                                                                  .pop(
+                                                                                  context);
+                                                                            });
+                                                                          },
+                                                                          activeTrackColor: Color(
+                                                                              0xffEEEEEE),
+                                                                          activeColor: Color(
+                                                                              0xff0957FF),
+                                                                        ),
+                                                                        Text(
+                                                                          AppLocalizations
+                                                                              .of(
+                                                                              context)
+                                                                              .translate(
+                                                                              'orderDesc'),
+                                                                          overflow: TextOverflow
+                                                                              .ellipsis,),
+                                                                      ])
+                                                                      : Row(
+                                                                    children: <
+                                                                        Widget>[
+                                                                      Radio<
+                                                                          bool>(
+                                                                        groupValue: true,
+                                                                        value: sortBudgetOrders[index -
+                                                                            1],
+                                                                        activeColor: Color(
+                                                                            0xFF0957FF),
+                                                                        onChanged: (
+                                                                            bool newValue) {
+                                                                          setState(() {
+                                                                            print(
+                                                                                newValue);
 
-                                              /*return showDialog(
+                                                                            sortBudgetOrders[0] =
+                                                                            false;
+                                                                            sortBudgetOrders[1] =
+                                                                            false;
+                                                                            sortBudgetOrders[2] =
+                                                                            false;
+                                                                            sortBudgetOrders[3] =
+                                                                            false;
+                                                                            sortBudgetOrders[4] =
+                                                                            false;
+
+                                                                            sortBudgetOrders[index -
+                                                                                1] =
+                                                                            true;
+                                                                          });
+
+                                                                          handleOrderDialog(
+                                                                              (index -
+                                                                                  1),
+                                                                              'budget');
+
+                                                                          Navigator
+                                                                              .pop(
+                                                                              context);
+                                                                        },
+                                                                      ),
+                                                                      Flexible(
+                                                                          child: Text(
+                                                                            AppLocalizations
+                                                                                .of(
+                                                                                context)
+                                                                                .translate(
+                                                                                '${index -
+                                                                                    1}OrderText'),
+                                                                            overflow: TextOverflow
+                                                                                .clip,
+                                                                          )),
+                                                                    ],
+                                                                  );
+                                                              }));
+                                                        },
+                                                      ),
+                                                    );
+                                                  },);
+
+                                                /*return showDialog(
                                                   context: context,
                                                   barrierDismissible:
                                                   true,
@@ -6247,490 +6365,335 @@ class _MyHomePageState extends State<MyHomePage>
                                                       ],
                                                     );
                                                   });*/
-                                            })
-                                      ])
-                                      : ((bdgList[index - 1]
-                                      .costType
-                                      .toLowerCase()
-                                      .contains(budgetSearchTextFieldController
-                                      .text) ||
-                                      bdgList[index - 1]
-                                          .level1
-                                          .toLowerCase()
-                                          .contains(
-                                          budgetSearchTextFieldController
-                                              .text) ||
-                                      bdgList[index - 1]
-                                          .level2
-                                          .toLowerCase()
-                                          .contains(
-                                          budgetSearchTextFieldController
-                                              .text) ||
-                                      bdgList[index - 1]
-                                          .level3
-                                          .toLowerCase()
-                                          .contains(
-                                          budgetSearchTextFieldController
-                                              .text) ||
-                                      bdgList[index - 1]
-                                          .comment
-                                          .toLowerCase()
-                                          .contains(
-                                          budgetSearchTextFieldController
-                                              .text) ||
-                                      bdgList[index - 1].amount.toString()
-                                          .contains(
-                                          budgetSearchTextFieldController
-                                              .text) ||
-                                      bdgList[index - 1].level1.toLowerCase()
-                                          .contains(
-                                          budgetSearchTextFieldController
-                                              .text) ||
-                                      bdgList[index - 1].date.toLowerCase()
-                                          .contains(
-                                          budgetSearchTextFieldController.text))
-                                      ? GestureDetector(
-                                      onTap: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) =>
-                                          new AlertDialog(
-                                            title: Text(
-                                              AppLocalizations.of(
-                                                  context)
-                                                  .translate(
-                                                  'DetailsListTitle'),
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 25,
-                                              ),
-                                            ),
-                                            content: RichText(
-                                              text: TextSpan(
-                                                  text: "",
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15,
-                                                  ),
-                                                  children: <TextSpan>[
-                                                    TextSpan(
-                                                      text: AppLocalizations
-                                                          .of(
-                                                          context)
-                                                          .translate(
-                                                          'DetailsListDate'),
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${bdgList[index - 1]
-                                                          .date}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                    TextSpan(
-                                                      text: AppLocalizations
-                                                          .of(
-                                                          context)
-                                                          .translate(
-                                                          'DetailsListAmount'),
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${bdgList[index - 1]
-                                                          .amount}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                    TextSpan(
-                                                      text: AppLocalizations
-                                                          .of(
-                                                          context)
-                                                          .translate(
-                                                          'DetailsListLevel'),
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${bdgList[index - 1]
-                                                          .level1} > ${bdgList[index -
-                                                          1]
-                                                          .level2} > ${bdgList[index -
-                                                          1].level3}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                    TextSpan(
-                                                      text: AppLocalizations
-                                                          .of(
-                                                          context)
-                                                          .translate(
-                                                          'DetailsListCostType'),
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${bdgList[index - 1]
-                                                          .costType}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                    TextSpan(
-                                                      text: AppLocalizations
-                                                          .of(
-                                                          context)
-                                                          .translate(
-                                                          'DetailsListComment'),
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                      '${bdgList[index - 1]
-                                                          .comment.length > 0
-                                                          ? bdgList[index - 1]
-                                                          .comment
-                                                          : AppLocalizations.of(
-                                                          context).translate(
-                                                          'noCommentAvailable')}\n',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xFF0957FF),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                          fontStyle:
-                                                          FontStyle
-                                                              .italic),
-                                                    ),
-                                                  ]),
-                                            ),
-                                            actions: <Widget>[
-                                              new FlatButton(
-                                                child: new Text(
-                                                  AppLocalizations.of(
-                                                      context)
-                                                      .translate(
-                                                      'dismissDialog'),
+                                              })
+                                        ])
+                                        : ((bdgList[index - 1]
+                                        .costType
+                                        .toLowerCase()
+                                        .contains(
+                                        budgetSearchTextFieldController
+                                            .text) ||
+                                        bdgList[index - 1]
+                                            .level1
+                                            .toLowerCase()
+                                            .contains(
+                                            budgetSearchTextFieldController
+                                                .text) ||
+                                        bdgList[index - 1]
+                                            .level2
+                                            .toLowerCase()
+                                            .contains(
+                                            budgetSearchTextFieldController
+                                                .text) ||
+                                        bdgList[index - 1]
+                                            .level3
+                                            .toLowerCase()
+                                            .contains(
+                                            budgetSearchTextFieldController
+                                                .text) ||
+                                        bdgList[index - 1]
+                                            .comment
+                                            .toLowerCase()
+                                            .contains(
+                                            budgetSearchTextFieldController
+                                                .text) ||
+                                        bdgList[index - 1].amount.toString()
+                                            .contains(
+                                            budgetSearchTextFieldController
+                                                .text) ||
+                                        bdgList[index - 1].level1.toLowerCase()
+                                            .contains(
+                                            budgetSearchTextFieldController
+                                                .text) ||
+                                        bdgList[index - 1].date.toLowerCase()
+                                            .contains(
+                                            budgetSearchTextFieldController
+                                                .text))
+                                        ? GestureDetector(
+                                        onTap: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                            new AlertDialog(
+                                              title: Text(
+                                                AppLocalizations.of(
+                                                    context)
+                                                    .translate(
+                                                    'DetailsListTitle'),
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 25,
                                                 ),
-                                                onPressed: () =>
-                                                    Navigator.of(
+                                              ),
+                                              content: RichText(
+                                                text: TextSpan(
+                                                    text: "",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15,
+                                                    ),
+                                                    children: <TextSpan>[
+                                                      TextSpan(
+                                                        text: AppLocalizations
+                                                            .of(
+                                                            context)
+                                                            .translate(
+                                                            'DetailsListDate'),
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                        ),
+                                                      ),
+                                                      TextSpan(
+                                                        text:
+                                                        '${bdgList[index - 1]
+                                                            .date}\n',
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xFF0957FF),
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold,
+                                                            fontStyle:
+                                                            FontStyle
+                                                                .italic),
+                                                      ),
+                                                      TextSpan(
+                                                        text: AppLocalizations
+                                                            .of(
+                                                            context)
+                                                            .translate(
+                                                            'DetailsListAmount'),
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                        ),
+                                                      ),
+                                                      TextSpan(
+                                                        text:
+                                                        '${bdgList[index - 1]
+                                                            .amount}\n',
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xFF0957FF),
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold,
+                                                            fontStyle:
+                                                            FontStyle
+                                                                .italic),
+                                                      ),
+                                                      TextSpan(
+                                                        text: AppLocalizations
+                                                            .of(
+                                                            context)
+                                                            .translate(
+                                                            'DetailsListLevel'),
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                        ),
+                                                      ),
+                                                      TextSpan(
+                                                        text:
+                                                        '${bdgList[index - 1]
+                                                            .level1} > ${bdgList[index -
+                                                            1]
+                                                            .level2} > ${bdgList[index -
+                                                            1].level3}\n',
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xFF0957FF),
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold,
+                                                            fontStyle:
+                                                            FontStyle
+                                                                .italic),
+                                                      ),
+                                                      TextSpan(
+                                                        text: AppLocalizations
+                                                            .of(
+                                                            context)
+                                                            .translate(
+                                                            'DetailsListCostType'),
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                        ),
+                                                      ),
+                                                      TextSpan(
+                                                        text:
+                                                        '${bdgList[index - 1]
+                                                            .costType}\n',
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xFF0957FF),
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold,
+                                                            fontStyle:
+                                                            FontStyle
+                                                                .italic),
+                                                      ),
+                                                      TextSpan(
+                                                        text: AppLocalizations
+                                                            .of(
+                                                            context)
+                                                            .translate(
+                                                            'DetailsListComment'),
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                        ),
+                                                      ),
+                                                      TextSpan(
+                                                        text:
+                                                        '${bdgList[index - 1]
+                                                            .comment.length > 0
+                                                            ? bdgList[index - 1]
+                                                            .comment
+                                                            : AppLocalizations
+                                                            .of(
+                                                            context).translate(
+                                                            'noCommentAvailable')}\n',
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xFF0957FF),
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold,
+                                                            fontStyle:
+                                                            FontStyle
+                                                                .italic),
+                                                      ),
+                                                    ]),
+                                              ),
+                                              actions: <Widget>[
+                                                new FlatButton(
+                                                  child: new Text(
+                                                    AppLocalizations.of(
                                                         context)
-                                                        .pop(),
+                                                        .translate(
+                                                        'dismissDialog'),
+                                                  ),
+                                                  onPressed: () =>
+                                                      Navigator.of(
+                                                          context)
+                                                          .pop(),
+                                                )
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                        child: Container(
+                                          margin:
+                                          const EdgeInsets.all(15.0),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Colors.blueAccent),
+                                            color: bdgList[index - 1]
+                                                .active ==
+                                                1
+                                                ? Color(0xffEEEEEE)
+                                                : Colors.redAccent,
+                                            borderRadius:
+                                            new BorderRadius.circular(
+                                                30.0),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black12,
+                                                blurRadius: 5,
+                                                // has the effect of softening the shadow
+                                                spreadRadius: 0,
+                                                // has the effect of extending the shadow
+                                                offset: Offset(
+                                                  7.0,
+                                                  // horizontal, move right 10
+                                                  7.0, // vertical, move down 10
+                                                ),
                                               )
                                             ],
                                           ),
-                                        );
-                                      },
-                                      child: Container(
-                                        margin:
-                                        const EdgeInsets.all(15.0),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Colors.blueAccent),
-                                          color: bdgList[index - 1]
-                                              .active ==
-                                              1
-                                              ? Color(0xffEEEEEE)
-                                              : Colors.redAccent,
-                                          borderRadius:
-                                          new BorderRadius.circular(
-                                              30.0),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.black12,
-                                              blurRadius: 5,
-                                              // has the effect of softening the shadow
-                                              spreadRadius: 0,
-                                              // has the effect of extending the shadow
-                                              offset: Offset(
-                                                7.0,
-                                                // horizontal, move right 10
-                                                7.0, // vertical, move down 10
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        child: Center(
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceEvenly,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment
-                                                    .center,
-                                                children: <Widget>[
-                                                  SizedBox(
-                                                    width: MediaQuery
-                                                        .of(
-                                                        context)
-                                                        .size
-                                                        .width *
-                                                        .6,
-                                                    //height: 300.0,
-                                                    child: Column(
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                        children: <Widget>[
-                                                          SizedBox(
-                                                              height: 15),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: MediaQuery
-                                                                      .of(
-                                                                      context)
-                                                                      .size
-                                                                      .width *
-                                                                      .1,
-                                                                  child:
-                                                                  Icon(
-                                                                    Icons
-                                                                        .account_balance_wallet,
-                                                                    color: Color(
-                                                                        0xff0957FF),
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  "${bdgList[index -
-                                                                      1].date}",
-                                                                  style: TextStyle(
+                                          child: Center(
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceEvenly,
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .center,
+                                                  children: <Widget>[
+                                                    SizedBox(
+                                                      width: MediaQuery
+                                                          .of(
+                                                          context)
+                                                          .size
+                                                          .width *
+                                                          .6,
+                                                      //height: 300.0,
+                                                      child: Column(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                          crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                          children: <Widget>[
+                                                            SizedBox(
+                                                                height: 15),
+                                                            Row(
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                                children: [
+                                                                  SizedBox(
+                                                                    width: MediaQuery
+                                                                        .of(
+                                                                        context)
+                                                                        .size
+                                                                        .width *
+                                                                        .1,
+                                                                    child:
+                                                                    Icon(
+                                                                      Icons
+                                                                          .account_balance_wallet,
                                                                       color: Color(
                                                                           0xff0957FF),
-                                                                      fontSize:
-                                                                      25),
-                                                                ),
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: MediaQuery
-                                                                      .of(
-                                                                      context)
-                                                                      .size
-                                                                      .width *
-                                                                      .1,
-                                                                  child:
-                                                                  Container(),
-                                                                ),
-                                                                Flexible(
-                                                                    child:
-                                                                    Text(
-                                                                      "${bdgList[index -
-                                                                          1]
-                                                                          .comment
-                                                                          .length >
-                                                                          0
-                                                                          ? bdgList[index -
-                                                                          1]
-                                                                          .comment
-                                                                          : AppLocalizations
-                                                                          .of(
-                                                                          context)
-                                                                          .translate(
-                                                                          'noCommentAvailable')}",
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .black,
-                                                                          fontStyle: FontStyle
-                                                                              .italic,
-                                                                          fontSize:
-                                                                          15),
-                                                                      overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                    )),
-                                                                Container(),
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                    width: MediaQuery
-                                                                        .of(
-                                                                        context)
-                                                                        .size
-                                                                        .width *
-                                                                        .1,
-                                                                    //height: 300.0,
-                                                                    child:
-                                                                    Container()),
-                                                                Flexible(
-                                                                    child:
-                                                                    Text(
-                                                                      '${bdgList[index -
-                                                                          1]
-                                                                          .level1} > ${bdgList[index -
-                                                                          1]
-                                                                          .level2} > ${bdgList[index -
-                                                                          1]
-                                                                          .level3}}',
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .black,
-                                                                          fontSize:
-                                                                          13),
-                                                                      overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                    )),
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 5,
-                                                          ),
-                                                          Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                    width: MediaQuery
-                                                                        .of(
-                                                                        context)
-                                                                        .size
-                                                                        .width *
-                                                                        .1,
-                                                                    //height: 300.0,
-                                                                    child:
-                                                                    Container()),
-                                                                Flexible(
-                                                                    child: new Container(
-                                                                        padding: new EdgeInsets
-                                                                            .only(
-                                                                            right: 13.0),
-                                                                        child: Text(
-                                                                          '${bdgList[index -
-                                                                              1]
-                                                                              .costType}',
-                                                                          style: TextStyle(
-                                                                              color: Colors
-                                                                                  .black,
-                                                                              fontSize: 13),
-                                                                          overflow: TextOverflow
-                                                                              .ellipsis,
-                                                                        )))
-                                                              ]),
-                                                          SizedBox(
-                                                            height: 15,
-                                                          ),
-                                                        ]),
-                                                  ),
-                                                  Column(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .start,
-                                                      children: [
-                                                        Text(
-                                                            '${bdgList[index -
-                                                                1].amount}'),
-                                                        SizedBox(
-                                                          width: MediaQuery
-                                                              .of(
-                                                              context)
-                                                              .size
-                                                              .width *
-                                                              .1,
-                                                          //height: 300.0,
-                                                          child: IconButton(
-                                                            icon: new Icon(
-                                                              bdgList[index - 1]
-                                                                  .active ==
-                                                                  1
-                                                                  ? Icons
-                                                                  .delete
-                                                                  : Icons
-                                                                  .restore,
-                                                            ),
-                                                            color: Color(
-                                                                0xff0957FF),
-                                                            onPressed: () {
-                                                              showDialog(
-                                                                context:
-                                                                context,
-                                                                builder:
-                                                                    (context) =>
-                                                                new AlertDialog(
-                                                                  title:
-                                                                  Text(
-                                                                    AppLocalizations
-                                                                        .of(
-                                                                        context)
-                                                                        .translate(
-                                                                        'areYouSureDialog'),
-                                                                    style:
-                                                                    TextStyle(
-                                                                      fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                      fontSize:
-                                                                      25,
                                                                     ),
                                                                   ),
-                                                                  content:
-                                                                  RichText(
-                                                                    text: TextSpan(
-                                                                        text:
+                                                                  Text(
+                                                                    "${bdgList[index -
+                                                                        1]
+                                                                        .date}",
+                                                                    style: TextStyle(
+                                                                        color: Color(
+                                                                            0xff0957FF),
+                                                                        fontSize:
+                                                                        25),
+                                                                  ),
+                                                                ]),
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            Row(
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                                children: [
+                                                                  SizedBox(
+                                                                    width: MediaQuery
+                                                                        .of(
+                                                                        context)
+                                                                        .size
+                                                                        .width *
+                                                                        .1,
+                                                                    child:
+                                                                    Container(),
+                                                                  ),
+                                                                  Flexible(
+                                                                      child:
+                                                                      Text(
                                                                         "${bdgList[index -
                                                                             1]
                                                                             .comment
@@ -6743,139 +6706,307 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             .of(
                                                                             context)
                                                                             .translate(
-                                                                            'noCommentAvailable')}\n\n",
+                                                                            'noCommentAvailable')}",
                                                                         style: TextStyle(
                                                                             color: Colors
                                                                                 .black,
-                                                                            fontSize: 15,
                                                                             fontStyle: FontStyle
-                                                                                .italic),
-                                                                        children: <
-                                                                            TextSpan>[
-                                                                          TextSpan(
-                                                                            text: AppLocalizations
-                                                                                .of(
-                                                                                context)
-                                                                                .translate(
-                                                                                'EntryFrom'),
-                                                                            style: TextStyle(
-                                                                              fontSize: 18,
-                                                                            ),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: '${bdgList[index -
-                                                                                1]
-                                                                                .date} ',
-                                                                            style: TextStyle(
-                                                                                color: Color(
-                                                                                    0xFF0957FF),
-                                                                                fontSize: 18,
-                                                                                fontWeight: FontWeight
-                                                                                    .bold),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: AppLocalizations
-                                                                                .of(
-                                                                                context)
-                                                                                .translate(
-                                                                                'withAnAmountOf'),
-                                                                            style: TextStyle(
-                                                                              fontSize: 18,
-                                                                            ),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: '${bdgList[index -
-                                                                                1]
-                                                                                .amount} ',
-                                                                            style: TextStyle(
-                                                                                color: Color(
-                                                                                    0xFF0957FF),
-                                                                                fontSize: 18,
-                                                                                fontWeight: FontWeight
-                                                                                    .bold),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: AppLocalizations
-                                                                                .of(
-                                                                                context)
-                                                                                .translate(
-                                                                                'willBe'),
-                                                                            style: TextStyle(
-                                                                              fontSize: 18,
-                                                                            ),
-                                                                          ),
-                                                                          TextSpan(
-                                                                            text: '${bdgList[index -
-                                                                                1]
-                                                                                .active ==
-                                                                                1
-                                                                                ? AppLocalizations
-                                                                                .of(
-                                                                                context)
-                                                                                .translate(
-                                                                                'deleted')
-                                                                                : AppLocalizations
-                                                                                .of(
-                                                                                context)
-                                                                                .translate(
-                                                                                'restored')}',
-                                                                            style: TextStyle(
-                                                                                color: bdgList[index -
-                                                                                    1]
-                                                                                    .active ==
-                                                                                    1
-                                                                                    ? Colors
-                                                                                    .red
-                                                                                    : Colors
-                                                                                    .green,
-                                                                                fontSize: 18,
-                                                                                fontWeight: FontWeight
-                                                                                    .bold),
-                                                                          ),
-                                                                        ]),
-                                                                  ),
-                                                                  actions: <
-                                                                      Widget>[
-                                                                    new FlatButton(
+                                                                                .italic,
+                                                                            fontSize:
+                                                                            15),
+                                                                        overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                      )),
+                                                                  Container(),
+                                                                ]),
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            Row(
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                                children: [
+                                                                  SizedBox(
+                                                                      width: MediaQuery
+                                                                          .of(
+                                                                          context)
+                                                                          .size
+                                                                          .width *
+                                                                          .1,
+                                                                      //height: 300.0,
                                                                       child:
-                                                                      new Text(
-                                                                        AppLocalizations
-                                                                            .of(
-                                                                            context)
-                                                                            .translate(
-                                                                            'cancel'),
+                                                                      Container()),
+                                                                  Flexible(
+                                                                      child:
+                                                                      Text(
+                                                                        '${bdgList[index -
+                                                                            1]
+                                                                            .level1} > ${bdgList[index -
+                                                                            1]
+                                                                            .level2} > ${bdgList[index -
+                                                                            1]
+                                                                            .level3}}',
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .black,
+                                                                            fontSize:
+                                                                            13),
+                                                                        overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                      )),
+                                                                ]),
+                                                            SizedBox(
+                                                              height: 5,
+                                                            ),
+                                                            Row(
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                                children: [
+                                                                  SizedBox(
+                                                                      width: MediaQuery
+                                                                          .of(
+                                                                          context)
+                                                                          .size
+                                                                          .width *
+                                                                          .1,
+                                                                      //height: 300.0,
+                                                                      child:
+                                                                      Container()),
+                                                                  Flexible(
+                                                                      child: new Container(
+                                                                          padding: new EdgeInsets
+                                                                              .only(
+                                                                              right: 13.0),
+                                                                          child: Text(
+                                                                            '${bdgList[index -
+                                                                                1]
+                                                                                .costType}',
+                                                                            style: TextStyle(
+                                                                                color: Colors
+                                                                                    .black,
+                                                                                fontSize: 13),
+                                                                            overflow: TextOverflow
+                                                                                .ellipsis,
+                                                                          )))
+                                                                ]),
+                                                            SizedBox(
+                                                              height: 15,
+                                                            ),
+                                                          ]),
+                                                    ),
+                                                    Column(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .start,
+                                                        children: [
+                                                          Text(
+                                                              '${bdgList[index -
+                                                                  1].amount}'),
+                                                          SizedBox(
+                                                            width: MediaQuery
+                                                                .of(
+                                                                context)
+                                                                .size
+                                                                .width *
+                                                                .1,
+                                                            //height: 300.0,
+                                                            child: IconButton(
+                                                              icon: new Icon(
+                                                                bdgList[index -
+                                                                    1]
+                                                                    .active ==
+                                                                    1
+                                                                    ? Icons
+                                                                    .delete
+                                                                    : Icons
+                                                                    .restore,
+                                                              ),
+                                                              color: Color(
+                                                                  0xff0957FF),
+                                                              onPressed: () {
+                                                                showDialog(
+                                                                  context:
+                                                                  context,
+                                                                  builder:
+                                                                      (
+                                                                      context) =>
+                                                                  new AlertDialog(
+                                                                    title:
+                                                                    Text(
+                                                                      AppLocalizations
+                                                                          .of(
+                                                                          context)
+                                                                          .translate(
+                                                                          'areYouSureDialog'),
+                                                                      style:
+                                                                      TextStyle(
+                                                                        fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                        fontSize:
+                                                                        25,
                                                                       ),
-                                                                      onPressed: () =>
-                                                                          Navigator
+                                                                    ),
+                                                                    content:
+                                                                    RichText(
+                                                                      text: TextSpan(
+                                                                          text:
+                                                                          "${bdgList[index -
+                                                                              1]
+                                                                              .comment
+                                                                              .length >
+                                                                              0
+                                                                              ? bdgList[index -
+                                                                              1]
+                                                                              .comment
+                                                                              : AppLocalizations
                                                                               .of(
                                                                               context)
-                                                                              .pop(),
-                                                                    ),
-                                                                    new Container(
-                                                                      margin: EdgeInsets.only(
-                                                                          left: 2, right: 2, bottom: 10),
-                                                                      child: ConfirmationSlider(
-                                                                        text:  AppLocalizations.of(context).translate('slideToConfirm'),
-                                                                        foregroundColor: Color(
-                                                                            0xff0957FF),
-                                                                        onConfirmation: () {
-                                                                          bdgObjectToDelete
-                                                                              .id =
-                                                                              bdgList[index -
+                                                                              .translate(
+                                                                              'noCommentAvailable')}\n\n",
+                                                                          style: TextStyle(
+                                                                              color: Colors
+                                                                                  .black,
+                                                                              fontSize: 15,
+                                                                              fontStyle: FontStyle
+                                                                                  .italic),
+                                                                          children: <
+                                                                              TextSpan>[
+                                                                            TextSpan(
+                                                                              text: AppLocalizations
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .translate(
+                                                                                  'EntryFrom'),
+                                                                              style: TextStyle(
+                                                                                fontSize: 18,
+                                                                              ),
+                                                                            ),
+                                                                            TextSpan(
+                                                                              text: '${bdgList[index -
                                                                                   1]
-                                                                                  .id;
-
-                                                                          sendBackend(
-                                                                              'bdglistdelete',
-                                                                              false);
-                                                                          Navigator
+                                                                                  .date} ',
+                                                                              style: TextStyle(
+                                                                                  color: Color(
+                                                                                      0xFF0957FF),
+                                                                                  fontSize: 18,
+                                                                                  fontWeight: FontWeight
+                                                                                      .bold),
+                                                                            ),
+                                                                            TextSpan(
+                                                                              text: AppLocalizations
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .translate(
+                                                                                  'withAnAmountOf'),
+                                                                              style: TextStyle(
+                                                                                fontSize: 18,
+                                                                              ),
+                                                                            ),
+                                                                            TextSpan(
+                                                                              text: '${bdgList[index -
+                                                                                  1]
+                                                                                  .amount} ',
+                                                                              style: TextStyle(
+                                                                                  color: Color(
+                                                                                      0xFF0957FF),
+                                                                                  fontSize: 18,
+                                                                                  fontWeight: FontWeight
+                                                                                      .bold),
+                                                                            ),
+                                                                            TextSpan(
+                                                                              text: AppLocalizations
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .translate(
+                                                                                  'willBe'),
+                                                                              style: TextStyle(
+                                                                                fontSize: 18,
+                                                                              ),
+                                                                            ),
+                                                                            TextSpan(
+                                                                              text: '${bdgList[index -
+                                                                                  1]
+                                                                                  .active ==
+                                                                                  1
+                                                                                  ? AppLocalizations
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .translate(
+                                                                                  'deleted')
+                                                                                  : AppLocalizations
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .translate(
+                                                                                  'restored')}',
+                                                                              style: TextStyle(
+                                                                                  color: bdgList[index -
+                                                                                      1]
+                                                                                      .active ==
+                                                                                      1
+                                                                                      ? Colors
+                                                                                      .red
+                                                                                      : Colors
+                                                                                      .green,
+                                                                                  fontSize: 18,
+                                                                                  fontWeight: FontWeight
+                                                                                      .bold),
+                                                                            ),
+                                                                          ]),
+                                                                    ),
+                                                                    actions: <
+                                                                        Widget>[
+                                                                      new FlatButton(
+                                                                        child:
+                                                                        new Text(
+                                                                          AppLocalizations
                                                                               .of(
                                                                               context)
-                                                                              .pop();
-                                                                        },
+                                                                              .translate(
+                                                                              'cancel'),
+                                                                        ),
+                                                                        onPressed: () =>
+                                                                            Navigator
+                                                                                .of(
+                                                                                context)
+                                                                                .pop(),
                                                                       ),
-                                                                    ),
-                                                                    /*new FlatButton(
+                                                                      new Container(
+                                                                        margin: EdgeInsets
+                                                                            .only(
+                                                                            left: 2,
+                                                                            right: 2,
+                                                                            bottom: 10),
+                                                                        child: ConfirmationSlider(
+                                                                          text: AppLocalizations
+                                                                              .of(
+                                                                              context)
+                                                                              .translate(
+                                                                              'slideToConfirm'),
+                                                                          foregroundColor: Color(
+                                                                              0xff0957FF),
+                                                                          onConfirmation: () {
+                                                                            bdgObjectToDelete
+                                                                                .id =
+                                                                                bdgList[index -
+                                                                                    1]
+                                                                                    .id;
+
+                                                                            sendBackend(
+                                                                                'bdglistdelete',
+                                                                                false);
+                                                                            Navigator
+                                                                                .of(
+                                                                                context)
+                                                                                .pop();
+                                                                          },
+                                                                        ),
+                                                                      ),
+                                                                      /*new FlatButton(
                                                                       child:
                                                                       new Text(
                                                                         AppLocalizations
@@ -6901,17 +7032,21 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             .pop();
                                                                       },
                                                                     )*/
-                                                                  ],
-                                                                ),
-                                                              );
-                                                            },
-                                                          ),
-                                                        )
-                                                      ]),
-                                                ])),
-                                      ))
-                                      : Container());
-                                })),
+                                                                    ],
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          )
+                                                        ]),
+                                                  ])),
+                                        ))
+                                        : Container()), currentlyLoading && index == 2 // to show a bit more in the middle and only one circle, instead of one per item in the listview,
+                                          ?
+                                      _showLoadWidget()
+                                          : Container(),],);
+                                    })
+                            ],)),
                       ]),
                     ),
                   )
@@ -6935,7 +7070,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 constraints: BoxConstraints(
                                     minHeight: constraint.maxHeight),
                                 child: IntrinsicHeight(
-                                    child: Row(
+                                    child: Stack(children: <Widget>[Row(
                                       mainAxisAlignment: MainAxisAlignment
                                           .center,
                                       crossAxisAlignment: CrossAxisAlignment
@@ -7331,8 +7466,11 @@ class _MyHomePageState extends State<MyHomePage>
                                                 ]),
                                           ])
                                       ],
-                                    )
-                                ),
+                                    ), currentlyLoading
+                                        ?
+                                    _showLoadWidget()
+                                        : Container(),
+                                    ],)),
                               ));
                         },
                       )),
@@ -7439,8 +7577,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           constraints: BoxConstraints(
                                               minHeight: constraint.maxHeight),
                                           child: IntrinsicHeight(
-                                              child: Container(
-
+                                              child: Stack(children: <Widget>[Container(
                                                   child: Column(
                                                       mainAxisAlignment:
                                                       MainAxisAlignment
@@ -7726,8 +7863,11 @@ class _MyHomePageState extends State<MyHomePage>
                                                             ),
                                                           ],
                                                         ),
-                                                      ]))
-                                          ),
+                                                      ])), currentlyLoading
+                                                  ?
+                                              _showLoadWidget()
+                                                  : Container(),
+                                              ],)),
                                         ));
                                   },
                                 )),
@@ -7749,7 +7889,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           constraints: BoxConstraints(
                                               minHeight: constraint.maxHeight),
                                           child: IntrinsicHeight(
-                                              child: Column(
+                                              child: Stack(children: <Widget>[Column(
                                                   mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,
                                                   crossAxisAlignment:
@@ -8314,10 +8454,17 @@ class _MyHomePageState extends State<MyHomePage>
                                                                           },
                                                                         ),
                                                                         new Container(
-                                                                          margin: EdgeInsets.only(
-                                                                              left: 2, right: 2, bottom: 10),
+                                                                          margin: EdgeInsets
+                                                                              .only(
+                                                                              left: 2,
+                                                                              right: 2,
+                                                                              bottom: 10),
                                                                           child: ConfirmationSlider(
-                                                                            text:  AppLocalizations.of(context).translate('slideToConfirm'),
+                                                                            text: AppLocalizations
+                                                                                .of(
+                                                                                context)
+                                                                                .translate(
+                                                                                'slideToConfirm'),
                                                                             foregroundColor: Color(
                                                                                 0xff0957FF),
                                                                             onConfirmation: () {
@@ -8740,10 +8887,17 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             },
                                                                           ),
                                                                           new Container(
-                                                                            margin: EdgeInsets.only(
-                                                                                left: 2, right: 2, bottom: 10),
+                                                                            margin: EdgeInsets
+                                                                                .only(
+                                                                                left: 2,
+                                                                                right: 2,
+                                                                                bottom: 10),
                                                                             child: ConfirmationSlider(
-                                                                              text:  AppLocalizations.of(context).translate('slideToConfirm'),
+                                                                              text: AppLocalizations
+                                                                                  .of(
+                                                                                  context)
+                                                                                  .translate(
+                                                                                  'slideToConfirm'),
                                                                               foregroundColor: Color(
                                                                                   0xff0957FF),
                                                                               onConfirmation: () {
@@ -8835,7 +8989,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                         ),
                                                       ],
                                                     )),
-                                                  ])),
+                                                  ]), currentlyLoading
+                                                  ?
+                                              _showLoadWidget()
+                                                  : Container(),],)),
                                         ));
                                   },
                                 )),
@@ -8857,7 +9014,7 @@ class _MyHomePageState extends State<MyHomePage>
                                           constraints: BoxConstraints(
                                               minHeight: constraint.maxHeight),
                                           child: IntrinsicHeight(
-                                              child:
+                                              child: Stack(children: <Widget>[
                                               Column(
                                                   mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,
@@ -9082,10 +9239,17 @@ class _MyHomePageState extends State<MyHomePage>
                                                                           },
                                                                         ),
                                                                         new Container(
-                                                                          margin: EdgeInsets.only(
-                                                                              left: 2, right: 2, bottom: 10),
+                                                                          margin: EdgeInsets
+                                                                              .only(
+                                                                              left: 2,
+                                                                              right: 2,
+                                                                              bottom: 10),
                                                                           child: ConfirmationSlider(
-                                                                            text:  AppLocalizations.of(context).translate('slideToConfirm'),
+                                                                            text: AppLocalizations
+                                                                                .of(
+                                                                                context)
+                                                                                .translate(
+                                                                                'slideToConfirm'),
                                                                             foregroundColor: Color(
                                                                                 0xff0957FF),
                                                                             onConfirmation: () {
@@ -9267,7 +9431,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                         ),
                                                       ],
                                                     ),
-                                                  ])),
+                                                  ]), currentlyLoading
+                                                    ?
+                                                _showLoadWidget()
+                                                    : Container(),],)),
                                         ));
                                   },
                                 )),
