@@ -16,6 +16,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'login_page.dart';
 import 'package:search_choices/search_choices.dart';
 import 'package:slide_to_confirm/slide_to_confirm.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:ui' as ui;
 
 
@@ -318,6 +319,9 @@ class _MyHomePageState extends State<MyHomePage>
 
   List<CostType> costTypesList = <CostType>[const CostType(-99, 'UNDEFINED')];
 
+  // bool used to show load symbol while loading data
+  bool currentlyLoading = false;
+
   final actualTextFieldController = TextEditingController();
   final budgetTextFieldController = TextEditingController();
 
@@ -476,6 +480,9 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   void afterFirstLayout(BuildContext context) async {
+
+    currentlyLoading = true;
+
     welcomeDialog();
 
     // Resolves the issue that no data is available on login
@@ -500,7 +507,9 @@ class _MyHomePageState extends State<MyHomePage>
     // initialize if no preferences are present yet
     sendBackend('generaladmin', true);
 
-    setState(() {});
+    setState(() {
+      currentlyLoading = false;
+    });
   }
 
   // Lists that hold the items in the adjust list
@@ -2800,9 +2809,9 @@ class _MyHomePageState extends State<MyHomePage>
         });
   }
 
-  handleRefresh(index) {
+  handleRefresh(index) async {
     if (_currentIndex == 0) {
-      loadHomescreen();
+      await loadHomescreen();
     } else if (_currentIndex == 1) {
       // Test for #83
       setState(() {
@@ -2812,16 +2821,16 @@ class _MyHomePageState extends State<MyHomePage>
         print(level3ActualObject.name);
       });
 
-      checkForChanges(false, true, 'actual');
-      loadList('actual', actualListSortColumn, actualListSortType);
+      await checkForChanges(false, true, 'actual');
+      await loadList('actual', actualListSortColumn, actualListSortType);
     } else if (_currentIndex == 2) {
-      checkForChanges(false, true, 'budget');
-      loadList('budget', budgetListSortColumn, budgetListSortType);
+      await checkForChanges(false, true, 'budget');
+      await loadList('budget', budgetListSortColumn, budgetListSortType);
     } else if (_currentIndex == 3) {
-      loadAmount();
+      await loadAmount();
     } else if (_currentIndex == 4) {
-      checkForChanges(false, true, 'admin');
-      loadPreferences();
+      await checkForChanges(false, true, 'admin');
+      await loadPreferences();
     }
   }
 
@@ -3019,16 +3028,6 @@ class _MyHomePageState extends State<MyHomePage>
               );
             },
           ),
-          // TODO REMOVE IconButton after validation of #90
-          /*
-          IconButton(
-              icon: Icon(Icons.refresh),
-              color: Color(0xffEEEEEE),
-              iconSize: 24,
-              onPressed: () {
-                handleRefresh(_currentIndex);
-          })
-          */
         ],
         leading: IconButton(
             icon: Icon(Icons.account_circle),
@@ -3120,7 +3119,6 @@ class _MyHomePageState extends State<MyHomePage>
                       enablePullDown: true,
                       onRefresh: () async {
                         await handleRefresh(_currentIndex);
-                        // await Future.delayed(Duration(seconds: 2));
                         _refreshController.refreshCompleted();
                       },
                       child: LayoutBuilder(
@@ -3315,6 +3313,10 @@ class _MyHomePageState extends State<MyHomePage>
                                           ],
                                         ),
                                         // TODO make with variable, just a test for #25
+                                        currentlyLoading ? SpinKitRing(
+                                          color: Color(0xff0957FF),
+                                          size: 50.0,
+                                        ) : Container(),
                                         Text(
                                           AppLocalizations.of(context)
                                               .translate('titlePieChart'),
@@ -3336,8 +3338,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                 value: showFullYearHome,
                                                 onChanged: (value) {
                                                   setState(() {
+                                                    currentlyLoading = true;
                                                     showFullYearHome = value;
                                                     loadHomescreen();
+                                                    currentlyLoading = false;
                                                   });
                                                 },
                                                 activeTrackColor: Color(
@@ -3468,7 +3472,6 @@ class _MyHomePageState extends State<MyHomePage>
                     //constraints: BoxConstraints.expand(height: 50),
                     child: TabBar(indicatorColor: Color(0xff0957FF), tabs: [
                       Tab(
-
                         child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
@@ -3530,7 +3533,6 @@ class _MyHomePageState extends State<MyHomePage>
                                     enablePullDown: true,
                                     onRefresh: () async {
                                       await handleRefresh(_currentIndex);
-                                      //await Future.delayed(Duration(seconds: 2));
                                       _refreshController.refreshCompleted();
                                     },
                                     child: LayoutBuilder(
@@ -3551,6 +3553,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                       SizedBox(
                                                         height: 10,
                                                       ),
+                                                      currentlyLoading ? SpinKitRing(
+                                                        color: Color(0xff0957FF),
+                                                        size: 50.0,
+                                                      ) : Container(),
                                                       Row(
                                                           mainAxisAlignment:
                                                           MainAxisAlignment
@@ -4133,7 +4139,6 @@ class _MyHomePageState extends State<MyHomePage>
                             enablePullDown: true,
                             onRefresh: () async {
                               await handleRefresh(_currentIndex);
-                              //await Future.delayed(Duration(seconds: 2));
                               _refreshController.refreshCompleted();
                             },
                             child: ListView.builder(
@@ -5260,7 +5265,6 @@ class _MyHomePageState extends State<MyHomePage>
                                     enablePullDown: true,
                                     onRefresh: () async {
                                       await handleRefresh(_currentIndex);
-                                      //await Future.delayed(Duration(seconds: 2));
                                       _refreshController.refreshCompleted();
                                     },
                                     child: LayoutBuilder(
@@ -5892,7 +5896,6 @@ class _MyHomePageState extends State<MyHomePage>
                             enablePullDown: true,
                             onRefresh: () async {
                               await handleRefresh(_currentIndex);
-                              //await Future.delayed(Duration(seconds: 2));
                               _refreshController.refreshCompleted();
                             },
                             child: ListView.builder(
@@ -6923,7 +6926,6 @@ class _MyHomePageState extends State<MyHomePage>
                       enablePullDown: true,
                       onRefresh: () async {
                         await handleRefresh(_currentIndex);
-                        //await Future.delayed(Duration(seconds: 2));
                         _refreshController.refreshCompleted();
                       },
                       child: LayoutBuilder(
@@ -7428,7 +7430,6 @@ class _MyHomePageState extends State<MyHomePage>
                                 enablePullDown: true,
                                 onRefresh: () async {
                                   await handleRefresh(_currentIndex);
-                                  //await Future.delayed(Duration(seconds: 2));
                                   _refreshController.refreshCompleted();
                                 },
                                 child: LayoutBuilder(
@@ -7739,7 +7740,6 @@ class _MyHomePageState extends State<MyHomePage>
                                 enablePullDown: true,
                                 onRefresh: () async {
                                   await handleRefresh(_currentIndex);
-
                                   _refreshController.refreshCompleted();
                                 },
                                 child: LayoutBuilder(
@@ -8848,7 +8848,6 @@ class _MyHomePageState extends State<MyHomePage>
                                 enablePullDown: true,
                                 onRefresh: () async {
                                   await handleRefresh(_currentIndex);
-                                  //await Future.delayed(Duration(seconds: 2));
                                   _refreshController.refreshCompleted();
                                 },
                                 child: LayoutBuilder(
