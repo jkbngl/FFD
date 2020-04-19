@@ -632,11 +632,8 @@ def sendActual(data, userId):
 
 def sendSchedule(data, userId):
 
+    # +1 because we start with 1 instead of zero that we can add n amounts of years/months/weeks/days directly
     amountOfSchedules = int(data['scheduleInterval']) + 1
-
-    # 2020-04-15 00:00:00.000
-
-    
 
     # Cache the data as the baseData as we are changing the data, we wont change the baseDate and the other functions dont use the baseData attribute
     data['baseDate'] = data['date']
@@ -667,13 +664,15 @@ def sendSchedule(data, userId):
         logging.critical(data['date'])
         logging.critical(data['year'])
         logging.critical(data['month'])
+
+        if(i == 1):
+            data['actualcomment'] += ' - SCHEDULED'
+            data['budgetcomment'] += ' - SCHEDULED'
         
         # Add a SCHEDULE to the end of the comment to make sure that people understand that it was auto scheduled, only the first time though
-        if(data['type'] == 'actualschedule' and i == 1):
-            data['actualcomment'] += ' - SCHEDULED'
+        if(data['type'] == 'actualschedule'):
             sendActual(data, userId)
-        elif(data['type'] == 'budgetschedule' and i == 1):
-            data['budgetcomment'] += ' - SCHEDULED'
+        elif(data['type'] == 'budgetschedule'):
             sendBudget(data, userId)
 
     for i in range(0, amountOfSchedules):
