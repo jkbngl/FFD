@@ -1691,7 +1691,7 @@ class _MyHomePageState extends State<MyHomePage>
                                   scheduleAmountTextFieldController.text) ==
                                   null &&
                               (scheduleYear || scheduleMonth || scheduleWeek ||
-                                  scheduleWeek) &&
+                                  scheduleDay) &&
                               int.parse(scheduleAmountTextFieldController.text) <
                                   100) {
                             if (type == 'actual') {
