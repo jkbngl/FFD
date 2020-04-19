@@ -1321,7 +1321,7 @@ class _MyHomePageState extends State<MyHomePage>
 
     var body = {
       'type': type,
-      'amount': type == 'actual' || type == 'actualSchedule'
+      'amount': type == 'actual' || type == 'actualschedule'
           ? actualTextFieldController.text
           : budgetTextFieldController.text,
       'actualcomment': actualCommentTextFieldController.text,
@@ -1675,13 +1675,66 @@ class _MyHomePageState extends State<MyHomePage>
                       child: new Text(
                           AppLocalizations.of(context).translate('addButton')),
                       onPressed: () {
-                        if (type == 'actual') {
-                          sendBackend('actualschedule', false);
-                        } else if (type == 'budget') {
-                          sendBackend('budgetschedule', false);
-                        }
+                        if(scheduleAmountTextFieldController.text.length > 0 && numberValidator(scheduleAmountTextFieldController.text) == null && (scheduleYear || scheduleMonth || scheduleWeek || scheduleWeek) && int.parse(scheduleAmountTextFieldController.text) < 100)
+                        {
+                          if (type == 'actual') {
+                            sendBackend('actualschedule', false);
+                          } else if (type == 'budget') {
+                            sendBackend('budgetschedule', false);
+                          }
 
-                        Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                        } else
+                          {
+                            String errorMessage = scheduleAmountTextFieldController.text.length == 0 ? 'errorInputEnterAmount' : (numberValidator(scheduleAmountTextFieldController.text) != null ? 'errorInputInvalidAmount' : (!(scheduleYear || scheduleMonth || scheduleWeek || scheduleWeek) ? 'errorInputNoScheduleSelected' : 'errorInputToBigSchedule'));
+
+                            showDialog(
+                              context: context,
+                              builder: (
+                                  BuildContext context) {
+                                // return object of type Dialog
+                                return AlertDialog(
+                                  title: new Text(
+                                    AppLocalizations
+                                        .of(
+                                        context)
+                                        .translate(
+                                        'warning')
+                                    ,
+                                    style: TextStyle(
+                                        color: Colors
+                                            .orange,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight
+                                            .bold),),
+                                  content: new Text(
+                                    AppLocalizations
+                                        .of(
+                                        context)
+                                        .translate(
+                                        errorMessage),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight
+                                            .bold,
+                                        fontSize: 20),),
+                                  actions: <
+                                      Widget>[
+                                    // usually buttons at the bottom of the dialog
+                                    new FlatButton(
+                                      child: new Text(
+                                          "Close"),
+                                      onPressed: () {
+                                        Navigator
+                                            .of(
+                                            context)
+                                            .pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
                       },
                     ),
                   ],
