@@ -3506,7 +3506,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                   ),
                                                 ]),
                                           ]),
-                                      !currentlyLoading
+                                      currentlyLoading
                                           ?
                                       _showLoadWidget()
                                           : Container(),
