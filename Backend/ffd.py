@@ -137,11 +137,16 @@ def userExists():
     headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
 
+    name = mail['name'].upper() if 'name' in mail else  mail['email'].split('@')[0]
+
     if(userId < 0):
         connection = connect()
         cursor = connection.cursor()
 
-        cursor.execute("INSERT INTO ffd.user_dim (name, mail) VALUES (%s, %s)", (mail['name'].upper(), mail['email'],))
+        
+        mailtoInsert = mail['email']
+
+        cursor.execute("INSERT INTO ffd.user_dim (name, mail) VALUES (%s, %s)", (name, mailtoInsert,))
         connection.commit()
 
         cursor.close()
@@ -150,9 +155,9 @@ def userExists():
         chartOfAccountCreated = createDefaultChartOfAccount(getIdByMail(mail))
         chartOfCostTypesCreated = createDefaultChartOfCostTypes(getIdByMail(mail))
 
-        return {'created': True, 'mail': mail['email'], 'id': getIdByMail(mail), 'name': mail['name'], 'chartOfAccountCreated': chartOfAccountCreated, 'chartOfCostTypesCreated': chartOfCostTypesCreated}
+        return {'created': True, 'mail': mail['email'], 'id': getIdByMail(mail), 'name': name, 'chartOfAccountCreated': chartOfAccountCreated, 'chartOfCostTypesCreated': chartOfCostTypesCreated}
     else:
-        return {'created': False, 'mail': mail['email'], 'id': getIdByMail(mail), 'name': mail['name']}
+        return {'created': False, 'mail': mail['email'], 'id': getIdByMail(mail), 'name': name}
 
 
 def createDefaultChartOfAccount(userId):
