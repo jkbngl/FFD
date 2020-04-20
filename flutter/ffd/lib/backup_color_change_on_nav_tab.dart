@@ -964,9 +964,10 @@ class _MyHomePageState extends State<MyHomePage>
 
   _showLoadWidget() {
     return Center(
-        child: SpinKitRing(
-          color: Color(0xff0957FF),
-          size: 50.0,));
+        child: SpinKitChasingDots(
+          //color: Color(0xff0957FF),
+          color: Colors.black,
+          size: 100.0,));
   }
 
 
@@ -3505,7 +3506,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                   ),
                                                 ]),
                                           ]),
-                                      currentlyLoading
+                                      !currentlyLoading
                                           ?
                                       _showLoadWidget()
                                           : Container(),
