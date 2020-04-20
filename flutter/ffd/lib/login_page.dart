@@ -13,7 +13,9 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    signInWithGoogle().whenComplete(() {
+
+    // 161
+    /*signInWithGoogle().whenComplete(() {
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) {
@@ -21,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
           },
         ),
       );
-    });
+    });*/
   }
 
   @override
@@ -70,6 +72,8 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 50),
               //CircularProgressIndicator(backgroundColor: Colors.grey[800],),
               _signInButton(),
+              _registerButton(),
+              _loginButton(),
             ],
           ),
         ),
@@ -108,6 +112,92 @@ class _LoginPageState extends State<LoginPage> {
                       context)
                       .translate(
                       'signInGoogleText'),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.grey,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _registerButton() {
+    return OutlineButton(
+      splashColor: Colors.grey,
+      onPressed: () {
+        signUp('jakob.engl@hotmail.de', 'test1234!').whenComplete(() {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return MyHomePage();
+              },
+            ),
+          );
+        });
+      },
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+      highlightElevation: 0,
+      borderSide: BorderSide(color: Colors.grey),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image(image: AssetImage("assets/register_ffd.png"), height: 35.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                AppLocalizations.of(
+                    context)
+                    .translate(
+                    'registerUser'),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.grey,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _loginButton() {
+    return OutlineButton(
+      splashColor: Colors.grey,
+      onPressed: () {
+        signIn('jakob.engl@hotmail.de', 'test1234!').whenComplete(() {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return MyHomePage();
+              },
+            ),
+          );
+        });
+      },
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+      highlightElevation: 0,
+      borderSide: BorderSide(color: Colors.grey),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image(image: AssetImage("assets/register_ffd.png"), height: 35.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                AppLocalizations.of(
+                    context)
+                    .translate(
+                    'loginUser'),
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.grey,

@@ -16,7 +16,7 @@ AuthCredential credential = null;
 Future<String> signInWithGoogle() async {
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
   final GoogleSignInAuthentication googleSignInAuthentication =
-  await googleSignInAccount.authentication;
+      await googleSignInAccount.authentication;
 
   credential = GoogleAuthProvider.getCredential(
     accessToken: googleSignInAuthentication.accessToken,
@@ -35,7 +35,6 @@ Future<String> signInWithGoogle() async {
     print(token);
   });
 
-
   assert(!user.isAnonymous);
   assert(await user.getIdToken() != null);
 
@@ -46,8 +45,30 @@ Future<String> signInWithGoogle() async {
   return 'signInWithGoogle succeeded: $user';
 }
 
+Future<String> signUp(String email, String password) async {
+  AuthResult result = await _auth.createUserWithEmailAndPassword(
+      email: email, password: password);
+  FirebaseUser user = result.user;
+  return user.uid;
+}
+
+Future<String> signIn(String email, String password) async {
+  AuthResult result =
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+  FirebaseUser user = result.user;
+  return user.uid;
+}
+
 void getToken() async {
-  final AuthResult authResult = await _auth.signInWithCredential(credential);
+  AuthResult authResult = null;
+
+  if (credential != null) {
+    authResult = await _auth.signInWithCredential(credential);
+  } else {
+    authResult = await _auth.signInWithEmailAndPassword(
+        email: 'jakob.engl@hotmail.de', password: 'test1234!');
+  }
+
   final FirebaseUser user = authResult.user;
 
   name = user.displayName;
@@ -60,11 +81,9 @@ void getToken() async {
 
     return token;
   });
-
 }
 
-
-void signOutGoogle() async{
+void signOutGoogle() async {
   await googleSignIn.signOut();
 
   print("User Sign Out");

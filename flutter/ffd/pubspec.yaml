@@ -29,6 +29,7 @@ dependencies:
   rating_dialog: ^1.0.0
   pull_to_refresh: ^1.4.5
   firebase_auth: ^0.15.2
+  firebase_database: ^3.0.7
   google_sign_in: ^4.0.4
   search_choices: ^1.0.13
   flutter_launcher_icons: ^0.7.4
