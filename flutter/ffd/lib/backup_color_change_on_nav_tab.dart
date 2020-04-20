@@ -4227,7 +4227,8 @@ class _MyHomePageState extends State<MyHomePage>
                                   itemCount: actList.length + 1, // Length + 1 as the 0 index is the sort button, all other use index - 1
                                   itemBuilder: (BuildContext context,
                                       int index) {
-                                    return Stack(children: <Widget>[index == 0
+                                    return Stack(children: <Widget>[
+                                      index == 0
                                         ? Column(
                                         mainAxisAlignment:
                                         MainAxisAlignment.center,
@@ -6013,7 +6014,7 @@ class _MyHomePageState extends State<MyHomePage>
                               await handleRefresh(_currentIndex);
                               _refreshController.refreshCompleted();
                             },
-                            child: Stack(children: <Widget>[
+                            child:
                               ListView.builder(
                                   padding: const EdgeInsets.all(8),
                                   itemCount: bdgList.length + 1,
@@ -7046,7 +7047,7 @@ class _MyHomePageState extends State<MyHomePage>
                                       _showLoadWidget()
                                           : Container(),],);
                                     })
-                            ],)),
+                            ),
                       ]),
                     ),
                   )
