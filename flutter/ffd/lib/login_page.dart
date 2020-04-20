@@ -147,7 +147,8 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image(image: AssetImage("assets/register_ffd.png"), height: 35.0),
+            //Image(image: AssetImage("assets/register_ffd.png"), height: 35.0),
+            Icon(Icons.add_box, size: 35,),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
@@ -190,7 +191,8 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image(image: AssetImage("assets/register_ffd.png"), height: 35.0),
+            //Image(image: AssetImage("assets/register_ffd.png"), height: 35.0),
+            Icon(Icons.input, size: 35,),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
