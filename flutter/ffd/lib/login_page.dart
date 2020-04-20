@@ -36,6 +36,12 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              ClipRRect(
+                borderRadius: BorderRadius.circular(30.0),
+                child: Image(image: AssetImage("assets/register_ffd.png"), height: 100.0, ),
+              ),
+
+              SizedBox(height: 50,),
               Text(
                 AppLocalizations.of(
                     context)
