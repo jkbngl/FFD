@@ -11,6 +11,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
+
+  final emailTextFieldController = TextEditingController();
+  final passwordTextFieldController = TextEditingController();
+
   @override
   void initState() {
 
@@ -40,8 +44,35 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.circular(30.0),
                 child: Image(image: AssetImage("assets/register_ffd.png"), height: 100.0, ),
               ),
+              TextFormField(
+              // The validator receives the text that the user has entered.
+                controller:
+                emailTextFieldController,
+                decoration: const InputDecoration(
+                  labelText: 'E-Mail',
+                ),
 
-              SizedBox(height: 50,),
+                validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+            ),
+              TextFormField(
+                obscureText: true,
+                controller:
+                passwordTextFieldController,
+                decoration: const InputDecoration(
+                  labelText: 'Password',
+                ),
+                validator: (String value) {
+                  if (value.trim().isEmpty) {
+                    return 'Password is required';
+                  }
+                },
+              ),
+              /*SizedBox(height: 50,),
               Text(
                 AppLocalizations.of(
                     context)
@@ -55,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                     fontStyle: FontStyle.italic,
                     fontFamily: 'Open Sans',
                     fontSize: 40),
-              ),
+              ),*/
               SizedBox(height: 50),
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -134,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
     return OutlineButton(
       splashColor: Colors.grey,
       onPressed: () {
-        signUp('jakob.engl@hotmail.de', 'test1234!').whenComplete(() {
+        signUp(emailTextFieldController.text, passwordTextFieldController.text).whenComplete(() {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
@@ -178,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
     return OutlineButton(
       splashColor: Colors.grey,
       onPressed: () {
-        signIn('jakob.engl@hotmail.de', 'test1234!').whenComplete(() {
+        signIn(emailTextFieldController.text, passwordTextFieldController.text).whenComplete(() {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {

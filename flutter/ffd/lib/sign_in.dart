@@ -11,6 +11,9 @@ String email;
 String imageUrl;
 String token;
 
+String emailPasswordLoginEmail;
+String emailPasswordLoginPassword;
+
 AuthCredential credential = null;
 
 Future<String> signInWithGoogle() async {
@@ -46,6 +49,11 @@ Future<String> signInWithGoogle() async {
 }
 
 Future<String> signUp(String email, String password) async {
+
+  // Store them in a variable so they can be used by getToken
+  emailPasswordLoginEmail = email;
+  emailPasswordLoginPassword = password;
+
   AuthResult result = await _auth.createUserWithEmailAndPassword(
       email: email, password: password);
   FirebaseUser user = result.user;
@@ -53,6 +61,11 @@ Future<String> signUp(String email, String password) async {
 }
 
 Future<String> signIn(String email, String password) async {
+
+  // Store them in a variable so they can be used by getToken
+  emailPasswordLoginEmail = email;
+  emailPasswordLoginPassword = password;
+
   AuthResult result =
       await _auth.signInWithEmailAndPassword(email: email, password: password);
   FirebaseUser user = result.user;
@@ -66,7 +79,7 @@ void getToken() async {
     authResult = await _auth.signInWithCredential(credential);
   } else {
     authResult = await _auth.signInWithEmailAndPassword(
-        email: 'jakob.engl@hotmail.de', password: 'test1234!');
+        email: emailPasswordLoginEmail, password: emailPasswordLoginPassword);
   }
 
   final FirebaseUser user = authResult.user;
