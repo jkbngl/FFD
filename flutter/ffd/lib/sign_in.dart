@@ -80,7 +80,7 @@ Future<String> signIn(String email, String password) async {
     token = value.token.toString();
     print(token);
   });
-  
+
   return user.uid;
 }
 
@@ -110,8 +110,11 @@ getToken() async {
   });
 }
 
-void signOutGoogle() async {
+void signOut() async {
+  await _auth.signOut();
   await googleSignIn.signOut();
+
+  credential = null;
 
   print("User Sign Out");
 }

@@ -2193,7 +2193,7 @@ class _MyHomePageState extends State<MyHomePage>
             SizedBox(height: 40),
             RaisedButton(
               onPressed: () {
-                signOutGoogle();
+                signOut();
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) {
                       return LoginPage();
@@ -2261,7 +2261,7 @@ class _MyHomePageState extends State<MyHomePage>
               onPressed: () {
                 errorDialogActive = false;
 
-                signOutGoogle();
+                signOut();
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) {
                       return LoginPage();
@@ -3042,7 +3042,7 @@ class _MyHomePageState extends State<MyHomePage>
                       child: new Text(AppLocalizations.of(context).translate(
                           'confirm')),
                       onPressed: () {
-                        signOutGoogle();
+                        signOut();
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(builder: (context) {
                               return LoginPage();

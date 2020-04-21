@@ -402,7 +402,7 @@ class FirstScreen extends StatelessWidget {
               ),
               RaisedButton(
                 onPressed: () {
-                  signOutGoogle();
+                  signOut();
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) {
                     return LoginPage();
