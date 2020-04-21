@@ -44,33 +44,105 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.circular(30.0),
                 child: Image(image: AssetImage("assets/register_ffd.png"), height: 100.0, ),
               ),
-              TextFormField(
-              // The validator receives the text that the user has entered.
-                controller:
-                emailTextFieldController,
-                decoration: const InputDecoration(
-                  labelText: 'E-Mail',
+              Container(
+                padding: const EdgeInsets
+                    .only(
+                    left: 30.0,
+                    top: 0,
+                    right: 30,
+                    bottom: 0),
+                //color: Colors.blue[600],
+                alignment: Alignment
+                    .center,
+                //child: Text('Submit'),
+                child: TextFormField(
+                  keyboardType:
+                  TextInputType
+                      .number,
+                  //keyboard with numbers only will appear to the screen
+                  style: TextStyle(
+                      height: 2),
+                  //increases the height of cursor
+                  //autofocus: true,
+                  controller:
+                  emailTextFieldController,
+                  decoration: InputDecoration(
+                    // hintText: 'Enter ur amount',
+                    //hintStyle: TextStyle(height: 1.75),
+                      labelText: AppLocalizations
+                          .of(
+                          context)
+                          .translate(
+                          'email'),
+                      labelStyle: TextStyle(
+                          height: 0.5,
+                          color: Color(
+                              0xff003680)),
+                      //increases the height of cursor
+                      icon: Icon(
+                        Icons
+                            .mail,
+                        color: Color(
+                            0xff003680),
+                      ),
+                      //prefixIcon: Icon(Icons.attach_money),
+                      //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                      enabledBorder:
+                      new UnderlineInputBorder(
+                          borderSide:
+                          new BorderSide(
+                              color: Color(
+                                  0xff003680)))),
                 ),
-
-                validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-            ),
-              TextFormField(
-                obscureText: true,
-                controller:
-                passwordTextFieldController,
-                decoration: const InputDecoration(
-                  labelText: 'Password',
+              ),
+              Container(
+                padding: const EdgeInsets
+                    .only(
+                    left: 30.0,
+                    top: 0,
+                    right: 30,
+                    bottom: 0),
+                //color: Colors.blue[600],
+                alignment: Alignment
+                    .center,
+                //child: Text('Submit'),
+                child: TextFormField(
+                  //keyboard with numbers only will appear to the screen
+                  style: TextStyle(
+                      height: 2),
+                  //increases the height of cursor
+                  //autofocus: true,
+                  obscureText: true,
+                  controller:
+                  passwordTextFieldController,
+                  decoration: InputDecoration(
+                    // hintText: 'Enter ur amount',
+                    //hintStyle: TextStyle(height: 1.75),
+                      labelText: AppLocalizations
+                          .of(
+                          context)
+                          .translate(
+                          'password'),
+                      labelStyle: TextStyle(
+                          height: 0.5,
+                          color: Color(
+                              0xff003680)),
+                      //increases the height of cursor
+                      icon: Icon(
+                        Icons
+                            .security,
+                        color: Color(
+                            0xff003680),
+                      ),
+                      //prefixIcon: Icon(Icons.attach_money),
+                      //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                      enabledBorder:
+                      new UnderlineInputBorder(
+                          borderSide:
+                          new BorderSide(
+                              color: Color(
+                                  0xff003680)))),
                 ),
-                validator: (String value) {
-                  if (value.trim().isEmpty) {
-                    return 'Password is required';
-                  }
-                },
               ),
               /*SizedBox(height: 50,),
               Text(

@@ -111,6 +111,8 @@
   "signInGoogleText" : "Accedi con Google",
   "registerUser" : "Registrati",
   "loginUser" : "Login",
+  "email" : "E-mail",
+  "password" : "password",
   "noDataFoundText": "Nessun dato trovato \nper:",
   "willBeAddedAsAChildOf": "sarà aggiunto come figlio di",
   "errorInputToBigSchedule": "Si prega di inserire un numero inferiore a 99 per la quantità di registrazioni",

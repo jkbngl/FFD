@@ -111,6 +111,8 @@
   "signInGoogleText" : "Iniciar sesión con Google",
   "registerUser" : "Registrarse",
   "loginUser" : "Ingresa en",
+  "email" : "Correo electrónico",
+  "password" : "Contraseña",
   "noDataFoundText": "No se encontraron datos para:",
   "willBeAddedAsAChildOf": "se añadirá como un hijo de",
   "errorInputToBigSchedule": "Por favor, introduzca un número menor de 99 para la cantidad de entradas",

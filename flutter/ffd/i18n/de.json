@@ -111,6 +111,8 @@
   "signInGoogleText" : "Mit Google Anmelden",
   "registerUser" : "Registrieren",
   "loginUser" : "Anmeldung",
+  "email" : "E-Mail",
+  "password" : "Kennwort",
   "noDataFoundText": "Keine Daten gefunden\nfür:",
   "willBeAddedAsAChildOf": "wird hinzugefügt als Unteraccount von",
   "errorInputToBigSchedule": "Bitte geben Sie eine Zahl kleiner als 99 für die Anzahl der Einträge ein",

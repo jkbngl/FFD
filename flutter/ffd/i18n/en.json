@@ -110,6 +110,8 @@
   "signInGoogleText" : "Sign in with Google",
   "registerUser" : "Register",
   "loginUser" : "Login",
+  "email" : "Email",
+  "password" : "Password",
   "noDataFoundText": "No Data found \nfor:",
   "willBeAddedAsAChildOf": "will be added as a child of",
   "errorInputToBigSchedule": "Please enter a number smaller than 99 for the amount of entries",

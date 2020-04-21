@@ -110,6 +110,8 @@
   "signInGoogleText" : "Se connecter avec Google",
   "registerUser" : "S'inscrire",
   "loginUser" : "Connexion",
+  "email" : "Courriel",
+  "password" : "mot de passe",
   "noDataFoundText" : "Aucune donnée trouvée",
   "willBeAddedAsAChildOf" : "sera ajouté en tant qu'enfant de",
   "errorInputToBigSchedule": "Veuillez saisir un nombre inférieur à 99 pour le nombre d'entrées",
