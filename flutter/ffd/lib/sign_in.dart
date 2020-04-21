@@ -57,6 +57,12 @@ Future<String> signUp(String email, String password) async {
   AuthResult result = await _auth.createUserWithEmailAndPassword(
       email: email, password: password);
   FirebaseUser user = result.user;
+
+  user.getIdToken(refresh: true).then((value) {
+    token = value.token.toString();
+    print(token);
+  });
+
   return user.uid;
 }
 
@@ -69,10 +75,16 @@ Future<String> signIn(String email, String password) async {
   AuthResult result =
       await _auth.signInWithEmailAndPassword(email: email, password: password);
   FirebaseUser user = result.user;
+
+  user.getIdToken(refresh: true).then((value) {
+    token = value.token.toString();
+    print(token);
+  });
+  
   return user.uid;
 }
 
-void getToken() async {
+getToken() async {
   AuthResult authResult = null;
 
   if (credential != null) {
@@ -84,12 +96,14 @@ void getToken() async {
 
   final FirebaseUser user = authResult.user;
 
-  name = user.displayName;
-  email = user.email;
-  imageUrl = user.photoUrl;
+  name = user.displayName != null ? user.displayName : user.email.split('@')[0];
+  email = user.email != null ? user.email : emailPasswordLoginEmail;
+  imageUrl = user.photoUrl != null ? user.photoUrl : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Microsoft_Account.svg/512px-Microsoft_Account.svg.png';
 
   user.getIdToken(refresh: true).then((value) {
     token = value.token.toString();
+
+    print("marilerino: ${user.email}");
     print(token);
 
     return token;

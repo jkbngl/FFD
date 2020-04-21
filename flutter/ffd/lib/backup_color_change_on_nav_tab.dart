@@ -579,6 +579,10 @@ class _MyHomePageState extends State<MyHomePage>
       "accesstoken": token,
     };
 
+    print("-----------------------------------------");
+    print(token);
+    print("-----------------------------------------");
+
     try {
       var user = await http.read(uri, headers: params);
       print(user);

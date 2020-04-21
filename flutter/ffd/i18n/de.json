@@ -112,6 +112,7 @@
   "registerUser" : "Registrieren",
   "loginUser" : "Anmeldung",
   "email" : "E-Mail",
+  "name" : "Name",
   "password" : "Kennwort",
   "noDataFoundText": "Keine Daten gefunden\nfür:",
   "willBeAddedAsAChildOf": "wird hinzugefügt als Unteraccount von",

@@ -10,13 +10,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
-
   final emailTextFieldController = TextEditingController();
   final passwordTextFieldController = TextEditingController();
 
   @override
   void initState() {
+
+    emailTextFieldController.text = 'jakob.engl@gknpm.com';
+    passwordTextFieldController.text = 'test123456789';
 
     // 161
     /*signInWithGoogle().whenComplete(() {
@@ -33,159 +34,133 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.white,
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              ClipRRect(
-                borderRadius: BorderRadius.circular(30.0),
-                child: Image(image: AssetImage("assets/register_ffd.png"), height: 100.0, ),
-              ),
-              Container(
-                padding: const EdgeInsets
-                    .only(
-                    left: 30.0,
-                    top: 0,
-                    right: 30,
-                    bottom: 0),
-                //color: Colors.blue[600],
-                alignment: Alignment
-                    .center,
-                //child: Text('Submit'),
-                child: TextFormField(
-                  keyboardType:
-                  TextInputType
-                      .number,
-                  //keyboard with numbers only will appear to the screen
-                  style: TextStyle(
-                      height: 2),
-                  //increases the height of cursor
-                  //autofocus: true,
-                  controller:
-                  emailTextFieldController,
-                  decoration: InputDecoration(
-                    // hintText: 'Enter ur amount',
-                    //hintStyle: TextStyle(height: 1.75),
-                      labelText: AppLocalizations
-                          .of(
-                          context)
-                          .translate(
-                          'email'),
-                      labelStyle: TextStyle(
-                          height: 0.5,
-                          color: Color(
-                              0xff003680)),
-                      //increases the height of cursor
-                      icon: Icon(
-                        Icons
-                            .mail,
-                        color: Color(
-                            0xff003680),
-                      ),
-                      //prefixIcon: Icon(Icons.attach_money),
-                      //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                      enabledBorder:
-                      new UnderlineInputBorder(
-                          borderSide:
-                          new BorderSide(
-                              color: Color(
-                                  0xff003680)))),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets
-                    .only(
-                    left: 30.0,
-                    top: 0,
-                    right: 30,
-                    bottom: 0),
-                //color: Colors.blue[600],
-                alignment: Alignment
-                    .center,
-                //child: Text('Submit'),
-                child: TextFormField(
-                  //keyboard with numbers only will appear to the screen
-                  style: TextStyle(
-                      height: 2),
-                  //increases the height of cursor
-                  //autofocus: true,
-                  obscureText: true,
-                  controller:
-                  passwordTextFieldController,
-                  decoration: InputDecoration(
-                    // hintText: 'Enter ur amount',
-                    //hintStyle: TextStyle(height: 1.75),
-                      labelText: AppLocalizations
-                          .of(
-                          context)
-                          .translate(
-                          'password'),
-                      labelStyle: TextStyle(
-                          height: 0.5,
-                          color: Color(
-                              0xff003680)),
-                      //increases the height of cursor
-                      icon: Icon(
-                        Icons
-                            .security,
-                        color: Color(
-                            0xff003680),
-                      ),
-                      //prefixIcon: Icon(Icons.attach_money),
-                      //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                      enabledBorder:
-                      new UnderlineInputBorder(
-                          borderSide:
-                          new BorderSide(
-                              color: Color(
-                                  0xff003680)))),
-                ),
-              ),
-              /*SizedBox(height: 50,),
-              Text(
-                AppLocalizations.of(
-                    context)
-                    .translate(
-                    'loginText'),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    color: Colors.grey[800],
-                    fontWeight: FontWeight.w900,
-                    fontStyle: FontStyle.italic,
-                    fontFamily: 'Open Sans',
-                    fontSize: 40),
-              ),*/
-              SizedBox(height: 50),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.monetization_on, color: Colors.grey[800]),
-                    Text(
-                      ' vs. ',
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          color: Colors.grey[800],
-                          fontWeight: FontWeight.w900,
-                          fontStyle: FontStyle.italic,
-                          fontFamily: 'Open Sans',
-                          fontSize: 30),
-                    ),
-                    Icon(Icons.account_balance_wallet, color: Colors.grey[800])
-                  ]),
-              SizedBox(height: 50),
-              //CircularProgressIndicator(backgroundColor: Colors.grey[800],),
-              _signInButton(),
-              _registerButton(),
-              _loginButton(),
-            ],
+      body: CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            child: LayoutBuilder(
+              builder: (context, constraint) {
+                return SingleChildScrollView(
+                    child: ConstrainedBox(
+                        constraints:
+                            BoxConstraints(minHeight: constraint.maxHeight),
+                        child: IntrinsicHeight(
+                          child: Stack(children: <Widget>[
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.max,
+                              children: <Widget>[
+                                Container(
+                                  color: Colors.white,
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                          child: Image(
+                                            image: AssetImage(
+                                                "assets/register_ffd.png"),
+                                            height: 100.0,
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.only(
+                                              left: 30.0,
+                                              top: 0,
+                                              right: 30,
+                                              bottom: 0),
+                                          //color: Colors.blue[600],
+                                          alignment: Alignment.center,
+                                          //child: Text('Submit'),
+                                          child: TextFormField(
+                                            style: TextStyle(height: 2),
+                                            controller:
+                                                emailTextFieldController,
+                                            decoration: InputDecoration(
+                                                // hintText: 'Enter ur amount',
+                                                //hintStyle: TextStyle(height: 1.75),
+                                                labelText:
+                                                    AppLocalizations.of(context)
+                                                        .translate('email'),
+                                                labelStyle: TextStyle(
+                                                    height: 0.5,
+                                                    color: Color(0xff003680)),
+                                                //increases the height of cursor
+                                                icon: Icon(
+                                                  Icons.mail,
+                                                  color: Color(0xff003680),
+                                                ),
+                                                //prefixIcon: Icon(Icons.attach_money),
+                                                //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                enabledBorder:
+                                                    new UnderlineInputBorder(
+                                                        borderSide: new BorderSide(
+                                                            color: Color(
+                                                                0xff003680)))),
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.only(
+                                              left: 30.0,
+                                              top: 0,
+                                              right: 30,
+                                              bottom: 0),
+                                          //color: Colors.blue[600],
+                                          alignment: Alignment.center,
+                                          //child: Text('Submit'),
+                                          child: TextFormField(
+                                            //keyboard with numbers only will appear to the screen
+                                            style: TextStyle(height: 2),
+                                            //increases the height of cursor
+                                            //autofocus: true,
+                                            obscureText: true,
+                                            controller:
+                                                passwordTextFieldController,
+                                            decoration: InputDecoration(
+                                                // hintText: 'Enter ur amount',
+                                                //hintStyle: TextStyle(height: 1.75),
+                                                labelText:
+                                                    AppLocalizations.of(context)
+                                                        .translate('password'),
+                                                labelStyle: TextStyle(
+                                                    height: 0.5,
+                                                    color: Color(0xff003680)),
+                                                //increases the height of cursor
+                                                icon: Icon(
+                                                  Icons.security,
+                                                  color: Color(0xff003680),
+                                                ),
+                                                //prefixIcon: Icon(Icons.attach_money),
+                                                //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                enabledBorder:
+                                                    new UnderlineInputBorder(
+                                                        borderSide: new BorderSide(
+                                                            color: Color(
+                                                                0xff003680)))),
+                                          ),
+                                        ),
+                                        SizedBox(height: 50),
+                                        _signInButton(),
+                                        SizedBox(height: 10),
+                                        _registerButton(),
+                                        SizedBox(height: 10),
+                                        _loginButton(),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ]),
+                        )));
+              },
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -217,10 +192,7 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
-                  AppLocalizations.of(
-                      context)
-                      .translate(
-                      'signInGoogleText'),
+                AppLocalizations.of(context).translate('signInGoogleText'),
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.grey,
@@ -237,7 +209,8 @@ class _LoginPageState extends State<LoginPage> {
     return OutlineButton(
       splashColor: Colors.grey,
       onPressed: () {
-        signUp(emailTextFieldController.text, passwordTextFieldController.text).whenComplete(() {
+        signUp(emailTextFieldController.text, passwordTextFieldController.text)
+            .whenComplete(() {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
@@ -257,14 +230,14 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             //Image(image: AssetImage("assets/register_ffd.png"), height: 35.0),
-            Icon(Icons.add_box, size: 35,),
+            Icon(
+              Icons.add_box,
+              size: 35,
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
-                AppLocalizations.of(
-                    context)
-                    .translate(
-                    'registerUser'),
+                AppLocalizations.of(context).translate('registerUser'),
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.grey,
@@ -281,7 +254,8 @@ class _LoginPageState extends State<LoginPage> {
     return OutlineButton(
       splashColor: Colors.grey,
       onPressed: () {
-        signIn(emailTextFieldController.text, passwordTextFieldController.text).whenComplete(() {
+        signIn(emailTextFieldController.text, passwordTextFieldController.text)
+            .whenComplete(() {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
@@ -301,14 +275,14 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             //Image(image: AssetImage("assets/register_ffd.png"), height: 35.0),
-            Icon(Icons.input, size: 35,),
+            Icon(
+              Icons.input,
+              size: 35,
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
-                AppLocalizations.of(
-                    context)
-                    .translate(
-                    'loginUser'),
+                AppLocalizations.of(context).translate('loginUser'),
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.grey,

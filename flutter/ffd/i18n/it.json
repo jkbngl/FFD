@@ -112,6 +112,7 @@
   "registerUser" : "Registrati",
   "loginUser" : "Login",
   "email" : "E-mail",
+  "name" : "Nome",
   "password" : "password",
   "noDataFoundText": "Nessun dato trovato \nper:",
   "willBeAddedAsAChildOf": "sarà aggiunto come figlio di",

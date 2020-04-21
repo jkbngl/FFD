@@ -111,6 +111,7 @@
   "registerUser" : "S'inscrire",
   "loginUser" : "Connexion",
   "email" : "Courriel",
+  "name" : "Nom",
   "password" : "mot de passe",
   "noDataFoundText" : "Aucune donnée trouvée",
   "willBeAddedAsAChildOf" : "sera ajouté en tant qu'enfant de",

@@ -87,6 +87,7 @@
   "happyText" : "We are so happy to hear :)",
   "sadText" : "We're sad to hear :(",
   "email" : "Email",
+  "name" : "Name",
   "signOut" : "Sign Out",
   "error" : "ERROR",
   "warning" : "Warning",

@@ -112,6 +112,7 @@
   "registerUser" : "Registrarse",
   "loginUser" : "Ingresa en",
   "email" : "Correo electrónico",
+  "name" : "Nombre",
   "password" : "Contraseña",
   "noDataFoundText": "No se encontraron datos para:",
   "willBeAddedAsAChildOf": "se añadirá como un hijo de",
