@@ -2107,9 +2107,9 @@ class _MyHomePageState extends State<MyHomePage>
                     ],
                   ),
                   CircleAvatar(
-                    backgroundImage: NetworkImage(
+                    backgroundImage: imageUrl != null ? NetworkImage(
                       imageUrl,
-                    ),
+                    ) : AssetImage("assets/user.png"),
                     radius: 60,
                     backgroundColor: Colors.transparent,
                   ),

@@ -68,9 +68,7 @@ Future<String> signUp(String email, String password) async {
     name =
         user.displayName != null ? user.displayName : user.email.split('@')[0];
     email = user.email != null ? user.email : emailPasswordLoginEmail;
-    imageUrl = user.photoUrl != null
-        ? user.photoUrl
-        : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Microsoft_Account.svg/512px-Microsoft_Account.svg.png';
+    imageUrl = user.photoUrl;
 
     user.getIdToken(refresh: true).then((value) {
       token = value.token.toString();
@@ -90,6 +88,7 @@ Future<String> signIn(String email, String password) async {
 
   final prefs = await SharedPreferences.getInstance();
   prefs.setString('mail', email);
+  prefs.setString('password', password);
 
   try {
     AuthResult result = await _auth.signInWithEmailAndPassword(
@@ -99,9 +98,7 @@ Future<String> signIn(String email, String password) async {
     name =
         user.displayName != null ? user.displayName : user.email.split('@')[0];
     email = user.email != null ? user.email : emailPasswordLoginEmail;
-    imageUrl = user.photoUrl != null
-        ? user.photoUrl
-        : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Microsoft_Account.svg/512px-Microsoft_Account.svg.png';
+    imageUrl = user.photoUrl;
 
     user.getIdToken(refresh: true).then((value) {
       token = value.token.toString();
@@ -128,9 +125,7 @@ getToken() async {
 
   name = user.displayName != null ? user.displayName : user.email.split('@')[0];
   email = user.email != null ? user.email : emailPasswordLoginEmail;
-  imageUrl = user.photoUrl != null
-      ? user.photoUrl
-      : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Microsoft_Account.svg/512px-Microsoft_Account.svg.png';
+  imageUrl = user.photoUrl;
 
   user.getIdToken(refresh: true).then((value) {
     token = value.token.toString();
