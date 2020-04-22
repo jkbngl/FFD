@@ -123,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                                         Container(
                                             padding: const EdgeInsets.only(
                                                 left: 30.0,
-                                                top: 0,
+                                                top: 20,
                                                 right: 30,
                                                 bottom: 0),
                                             //color: Colors.blue[600],
@@ -228,7 +228,7 @@ class _LoginPageState extends State<LoginPage> {
                                                           new Icon(Icons.clear))
                                                 ])),
                                         SizedBox(
-                                          height: 30,
+                                          height: 10,
                                         ),
                                         Row(children: <Widget>[
                                           Container(
@@ -254,11 +254,11 @@ class _LoginPageState extends State<LoginPage> {
                                               .translate(
                                               'remainSignedIn'), style: TextStyle(fontSize: 20),)
                                         ]),
-                                        SizedBox(height: 50),
+                                        SizedBox(height: 20),
                                         _registerButton(),
                                         SizedBox(height: 10),
                                         _loginButton(),
-                                        SizedBox(height: 50),
+                                        SizedBox(height: 30),
                                         _signInButton(),
                                       ],
                                     ),
