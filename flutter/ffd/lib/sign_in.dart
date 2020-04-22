@@ -1,7 +1,5 @@
-import 'package:charts_flutter/flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'backup_color_change_on_nav_tab.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -36,6 +34,8 @@ Future<String> signInWithGoogle() async {
   user.getIdToken(refresh: true).then((value) {
     token = value.token.toString();
     print(token);
+
+    return 'SUCCESS'; // Must be called exactly SUCCESS do not change, is used for validating
   });
 
   assert(!user.isAnonymous);
@@ -70,13 +70,9 @@ Future<String> signUp(String email, String password) async {
       return token;
     });
 
-    return user.uid;
+    return 'SUCCESS'; // Must be called exactly SUCCESS do not change, is used for validating
   } catch (e) {
-    print(e.code);
-    print(e);
-    print(e.toString());
-    print(e.runtimeType);
-    print(e.hashCode);
+    return e.code;
   }
 }
 
@@ -102,13 +98,9 @@ Future<String> signIn(String email, String password) async {
       return token;
     });
 
-    return user.uid;
+    return 'SUCCESS'; // Must be called exactly SUCCESS do not change, is used for validating
   } catch (e) {
-    print(e.code);
-    print(e);
-    print(e.toString());
-    print(e.runtimeType);
-    print(e.hashCode);
+    return e.code;
   }
 }
 

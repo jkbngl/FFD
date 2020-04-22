@@ -39,6 +39,57 @@ class _LoginPageState extends State<LoginPage> {
     });*/
   }
 
+  loginError(e)
+  {
+    showDialog(
+      context: context,
+      builder: (context) =>
+      new AlertDialog(
+        title: Text(
+          "${AppLocalizations.of(context).translate('error')} - ${e
+              .runtimeType}",
+          style: TextStyle(
+              color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        content: RichText(
+          text: TextSpan(
+              text:
+              AppLocalizations.of(context).translate('errorMessage'),
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 15,
+              ),
+              children: <TextSpan>[
+                TextSpan(
+                  text: '\n\n$e',
+                  style: TextStyle(color: Colors.red, fontSize: 10),
+                )
+              ]),
+        ),
+        actions: <Widget>[
+          new FlatButton(
+            child: new Text(
+                AppLocalizations.of(context).translate('dismissDialog')),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          new FlatButton(
+            child: new Text(
+                AppLocalizations.of(context).translate('signOut')),
+            onPressed: () {
+              signOut();
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) {
+                    return LoginPage();
+                  }), ModalRoute.withName('/'));
+            },
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -218,14 +269,20 @@ class _LoginPageState extends State<LoginPage> {
       splashColor: Colors.grey,
       onPressed: () {
         signUp(emailTextFieldController.text, passwordTextFieldController.text)
-            .whenComplete(() {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return MyHomePage();
-              },
-            ),
-          );
+            .then((result) {
+
+          if(result == 'SUCCESS')
+          {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return MyHomePage();
+                },
+              ),
+            );
+          } else {
+            loginError(result);
+          }
         });
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
@@ -263,14 +320,22 @@ class _LoginPageState extends State<LoginPage> {
       splashColor: Colors.grey,
       onPressed: () {
         signIn(emailTextFieldController.text, passwordTextFieldController.text)
-            .whenComplete(() {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return MyHomePage();
-              },
-            ),
-          );
+            .then((result) {
+
+            print("Test in handle: $result");
+
+            if(result == 'SUCCESS')
+            {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return MyHomePage();
+                  },
+                ),
+              );
+            } else {
+              loginError(result);
+            }
         });
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
