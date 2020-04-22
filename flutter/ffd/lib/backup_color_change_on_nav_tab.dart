@@ -3030,8 +3030,8 @@ class _MyHomePageState extends State<MyHomePage>
                 new AlertDialog(
                   title: Text(AppLocalizations.of(context).translate(
                       'areYouSureDialog')),
-                  content: new Text(
-                      AppLocalizations.of(context).translate('confirmLogout')),
+                  content: new Text("${
+                      AppLocalizations.of(context).translate('confirmLogout')}?"),
                   actions: <Widget>[
                     new FlatButton(
                       child: new Text(AppLocalizations.of(context).translate(
@@ -3040,7 +3040,7 @@ class _MyHomePageState extends State<MyHomePage>
                     ),
                     new FlatButton(
                       child: new Text(AppLocalizations.of(context).translate(
-                          'confirm')),
+                          'confirmLogout')),
                       onPressed: () {
                         signOut();
                         Navigator.of(context).pushAndRemoveUntil(
