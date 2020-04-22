@@ -13,7 +13,15 @@ class _LoginPageState extends State<LoginPage> {
   final emailTextFieldController = TextEditingController();
   final passwordTextFieldController = TextEditingController();
 
-  @override
+  bool emailValidator(email) {
+    return RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(email);
+  }
+
+
+
+@override
   void initState() {
 
     emailTextFieldController.text = 'jakob.engl@gknpm.com';
@@ -131,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                                                     color: Color(0xff003680)),
                                                 //increases the height of cursor
                                                 icon: Icon(
-                                                  Icons.security,
+                                                  Icons.lock,
                                                   color: Color(0xff003680),
                                                 ),
                                                 //prefixIcon: Icon(Icons.attach_money),
