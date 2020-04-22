@@ -89,6 +89,7 @@
   "sadText" : "nombre",
   "email" : "Correo electrónico",
   "signOut" : "Firme la salida",
+  "remainSignedIn" : "Sigue firmando en",
   "error": "ERROR",
   "warning" : "Advertencia",
   "errorMessage" : "Asegúrate de que tienes una conexión a Internet activa, e intenta desconectarte y volver a conectarte",

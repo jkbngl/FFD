@@ -88,6 +88,7 @@
   "sadText" : "Nous sommes tristes d'entendre :(",
   "email" : "Courriel",
   "signOut" : "Déconnexion",
+  "remainSignedIn" : "Restez connecté",
   "error" : "ERREUR",
   "warning" : "Avertissement",
   "errorMessage" : "Assurez-vous que vous avez une connexion internet active, et essayez de vous déconnecter et de vous reconnecter",

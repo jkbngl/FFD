@@ -14,24 +14,25 @@ class _LoginPageState extends State<LoginPage> {
   final emailTextFieldController = TextEditingController();
   final passwordTextFieldController = TextEditingController();
 
+  bool saveValues = true;
+
   bool emailValidator(email) {
     return RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(email);
   }
 
-readValue() async {
+  readValue() async {
     final prefs = await SharedPreferences.getInstance();
     final mail = prefs.get('mail') ?? '';
     final password = prefs.get('password') ?? '';
 
-    emailTextFieldController.text =  mail;
-    passwordTextFieldController.text =  password;
-}
+    emailTextFieldController.text = mail;
+    passwordTextFieldController.text = password;
+  }
 
-@override
+  @override
   void initState() {
-
     readValue();
     //passwordTextFieldController.text = '';
 
@@ -47,12 +48,10 @@ readValue() async {
     });*/
   }
 
-  loginError(e)
-  {
+  loginError(e) {
     showDialog(
       context: context,
-      builder: (context) =>
-      new AlertDialog(
+      builder: (context) => new AlertDialog(
         title: Text(
           "${AppLocalizations.of(context).translate('error')}",
           style: TextStyle(
@@ -60,8 +59,7 @@ readValue() async {
         ),
         content: RichText(
           text: TextSpan(
-              text:
-              AppLocalizations.of(context).translate('errorMessage'),
+              text: AppLocalizations.of(context).translate('errorMessage'),
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 15,
@@ -123,81 +121,139 @@ readValue() async {
                                           ),
                                         ),
                                         Container(
-                                          padding: const EdgeInsets.only(
-                                              left: 30.0,
-                                              top: 0,
-                                              right: 30,
-                                              bottom: 0),
-                                          //color: Colors.blue[600],
-                                          alignment: Alignment.center,
-                                          //child: Text('Submit'),
-                                          child: TextFormField(
-                                            style: TextStyle(height: 2),
-                                            controller:
-                                                emailTextFieldController,
-                                            decoration: InputDecoration(
-                                                // hintText: 'Enter ur amount',
-                                                //hintStyle: TextStyle(height: 1.75),
-                                                labelText:
-                                                    AppLocalizations.of(context)
-                                                        .translate('email'),
-                                                labelStyle: TextStyle(
-                                                    height: 0.5,
-                                                    color: Color(0xff003680)),
-                                                //increases the height of cursor
-                                                icon: Icon(
-                                                  Icons.mail,
-                                                  color: Color(0xff003680),
-                                                ),
-                                                //prefixIcon: Icon(Icons.attach_money),
-                                                //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                                enabledBorder:
-                                                    new UnderlineInputBorder(
-                                                        borderSide: new BorderSide(
+                                            padding: const EdgeInsets.only(
+                                                left: 30.0,
+                                                top: 0,
+                                                right: 30,
+                                                bottom: 0),
+                                            //color: Colors.blue[600],
+                                            alignment: Alignment.center,
+                                            //child: Text('Submit'),
+                                            child: Stack(
+                                                alignment:
+                                                    const Alignment(1.0, 1.0),
+                                                children: <Widget>[
+                                                  TextFormField(
+                                                    style: TextStyle(height: 2),
+                                                    controller:
+                                                        emailTextFieldController,
+                                                    decoration: InputDecoration(
+                                                        // hintText: 'Enter ur amount',
+                                                        //hintStyle: TextStyle(height: 1.75),
+                                                        labelText:
+                                                            AppLocalizations.of(
+                                                                    context)
+                                                                .translate(
+                                                                    'email'),
+                                                        labelStyle: TextStyle(
+                                                            height: 0.5,
                                                             color: Color(
-                                                                0xff003680)))),
-                                          ),
-                                        ),
+                                                                0xff003680)),
+                                                        //increases the height of cursor
+                                                        icon: Icon(
+                                                          Icons.mail,
+                                                          color:
+                                                              Color(0xff003680),
+                                                        ),
+                                                        //prefixIcon: Icon(Icons.attach_money),
+                                                        //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                        enabledBorder:
+                                                            new UnderlineInputBorder(
+                                                                borderSide:
+                                                                    new BorderSide(
+                                                                        color: Color(
+                                                                            0xff003680)))),
+                                                  ),
+                                                  new FlatButton(
+                                                      onPressed: () {
+                                                        emailTextFieldController
+                                                            .clear();
+                                                      },
+                                                      child:
+                                                          new Icon(Icons.clear))
+                                                ])),
                                         Container(
-                                          padding: const EdgeInsets.only(
-                                              left: 30.0,
-                                              top: 0,
-                                              right: 30,
-                                              bottom: 0),
-                                          //color: Colors.blue[600],
-                                          alignment: Alignment.center,
-                                          //child: Text('Submit'),
-                                          child: TextFormField(
-                                            //keyboard with numbers only will appear to the screen
-                                            style: TextStyle(height: 2),
-                                            //increases the height of cursor
-                                            //autofocus: true,
-                                            obscureText: true,
-                                            controller:
-                                                passwordTextFieldController,
-                                            decoration: InputDecoration(
-                                                // hintText: 'Enter ur amount',
-                                                //hintStyle: TextStyle(height: 1.75),
-                                                labelText:
-                                                    AppLocalizations.of(context)
-                                                        .translate('password'),
-                                                labelStyle: TextStyle(
-                                                    height: 0.5,
-                                                    color: Color(0xff003680)),
-                                                //increases the height of cursor
-                                                icon: Icon(
-                                                  Icons.lock,
-                                                  color: Color(0xff003680),
-                                                ),
-                                                //prefixIcon: Icon(Icons.attach_money),
-                                                //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                                enabledBorder:
-                                                    new UnderlineInputBorder(
-                                                        borderSide: new BorderSide(
+                                            padding: const EdgeInsets.only(
+                                                left: 30.0,
+                                                top: 0,
+                                                right: 30,
+                                                bottom: 0),
+                                            //color: Colors.blue[600],
+                                            alignment: Alignment.center,
+                                            //child: Text('Submit'),
+                                            child: Stack(
+                                                alignment:
+                                                    const Alignment(1.0, 1.0),
+                                                children: <Widget>[
+                                                  TextFormField(
+                                                    //keyboard with numbers only will appear to the screen
+                                                    style: TextStyle(height: 2),
+                                                    //increases the height of cursor
+                                                    //autofocus: true,
+                                                    obscureText: true,
+                                                    controller:
+                                                        passwordTextFieldController,
+                                                    decoration: InputDecoration(
+                                                        // hintText: 'Enter ur amount',
+                                                        //hintStyle: TextStyle(height: 1.75),
+                                                        labelText:
+                                                            AppLocalizations.of(
+                                                                    context)
+                                                                .translate(
+                                                                    'password'),
+                                                        labelStyle: TextStyle(
+                                                            height: 0.5,
                                                             color: Color(
-                                                                0xff003680)))),
-                                          ),
+                                                                0xff003680)),
+                                                        //increases the height of cursor
+                                                        icon: Icon(
+                                                          Icons.lock,
+                                                          color:
+                                                              Color(0xff003680),
+                                                        ),
+                                                        //prefixIcon: Icon(Icons.attach_money),
+                                                        //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                        enabledBorder:
+                                                            new UnderlineInputBorder(
+                                                                borderSide: new BorderSide(
+                                                                    color: Color(
+                                                                        0xff003680)))),
+                                                  ),
+                                                  new FlatButton(
+                                                      onPressed: () {
+                                                        passwordTextFieldController
+                                                            .clear();
+                                                      },
+                                                      child:
+                                                          new Icon(Icons.clear))
+                                                ])),
+                                        SizedBox(
+                                          height: 30,
                                         ),
+                                        Row(children: <Widget>[
+                                          Container(
+                                            padding: const EdgeInsets.only(
+                                                left: 30.0,
+                                                top: 0,
+                                                right: 5,
+                                                bottom: 0),
+                                            alignment: Alignment.centerLeft,
+                                            child: Switch(
+                                              value: saveValues,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  saveValues = value;
+                                                });
+                                              },
+                                              activeTrackColor:
+                                                  Color(0xffEEEEEE),
+                                              activeColor: Color(0xff0957FF),
+                                            ),
+                                          ),
+                                          Text(AppLocalizations.of(context)
+                                              .translate(
+                                              'remainSignedIn'), style: TextStyle(fontSize: 20),)
+                                        ]),
                                         SizedBox(height: 50),
                                         _registerButton(),
                                         SizedBox(height: 10),
@@ -264,11 +320,9 @@ readValue() async {
     return OutlineButton(
       splashColor: Colors.grey,
       onPressed: () {
-        signUp(emailTextFieldController.text, passwordTextFieldController.text)
+        signUp(emailTextFieldController.text, passwordTextFieldController.text, saveValues)
             .then((result) {
-
-          if(result == 'SUCCESS')
-          {
+          if (result == 'SUCCESS') {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
@@ -315,23 +369,21 @@ readValue() async {
     return OutlineButton(
       splashColor: Colors.grey,
       onPressed: () {
-        signIn(emailTextFieldController.text, passwordTextFieldController.text)
+        signIn(emailTextFieldController.text, passwordTextFieldController.text, saveValues)
             .then((result) {
+          print("Test in handle: $result");
 
-            print("Test in handle: $result");
-
-            if(result == 'SUCCESS')
-            {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return MyHomePage();
-                  },
-                ),
-              );
-            } else {
-              loginError(result);
-            }
+          if (result == 'SUCCESS') {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return MyHomePage();
+                },
+              ),
+            );
+          } else {
+            loginError(result);
+          }
         });
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),

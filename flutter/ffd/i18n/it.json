@@ -89,6 +89,7 @@
   "sadText" : "nome",
   "email" : "E-mail",
   "signOut" : "SignOut",
+  "remainSignedIn" : "Rimani registrato",
   "error" : "ERRORE",
   "warning" : "Avviso",
   "errorMessage" : "Assicuratevi di avere una connessione internet attiva e provate a fare il logout e ad effettuare nuovamente il login",

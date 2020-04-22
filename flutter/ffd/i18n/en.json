@@ -89,6 +89,7 @@
   "email" : "Email",
   "name" : "Name",
   "signOut" : "Sign Out",
+  "remainSignedIn" : "Remain signed in",
   "error" : "ERROR",
   "warning" : "Warning",
   "errorMessage" : "Make sure you have an active internet connection, and try to logout and log back in again",

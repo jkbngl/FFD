@@ -49,11 +49,15 @@ Future<String> signInWithGoogle() async {
   return 'signInWithGoogle succeeded: $user';
 }
 
-Future<String> signUp(String email, String password) async {
+Future<String> signUp(String email, String password, bool saveValues) async {
 
-  final prefs = await SharedPreferences.getInstance();
-  prefs.setString('mail', email);
-  prefs.setString('password', password);
+  if(saveValues)
+  {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('mail', email);
+    prefs.setString('password', password);
+  }
+
 
 
   // Store them in a variable so they can be used by get token
@@ -81,14 +85,17 @@ Future<String> signUp(String email, String password) async {
   }
 }
 
-Future<String> signIn(String email, String password) async {
+Future<String> signIn(String email, String password, bool saveValues) async {
   // Store them in a variable so they can be used by get token
   emailPasswordLoginEmail = email;
   emailPasswordLoginPassword = password;
 
-  final prefs = await SharedPreferences.getInstance();
-  prefs.setString('mail', email);
-  prefs.setString('password', password);
+  if(saveValues)
+  {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('mail', email);
+    prefs.setString('password', password);
+  }
 
   try {
     AuthResult result = await _auth.signInWithEmailAndPassword(

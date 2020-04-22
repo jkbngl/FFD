@@ -89,6 +89,7 @@
   "sadText" : "Name",
   "email" : "Email",
   "signOut" : "Abmelden",
+  "remainSignedIn" : "Angemeldet bleiben",
   "error" : "FEHLER",
   "warning" : "Warnung",
   "errorMessage" : "Bitte stelle sicher dass du eine aktive Internetverbindung hast und versuche dich ab- und wieder anzumeleden",
