@@ -3,6 +3,7 @@ import 'backup_color_change_on_nav_tab.dart';
 import 'sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -19,13 +20,20 @@ class _LoginPageState extends State<LoginPage> {
         .hasMatch(email);
   }
 
+readValue() async {
+    final prefs = await SharedPreferences.getInstance();
+    final mail = prefs.get('mail') ?? '';
+    final password = prefs.get('password') ?? '';
 
+    emailTextFieldController.text =  mail;
+    passwordTextFieldController.text =  password;
+}
 
 @override
   void initState() {
 
-    emailTextFieldController.text = 'jakob.engl@gknpm.com';
-    passwordTextFieldController.text = 'test123456789';
+    readValue();
+    //passwordTextFieldController.text = '';
 
     // 161
     /*signInWithGoogle().whenComplete(() {
@@ -46,8 +54,7 @@ class _LoginPageState extends State<LoginPage> {
       builder: (context) =>
       new AlertDialog(
         title: Text(
-          "${AppLocalizations.of(context).translate('error')} - ${e
-              .runtimeType}",
+          "${AppLocalizations.of(context).translate('error')}",
           style: TextStyle(
               color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
         ),
@@ -72,17 +79,6 @@ class _LoginPageState extends State<LoginPage> {
                 AppLocalizations.of(context).translate('dismissDialog')),
             onPressed: () {
               Navigator.of(context).pop();
-            },
-          ),
-          new FlatButton(
-            child: new Text(
-                AppLocalizations.of(context).translate('signOut')),
-            onPressed: () {
-              signOut();
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) {
-                    return LoginPage();
-                  }), ModalRoute.withName('/'));
             },
           )
         ],

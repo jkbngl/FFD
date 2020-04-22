@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -49,6 +50,12 @@ Future<String> signInWithGoogle() async {
 }
 
 Future<String> signUp(String email, String password) async {
+
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setString('mail', email);
+  prefs.setString('password', password);
+
+
   // Store them in a variable so they can be used by get token
   emailPasswordLoginEmail = email;
   emailPasswordLoginPassword = password;
@@ -80,6 +87,9 @@ Future<String> signIn(String email, String password) async {
   // Store them in a variable so they can be used by get token
   emailPasswordLoginEmail = email;
   emailPasswordLoginPassword = password;
+
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setString('mail', email);
 
   try {
     AuthResult result = await _auth.signInWithEmailAndPassword(
