@@ -8045,7 +8045,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                         alignment: Alignment
                                                             .center,
                                                         //child: Text('Submit'),
-                                                        child: TextFormField(
+                                                        child: Stack(alignment:
+                                                        const Alignment(1, 1.0),
+                                                          children: <Widget>[TextFormField(
                                                           // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
                                                           style: TextStyle(
                                                               height: 2),
@@ -8072,6 +8074,13 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       color: Color(
                                                                           0xff0957FF)))),
                                                         ),
+                                                          new FlatButton(
+                                                              onPressed: () {
+                                                                newLevel1TextFieldController
+                                                                    .clear();
+                                                              },
+                                                              child:
+                                                              new Icon(Icons.clear))],)
                                                       )
                                                           : Container(),
                                                       SizedBox(
@@ -8172,7 +8181,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                             .center,
 
                                                         //child: Text('Submit'),
-                                                        child: TextFormField(
+                                                        child: Stack(alignment:
+                                                        const Alignment(1, 1.0),
+                                                            children: <Widget>[TextFormField(
                                                           // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
                                                           enabled: !(level1AdminObject
                                                               .id < 0 &&
@@ -8230,7 +8241,14 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       width: 2,
                                                                       color: Color(
                                                                           0xff0957FF)))),
-                                                        ),
+                                                            ),
+                                                              new FlatButton(
+                                                                  onPressed: () {
+                                                                    newLevel2TextFieldController
+                                                                        .clear();
+                                                                  },
+                                                                  child:
+                                                                  new Icon(Icons.clear))],)
                                                       )
                                                           : Container(),
                                                       SizedBox(
@@ -8324,7 +8342,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                         alignment: Alignment
                                                             .center,
                                                         //child: Text('Submit'),
-                                                        child: TextFormField(
+                                                        child: Stack(alignment:
+                                                        const Alignment(1, 1.0),
+                                                            children: <Widget>[
+                                                              TextFormField(
                                                           // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
                                                           enabled: !(level2AdminObject
                                                               .id < 0 &&
@@ -8376,7 +8397,14 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       width: 2,
                                                                       color: Color(
                                                                           0xff0957FF)))),
-                                                        ),
+                                                              ),
+                                                              new FlatButton(
+                                                                  onPressed: () {
+                                                                    actualSearchTextFieldController
+                                                                        .clear();
+                                                                  },
+                                                                  child:
+                                                                  new Icon(Icons.clear))],)
                                                       )
                                                           : Container(),
                                                       Container(child:
@@ -9167,7 +9195,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                         alignment: Alignment
                                                             .center,
                                                         //child: Text('Submit'),
-                                                        child: TextFormField(
+                                                        child: Stack(alignment:
+                                                        const Alignment(1, 1.0),
+                                                            children: <Widget>[
+                                                              TextFormField(
                                                           // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
                                                           style: TextStyle(
                                                               height: 2),
@@ -9190,7 +9221,14 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   borderSide: new BorderSide(
                                                                       color: Color(
                                                                           0xff0957FF)))),
-                                                        ),
+                                                              ),
+                                                              new FlatButton(
+                                                                  onPressed: () {
+                                                                    actualSearchTextFieldController
+                                                                        .clear();
+                                                                  },
+                                                                  child:
+                                                                  new Icon(Icons.clear))],),
                                                       ),
                                                       ButtonBar(
                                                         alignment: MainAxisAlignment
