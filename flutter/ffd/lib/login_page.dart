@@ -86,6 +86,14 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> widgetList = ['A', 'B', 'C'];
+    var size = MediaQuery.of(context).size;
+
+    /*24 is for notification bar on Android*/
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
+    final double itemWidth = size.width / 2;
+
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -250,9 +258,11 @@ class _LoginPageState extends State<LoginPage> {
                                               activeColor: Color(0xff0957FF),
                                             ),
                                           ),
-                                          Text(AppLocalizations.of(context)
-                                              .translate(
-                                              'remainSignedIn'), style: TextStyle(fontSize: 20),)
+                                          Text(
+                                            AppLocalizations.of(context)
+                                                .translate('remainSignedIn'),
+                                            style: TextStyle(fontSize: 20),
+                                          )
                                         ]),
                                         SizedBox(height: 20),
                                         _registerButton(),
@@ -320,7 +330,8 @@ class _LoginPageState extends State<LoginPage> {
     return OutlineButton(
       splashColor: Colors.grey,
       onPressed: () {
-        signUp(emailTextFieldController.text, passwordTextFieldController.text, saveValues)
+        signUp(emailTextFieldController.text, passwordTextFieldController.text,
+                saveValues)
             .then((result) {
           if (result == 'SUCCESS') {
             Navigator.of(context).push(
@@ -369,7 +380,8 @@ class _LoginPageState extends State<LoginPage> {
     return OutlineButton(
       splashColor: Colors.grey,
       onPressed: () {
-        signIn(emailTextFieldController.text, passwordTextFieldController.text, saveValues)
+        signIn(emailTextFieldController.text, passwordTextFieldController.text,
+                saveValues)
             .then((result) {
           print("Test in handle: $result");
 
