@@ -2092,20 +2092,6 @@ class _MyHomePageState extends State<MyHomePage>
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Container(),
-                      // Empty container, so that the iconbutton is at the right end
-                      Spacer(),
-                      IconButton(
-                          icon: Icon(Icons.help),
-                          color: Color(0xff003680),
-                          iconSize: 30,
-                          onPressed: () {
-                            showCustomDialog(_currentIndex, 'help', -1);
-                          }),
-                    ],
-                  ),
                   CircleAvatar(
                     backgroundImage: imageUrl != null ? NetworkImage(
                       imageUrl,
