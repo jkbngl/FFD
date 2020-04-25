@@ -503,16 +503,16 @@ class _MyHomePageState extends State<MyHomePage>
     checkForChanges(true, fetchAccountsAndCostTypes, 'admin');
 
     // Keep loadHomescreen before loadAmount, because if not the state will be set 2 times and it will look strange
-    loadHomescreen();
-    loadAmount();
+    await loadHomescreen();
+    await loadAmount();
 
-    loadList('actual', actualListSortColumn, actualListSortType);
-    loadList('budget', budgetListSortColumn, budgetListSortType);
+    await loadList('actual', actualListSortColumn, actualListSortType);
+    await loadList('budget', budgetListSortColumn, budgetListSortType);
 
     // Await is needed here because else the sendBackend for generalAdmin will always overwrite the preferences with the default values defined in the code here
     await loadPreferences();
     // initialize if no preferences are present yet
-    sendBackend('generaladmin', true);
+    await sendBackend('generaladmin', true);
 
     setState(() {
       currentlyLoading = false;
@@ -975,21 +975,11 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   _showLoadWidget() {
-
-    if(startingUp)
-    {
       return Center(
           child: SpinKitFadingCube(
             //color: Color(0xff0957FF),
             color: Colors.black,
             size: 100.0,));
-    }
-
-    return Center(
-        child: SpinKitChasingDots(
-          //color: Color(0xff0957FF),
-          color: Colors.black,
-          size: 100.0,));
   }
 
 
@@ -3464,7 +3454,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     //strokeWidthPx: ,
                                                     arcWidth: 50
                                                 ),
-                                                animate: true,
+                                                animate: (!startingUp),   // When startingUp truy, dont animate, and when false show animations
                                               ),
                                             ),
                                             Row(
