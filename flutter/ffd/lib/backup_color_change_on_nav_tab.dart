@@ -7345,7 +7345,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                         charts.rendererIdKey,
                                                         'customTargetLine'),
                                                 ],
-                                                animate: true,
+                                                animate: (!startingUp),
                                                 barGroupingType:
                                                 charts.BarGroupingType.grouped,
                                                 customSeriesRenderers: [
