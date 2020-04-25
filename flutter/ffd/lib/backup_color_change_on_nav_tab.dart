@@ -502,9 +502,6 @@ class _MyHomePageState extends State<MyHomePage>
     checkForChanges(true, fetchAccountsAndCostTypes, 'budget');
     checkForChanges(true, fetchAccountsAndCostTypes, 'admin');
 
-    // Keep loadHomescreen before loadAmount, because if not the state will be set 2 times and it will look strange
-    await loadHomescreen();
-    await loadAmount();
 
     await loadList('actual', actualListSortColumn, actualListSortType);
     await loadList('budget', budgetListSortColumn, budgetListSortType);
@@ -513,6 +510,11 @@ class _MyHomePageState extends State<MyHomePage>
     await loadPreferences();
     // initialize if no preferences are present yet
     await sendBackend('generaladmin', true);
+
+    // Load last to set only once
+    await loadHomescreen();
+    await loadAmount();
+
 
     setState(() {
       currentlyLoading = false;

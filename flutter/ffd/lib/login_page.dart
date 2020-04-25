@@ -13,6 +13,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final emailTextFieldController = TextEditingController();
   final passwordTextFieldController = TextEditingController();
+  String prefferedLogin = '';
 
   bool saveValues = true;
 
@@ -26,26 +27,55 @@ class _LoginPageState extends State<LoginPage> {
     final prefs = await SharedPreferences.getInstance();
     final mail = prefs.get('mail') ?? '';
     final password = prefs.get('password') ?? '';
+    prefferedLogin = prefs.get('prefferedLogin') ?? '';
 
     emailTextFieldController.text = mail;
     passwordTextFieldController.text = password;
+
   }
 
   @override
   void initState() {
     readValue();
-    //passwordTextFieldController.text = '';
+    handleAutoLogin();
+  }
 
-    // 161
-    /*signInWithGoogle().whenComplete(() {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) {
-            return MyHomePage();
-          },
-        ),
-      );
-    });*/
+  handleAutoLogin() async {
+    await readValue();
+
+    print("PrefferedLogin in handleAutoLogin: $prefferedLogin");
+
+    if(prefferedLogin == 'google')
+    {
+      signInWithGoogle().whenComplete(() {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return MyHomePage();
+            },
+          ),
+        );
+      });
+    } else if(prefferedLogin == 'emailPassword')
+    {
+      signIn(emailTextFieldController.text, passwordTextFieldController.text,
+          saveValues)
+          .then((result) {
+        print("Test in handle: $result");
+
+        if (result == 'SUCCESS') {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return MyHomePage();
+              },
+            ),
+          );
+        } else {
+          loginError(result);
+        }
+      });
+    }
   }
 
   loginError(e) {

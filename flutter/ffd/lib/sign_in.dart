@@ -20,6 +20,9 @@ Future<String> signInWithGoogle() async {
   final GoogleSignInAuthentication googleSignInAuthentication =
       await googleSignInAccount.authentication;
 
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setString('prefferedLogin', 'google');
+
   credential = GoogleAuthProvider.getCredential(
     accessToken: googleSignInAuthentication.accessToken,
     idToken: googleSignInAuthentication.idToken,
@@ -50,6 +53,9 @@ Future<String> signInWithGoogle() async {
 }
 
 Future<String> signUp(String email, String password, bool saveValues) async {
+
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setString('prefferedLogin', 'emailPassword');
 
   if(saveValues)
   {
@@ -89,6 +95,10 @@ Future<String> signIn(String email, String password, bool saveValues) async {
   // Store them in a variable so they can be used by get token
   emailPasswordLoginEmail = email;
   emailPasswordLoginPassword = password;
+
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setString('prefferedLogin', 'emailPassword');
+
 
   if(saveValues)
   {
@@ -141,6 +151,10 @@ getToken() async {
 }
 
 void signOut() async {
+
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setString('prefferedLogin', '');
+
   await _auth.signOut();
   await googleSignIn.signOut();
 
