@@ -319,8 +319,9 @@ class _MyHomePageState extends State<MyHomePage>
 
   List<CostType> costTypesList = <CostType>[const CostType(-99, 'UNDEFINED')];
 
-  // bool used to show load symbol while loading data
+  // bool used to show load symbol while loading data, and bool to show splashScreen while not fully started
   bool currentlyLoading = false;
+  bool startingUp = false;
 
   final actualTextFieldController = TextEditingController();
   final budgetTextFieldController = TextEditingController();
@@ -434,6 +435,11 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   void initState() {
     super.initState();
+
+    setState(() {
+      startingUp = true;
+    });
+
     _pageController = PageController();
 
     // Init with a default so that we don't get a null error on startup
@@ -510,6 +516,7 @@ class _MyHomePageState extends State<MyHomePage>
 
     setState(() {
       currentlyLoading = false;
+      startingUp = false;
     });
   }
 
@@ -968,6 +975,16 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   _showLoadWidget() {
+
+    if(startingUp)
+    {
+      return Center(
+          child: SpinKitFadingCube(
+            //color: Color(0xff0957FF),
+            color: Colors.black,
+            size: 100.0,));
+    }
+
     return Center(
         child: SpinKitChasingDots(
           //color: Color(0xff0957FF),
