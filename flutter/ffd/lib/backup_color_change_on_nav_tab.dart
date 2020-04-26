@@ -7910,8 +7910,16 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   Color(
                                                                       0xffEEEEEE),
                                                                   // EEEEEE
-                                                                  onPressed: () {
-                                                                    loadPreferences();
+                                                                  onPressed: () async {
+                                                                    setState(() {
+                                                                      currentlyLoading = true;
+                                                                    });
+
+                                                                    await loadPreferences();
+                                                                    
+                                                                    setState(() {
+                                                                      currentlyLoading = false;
+                                                                    });
                                                                   },
                                                                 ),
                                                               ),
