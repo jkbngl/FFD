@@ -511,7 +511,6 @@ class _MyHomePageState extends State<MyHomePage>
     // initialize if no preferences are present yet
     await sendBackend('generaladmin', true);
 
-    // Load last to set only once
     await loadHomescreen();
     await loadAmount();
 

@@ -4,6 +4,7 @@ import 'sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   String prefferedLogin = '';
 
   bool saveValues = true;
+  bool autoLoggedinInProgress = false;
 
   bool emailValidator(email) {
     return RegExp(
@@ -47,6 +49,11 @@ class _LoginPageState extends State<LoginPage> {
 
     if(prefferedLogin == 'google')
     {
+
+      setState(() {
+        autoLoggedinInProgress = true;
+      });
+
       signInWithGoogle().whenComplete(() {
         Navigator.of(context).push(
           MaterialPageRoute(
@@ -58,6 +65,10 @@ class _LoginPageState extends State<LoginPage> {
       });
     } else if(prefferedLogin == 'emailPassword')
     {
+      setState(() {
+        autoLoggedinInProgress = true;
+      });
+      
       signIn(emailTextFieldController.text, passwordTextFieldController.text,
           saveValues)
           .then((result) {
@@ -76,6 +87,14 @@ class _LoginPageState extends State<LoginPage> {
         }
       });
     }
+  }
+
+  _showLoadWidget() {
+    return Center(
+        child: SpinKitFadingCube(
+          //color: Color(0xff0957FF),
+          color: Colors.black,
+          size: 100.0,));
   }
 
   loginError(e) {
@@ -136,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                             BoxConstraints(minHeight: constraint.maxHeight),
                         child: IntrinsicHeight(
                           child: Stack(children: <Widget>[
-                            Column(
+                            Stack(children: <Widget>[Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisSize: MainAxisSize.max,
@@ -305,7 +324,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                               ],
-                            )
+                            )],), autoLoggedinInProgress ? _showLoadWidget() : Container()
                           ]),
                         )));
               },
