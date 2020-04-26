@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
       setState(() {
         autoLoggedinInProgress = true;
       });
-      
+
       signIn(emailTextFieldController.text, passwordTextFieldController.text,
           saveValues)
           .then((result) {

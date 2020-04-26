@@ -514,7 +514,6 @@ class _MyHomePageState extends State<MyHomePage>
     await loadHomescreen();
     await loadAmount();
 
-
     setState(() {
       currentlyLoading = false;
       startingUp = false;
@@ -7315,8 +7314,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                           .budgetEntry > 0
                                                           ? ' / ' + sales
                                                           .budgetEntry
-                                                          .toString()
-                                                          : ''}€',
+                                                          .toString() + "€"
+                                                          : ''}',
                                                       data: visualizerData),
                                                   charts.Series<
                                                       ChartObject,
