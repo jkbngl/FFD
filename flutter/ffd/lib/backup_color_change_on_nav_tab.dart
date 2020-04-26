@@ -511,8 +511,8 @@ class _MyHomePageState extends State<MyHomePage>
     // initialize if no preferences are present yet
     await sendBackend('generaladmin', true);
 
-    await loadHomescreen();
-    await loadAmount();
+    await loadHomescreen(false);
+    await loadAmount(false);
 
     setState(() {
       currentlyLoading = false;
@@ -659,7 +659,7 @@ class _MyHomePageState extends State<MyHomePage>
     setState(() {});
   }
 
-  loadAmount() async {
+  loadAmount(bool fromSwitch) async {
     int level_type = g_parent_account.accountLevel;
     int cost_type = costTypeObjectVisualizer.id;
     int parent_account = g_parent_account.id;
@@ -780,10 +780,17 @@ class _MyHomePageState extends State<MyHomePage>
           print(item.accountName);
         }
       }
-
-      setState(() {});
     } catch (e) {
       errorDialog(e);
+    }
+
+    if (fromSwitch) {
+      setState(() {
+        currentlyLoading = false;
+      });
+    }
+    else {
+      setState(() {});
     }
   }
 
@@ -815,7 +822,7 @@ class _MyHomePageState extends State<MyHomePage>
     }
   }
 
-  loadHomescreen() async {
+  loadHomescreen(bool fromSwitch) async {
     int level_type = -1;
     int cost_type = -1;
     int parent_account = -1;
@@ -934,10 +941,19 @@ class _MyHomePageState extends State<MyHomePage>
       print(
           "Comparison BUDGET $parsedBudgetComparison vs ${homescreenData[2]
               .amount}");
-
-      setState(() {});
     } catch (e) {
       errorDialog(e);
+    }
+
+    if (fromSwitch) {
+      setState(() {
+        currentlyLoading = false;
+      });
+    }
+    else {
+      setState(() {
+
+      });
     }
   }
 
@@ -975,11 +991,11 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   _showLoadWidget() {
-      return Center(
-          child: SpinKitFadingCube(
-            //color: Color(0xff0957FF),
-            color: Colors.black,
-            size: 100.0,));
+    return Center(
+        child: SpinKitFadingCube(
+          //color: Color(0xff0957FF),
+          color: Colors.black,
+          size: 100.0,));
   }
 
 
@@ -1459,8 +1475,8 @@ class _MyHomePageState extends State<MyHomePage>
     if (type == 'actlistdelete' || type == 'actual' ||
         type == 'actualschedule') {
       loadList('actual', actualListSortColumn, actualListSortType);
-      loadHomescreen();
-      loadAmount();
+      loadHomescreen(false);
+      loadAmount(false);
 
       if (scheduleEntries) {
         showScheduleDialog(type);
@@ -1469,8 +1485,8 @@ class _MyHomePageState extends State<MyHomePage>
     } else if (type == 'bdglistdelete' || type == 'budget' ||
         type == 'budgetschedule') {
       loadList('budget', budgetListSortColumn, budgetListSortType);
-      loadHomescreen();
-      loadAmount();
+      loadHomescreen(false);
+      loadAmount(false);
 
       if (scheduleEntries) {
         showScheduleDialog(type);
@@ -2074,14 +2090,14 @@ class _MyHomePageState extends State<MyHomePage>
       onConfirm: (dateTime, List<int> index) {
         setState(() {
           if (type == 'home') {
-            loadHomescreen();
+            loadHomescreen(false);
             dateTimeHome = dateTime;
           } else if (type == 'actual') {
             dateTimeActual = dateTime;
           } else if (type == 'budget') {
             dateTimeBudget = dateTime;
           } else if (type == 'visualizer') {
-            loadAmount();
+            loadAmount(false);
             dateTimeVisualizer = dateTime;
           }
         });
@@ -2830,7 +2846,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   handleRefresh(index) async {
     if (_currentIndex == 0) {
-      await loadHomescreen();
+      await loadHomescreen(false);
     } else if (_currentIndex == 1) {
       // Test for #83
       setState(() {
@@ -2846,7 +2862,7 @@ class _MyHomePageState extends State<MyHomePage>
       await checkForChanges(false, true, 'budget');
       await loadList('budget', budgetListSortColumn, budgetListSortType);
     } else if (_currentIndex == 3) {
-      await loadAmount();
+      await loadAmount(false);
     } else if (_currentIndex == 4) {
       await checkForChanges(false, true, 'admin');
       await loadPreferences();
@@ -2909,7 +2925,7 @@ class _MyHomePageState extends State<MyHomePage>
     }
 
     setState(() {
-      loadAmount();
+      loadAmount(false);
     });
   }
 
@@ -3370,11 +3386,11 @@ class _MyHomePageState extends State<MyHomePage>
                                                     onChanged: (value) {
                                                       setState(() {
                                                         currentlyLoading = true;
+
                                                         showFullYearHome =
                                                             value;
-                                                        loadHomescreen();
-                                                        currentlyLoading =
-                                                        false;
+                                                        loadHomescreen(true);
+                                                        //currentlyLoading = false;
                                                       });
                                                     },
                                                     activeTrackColor: Color(
@@ -3454,7 +3470,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     //strokeWidthPx: ,
                                                     arcWidth: 50
                                                 ),
-                                                animate: (!startingUp),   // When startingUp truy, dont animate, and when false show animations
+                                                animate: (!startingUp), // When startingUp truy, dont animate, and when false show animations
                                               ),
                                             ),
                                             Row(
@@ -5480,7 +5496,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             child: Stack(
                                                               alignment:
                                                               const Alignment(
-                                                                  1,  1.0),
+                                                                  1, 1.0),
                                                               children: <
                                                                   Widget>[
                                                                 TextFormField(
@@ -7188,9 +7204,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                       value: showFullYear,
                                                       onChanged: (value) {
                                                         setState(() {
+                                                          currentlyLoading =
+                                                            true;
+
                                                           showAllTime = false;
                                                           showFullYear = value;
-                                                          loadAmount();
+                                                          loadAmount(true);
                                                         });
                                                       },
                                                       activeTrackColor: Color(
@@ -7222,9 +7241,13 @@ class _MyHomePageState extends State<MyHomePage>
                                                       value: showAllTime,
                                                       onChanged: (value) {
                                                         setState(() {
+                                                          // To show load animation from #170
+                                                          currentlyLoading =
+                                                          true;
+
                                                           showFullYear = false;
                                                           showAllTime = value;
-                                                          loadAmount();
+                                                          loadAmount(true);
                                                         });
                                                       },
                                                       activeTrackColor: Color(
@@ -7426,6 +7449,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                       // EEEEEE
                                                       onPressed: () {
                                                         setState(() {
+                                                          // #170
+                                                          currentlyLoading = true;
+
                                                           showAllTime = false;
                                                           showFullYear = false;
                                                           costTypeObjectVisualizer =
@@ -7441,7 +7467,7 @@ class _MyHomePageState extends State<MyHomePage>
 
                                                           drilldownLevel = "";
 
-                                                          loadAmount();
+                                                          loadAmount(true);
                                                         });
                                                       },
                                                     ),
@@ -7472,21 +7498,29 @@ class _MyHomePageState extends State<MyHomePage>
                                                         ),
                                                         onClear: () {
                                                           setState(() {
+                                                            // #170
+                                                            currentlyLoading = true;
+
                                                             costTypeObjectVisualizer =
                                                             costTypesList[0];
 
                                                             // #140
-                                                            loadAmount();
+                                                            loadAmount(true);
                                                           });
                                                         },
                                                         onChanged: (
                                                             CostType newValue) {
+
+
                                                           if (newValue !=
                                                               null) {
                                                             setState(() {
+                                                              // #170
+                                                              currentlyLoading = true;
+
                                                               costTypeObjectVisualizer =
                                                                   newValue;
-                                                              loadAmount();
+                                                              loadAmount(true);
                                                             });
                                                           }
                                                         },
@@ -8028,52 +8062,58 @@ class _MyHomePageState extends State<MyHomePage>
                                                           : Container(),
                                                       areLevel1AccountsActive
                                                           ? Container(
-                                                        padding: const EdgeInsets
-                                                            .only(
-                                                            left: 30.0,
-                                                            top: 0,
-                                                            right: 30,
-                                                            bottom: 0),
-                                                        //color: Colors.blue[600],
-                                                        alignment: Alignment
-                                                            .center,
-                                                        //child: Text('Submit'),
-                                                        child: Stack(alignment:
-                                                        const Alignment(1, 1.0),
-                                                          children: <Widget>[TextFormField(
-                                                          // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
-                                                          style: TextStyle(
-                                                              height: 2),
-                                                          //increases the height of cursor
-                                                          // autofocus: true,
-                                                          controller:
-                                                          newLevel1TextFieldController,
-                                                          decoration: InputDecoration(
-                                                              hintText: AppLocalizations
-                                                                  .of(context)
-                                                                  .translate(
-                                                                  'enterNewLevel1AccountNameTextField'),
-                                                              hintStyle: TextStyle(
-                                                                  height: 1.75,
-                                                                  fontSize: 12,
-                                                                  color:
-                                                                  Color(
-                                                                      0xff0957FF)),
-                                                              enabledBorder:
-                                                              new UnderlineInputBorder(
-                                                                  borderSide:
-                                                                  new BorderSide(
-                                                                      width: 2,
-                                                                      color: Color(
-                                                                          0xff0957FF)))),
-                                                        ),
-                                                          new FlatButton(
-                                                              onPressed: () {
-                                                                newLevel1TextFieldController
-                                                                    .clear();
-                                                              },
-                                                              child:
-                                                              new Icon(Icons.clear))],)
+                                                          padding: const EdgeInsets
+                                                              .only(
+                                                              left: 30.0,
+                                                              top: 0,
+                                                              right: 30,
+                                                              bottom: 0),
+                                                          //color: Colors.blue[600],
+                                                          alignment: Alignment
+                                                              .center,
+                                                          //child: Text('Submit'),
+                                                          child: Stack(
+                                                            alignment:
+                                                            const Alignment(
+                                                                1, 1.0),
+                                                            children: <Widget>[
+                                                              TextFormField(
+                                                                // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
+                                                                style: TextStyle(
+                                                                    height: 2),
+                                                                //increases the height of cursor
+                                                                // autofocus: true,
+                                                                controller:
+                                                                newLevel1TextFieldController,
+                                                                decoration: InputDecoration(
+                                                                    hintText: AppLocalizations
+                                                                        .of(
+                                                                        context)
+                                                                        .translate(
+                                                                        'enterNewLevel1AccountNameTextField'),
+                                                                    hintStyle: TextStyle(
+                                                                        height: 1.75,
+                                                                        fontSize: 12,
+                                                                        color:
+                                                                        Color(
+                                                                            0xff0957FF)),
+                                                                    enabledBorder:
+                                                                    new UnderlineInputBorder(
+                                                                        borderSide:
+                                                                        new BorderSide(
+                                                                            width: 2,
+                                                                            color: Color(
+                                                                                0xff0957FF)))),
+                                                              ),
+                                                              new FlatButton(
+                                                                  onPressed: () {
+                                                                    newLevel1TextFieldController
+                                                                        .clear();
+                                                                  },
+                                                                  child:
+                                                                  new Icon(Icons
+                                                                      .clear))
+                                                            ],)
                                                       )
                                                           : Container(),
                                                       SizedBox(
@@ -8163,85 +8203,93 @@ class _MyHomePageState extends State<MyHomePage>
                                                           : Container(),
                                                       areLevel2AccountsActive
                                                           ? Container(
-                                                        padding: const EdgeInsets
-                                                            .only(
-                                                            left: 30.0,
-                                                            top: 0,
-                                                            right: 30,
-                                                            bottom: 0),
-                                                        //color: Colors.blue[600],
-                                                        alignment: Alignment
-                                                            .center,
+                                                          padding: const EdgeInsets
+                                                              .only(
+                                                              left: 30.0,
+                                                              top: 0,
+                                                              right: 30,
+                                                              bottom: 0),
+                                                          //color: Colors.blue[600],
+                                                          alignment: Alignment
+                                                              .center,
 
-                                                        //child: Text('Submit'),
-                                                        child: Stack(alignment:
-                                                        const Alignment(1, 1.0),
-                                                            children: <Widget>[TextFormField(
-                                                          // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
-                                                          enabled: !(level1AdminObject
-                                                              .id < 0 &&
-                                                              newLevel1TextFieldController
-                                                                  .text
-                                                                  .length <=
-                                                                  0),
-                                                          readOnly: (level1AdminObject
-                                                              .id < 0 &&
-                                                              newLevel1TextFieldController
-                                                                  .text
-                                                                  .length <=
-                                                                  0),
-                                                          style: TextStyle(
-                                                              height: 2),
-                                                          //increases the height of cursor
-                                                          // autofocus: true,
-                                                          controller:
-                                                          newLevel2TextFieldController,
-                                                          decoration: InputDecoration(
-                                                              enabled: !(level1AdminObject
-                                                                  .id < 0 &&
-                                                                  newLevel1TextFieldController
-                                                                      .text
-                                                                      .length <=
-                                                                      0),
-                                                              disabledBorder: UnderlineInputBorder(
-                                                                  borderSide:
-                                                                  new BorderSide(
-                                                                      width: 1,
-                                                                      color: Colors
-                                                                          .grey)),
-                                                              hintText: AppLocalizations
-                                                                  .of(context)
-                                                                  .translate(
-                                                                  'enterNewLevel2AccountNameTextField'),
-                                                              hintStyle: TextStyle(
-                                                                  height: 1.75,
-                                                                  fontSize: 12,
-                                                                  color: (level1AdminObject
-                                                                      .id < 0 &&
-                                                                      newLevel1TextFieldController
-                                                                          .text
-                                                                          .length <=
-                                                                          0)
-                                                                      ? Colors
-                                                                      .grey
-                                                                      : Color(
-                                                                      0xff0957FF)
+                                                          //child: Text('Submit'),
+                                                          child: Stack(
+                                                            alignment:
+                                                            const Alignment(
+                                                                1, 1.0),
+                                                            children: <Widget>[
+                                                              TextFormField(
+                                                                // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
+                                                                enabled: !(level1AdminObject
+                                                                    .id < 0 &&
+                                                                    newLevel1TextFieldController
+                                                                        .text
+                                                                        .length <=
+                                                                        0),
+                                                                readOnly: (level1AdminObject
+                                                                    .id < 0 &&
+                                                                    newLevel1TextFieldController
+                                                                        .text
+                                                                        .length <=
+                                                                        0),
+                                                                style: TextStyle(
+                                                                    height: 2),
+                                                                //increases the height of cursor
+                                                                // autofocus: true,
+                                                                controller:
+                                                                newLevel2TextFieldController,
+                                                                decoration: InputDecoration(
+                                                                    enabled: !(level1AdminObject
+                                                                        .id <
+                                                                        0 &&
+                                                                        newLevel1TextFieldController
+                                                                            .text
+                                                                            .length <=
+                                                                            0),
+                                                                    disabledBorder: UnderlineInputBorder(
+                                                                        borderSide:
+                                                                        new BorderSide(
+                                                                            width: 1,
+                                                                            color: Colors
+                                                                                .grey)),
+                                                                    hintText: AppLocalizations
+                                                                        .of(
+                                                                        context)
+                                                                        .translate(
+                                                                        'enterNewLevel2AccountNameTextField'),
+                                                                    hintStyle: TextStyle(
+                                                                        height: 1.75,
+                                                                        fontSize: 12,
+                                                                        color: (level1AdminObject
+                                                                            .id <
+                                                                            0 &&
+                                                                            newLevel1TextFieldController
+                                                                                .text
+                                                                                .length <=
+                                                                                0)
+                                                                            ? Colors
+                                                                            .grey
+                                                                            : Color(
+                                                                            0xff0957FF)
+                                                                    ),
+                                                                    enabledBorder:
+                                                                    new UnderlineInputBorder(
+                                                                        borderSide:
+                                                                        new BorderSide(
+                                                                            width: 2,
+                                                                            color: Color(
+                                                                                0xff0957FF)))),
                                                               ),
-                                                              enabledBorder:
-                                                              new UnderlineInputBorder(
-                                                                  borderSide:
-                                                                  new BorderSide(
-                                                                      width: 2,
-                                                                      color: Color(
-                                                                          0xff0957FF)))),
-                                                            ),
                                                               new FlatButton(
                                                                   onPressed: () {
                                                                     newLevel2TextFieldController
                                                                         .clear();
                                                                   },
                                                                   child:
-                                                                  new Icon(Icons.clear))],)
+                                                                  new Icon(Icons
+                                                                      .clear))
+                                                            ],)
                                                       )
                                                           : Container(),
                                                       SizedBox(
@@ -8325,71 +8373,75 @@ class _MyHomePageState extends State<MyHomePage>
                                                           : Container(),
                                                       areLevel3AccountsActive
                                                           ? Container(
-                                                        padding: const EdgeInsets
-                                                            .only(
-                                                            left: 30.0,
-                                                            top: 0,
-                                                            right: 30,
-                                                            bottom: 0),
-                                                        //color: Colors.blue[600],
-                                                        alignment: Alignment
-                                                            .center,
-                                                        //child: Text('Submit'),
-                                                        child: Stack(alignment:
-                                                        const Alignment(1, 1.0),
+                                                          padding: const EdgeInsets
+                                                              .only(
+                                                              left: 30.0,
+                                                              top: 0,
+                                                              right: 30,
+                                                              bottom: 0),
+                                                          //color: Colors.blue[600],
+                                                          alignment: Alignment
+                                                              .center,
+                                                          //child: Text('Submit'),
+                                                          child: Stack(
+                                                            alignment:
+                                                            const Alignment(
+                                                                1, 1.0),
                                                             children: <Widget>[
                                                               TextFormField(
-                                                          // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
-                                                          enabled: !(level2AdminObject
-                                                              .id < 0 &&
-                                                              newLevel2TextFieldController
-                                                                  .text
-                                                                  .length <=
-                                                                  0),
-                                                          readOnly: (level2AdminObject
-                                                              .id < 0 &&
-                                                              newLevel2TextFieldController
-                                                                  .text
-                                                                  .length <=
-                                                                  0),
-                                                          style: TextStyle(
-                                                              height: 2),
-                                                          //increases the height of cursor
-                                                          // autofocus: true,
-                                                          controller:
-                                                          newLevel3TextFieldController,
-                                                          decoration: InputDecoration(
-                                                              hintText: AppLocalizations
-                                                                  .of(context)
-                                                                  .translate(
-                                                                  'enterNewLevel3AccountNameTextField'),
-                                                              hintStyle: TextStyle(
-                                                                  height: 1.75,
-                                                                  fontSize: 12,
-                                                                  color: (level2AdminObject
-                                                                      .id < 0 &&
-                                                                      newLevel2TextFieldController
-                                                                          .text
-                                                                          .length <=
-                                                                          0)
-                                                                      ? Colors
-                                                                      .grey
-                                                                      : Color(
-                                                                      0xff0957FF)
-                                                              ),
-                                                              disabledBorder: UnderlineInputBorder(
-                                                                  borderSide:
-                                                                  new BorderSide(
-                                                                      width: 1,
-                                                                      color: Colors
-                                                                          .grey)),
-                                                              enabledBorder:
-                                                              new UnderlineInputBorder(
-                                                                  borderSide:
-                                                                  new BorderSide(
-                                                                      width: 2,
-                                                                      color: Color(
-                                                                          0xff0957FF)))),
+                                                                // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
+                                                                enabled: !(level2AdminObject
+                                                                    .id < 0 &&
+                                                                    newLevel2TextFieldController
+                                                                        .text
+                                                                        .length <=
+                                                                        0),
+                                                                readOnly: (level2AdminObject
+                                                                    .id < 0 &&
+                                                                    newLevel2TextFieldController
+                                                                        .text
+                                                                        .length <=
+                                                                        0),
+                                                                style: TextStyle(
+                                                                    height: 2),
+                                                                //increases the height of cursor
+                                                                // autofocus: true,
+                                                                controller:
+                                                                newLevel3TextFieldController,
+                                                                decoration: InputDecoration(
+                                                                    hintText: AppLocalizations
+                                                                        .of(
+                                                                        context)
+                                                                        .translate(
+                                                                        'enterNewLevel3AccountNameTextField'),
+                                                                    hintStyle: TextStyle(
+                                                                        height: 1.75,
+                                                                        fontSize: 12,
+                                                                        color: (level2AdminObject
+                                                                            .id <
+                                                                            0 &&
+                                                                            newLevel2TextFieldController
+                                                                                .text
+                                                                                .length <=
+                                                                                0)
+                                                                            ? Colors
+                                                                            .grey
+                                                                            : Color(
+                                                                            0xff0957FF)
+                                                                    ),
+                                                                    disabledBorder: UnderlineInputBorder(
+                                                                        borderSide:
+                                                                        new BorderSide(
+                                                                            width: 1,
+                                                                            color: Colors
+                                                                                .grey)),
+                                                                    enabledBorder:
+                                                                    new UnderlineInputBorder(
+                                                                        borderSide:
+                                                                        new BorderSide(
+                                                                            width: 2,
+                                                                            color: Color(
+                                                                                0xff0957FF)))),
                                                               ),
                                                               new FlatButton(
                                                                   onPressed: () {
@@ -8397,7 +8449,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         .clear();
                                                                   },
                                                                   child:
-                                                                  new Icon(Icons.clear))],)
+                                                                  new Icon(Icons
+                                                                      .clear))
+                                                            ],)
                                                       )
                                                           : Container(),
                                                       Container(child:
@@ -9190,38 +9244,40 @@ class _MyHomePageState extends State<MyHomePage>
                                                         //child: Text('Submit'),
                                                         child: Stack(alignment:
                                                         const Alignment(1, 1.0),
-                                                            children: <Widget>[
-                                                              TextFormField(
-                                                          // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
-                                                          style: TextStyle(
-                                                              height: 2),
-                                                          controller:
-                                                          newCostTypeTextFieldController,
-                                                          decoration: InputDecoration(
-                                                              hintText: AppLocalizations
-                                                                  .of(
-                                                                  context)
-                                                                  .translate(
-                                                                  'enterNewCostTypeNameTextField'),
-                                                              hintStyle: TextStyle(
-                                                                  height: 1.75,
-                                                                  fontSize: 12,
-                                                                  color: Color(
-                                                                      0xff0957FF)),
-
-                                                              enabledBorder:
-                                                              new UnderlineInputBorder(
-                                                                  borderSide: new BorderSide(
+                                                          children: <Widget>[
+                                                            TextFormField(
+                                                              // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
+                                                              style: TextStyle(
+                                                                  height: 2),
+                                                              controller:
+                                                              newCostTypeTextFieldController,
+                                                              decoration: InputDecoration(
+                                                                  hintText: AppLocalizations
+                                                                      .of(
+                                                                      context)
+                                                                      .translate(
+                                                                      'enterNewCostTypeNameTextField'),
+                                                                  hintStyle: TextStyle(
+                                                                      height: 1.75,
+                                                                      fontSize: 12,
                                                                       color: Color(
-                                                                          0xff0957FF)))),
-                                                              ),
-                                                              new FlatButton(
-                                                                  onPressed: () {
-                                                                    actualSearchTextFieldController
-                                                                        .clear();
-                                                                  },
-                                                                  child:
-                                                                  new Icon(Icons.clear))],),
+                                                                          0xff0957FF)),
+
+                                                                  enabledBorder:
+                                                                  new UnderlineInputBorder(
+                                                                      borderSide: new BorderSide(
+                                                                          color: Color(
+                                                                              0xff0957FF)))),
+                                                            ),
+                                                            new FlatButton(
+                                                                onPressed: () {
+                                                                  actualSearchTextFieldController
+                                                                      .clear();
+                                                                },
+                                                                child:
+                                                                new Icon(Icons
+                                                                    .clear))
+                                                          ],),
                                                       ),
                                                       ButtonBar(
                                                         alignment: MainAxisAlignment
