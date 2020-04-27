@@ -7916,7 +7916,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     });
 
                                                                     await loadPreferences();
-                                                                    
+
                                                                     setState(() {
                                                                       currentlyLoading = false;
                                                                     });
