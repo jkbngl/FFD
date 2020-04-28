@@ -4,6 +4,7 @@ from flask import render_template
 from flask_cors import CORS
 from connexion.resolver import RestyResolver
 import connexion
+import os
 
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -39,4 +40,5 @@ def home():
 
 # If we're running in stand alone mode, run the application
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
+

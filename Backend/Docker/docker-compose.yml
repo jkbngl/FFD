@@ -10,6 +10,7 @@ services:
       - ./financefordummies-3bd4d-firebase-adminsdk-3n825-404a64c505.json:/usr/scr/app/financefordummies-3bd4d-firebase-adminsdk-3n825-404a64c505.json
     environment:
       - GOOGLE_APPLICATION_CREDENTIALS=/usr/scr/app/financefordummies-3bd4d-firebase-adminsdk-3n825-404a64c505.json
+      - PORT=5000
     ports:
       - "5000:5000"
     container_name: ffd_api
