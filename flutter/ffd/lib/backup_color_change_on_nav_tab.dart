@@ -578,7 +578,7 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   syncUserInBackend() async {
-    String uri = 'http://192.168.0.21:5000/api/ffd/user/';
+    String uri = 'http://35.198.97.21:5000/api/ffd/user/';
 
     print(uri);
 
@@ -600,7 +600,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   loadList(String type, String sort, String sortType) async {
     String uri =
-        'http://192.168.0.21:5000/api/ffd/list/?_type=$type&sort=$sort&sortType=$sortType';
+        'http://35.198.97.21:5000/api/ffd/list/?_type=$type&sort=$sort&sortType=$sortType';
 
     print(uri);
 
@@ -683,12 +683,12 @@ class _MyHomePageState extends State<MyHomePage>
     try {
       _type = 'actual';
       uri =
-      'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type';
+      'http://35.198.97.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type';
       var actualAmounts = await http.read(uri, headers: params);
 
       _type = 'budget';
       uri =
-      'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type';
+      'http://35.198.97.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type';
       var budgetAmounts = await http.read(uri, headers: params);
 
       var parsedActualAmounts = json.decode(actualAmounts);
@@ -795,7 +795,7 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   loadPreferences() async {
-    String uri = 'http://192.168.0.21:5000/api/ffd/preferences';
+    String uri = 'http://35.198.97.21:5000/api/ffd/preferences';
 
     print(uri);
 
@@ -854,21 +854,21 @@ class _MyHomePageState extends State<MyHomePage>
 
     try {
       var actual = await http.read(
-          'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type',
+          'http://35.198.97.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type',
           headers: params);
 
       var actualComparison = await http.read(
-          'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$comparisonYear&month=$comparisonMonth&_type=$_type',
+          'http://35.198.97.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$comparisonYear&month=$comparisonMonth&_type=$_type',
           headers: params);
 
       _type = 'budget';
 
       var budget = await http.read(
-          'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type',
+          'http://35.198.97.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type',
           headers: params);
 
       var budgetComparison = await http.read(
-          'http://192.168.0.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$comparisonYear&month=$comparisonMonth&_type=$_type',
+          'http://35.198.97.21:5000/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$comparisonYear&month=$comparisonMonth&_type=$_type',
           headers: params);
 
       var parsedActual = json.decode(actual);
@@ -1024,16 +1024,16 @@ class _MyHomePageState extends State<MyHomePage>
     try {
       if (fetch || onStartup) {
         level1AccountsJson = await http.read(
-            'http://192.168.0.21:5000/api/ffd/accounts/1',
+            'http://35.198.97.21:5000/api/ffd/accounts/1',
             headers: params);
         level2AccountsJson = await http.read(
-            'http://192.168.0.21:5000/api/ffd/accounts/2',
+            'http://35.198.97.21:5000/api/ffd/accounts/2',
             headers: params);
         level3AccountsJson = await http.read(
-            'http://192.168.0.21:5000/api/ffd/accounts/3',
+            'http://35.198.97.21:5000/api/ffd/accounts/3',
             headers: params);
         costTypesJson = await http.read(
-            'http://192.168.0.21:5000/api/ffd/costtypes/',
+            'http://35.198.97.21:5000/api/ffd/costtypes/',
             headers: params);
 
         var parsedAccountLevel1 = json.decode(level1AccountsJson);
@@ -1356,7 +1356,7 @@ class _MyHomePageState extends State<MyHomePage>
       currentlyLoading = true;
     });
 
-    var url = 'http://192.168.0.21:5000/api/ffd/';
+    var url = 'http://35.198.97.21:5000/api/ffd/';
     String _token = token;
 
     // Whenever with the backend is communicated its best to reload the accounts and costtpyes
