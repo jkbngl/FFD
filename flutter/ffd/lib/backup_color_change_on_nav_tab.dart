@@ -324,7 +324,7 @@ class _MyHomePageState extends State<MyHomePage>
   bool startingUp = false;
 
   String connectionId = '35.198.97.21';
-  
+
   final actualTextFieldController = TextEditingController();
   final budgetTextFieldController = TextEditingController();
 
@@ -2089,8 +2089,8 @@ class _MyHomePageState extends State<MyHomePage>
           dateTimeVisualizer = dateTime;
         }
       },
-      onConfirm: (dateTime, List<int> index)  {
-        setState((){
+      onConfirm: (dateTime, List<int> index) {
+        setState(() {
           if (type == 'home') {
             currentlyLoading = true;
             dateTimeHome = dateTime;
@@ -2343,36 +2343,47 @@ class _MyHomePageState extends State<MyHomePage>
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      TextField(
-                        controller: dependingController,
-                        decoration: InputDecoration(
-                            hintText: AppLocalizations.of(context).translate(
-                                'comment')),
-                      ),
-                      Row(
-                        children: <Widget>[Switch(
-                          value: scheduleEntries,
-                          onChanged: (value) {
-                            setState(() {
-                              scheduleEntries = value;
-                            });
-                          },
-                          activeTrackColor: Color(
-                              0xffEEEEEE),
-                          activeColor: Color(0xff0957FF),
-                        ),
-                          Text(
-                            AppLocalizations.of(context)
-                                .translate(
-                                'scheduleSwitch'),
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                color: Colors.grey[800],
-                                fontWeight: FontWeight.w900,
-                                fontSize: 15),
-                          )
-                        ],)
+                      Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SingleChildScrollView(
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment
+                                      .spaceAround,
+                                  children: <Widget>[
+                                    TextField(
+                                      controller: dependingController,
+                                      decoration: InputDecoration(
+                                          hintText: AppLocalizations.of(context)
+                                              .translate(
+                                              'comment')),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Switch(
+                                          value: scheduleEntries,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              scheduleEntries = value;
+                                            });
+                                          },
+                                          activeTrackColor: Color(
+                                              0xffEEEEEE),
+                                          activeColor: Color(0xff0957FF),
+                                        ),
+                                        Expanded(
+                                              child: Text(
+                                                AppLocalizations.of(context)
+                                                    .translate(
+                                                    'scheduleSwitch'),
+                                                overflow: TextOverflow.fade,
+                                                style: TextStyle(
+                                                    color: Colors.grey[800],
+                                                    fontWeight: FontWeight.w900,
+                                                    fontSize: 15),
+                                              )),
+                                      ],)
+                                  ])))
                     ]),
                 actions: <Widget>[
                   new FlatButton(
@@ -2382,27 +2393,9 @@ class _MyHomePageState extends State<MyHomePage>
                       Navigator.of(context).pop();
                     },
                   ),
-                  // 158 skip button is no longer used
-                  /*new FlatButton(
-                    child: new Text(
-                        AppLocalizations.of(context).translate('skip')),
-                    onPressed: () {
-                      if (type == 'actual') {
-                        sendBackend('actual', false);
-                      } else if (type == 'budget') {
-                        sendBackend('budget', false);
-                      } else if (type != 'account') {
-                        sendBackend('new${type}add', false);
-                      } else if (dependingController2.text.length <= 0) {
-                        sendBackend('new${type}add', false);
-                      }
-
-                      Navigator.of(context).pop();
-                    },
-                  ),*/
                   new Container(
                     margin: EdgeInsets.only(
-                        left: 2, right: 2, bottom: 10),
+                        left: 2, right: 2, bottom: 0),
                     child: ConfirmationSlider(
                       text: AppLocalizations.of(context).translate(
                           'slideToConfirm'),
@@ -7211,7 +7204,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                       onChanged: (value) {
                                                         setState(() {
                                                           currentlyLoading =
-                                                            true;
+                                                          true;
 
                                                           showAllTime = false;
                                                           showFullYear = value;
@@ -7456,7 +7449,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                       onPressed: () {
                                                         setState(() {
                                                           // #170
-                                                          currentlyLoading = true;
+                                                          currentlyLoading =
+                                                          true;
 
                                                           showAllTime = false;
                                                           showFullYear = false;
@@ -7505,7 +7499,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                         onClear: () {
                                                           setState(() {
                                                             // #170
-                                                            currentlyLoading = true;
+                                                            currentlyLoading =
+                                                            true;
 
                                                             costTypeObjectVisualizer =
                                                             costTypesList[0];
@@ -7516,13 +7511,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                         },
                                                         onChanged: (
                                                             CostType newValue) {
-
-
                                                           if (newValue !=
                                                               null) {
                                                             setState(() {
                                                               // #170
-                                                              currentlyLoading = true;
+                                                              currentlyLoading =
+                                                              true;
 
                                                               costTypeObjectVisualizer =
                                                                   newValue;
@@ -7918,13 +7912,15 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   // EEEEEE
                                                                   onPressed: () async {
                                                                     setState(() {
-                                                                      currentlyLoading = true;
+                                                                      currentlyLoading =
+                                                                      true;
                                                                     });
 
                                                                     await loadPreferences();
 
                                                                     setState(() {
-                                                                      currentlyLoading = false;
+                                                                      currentlyLoading =
+                                                                      false;
                                                                     });
                                                                   },
                                                                 ),
