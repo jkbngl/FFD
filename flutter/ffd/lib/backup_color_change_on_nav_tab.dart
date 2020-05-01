@@ -2339,13 +2339,7 @@ class _MyHomePageState extends State<MyHomePage>
                         ]),
                   ),
                 ),
-                content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SingleChildScrollView(
+                content: SingleChildScrollView(
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment
                                       .spaceAround,
@@ -2383,8 +2377,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     fontSize: 15),
                                               )),
                                       ],)
-                                  ])))
-                    ]),
+                                  ])),
                 actions: <Widget>[
                   new FlatButton(
                     child: new Text(
