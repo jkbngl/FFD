@@ -2062,7 +2062,7 @@ class _MyHomePageState extends State<MyHomePage>
   int value = 2;
 
   /// Display date picker.
-  void _showDatePicker(String type, DateTime actualOrBudgetOrVisualizer) {
+  void _showDatePicker(String type, DateTime actualOrBudgetOrVisualizer) async {
     DatePicker.showDatePicker(
       context,
       pickerTheme: DateTimePickerTheme(
@@ -2089,17 +2089,21 @@ class _MyHomePageState extends State<MyHomePage>
           dateTimeVisualizer = dateTime;
         }
       },
-      onConfirm: (dateTime, List<int> index) {
-        setState(() {
+      onConfirm: (dateTime, List<int> index)  {
+        setState((){
           if (type == 'home') {
-            loadHomescreen(false);
+            currentlyLoading = true;
             dateTimeHome = dateTime;
+
+            loadHomescreen(true);
           } else if (type == 'actual') {
             dateTimeActual = dateTime;
           } else if (type == 'budget') {
             dateTimeBudget = dateTime;
           } else if (type == 'visualizer') {
-            loadAmount(false);
+            currentlyLoading = true;
+
+            loadAmount(true);
             dateTimeVisualizer = dateTime;
           }
         });
