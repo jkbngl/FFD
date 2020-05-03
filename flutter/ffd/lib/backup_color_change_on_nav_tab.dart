@@ -324,6 +324,7 @@ class _MyHomePageState extends State<MyHomePage>
   bool startingUp = false;
 
   String connectionId = '35.198.97.21';
+  String domain = 'financefordummies.ml';
 
   final actualTextFieldController = TextEditingController();
   final budgetTextFieldController = TextEditingController();
