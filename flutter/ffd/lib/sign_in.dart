@@ -99,9 +99,12 @@ Future<String> signIn(String email, String password, bool saveValues) async {
   prefs.setString('prefferedLogin', 'emailPassword');
 
   if (saveValues) {
-    final prefs = await SharedPreferences.getInstance();
     prefs.setString('mail', email);
     prefs.setString('password', password);
+  } else {
+    // #172, when remainSignedIn is not active the data will not be stored, and in case it was already stored cleared
+    prefs.setString('mail', '');
+    prefs.setString('password', '');
   }
 
   try {
