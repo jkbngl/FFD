@@ -3175,8 +3175,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                   onTap: () {
                                                     setState(() =>
                                                     _currentIndex = 1);
-                                                    _pageController.jumpToPage(
-                                                        1);
+                                                    _pageController.animateToPage(1, duration: Duration(milliseconds: 300), curve: Curves.linear);;
                                                   },
                                                   child: Container(
                                                     width: MediaQuery
@@ -3255,8 +3254,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                   onTap: () {
                                                     setState(() =>
                                                     _currentIndex = 2);
-                                                    _pageController.jumpToPage(
-                                                        2);
+                                                    _pageController.animateToPage(2, duration: Duration(milliseconds: 300), curve: Curves.linear);
                                                   },
                                                   child: Container(
                                                     width: MediaQuery
@@ -9614,7 +9612,7 @@ class _MyHomePageState extends State<MyHomePage>
         selectedIndex: _currentIndex,
         onItemSelected: (index) {
           setState(() => _currentIndex = index);
-          _pageController.jumpToPage(index);
+          _pageController.animateToPage(index, duration: Duration(milliseconds: 300), curve: Curves.linear);
         },
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
