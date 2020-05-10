@@ -323,8 +323,8 @@ class _MyHomePageState extends State<MyHomePage>
   bool currentlyLoading = false;
   bool startingUp = false;
 
-  //String connectionId = '35.198.97.21';
-  String connectionId = 'financefordummies.ml';
+  String connectionId = '192.168.0.21';
+  //String connectionId = 'financefordummies.ml';
 
   final actualTextFieldController = TextEditingController();
   final budgetTextFieldController = TextEditingController();
@@ -2341,44 +2341,44 @@ class _MyHomePageState extends State<MyHomePage>
                   ),
                 ),
                 content: SingleChildScrollView(
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .spaceAround,
-                                  children: <Widget>[
-                                    TextField(
-                                      controller: dependingController,
-                                      decoration: InputDecoration(
-                                          hintText: AppLocalizations.of(context)
-                                              .translate(
-                                              'comment')),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Switch(
-                                          value: scheduleEntries,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              scheduleEntries = value;
-                                            });
-                                          },
-                                          activeTrackColor: Color(
-                                              0xffEEEEEE),
-                                          activeColor: Color(0xff0957FF),
-                                        ),
-                                        Expanded(
-                                              child: Text(
-                                                AppLocalizations.of(context)
-                                                    .translate(
-                                                    'scheduleSwitch'),
-                                                overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                    color: Colors.grey[800],
-                                                    fontWeight: FontWeight.w900,
-                                                    fontSize: 15),
-                                              )),
-                                      ],)
-                                  ])),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment
+                            .spaceAround,
+                        children: <Widget>[
+                          TextField(
+                            controller: dependingController,
+                            decoration: InputDecoration(
+                                hintText: AppLocalizations.of(context)
+                                    .translate(
+                                    'comment')),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Switch(
+                                value: scheduleEntries,
+                                onChanged: (value) {
+                                  setState(() {
+                                    scheduleEntries = value;
+                                  });
+                                },
+                                activeTrackColor: Color(
+                                    0xffEEEEEE),
+                                activeColor: Color(0xff0957FF),
+                              ),
+                              Expanded(
+                                  child: Text(
+                                    AppLocalizations.of(context)
+                                        .translate(
+                                        'scheduleSwitch'),
+                                    overflow: TextOverflow.fade,
+                                    style: TextStyle(
+                                        color: Colors.grey[800],
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 15),
+                                  )),
+                            ],)
+                        ])),
                 actions: <Widget>[
                   new FlatButton(
                     child: new Text(
@@ -3175,7 +3175,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                   onTap: () {
                                                     setState(() =>
                                                     _currentIndex = 1);
-                                                    _pageController.animateToPage(1, duration: Duration(milliseconds: 300), curve: Curves.linear);;
+                                                    _pageController
+                                                        .animateToPage(1,
+                                                        duration: Duration(
+                                                            milliseconds: 300),
+                                                        curve: Curves.linear);
+                                                    ;
                                                   },
                                                   child: Container(
                                                     width: MediaQuery
@@ -3254,7 +3259,11 @@ class _MyHomePageState extends State<MyHomePage>
                                                   onTap: () {
                                                     setState(() =>
                                                     _currentIndex = 2);
-                                                    _pageController.animateToPage(2, duration: Duration(milliseconds: 300), curve: Curves.linear);
+                                                    _pageController
+                                                        .animateToPage(2,
+                                                        duration: Duration(
+                                                            milliseconds: 300),
+                                                        curve: Curves.linear);
                                                   },
                                                   child: Container(
                                                     width: MediaQuery
@@ -9612,7 +9621,9 @@ class _MyHomePageState extends State<MyHomePage>
         selectedIndex: _currentIndex,
         onItemSelected: (index) {
           setState(() => _currentIndex = index);
-          _pageController.animateToPage(index, duration: Duration(milliseconds: 300), curve: Curves.linear);
+          _pageController.animateToPage(
+              index, duration: Duration(milliseconds: 300),
+              curve: Curves.linear);
         },
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(

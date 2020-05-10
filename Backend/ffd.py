@@ -137,7 +137,14 @@ def userExists():
     headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
 
-    name = mail['name'].upper() if 'name' in mail else  mail['email'].split('@')[0]
+    logging.critical('#####################')
+    logging.critical(headerAccesstoken)
+    logging.critical(userId)
+    logging.critical(errorMessage)
+    logging.critical(mail)
+    logging.critical(mail['email'])
+
+    name = mail['name'].upper() if 'name' in mail else mail['email'].split('@')[0]
 
     if(userId < 0):
         connection = connect()
@@ -803,10 +810,39 @@ def deleteAccount(data, userId):
     cursor.close()
     connection.close()
 
+def accountAlreadyExist(accountName, accountId, userId):
+    
+    data = []
+    
+    connection = connect()
+    cursor = connection.cursor()
+
+    cursor.execute('select id from ffd.account_dim where name =  %s and level_type = %s and user_fk = %s', (accountName, accountId, userId,))
+
+    record = cursor.fetchall()
+
+    cursor.close()
+    connection.close()
+
+    logging.critical(record)
+    logging.critical(len(record))
+
+    return (len(record) > 0)
+
+
+
 def addAccount(data, userId):
     connection = connect()
     cursor = connection.cursor()
     
+    accountAlreadyExist(data['accounttoaddlevel1'].upper(), 1, userId)
+
+
+    # HINT:
+    # accountfornewlevel2parentaccount is the id of the level1 account selected in the account admin page of the app
+    # accounttoaddlevel2 is the name of the new level2 entered in the textfield in the account admin page of the app
+
+
     # If a name for a new level1 aacount was sent, enter a new level1 account
     if(data['accounttoaddlevel1']):
 
@@ -824,7 +860,7 @@ def addAccount(data, userId):
     if(int(data['accountfornewlevel2parentaccount']) > 0 and data['accounttoaddlevel2']):
 
         cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk, created) \
-                                  VALUES (%s, %s, 2, %s, %s, %s, %s, %s)",(    data['accounttoaddlevel2'].upper()
+                                  VALUES (%s, %s, 2, %s, %s, %s, %s, %s)",(data['accounttoaddlevel2'].upper()
                                                                         , data['accounttoaddlevel2comment']
                                                                         , data['accountfornewlevel2parentaccount']
                                                                         , userId
