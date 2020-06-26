@@ -780,7 +780,7 @@ class _MyHomePageState extends State<MyHomePage>
                       charts.ColorUtil.fromDartColor(Color(0xff003680))))
               .amount;
 
-          print(item.accountName);
+          print();
         }
       }
     } catch (e) {
@@ -5664,7 +5664,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             level2BudgetObject,
                                                             readOnly: level1BudgetObject
                                                                 .id <=
-                                                                0,
+                                                                0 || level2BudgetAccountsList.length <= 0,
                                                             underline: Container(
                                                               height: 2,
                                                               width: 5000,
