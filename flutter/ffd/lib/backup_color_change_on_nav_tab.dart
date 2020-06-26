@@ -8281,7 +8281,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     newLevel1TextFieldController
                                                                         .text
                                                                         .length <=
-                                                                        0),
+                                                                        0)  || currentlyLoading,
                                                                 style: TextStyle(
                                                                     height: 2),
                                                                 //increases the height of cursor
@@ -8450,7 +8450,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     newLevel2TextFieldController
                                                                         .text
                                                                         .length <=
-                                                                        0),
+                                                                        0) || currentlyLoading,
                                                                 style: TextStyle(
                                                                     height: 2),
                                                                 //increases the height of cursor
