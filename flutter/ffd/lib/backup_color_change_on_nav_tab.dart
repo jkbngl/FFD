@@ -3812,6 +3812,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   setState(() {
                                                                     level1ActualObject =
                                                                         value;
+
+                                                                    currentlyLoading = true;
+
                                                                   });
 
                                                                   await arrangeAccounts(
@@ -3918,7 +3921,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       .id !=
                                                                       value
                                                                           .id) {
-                                                                    arrangeAccounts(
+                                                                    await arrangeAccounts(
                                                                         2,
                                                                         'actual');
                                                                   } else {
