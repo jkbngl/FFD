@@ -3868,7 +3868,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                               value: level2ActualObject,
                                                               readOnly: level1ActualObject
                                                                   .id <=
-                                                                  0,
+                                                                  0 || level2ActualAccountsList.length <= 1,
                                                               underline: Container(
                                                                 height: 2,
                                                                 width: 5000,
@@ -3964,7 +3964,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                               value: level3ActualObject,
                                                               readOnly: level2ActualObject
                                                                   .id <=
-                                                                  0,
+                                                                  0 || level3ActualAccountsList.length <= 1,
                                                               underline: Container(
                                                                 height: 2,
                                                                 width: 5000,
@@ -5755,7 +5755,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             level3BudgetObject,
                                                             readOnly: level2BudgetObject
                                                                 .id <=
-                                                                0,
+                                                                0 || level3BudgetAccountsList.length <= 1,
                                                             underline: Container(
                                                               height: 2,
                                                               width: 5000,
@@ -8149,7 +8149,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                           readOnly:
                                                           level1AdminObject
                                                               .id <=
-                                                              0,
+                                                              0 || level2AdminAccountsList.length <= 1,
                                                           icon:
                                                           Icon(Icons
                                                               .arrow_downward),
