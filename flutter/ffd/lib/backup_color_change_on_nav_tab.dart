@@ -8281,7 +8281,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     newLevel1TextFieldController
                                                                         .text
                                                                         .length <=
-                                                                        0)  || currentlyLoading,
+                                                                        0),
                                                                 style: TextStyle(
                                                                     height: 2),
                                                                 //increases the height of cursor
