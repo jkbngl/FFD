@@ -8366,7 +8366,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                           readOnly:
                                                           level2AdminObject
                                                               .id <=
-                                                              0,
+                                                              0  || currentlyLoading,
                                                           icon:
                                                           Icon(Icons
                                                               .arrow_downward),
@@ -8450,7 +8450,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     newLevel2TextFieldController
                                                                         .text
                                                                         .length <=
-                                                                        0) || currentlyLoading,
+                                                                        0),
                                                                 style: TextStyle(
                                                                     height: 2),
                                                                 //increases the height of cursor
