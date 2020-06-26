@@ -3806,7 +3806,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 });
                                                               },
                                                               onChanged: (
-                                                                  value) {
+                                                                  value) async {
                                                                 if (value !=
                                                                     null) {
                                                                   setState(() {
@@ -3814,7 +3814,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         value;
                                                                   });
 
-                                                                  arrangeAccounts(
+                                                                  await arrangeAccounts(
                                                                       1,
                                                                       'actual');
 
@@ -3822,6 +3822,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       "${level2ActualObject
                                                                           .id} - ${level2ActualObject
                                                                           .name}");
+
+                                                                  setState(() {
+                                                                    currentlyLoading = false;
+                                                                  });
                                                                 }
                                                               },
                                                               dialogBox: true,
@@ -3895,7 +3899,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 });
                                                               },
                                                               onChanged: (
-                                                                  value) {
+                                                                  value) async {
                                                                 if (value !=
                                                                     null) {
                                                                   // Check if a new value was selected or the same was reselected
@@ -3905,6 +3909,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   setState(() {
                                                                     level2ActualObject =
                                                                         value;
+
+                                                                    currentlyLoading = true;
+
                                                                   });
 
                                                                   if (dummyAccount
@@ -3918,6 +3925,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     print(
                                                                         "RESELECTED");
                                                                   }
+
+                                                                  setState(() {
+                                                                    currentlyLoading = false;
+                                                                  });
                                                                 }
                                                               },
                                                               dialogBox: true,
@@ -5605,17 +5616,24 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 0];
                                                               });
                                                             },
-                                                            onChanged: (value) {
+                                                            onChanged: (value) async {
                                                               if (value !=
                                                                   null) {
                                                                 setState(() {
                                                                   level1BudgetObject =
                                                                       value;
+
+                                                                  currentlyLoading = true;
+
                                                                 });
 
-                                                                arrangeAccounts(
+                                                                await arrangeAccounts(
                                                                     1,
                                                                     'budget');
+
+                                                                setState(() {
+                                                                  currentlyLoading = false;
+                                                                });
                                                               }
                                                             },
                                                             dialogBox: true,
@@ -5688,7 +5706,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 0];
                                                               });
                                                             },
-                                                            onChanged: (value) {
+                                                            onChanged: (value) async {
                                                               if (value !=
                                                                   null) {
                                                                 // Check if a new value was selected or the same was reselected
@@ -5698,18 +5716,24 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 setState(() {
                                                                   level2BudgetObject =
                                                                       value;
+
+                                                                  currentlyLoading = true;
                                                                 });
 
                                                                 if (dummyAccount
                                                                     .id !=
                                                                     value.id) {
-                                                                  arrangeAccounts(
+                                                                  await arrangeAccounts(
                                                                       2,
                                                                       'budget');
                                                                 } else {
                                                                   print(
                                                                       "RESELECTED");
                                                                 }
+
+                                                                setState(() {
+                                                                  currentlyLoading = false;
+                                                                });
                                                               }
                                                             },
                                                             dialogBox: true,
@@ -8042,17 +8066,23 @@ class _MyHomePageState extends State<MyHomePage>
                                                               0];
                                                             });
                                                           },
-                                                          onChanged: (
-                                                              Account newValue) {
+                                                          onChanged:  (
+                                                              Account newValue) async {
                                                             if (newValue !=
                                                                 null) {
                                                               setState(() {
                                                                 level1AdminObject =
                                                                     newValue;
-                                                              });
+                                                                currentlyLoading = true;
 
-                                                              arrangeAccounts(
+                                                        });
+
+                                                              await arrangeAccounts(
                                                                   1, 'admin');
+
+                                                              setState(() {
+                                                                currentlyLoading = false;
+                                                              });
                                                             }
                                                           },
                                                           items: level1AdminAccountsList
@@ -8183,17 +8213,24 @@ class _MyHomePageState extends State<MyHomePage>
                                                               0];
                                                             });
                                                           },
-                                                          onChanged: (
-                                                              Account newValue) {
+                                                          onChanged:  (
+                                                              Account newValue) async {
                                                             if (newValue !=
                                                                 null) {
                                                               setState(() {
                                                                 level2AdminObject =
                                                                     newValue;
-                                                              });
 
-                                                              arrangeAccounts(
+                                                                currentlyLoading = true;
+
+                                                        });
+
+                                                              await arrangeAccounts(
                                                                   2, 'admin');
+
+                                                              setState(() {
+                                                                currentlyLoading = false;
+                                                              });
                                                             }
                                                           },
                                                           items: level2AdminAccountsList
