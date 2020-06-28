@@ -380,6 +380,13 @@ class _MyHomePageState extends State<MyHomePage>
   bool sortByCosttypeActual = false;
   bool sortByLevelActual = false;
 
+  // Grouping by account, year, month or day
+  List<bool> groupByVisualizerOptions = <bool>[];
+  bool groupByAccount = true;
+  bool groupByYear = false;
+  bool groupByMonth = false;
+  bool groupByDay = false;
+
   List<bool> sortBudgetOrders = <bool>[];
   bool sortByCreatedBudget = true;
   bool sortByDataDateBudget = false;
@@ -479,6 +486,11 @@ class _MyHomePageState extends State<MyHomePage>
     sortBudgetOrders.add(sortByAmountBudget);
     sortBudgetOrders.add(sortByCosttypeBudget);
     sortBudgetOrders.add(sortByLevelBudget);
+
+    groupByVisualizerOptions.add(groupByAccount);
+    groupByVisualizerOptions.add(groupByYear);
+    groupByVisualizerOptions.add(groupByMonth);
+    groupByVisualizerOptions.add(groupByDay);
   }
 
   @override
@@ -3813,8 +3825,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     level1ActualObject =
                                                                         value;
 
-                                                                    currentlyLoading = true;
-
+                                                                    currentlyLoading =
+                                                                    true;
                                                                   });
 
                                                                   await arrangeAccounts(
@@ -3827,7 +3839,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                           .name}");
 
                                                                   setState(() {
-                                                                    currentlyLoading = false;
+                                                                    currentlyLoading =
+                                                                    false;
                                                                   });
                                                                 }
                                                               },
@@ -3875,7 +3888,11 @@ class _MyHomePageState extends State<MyHomePage>
                                                               value: level2ActualObject,
                                                               readOnly: level1ActualObject
                                                                   .id <=
-                                                                  0 || level2ActualAccountsList.length <= 1 || currentlyLoading,
+                                                                  0 ||
+                                                                  level2ActualAccountsList
+                                                                      .length <=
+                                                                      1 ||
+                                                                  currentlyLoading,
                                                               underline: Container(
                                                                 height: 2,
                                                                 width: 5000,
@@ -3913,8 +3930,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     level2ActualObject =
                                                                         value;
 
-                                                                    currentlyLoading = true;
-
+                                                                    currentlyLoading =
+                                                                    true;
                                                                   });
 
                                                                   if (dummyAccount
@@ -3930,7 +3947,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   }
 
                                                                   setState(() {
-                                                                    currentlyLoading = false;
+                                                                    currentlyLoading =
+                                                                    false;
                                                                   });
                                                                 }
                                                               },
@@ -3978,7 +3996,11 @@ class _MyHomePageState extends State<MyHomePage>
                                                               value: level3ActualObject,
                                                               readOnly: level2ActualObject
                                                                   .id <=
-                                                                  0 || level3ActualAccountsList.length <= 1 || currentlyLoading,
+                                                                  0 ||
+                                                                  level3ActualAccountsList
+                                                                      .length <=
+                                                                      1 ||
+                                                                  currentlyLoading,
                                                               underline: Container(
                                                                 height: 2,
                                                                 width: 5000,
@@ -5619,15 +5641,16 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 0];
                                                               });
                                                             },
-                                                            onChanged: (value) async {
+                                                            onChanged: (
+                                                                value) async {
                                                               if (value !=
                                                                   null) {
                                                                 setState(() {
                                                                   level1BudgetObject =
                                                                       value;
 
-                                                                  currentlyLoading = true;
-
+                                                                  currentlyLoading =
+                                                                  true;
                                                                 });
 
                                                                 await arrangeAccounts(
@@ -5635,7 +5658,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     'budget');
 
                                                                 setState(() {
-                                                                  currentlyLoading = false;
+                                                                  currentlyLoading =
+                                                                  false;
                                                                 });
                                                               }
                                                             },
@@ -5683,7 +5707,11 @@ class _MyHomePageState extends State<MyHomePage>
                                                             level2BudgetObject,
                                                             readOnly: level1BudgetObject
                                                                 .id <=
-                                                                0 || level2BudgetAccountsList.length <= 1 || currentlyLoading,
+                                                                0 ||
+                                                                level2BudgetAccountsList
+                                                                    .length <=
+                                                                    1 ||
+                                                                currentlyLoading,
                                                             underline: Container(
                                                               height: 2,
                                                               width: 5000,
@@ -5709,7 +5737,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 0];
                                                               });
                                                             },
-                                                            onChanged: (value) async {
+                                                            onChanged: (
+                                                                value) async {
                                                               if (value !=
                                                                   null) {
                                                                 // Check if a new value was selected or the same was reselected
@@ -5720,7 +5749,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   level2BudgetObject =
                                                                       value;
 
-                                                                  currentlyLoading = true;
+                                                                  currentlyLoading =
+                                                                  true;
                                                                 });
 
                                                                 if (dummyAccount
@@ -5735,7 +5765,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 }
 
                                                                 setState(() {
-                                                                  currentlyLoading = false;
+                                                                  currentlyLoading =
+                                                                  false;
                                                                 });
                                                               }
                                                             },
@@ -5782,7 +5813,11 @@ class _MyHomePageState extends State<MyHomePage>
                                                             level3BudgetObject,
                                                             readOnly: level2BudgetObject
                                                                 .id <=
-                                                                0 || level3BudgetAccountsList.length <= 1 || currentlyLoading,
+                                                                0 ||
+                                                                level3BudgetAccountsList
+                                                                    .length <=
+                                                                    1 ||
+                                                                currentlyLoading,
                                                             underline: Container(
                                                               height: 2,
                                                               width: 5000,
@@ -7152,425 +7187,535 @@ class _MyHomePageState extends State<MyHomePage>
                                 constraints: BoxConstraints(
                                     minHeight: constraint.maxHeight),
                                 child: IntrinsicHeight(
-                                    child: Stack(children: <Widget>[Row(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .center,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .center,
-                                      children: <Widget>[Column(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .spaceEvenly,
-                                          crossAxisAlignment: CrossAxisAlignment
-                                              .center,
-                                          children: <Widget>[
-                                            Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                                children: <Widget>[
-                                                  ButtonTheme(
-                                                    //minWidth: 150.0,
-                                                    height: 60.0,
-                                                    child: FlatButton(
-                                                      onPressed: () =>
-                                                          _showDatePicker(
-                                                              'visualizer',
-                                                              dateTimeVisualizer),
-                                                      shape: new RoundedRectangleBorder(
-                                                        borderRadius:
-                                                        new BorderRadius
-                                                            .circular(40.0),
-                                                      ),
-                                                      color: Color(0xff003680),
-                                                      padding: EdgeInsets.all(
-                                                          10.0),
-                                                      child: Row(
-                                                        // Replace with a Row for horizontal icon + text
-                                                        children: <Widget>[
-                                                          Text(
-                                                              " ${dateTimeVisualizer
-                                                                  .year
-                                                                  .toString()}-${dateTimeVisualizer
-                                                                  .month
-                                                                  .toString()
-                                                                  .padLeft(
-                                                                  2, '0')}",
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 17)),
-                                                          SizedBox(width: 10),
-                                                          Icon(
-                                                            Icons
-                                                                .calendar_today,
-                                                            color: Colors.white,
+                                    child: Stack(children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .center,
+                                        crossAxisAlignment: CrossAxisAlignment
+                                            .center,
+                                        children: <Widget>[
+                                          Column(
+                                              mainAxisAlignment: MainAxisAlignment
+                                                  .spaceEvenly,
+                                              crossAxisAlignment: CrossAxisAlignment
+                                                  .center,
+                                              children: <Widget>[
+                                                Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      ButtonTheme(
+                                                        //minWidth: 150.0,
+                                                        height: 60.0,
+                                                        child: FlatButton(
+                                                          onPressed: () =>
+                                                              _showDatePicker(
+                                                                  'visualizer',
+                                                                  dateTimeVisualizer),
+                                                          shape: new RoundedRectangleBorder(
+                                                            borderRadius:
+                                                            new BorderRadius
+                                                                .circular(40.0),
                                                           ),
-                                                        ],
+                                                          color: Color(
+                                                              0xff003680),
+                                                          padding: EdgeInsets
+                                                              .all(
+                                                              10.0),
+                                                          child: Row(
+                                                            // Replace with a Row for horizontal icon + text
+                                                            children: <Widget>[
+                                                              Text(
+                                                                  " ${dateTimeVisualizer
+                                                                      .year
+                                                                      .toString()}-${dateTimeVisualizer
+                                                                      .month
+                                                                      .toString()
+                                                                      .padLeft(
+                                                                      2, '0')}",
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize: 17)),
+                                                              SizedBox(
+                                                                  width: 10),
+                                                              Icon(
+                                                                Icons
+                                                                    .calendar_today,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ),
-                                                ]),
-                                            Container(
-                                              //color: Colors.blue[600],
-                                              alignment: Alignment.center,
-                                              width: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .width * .95,
-                                              //child: Text('Submit'),
-                                              child: Row(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Switch(
-                                                      value: showFullYear,
-                                                      onChanged: (value) {
-                                                        setState(() {
-                                                          currentlyLoading =
-                                                          true;
+                                                    ]),
+                                                Container(
+                                                  //color: Colors.blue[600],
+                                                  alignment: Alignment.center,
+                                                  width: MediaQuery
+                                                      .of(context)
+                                                      .size
+                                                      .width * .95,
+                                                  //child: Text('Submit'),
+                                                  child: Row(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                      children: <Widget>[
+                                                        Switch(
+                                                          value: showFullYear,
+                                                          onChanged: (value) {
+                                                            setState(() {
+                                                              currentlyLoading =
+                                                              true;
 
-                                                          showAllTime = false;
-                                                          showFullYear = value;
-                                                          loadAmount(true);
-                                                        });
-                                                      },
-                                                      activeTrackColor: Color(
-                                                          0xffEEEEEE),
-                                                      activeColor: Color(
-                                                          0xff0957FF),
-                                                    ),
+                                                              showAllTime =
+                                                              false;
+                                                              showFullYear =
+                                                                  value;
+                                                              loadAmount(true);
+                                                            });
+                                                          },
+                                                          activeTrackColor: Color(
+                                                              0xffEEEEEE),
+                                                          activeColor: Color(
+                                                              0xff0957FF),
+                                                        ),
+                                                        Container(
+                                                          //color: Colors.blue[600],
+                                                            alignment: Alignment
+                                                                .center,
+                                                            width: MediaQuery
+                                                                .of(context)
+                                                                .size
+                                                                .width * .30,
+                                                            //child: Text('Submit'),
+                                                            child: FittedBox(
+                                                                child:
+                                                                Text(
+                                                                  AppLocalizations
+                                                                      .of(
+                                                                      context)
+                                                                      .translate(
+                                                                      'FullYearSwitch'),
+                                                                  overflow: TextOverflow
+                                                                      .ellipsis,
+                                                                  style: TextStyle(
+                                                                      fontSize: 25),
+                                                                ))),
+                                                        Switch(
+                                                          value: showAllTime,
+                                                          onChanged: (value) {
+                                                            setState(() {
+                                                              // To show load animation from #170
+                                                              currentlyLoading =
+                                                              true;
+
+                                                              showFullYear =
+                                                              false;
+                                                              showAllTime =
+                                                                  value;
+                                                              loadAmount(true);
+                                                            });
+                                                          },
+                                                          activeTrackColor: Color(
+                                                              0xffEEEEEE),
+                                                          activeColor: Color(
+                                                              0xff0957FF),
+                                                        ),
+                                                        Container(
+                                                          //color: Colors.blue[600],
+                                                            alignment: Alignment
+                                                                .center,
+                                                            width: MediaQuery
+                                                                .of(context)
+                                                                .size
+                                                                .width * .30,
+                                                            //child: Text('Submit'),
+                                                            child: FittedBox(
+                                                                child: Text(
+                                                                  AppLocalizations
+                                                                      .of(
+                                                                      context)
+                                                                      .translate(
+                                                                      'AllTimeSwitch'),
+                                                                  overflow: TextOverflow
+                                                                      .ellipsis,
+                                                                  style: TextStyle(
+                                                                      fontSize: 25),
+                                                                ))),
+                                                      ]),
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment
+                                                      .start,
+                                                  children: <Widget>[
                                                     Container(
-                                                      //color: Colors.blue[600],
+                                                      padding: const EdgeInsets
+                                                          .only(
+                                                          left: 0.0,
+                                                          top: 0,
+                                                          right: 0,
+                                                          bottom: 0),
+                                                      child: Align(
                                                         alignment: Alignment
-                                                            .center,
-                                                        width: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .width * .30,
-                                                        //child: Text('Submit'),
-                                                        child: FittedBox(child:
-                                                        Text(
+                                                            .centerLeft,
+                                                        child: Text(
                                                           AppLocalizations.of(
                                                               context)
                                                               .translate(
-                                                              'FullYearSwitch'),
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: TextStyle(
-                                                              fontSize: 25),
-                                                        ))),
-                                                    Switch(
-                                                      value: showAllTime,
-                                                      onChanged: (value) {
-                                                        setState(() {
-                                                          // To show load animation from #170
-                                                          currentlyLoading =
-                                                          true;
-
-                                                          showFullYear = false;
-                                                          showAllTime = value;
-                                                          loadAmount(true);
-                                                        });
-                                                      },
-                                                      activeTrackColor: Color(
-                                                          0xffEEEEEE),
-                                                      activeColor: Color(
-                                                          0xff0957FF),
+                                                              'drilldown') +
+                                                              drilldownLevel,
+                                                        ),
+                                                      ),
                                                     ),
-                                                    Container(
-                                                      //color: Colors.blue[600],
-                                                        alignment: Alignment
-                                                            .center,
-                                                        width: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .width * .30,
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  width: MediaQuery
+                                                      .of(context)
+                                                      .size
+                                                      .width,
+                                                  height:
+                                                  MediaQuery
+                                                      .of(context)
+                                                      .size
+                                                      .height * .4,
+                                                  child: charts.BarChart(
+                                                    [
+                                                      charts.Series<
+                                                          ChartObject,
+                                                          String>(
+                                                          id: 'CompanySizeVsNumberOfCompanies',
+                                                          colorFn: (_, __) =>
+                                                              charts.ColorUtil
+                                                                  .fromDartColor(
+                                                                  Color(
+                                                                      0xFF0957FF)),
+                                                          domainFn: (
+                                                              ChartObject sales,
+                                                              _) =>
+                                                          sales.accountName,
+                                                          measureFn: (
+                                                              ChartObject sales,
+                                                              _) =>
+                                                          sales.amount,
+                                                          labelAccessorFn: (
+                                                              ChartObject sales,
+                                                              _) =>
+                                                          '${sales
+                                                              .accountName}: ${sales
+                                                              .amount
+                                                              .toString()}€ ${sales
+                                                              .budgetEntry > 0
+                                                              ? ' / ' + sales
+                                                              .budgetEntry
+                                                              .toString() + "€"
+                                                              : ''}',
+                                                          data: visualizerData),
+                                                      charts.Series<
+                                                          ChartObject,
+                                                          String>(
+                                                          id: 'CompanySizeVsNumberOfCompanies',
+                                                          domainFn: (
+                                                              ChartObject sales,
+                                                              _) =>
+                                                          sales.accountName,
+                                                          measureFn: (
+                                                              ChartObject sales,
+                                                              _) =>
+                                                          sales.amount,
+                                                          colorFn: (
+                                                              ChartObject segment,
+                                                              _) =>
+                                                          segment.color,
+                                                          labelAccessorFn: (
+                                                              ChartObject sales,
+                                                              _) =>
+                                                          '${sales
+                                                              .accountName}: ${sales
+                                                              .amount
+                                                              .toString()}€',
+                                                          data: visualizerTargetData)
+                                                        ..setAttribute(
+                                                            charts
+                                                                .rendererIdKey,
+                                                            'customTargetLine'),
+                                                    ],
+                                                    animate: (!startingUp),
+                                                    barGroupingType:
+                                                    charts.BarGroupingType
+                                                        .grouped,
+                                                    customSeriesRenderers: [
+                                                      new charts
+                                                          .BarTargetLineRendererConfig<
+                                                          String>(
+                                                        // ID used to link series to this renderer.
+                                                          customRendererId: 'customTargetLine',
+                                                          groupingType:
+                                                          charts.BarGroupingType
+                                                              .grouped)
+                                                    ],
+                                                    selectionModels: [
+                                                      new charts
+                                                          .SelectionModelConfig(
+                                                          type: charts
+                                                              .SelectionModelType
+                                                              .info,
+                                                          changedListener: _onSelectionChanged)
+                                                    ],
+                                                    vertical: false,
+                                                    // Hide domain axis.
+                                                    barRendererDecorator:
+                                                    new charts
+                                                        .BarLabelDecorator<
+                                                        String>(),
+                                                    // Hide domain axis.
+                                                    domainAxis: new charts
+                                                        .OrdinalAxisSpec(
+                                                        renderSpec:
+                                                        new charts
+                                                            .NoneRenderSpec()),
+                                                    behaviors: [
+                                                      charts.ChartTitle(
+                                                          AppLocalizations.of(
+                                                              context)
+                                                              .translate(
+                                                              'visualizerChartTitle')),
+                                                      charts.ChartTitle(
+                                                          AppLocalizations.of(
+                                                              context)
+                                                              .translate(
+                                                              'visualizerChartYTitle'),
+                                                          behaviorPosition:
+                                                          charts
+                                                              .BehaviorPosition
+                                                              .start),
+                                                      charts.ChartTitle(
+                                                          AppLocalizations.of(
+                                                              context)
+                                                              .translate(
+                                                              'visualizerChartXTitle'),
+                                                          behaviorPosition:
+                                                          charts
+                                                              .BehaviorPosition
+                                                              .bottom)
+                                                    ],
+                                                  ),
+                                                ),
+                                                Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        padding: const EdgeInsets
+                                                            .only(
+                                                            top: 0,
+                                                            bottom: 0),
                                                         //child: Text('Submit'),
-                                                        child: FittedBox(
-                                                            child: Text(
+                                                        child: RaisedButton(
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius: new BorderRadius
+                                                                .circular(50.0),
+                                                          ),
+                                                          child: Text(
                                                               AppLocalizations
                                                                   .of(
                                                                   context)
                                                                   .translate(
-                                                                  'AllTimeSwitch'),
-                                                              overflow: TextOverflow
-                                                                  .ellipsis,
-                                                              style: TextStyle(
-                                                                  fontSize: 25),
-                                                            ))),
-                                                  ]),
-                                            ),
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Container(
-                                                padding: const EdgeInsets.only(
-                                                    left: 30.0,
-                                                    top: 0,
-                                                    right: 0,
-                                                    bottom: 0),
-                                                child: Align(
-                                                  alignment: Alignment
-                                                      .centerLeft,
-                                                  child: Text(
-                                                    AppLocalizations.of(context)
-                                                        .translate(
-                                                        'drilldown') +
-                                                        drilldownLevel,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .width,
-                                              height:
-                                              MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * .4,
-                                              child: charts.BarChart(
-                                                [
-                                                  charts.Series<
-                                                      ChartObject,
-                                                      String>(
-                                                      id: 'CompanySizeVsNumberOfCompanies',
-                                                      colorFn: (_, __) =>
-                                                          charts.ColorUtil
-                                                              .fromDartColor(
-                                                              Color(
-                                                                  0xFF0957FF)),
-                                                      domainFn: (
-                                                          ChartObject sales,
-                                                          _) =>
-                                                      sales.accountName,
-                                                      measureFn: (
-                                                          ChartObject sales,
-                                                          _) =>
-                                                      sales.amount,
-                                                      labelAccessorFn: (
-                                                          ChartObject sales,
-                                                          _) =>
-                                                      '${sales
-                                                          .accountName}: ${sales
-                                                          .amount
-                                                          .toString()}€ ${sales
-                                                          .budgetEntry > 0
-                                                          ? ' / ' + sales
-                                                          .budgetEntry
-                                                          .toString() + "€"
-                                                          : ''}',
-                                                      data: visualizerData),
-                                                  charts.Series<
-                                                      ChartObject,
-                                                      String>(
-                                                      id: 'CompanySizeVsNumberOfCompanies',
-                                                      domainFn: (
-                                                          ChartObject sales,
-                                                          _) =>
-                                                      sales.accountName,
-                                                      measureFn: (
-                                                          ChartObject sales,
-                                                          _) =>
-                                                      sales.amount,
-                                                      colorFn: (
-                                                          ChartObject segment,
-                                                          _) =>
-                                                      segment.color,
-                                                      labelAccessorFn: (
-                                                          ChartObject sales,
-                                                          _) =>
-                                                      '${sales
-                                                          .accountName}: ${sales
-                                                          .amount
-                                                          .toString()}€',
-                                                      data: visualizerTargetData)
-                                                    ..setAttribute(
-                                                        charts.rendererIdKey,
-                                                        'customTargetLine'),
-                                                ],
-                                                animate: (!startingUp),
-                                                barGroupingType:
-                                                charts.BarGroupingType.grouped,
-                                                customSeriesRenderers: [
-                                                  new charts
-                                                      .BarTargetLineRendererConfig<
-                                                      String>(
-                                                    // ID used to link series to this renderer.
-                                                      customRendererId: 'customTargetLine',
-                                                      groupingType:
-                                                      charts.BarGroupingType
-                                                          .grouped)
-                                                ],
-                                                selectionModels: [
-                                                  new charts
-                                                      .SelectionModelConfig(
-                                                      type: charts
-                                                          .SelectionModelType
-                                                          .info,
-                                                      changedListener: _onSelectionChanged)
-                                                ],
-                                                vertical: false,
-                                                // Hide domain axis.
-                                                barRendererDecorator:
-                                                new charts.BarLabelDecorator<
-                                                    String>(),
-                                                // Hide domain axis.
-                                                domainAxis: new charts
-                                                    .OrdinalAxisSpec(
-                                                    renderSpec:
-                                                    new charts
-                                                        .NoneRenderSpec()),
-                                                behaviors: [
-                                                  charts.ChartTitle(
-                                                      AppLocalizations.of(
-                                                          context)
-                                                          .translate(
-                                                          'visualizerChartTitle')),
-                                                  charts.ChartTitle(
-                                                      AppLocalizations.of(
-                                                          context)
-                                                          .translate(
-                                                          'visualizerChartYTitle'),
-                                                      behaviorPosition:
-                                                      charts.BehaviorPosition
-                                                          .start),
-                                                  charts.ChartTitle(
-                                                      AppLocalizations.of(
-                                                          context)
-                                                          .translate(
-                                                          'visualizerChartXTitle'),
-                                                      behaviorPosition:
-                                                      charts.BehaviorPosition
-                                                          .bottom)
-                                                ],
-                                              ),
-                                            ),
-                                            Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                                children: <Widget>[
-                                                  Container(
-                                                    padding: const EdgeInsets
-                                                        .only(
-                                                        top: 0,
-                                                        bottom: 0),
-                                                    //child: Text('Submit'),
-                                                    child: RaisedButton(
-                                                      shape: RoundedRectangleBorder(
-                                                        borderRadius: new BorderRadius
-                                                            .circular(50.0),
-                                                      ),
-                                                      child: Text(
-                                                          AppLocalizations.of(
-                                                              context)
-                                                              .translate(
-                                                              'resetButton')),
-                                                      color: Color(0xffEEEEEE),
-                                                      // EEEEEE
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          // #170
-                                                          currentlyLoading =
-                                                          true;
-
-                                                          showAllTime = false;
-                                                          showFullYear = false;
-                                                          costTypeObjectVisualizer =
-                                                          costTypesList[0];
-                                                          dateTimeVisualizer =
-                                                              DateTime.parse(
-                                                                  INIT_DATETIME);
-
-                                                          g_parent_account
-                                                              .accountLevel = 1;
-                                                          g_parent_account.id =
-                                                          -69;
-
-                                                          drilldownLevel = "";
-
-                                                          loadAmount(true);
-                                                        });
-                                                      },
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    padding: const EdgeInsets
-                                                        .only(
-                                                      left: 30.0,
-                                                      top: 0,
-                                                    ),
-                                                    //child: Text('Submit'),
-                                                    child: Align(
-                                                      alignment: Alignment
-                                                          .topRight,
-                                                      child: SearchChoices
-                                                          .single(
-                                                        value: costTypeObjectVisualizer,
-                                                        icon: Icon(Icons
-                                                            .arrow_downward),
-                                                        style: TextStyle(
-                                                            color: Color(
-                                                                0xff0957FF)),
-                                                        underline: Container(
-                                                          height: 2,
-                                                          width: 2000,
+                                                                  'resetButton')),
                                                           color: Color(
-                                                              0xff0957FF),
-                                                        ),
-                                                        onClear: () {
-                                                          setState(() {
-                                                            // #170
-                                                            currentlyLoading =
-                                                            true;
-
-                                                            costTypeObjectVisualizer =
-                                                            costTypesList[0];
-
-                                                            // #140
-                                                            loadAmount(true);
-                                                          });
-                                                        },
-                                                        onChanged: (
-                                                            CostType newValue) {
-                                                          if (newValue !=
-                                                              null) {
+                                                              0xffEEEEEE),
+                                                          // EEEEEE
+                                                          onPressed: () {
                                                             setState(() {
                                                               // #170
                                                               currentlyLoading =
                                                               true;
 
+                                                              showAllTime =
+                                                              false;
+                                                              showFullYear =
+                                                              false;
                                                               costTypeObjectVisualizer =
-                                                                  newValue;
+                                                              costTypesList[0];
+                                                              dateTimeVisualizer =
+                                                                  DateTime
+                                                                      .parse(
+                                                                      INIT_DATETIME);
+
+                                                              g_parent_account
+                                                                  .accountLevel =
+                                                              1;
+                                                              g_parent_account
+                                                                  .id =
+                                                              -69;
+
+                                                              drilldownLevel =
+                                                              "";
+
                                                               loadAmount(true);
                                                             });
-                                                          }
-                                                        },
-                                                        items: costTypesList
-                                                            .map((
-                                                            CostType type) {
-                                                          return new DropdownMenuItem<
-                                                              CostType>(
-                                                            value: type,
-                                                            child: new Text(
-                                                              type.name,
-                                                            ),
-                                                          );
-                                                        }).toList(),
+                                                          },
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ),
-                                                ]),
-                                          ])
-                                      ],
-                                    ), currentlyLoading
-                                        ?
-                                    _showLoadWidget()
-                                        : Container(),
+                                                      Container(
+                                                        padding: const EdgeInsets
+                                                            .only(
+                                                          left: 30.0,
+                                                          top: 0,
+                                                        ),
+                                                        //child: Text('Submit'),
+                                                        child: Align(
+                                                          alignment: Alignment
+                                                              .topRight,
+                                                          child: SearchChoices
+                                                              .single(
+                                                            value: costTypeObjectVisualizer,
+                                                            icon: Icon(Icons
+                                                                .arrow_downward),
+                                                            style: TextStyle(
+                                                                color: Color(
+                                                                    0xff0957FF)),
+                                                            underline: Container(
+                                                              height: 2,
+                                                              width: 2000,
+                                                              color: Color(
+                                                                  0xff0957FF),
+                                                            ),
+                                                            onClear: () {
+                                                              setState(() {
+                                                                // #170
+                                                                currentlyLoading =
+                                                                true;
+
+                                                                costTypeObjectVisualizer =
+                                                                costTypesList[0];
+
+                                                                // #140
+                                                                loadAmount(
+                                                                    true);
+                                                              });
+                                                            },
+                                                            onChanged: (
+                                                                CostType newValue) {
+                                                              if (newValue !=
+                                                                  null) {
+                                                                setState(() {
+                                                                  // #170
+                                                                  currentlyLoading =
+                                                                  true;
+
+                                                                  costTypeObjectVisualizer =
+                                                                      newValue;
+                                                                  loadAmount(
+                                                                      true);
+                                                                });
+                                                              }
+                                                            },
+                                                            items: costTypesList
+                                                                .map((
+                                                                CostType type) {
+                                                              return new DropdownMenuItem<
+                                                                  CostType>(
+                                                                value: type,
+                                                                child: new Text(
+                                                                  type.name,
+                                                                ),
+                                                              );
+                                                            }).toList(),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      IconButton(icon: Icon(
+                                                        Icons.grid_on,
+                                                        color: Color(
+                                                            0xff0957FF),),
+                                                        onPressed: () {
+                                                          print("GROUP BY");
+                                                          showDialog(
+                                                              context: context,
+                                                              builder: (
+                                                                  BuildContext context) {
+                                                                return AlertDialog(
+                                                                  content: StatefulBuilder(
+                                                                    builder: (
+                                                                        BuildContext context,
+                                                                        StateSetter setState) {
+                                                                      return Column(
+                                                                          mainAxisSize: MainAxisSize
+                                                                              .min,
+                                                                          children: List<
+                                                                              Widget>.generate(
+                                                                              groupByVisualizerOptions.length /* + 1 because position zero is the sort switch*/, (
+                                                                              int index) {
+                                                                            return
+                                                                              Row(
+                                                                                children: <
+                                                                                    Widget>[
+                                                                                  Radio<
+                                                                                      bool>(
+                                                                                    groupValue: true,
+                                                                                    value: groupByVisualizerOptions[index],
+                                                                                    activeColor: Color(
+                                                                                        0xFF0957FF),
+                                                                                    onChanged: (
+                                                                                        bool newValue) {
+                                                                                      setState(() {
+                                                                                        print(
+                                                                                            newValue);
+
+                                                                                        groupByVisualizerOptions[0] =
+                                                                                        false;
+                                                                                        groupByVisualizerOptions[1] =
+                                                                                        false;
+                                                                                        groupByVisualizerOptions[2] =
+                                                                                        false;
+
+                                                                                        groupByVisualizerOptions[index] = true;
+                                                                                      });
+
+                                                                                      /*handleOrderDialog(
+                                                                                          (index -
+                                                                                              1),
+                                                                                          'actual');*/
+
+                                                                                      Navigator
+                                                                                          .pop(
+                                                                                          context);
+                                                                                    },
+                                                                                  ),
+                                                                                  Flexible(
+                                                                                      child: Text(
+                                                                                        AppLocalizations
+                                                                                            .of(
+                                                                                            context)
+                                                                                            .translate(
+                                                                                            '${index}GroupText'),
+                                                                                        overflow: TextOverflow
+                                                                                            .clip,
+                                                                                      )),
+                                                                                ],
+                                                                              );
+                                                                          }));
+                                                                    },
+                                                                  ),
+                                                                );
+                                                              });
+                                                        },)
+                                                    ]),
+                                              ])
+                                        ],
+                                      ), currentlyLoading
+                                          ?
+                                      _showLoadWidget()
+                                          : Container(),
                                     ],)),
                               ));
                         },
@@ -8069,22 +8214,23 @@ class _MyHomePageState extends State<MyHomePage>
                                                               0];
                                                             });
                                                           },
-                                                          onChanged:  (
+                                                          onChanged: (
                                                               Account newValue) async {
                                                             if (newValue !=
                                                                 null) {
                                                               setState(() {
                                                                 level1AdminObject =
                                                                     newValue;
-                                                                currentlyLoading = true;
-
-                                                        });
+                                                                currentlyLoading =
+                                                                true;
+                                                              });
 
                                                               await arrangeAccounts(
                                                                   1, 'admin');
 
                                                               setState(() {
-                                                                currentlyLoading = false;
+                                                                currentlyLoading =
+                                                                false;
                                                               });
                                                             }
                                                           },
@@ -8182,7 +8328,11 @@ class _MyHomePageState extends State<MyHomePage>
                                                           readOnly:
                                                           level1AdminObject
                                                               .id <=
-                                                              0 || level2AdminAccountsList.length <= 1 || currentlyLoading,
+                                                              0 ||
+                                                              level2AdminAccountsList
+                                                                  .length <=
+                                                                  1 ||
+                                                              currentlyLoading,
                                                           icon:
                                                           Icon(Icons
                                                               .arrow_downward),
@@ -8216,7 +8366,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                               0];
                                                             });
                                                           },
-                                                          onChanged:  (
+                                                          onChanged: (
                                                               Account newValue) async {
                                                             if (newValue !=
                                                                 null) {
@@ -8224,15 +8374,16 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 level2AdminObject =
                                                                     newValue;
 
-                                                                currentlyLoading = true;
-
-                                                        });
+                                                                currentlyLoading =
+                                                                true;
+                                                              });
 
                                                               await arrangeAccounts(
                                                                   2, 'admin');
 
                                                               setState(() {
-                                                                currentlyLoading = false;
+                                                                currentlyLoading =
+                                                                false;
                                                               });
                                                             }
                                                           },
@@ -8366,7 +8517,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                           readOnly:
                                                           level2AdminObject
                                                               .id <=
-                                                              0  || currentlyLoading,
+                                                              0 ||
+                                                              currentlyLoading,
                                                           icon:
                                                           Icon(Icons
                                                               .arrow_downward),
