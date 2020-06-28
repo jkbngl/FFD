@@ -411,8 +411,8 @@ def readListActualBudget(_type, sort, sortType):
 
     return data
 
-def readAmounts(level_type, cost_type, parent_account, year, month, _type):
-    
+def readAmounts(level_type, cost_type, parent_account, year, month, _type, groupBy):
+
     """
     This function responds to a request for /api/ffd/amounts/?level_type=2&cost_type=-99&parent_account=3&year=2020&month=2&_type=actual
     with the complete lists of amounts for the specified params
@@ -426,6 +426,11 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type):
     http://192.168.0.21:5000/api/ffd/amounts/?level_type=1&cost_type=-99&parent_account=-69&year=2020&month=2&_type=actual
     
     """
+
+    logging.critical("####################")
+    logging.critical("GROUPING BY")
+    logging.critical(groupBy)
+    logging.critical("####################")
 
     headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
