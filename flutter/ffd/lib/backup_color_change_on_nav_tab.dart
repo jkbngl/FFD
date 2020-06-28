@@ -323,8 +323,8 @@ class _MyHomePageState extends State<MyHomePage>
   bool currentlyLoading = false;
   bool startingUp = false;
 
-  // String connectionId = '192.168.0.21';
-  String connectionId = 'financefordummies.ml';
+   //String connectionId = '192.168.0.21';
+   String connectionId = 'financefordummies.ml';
 
   final actualTextFieldController = TextEditingController();
   final budgetTextFieldController = TextEditingController();
@@ -386,6 +386,7 @@ class _MyHomePageState extends State<MyHomePage>
   bool groupByYear = false;
   bool groupByMonth = false;
   bool groupByDay = false;
+  String groupByArgument = 'Accounts';
 
   List<bool> sortBudgetOrders = <bool>[];
   bool sortByCreatedBudget = true;
@@ -698,12 +699,12 @@ class _MyHomePageState extends State<MyHomePage>
     try {
       _type = 'actual';
       uri =
-      'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type';
+      'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type&groupBy=$groupByArgument';
       var actualAmounts = await http.read(uri, headers: params);
 
       _type = 'budget';
       uri =
-      'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type';
+      'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type&groupBy=$groupByArgument';
       var budgetAmounts = await http.read(uri, headers: params);
 
       var parsedActualAmounts = json.decode(actualAmounts);
@@ -2930,6 +2931,43 @@ class _MyHomePageState extends State<MyHomePage>
     setState(() {
       loadAmount(false);
     });
+  }
+
+  handleGroupDialog(int index) {
+    print(index);
+
+    switch (index) {
+    // Default value when only the switch is changed, use the same column again
+      case -1:
+        {
+          groupByArgument = 'Accounts';
+        }
+        break;
+
+      case 0:
+        {
+          groupByArgument = 'Accounts';
+        }
+        break;
+
+      case 1:
+        {
+          groupByArgument = 'Year';
+        }
+        break;
+      case 2:
+        {
+          groupByArgument = 'Month';
+        }
+        break;
+      case 3:
+        {
+          groupByArgument = 'Day';
+        }
+        break;
+    }
+
+
   }
 
   handleOrderDialog(int index, String type) {
@@ -7681,10 +7719,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                         groupByVisualizerOptions[index] = true;
                                                                                       });
 
-                                                                                      /*handleOrderDialog(
-                                                                                          (index -
-                                                                                              1),
-                                                                                          'actual');*/
+                                                                                      handleGroupDialog(index);
 
                                                                                       Navigator
                                                                                           .pop(
