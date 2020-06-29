@@ -323,7 +323,7 @@ class _MyHomePageState extends State<MyHomePage>
   bool currentlyLoading = false;
   bool startingUp = false;
 
-   //String connectionId = '192.168.0.21';
+   // String connectionId = '192.168.0.21:5000';
    String connectionId = 'financefordummies.ml';
 
   final actualTextFieldController = TextEditingController();
@@ -794,7 +794,8 @@ class _MyHomePageState extends State<MyHomePage>
               .amount;
         }
       }
-    } catch (e) {
+    }
+    catch (e) {
       errorDialog(e);
     }
 
@@ -868,21 +869,21 @@ class _MyHomePageState extends State<MyHomePage>
 
     try {
       var actual = await http.read(
-          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type',
+          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type&groupBy=Accounts',
           headers: params);
 
       var actualComparison = await http.read(
-          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$comparisonYear&month=$comparisonMonth&_type=$_type',
+          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$comparisonYear&month=$comparisonMonth&_type=$_type&groupBy=Accounts',
           headers: params);
 
       _type = 'budget';
 
       var budget = await http.read(
-          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type',
+          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type&groupBy=Accounts',
           headers: params);
 
       var budgetComparison = await http.read(
-          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$comparisonYear&month=$comparisonMonth&_type=$_type',
+          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$comparisonYear&month=$comparisonMonth&_type=$_type&groupBy=Accounts',
           headers: params);
 
       var parsedActual = json.decode(actual);
@@ -2934,7 +2935,6 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   handleGroupDialog(int index) {
-    print(index);
 
     switch (index) {
     // Default value when only the switch is changed, use the same column again
@@ -2966,6 +2966,10 @@ class _MyHomePageState extends State<MyHomePage>
         }
         break;
     }
+
+    print("Grouping by $groupByArgument");
+
+    loadAmount(true);
 
 
   }
