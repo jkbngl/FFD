@@ -523,12 +523,25 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type, group
         return data
 
     elif groupBy == 'Year':
+        
         data = []
+
+        where_params = f'where active = 1 and user_fk = {userId} '
+
+        if(cost_type > 0):
+            where_params += f' where costtype_fk = {cost_type}' if len(where_params) <= 0 else f' and costtype_fk = {cost_type}'
+
+        if(year > 0):
+            where_params += f' where year = {year}' if len(where_params) <= 0 else f' and year = {year}'
+
+        if(month > 0):
+            where_params += f' where month = {month}' if len(where_params) <= 0 else f' and month = {month}'
+
 
         connection = connect()
         cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-        cursor.execute(f"select sum(amount) sum, 'UNDEFINED' || year level1, -99 level1_fk, -1 level_type, year from ffd.{'act' if _type == 'actual' else 'bdg'}_data where active = 1 group by year order by year desc")
+        cursor.execute(f"select sum(amount) sum, 'UNDEFINED' || year level1, -99 level1_fk, -1 level_type, year from ffd.{'act' if _type == 'actual' else 'bdg'}_data {where_params} group by year order by year desc")
 
         record = cursor.fetchall()
         # fetch the column names from the cursror
@@ -554,10 +567,21 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type, group
     elif groupBy == 'Month':
         data = []
 
+        where_params = f'where active = 1 and user_fk = {userId} '
+
+        if(cost_type > 0):
+            where_params += f' where costtype_fk = {cost_type}' if len(where_params) <= 0 else f' and costtype_fk = {cost_type}'
+
+        if(year > 0):
+            where_params += f' where year = {year}' if len(where_params) <= 0 else f' and year = {year}'
+
+        if(month > 0):
+            where_params += f' where month = {month}' if len(where_params) <= 0 else f' and month = {month}'
+
         connection = connect()
         cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-        cursor.execute(f"select sum(amount) sum, 'UNDEFINED' || year || month level1, -99 level1_fk, -1 level_type, year, month from ffd.{'act' if _type == 'actual' else 'bdg'}_data where active = 1 group by year, month order by year, month desc")
+        cursor.execute(f"select sum(amount) sum, 'UNDEFINED' || year || month level1, -99 level1_fk, -1 level_type, year, month from ffd.{'act' if _type == 'actual' else 'bdg'}_data {where_params} group by year, month order by year, month desc")
 
         record = cursor.fetchall()
         # fetch the column names from the cursror
@@ -583,10 +607,21 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type, group
     elif groupBy == 'Day':
         data = []
 
+        where_params = f'where active = 1 and user_fk = {userId} '
+
+        if(cost_type > 0):
+            where_params += f' where costtype_fk = {cost_type}' if len(where_params) <= 0 else f' and costtype_fk = {cost_type}'
+
+        if(year > 0):
+            where_params += f' where year = {year}' if len(where_params) <= 0 else f' and year = {year}'
+
+        if(month > 0):
+            where_params += f' where month = {month}' if len(where_params) <= 0 else f' and month = {month}'
+
         connection = connect()
         cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-        cursor.execute(f"select sum(amount) sum, 'UNDEFINED' || year || month || day level1, -99 level1_fk, -1 level_type, year, month, day from ffd.{'act' if _type == 'actual' else 'bdg'}_data where active = 1 group by year, month, day order by day desc")
+        cursor.execute(f"select sum(amount) sum, 'UNDEFINED' || year || month || day level1, -99 level1_fk, -1 level_type, year, month, day from ffd.{'act' if _type == 'actual' else 'bdg'}_data {where_params} group by year, month, day order by day desc")
 
         record = cursor.fetchall()
         # fetch the column names from the cursror
