@@ -7731,6 +7731,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                         false;
                                                                                         groupByVisualizerOptions[2] =
                                                                                         false;
+                                                                                        groupByVisualizerOptions[3] =
+                                                                                        false;
 
                                                                                         groupByVisualizerOptions[index] = true;
                                                                                       });
