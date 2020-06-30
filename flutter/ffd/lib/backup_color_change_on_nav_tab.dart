@@ -135,7 +135,11 @@ class ChartObject {
   double budgetEntry;
   final charts.Color color;
 
-  ChartObject(this.accountName, this.amount, this.accountId, this.accountLevel,
+  ChartObject(
+      this.accountName,
+      this.amount,
+      this.accountId,
+      this.accountLevel,
       this.budgetEntry,
       this.color);
 }
@@ -696,7 +700,7 @@ class _MyHomePageState extends State<MyHomePage>
       "accesstoken": token,
     };
 
-    try {
+    //try {
       _type = 'actual';
       uri =
       'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type&groupBy=$groupByArgument';
@@ -713,15 +717,19 @@ class _MyHomePageState extends State<MyHomePage>
       visualizerData.clear();
       visualizerTargetData.clear();
 
-      print(parsedActualAmounts);
-      print("#######");
-      print(parsedBudgetAmounts);
+    print(parsedActualAmounts);
+    print("#######");
+    print(level_type.toString());
+    print(level_type.runtimeType);
+    print("#######");
+    print(parsedBudgetAmounts);
+
 
       for (var amounts in parsedActualAmounts) {
         visualizerData.add(ChartObject(
             amounts['level$level_type'].toString(),
             amounts['sum'],
-            amounts['level${level_type.toString()}_fk'],
+            amounts['level${level_type}_fk'],
             level_type,
             -69,
             charts.ColorUtil.fromDartColor(Color(0xff003680))));
@@ -794,10 +802,10 @@ class _MyHomePageState extends State<MyHomePage>
               .amount;
         }
       }
-    }
-    catch (e) {
-      errorDialog(e);
-    }
+    //}
+  //catch (e) {
+//  errorDialog(e);
+  //}
 
     if (fromSwitch) {
       setState(() {
@@ -1425,6 +1433,9 @@ class _MyHomePageState extends State<MyHomePage>
       'month': type == 'actual'
           ? dateTimeActual.month.toString()
           : dateTimeBudget.month.toString(),
+      'day': type == 'actual'
+          ? dateTimeActual.day.toString()
+          : dateTimeBudget.day.toString(),
       'timezoneOffsetMin': DateTime
           .now()
           .timeZoneOffset
