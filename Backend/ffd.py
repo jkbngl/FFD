@@ -412,7 +412,7 @@ def readListActualBudget(_type, sort, sortType):
     return data
 
 def readAmounts(level_type, cost_type, parent_account, year, month, _type, groupBy):
-
+    
     """
     This function responds to a request for /api/ffd/amounts/?level_type=2&cost_type=-99&parent_account=3&year=2020&month=2&_type=actual
     with the complete lists of amounts for the specified params
@@ -435,89 +435,179 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type, group
     headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
 
-    #85 check to prohibit SQL injections, as the query is dynamically build and can not be done in the normal way - not relly needed as its already declaere in the swagger, just to be sure
-    if type(level_type) == int and type(cost_type) == int and type(parent_account) == int and type(year) == int and type(month) == int and (_type == 'actual' or _type == 'budget'):
-        pass
-    else:
-        return mail, 404
+    # When accounts or none passed
+    if groupBy == 'Accounts' or None:
 
-    # Mail is ACCESS FORBIDDEN in this case
-    if(errorMessage is not None):
-        return mail, 403
+	#85 check to prohibit SQL injections, as the query is dynamically build and can not be done in the normal way - not relly needed as its already declaere in the swagger, just to be sure
+        if type(level_type) == int and type(cost_type) == int and type(parent_account) == int and type(year) == int and type(month) == int and (_type == 'actual' or _type == 'budget'):
+            pass
+        else:
+            return mail, 404
+
+        # Mail is ACCESS FORBIDDEN in this case
+        if(errorMessage is not None):
+            return mail, 403
 
     
 
-    # Used to concat the query depending on the parameters passed
-    select_params = ''
-    where_params = f'where active = 1 and user_fk = {userId} '
-    group_params = ''
-    order_params = ''
+        # Used to concat the query depending on the parameters passed
+        select_params = ''
+        where_params = f'where active = 1 and user_fk = {userId} '
+        group_params = ''
+        order_params = ''
 
-    if(level_type == 1):
-        select_params += ' select sum(amount), level1, level1_fk ' if len(select_params) <= 0 else ' , level1, level1_fk'
-        group_params += ' group by level1, level1_fk ' if len(group_params) <= 0 else ' , level1, level1_fk'
-        order_params += ' order by level1 ' if len(order_params) <= 0 else ' , level1'
-    if(level_type == 2): 
-        select_params += ' select sum(amount), level2, level2_fk ' if len(select_params) <= 0 else ' , level2, level2_fk'
-        group_params += ' group by level2, level2_fk ' if len(group_params) <= 0 else ' , level2, level2_fk'
-        order_params += ' order by level2 ' if len(order_params) <= 0 else ' , level2'
-    if(level_type == 3):
-        select_params += ' select sum(amount), level3, level3_fk ' if len(select_params) <= 0 else ' , level3, level3_fk '
-        group_params += ' group by level3, level3_fk ' if len(group_params) <= 0 else ' , level3, level3_fk '
-        order_params += ' order by level3 ' if len(order_params) <= 0 else ' , level3'
+        if(level_type == 1):
+            select_params += ' select sum(amount), level1, level1_fk ' if len(select_params) <= 0 else ' , level1, level1_fk'
+            group_params += ' group by level1, level1_fk ' if len(group_params) <= 0 else ' , level1, level1_fk'
+            order_params += ' order by level1 ' if len(order_params) <= 0 else ' , level1'
+        if(level_type == 2): 
+            select_params += ' select sum(amount), level2, level2_fk ' if len(select_params) <= 0 else ' , level2, level2_fk'
+            group_params += ' group by level2, level2_fk ' if len(group_params) <= 0 else ' , level2, level2_fk'
+            order_params += ' order by level2 ' if len(order_params) <= 0 else ' , level2'
+        if(level_type == 3):
+            select_params += ' select sum(amount), level3, level3_fk ' if len(select_params) <= 0 else ' , level3, level3_fk '
+            group_params += ' group by level3, level3_fk ' if len(group_params) <= 0 else ' , level3, level3_fk '
+            order_params += ' order by level3 ' if len(order_params) <= 0 else ' , level3'
 
-    if(cost_type > 0):
-        select_params += ' select sum(amount), costtype, costtype_fk ' if len(select_params) <= 0 else ' , costtype, costtype_fk'
-        where_params += f' where costtype_fk = {cost_type}' if len(where_params) <= 0 else f' and costtype_fk = {cost_type}'
-        group_params += ' group by costtype, costtype_fk ' if len(group_params) <= 0 else ' , costtype, costtype_fk'
-        order_params += ' order by costtype ' if len(order_params) <= 0 else ' , costtype'
+        if(cost_type > 0):
+            select_params += ' select sum(amount), costtype, costtype_fk ' if len(select_params) <= 0 else ' , costtype, costtype_fk'
+            where_params += f' where costtype_fk = {cost_type}' if len(where_params) <= 0 else f' and costtype_fk = {cost_type}'
+            group_params += ' group by costtype, costtype_fk ' if len(group_params) <= 0 else ' , costtype, costtype_fk'
+            order_params += ' order by costtype ' if len(order_params) <= 0 else ' , costtype'
     
-    if(parent_account > 0):
-        select_params += f' select sum(amount), level{level_type - 1}_fk  ' if len(select_params) <= 0 else f' , level{level_type - 1}_fk '
-        where_params += f' where level{level_type - 1}_fk = {parent_account}' if len(where_params) <= 0 else f' and level{level_type - 1}_fk = {parent_account}'
-        group_params += f' group by level{level_type - 1}_fk  ' if len(group_params) <= 0 else f' , level{level_type - 1}_fk '
-        order_params += f' order by level{level_type - 1}_fk  ' if len(order_params) <= 0 else f' , level{level_type - 1}_fk '
+        if(parent_account > 0):
+            select_params += f' select sum(amount), level{level_type - 1}_fk  ' if len(select_params) <= 0 else f' , level{level_type - 1}_fk '
+            where_params += f' where level{level_type - 1}_fk = {parent_account}' if len(where_params) <= 0 else f' and level{level_type - 1}_fk = {parent_account}'
+            group_params += f' group by level{level_type - 1}_fk  ' if len(group_params) <= 0 else f' , level{level_type - 1}_fk '
+            order_params += f' order by level{level_type - 1}_fk  ' if len(order_params) <= 0 else f' , level{level_type - 1}_fk '
     
-    if(year > 0):
-        select_params += ' select sum(amount), year ' if len(select_params) <= 0 else ' , year'
-        where_params += f' where year = {year}' if len(where_params) <= 0 else f' and year = {year}'
-        group_params += ' group by year ' if len(group_params) <= 0 else ' , year'
-        order_params += ' order by year ' if len(order_params) <= 0 else ' , year'
+        if(year > 0):
+            select_params += ' select sum(amount), year ' if len(select_params) <= 0 else ' , year'
+            where_params += f' where year = {year}' if len(where_params) <= 0 else f' and year = {year}'
+            group_params += ' group by year ' if len(group_params) <= 0 else ' , year'
+            order_params += ' order by year ' if len(order_params) <= 0 else ' , year'
 
-    if(month > 0):
-        select_params += ' select sum(amount), month ' if len(select_params) <= 0 else ' , month'
-        where_params += f' where month = {month}' if len(where_params) <= 0 else f' and month = {month}'
-        group_params += ' group by month ' if len(group_params) <= 0 else ' , month'
-        order_params += ' order by month ' if len(order_params) <= 0 else ' , month'
+        if(month > 0):
+            select_params += ' select sum(amount), month ' if len(select_params) <= 0 else ' , month'
+            where_params += f' where month = {month}' if len(where_params) <= 0 else f' and month = {month}'
+            group_params += ' group by month ' if len(group_params) <= 0 else ' , month'
+            order_params += ' order by month ' if len(order_params) <= 0 else ' , month'
 
-    logging.info(f"{select_params}{where_params}{group_params}{order_params}")
+        logging.info(f"{select_params}{where_params}{group_params}{order_params}")
 
-    # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
-    data = []
+        # Declare an empty data object which will be filled with key value pairs, as psycogp2 only returns the values without keys
+        data = []
 
-    connection = connect()
-    cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
+        connection = connect()
+        cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-    cursor.execute(f"{select_params} from ffd.{'act' if _type == 'actual' else 'bdg'}_data {where_params}{group_params} order by sum desc")
+        cursor.execute(f"{select_params} from ffd.{'act' if _type == 'actual' else 'bdg'}_data {where_params}{group_params} order by sum desc")
 
-    record = cursor.fetchall()
-    # fetch the column names from the cursror
-    columnnames = [desc[0] for desc in cursor.description]
+        record = cursor.fetchall()
+        # fetch the column names from the cursror
+        columnnames = [desc[0] for desc in cursor.description]
 
-    # Create from the value array a key value object
-    for row in record:
-        cache = {}
+        # Create from the value array a key value object
+        for row in record:
+            cache = {}
 
-        for columnname in columnnames:
-            cache[columnname] = row[columnname]
+            for columnname in columnnames:
+                cache[columnname] = row[columnname]
 
-        data.append(cache)
+            data.append(cache)
         
-    cursor.close()
-    connection.close()
+        cursor.close()
+        connection.close()
 
     
-    return data
+        return data
+
+    elif groupBy == 'Year':
+        data = []
+
+        connection = connect()
+        cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
+
+        cursor.execute(f"select sum(amount) sum, 'UNDEFINED' || year level1, -99 level1_fk, -1 level_type, year from ffd.{'act' if _type == 'actual' else 'bdg'}_data group by year order by year desc")
+
+        record = cursor.fetchall()
+        # fetch the column names from the cursror
+        columnnames = [desc[0] for desc in cursor.description]
+
+        # Create from the value array a key value object
+        for row in record:
+            cache = {}
+
+            for columnname in columnnames:
+                cache[columnname] = row[columnname]
+
+            data.append(cache)
+
+        cursor.close()
+        connection.close()
+
+        logging.error(data)
+
+        return data
+
+
+    elif groupBy == 'Month':
+        data = []
+
+        connection = connect()
+        cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
+
+        cursor.execute(f"select sum(amount) sum, 'UNDEFINED' || year || month level1, -99 level1_fk, -1 level_type, year, month from ffd.{'act' if _type == 'actual' else 'bdg'}_data group by year, month order by year, month desc")
+
+        record = cursor.fetchall()
+        # fetch the column names from the cursror
+        columnnames = [desc[0] for desc in cursor.description]
+
+        # Create from the value array a key value object
+        for row in record:
+            cache = {}
+
+            for columnname in columnnames:
+                cache[columnname] = row[columnname]
+
+            data.append(cache)
+
+        cursor.close()
+        connection.close()
+
+        logging.error(data)
+
+        return data
+
+
+    elif groupBy == 'Day':
+        data = []
+
+        connection = connect()
+        cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
+
+        cursor.execute(f"select sum(amount) sum, 'UNDEFINED' || year || month || day level1, -99 level1_fk, -1 level_type, year, month, day from ffd.{'act' if _type == 'actual' else 'bdg'}_data group by year, month, day order by day desc")
+
+        record = cursor.fetchall()
+        # fetch the column names from the cursror
+        columnnames = [desc[0] for desc in cursor.description]
+
+        # Create from the value array a key value object
+        for row in record:
+            cache = {}
+
+            for columnname in columnnames:
+                cache[columnname] = row[columnname]
+
+            data.append(cache)
+
+        cursor.close()
+        connection.close()
+
+        logging.error(data)
+
+        return data
+
 
 def readCosttypes():
     """
@@ -624,13 +714,18 @@ def sendActual(data, userId):
 
     utcTime = datetime.now() + timedelta(minutes=int(data['timezoneOffsetMin']))
 
-    cursor.execute("INSERT INTO ffd.act_data (amount, comment, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk, created) \
-                                  VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
+    print("##############----------##############")
+    print(data['day'])
+    print("##############----------##############")
+
+    cursor.execute("INSERT INTO ffd.act_data (amount, comment, data_date, year, month, day, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk, created) \
+                                  VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
                                                                                         ( data['amount']
                                                                                         , data['actualcomment']
                                                                                         , data['date']
                                                                                         , data['year']
                                                                                         , data['month']
+                                                                                        , data['day']
                                                                                         , data['level1']
                                                                                         , data['level1id']
                                                                                         , data['level2']
@@ -739,13 +834,14 @@ def sendBudget(data, userId):
     connection = connect()
     cursor = connection.cursor()
    
-    cursor.execute("INSERT INTO ffd.bdg_data (amount, comment, data_date, year, month, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk, created) \
-                                  VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
+    cursor.execute("INSERT INTO ffd.bdg_data (amount, comment, data_date, year, month, day, level1, level1_fk, level2, level2_fk, level3, level3_fk, costtype, costtype_fk, user_fk, created) \
+                                  VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
                                                                                         ( data['amount']
                                                                                         , data['budgetcomment']
                                                                                         , data['date']
                                                                                         , data['year']
                                                                                         , data['month']
+                                                                                        , data['day']
                                                                                         , data['level1']
                                                                                         , data['level1id']
                                                                                         , data['level2']
@@ -815,39 +911,10 @@ def deleteAccount(data, userId):
     cursor.close()
     connection.close()
 
-def accountAlreadyExist(accountName, accountId, userId):
-    
-    data = []
-    
-    connection = connect()
-    cursor = connection.cursor()
-
-    cursor.execute('select id from ffd.account_dim where name =  %s and level_type = %s and user_fk = %s', (accountName, accountId, userId,))
-
-    record = cursor.fetchall()
-
-    cursor.close()
-    connection.close()
-
-    logging.critical(record)
-    logging.critical(len(record))
-
-    return (len(record) > 0)
-
-
-
 def addAccount(data, userId):
     connection = connect()
     cursor = connection.cursor()
     
-    accountAlreadyExist(data['accounttoaddlevel1'].upper(), 1, userId)
-
-
-    # HINT:
-    # accountfornewlevel2parentaccount is the id of the level1 account selected in the account admin page of the app
-    # accounttoaddlevel2 is the name of the new level2 entered in the textfield in the account admin page of the app
-
-
     # If a name for a new level1 aacount was sent, enter a new level1 account
     if(data['accounttoaddlevel1']):
 
@@ -865,7 +932,7 @@ def addAccount(data, userId):
     if(int(data['accountfornewlevel2parentaccount']) > 0 and data['accounttoaddlevel2']):
 
         cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk, created) \
-                                  VALUES (%s, %s, 2, %s, %s, %s, %s, %s)",(data['accounttoaddlevel2'].upper()
+                                  VALUES (%s, %s, 2, %s, %s, %s, %s, %s)",(    data['accounttoaddlevel2'].upper()
                                                                         , data['accounttoaddlevel2comment']
                                                                         , data['accountfornewlevel2parentaccount']
                                                                         , userId
@@ -958,3 +1025,4 @@ def deleteEntry(type, data, userId):
     connection.close()
     
     return data
+
