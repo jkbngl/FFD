@@ -531,12 +531,6 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type, group
         if(cost_type > 0):
             where_params += f' where costtype_fk = {cost_type}' if len(where_params) <= 0 else f' and costtype_fk = {cost_type}'
 
-        if(year > 0):
-            where_params += f' where year = {year}' if len(where_params) <= 0 else f' and year = {year}'
-
-        if(month > 0):
-            where_params += f' where month = {month}' if len(where_params) <= 0 else f' and month = {month}'
-
 
         connection = connect()
         cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
@@ -574,9 +568,6 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type, group
 
         if(year > 0):
             where_params += f' where year = {year}' if len(where_params) <= 0 else f' and year = {year}'
-
-        if(month > 0):
-            where_params += f' where month = {month}' if len(where_params) <= 0 else f' and month = {month}'
 
         connection = connect()
         cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
