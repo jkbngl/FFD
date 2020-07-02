@@ -7688,7 +7688,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                         ),
                                                       ),
                                                       IconButton(icon: Icon(
-                                                        Icons.grid_on,
+                                                        Icons.group,
                                                         color: Color(
                                                             0xff0957FF),),
                                                         onPressed: () {
