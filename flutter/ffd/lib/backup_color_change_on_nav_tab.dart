@@ -2880,6 +2880,7 @@ class _MyHomePageState extends State<MyHomePage>
       await loadList('budget', budgetListSortColumn, budgetListSortType);
     } else if (_currentIndex == 3) {
       await loadAmount(false);
+      print("FINISHED LOADING");
     } else if (_currentIndex == 4) {
       await checkForChanges(false, true, 'admin');
       await loadPreferences();
