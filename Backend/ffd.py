@@ -612,7 +612,7 @@ def readAmounts(level_type, cost_type, parent_account, year, month, _type, group
         connection = connect()
         cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-        cursor.execute(f"select sum(amount) sum, || year || '-' || month || '-' || day level1, -99 level1_fk, -1 level_type, year, month, day from ffd.{'act' if _type == 'actual' else 'bdg'}_data {where_params} group by year, month, day order by day desc")
+        cursor.execute(f"select sum(amount) sum, year || '-' || month || '-' || day level1, -99 level1_fk, -1 level_type, year, month, day from ffd.{'act' if _type == 'actual' else 'bdg'}_data {where_params} group by year, month, day order by day desc")
 
         record = cursor.fetchall()
         # fetch the column names from the cursror
