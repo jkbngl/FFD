@@ -2948,7 +2948,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   setLoading(){
 
-    // #189 workaround for showing load animation
+    // #189 workaround for showing load animation, does not work directly in onChanged of radioButton
     setState(() {
       currentlyLoading =
       true;
