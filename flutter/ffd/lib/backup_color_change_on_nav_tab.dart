@@ -2891,6 +2891,9 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   _onSelectionChanged(charts.SelectionModel model) {
+
+    setLoading();
+
     final selectedDatum = model.selectedDatum;
     final selectedDatum2 = model.selectedSeries;
 
@@ -2942,7 +2945,7 @@ class _MyHomePageState extends State<MyHomePage>
     }
 
     setState(() {
-      loadAmount(false);
+      loadAmount(true);
     });
   }
 
