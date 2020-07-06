@@ -2892,12 +2892,12 @@ class _MyHomePageState extends State<MyHomePage>
 
   _onSelectionChanged(charts.SelectionModel model) {
 
-    setLoading();
+
 
     final selectedDatum = model.selectedDatum;
     final selectedDatum2 = model.selectedSeries;
 
-    if (selectedDatum.isNotEmpty) {
+    if (selectedDatum.isNotEmpty && !currentlyLoading) {
       //time = selectedDatum.first.datum.toString();
       selectedDatum.forEach((charts.SeriesDatum datumPair) {
         print(datumPair.datum.amount);
@@ -2943,6 +2943,11 @@ class _MyHomePageState extends State<MyHomePage>
         }
       });
     }
+
+    setState(() {
+      currentlyLoading =
+      true;
+    });
 
     setState(() {
       loadAmount(true);
