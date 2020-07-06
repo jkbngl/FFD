@@ -2892,57 +2892,85 @@ class _MyHomePageState extends State<MyHomePage>
 
   _onSelectionChanged(charts.SelectionModel model) {
 
-
+    print("data is currently grouped by: $groupByArgument");
 
     final selectedDatum = model.selectedDatum;
     final selectedDatum2 = model.selectedSeries;
 
-    if (selectedDatum.isNotEmpty && !currentlyLoading) {
-      //time = selectedDatum.first.datum.toString();
-      selectedDatum.forEach((charts.SeriesDatum datumPair) {
-        print(datumPair.datum.amount);
-        print(datumPair.datum.accountName);
-        print(datumPair.datum.accountId);
-        print(datumPair.datum.accountLevel);
+    if(groupByArgument == 'Year')
+    {
+      print("CLICKED: ${selectedDatum[0]}");
 
-        if (datumPair.datum.accountId > 0 && datumPair.datum.accountLevel < 3) {
-          g_parent_account.id = datumPair.datum.accountId;
-          g_parent_account.accountLevel =
-              datumPair.datum.accountLevel + 1; // we need to next higher one
+      DateTime newDate = DateTime(int.parse(selectedDatum[0].datum.accountName.toString().split("-")[0]));
 
-          drilldownLevel += drilldownLevel.length > 0
-              ? " > " + datumPair.datum.accountName
-              : datumPair.datum.accountName;
-        } else {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              // return object of type Dialog
-              return AlertDialog(
-                title: new Text(
-                    AppLocalizations.of(context).translate('drilldownError')),
-                content: new Text(datumPair.datum.accountLevel >= 3
-                    ? AppLocalizations.of(context).translate(
-                    'drilldownErrorMoreLevel3')
-                    : AppLocalizations.of(context).translate(
-                    'drilldownErrorParent')),
-                // No drilldown possible as there is no deeper level available
-                actions: <Widget>[
-                  // usually buttons at the bottom of the dialog
-                  new FlatButton(
-                    child: new Text(
-                        AppLocalizations.of(context).translate('close')),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              );
-            },
-          );
-        }
-      });
+      dateTimeVisualizer = newDate;
+      groupByArgument = 'Month';
     }
+    else if(groupByArgument == 'Month')
+    {
+      print("CLICKED: ${selectedDatum[0].datum.accountName}");
+
+      DateTime newDate = DateTime(int.parse(selectedDatum[0].datum.accountName.toString().split("-")[0]), int.parse(selectedDatum[0].datum.accountName.toString().split("-")[1]));
+
+      dateTimeVisualizer = newDate;
+
+
+      groupByArgument = 'Day';
+    }
+    else if(groupByArgument == 'Day')
+    {
+      groupByArgument = 'Accounts';
+    }
+    else if(groupByArgument == 'Accounts')
+    {
+      if (selectedDatum.isNotEmpty && !currentlyLoading) {
+        //time = selectedDatum.first.datum.toString();
+        selectedDatum.forEach((charts.SeriesDatum datumPair) {
+          print(datumPair.datum.amount);
+          print(datumPair.datum.accountName);
+          print(datumPair.datum.accountId);
+          print(datumPair.datum.accountLevel);
+
+          if (datumPair.datum.accountId > 0 && datumPair.datum.accountLevel < 3) {
+            g_parent_account.id = datumPair.datum.accountId;
+            g_parent_account.accountLevel =
+                datumPair.datum.accountLevel + 1; // we need to next higher one
+
+            drilldownLevel += drilldownLevel.length > 0
+                ? " > " + datumPair.datum.accountName
+                : datumPair.datum.accountName;
+          } else {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                // return object of type Dialog
+                return AlertDialog(
+                  title: new Text(
+                      AppLocalizations.of(context).translate('drilldownError')),
+                  content: new Text(datumPair.datum.accountLevel >= 3
+                      ? AppLocalizations.of(context).translate(
+                      'drilldownErrorMoreLevel3')
+                      : AppLocalizations.of(context).translate(
+                      'drilldownErrorParent')),
+                  // No drilldown possible as there is no deeper level available
+                  actions: <Widget>[
+                    // usually buttons at the bottom of the dialog
+                    new FlatButton(
+                      child: new Text(
+                          AppLocalizations.of(context).translate('close')),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          }
+        });
+      }
+    }
+
 
     setState(() {
       currentlyLoading =
