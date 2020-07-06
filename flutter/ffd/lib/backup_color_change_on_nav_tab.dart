@@ -135,8 +135,7 @@ class ChartObject {
   double budgetEntry;
   final charts.Color color;
 
-  ChartObject(
-      this.accountName,
+  ChartObject(this.accountName,
       this.amount,
       this.accountId,
       this.accountLevel,
@@ -327,8 +326,8 @@ class _MyHomePageState extends State<MyHomePage>
   bool currentlyLoading = false;
   bool startingUp = false;
 
-   // String connectionId = '192.168.0.21:5000';
-   String connectionId = 'financefordummies.ml';
+  // String connectionId = '192.168.0.21:5000';
+  String connectionId = 'financefordummies.ml';
 
   final actualTextFieldController = TextEditingController();
   final budgetTextFieldController = TextEditingController();
@@ -701,21 +700,21 @@ class _MyHomePageState extends State<MyHomePage>
     };
 
     //try {
-      _type = 'actual';
-      uri =
-      'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type&groupBy=$groupByArgument';
-      var actualAmounts = await http.read(uri, headers: params);
+    _type = 'actual';
+    uri =
+    'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type&groupBy=$groupByArgument';
+    var actualAmounts = await http.read(uri, headers: params);
 
-      _type = 'budget';
-      uri =
-      'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type&groupBy=$groupByArgument';
-      var budgetAmounts = await http.read(uri, headers: params);
+    _type = 'budget';
+    uri =
+    'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type&groupBy=$groupByArgument';
+    var budgetAmounts = await http.read(uri, headers: params);
 
-      var parsedActualAmounts = json.decode(actualAmounts);
-      var parsedBudgetAmounts = json.decode(budgetAmounts);
+    var parsedActualAmounts = json.decode(actualAmounts);
+    var parsedBudgetAmounts = json.decode(budgetAmounts);
 
-      visualizerData.clear();
-      visualizerTargetData.clear();
+    visualizerData.clear();
+    visualizerTargetData.clear();
 
     print(parsedActualAmounts);
     print("#######");
@@ -725,87 +724,87 @@ class _MyHomePageState extends State<MyHomePage>
     print(parsedBudgetAmounts);
 
 
-      for (var amounts in parsedActualAmounts) {
-        visualizerData.add(ChartObject(
-            amounts['level$level_type'].toString(),
-            amounts['sum'],
-            amounts['level${level_type}_fk'],
-            level_type,
-            -69,
-            charts.ColorUtil.fromDartColor(Color(0xff003680))));
-      }
+    for (var amounts in parsedActualAmounts) {
+      visualizerData.add(ChartObject(
+          amounts['level$level_type'].toString(),
+          amounts['sum'],
+          amounts['level${level_type}_fk'],
+          level_type,
+          -69,
+          charts.ColorUtil.fromDartColor(Color(0xff003680))));
+    }
 
-      for (var amounts in parsedBudgetAmounts) {
-        if (amounts['level${level_type.toString()}_fk'] > 0) {
-          // Only show budgets with an account assigned
+    for (var amounts in parsedBudgetAmounts) {
+      if (amounts['level${level_type.toString()}_fk'] > 0) {
+        // Only show budgets with an account assigned
 
-          // Check if a corresponding actual exists
-          needsToBeAdded = visualizerData.firstWhere(
-                  (itemToCheck) =>
-              itemToCheck.accountName ==
-                  amounts['level$level_type'].toString(),
-              orElse: () => null);
-
-          // Has already been added as an expense and therefore needs only to be added to the budget column
-          if (needsToBeAdded != null) {
-            visualizerTargetData.add(ChartObject(
+        // Check if a corresponding actual exists
+        needsToBeAdded = visualizerData.firstWhere(
+                (itemToCheck) =>
+            itemToCheck.accountName ==
                 amounts['level$level_type'].toString(),
-                amounts['sum'],
-                amounts['level${level_type.toString()}_fk'],
-                level_type,
-                // #116
-                -69,
-                charts.ColorUtil.fromDartColor(Color(0xff003680))));
-          }
-          // Has not been added as an expense and therefore is added as an expense with an amount of zero
-          else {
-            visualizerTargetData.add(ChartObject(
-                amounts['level$level_type'].toString(),
-                amounts['sum'],
-                amounts['level${level_type.toString()}_fk'],
-                level_type,
-                // #116
-                -69,
-                charts.ColorUtil.fromDartColor(Color(0xff003680))));
+            orElse: () => null);
 
-            visualizerData.add(ChartObject(
-                amounts['level$level_type'].toString(),
-                0,
-                amounts['level${level_type.toString()}_fk'],
-                level_type,
-                // #116
-                visualizerTargetData
-                    .firstWhere(
-                        (itemToCheck) =>
-                    itemToCheck.accountName ==
-                        amounts['level$level_type'].toString() &&
-                        itemToCheck.accountLevel == level_type,
-                    orElse: () =>
-                        ChartObject("1-25", 10, -69, -69, -69,
-                            charts.ColorUtil.fromDartColor(Color(0xff003680))))
-                    .amount,
-                charts.ColorUtil.fromDartColor(Color(0xff003680))));
-          }
+        // Has already been added as an expense and therefore needs only to be added to the budget column
+        if (needsToBeAdded != null) {
+          visualizerTargetData.add(ChartObject(
+              amounts['level$level_type'].toString(),
+              amounts['sum'],
+              amounts['level${level_type.toString()}_fk'],
+              level_type,
+              // #116
+              -69,
+              charts.ColorUtil.fromDartColor(Color(0xff003680))));
+        }
+        // Has not been added as an expense and therefore is added as an expense with an amount of zero
+        else {
+          visualizerTargetData.add(ChartObject(
+              amounts['level$level_type'].toString(),
+              amounts['sum'],
+              amounts['level${level_type.toString()}_fk'],
+              level_type,
+              // #116
+              -69,
+              charts.ColorUtil.fromDartColor(Color(0xff003680))));
+
+          visualizerData.add(ChartObject(
+              amounts['level$level_type'].toString(),
+              0,
+              amounts['level${level_type.toString()}_fk'],
+              level_type,
+              // #116
+              visualizerTargetData
+                  .firstWhere(
+                      (itemToCheck) =>
+                  itemToCheck.accountName ==
+                      amounts['level$level_type'].toString() &&
+                      itemToCheck.accountLevel == level_type,
+                  orElse: () =>
+                      ChartObject("1-25", 10, -69, -69, -69,
+                          charts.ColorUtil.fromDartColor(Color(0xff003680))))
+                  .amount,
+              charts.ColorUtil.fromDartColor(Color(0xff003680))));
         }
       }
+    }
 
-      for (ChartObject item in visualizerData) {
-        if (item.budgetEntry < 0) {
-          item.budgetEntry = visualizerTargetData
-              .firstWhere(
-                  (itemToCheck) =>
-              itemToCheck.accountName == item.accountName &&
-                  itemToCheck.accountLevel == item.accountLevel,
-              orElse: () =>
-                  ChartObject("1-25", -69, -69, -69, -69,
-                      charts.ColorUtil.fromDartColor(Color(0xff003680))))
-              .amount;
-        }
+    for (ChartObject item in visualizerData) {
+      if (item.budgetEntry < 0) {
+        item.budgetEntry = visualizerTargetData
+            .firstWhere(
+                (itemToCheck) =>
+            itemToCheck.accountName == item.accountName &&
+                itemToCheck.accountLevel == item.accountLevel,
+            orElse: () =>
+                ChartObject("1-25", -69, -69, -69, -69,
+                    charts.ColorUtil.fromDartColor(Color(0xff003680))))
+            .amount;
       }
+    }
     //}
-  //catch (e) {
+    //catch (e) {
 //  errorDialog(e);
-  //}
+    //}
 
     if (fromSwitch) {
       setState(() {
@@ -2947,44 +2946,13 @@ class _MyHomePageState extends State<MyHomePage>
     });
   }
 
-  handleGroupDialog(int index) {
+  setLoading(){
 
-    switch (index) {
-    // Default value when only the switch is changed, use the same column again
-      case -1:
-        {
-          groupByArgument = 'Accounts';
-        }
-        break;
-
-      case 0:
-        {
-          groupByArgument = 'Accounts';
-        }
-        break;
-
-      case 1:
-        {
-          groupByArgument = 'Year';
-        }
-        break;
-      case 2:
-        {
-          groupByArgument = 'Month';
-        }
-        break;
-      case 3:
-        {
-          groupByArgument = 'Day';
-        }
-        break;
-    }
-
-    print("Grouping by $groupByArgument");
-
-    loadAmount(true);
-
-
+    // #189 workaround for showing load animation
+    setState(() {
+      currentlyLoading =
+      true;
+    });
   }
 
   handleOrderDialog(int index, String type) {
@@ -7708,7 +7676,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               .min,
                                                                           children: List<
                                                                               Widget>.generate(
-                                                                              groupByVisualizerOptions.length /* + 1 because position zero is the sort switch*/, (
+                                                                              groupByVisualizerOptions
+                                                                                  .length /* + 1 because position zero is the sort switch*/, (
                                                                               int index) {
                                                                             return
                                                                               Row(
@@ -7721,10 +7690,14 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                     activeColor: Color(
                                                                                         0xFF0957FF),
                                                                                     onChanged: (
-                                                                                        bool newValue) {
+                                                                                        bool newValue)  {
+
+                                                                                      setLoading();
+
+
                                                                                       setState(() {
-                                                                                        print(
-                                                                                            newValue);
+
+
 
                                                                                         groupByVisualizerOptions[0] =
                                                                                         false;
@@ -7735,10 +7708,52 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                         groupByVisualizerOptions[3] =
                                                                                         false;
 
-                                                                                        groupByVisualizerOptions[index] = true;
+                                                                                        groupByVisualizerOptions[index] =
+                                                                                        true;
+
+                                                                                        switch (index) {
+                                                                                          case -1:
+                                                                                            {
+                                                                                              groupByArgument =
+                                                                                              'Accounts';
+                                                                                            }
+                                                                                            break;
+
+                                                                                          case 0:
+                                                                                            {
+                                                                                              groupByArgument =
+                                                                                              'Accounts';
+                                                                                            }
+                                                                                            break;
+
+                                                                                          case 1:
+                                                                                            {
+                                                                                              groupByArgument =
+                                                                                              'Year';
+                                                                                            }
+                                                                                            break;
+                                                                                          case 2:
+                                                                                            {
+                                                                                              groupByArgument =
+                                                                                              'Month';
+                                                                                            }
+                                                                                            break;
+                                                                                          case 3:
+                                                                                            {
+                                                                                              groupByArgument =
+                                                                                              'Day';
+                                                                                            }
+                                                                                            break;
+                                                                                        }
+
+                                                                                        print("currentlyLoading $currentlyLoading");
+
+                                                                                        loadAmount(
+                                                                                            true);
+
                                                                                       });
 
-                                                                                      handleGroupDialog(index);
+
 
                                                                                       Navigator
                                                                                           .pop(
