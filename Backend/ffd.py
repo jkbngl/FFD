@@ -411,7 +411,7 @@ def readListActualBudget(_type, sort, sortType):
 
     return data
 
-def readAmounts(level_type, cost_type, parent_account, year, month, _type, groupBy):
+def readAmounts(level_type, cost_type, parent_account, year, month, day, _type, groupBy):
     
     """
     This function responds to a request for /api/ffd/amounts/?level_type=2&cost_type=-99&parent_account=3&year=2020&month=2&_type=actual
