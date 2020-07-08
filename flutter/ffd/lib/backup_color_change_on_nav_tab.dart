@@ -2897,6 +2897,14 @@ class _MyHomePageState extends State<MyHomePage>
     final selectedDatum = model.selectedDatum;
     final selectedDatum2 = model.selectedSeries;
 
+    // #185 test for when year is selected switch to group by month
+    print("Currently selected groupByValue: ${groupByVisualizerOptions.indexWhere((element) => element)}");
+    int currentlySelectedGroupByValue = groupByVisualizerOptions.indexWhere((element) => element);
+    int toSelectGroupByValue = groupByVisualizerOptions.indexWhere((element) => element) + 1;
+
+    groupByVisualizerOptions[currentlySelectedGroupByValue] = false;
+    groupByVisualizerOptions[toSelectGroupByValue] = true;
+
     if(groupByArgument == 'Year')
     {
       print("CLICKED: ${selectedDatum[0]}");
