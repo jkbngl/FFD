@@ -683,6 +683,7 @@ class _MyHomePageState extends State<MyHomePage>
     int cost_type = costTypeObjectVisualizer.id;
     int parent_account = g_parent_account.id;
     int year = showAllTime ? -1 : dateTimeVisualizer.year;
+    int day = -1;
     int month = showFullYear || showAllTime
         ? -1
         : dateTimeVisualizer
@@ -702,12 +703,12 @@ class _MyHomePageState extends State<MyHomePage>
     //try {
     _type = 'actual';
     uri =
-    'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type&groupBy=$groupByArgument';
+    'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&day=$day&_type=$_type&groupBy=$groupByArgument';
     var actualAmounts = await http.read(uri, headers: params);
 
     _type = 'budget';
     uri =
-    'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type&groupBy=$groupByArgument';
+    'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&day=$day&_type=$_type&groupBy=$groupByArgument';
     var budgetAmounts = await http.read(uri, headers: params);
 
     var parsedActualAmounts = json.decode(actualAmounts);
@@ -848,6 +849,7 @@ class _MyHomePageState extends State<MyHomePage>
     int level_type = -1;
     int cost_type = -1;
     int parent_account = -1;
+    int day = -1;
     int year = dateTimeHome.year;
     int month = showFullYearHome ? -1 : dateTimeHome.month;
 
@@ -876,21 +878,21 @@ class _MyHomePageState extends State<MyHomePage>
 
     try {
       var actual = await http.read(
-          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type&groupBy=Accounts',
+          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&day=$day&_type=$_type&groupBy=Accounts',
           headers: params);
 
       var actualComparison = await http.read(
-          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$comparisonYear&month=$comparisonMonth&_type=$_type&groupBy=Accounts',
+          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$comparisonYear&month=$comparisonMonth&day=$day&_type=$_type&groupBy=Accounts',
           headers: params);
 
       _type = 'budget';
 
       var budget = await http.read(
-          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&_type=$_type&groupBy=Accounts',
+          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&day=$day&_type=$_type&groupBy=Accounts',
           headers: params);
 
       var budgetComparison = await http.read(
-          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$comparisonYear&month=$comparisonMonth&_type=$_type&groupBy=Accounts',
+          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$comparisonYear&month=$comparisonMonth&day=$day&_type=$_type&groupBy=Accounts',
           headers: params);
 
       var parsedActual = json.decode(actual);
@@ -2900,15 +2902,12 @@ class _MyHomePageState extends State<MyHomePage>
     if(groupByArgument == 'Year' || groupByArgument == 'Month')
     {
       // #185 When year is selected switch to group by month, when month to by day
-      print("Currently selected groupByValue: ${groupByVisualizerOptions.indexWhere((element) => element)}");
       int currentlySelectedGroupByValue = groupByVisualizerOptions.indexWhere((element) => element);
       int toSelectGroupByValue = groupByVisualizerOptions.indexWhere((element) => element) + 1;
 
       groupByVisualizerOptions[currentlySelectedGroupByValue] = false;
       groupByVisualizerOptions[toSelectGroupByValue] = true;
     }
-
-
 
     if(groupByArgument == 'Year')
     {
