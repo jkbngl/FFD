@@ -2928,10 +2928,18 @@ class _MyHomePageState extends State<MyHomePage>
 
 
       groupByArgument = 'Day';
+
     }
     else if(groupByArgument == 'Day')
     {
+
+      // Set the grouping back to month
       groupByArgument = 'Accounts';
+
+      int currentlySelectedGroupByValue = groupByVisualizerOptions.indexWhere((element) => element);
+      groupByVisualizerOptions[currentlySelectedGroupByValue] = false;
+      groupByVisualizerOptions[0] = true;
+
     }
     else if(groupByArgument == 'Accounts')
     {
