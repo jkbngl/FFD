@@ -38,7 +38,7 @@ def validate(header):
     headerMail, code = validateToken(header)
 
     if(code == 403):
-        logging.error("ACCESS FORBIDDEN")
+        logging.error("ACCESS FORBIDDEN, please login before")
         return "ACCESS FORBIDDEN", 403, "ERROR: ACCESS FORBIDDEN"
 
     return getIdByMail(headerMail), headerMail, None
