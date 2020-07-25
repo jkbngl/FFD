@@ -2371,6 +2371,7 @@ class _MyHomePageState extends State<MyHomePage>
                             .spaceAround,
                         children: <Widget>[
                           TextField(
+                            maxLength: 30,
                             controller: dependingController,
                             decoration: InputDecoration(
                                 hintText: AppLocalizations.of(context)
@@ -2383,6 +2384,9 @@ class _MyHomePageState extends State<MyHomePage>
                               Switch(
                                 value: scheduleEntries,
                                 onChanged: (value) {
+
+                                  print("SETTING SWTICH TO $value");
+
                                   setState(() {
                                     scheduleEntries = value;
                                   });
