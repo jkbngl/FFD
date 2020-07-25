@@ -2346,6 +2346,8 @@ class _MyHomePageState extends State<MyHomePage>
         await showDialog(
             context: context,
             builder: (context) {
+              return StatefulBuilder(
+                  builder: (context, setState) {
               return AlertDialog(
                 title: Center(
                   child: RichText(
@@ -2371,7 +2373,6 @@ class _MyHomePageState extends State<MyHomePage>
                             .spaceAround,
                         children: <Widget>[
                           TextField(
-                            maxLength: 30,
                             controller: dependingController,
                             decoration: InputDecoration(
                                 hintText: AppLocalizations.of(context)
@@ -2449,7 +2450,7 @@ class _MyHomePageState extends State<MyHomePage>
                     },
                   ),*/
                 ],
-              );
+              );});
             });
       } else {
         await showDialog(
