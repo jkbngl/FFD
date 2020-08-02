@@ -44,7 +44,7 @@
     "2GroupText":  "Mese",
     "3GroupText":  "Giorno",
     "select_one_account":  "Seleziona un conto",
-    "select_one_account":  "Selezionare un tipo di costo",
+    "select_one_costtype":  "Selezionare un tipo di costo",
     "DetailsListTitle": "Dettagli",
     "DetailsListDate": "Data: ",
     "DetailsListAmount": "Importo: ",

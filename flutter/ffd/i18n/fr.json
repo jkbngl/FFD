@@ -44,7 +44,7 @@
   "2GroupText":  "Mois",
   "3GroupText":  "Jour",
   "select_one_account":  "Sélectionnez un compte",
-  "select_one_account":  "Sélectionnez un type de coût",
+  "select_one_costtype":  "Sélectionnez un type de coût",
   "DetailsListTitle" : "Détails",
   "DetailsListDate" : "Date : ",
   "DetailsListAmount" : "Montant : ",
