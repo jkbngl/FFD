@@ -8390,9 +8390,17 @@ class _MyHomePageState extends State<MyHomePage>
                                                         child: SearchChoices
                                                             .single(
                                                           value: level1AdminObject,
-                                                          hint: Text(
-                                                            "Select a level 1 account",
-                                                          ),
+                                                          hint: AppLocalizations
+                                                              .of(
+                                                              context)
+                                                              .translate(
+                                                              'select_one_account'),
+                                                          searchHint:
+                                                          AppLocalizations
+                                                              .of(
+                                                              context)
+                                                              .translate(
+                                                              'select_one_account'),
                                                           icon:
                                                           Icon(Icons
                                                               .arrow_downward),
@@ -8530,9 +8538,17 @@ class _MyHomePageState extends State<MyHomePage>
                                                         child: SearchChoices
                                                             .single(
                                                           value: level2AdminObject,
-                                                          hint: Text(
-                                                            "Select a level 2 account",
-                                                          ),
+                                                          hint: AppLocalizations
+                                                              .of(
+                                                              context)
+                                                              .translate(
+                                                              'select_one_account'),
+                                                          searchHint:
+                                                          AppLocalizations
+                                                              .of(
+                                                              context)
+                                                              .translate(
+                                                              'select_one_account'),
                                                           readOnly:
                                                           level1AdminObject
                                                               .id <=
@@ -8718,10 +8734,17 @@ class _MyHomePageState extends State<MyHomePage>
                                                         child: SearchChoices
                                                             .single(
                                                           value: level3AdminObject,
-                                                          hint: Text(
-                                                            "Select a level 3 account",
-
-                                                          ),
+                                                          hint: AppLocalizations
+                                                              .of(
+                                                              context)
+                                                              .translate(
+                                                              'select_one_account'),
+                                                          searchHint:
+                                                          AppLocalizations
+                                                              .of(
+                                                              context)
+                                                              .translate(
+                                                              'select_one_account'),
                                                           readOnly:
                                                           level2AdminObject
                                                               .id <=
