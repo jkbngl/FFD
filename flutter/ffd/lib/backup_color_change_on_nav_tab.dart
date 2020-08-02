@@ -4179,6 +4179,16 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   .single(
                                                                 value:
                                                                 costTypeObjectActual,
+                                                                hint: AppLocalizations
+                                                                    .of(
+                                                                    context)
+                                                                    .translate(
+                                                                    'select_one_costtype'),
+                                                                searchHint: AppLocalizations
+                                                                    .of(
+                                                                    context)
+                                                                    .translate(
+                                                                    'select_one_costtype'),
                                                                 icon: Icon(
                                                                     Icons
                                                                         .arrow_downward),
@@ -6016,6 +6026,16 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 .single(
                                                               value:
                                                               costTypeObjectBudget,
+                                                              hint: AppLocalizations
+                                                                  .of(
+                                                                  context)
+                                                                  .translate(
+                                                                  'select_one_costtype'),
+                                                              searchHint: AppLocalizations
+                                                                  .of(
+                                                                  context)
+                                                                  .translate(
+                                                                  'select_one_costtype'),
                                                               icon: Icon(Icons
                                                                   .arrow_downward),
                                                               iconSize: 24,
@@ -7710,6 +7730,16 @@ class _MyHomePageState extends State<MyHomePage>
                                                           child: SearchChoices
                                                               .single(
                                                             value: costTypeObjectVisualizer,
+                                                            hint: AppLocalizations
+                                                                .of(
+                                                                context)
+                                                                .translate(
+                                                                'select_one_costtype'),
+                                                            searchHint: AppLocalizations
+                                                                .of(
+                                                                context)
+                                                                .translate(
+                                                                'select_one_costtype'),
                                                             icon: Icon(Icons
                                                                 .arrow_downward),
                                                             style: TextStyle(
@@ -9562,12 +9592,16 @@ class _MyHomePageState extends State<MyHomePage>
                                                         child: SearchChoices
                                                             .single(
                                                           value: costTypeObjectAdmin,
-                                                          hint: Text(
-                                                            "Select a costtype to delete",
-                                                            /*style: TextStyle(
-                              color,
-                            ),*/
-                                                          ),
+                                                          hint: AppLocalizations
+                                                              .of(
+                                                              context)
+                                                              .translate(
+                                                              'select_one_costtype'),
+                                                          searchHint: AppLocalizations
+                                                              .of(
+                                                              context)
+                                                              .translate(
+                                                              'select_one_costtype'),
                                                           icon: Icon(Icons
                                                               .arrow_downward),
                                                           iconSize: 24,
