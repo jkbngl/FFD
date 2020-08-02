@@ -3883,9 +3883,17 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 color: Color(
                                                                     0xff0957FF),
                                                               ),
-                                                              hint: "Select one number",
+                                                              hint: AppLocalizations
+                                                                  .of(
+                                                                  context)
+                                                                  .translate(
+                                                                  'select_one_account'),
                                                               searchHint:
-                                                              "Select one number",
+                                                              AppLocalizations
+                                                                  .of(
+                                                                  context)
+                                                                  .translate(
+                                                                  'select_one_account'),
                                                               onClear: () {
                                                                 setState(() {
                                                                   level1ActualObject =
@@ -3988,9 +3996,17 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     : Color(
                                                                     0xff0957FF),
                                                               ),
-                                                              hint: "Select one number",
+                                                              hint: AppLocalizations
+                                                                  .of(
+                                                                  context)
+                                                                  .translate(
+                                                                  'select_one_account'),
                                                               searchHint:
-                                                              "Select one number",
+                                                              AppLocalizations
+                                                                  .of(
+                                                                  context)
+                                                                  .translate(
+                                                                  'select_one_account'),
                                                               onClear: () {
                                                                 setState(() {
                                                                   level2ActualObject =
@@ -4096,9 +4112,17 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     : Color(
                                                                     0xff0957FF),
                                                               ),
-                                                              hint: "Select one number",
+                                                              hint: AppLocalizations
+                                                                  .of(
+                                                                  context)
+                                                                  .translate(
+                                                                  'select_one_account'),
                                                               searchHint:
-                                                              "Select one number",
+                                                              AppLocalizations
+                                                                  .of(
+                                                                  context)
+                                                                  .translate(
+                                                                  'select_one_account'),
                                                               onClear: () {
                                                                 setState(() {
                                                                   level3ActualObject =
@@ -5707,9 +5731,17 @@ class _MyHomePageState extends State<MyHomePage>
                                                               Color(0xff0957FF),
                                                             ),
                                                             hint:
-                                                            "Select one number",
+                                                            AppLocalizations
+                                                                .of(
+                                                                context)
+                                                                .translate(
+                                                                'select_one_account'),
                                                             searchHint:
-                                                            "Select one number",
+                                                            AppLocalizations
+                                                                .of(
+                                                                context)
+                                                                .translate(
+                                                                'select_one_account'),
                                                             onClear: () {
                                                               setState(() {
                                                                 level1BudgetObject =
@@ -5807,9 +5839,17 @@ class _MyHomePageState extends State<MyHomePage>
                                                               Color(0xff0957FF),
                                                             ),
                                                             hint:
-                                                            "Select one number",
+                                                            AppLocalizations
+                                                                .of(
+                                                                context)
+                                                                .translate(
+                                                                'select_one_account'),
                                                             searchHint:
-                                                            "Select one number",
+                                                            AppLocalizations
+                                                                .of(
+                                                                context)
+                                                                .translate(
+                                                                'select_one_account'),
                                                             onClear: () {
                                                               setState(() {
                                                                 level2BudgetObject =
@@ -5913,9 +5953,17 @@ class _MyHomePageState extends State<MyHomePage>
                                                               Color(0xff0957FF),
                                                             ),
                                                             hint:
-                                                            "Select one number",
+                                                            AppLocalizations
+                                                                .of(
+                                                                context)
+                                                                .translate(
+                                                                'select_one_account'),
                                                             searchHint:
-                                                            "Select one number",
+                                                            AppLocalizations
+                                                                .of(
+                                                                context)
+                                                                .translate(
+                                                                'select_one_account'),
                                                             onClear: () {
                                                               setState(() {
                                                                 level3BudgetObject =

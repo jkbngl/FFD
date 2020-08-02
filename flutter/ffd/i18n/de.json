@@ -43,6 +43,7 @@
     "1GroupText":  "Jahr",
     "2GroupText":  "Monat",
     "3GroupText":  "Tag",
+    "select_one_account":  "Eine Konto wählen",
     "DetailsListTitle": "Details",
     "DetailsListDate": "Datum: ",
     "DetailsListAmount": "Betrag: ",
