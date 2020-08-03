@@ -7706,6 +7706,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                               drilldownLevel =
                                                               "";
 
+                                                              groupByArgument = 'Accounts';
+                                                              groupByAccount = true;
+                                                              groupByYear = false;
+                                                              groupByMonth = false;
+                                                              groupByDay = false;
+
                                                               loadAmount(true);
                                                             });
                                                           },
