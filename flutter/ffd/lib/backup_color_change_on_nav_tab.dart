@@ -7712,6 +7712,11 @@ class _MyHomePageState extends State<MyHomePage>
                                                               groupByMonth = false;
                                                               groupByDay = false;
 
+                                                              groupByVisualizerOptions[0] = true;
+                                                              groupByVisualizerOptions[1] = false;
+                                                              groupByVisualizerOptions[2] = false;
+                                                              groupByVisualizerOptions[3] = false;
+
                                                               loadAmount(true);
                                                             });
                                                           },
