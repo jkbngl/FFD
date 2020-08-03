@@ -717,14 +717,6 @@ class _MyHomePageState extends State<MyHomePage>
     visualizerData.clear();
     visualizerTargetData.clear();
 
-    print(parsedActualAmounts);
-    print("#######");
-    print(level_type.toString());
-    print(level_type.runtimeType);
-    print("#######");
-    print(parsedBudgetAmounts);
-
-
     for (var amounts in parsedActualAmounts) {
       visualizerData.add(ChartObject(
           amounts['level$level_type'].toString(),
@@ -1505,6 +1497,8 @@ class _MyHomePageState extends State<MyHomePage>
       loadList('actual', actualListSortColumn, actualListSortType);
       loadHomescreen(false);
       loadAmount(false);
+
+      actualTextFieldController.clear();
 
       if (scheduleEntries) {
         showScheduleDialog(type);
