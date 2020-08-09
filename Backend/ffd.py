@@ -38,7 +38,7 @@ def validate(header):
     headerMail, code = validateToken(header)
 
     if(code == 403):
-        logging.error("ACCESS FORBIDDEN, please login before")
+        logging.error("ACCESS FORBIDDEN")
         return "ACCESS FORBIDDEN", 403, "ERROR: ACCESS FORBIDDEN"
 
     return getIdByMail(headerMail), headerMail, None
@@ -531,6 +531,9 @@ def readAmounts(level_type, cost_type, parent_account, year, month, day, _type, 
         if(cost_type > 0):
             where_params += f' where costtype_fk = {cost_type}' if len(where_params) <= 0 else f' and costtype_fk = {cost_type}'
 
+        if(parent_account > 0):
+            where_params += f' where level{level_type - 1}_fk = {parent_account}' if len(where_params) <= 0 else f' and level{level_type - 1}_fk = {parent_account}'
+
 
         connection = connect()
         cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
@@ -568,6 +571,9 @@ def readAmounts(level_type, cost_type, parent_account, year, month, day, _type, 
 
         if(year > 0):
             where_params += f' where year = {year}' if len(where_params) <= 0 else f' and year = {year}'
+
+        if(parent_account > 0):
+            where_params += f' where level{level_type - 1}_fk = {parent_account}' if len(where_params) <= 0 else f' and level{level_type - 1}_fk = {parent_account}'
 
         connection = connect()
         cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
@@ -608,6 +614,10 @@ def readAmounts(level_type, cost_type, parent_account, year, month, day, _type, 
 
         if(month > 0):
             where_params += f' where month = {month}' if len(where_params) <= 0 else f' and month = {month}'
+
+        if(parent_account > 0):
+            where_params += f' where level{level_type - 1}_fk = {parent_account}' if len(where_params) <= 0 else f' and level{level_type - 1}_fk = {parent_account}'
+
 
         connection = connect()
         cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
