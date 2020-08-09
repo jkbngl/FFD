@@ -719,7 +719,7 @@ class _MyHomePageState extends State<MyHomePage>
 
     for (var amounts in parsedActualAmounts) {
       visualizerData.add(ChartObject(
-          amounts['level$level_type'].toString(),
+          amounts['level${groupByArgument == 'Accounts' ? level_type.toString() : 1}'].toString(),
           amounts['sum'],
           amounts['level${level_type}_fk'],
           level_type,
@@ -732,7 +732,7 @@ class _MyHomePageState extends State<MyHomePage>
     print("groubByArgument = $groupByArgument");
 
     for (var amounts in parsedBudgetAmounts) {
-      if (amounts['level${groupByArgument == 'Account' ? level_type.toString() : 1}_fk'] > 0) {
+      if (amounts['level${groupByArgument == 'Accounts' ? level_type.toString() : 1}_fk'] > 0) {
         // Only show budgets with an account assigned
 
         // Check if a corresponding actual exists
