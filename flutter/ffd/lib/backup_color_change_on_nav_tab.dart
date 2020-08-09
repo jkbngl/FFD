@@ -727,8 +727,12 @@ class _MyHomePageState extends State<MyHomePage>
           charts.ColorUtil.fromDartColor(Color(0xff003680))));
     }
 
+    print(parsedBudgetAmounts);
+    print(parsedActualAmounts);
+    print("groubByArgument = $groupByArgument");
+
     for (var amounts in parsedBudgetAmounts) {
-      if (amounts['level${level_type.toString()}_fk'] > 0) {
+      if (amounts['level${groupByArgument == 'Account' ? level_type.toString() : 1}_fk'] > 0) {
         // Only show budgets with an account assigned
 
         // Check if a corresponding actual exists
