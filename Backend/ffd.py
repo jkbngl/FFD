@@ -909,16 +909,25 @@ def deleteCostType(data, userId):
 
 def addCostType(data, userId):
     connection = connect()
-    cursor = connection.cursor()
+    cursorRead = connection.cursor()
+    cursor = connection.cursor()   
 
-    cursor.execute("INSERT INTO ffd.costtype_dim (name, comment, user_fk, group_fk, company_fk, created) \
-                              VALUES (%s, %s , %s,  %s,  %s, %s)",( data['costtypetoadd'].upper()
-                                                                  , data['costtypetoaddcomment']
-                                                                  , userId
-                                                                  , data['group']
-                                                                  , data['company']
-                                                                  , data['timeInUtc']
-                                                                  ,))
+ 
+    cursorRead.execute("select * from ffd.costtype_dim where name = %s and user_fk = %s", (data['costtypetoadd'].upper(), userId))
+
+    record = cursorRead.fetchall()
+ 
+    if cursorRead.rowcount == 0:
+      cursor.execute("INSERT INTO ffd.costtype_dim (name, comment, user_fk, group_fk, company_fk, created) \
+                                VALUES (%s, %s , %s,  %s,  %s, %s)",( data['costtypetoadd'].upper()
+                                                                    , data['costtypetoaddcomment']
+                                                                    , userId
+                                                                    , data['group']
+                                                                    , data['company']
+                                                                    , data['timeInUtc']
+                                                                    ,))
+    else:
+      logging.warning(f"No costtype created as it already exists {data['costtypetoadd'].upper()} already exists")
     
     connection.commit()
     cursor.close()
@@ -950,7 +959,9 @@ def deleteAccount(data, userId):
 def addAccount(data, userId):
     connection = connect()
     cursor = connection.cursor()
-    
+   
+    #179
+ 
     # If a name for a new level1 aacount was sent, enter a new level1 account
     if(data['accounttoaddlevel1']):
 
