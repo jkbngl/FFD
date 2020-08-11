@@ -959,69 +959,93 @@ def deleteAccount(data, userId):
 def addAccount(data, userId):
     connection = connect()
     cursor = connection.cursor()
+    currsorRead = connection.cursor()
+
    
     #179
  
     # If a name for a new level1 aacount was sent, enter a new level1 account
     if(data['accounttoaddlevel1']):
 
-        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk, created) \
-                                  VALUES (%s, %s, 1, null , %s,  %s,  %s, %s)",(  data['accounttoaddlevel1'].upper()
+
+        cursorRead.execute("select * from ffd.account_dim where name = %s and user_fk = %s", (data['accounttoaddlevel1'].upper(), userId))
+
+        record = cursorRead.fetchall()
+
+        if cursorRead.rowcount == 0:
+          cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk, created) \
+                                    VALUES (%s, %s, 1, null , %s,  %s,  %s, %s)",(  data['accounttoaddlevel1'].upper()
                                                                             , data['accounttoaddlevel1comment']
                                                                             , userId
                                                                             , data['group']
                                                                             , data['company']
                                                                             , data['timeInUtc']
                                                                             ,))
-        connection.commit()
+          connection.commit()
 
     # Check if a parent account for a new level2 was sent and a level2 account name, if yes create a new level2 account
     if(int(data['accountfornewlevel2parentaccount']) > 0 and data['accounttoaddlevel2']):
 
-        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk, created) \
-                                  VALUES (%s, %s, 2, %s, %s, %s, %s, %s)",(    data['accounttoaddlevel2'].upper()
-                                                                        , data['accounttoaddlevel2comment']
-                                                                        , data['accountfornewlevel2parentaccount']
-                                                                        , userId
-                                                                        , data['group']
-                                                                        , data['company']
-                                                                        , data['timeInUtc']
 
-                                                                        ,))
-        connection.commit()
+        cursorRead.execute("select * from ffd.account_dim where name = %s and parent_account = %s and user_fk = %s", (data['accounttoaddlevel2'].upper(), data['accountfornewlevel2parentaccount'], userId))
+
+        record = cursorRead.fetchall()
+
+        if cursorRead.rowcount == 0:
+          cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk, created) \
+                                    VALUES (%s, %s, 2, %s, %s, %s, %s, %s)",(    data['accounttoaddlevel2'].upper()
+                                                                          , data['accounttoaddlevel2comment']
+                                                                          , data['accountfornewlevel2parentaccount']
+                                                                          , userId
+                                                                          , data['group']
+                                                                          , data['company']
+                                                                          , data['timeInUtc']
+  
+                                                                          ,))
+          connection.commit()
 
     # If no parent account for the new level2 was sent but a name for a new level 2 account and also a name for the level1 parent account
     elif(int(data['accountfornewlevel2parentaccount']) < 0 and data['accounttoaddlevel2'] and data['accounttoaddlevel1']):
         
         # Check if a name for a level1 was sent, get the id of that and set this account as the parent       
-        cursor.execute("select id from ffd.account_dim where level_type = 1 and name = %s", (data['accounttoaddlevel1'].upper(),))
+        cursor.execute("select id from ffd.account_dim where level_type = 1 and name = %s", (data['accounttoaddlevel2'].upper(),))
         record = cursor.fetchall()
 
-        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk, created) \
-                                  VALUES (%s, %s, 2, %s, %s, %s, %s, %s)",(   data['accounttoaddlevel2'].upper()
-                                                                        , data['accounttoaddlevel2comment']
-                                                                        , record[0][0]
-                                                                        , userId
-                                                                        , data['group']
-                                                                        , data['company']
-                                                                        , data['timeInUtc']
-                                                                        ,))
-        connection.commit()
+        cursorRead.execute("select * from ffd.account_dim where name = %s and parent_account = %s and user_fk = %s", (data['accounttoaddlevel2'].upper(), record[0][0], userId))
+
+        record = cursorRead.fetchall()
+        
+        if cursorRead.rowcount == 0:
+          cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk, created) \
+                                    VALUES (%s, %s, 2, %s, %s, %s, %s, %s)",(   data['accounttoaddlevel2'].upper()
+                                                                          , data['accounttoaddlevel2comment']
+                                                                          , record[0][0]
+                                                                          , userId
+                                                                          , data['group']
+                                                                          , data['company']
+                                                                          , data['timeInUtc']
+                                                                          ,))
+          connection.commit()
         
     
     # Check if a parent account for a new level3 was sent and a level3 account name, if yes create a new level3 account with the matching parent account
     if(int(data['accountfornewlevel3parentaccount']) > 0 and data['accounttoaddlevel3']):
         
-        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk, created) \
-                                  VALUES (%s, %s, 3, %s, %s, %s, %s, %s)",(   data['accounttoaddlevel3'].upper()
-                                                                        , data['accounttoaddlevel3comment']
-                                                                        , data['accountfornewlevel3parentaccount']
-                                                                        , userId
-                                                                        , data['group']
-                                                                        , data['company']
-                                                                        , data['timeInUtc']
-                                                                        ,))
-        connection.commit()
+        cursorRead.execute("select * from ffd.account_dim where name = %s and parent_account = %s and user_fk = %s", (data['accounttoaddlevel3'].upper(), data['accountfornewlevel3parentaccount'], userId))
+
+        record = cursorRead.fetchall()
+
+        if cursorRead.rowcount == 0:
+          cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk, created) \
+                                    VALUES (%s, %s, 3, %s, %s, %s, %s, %s)",(   data['accounttoaddlevel3'].upper()
+                                                                          , data['accounttoaddlevel3comment']
+                                                                          , data['accountfornewlevel3parentaccount']
+                                                                          , userId
+                                                                          , data['group']
+                                                                          , data['company']
+                                                                          , data['timeInUtc']
+                                                                          ,))
+          connection.commit()
 
     # If no parent account for the new level3 was sent but a name for a new level 3 account and also a name for the level2 parent account
     elif(int(data['accountfornewlevel3parentaccount']) < 0 and data['accounttoaddlevel3'] and data['accounttoaddlevel2']):
@@ -1030,16 +1054,21 @@ def addAccount(data, userId):
         cursor.execute("select id from ffd.account_dim where level_type = 2 and name = %s", (data['accounttoaddlevel2'].upper(),))
         record = cursor.fetchall()
 
-        cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk, created) \
-                                  VALUES (%s, %s, 3, %s, %s, %s,  %s, %s)",(  data['accounttoaddlevel3'].upper()
-                                                                        , data['accounttoaddlevel3comment']
-                                                                        , record[0][0]
-                                                                        , userId
-                                                                        , data['group']
-                                                                        , data['company']
-                                                                        , data['timeInUtc']
-                                                                        ,))
-        connection.commit()
+        cursorRead.execute("select * from ffd.account_dim where name = %s and parent_account = %s and user_fk = %s", (data['accounttoaddlevel3'].upper(), record[0][0], userId))
+
+        record = cursorRead.fetchall()
+
+        if cursorRead.rowcount == 0:
+          cursor.execute("INSERT INTO ffd.account_dim (name, comment, level_type, parent_account, user_fk, group_fk, company_fk, created) \
+                                    VALUES (%s, %s, 3, %s, %s, %s,  %s, %s)",(  data['accounttoaddlevel3'].upper()
+                                                                          , data['accounttoaddlevel3comment']
+                                                                          , record[0][0]
+                                                                          , userId
+                                                                          , data['group']
+                                                                          , data['company']
+                                                                          , data['timeInUtc']
+                                                                          ,))
+          connection.commit()
 
     cursor.close()
     connection.close()
