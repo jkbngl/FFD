@@ -1,23 +1,26 @@
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'dart:ui';
-import 'app_localizations.dart';
-
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'package:ffd/sign_in.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:after_layout/after_layout.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'login_page.dart';
 import 'package:search_choices/search_choices.dart';
 import 'package:slide_to_confirm/slide_to_confirm.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+
+import 'login_page.dart';
+import 'package:ffd/sign_in.dart';
+import 'app_localizations.dart';
+
+import 'package:http/http.dart' as http;
+import 'dart:ui';
+import 'dart:convert';
 import 'dart:ui' as ui;
+import 'dart:math';
 
 
 void main() => runApp(MyApp());
@@ -719,7 +722,9 @@ class _MyHomePageState extends State<MyHomePage>
 
     for (var amounts in parsedActualAmounts) {
       visualizerData.add(ChartObject(
-          amounts['level${groupByArgument == 'Accounts' ? level_type.toString() : 1}'].toString(),
+          amounts['level${groupByArgument == 'Accounts'
+              ? level_type.toString()
+              : 1}'].toString(),
           amounts['sum'],
           amounts['level${level_type}_fk'],
           level_type,
@@ -732,7 +737,9 @@ class _MyHomePageState extends State<MyHomePage>
     print("groubByArgument = $groupByArgument");
 
     for (var amounts in parsedBudgetAmounts) {
-      if (amounts['level${groupByArgument == 'Accounts' ? level_type.toString() : 1}_fk'] > 0) {
+      if (amounts['level${groupByArgument == 'Accounts'
+          ? level_type.toString()
+          : 1}_fk'] > 0) {
         // Only show budgets with an account assigned
 
         // Check if a corresponding actual exists
@@ -2346,95 +2353,96 @@ class _MyHomePageState extends State<MyHomePage>
             builder: (context) {
               return StatefulBuilder(
                   builder: (context, setState) {
-              return AlertDialog(
-                title: Center(
-                  child: RichText(
-                    text: TextSpan(
-                        text: AppLocalizations.of(context).translate(
-                            'commentEnterDialog'),
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: '$level1OrCostTypeName',
-                            style:
-                            TextStyle(color: Color(0xFF0957FF), fontSize: 18),
-                          )
-                        ]),
-                  ),
-                ),
-                content: SingleChildScrollView(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment
-                            .spaceAround,
-                        children: <Widget>[
-                          TextField(
-                            controller: dependingController,
-                            decoration: InputDecoration(
-                                hintText: AppLocalizations.of(context)
-                                    .translate(
-                                    'comment')),
+                    return AlertDialog(
+                      title: Center(
+                        child: RichText(
+                          text: TextSpan(
+                              text: AppLocalizations.of(context).translate(
+                                  'commentEnterDialog'),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: '$level1OrCostTypeName',
+                                  style:
+                                  TextStyle(
+                                      color: Color(0xFF0957FF), fontSize: 18),
+                                )
+                              ]),
+                        ),
+                      ),
+                      content: SingleChildScrollView(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment
+                                  .spaceAround,
+                              children: <Widget>[
+                                TextField(
+                                  controller: dependingController,
+                                  decoration: InputDecoration(
+                                      hintText: AppLocalizations.of(context)
+                                          .translate(
+                                          'comment')),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment
+                                      .spaceBetween,
+                                  children: <Widget>[
+                                    Switch(
+                                      value: scheduleEntries,
+                                      onChanged: (value) {
+                                        print("SETTING SWTICH TO $value");
+
+                                        setState(() {
+                                          scheduleEntries = value;
+                                        });
+                                      },
+                                      activeTrackColor: Color(
+                                          0xffEEEEEE),
+                                      activeColor: Color(0xff0957FF),
+                                    ),
+                                    Expanded(
+                                        child: Text(
+                                          AppLocalizations.of(context)
+                                              .translate(
+                                              'scheduleSwitch'),
+                                          overflow: TextOverflow.fade,
+                                          style: TextStyle(
+                                              color: Colors.grey[800],
+                                              fontWeight: FontWeight.w900,
+                                              fontSize: 15),
+                                        )),
+                                  ],)
+                              ])),
+                      actions: <Widget>[
+                        new FlatButton(
+                          child: new Text(
+                              AppLocalizations.of(context).translate('cancel')),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        new Container(
+                          margin: EdgeInsets.only(
+                              left: 2, right: 2, bottom: 0),
+                          child: ConfirmationSlider(
+                            text: AppLocalizations.of(context).translate(
+                                'slideToConfirm'),
+                            foregroundColor: Color(
+                                0xff0957FF),
+                            onConfirmation: () {
+                              if (type == 'actual') {
+                                sendBackend('actual', false);
+                              } else if (type == 'budget') {
+                                sendBackend('budget', false);
+                              }
+
+                              Navigator.of(context).pop();
+                            },
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Switch(
-                                value: scheduleEntries,
-                                onChanged: (value) {
-
-                                  print("SETTING SWTICH TO $value");
-
-                                  setState(() {
-                                    scheduleEntries = value;
-                                  });
-                                },
-                                activeTrackColor: Color(
-                                    0xffEEEEEE),
-                                activeColor: Color(0xff0957FF),
-                              ),
-                              Expanded(
-                                  child: Text(
-                                    AppLocalizations.of(context)
-                                        .translate(
-                                        'scheduleSwitch'),
-                                    overflow: TextOverflow.fade,
-                                    style: TextStyle(
-                                        color: Colors.grey[800],
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 15),
-                                  )),
-                            ],)
-                        ])),
-                actions: <Widget>[
-                  new FlatButton(
-                    child: new Text(
-                        AppLocalizations.of(context).translate('cancel')),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  new Container(
-                    margin: EdgeInsets.only(
-                        left: 2, right: 2, bottom: 0),
-                    child: ConfirmationSlider(
-                      text: AppLocalizations.of(context).translate(
-                          'slideToConfirm'),
-                      foregroundColor: Color(
-                          0xff0957FF),
-                      onConfirmation: () {
-                        if (type == 'actual') {
-                          sendBackend('actual', false);
-                        } else if (type == 'budget') {
-                          sendBackend('budget', false);
-                        }
-
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ),
-                  /*new FlatButton(
+                        ),
+                        /*new FlatButton(
                     child: new Text(
                         AppLocalizations.of(context).translate('addButton')),
                     onPressed: () {
@@ -2447,8 +2455,9 @@ class _MyHomePageState extends State<MyHomePage>
                       Navigator.of(context).pop();
                     },
                   ),*/
-                ],
-              );});
+                      ],
+                    );
+                  });
             });
       } else {
         await showDialog(
@@ -2896,56 +2905,54 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   _onSelectionChanged(charts.SelectionModel model) {
-
     print("data is currently grouped by: $groupByArgument");
 
     final selectedDatum = model.selectedDatum;
     final selectedDatum2 = model.selectedSeries;
 
-    if(groupByArgument == 'Year' || groupByArgument == 'Month')
-    {
+    if (groupByArgument == 'Year' || groupByArgument == 'Month') {
       // #185 When year is selected switch to group by month, when month to by day
-      int currentlySelectedGroupByValue = groupByVisualizerOptions.indexWhere((element) => element);
-      int toSelectGroupByValue = groupByVisualizerOptions.indexWhere((element) => element) + 1;
+      int currentlySelectedGroupByValue = groupByVisualizerOptions.indexWhere((
+          element) => element);
+      int toSelectGroupByValue = groupByVisualizerOptions.indexWhere((
+          element) => element) + 1;
 
       groupByVisualizerOptions[currentlySelectedGroupByValue] = false;
       groupByVisualizerOptions[toSelectGroupByValue] = true;
     }
 
-    if(groupByArgument == 'Year')
-    {
+    if (groupByArgument == 'Year') {
       print("CLICKED: ${selectedDatum[0]}");
 
-      DateTime newDate = DateTime(int.parse(selectedDatum[0].datum.accountName.toString().split("-")[0]));
+      DateTime newDate = DateTime(int.parse(
+          selectedDatum[0].datum.accountName.toString().split("-")[0]));
 
       dateTimeVisualizer = newDate;
       groupByArgument = 'Month';
     }
-    else if(groupByArgument == 'Month')
-    {
+    else if (groupByArgument == 'Month') {
       print("CLICKED: ${selectedDatum[0].datum.accountName}");
 
-      DateTime newDate = DateTime(int.parse(selectedDatum[0].datum.accountName.toString().split("-")[0]), int.parse(selectedDatum[0].datum.accountName.toString().split("-")[1]));
+      DateTime newDate = DateTime(int.parse(
+          selectedDatum[0].datum.accountName.toString().split("-")[0]),
+          int.parse(
+              selectedDatum[0].datum.accountName.toString().split("-")[1]));
 
       dateTimeVisualizer = newDate;
 
 
       groupByArgument = 'Day';
-
     }
-    else if(groupByArgument == 'Day')
-    {
-
+    else if (groupByArgument == 'Day') {
       // Set the grouping back to month
       groupByArgument = 'Accounts';
 
-      int currentlySelectedGroupByValue = groupByVisualizerOptions.indexWhere((element) => element);
+      int currentlySelectedGroupByValue = groupByVisualizerOptions.indexWhere((
+          element) => element);
       groupByVisualizerOptions[currentlySelectedGroupByValue] = false;
       groupByVisualizerOptions[0] = true;
-
     }
-    else if(groupByArgument == 'Accounts')
-    {
+    else if (groupByArgument == 'Accounts') {
       if (selectedDatum.isNotEmpty && !currentlyLoading) {
         //time = selectedDatum.first.datum.toString();
         selectedDatum.forEach((charts.SeriesDatum datumPair) {
@@ -2954,7 +2961,8 @@ class _MyHomePageState extends State<MyHomePage>
           print(datumPair.datum.accountId);
           print(datumPair.datum.accountLevel);
 
-          if (datumPair.datum.accountId > 0 && datumPair.datum.accountLevel < 3) {
+          if (datumPair.datum.accountId > 0 &&
+              datumPair.datum.accountLevel < 3) {
             g_parent_account.id = datumPair.datum.accountId;
             g_parent_account.accountLevel =
                 datumPair.datum.accountLevel + 1; // we need to next higher one
@@ -3005,8 +3013,7 @@ class _MyHomePageState extends State<MyHomePage>
     });
   }
 
-  setLoading(){
-
+  setLoading() {
     // #189 workaround for showing load animation, does not work directly in onChanged of radioButton
     setState(() {
       currentlyLoading =
@@ -3570,11 +3577,15 @@ class _MyHomePageState extends State<MyHomePage>
                                                     // For rtl, "start" and "end" will be right and left respectively.
                                                     // Since this example has directionality of ltr, the legend is
                                                     // positioned on the right side of the chart.
-                                                    position: charts.BehaviorPosition.bottom,
+                                                    position: charts
+                                                        .BehaviorPosition
+                                                        .bottom,
                                                     // For a legend that is positioned on the left or right of the chart,
                                                     // setting the justification for [endDrawArea] is aligned to the
                                                     // bottom of the chart draw area.
-                                                    outsideJustification: charts.OutsideJustification.middleDrawArea,
+                                                    outsideJustification: charts
+                                                        .OutsideJustification
+                                                        .middleDrawArea,
                                                     // By default, if the position of the chart is on the left or right of
                                                     // the chart, [horizontalFirst] is set to false. This means that the
                                                     // legend entries will grow as new rows first instead of a new column.
@@ -3583,12 +3594,15 @@ class _MyHomePageState extends State<MyHomePage>
                                                     // rows before adding a new column.
                                                     desiredMaxRows: 2,
                                                     // This defines the padding around each legend entry.
-                                                    cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
+                                                    cellPadding: new EdgeInsets
+                                                        .only(right: 4.0,
+                                                        bottom: 4.0),
                                                     // Render the legend entry text with custom styles.
-                                                    entryTextStyle: charts.TextStyleSpec(
+                                                    entryTextStyle: charts
+                                                        .TextStyleSpec(
                                                         fontSize: 11),
                                                   )
-                                                ],// When startingUp truy, dont animate, and when false show animations
+                                                ], // When startingUp truy, dont animate, and when false show animations
                                               ),
                                             ),
                                             Row(
@@ -7736,16 +7750,25 @@ class _MyHomePageState extends State<MyHomePage>
                                                               drilldownLevel =
                                                               "";
 
-                                                              groupByArgument = 'Accounts';
-                                                              groupByAccount = true;
-                                                              groupByYear = false;
-                                                              groupByMonth = false;
-                                                              groupByDay = false;
+                                                              groupByArgument =
+                                                              'Accounts';
+                                                              groupByAccount =
+                                                              true;
+                                                              groupByYear =
+                                                              false;
+                                                              groupByMonth =
+                                                              false;
+                                                              groupByDay =
+                                                              false;
 
-                                                              groupByVisualizerOptions[0] = true;
-                                                              groupByVisualizerOptions[1] = false;
-                                                              groupByVisualizerOptions[2] = false;
-                                                              groupByVisualizerOptions[3] = false;
+                                                              groupByVisualizerOptions[0] =
+                                                              true;
+                                                              groupByVisualizerOptions[1] =
+                                                              false;
+                                                              groupByVisualizerOptions[2] =
+                                                              false;
+                                                              groupByVisualizerOptions[3] =
+                                                              false;
 
                                                               loadAmount(true);
                                                             });
@@ -7864,15 +7887,11 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                     activeColor: Color(
                                                                                         0xFF0957FF),
                                                                                     onChanged: (
-                                                                                        bool newValue)  {
-
+                                                                                        bool newValue) {
                                                                                       setLoading();
 
 
                                                                                       setState(() {
-
-
-
                                                                                         groupByVisualizerOptions[0] =
                                                                                         false;
                                                                                         groupByVisualizerOptions[1] =
@@ -7920,13 +7939,12 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                             break;
                                                                                         }
 
-                                                                                        print("currentlyLoading $currentlyLoading");
+                                                                                        print(
+                                                                                            "currentlyLoading $currentlyLoading");
 
                                                                                         loadAmount(
                                                                                             true);
-
                                                                                       });
-
 
 
                                                                                       Navigator
@@ -9416,14 +9434,29 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                         children: <
                                                                                             TextSpan>[
                                                                                           TextSpan(
-                                                                                            text: (level1AdminObject
-                                                                                                .id
+                                                                                            text: ([
+                                                                                              0,
+                                                                                              level1AdminObject
+                                                                                                  .id,
+                                                                                            ]
+                                                                                                .reduce(
+                                                                                                max)
                                                                                                 +
-                                                                                                level2AdminObject
-                                                                                                    .id
+                                                                                                [
+                                                                                                  0,
+                                                                                                  level2AdminObject
+                                                                                                      .id,
+                                                                                                ]
+                                                                                                    .reduce(
+                                                                                                    max)
                                                                                                 +
-                                                                                                level3AdminObject
-                                                                                                    .id
+                                                                                                [
+                                                                                                  0,
+                                                                                                  level3AdminObject
+                                                                                                      .id,
+                                                                                                ]
+                                                                                                    .reduce(
+                                                                                                    max)
                                                                                             ) >
                                                                                                 0
                                                                                                 ? ('${newLevel1TextFieldController
@@ -9448,24 +9481,33 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                                 level2AdminObject
                                                                                                     .name
                                                                                                 : '')}')
-                                                                                                : AppLocalizations
+                                                                                                : "${AppLocalizations
                                                                                                 .of(
                                                                                                 context)
                                                                                                 .translate(
-                                                                                                'noAccount')
-                                                                                            // Level 3 can never be a child
-                                                                                            /*'${newLevel3TextFieldController
-                                                                                              .text
-                                                                                              .length >
-                                                                                              0
-                                                                                              ? ''
-                                                                                              : (level3AdminObject
-                                                                                              .id >
-                                                                                              0
-                                                                                              ? level3AdminObject
-                                                                                              .name
-                                                                                              : '')
-                                                                                          }'*/,
+                                                                                                'noAccount')} - ${[
+                                                                                              0,
+                                                                                              level1AdminObject
+                                                                                                  .id,
+                                                                                            ]
+                                                                                                .reduce(
+                                                                                                max)
+                                                                                                +
+                                                                                                [
+                                                                                                  0,
+                                                                                                  level2AdminObject
+                                                                                                      .id,
+                                                                                                ]
+                                                                                                    .reduce(
+                                                                                                    max)
+                                                                                                +
+                                                                                                [
+                                                                                                  0,
+                                                                                                  level3AdminObject
+                                                                                                      .id,
+                                                                                                ]
+                                                                                                    .reduce(
+                                                                                                    max)}",
                                                                                             style: TextStyle(
                                                                                                 color: Color(
                                                                                                     0xff0957FF),
