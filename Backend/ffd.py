@@ -1,4 +1,4 @@
-from datetime import datetime
+# from datetime import datetime
 from datetime import timedelta
 import psycopg2
 import psycopg2.extras
@@ -1002,7 +1002,7 @@ def addAccount(data, userId):
     elif(int(data['accountfornewlevel2parentaccount']) < 0 and data['accounttoaddlevel2'] and data['accounttoaddlevel1']):
         
         # Check if a name for a level1 was sent, get the id of that and set this account as the parent       
-        cursor.execute("select id from ffd.account_dim where level_type = 1 and name = %s", (data['accounttoaddlevel2'].upper(),))
+        cursor.execute("select id from ffd.account_dim where level_type = 1 and name = %s", (data['accounttoaddlevel1'].upper(),))
         record = cursor.fetchall()
 
         logging.critical("###############")
