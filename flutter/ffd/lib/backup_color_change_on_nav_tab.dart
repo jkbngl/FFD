@@ -3434,10 +3434,12 @@ class _MyHomePageState extends State<MyHomePage>
 
                                                             subtitle: Text(
                                                               // #91
-                                                                homescreenData[2]
+                                                                "${homescreenData[2]
                                                                     .amount
                                                                     .toStringAsFixed(
-                                                                    2),
+                                                                    2)}\n${homescreenData[2]
+                                                                    .amount
+                                                                     / 30}",
                                                                 style: TextStyle(
                                                                     color:
                                                                     Colors
