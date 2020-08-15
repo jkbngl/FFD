@@ -2419,7 +2419,7 @@ class _MyHomePageState extends State<MyHomePage>
                                         ),
                                       ],
                                     ),
-                                    Icon(Icons.info),
+                                    Tooltip(message: "bo",  child: Icon(Icons.info))
                                   ],)
                               ])),
                       actions: <Widget>[
