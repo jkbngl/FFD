@@ -2402,17 +2402,23 @@ class _MyHomePageState extends State<MyHomePage>
                                           0xffEEEEEE),
                                       activeColor: Color(0xff0957FF),
                                     ),
-                                    Expanded(
-                                        child: Text(
-                                          AppLocalizations.of(context)
-                                              .translate(
-                                              'scheduleSwitch'),
-                                          overflow: TextOverflow.fade,
-                                          style: TextStyle(
-                                              color: Colors.grey[800],
-                                              fontWeight: FontWeight.w900,
-                                              fontSize: 15),
-                                        )),
+                                    Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                            child: Text(
+                                              AppLocalizations.of(context)
+                                                  .translate(
+                                                  'scheduleSwitch'),
+                                              overflow: TextOverflow.fade,
+                                              style: TextStyle(
+                                                  color: Colors.grey[800],
+                                                  fontWeight: FontWeight.w900,
+                                                  fontSize: 15),
+                                            ),
+                                        ),
+                                        IconButton(icon: Icon(Icons.info),)
+                                      ],
+                                    ),
                                   ],)
                               ])),
                       actions: <Widget>[
@@ -3328,10 +3334,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   .ellipsis,
                                                             ),
                                                             subtitle: Text(
-                                                                homescreenData[0]
+                                                                "${homescreenData[0]
                                                                     .amount
                                                                     .toStringAsFixed(
-                                                                    2),
+                                                                    2)}\nTODO add daily expense",
                                                                 style: TextStyle(
                                                                     color:
                                                                     Colors
@@ -3393,11 +3399,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                         BorderRadius.circular(
                                                             50.0),
                                                       ),
-                                                      /*color: homescreenData[0].amount >
-                                                homescreenData[2].amount
-                                            ? Colors.red
-                                            : Colors.green,
-                                        */
                                                       color: Color(0xff003680),
                                                       elevation: 10,
                                                       child: Column(
@@ -3437,9 +3438,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 "${homescreenData[2]
                                                                     .amount
                                                                     .toStringAsFixed(
-                                                                    2)}\n${homescreenData[2]
+                                                                    2)}\n${(homescreenData[2]
                                                                     .amount
-                                                                     / 30}",
+                                                                     / 30).toStringAsFixed(2)}",
                                                                 style: TextStyle(
                                                                     color:
                                                                     Colors
