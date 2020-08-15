@@ -2404,21 +2404,22 @@ class _MyHomePageState extends State<MyHomePage>
                                     ),
                                     Row(
                                       children: <Widget>[
-                                        Expanded(
-                                            child: Text(
-                                              AppLocalizations.of(context)
-                                                  .translate(
-                                                  'scheduleSwitch'),
-                                              overflow: TextOverflow.fade,
-                                              style: TextStyle(
-                                                  color: Colors.grey[800],
-                                                  fontWeight: FontWeight.w900,
-                                                  fontSize: 15),
-                                            ),
+                                        Container(
+                                          width: MediaQuery.of(context).size.width * .4,
+                                          child: Text(
+                                            AppLocalizations.of(context)
+                                                .translate(
+                                                'scheduleSwitch'),
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                color: Colors.grey[800],
+                                                fontWeight: FontWeight.w900,
+                                                fontSize: 15),
+                                          ),
                                         ),
-                                        IconButton(icon: Icon(Icons.info),)
                                       ],
                                     ),
+                                    Icon(Icons.info),
                                   ],)
                               ])),
                       actions: <Widget>[
