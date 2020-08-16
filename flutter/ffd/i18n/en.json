@@ -10,6 +10,7 @@
     "FullYearSwitch": "Full Year",
     "AllTimeSwitch": "All Time",
     "scheduleSwitch": "Reschedule this entry",
+    "scheduleSwitchTooltip": "This check mark can be set, for example, to enter monthly expenses once without having to do this every month individually",
     "enterAgain": "Enter this amount again for the next: ",
     "year": "Year",
     "month": "Month",

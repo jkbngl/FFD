@@ -10,6 +10,7 @@
     "FullYearSwitch": "Ganzes Jahr",
     "AllTimeSwitch": "Ganze Zeit",
     "scheduleSwitch": "Diesen Eintrag erneut eintragen",
+    "scheduleSwitchTooltip": "Dieser Haken kann gesetzt werden um bspw. monatliche Ausgaben einmalig einzutragen ohne dies jeden Monat einzeln zu machen",
     "enterAgain": "Geben Sie diesen Betrag beim nächsten Mal erneut ein: ",
     "year": "Jahr",
     "month": "Monat",

@@ -10,6 +10,7 @@
     "FullYearSwitch": "Anno intero",
     "AllTimeSwitch": "Sempre",
     "scheduleSwitch": "Riprogrammare questa voce",
+    "scheduleSwitchTooltip": "Questo segno di spunta può essere impostato per inserire, ad esempio, le spese mensili una volta senza farlo ogni mese singolarmente",
     "enterAgain": "Inserire nuovamente questo importo per il prossimo: ",
     "year": "Anno",
     "month": "Mese",

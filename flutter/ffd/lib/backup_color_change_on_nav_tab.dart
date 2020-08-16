@@ -2419,7 +2419,9 @@ class _MyHomePageState extends State<MyHomePage>
                                         ),
                                       ],
                                     ),
-                                    Tooltip(message: "bo",  child: Icon(Icons.info))
+                                    Tooltip(message: AppLocalizations.of(context)
+                                        .translate(
+                                        'scheduleSwitchTooltip'),  child: Icon(Icons.info))
                                   ],)
                               ])),
                       actions: <Widget>[
