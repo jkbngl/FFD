@@ -446,6 +446,10 @@ class _MyHomePageState extends State<MyHomePage>
   Account level3AdminObject;
   CostType costTypeObjectAdmin;
 
+  // for snackbars in #199
+  GlobalKey<ScaffoldState> _scaffoldKey;
+
+
   // Dynamic title at the top of the screen which is changed depending on which page is selected
   var appBarTitleText = new Text("FFD v2");
 
@@ -453,9 +457,12 @@ class _MyHomePageState extends State<MyHomePage>
   void initState() {
     super.initState();
 
+    _scaffoldKey = new GlobalKey<ScaffoldState>();
+
     setState(() {
       startingUp = true;
     });
+
 
     _pageController = PageController();
 
@@ -2405,7 +2412,10 @@ class _MyHomePageState extends State<MyHomePage>
                                     Row(
                                       children: <Widget>[
                                         Container(
-                                          width: MediaQuery.of(context).size.width * .4,
+                                          width: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .width * .4,
                                           child: Text(
                                             AppLocalizations.of(context)
                                                 .translate(
@@ -2419,9 +2429,17 @@ class _MyHomePageState extends State<MyHomePage>
                                         ),
                                       ],
                                     ),
-                                    Tooltip(message: AppLocalizations.of(context)
-                                        .translate(
-                                        'scheduleSwitchTooltip'),  child: Icon(Icons.info))
+                                    GestureDetector(
+                                      onTap: () {
+                                        final snackBar = SnackBar(content: Text(
+                                            AppLocalizations.of(context)
+                                                .translate(
+                                                'scheduleSwitchTooltip')));
+
+                                        // Find the Scaffold in the widget tree and use it to show a SnackBar.
+                                        _scaffoldKey.currentState.showSnackBar(snackBar);
+                                      },
+                                      child: Icon(Icons.info),)
                                   ],)
                               ])),
                       actions: <Widget>[
@@ -3117,6 +3135,7 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   Widget build(BuildContext context) {
     final children = Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: appBarTitleText,
         actions: <Widget>[
@@ -3443,7 +3462,9 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     .toStringAsFixed(
                                                                     2)}\n${(homescreenData[2]
                                                                     .amount
-                                                                     / 30).toStringAsFixed(2)}",
+                                                                    / 30)
+                                                                    .toStringAsFixed(
+                                                                    2)}",
                                                                 style: TextStyle(
                                                                     color:
                                                                     Colors

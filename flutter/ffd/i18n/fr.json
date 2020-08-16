@@ -10,7 +10,7 @@
   "FullYearSwitch" : "Année complète",
   "AllTimeSwitch" : "tout le temps",
   "scheduleSwitch": "Reprogrammer cette entrée",
-  "scheduleSwitchTooltip": "Cette case peut être cochée pour saisir, par exemple, les dépenses mensuelles une fois sans le faire chaque mois individuellement",
+  "scheduleSwitchTooltip": "Cette case peut être cochée pour saisir, par exemple, les dépenses mensuelles une fois sans le faire chaque mois individuellement.",
   "enterAgain": "Saisissez à nouveau ce montant pour la prochaine fois : ",
   "year": "Année",
   "month": "Mois",
