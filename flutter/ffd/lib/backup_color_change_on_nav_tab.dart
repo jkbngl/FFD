@@ -3484,7 +3484,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     .toStringAsFixed(
                                                                     2)}\n${(homescreenData[2]
                                                                     .amount
-                                                                    / 30)
+                                                                    / DateTime(DateTime.now().year, DateTime.now().month + 1, 0).day)
                                                                     .toStringAsFixed(
                                                                     0)}",
                                                                 style: TextStyle(
