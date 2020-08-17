@@ -719,8 +719,16 @@ class _MyHomePageState extends State<MyHomePage>
 
     if(parseddailyAmount.length > 0)
     {
+
+      DateTime now = DateTime.now();
+
       print("DAILY EXPENSE");
-      dailyExpense = parseddailyAmount[0]['sum'];
+      print(parseddailyAmount[0]['sum']);
+      print(parseddailyAmount[0]['day']);
+      print(parseddailyAmount[0]['month']);
+      print(parseddailyAmount[0]['year']);
+
+      dailyExpense = now.year == parseddailyAmount[0]['year'] && now.month == parseddailyAmount[0]['month'] && now.day == parseddailyAmount[0]['year'] ? parseddailyAmount[0]['sum'] : 0;
 
       thisMonthAverage = 0;
 
