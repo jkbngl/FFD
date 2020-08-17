@@ -724,11 +724,11 @@ class _MyHomePageState extends State<MyHomePage>
 
       print("DAILY EXPENSE");
       print(parseddailyAmount[0]['sum']);
-      print(parseddailyAmount[0]['day']);
-      print(parseddailyAmount[0]['month']);
-      print(parseddailyAmount[0]['year']);
+      print("${parseddailyAmount[0]['day']} - ${parseddailyAmount[0]['day'] == now.day}");
+      print("${parseddailyAmount[0]['month']} - ${parseddailyAmount[0]['month'] == now.month}");
+      print("${parseddailyAmount[0]['year']} - ${parseddailyAmount[0]['year'] == now.year}");
 
-      dailyExpense = now.year == parseddailyAmount[0]['year'] && now.month == parseddailyAmount[0]['month'] && now.day == parseddailyAmount[0]['year'] ? parseddailyAmount[0]['sum'] : 0;
+      dailyExpense = now.year == parseddailyAmount[0]['year'] && now.month == parseddailyAmount[0]['month'] && now.day == parseddailyAmount[0]['day'] ? parseddailyAmount[0]['sum'] : 0;
 
       thisMonthAverage = 0;
 
