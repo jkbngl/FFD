@@ -224,6 +224,8 @@ class _MyHomePageState extends State<MyHomePage>
   // Bool which defined if accounts and costTypes needs to be refetched or can be cached
   bool fetchAccountsAndCostTypes = false;
 
+  int dailyExpense = 0;
+
   // Effective objects which are displayed as value in dropdown and send to backend on SAVE
   Account level1ActualObject;
   Account level1BudgetObject;
@@ -702,6 +704,7 @@ class _MyHomePageState extends State<MyHomePage>
     // Needed to distinguish between actual and budget, so has to be set on runTime
     String _type = '';
     String uri = '';
+    String todaysExpenseUri = 'https://$connectionId/api/ffd/amounts/?level_type=1&cost_type=-1&parent_account=-1&year=${DateTime.now().year}&month=${DateTime.now().month}&day=${DateTime.now().day}&_type=actual&groupBy=Day';
 
     ChartObject needsToBeAdded = ChartObject('DUMMY', -99, -69, -69, -69,
         charts.ColorUtil.fromDartColor(Color(0xff003680)));
@@ -709,6 +712,15 @@ class _MyHomePageState extends State<MyHomePage>
     var params = {
       "accesstoken": token,
     };
+
+    var dailyAmount = await http.read(todaysExpenseUri, headers: params);
+    var parseddailyAmount = json.decode(dailyAmount);
+
+    if(parseddailyAmount.length > 0)
+    {
+      print("DAILY EXPENSE");
+      print(parseddailyAmount[0]);
+    }
 
     //try {
     _type = 'actual';
