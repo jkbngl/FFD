@@ -224,7 +224,8 @@ class _MyHomePageState extends State<MyHomePage>
   // Bool which defined if accounts and costTypes needs to be refetched or can be cached
   bool fetchAccountsAndCostTypes = false;
 
-  int dailyExpense = 0;
+  double dailyExpense = 0;
+  double thisMonthAverage = 0;
 
   // Effective objects which are displayed as value in dropdown and send to backend on SAVE
   Account level1ActualObject;
@@ -719,7 +720,16 @@ class _MyHomePageState extends State<MyHomePage>
     if(parseddailyAmount.length > 0)
     {
       print("DAILY EXPENSE");
-      print(parseddailyAmount[0]);
+      dailyExpense = parseddailyAmount[0]['sum'];
+
+      thisMonthAverage = 0;
+
+      for(var amount in parseddailyAmount)
+      {
+        thisMonthAverage += amount['sum'];
+      }
+
+      thisMonthAverage /= parseddailyAmount.length;
     }
 
     //try {
@@ -3371,7 +3381,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 "${homescreenData[0]
                                                                     .amount
                                                                     .toStringAsFixed(
-                                                                    2)}\nTODO add daily expense",
+                                                                    2)}\n${dailyExpense.toStringAsFixed(0)}/ ${thisMonthAverage.toStringAsFixed(0)}",
                                                                 style: TextStyle(
                                                                     color:
                                                                     Colors
@@ -3476,7 +3486,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     .amount
                                                                     / 30)
                                                                     .toStringAsFixed(
-                                                                    2)}",
+                                                                    0)}",
                                                                 style: TextStyle(
                                                                     color:
                                                                     Colors
