@@ -3563,7 +3563,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                     overflow: TextOverflow
                                                         .ellipsis,
                                                     style: TextStyle(
-                                                        color: Colors.grey[800],
+                                                        color: Color(
+                                                            0xff2B2B2B),
                                                         fontWeight: FontWeight
                                                             .w900,
                                                         fontSize: 25),
