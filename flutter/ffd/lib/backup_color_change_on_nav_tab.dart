@@ -3526,7 +3526,8 @@ class _MyHomePageState extends State<MyHomePage>
                                               maxLines: 3,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
-                                                  color: Colors.grey[800],
+                                                  color: Color(
+                                                      0xff2B2B2B),
                                                   fontWeight: FontWeight.w900,
                                                   fontFamily: 'Open Sans',
                                                   fontSize: 30),
