@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
       ],
       theme: ThemeData(
         primarySwatch: colorCustom,
+        fontFamily: 'Montserrat',
       ),
       home: MyHomePage(title: 'FFD Home Page'),
     );
