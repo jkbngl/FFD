@@ -583,7 +583,8 @@ class _MyHomePageState extends State<MyHomePage>
                 text:
                 AppLocalizations.of(context).translate('welcomeText'),
                 style: TextStyle(
-                    color: Colors.black,
+                    color: Color(
+                        0xff2B2B2B),
                     fontSize: 12,
                     fontStyle: FontStyle.italic),
                 children: <TextSpan>[
@@ -1058,7 +1059,8 @@ class _MyHomePageState extends State<MyHomePage>
     return Center(
         child: SpinKitFadingCube(
           //color: Color(0xff0957FF),
-          color: Colors.black,
+          color: Color(
+              0xff2B2B2B),
           size: 100.0,));
   }
 
@@ -1599,7 +1601,8 @@ class _MyHomePageState extends State<MyHomePage>
                           text: AppLocalizations.of(context).translate(
                               'enterAgain'),
                           style: TextStyle(
-                              color: Colors.black,
+                              color: Color(
+                                  0xff2B2B2B),
                               fontSize: 18,
                               fontWeight: FontWeight.bold),
                           children: <TextSpan>[
@@ -2249,7 +2252,8 @@ class _MyHomePageState extends State<MyHomePage>
               style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black54),
+                  color: Color(
+                      0xff2B2B2B)),
             ),
             Text(
               name,
@@ -2264,7 +2268,8 @@ class _MyHomePageState extends State<MyHomePage>
               style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black54),
+                  color: Color(
+                      0xff2B2B2B)),
             ),
             Text(
               email,
@@ -2312,14 +2317,16 @@ class _MyHomePageState extends State<MyHomePage>
             "${AppLocalizations.of(context).translate('error')} - ${e
                 .runtimeType}",
             style: TextStyle(
-                color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                color: Color(
+                    0xff2B2B2B), fontSize: 18, fontWeight: FontWeight.bold),
           ),
           content: RichText(
             text: TextSpan(
                 text:
                 AppLocalizations.of(context).translate('errorMessage'),
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Color(
+                      0xff2B2B2B),
                   fontSize: 15,
                 ),
                 children: <TextSpan>[
@@ -2397,7 +2404,8 @@ class _MyHomePageState extends State<MyHomePage>
                               text: AppLocalizations.of(context).translate(
                                   'commentEnterDialog'),
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Color(
+                                      0xff2B2B2B),
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold),
                               children: <TextSpan>[
@@ -2527,7 +2535,8 @@ class _MyHomePageState extends State<MyHomePage>
                         text: AppLocalizations.of(context).translate(
                             'commentEnterDialog'),
                         style: TextStyle(
-                            color: Colors.black,
+                            color: Color(
+                                0xff2B2B2B),
                             fontSize: 18,
                             fontWeight: FontWeight.bold),
                         children: <TextSpan>[
@@ -2628,7 +2637,8 @@ class _MyHomePageState extends State<MyHomePage>
                       text: AppLocalizations.of(context).translate(
                           'commentEnterDialog'),
                       style: TextStyle(
-                          color: Colors.black,
+                          color: Color(
+                              0xff2B2B2B),
                           fontSize: 18,
                           fontWeight: FontWeight.bold),
                       children: <TextSpan>[
@@ -2715,7 +2725,8 @@ class _MyHomePageState extends State<MyHomePage>
                       text: AppLocalizations.of(context).translate(
                           'commentEnterDialog'),
                       style: TextStyle(
-                          color: Colors.black,
+                          color: Color(
+                              0xff2B2B2B),
                           fontSize: 18,
                           fontWeight: FontWeight.bold),
                       children: <TextSpan>[
@@ -4946,7 +4957,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                     .translate(
                                                     'DetailsListTitle'),
                                                 style: TextStyle(
-                                                  color: Colors.black,
+                                                  color: Color(
+                                                      0xff2B2B2B),
                                                   fontSize: 25,
                                                 ),
                                               ),
@@ -4954,7 +4966,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                 text: TextSpan(
                                                     text: "",
                                                     style: TextStyle(
-                                                      color: Colors.black,
+                                                      color: Color(
+                                                          0xff2B2B2B),
                                                       fontSize: 15,
                                                     ),
                                                     children: <TextSpan>[
@@ -5126,7 +5139,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                 30.0),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: Colors.black12,
+                                                color: Color(
+                                                    0xff2B2B2B),
                                                 blurRadius: 5,
                                                 // has the effect of softening the shadow
                                                 spreadRadius: 0,
@@ -6784,7 +6798,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                     .translate(
                                                     'DetailsListTitle'),
                                                 style: TextStyle(
-                                                  color: Colors.black,
+                                                  color: Color(
+                                                      0xff2B2B2B),
                                                   fontSize: 25,
                                                 ),
                                               ),
@@ -6792,7 +6807,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                 text: TextSpan(
                                                     text: "",
                                                     style: TextStyle(
-                                                      color: Colors.black,
+                                                      color: Color(
+                                                          0xff2B2B2B),
                                                       fontSize: 15,
                                                     ),
                                                     children: <TextSpan>[
@@ -6965,7 +6981,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                 30.0),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: Colors.black12,
+                                                color: Color(
+                                                    0xff2B2B2B),
                                                 blurRadius: 5,
                                                 // has the effect of softening the shadow
                                                 spreadRadius: 0,
