@@ -72,6 +72,13 @@ flutter:
     - i18n/es.json
     - i18n/fr.json
 
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-Medium.ttf
+        - asset: assets/fonts/Montserrat-ExtraLight.ttf
+          weight: 200
+
 
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
