@@ -107,7 +107,7 @@
     "info": "Information",
     "code" : "Code",
     "drilldownError" : "Keine weiteren Details verfügbar",
-    "drilldownErrorMoreLevel3" : "Keine Ebene tiefer gefunden",
+    "drilldownErrorMoreLevel3" : "Keine tiefere Ebene gefunden",
     "drilldownErrorParent" : "Kein weiteres verknüpftes Konto gefunden",
     "confirmLogout" : "Abmelden Bestätigen",
     "loginText" : "FFD - Anmelden",
