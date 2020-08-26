@@ -3535,7 +3535,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                   color: Color(
                                                       0xff2B2B2B),
                                                   fontWeight: FontWeight.w900,
-                                                  fontFamily: 'Open Sans',
                                                   fontSize: 30),
                                             ),
                                             Row(
