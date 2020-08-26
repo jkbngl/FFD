@@ -3902,7 +3902,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     TextInputType
                                                                         .number,
                                                                     //keyboard with numbers only will appear to the screen
-                                                                    style: TextStyle(
+                                                                    style: GoogleFonts.lato(
                                                                         height: 2),
                                                                     //increases the height of cursor
                                                                     //autofocus: true,
@@ -3917,7 +3917,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             context)
                                                                             .translate(
                                                                             'TextFieldAmountInput'),
-                                                                        labelStyle: TextStyle(
+                                                                        labelStyle: GoogleFonts.lato(
                                                                             height: 0.5,
                                                                             color: Color(
                                                                                 0xff0957FF)),
@@ -3974,7 +3974,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   ),
                                                                 );
                                                               }).toList(),
-                                                              style: TextStyle(
+                                                              style: GoogleFonts.lato(
                                                                   color:
                                                                   Color(
                                                                       0xff0957FF)),
@@ -4074,7 +4074,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   ),
                                                                 );
                                                               }).toList(),
-                                                              style: TextStyle(
+                                                              style: GoogleFonts.lato(
                                                                   color: level1ActualObject
                                                                       .id <=
                                                                       0 ? Colors
@@ -4190,7 +4190,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   ),
                                                                 );
                                                               }).toList(),
-                                                              style: TextStyle(
+                                                              style: GoogleFonts.lato(
                                                                   color: level2ActualObject
                                                                       .id <=
                                                                       0 ? Colors
@@ -4297,7 +4297,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     Icons
                                                                         .arrow_downward),
                                                                 iconSize: 24,
-                                                                style: TextStyle(
+                                                                style: GoogleFonts.lato(
                                                                     color: Color(
                                                                         0xff0957FF)),
                                                                 underline: Container(
@@ -5439,7 +5439,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                   context)
                                                                                   .translate(
                                                                                   'withAnAmountOf'),
-                                                                              style: TextStyle(
+                                                                              style: GoogleFonts.lato(
                                                                                 fontSize: 18,
                                                                               ),
                                                                             ),
@@ -5447,7 +5447,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               text: '${actList[index -
                                                                                   1]
                                                                                   .amount} ',
-                                                                              style: TextStyle(
+                                                                              style: GoogleFonts.lato(
                                                                                   color: Color(
                                                                                       0xFF0957FF),
                                                                                   fontSize: 18,
@@ -5460,7 +5460,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                   context)
                                                                                   .translate(
                                                                                   'willBe'),
-                                                                              style: TextStyle(
+                                                                              style: GoogleFonts.lato(
                                                                                 fontSize: 18,
                                                                               ),
                                                                             ),
@@ -5479,7 +5479,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                   context)
                                                                                   .translate(
                                                                                   'restored')}',
-                                                                              style: TextStyle(
+                                                                              style: GoogleFonts.lato(
                                                                                   color: actList[index -
                                                                                       1]
                                                                                       .active ==
@@ -5763,7 +5763,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   TextInputType
                                                                       .number,
                                                                   //keyboard with numbers only will appear to the screen
-                                                                  style: TextStyle(
+                                                                  style: GoogleFonts.lato(
                                                                       height: 2),
                                                                   //increases the height of cursor
                                                                   //autofocus: true,
@@ -5772,13 +5772,13 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   validator: numberValidator,
                                                                   decoration: InputDecoration(
                                                                     // hintText: 'Enter ur amount',
-                                                                    //hintStyle: TextStyle(height: 1.75),
+                                                                    //hintStyle: GoogleFonts.lato(height: 1.75),
                                                                       labelText: AppLocalizations
                                                                           .of(
                                                                           context)
                                                                           .translate(
                                                                           'TextFieldAmountInput'),
-                                                                      labelStyle: TextStyle(
+                                                                      labelStyle: GoogleFonts.lato(
                                                                           height: 0.5,
                                                                           color: Color(
                                                                               0xff0957FF)),
@@ -5791,7 +5791,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             0xff0957FF),
                                                                       ),
                                                                       //prefixIcon: Icon(Icons.attach_money),
-                                                                      //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                                      //labelStyle: GoogleFonts.lato(color: Color(0xff0957FF)),
                                                                       enabledBorder:
                                                                       new UnderlineInputBorder(
                                                                           borderSide:
@@ -5836,7 +5836,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 ),
                                                               );
                                                             }).toList(),
-                                                            style: TextStyle(
+                                                            style: GoogleFonts.lato(
                                                                 color: Color(
                                                                     0xff0957FF)),
                                                             value:
@@ -5928,7 +5928,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 ),
                                                               );
                                                             }).toList(),
-                                                            style: TextStyle(
+                                                            style: GoogleFonts.lato(
                                                                 color: level1BudgetObject
                                                                     .id <=
                                                                     0
@@ -6042,7 +6042,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 ),
                                                               );
                                                             }).toList(),
-                                                            style: TextStyle(
+                                                            style: GoogleFonts.lato(
                                                                 color: level2BudgetObject
                                                                     .id <=
                                                                     0
@@ -6146,7 +6146,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                               icon: Icon(Icons
                                                                   .arrow_downward),
                                                               iconSize: 24,
-                                                              style: TextStyle(
+                                                              style: GoogleFonts.lato(
                                                                   color: Color(
                                                                       0xff0957FF)),
                                                               //isExpanded: true,
@@ -6412,7 +6412,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                   decoration:
                                                   InputDecoration(
                                                     // hintText: 'Enter ur amount',
-                                                    //hintStyle: TextStyle(height: 1.75),
+                                                    //hintStyle: GoogleFonts.lato(height: 1.75),
                                                     labelText: AppLocalizations
                                                         .of(context)
                                                         .translate(
@@ -6892,7 +6892,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             context)
                                                             .translate(
                                                             'DetailsListCostType'),
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                           fontSize: 18,
                                                         ),
                                                       ),
@@ -6900,7 +6900,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                         text:
                                                         '${bdgList[index - 1]
                                                             .costType}\n',
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                             color: Color(
                                                                 0xFF0957FF),
                                                             fontSize: 18,
@@ -6917,7 +6917,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             context)
                                                             .translate(
                                                             'DetailsListComment'),
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                           fontSize: 18,
                                                         ),
                                                       ),
@@ -6931,7 +6931,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             .of(
                                                             context).translate(
                                                             'noCommentAvailable')}\n',
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                             color: Color(
                                                                 0xFF0957FF),
                                                             fontSize: 18,
@@ -7872,7 +7872,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 'select_one_costtype'),
                                                             icon: Icon(Icons
                                                                 .arrow_downward),
-                                                            style: TextStyle(
+                                                            style: GoogleFonts.lato(
                                                                 color: Color(
                                                                     0xff0957FF)),
                                                             underline: Container(
@@ -8530,7 +8530,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                           Icon(Icons
                                                               .arrow_downward),
                                                           iconSize: 24,
-                                                          style: TextStyle(
+                                                          style: GoogleFonts.lato(
                                                               color: Color(
                                                                   0xff0957FF)),
                                                           isExpanded: true,
@@ -8608,7 +8608,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             children: <Widget>[
                                                               TextFormField(
                                                                 // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
-                                                                style: TextStyle(
+                                                                style: GoogleFonts.lato(
                                                                     height: 2),
                                                                 //increases the height of cursor
                                                                 // autofocus: true,
@@ -8620,7 +8620,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         context)
                                                                         .translate(
                                                                         'enterNewLevel1AccountNameTextField'),
-                                                                    hintStyle: TextStyle(
+                                                                    hintStyle: GoogleFonts.lato(
                                                                         height: 1.75,
                                                                         fontSize: 12,
                                                                         color:
@@ -8686,7 +8686,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                           Icon(Icons
                                                               .arrow_downward),
                                                           iconSize: 24,
-                                                          style: TextStyle(
+                                                          style: GoogleFonts.lato(
                                                               color: level1AdminObject
                                                                   .id <=
                                                                   0
@@ -8782,7 +8782,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         .text
                                                                         .length <=
                                                                         0),
-                                                                style: TextStyle(
+                                                                style: GoogleFonts.lato(
                                                                     height: 2),
                                                                 //increases the height of cursor
                                                                 // autofocus: true,
@@ -8807,7 +8807,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         context)
                                                                         .translate(
                                                                         'enterNewLevel2AccountNameTextField'),
-                                                                    hintStyle: TextStyle(
+                                                                    hintStyle: GoogleFonts.lato(
                                                                         height: 1.75,
                                                                         fontSize: 12,
                                                                         color: (level1AdminObject
@@ -8879,7 +8879,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                           Icon(Icons
                                                               .arrow_downward),
                                                           iconSize: 24,
-                                                          style: TextStyle(
+                                                          style: GoogleFonts.lato(
                                                               color: level2AdminObject
                                                                   .id <=
                                                                   0
@@ -8959,7 +8959,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         .text
                                                                         .length <=
                                                                         0),
-                                                                style: TextStyle(
+                                                                style: GoogleFonts.lato(
                                                                     height: 2),
                                                                 //increases the height of cursor
                                                                 // autofocus: true,
@@ -8971,7 +8971,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         context)
                                                                         .translate(
                                                                         'enterNewLevel3AccountNameTextField'),
-                                                                    hintStyle: TextStyle(
+                                                                    hintStyle: GoogleFonts.lato(
                                                                         height: 1.75,
                                                                         fontSize: 12,
                                                                         color: (level2AdminObject
@@ -9367,7 +9367,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               .translate(
                                                                               'warning')
                                                                           ,
-                                                                          style: TextStyle(
+                                                                          style: GoogleFonts.lato(
                                                                               color: Colors
                                                                                   .orange,
                                                                               fontSize: 25,
@@ -9421,7 +9421,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                           'addButton'),
                                                                       overflow: TextOverflow
                                                                           .visible,
-                                                                      style: TextStyle(
+                                                                      style: GoogleFonts.lato(
                                                                         color: Colors
                                                                             .white,
                                                                       ))),
@@ -9499,7 +9499,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                             .translate(
                                                                                             'willBeAddedAsAChildOf')} ',
                                                                                         style:
-                                                                                        TextStyle(
+                                                                                        GoogleFonts.lato(
                                                                                             color: Colors
                                                                                                 .black,
                                                                                             fontSize: 18),
@@ -9580,7 +9580,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                                 ]
                                                                                                     .reduce(
                                                                                                     max)}",
-                                                                                            style: TextStyle(
+                                                                                            style: GoogleFonts.lato(
                                                                                                 color: Color(
                                                                                                     0xff0957FF),
                                                                                                 fontSize: 18,
@@ -9777,7 +9777,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                           icon: Icon(Icons
                                                               .arrow_downward),
                                                           iconSize: 24,
-                                                          style: TextStyle(
+                                                          style: GoogleFonts.lato(
                                                               color: Color(
                                                                   0xff0957FF)),
                                                           isExpanded: true,
@@ -9832,7 +9832,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                           children: <Widget>[
                                                             TextFormField(
                                                               // keyboardType: TextInputType.number, //keyboard with numbers only will appear to the screen
-                                                              style: TextStyle(
+                                                              style: GoogleFonts.lato(
                                                                   height: 2),
                                                               controller:
                                                               newCostTypeTextFieldController,
@@ -9842,7 +9842,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       context)
                                                                       .translate(
                                                                       'enterNewCostTypeNameTextField'),
-                                                                  hintStyle: TextStyle(
+                                                                  hintStyle: GoogleFonts.lato(
                                                                       height: 1.75,
                                                                       fontSize: 12,
                                                                       color: Color(
