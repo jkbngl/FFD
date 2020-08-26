@@ -36,6 +36,7 @@ dependencies:
   slide_to_confirm: ^0.0.6
   flutter_spinkit: ^4.1.2
   shared_preferences: ^0.5.7
+  google_fonts: ^1.1.0
 
 flutter_icons:
   image_path: "assets/launcher/icon.png"

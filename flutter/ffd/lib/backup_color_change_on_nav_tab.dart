@@ -11,6 +11,7 @@ import 'package:search_choices/search_choices.dart';
 import 'package:slide_to_confirm/slide_to_confirm.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'login_page.dart';
 import 'package:ffd/sign_in.dart';
@@ -3275,7 +3276,7 @@ class _MyHomePageState extends State<MyHomePage>
                 {
                   appBarTitleText = Text(
                       'FFD - ${AppLocalizations.of(context).translate(
-                          'titleHome')}');
+                          'titleHome')}', style: GoogleFonts.lato(),);
                   break;
                 }
               case 1:
