@@ -3276,28 +3276,28 @@ class _MyHomePageState extends State<MyHomePage>
                 {
                   appBarTitleText = Text(
                       'FFD - ${AppLocalizations.of(context).translate(
-                          'titleExpenses')}');
+                          'titleExpenses')}', style: GoogleFonts.lato(),);
                   break;
                 }
               case 2:
                 {
                   appBarTitleText = Text(
                       'FFD - ${AppLocalizations.of(context).translate(
-                          'titleBudget')}');
+                          'titleBudget')}', style: GoogleFonts.lato(),);
                   break;
                 }
               case 3:
                 {
                   appBarTitleText = Text(
                       'FFD - ${AppLocalizations.of(context).translate(
-                          'titleVisualizer')}');
+                          'titleVisualizer')}', style: GoogleFonts.lato(),);
                   break;
                 }
               case 4:
                 {
                   appBarTitleText = Text(
                       'FFD - ${AppLocalizations.of(context).translate(
-                          'titleSettings')}');
+                          'titleSettings')}', style: GoogleFonts.lato(),);
                   break;
                 }
             }
@@ -3383,7 +3383,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   context)
                                                                   .translate(
                                                                   'titleExpenses'),
-                                                              style: TextStyle(
+                                                              style: GoogleFonts.lato(
                                                                   fontSize: 14,
                                                                   color: Color(
                                                                       0xffF5F5F6)),
@@ -3396,7 +3396,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     .amount
                                                                     .toStringAsFixed(
                                                                     2)}\n${dailyExpense.toStringAsFixed(0)}/ ${thisMonthAverage.toStringAsFixed(0)}",
-                                                                style: TextStyle(
+                                                                style: GoogleFonts.lato(
                                                                     color:
                                                                     Colors
                                                                         .white)),
@@ -3482,7 +3482,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   context)
                                                                   .translate(
                                                                   'titleBudget'),
-                                                              style: TextStyle(
+                                                              style: GoogleFonts.lato(
                                                                   fontSize: 14,
                                                                   color: Color(
                                                                       0xffF5F5F6)),
@@ -3501,7 +3501,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     / DateTime(DateTime.now().year, DateTime.now().month + 1, 0).day)
                                                                     .toStringAsFixed(
                                                                     0)}",
-                                                                style: TextStyle(
+                                                                style: GoogleFonts.lato(
                                                                     color:
                                                                     Colors
                                                                         .white)),
@@ -3531,7 +3531,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                   .translate('titlePieChart'),
                                               maxLines: 3,
                                               overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
+                                              style: GoogleFonts.lato(
                                                   color: Color(
                                                       0xff2B2B2B),
                                                   fontWeight: FontWeight.w900,
@@ -3568,7 +3568,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     maxLines: 3,
                                                     overflow: TextOverflow
                                                         .ellipsis,
-                                                    style: TextStyle(
+                                                    style: GoogleFonts.lato(
                                                         color: Color(
                                                             0xff2B2B2B),
                                                         fontWeight: FontWeight
@@ -3703,7 +3703,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   .toString()
                                                                   .padLeft(
                                                                   2, '0')}",
-                                                              style: TextStyle(
+                                                              style: GoogleFonts.lato(
                                                                   color: Colors
                                                                       .white,
                                                                   fontSize: 17)),
@@ -3755,7 +3755,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 Text(
                                   AppLocalizations.of(context)
                                       .translate('TitleInputTab'),
-                                  style: TextStyle(color: Colors.white),
+                                  style: GoogleFonts.lato(color: Colors.white),
                                 )
                               ]),
                         ),
@@ -3780,7 +3780,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 Text(
                                   AppLocalizations.of(context)
                                       .translate('TitleListTab'),
-                                  style: TextStyle(color: Colors.white),
+                                  style: GoogleFonts.lato(color: Colors.white),
                                 )
                               ]),
                         ),
@@ -3864,7 +3864,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                 .padLeft(
                                                                                 2,
                                                                                 '0')}",
-                                                                            style: TextStyle(
+                                                                            style: GoogleFonts.lato(
                                                                                 color: Colors
                                                                                     .white,
                                                                                 fontSize: 17)),
@@ -3971,7 +3971,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   value: account,
                                                                   child: new Text(
                                                                     account
-                                                                        .name,
+                                                                        .name, style: GoogleFonts.lato()
                                                                   ),
                                                                 );
                                                               }).toList(),
@@ -4071,7 +4071,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   value: account,
                                                                   child: new Text(
                                                                     account
-                                                                        .name,
+                                                                        .name, style: GoogleFonts.lato()
                                                                   ),
                                                                 );
                                                               }).toList(),
@@ -4187,7 +4187,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   value: account,
                                                                   child: new Text(
                                                                     account
-                                                                        .name,
+                                                                        .name, style: GoogleFonts.lato()
                                                                   ),
                                                                 );
                                                               }).toList(),
@@ -4333,7 +4333,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       CostType>(
                                                                     value: type,
                                                                     child: new Text(
-                                                                      type.name,
+                                                                      type.name, style: GoogleFonts.lato()
                                                                     ),
                                                                   );
                                                                 }).toList(),
@@ -4360,7 +4360,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         .of(
                                                                         context)
                                                                         .translate(
-                                                                        'DiscardButton'),
+                                                                        'DiscardButton'), style: GoogleFonts.lato()
                                                                   ),
                                                                   color: Color(
                                                                       0xffEEEEEE),
@@ -4402,7 +4402,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                           context)
                                                                           .translate(
                                                                           'addButton'),
-                                                                      style: TextStyle(
+                                                                      style: GoogleFonts.lato(
                                                                           color: Colors
                                                                               .white,
                                                                           fontSize: 17)),
@@ -4440,7 +4440,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                   .translate(
                                                                                   'warning')
                                                                               ,
-                                                                              style: TextStyle(
+                                                                              style: GoogleFonts.lato(
                                                                                   color: Colors
                                                                                       .orange,
                                                                                   fontSize: 25,
@@ -4463,7 +4463,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                   context)
                                                                                   .translate(
                                                                                   'errorInputInvalidAmount'),
-                                                                              style: TextStyle(
+                                                                              style: GoogleFonts.lato(
                                                                                   fontWeight: FontWeight
                                                                                       .bold,
                                                                                   fontSize: 20),),
@@ -4472,7 +4472,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               // usually buttons at the bottom of the dialog
                                                                               new FlatButton(
                                                                                 child: new Text(
-                                                                                    "Close"),
+                                                                                    "Close", style: GoogleFonts.lato()),
                                                                                 onPressed: () {
                                                                                   Navigator
                                                                                       .of(
@@ -4611,7 +4611,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                     .translate(
                                                                                     'orderAsc'),
                                                                                 overflow: TextOverflow
-                                                                                    .ellipsis,),
+                                                                                    .ellipsis, style: GoogleFonts.lato()),
                                                                               Switch(
                                                                                 value: sortActualDescending,
                                                                                 onChanged: (
@@ -4639,7 +4639,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                     .translate(
                                                                                     'orderDesc'),
                                                                                 overflow: TextOverflow
-                                                                                    .ellipsis,),
+                                                                                    .ellipsis, style: GoogleFonts.lato()),
                                                                             ])
                                                                             : Row(
                                                                           children: <
@@ -4692,7 +4692,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                       '${index -
                                                                                           1}OrderText'),
                                                                                   overflow: TextOverflow
-                                                                                      .clip,
+                                                                                      .clip, style: GoogleFonts.lato()
                                                                                 )),
                                                                           ],
                                                                         );
@@ -4953,7 +4953,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     context)
                                                     .translate(
                                                     'DetailsListTitle'),
-                                                style: TextStyle(
+                                                style: GoogleFonts.lato(
                                                   color: Color(
                                                       0xff2B2B2B),
                                                   fontSize: 25,
@@ -4962,7 +4962,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               content: RichText(
                                                 text: TextSpan(
                                                     text: "",
-                                                    style: TextStyle(
+                                                    style: GoogleFonts.lato(
                                                       color: Color(
                                                           0xff2B2B2B),
                                                       fontSize: 15,
@@ -4974,7 +4974,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             context)
                                                             .translate(
                                                             'DetailsListDate'),
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                           fontSize: 18,
                                                         ),
                                                       ),
@@ -4982,7 +4982,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                         text:
                                                         '${actList[index - 1]
                                                             .date}\n',
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                             color: Color(
                                                                 0xFF0957FF),
                                                             fontSize: 18,
@@ -4999,7 +4999,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             context)
                                                             .translate(
                                                             'DetailsListAmount'),
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                           fontSize: 18,
                                                         ),
                                                       ),
@@ -5007,7 +5007,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                         text:
                                                         '${actList[index - 1]
                                                             .amount}\n',
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                             color: Color(
                                                                 0xFF0957FF),
                                                             fontSize: 18,
@@ -5024,7 +5024,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             context)
                                                             .translate(
                                                             'DetailsListLevel'),
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                           fontSize: 18,
                                                         ),
                                                       ),
@@ -5035,7 +5035,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             1]
                                                             .level2} > ${actList[index -
                                                             1].level3}\n',
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                             color: Color(
                                                                 0xFF0957FF),
                                                             fontSize: 18,
@@ -5052,7 +5052,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             context)
                                                             .translate(
                                                             'DetailsListCostType'),
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                           fontSize: 18,
                                                         ),
                                                       ),
@@ -5060,7 +5060,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                         text:
                                                         '${actList[index - 1]
                                                             .costType}\n',
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                             color: Color(
                                                                 0xFF0957FF),
                                                             fontSize: 18,
@@ -5077,7 +5077,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             context)
                                                             .translate(
                                                             'DetailsListCostType'),
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                           fontSize: 18,
                                                         ),
                                                       ),
@@ -5091,7 +5091,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             .of(
                                                             context).translate(
                                                             'noCommentAvailable')}\n',
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                             color: Color(
                                                                 0xFF0957FF),
                                                             fontSize: 18,
@@ -5110,7 +5110,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                       AppLocalizations.of(
                                                           context)
                                                           .translate(
-                                                          'dismissDialog')),
+                                                          'dismissDialog'), style: GoogleFonts.lato()),
                                                   onPressed: () =>
                                                       Navigator.of(
                                                           context)
@@ -5201,7 +5201,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     "${actList[index -
                                                                         1]
                                                                         .date}",
-                                                                    style: TextStyle(
+                                                                    style: GoogleFonts.lato(
                                                                         color: Color(
                                                                             0xff0957FF),
                                                                         fontSize:
@@ -5243,7 +5243,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             .translate(
                                                                             'noCommentAvailable')}",
                                                                         style:
-                                                                        TextStyle(
+                                                                        GoogleFonts.lato(
                                                                           color: Colors
                                                                               .black,
                                                                           fontStyle:
@@ -5286,7 +5286,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             .level2} > ${actList[index -
                                                                             1]
                                                                             .level3}',
-                                                                        style: TextStyle(
+                                                                        style: GoogleFonts.lato(
                                                                             color: Colors
                                                                                 .black,
                                                                             fontSize:
@@ -5320,7 +5320,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         '${actList[index -
                                                                             1]
                                                                             .costType}',
-                                                                        style: TextStyle(
+                                                                        style: GoogleFonts.lato(
                                                                             color: Colors
                                                                                 .black,
                                                                             fontSize:
@@ -5342,7 +5342,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                         children: [
                                                           Text(
                                                               '${actList[index -
-                                                                  1].amount}'),
+                                                                  1].amount}', style: GoogleFonts.lato()),
                                                           SizedBox(
                                                             width: MediaQuery
                                                                 .of(
@@ -5380,7 +5380,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                           .translate(
                                                                           'areYouSureDialog'),
                                                                       style:
-                                                                      TextStyle(
+                                                                      GoogleFonts.lato(
                                                                         fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -5405,7 +5405,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               context)
                                                                               .translate(
                                                                               'noCommentAvailable')}\n\n",
-                                                                          style: TextStyle(
+                                                                          style: GoogleFonts.lato(
                                                                               color: Colors
                                                                                   .black,
                                                                               fontSize: 15,
@@ -5419,7 +5419,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                   context)
                                                                                   .translate(
                                                                                   'EntryFrom'),
-                                                                              style: TextStyle(
+                                                                              style: GoogleFonts.lato(
                                                                                 fontSize: 18,
                                                                               ),
                                                                             ),
@@ -5427,7 +5427,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               text: '${actList[index -
                                                                                   1]
                                                                                   .date} ',
-                                                                              style: TextStyle(
+                                                                              style: GoogleFonts.lato(
                                                                                   color: Color(
                                                                                       0xFF0957FF),
                                                                                   fontSize: 18,
@@ -5504,7 +5504,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                 .of(
                                                                                 context)
                                                                                 .translate(
-                                                                                'cancel')),
+                                                                                'cancel'), style: GoogleFonts.lato()),
                                                                         onPressed: () =>
                                                                             Navigator
                                                                                 .of(
@@ -5617,7 +5617,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 Text(
                                   AppLocalizations.of(context)
                                       .translate('TitleInputTab'),
-                                  style: TextStyle(color: Colors.white),
+                                  style: GoogleFonts.lato(color: Colors.white),
                                 )
                               ]),
                         ),
@@ -5641,7 +5641,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 Text(
                                   AppLocalizations.of(context)
                                       .translate('TitleListTab'),
-                                  style: TextStyle(color: Colors.white),
+                                  style: GoogleFonts.lato(color: Colors.white),
                                 )
                               ]),
                         ),
@@ -5723,7 +5723,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               .padLeft(
                                                                               2,
                                                                               '0')}",
-                                                                          style: TextStyle(
+                                                                          style: GoogleFonts.lato(
                                                                               color: Colors
                                                                                   .white,
                                                                               fontSize:
@@ -5833,7 +5833,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   Account>(
                                                                 value: account,
                                                                 child: new Text(
-                                                                  account.name,
+                                                                  account.name, style: GoogleFonts.lato()
                                                                 ),
                                                               );
                                                             }).toList(),
@@ -5925,7 +5925,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   Account>(
                                                                 value: account,
                                                                 child: new Text(
-                                                                  account.name,
+                                                                  account.name, style: GoogleFonts.lato()
                                                                 ),
                                                               );
                                                             }).toList(),
@@ -6039,7 +6039,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   Account>(
                                                                 value: account,
                                                                 child: new Text(
-                                                                  account.name,
+                                                                  account.name, style: GoogleFonts.lato()
                                                                 ),
                                                               );
                                                             }).toList(),
@@ -6182,7 +6182,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     CostType>(
                                                                   value: type,
                                                                   child: new Text(
-                                                                    type.name,
+                                                                    type.name, style: GoogleFonts.lato()
                                                                   ),
                                                                 );
                                                               }).toList(),
@@ -6209,7 +6209,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       .of(
                                                                       context)
                                                                       .translate(
-                                                                      'DiscardButton'),
+                                                                      'DiscardButton'), style: GoogleFonts.lato()
                                                                 ),
                                                                 color: Color(
                                                                     0xffEEEEEE),
@@ -6272,7 +6272,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         context)
                                                                         .translate(
                                                                         'addButton'),
-                                                                    style: TextStyle(
+                                                                    style: GoogleFonts.lato(
                                                                         color:
                                                                         Colors
                                                                             .white,
@@ -6316,7 +6316,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                 .translate(
                                                                                 'warning')
                                                                             ,
-                                                                            style: TextStyle(
+                                                                            style: GoogleFonts.lato(
                                                                                 color: Colors
                                                                                     .orange,
                                                                                 fontSize: 25,
@@ -6339,7 +6339,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                 context)
                                                                                 .translate(
                                                                                 'errorInputInvalidAmount'),
-                                                                            style: TextStyle(
+                                                                            style: GoogleFonts.lato(
                                                                                 fontWeight: FontWeight
                                                                                     .bold,
                                                                                 fontSize: 20),),
@@ -6348,7 +6348,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             // usually buttons at the bottom of the dialog
                                                                             new FlatButton(
                                                                               child: new Text(
-                                                                                  "Close"),
+                                                                                  "Close", style: GoogleFonts.lato()),
                                                                               onPressed: () {
                                                                                 Navigator
                                                                                     .of(
@@ -6477,7 +6477,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               .translate(
                                                                               'orderAsc'),
                                                                           overflow: TextOverflow
-                                                                              .ellipsis,),
+                                                                              .ellipsis, style: GoogleFonts.lato()),
                                                                         Switch(
                                                                           value: sortBudgetDescending,
                                                                           onChanged: (
@@ -6505,7 +6505,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               .translate(
                                                                               'orderDesc'),
                                                                           overflow: TextOverflow
-                                                                              .ellipsis,),
+                                                                              .ellipsis, style: GoogleFonts.lato()),
                                                                       ])
                                                                       : Row(
                                                                     children: <
@@ -6558,7 +6558,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                 '${index -
                                                                                     1}OrderText'),
                                                                             overflow: TextOverflow
-                                                                                .clip,
+                                                                                .clip, style: GoogleFonts.lato()
                                                                           )),
                                                                     ],
                                                                   );
@@ -6794,7 +6794,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     context)
                                                     .translate(
                                                     'DetailsListTitle'),
-                                                style: TextStyle(
+                                                style: GoogleFonts.lato(
                                                   color: Color(
                                                       0xff2B2B2B),
                                                   fontSize: 25,
@@ -6803,7 +6803,7 @@ class _MyHomePageState extends State<MyHomePage>
                                               content: RichText(
                                                 text: TextSpan(
                                                     text: "",
-                                                    style: TextStyle(
+                                                    style: GoogleFonts.lato(
                                                       color: Color(
                                                           0xff2B2B2B),
                                                       fontSize: 15,
@@ -6815,7 +6815,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             context)
                                                             .translate(
                                                             'DetailsListDate'),
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                           fontSize: 18,
                                                         ),
                                                       ),
@@ -6823,7 +6823,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                         text:
                                                         '${bdgList[index - 1]
                                                             .date}\n',
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                             color: Color(
                                                                 0xFF0957FF),
                                                             fontSize: 18,
@@ -6840,7 +6840,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             context)
                                                             .translate(
                                                             'DetailsListAmount'),
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                           fontSize: 18,
                                                         ),
                                                       ),
@@ -6848,7 +6848,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                         text:
                                                         '${bdgList[index - 1]
                                                             .amount}\n',
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                             color: Color(
                                                                 0xFF0957FF),
                                                             fontSize: 18,
@@ -6865,7 +6865,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             context)
                                                             .translate(
                                                             'DetailsListLevel'),
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                           fontSize: 18,
                                                         ),
                                                       ),
@@ -6876,7 +6876,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                             1]
                                                             .level2} > ${bdgList[index -
                                                             1].level3}\n',
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.lato(
                                                             color: Color(
                                                                 0xFF0957FF),
                                                             fontSize: 18,
@@ -6951,7 +6951,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     AppLocalizations.of(
                                                         context)
                                                         .translate(
-                                                        'dismissDialog'),
+                                                        'dismissDialog'), style: GoogleFonts.lato()
                                                   ),
                                                   onPressed: () =>
                                                       Navigator.of(
@@ -7043,7 +7043,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     "${bdgList[index -
                                                                         1]
                                                                         .date}",
-                                                                    style: TextStyle(
+                                                                    style: GoogleFonts.lato(
                                                                         color: Color(
                                                                             0xff0957FF),
                                                                         fontSize:
@@ -7084,7 +7084,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             context)
                                                                             .translate(
                                                                             'noCommentAvailable')}",
-                                                                        style: TextStyle(
+                                                                        style: GoogleFonts.lato(
                                                                             color: Colors
                                                                                 .black,
                                                                             fontStyle: FontStyle
@@ -7125,7 +7125,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             .level2} > ${bdgList[index -
                                                                             1]
                                                                             .level3}}',
-                                                                        style: TextStyle(
+                                                                        style: GoogleFonts.lato(
                                                                             color: Colors
                                                                                 .black,
                                                                             fontSize:
@@ -7162,7 +7162,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             '${bdgList[index -
                                                                                 1]
                                                                                 .costType}',
-                                                                            style: TextStyle(
+                                                                            style: GoogleFonts.lato(
                                                                                 color: Colors
                                                                                     .black,
                                                                                 fontSize: 13),
@@ -7182,7 +7182,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                         children: [
                                                           Text(
                                                               '${bdgList[index -
-                                                                  1].amount}'),
+                                                                  1].amount}', style: GoogleFonts.lato()),
                                                           SizedBox(
                                                             width: MediaQuery
                                                                 .of(
@@ -7220,7 +7220,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                           .translate(
                                                                           'areYouSureDialog'),
                                                                       style:
-                                                                      TextStyle(
+                                                                      GoogleFonts.lato(
                                                                         fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -7245,7 +7245,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               context)
                                                                               .translate(
                                                                               'noCommentAvailable')}\n\n",
-                                                                          style: TextStyle(
+                                                                          style: GoogleFonts.lato(
                                                                               color: Colors
                                                                                   .black,
                                                                               fontSize: 15,
@@ -7259,7 +7259,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                   context)
                                                                                   .translate(
                                                                                   'EntryFrom'),
-                                                                              style: TextStyle(
+                                                                              style: GoogleFonts.lato(
                                                                                 fontSize: 18,
                                                                               ),
                                                                             ),
@@ -7267,7 +7267,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               text: '${bdgList[index -
                                                                                   1]
                                                                                   .date} ',
-                                                                              style: TextStyle(
+                                                                              style: GoogleFonts.lato(
                                                                                   color: Color(
                                                                                       0xFF0957FF),
                                                                                   fontSize: 18,
@@ -7280,7 +7280,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                   context)
                                                                                   .translate(
                                                                                   'withAnAmountOf'),
-                                                                              style: TextStyle(
+                                                                              style: GoogleFonts.lato(
                                                                                 fontSize: 18,
                                                                               ),
                                                                             ),
@@ -7288,7 +7288,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               text: '${bdgList[index -
                                                                                   1]
                                                                                   .amount} ',
-                                                                              style: TextStyle(
+                                                                              style: GoogleFonts.lato(
                                                                                   color: Color(
                                                                                       0xFF0957FF),
                                                                                   fontSize: 18,
@@ -7301,7 +7301,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                   context)
                                                                                   .translate(
                                                                                   'willBe'),
-                                                                              style: TextStyle(
+                                                                              style: GoogleFonts.lato(
                                                                                 fontSize: 18,
                                                                               ),
                                                                             ),
@@ -7320,7 +7320,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                   context)
                                                                                   .translate(
                                                                                   'restored')}',
-                                                                              style: TextStyle(
+                                                                              style: GoogleFonts.lato(
                                                                                   color: bdgList[index -
                                                                                       1]
                                                                                       .active ==
@@ -7344,7 +7344,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               .of(
                                                                               context)
                                                                               .translate(
-                                                                              'cancel'),
+                                                                              'cancel'), style: GoogleFonts.lato()
                                                                         ),
                                                                         onPressed: () =>
                                                                             Navigator
@@ -7499,7 +7499,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       .toString()
                                                                       .padLeft(
                                                                       2, '0')}",
-                                                                  style: TextStyle(
+                                                                  style: GoogleFonts.lato(
                                                                       color: Colors
                                                                           .white,
                                                                       fontSize: 17)),
@@ -7568,7 +7568,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       'FullYearSwitch'),
                                                                   overflow: TextOverflow
                                                                       .ellipsis,
-                                                                  style: TextStyle(
+                                                                  style: GoogleFonts.lato(
                                                                       fontSize: 25),
                                                                 ))),
                                                         Switch(
@@ -7609,7 +7609,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       'AllTimeSwitch'),
                                                                   overflow: TextOverflow
                                                                       .ellipsis,
-                                                                  style: TextStyle(
+                                                                  style: GoogleFonts.lato(
                                                                       fontSize: 25),
                                                                 ))),
                                                       ]),
@@ -7633,7 +7633,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                               context)
                                                               .translate(
                                                               'drilldown') +
-                                                              drilldownLevel,
+                                                              drilldownLevel, style: GoogleFonts.lato()
                                                         ),
                                                       ),
                                                     ),
@@ -7792,7 +7792,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   .of(
                                                                   context)
                                                                   .translate(
-                                                                  'resetButton')),
+                                                                  'resetButton'), style: GoogleFonts.lato()),
                                                           color: Color(
                                                               0xffEEEEEE),
                                                           // EEEEEE
@@ -7919,7 +7919,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                   CostType>(
                                                                 value: type,
                                                                 child: new Text(
-                                                                  type.name,
+                                                                  type.name, style: GoogleFonts.lato()
                                                                 ),
                                                               );
                                                             }).toList(),
@@ -8033,7 +8033,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                             .translate(
                                                                                             '${index}GroupText'),
                                                                                         overflow: TextOverflow
-                                                                                            .clip,
+                                                                                            .clip, style: GoogleFonts.lato()
                                                                                       )),
                                                                                 ],
                                                                               );
@@ -8085,7 +8085,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 Text(
                                   AppLocalizations.of(context)
                                       .translate('TitleGeneralTab'),
-                                  style: TextStyle(color: Colors.white),
+                                  style: GoogleFonts.lato(color: Colors.white),
                                 )
                               ]),
                         ),
@@ -8109,7 +8109,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 Text(
                                   AppLocalizations.of(context)
                                       .translate('TitleAccountsTab'),
-                                  style: TextStyle(color: Colors.white),
+                                  style: GoogleFonts.lato(color: Colors.white),
                                 )
                               ]),
                         ),
@@ -8131,7 +8131,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 Text(
                                   AppLocalizations.of(context)
                                       .translate('TitleCostTypesTab'),
-                                  style: TextStyle(color: Colors.white),
+                                  style: GoogleFonts.lato(color: Colors.white),
                                 )
                               ]),
                         ),
@@ -8182,7 +8182,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         context)
                                                                         .translate(
                                                                         'useCostTypes'),
-                                                                    style: TextStyle(
+                                                                    style: GoogleFonts.lato(
                                                                         fontSize: 25)),
                                                                 Switch(
                                                                   value:
@@ -8219,7 +8219,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         context)
                                                                         .translate(
                                                                         'useAccounts'),
-                                                                    style: TextStyle(
+                                                                    style: GoogleFonts.lato(
                                                                         fontSize: 25)),
                                                                 Switch(
                                                                   value:
@@ -8270,7 +8270,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         context)
                                                                         .translate(
                                                                         'useAccountsLevel1'),
-                                                                    style: TextStyle(
+                                                                    style: GoogleFonts.lato(
                                                                         fontSize: 25)),
                                                                 Switch(
                                                                   value:
@@ -8315,7 +8315,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         context)
                                                                         .translate(
                                                                         'useAccountsLevel2'),
-                                                                    style: TextStyle(
+                                                                    style: GoogleFonts.lato(
                                                                         fontSize: 25)),
                                                                 Switch(
                                                                   value:
@@ -8362,7 +8362,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         context)
                                                                         .translate(
                                                                         'useAccountsLevel3'),
-                                                                    style: TextStyle(
+                                                                    style: GoogleFonts.lato(
                                                                         fontSize: 25)),
                                                                 Switch(
                                                                   value:
@@ -8409,7 +8409,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         .of(
                                                                         context)
                                                                         .translate(
-                                                                        'DiscardButton'),
+                                                                        'DiscardButton'), style: GoogleFonts.lato()
                                                                   ),
                                                                   color:
                                                                   Color(
@@ -8444,7 +8444,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                           context)
                                                                           .translate(
                                                                           'saveButton'),
-                                                                      style: TextStyle(
+                                                                      style: GoogleFonts.lato(
                                                                           color: Colors
                                                                               .white,
                                                                           fontSize: 20)),
@@ -8501,7 +8501,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                               context)
                                                               .translate(
                                                               'accountAdministrationTitle'),
-                                                          style: TextStyle(
+                                                          style: GoogleFonts.lato(
                                                               fontSize: 25)),
                                                       areLevel1AccountsActive
                                                           ? Container(
@@ -8583,7 +8583,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 Account>(
                                                               value: account,
                                                               child: new Text(
-                                                                account.name,
+                                                                account.name, style: GoogleFonts.lato()
                                                               ),
                                                             );
                                                           }).toList(),
@@ -8744,7 +8744,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 Account>(
                                                               value: account,
                                                               child: new Text(
-                                                                account.name,
+                                                                account.name, style: GoogleFonts.lato()
                                                               ),
                                                             );
                                                           }).toList(),
@@ -8922,7 +8922,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 Account>(
                                                               value: account,
                                                               child: new Text(
-                                                                account.name,
+                                                                account.name, style: GoogleFonts.lato()
                                                               ),
                                                             );
                                                           }).toList(),
@@ -9033,7 +9033,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                         .translate(
                                                                         'DiscardButton'),
                                                                     overflow: TextOverflow
-                                                                        .visible,
+                                                                        .visible, style: GoogleFonts.lato()
                                                                   )),
                                                               color:
                                                               Color(0xffEEEEEE),
@@ -9078,7 +9078,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                           .center,
                                                                       overflow: TextOverflow
                                                                           .visible,
-                                                                      style: TextStyle(
+                                                                      style: GoogleFonts.lato(
                                                                         color: Colors
                                                                             .white,
                                                                       ))),
@@ -9102,7 +9102,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               .translate(
                                                                               'warning')
                                                                           ,
-                                                                          style: TextStyle(
+                                                                          style: GoogleFonts.lato(
                                                                               color: Colors
                                                                                   .orange,
                                                                               fontSize: 25,
@@ -9133,7 +9133,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                   context)
                                                                                   .translate(
                                                                                   'deleted'),
-                                                                          style: TextStyle(
+                                                                          style: GoogleFonts.lato(
                                                                               fontWeight: FontWeight
                                                                                   .bold,
                                                                               fontSize: 20),),
@@ -9142,7 +9142,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                           // usually buttons at the bottom of the dialog
                                                                           new FlatButton(
                                                                             child: new Text(
-                                                                                "Close"),
+                                                                                "Close", style: GoogleFonts.lato()),
                                                                             onPressed: () {
                                                                               Navigator
                                                                                   .of(
@@ -9380,7 +9380,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               context)
                                                                               .translate(
                                                                               'errorDeleteNoAccountSelected'),
-                                                                          style: TextStyle(
+                                                                          style: GoogleFonts.lato(
                                                                               fontWeight: FontWeight
                                                                                   .bold,
                                                                               fontSize: 20),),
@@ -9389,7 +9389,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                           // usually buttons at the bottom of the dialog
                                                                           new FlatButton(
                                                                             child: new Text(
-                                                                                "Close"),
+                                                                                "Close", style: GoogleFonts.lato()),
                                                                             onPressed: () {
                                                                               Navigator
                                                                                   .of(
@@ -9485,7 +9485,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                           newLevel3TextFieldController
                                                                                               .text)
                                                                                       : ""}',
-                                                                                  style: TextStyle(
+                                                                                  style: GoogleFonts.lato(
                                                                                       color: Color(
                                                                                           0xff73D700),
                                                                                       fontSize: 18,
@@ -9599,7 +9599,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                       .of(
                                                                                       context)
                                                                                       .translate(
-                                                                                      'cancel')),
+                                                                                      'cancel'), style: GoogleFonts.lato()),
                                                                               onPressed: () {
                                                                                 Navigator
                                                                                     .of(
@@ -9671,7 +9671,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               .translate(
                                                                               'warning')
                                                                           ,
-                                                                          style: TextStyle(
+                                                                          style: GoogleFonts.lato(
                                                                               color: Colors
                                                                                   .orange,
                                                                               fontSize: 25,
@@ -9683,7 +9683,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               context)
                                                                               .translate(
                                                                               'errorAddNoAccountEntered'),
-                                                                          style: TextStyle(
+                                                                          style: GoogleFonts.lato(
                                                                               fontWeight: FontWeight
                                                                                   .bold,
                                                                               fontSize: 20),),
@@ -9692,7 +9692,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                           // usually buttons at the bottom of the dialog
                                                                           new FlatButton(
                                                                             child: new Text(
-                                                                                "Close"),
+                                                                                "Close", style: GoogleFonts.lato()),
                                                                             onPressed: () {
                                                                               Navigator
                                                                                   .of(
@@ -9749,7 +9749,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                               context)
                                                               .translate(
                                                               'costTypesAdministrationTitle'),
-                                                          style: TextStyle(
+                                                          style: GoogleFonts.lato(
                                                               fontSize: 25)),
                                                       Container(
                                                         padding: const EdgeInsets
@@ -9811,7 +9811,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 CostType>(
                                                               value: costType,
                                                               child: new Text(
-                                                                costType.name,
+                                                                costType.name, style: GoogleFonts.lato()
                                                               ),
                                                             );
                                                           }).toList(),
@@ -9883,7 +9883,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                     .translate(
                                                                     'DiscardButton'),
                                                                 overflow: TextOverflow
-                                                                    .visible,
+                                                                    .visible, style: GoogleFonts.lato()
                                                               ),
                                                               color:
                                                               Color(0xffEEEEEE),
@@ -9917,7 +9917,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       .center,
                                                                   overflow: TextOverflow
                                                                       .visible,
-                                                                  style: TextStyle(
+                                                                  style: GoogleFonts.lato(
                                                                     color: Colors
                                                                         .white,
                                                                   )),
@@ -9940,7 +9940,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               .translate(
                                                                               'warning')
                                                                           ,
-                                                                          style: TextStyle(
+                                                                          style: GoogleFonts.lato(
                                                                               color: Colors
                                                                                   .orange,
                                                                               fontSize: 25,
@@ -9961,7 +9961,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                   context)
                                                                                   .translate(
                                                                                   'deleted'),
-                                                                          style: TextStyle(
+                                                                          style: GoogleFonts.lato(
                                                                               fontWeight: FontWeight
                                                                                   .bold,
                                                                               fontSize: 20),),
@@ -9970,7 +9970,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                           // usually buttons at the bottom of the dialog
                                                                           new FlatButton(
                                                                             child: new Text(
-                                                                                "Close"),
+                                                                                "Close", style: GoogleFonts.lato()),
                                                                             onPressed: () {
                                                                               Navigator
                                                                                   .of(
@@ -10047,7 +10047,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               .translate(
                                                                               'warning')
                                                                           ,
-                                                                          style: TextStyle(
+                                                                          style: GoogleFonts.lato(
                                                                               color: Colors
                                                                                   .orange,
                                                                               fontSize: 25,
@@ -10059,7 +10059,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               context)
                                                                               .translate(
                                                                               'errorDeleteNoCostTypeSelected'),
-                                                                          style: TextStyle(
+                                                                          style: GoogleFonts.lato(
                                                                               fontWeight: FontWeight
                                                                                   .bold,
                                                                               fontSize: 20),),
@@ -10068,7 +10068,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                           // usually buttons at the bottom of the dialog
                                                                           new FlatButton(
                                                                             child: new Text(
-                                                                                "Close"),
+                                                                                "Close", style: GoogleFonts.lato()),
                                                                             onPressed: () {
                                                                               Navigator
                                                                                   .of(
@@ -10101,7 +10101,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       'addButton'),
                                                                   overflow: TextOverflow
                                                                       .visible,
-                                                                  style: TextStyle(
+                                                                  style: GoogleFonts.lato(
                                                                     color: Colors
                                                                         .white,
                                                                   )),
@@ -10134,7 +10134,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               .translate(
                                                                               'warning')
                                                                           ,
-                                                                          style: TextStyle(
+                                                                          style: GoogleFonts.lato(
                                                                               color: Colors
                                                                                   .orange,
                                                                               fontSize: 25,
@@ -10146,7 +10146,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               context)
                                                                               .translate(
                                                                               'errorAddNoNewCostTypeEntered'),
-                                                                          style: TextStyle(
+                                                                          style: GoogleFonts.lato(
                                                                               fontWeight: FontWeight
                                                                                   .bold,
                                                                               fontSize: 20),),
@@ -10155,7 +10155,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                           // usually buttons at the bottom of the dialog
                                                                           new FlatButton(
                                                                             child: new Text(
-                                                                                "Close"),
+                                                                                "Close", style: GoogleFonts.lato()),
                                                                             onPressed: () {
                                                                               Navigator
                                                                                   .of(
