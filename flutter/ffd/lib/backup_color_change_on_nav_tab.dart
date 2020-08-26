@@ -217,7 +217,7 @@ class _MyHomePageState extends State<MyHomePage>
     with AfterLayoutMixin<MyHomePage> {
   Widget chartContainer = Column(
     mainAxisAlignment: MainAxisAlignment.center,
-    children: [Text('Chart Viewer')],
+    children: [Text('Chart Viewer', style: GoogleFonts.lato(),)],
   );
 
   int _currentIndex = 0;
@@ -456,7 +456,7 @@ class _MyHomePageState extends State<MyHomePage>
 
 
   // Dynamic title at the top of the screen which is changed depending on which page is selected
-  var appBarTitleText = new Text("FFD v2");
+  var appBarTitleText = new Text("FFD v2", style: GoogleFonts.lato(),);
 
   @override
   void initState() {
@@ -584,24 +584,19 @@ class _MyHomePageState extends State<MyHomePage>
               text: TextSpan(
                 text:
                 AppLocalizations.of(context).translate('welcomeText'),
-                style: TextStyle(
-                    color: Color(
-                        0xff2B2B2B),
-                    fontSize: 12,
-                    fontStyle: FontStyle.italic),
+                style: GoogleFonts.lato(fontSize: 15, color: Color(
+                    0xff2B2B2B), fontStyle: FontStyle.italic),
                 children: <TextSpan>[
                   TextSpan(
                     text: parsedFact['text'],
-                    style: TextStyle(
-                      fontSize: 15,
-                    ),
+                    style: GoogleFonts.lato(fontSize: 15),
                   )
                 ],
-              )),
+              ), ),
           actions: <Widget>[
             new FlatButton(
               child: new Text(
-                  AppLocalizations.of(context).translate('dismissDialog')),
+                  AppLocalizations.of(context).translate('dismissDialog'), style: GoogleFonts.lato(),),
               onPressed: () => Navigator.of(context).pop(),
             )
           ],
@@ -1602,17 +1597,14 @@ class _MyHomePageState extends State<MyHomePage>
                       text: TextSpan(
                           text: AppLocalizations.of(context).translate(
                               'enterAgain'),
-                          style: TextStyle(
-                              color: Color(
-                                  0xff2B2B2B),
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
+                          style: GoogleFonts.lato(fontSize: 18, color:Color(
+                              0xff2B2B2B), fontWeight: FontWeight.bold ),
                           children: <TextSpan>[
                             TextSpan(
                               text: AppLocalizations.of(context).translate(
                                   ''),
                               style:
-                              TextStyle(color: Color(0xFF0957FF), fontSize: 18),
+                              GoogleFonts.lato(color: Color(0xFF0957FF), fontSize: 18),
                             )
                           ]),
                     ),
@@ -1638,7 +1630,7 @@ class _MyHomePageState extends State<MyHomePage>
                                             maxLines: 3,
                                             textAlign: TextAlign.left,
                                             overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
+                                            style: GoogleFonts.lato(
                                                 color: Colors.grey[800],
                                                 fontWeight: FontWeight.w900,
                                                 fontSize: 15),
@@ -1676,7 +1668,7 @@ class _MyHomePageState extends State<MyHomePage>
                                             maxLines: 3,
                                             textAlign: TextAlign.left,
                                             overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
+                                            style: GoogleFonts.lato(
                                                 color: Colors.grey[800],
                                                 fontWeight: FontWeight.w900,
                                                 fontSize: 15),
@@ -1702,7 +1694,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     'year'),
                                                 maxLines: 3,
                                                 overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
+                                                style: GoogleFonts.lato(
                                                     color: Colors.grey[800],
                                                     fontWeight: FontWeight.w900,
                                                     fontSize: 15),
@@ -1731,7 +1723,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     'month'),
                                                 maxLines: 3,
                                                 overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
+                                                style: GoogleFonts.lato(
                                                     color: Colors.grey[800],
                                                     fontWeight: FontWeight.w900,
                                                     fontSize: 15),
@@ -1759,7 +1751,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     'week'),
                                                 maxLines: 3,
                                                 overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
+                                                style: GoogleFonts.lato(
                                                     color: Colors.grey[800],
                                                     fontWeight: FontWeight.w900,
                                                     fontSize: 15),
@@ -1789,7 +1781,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     'day'),
                                                 maxLines: 3,
                                                 overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
+                                                style: GoogleFonts.lato(
                                                     color: Colors.grey[800],
                                                     fontWeight: FontWeight.w900,
                                                     fontSize: 15),
@@ -1803,7 +1795,7 @@ class _MyHomePageState extends State<MyHomePage>
                   actions: <Widget>[
                     new FlatButton(
                       child: new Text(
-                          AppLocalizations.of(context).translate('cancel')),
+                          AppLocalizations.of(context).translate('cancel'), style: GoogleFonts.lato(),),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -1858,7 +1850,7 @@ class _MyHomePageState extends State<MyHomePage>
                                         .translate(
                                         'warning')
                                     ,
-                                    style: TextStyle(
+                                    style: GoogleFonts.lato(
                                         color: Colors
                                             .orange,
                                         fontSize: 25,
@@ -1870,7 +1862,7 @@ class _MyHomePageState extends State<MyHomePage>
                                         context)
                                         .translate(
                                         errorMessage),
-                                    style: TextStyle(
+                                    style: GoogleFonts.lato(
                                         fontWeight: FontWeight
                                             .bold,
                                         fontSize: 20),),
@@ -1879,7 +1871,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     // usually buttons at the bottom of the dialog
                                     new FlatButton(
                                       child: new Text(
-                                          "Close"),
+                                          "Close", style: GoogleFonts.lato(),),
                                       onPressed: () {
                                         Navigator
                                             .of(
@@ -2141,9 +2133,9 @@ class _MyHomePageState extends State<MyHomePage>
       pickerTheme: DateTimePickerTheme(
         showTitle: true,
         confirm: Text(AppLocalizations.of(context).translate('saveButton'),
-            style: TextStyle(color: Color(0xff0957FF))),
+            style: GoogleFonts.lato(color: Color(0xff0957FF))),
         cancel: Text(AppLocalizations.of(context).translate('cancel'),
-            style: TextStyle(color: Colors.grey)),
+            style: GoogleFonts.lato(color: Colors.grey)),
       ),
       minDateTime: DateTime.parse(MIN_DATETIME),
       maxDateTime: DateTime.parse(MAX_DATETIME),
@@ -2251,7 +2243,7 @@ class _MyHomePageState extends State<MyHomePage>
             SizedBox(height: 40),
             Text(
               AppLocalizations.of(context).translate('name'),
-              style: TextStyle(
+              style: GoogleFonts.lato(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
                   color: Color(
@@ -2259,7 +2251,7 @@ class _MyHomePageState extends State<MyHomePage>
             ),
             Text(
               name,
-              style: TextStyle(
+              style: GoogleFonts.lato(
                   fontSize: 25,
                   color: Colors.deepPurple,
                   fontWeight: FontWeight.bold),
@@ -2267,7 +2259,7 @@ class _MyHomePageState extends State<MyHomePage>
             SizedBox(height: 20),
             Text(
               AppLocalizations.of(context).translate('email'),
-              style: TextStyle(
+              style: GoogleFonts.lato(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
                   color: Color(
@@ -2275,7 +2267,7 @@ class _MyHomePageState extends State<MyHomePage>
             ),
             Text(
               email,
-              style: TextStyle(
+              style: GoogleFonts.lato(
                   fontSize: 25,
                   color: Colors.deepPurple,
                   fontWeight: FontWeight.bold),
@@ -2294,7 +2286,7 @@ class _MyHomePageState extends State<MyHomePage>
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   AppLocalizations.of(context).translate('signOut'),
-                  style: TextStyle(fontSize: 25, color: Colors.white),
+                  style: GoogleFonts.lato(fontSize: 25, color: Colors.white),
                 ),
               ),
               elevation: 5,
@@ -2318,7 +2310,7 @@ class _MyHomePageState extends State<MyHomePage>
           title: Text(
             "${AppLocalizations.of(context).translate('error')} - ${e
                 .runtimeType}",
-            style: TextStyle(
+            style: GoogleFonts.lato(
                 color: Color(
                     0xff2B2B2B), fontSize: 18, fontWeight: FontWeight.bold),
           ),
@@ -2326,7 +2318,7 @@ class _MyHomePageState extends State<MyHomePage>
             text: TextSpan(
                 text:
                 AppLocalizations.of(context).translate('errorMessage'),
-                style: TextStyle(
+                style: GoogleFonts.lato(
                   color: Color(
                       0xff2B2B2B),
                   fontSize: 15,
@@ -2334,7 +2326,7 @@ class _MyHomePageState extends State<MyHomePage>
                 children: <TextSpan>[
                   TextSpan(
                     text: '\n\n$e',
-                    style: TextStyle(color: Colors.red, fontSize: 10),
+                    style: GoogleFonts.lato(color: Colors.red, fontSize: 10),
                   )
                 ]),
           ),
@@ -2349,7 +2341,8 @@ class _MyHomePageState extends State<MyHomePage>
             ),
             new FlatButton(
               child: new Text(
-                  AppLocalizations.of(context).translate('signOut')),
+                  AppLocalizations.of(context).translate('signOut'), style: GoogleFonts.lato(),),
+
               onPressed: () {
                 errorDialogActive = false;
 
@@ -2405,7 +2398,7 @@ class _MyHomePageState extends State<MyHomePage>
                           text: TextSpan(
                               text: AppLocalizations.of(context).translate(
                                   'commentEnterDialog'),
-                              style: TextStyle(
+                              style: GoogleFonts.lato(
                                   color: Color(
                                       0xff2B2B2B),
                                   fontSize: 18,
@@ -2414,7 +2407,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 TextSpan(
                                   text: '$level1OrCostTypeName',
                                   style:
-                                  TextStyle(
+                                  GoogleFonts.lato(
                                       color: Color(0xFF0957FF), fontSize: 18),
                                 )
                               ]),
@@ -2461,7 +2454,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                 .translate(
                                                 'scheduleSwitch'),
                                             overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
+                                            style: GoogleFonts.lato(
                                                 color: Colors.grey[800],
                                                 fontWeight: FontWeight.w900,
                                                 fontSize: 15),
@@ -2474,7 +2467,7 @@ class _MyHomePageState extends State<MyHomePage>
                                         final snackBar = SnackBar(content: Text(
                                             AppLocalizations.of(context)
                                                 .translate(
-                                                'scheduleSwitchTooltip')));
+                                                'scheduleSwitchTooltip'), style: GoogleFonts.lato()));
 
                                         // Find the Scaffold in the widget tree and use it to show a SnackBar.
                                         _scaffoldKey.currentState.showSnackBar(snackBar);
@@ -2485,7 +2478,7 @@ class _MyHomePageState extends State<MyHomePage>
                       actions: <Widget>[
                         new FlatButton(
                           child: new Text(
-                              AppLocalizations.of(context).translate('cancel')),
+                              AppLocalizations.of(context).translate('cancel'), style: GoogleFonts.lato()),
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
@@ -2536,7 +2529,7 @@ class _MyHomePageState extends State<MyHomePage>
                     text: TextSpan(
                         text: AppLocalizations.of(context).translate(
                             'commentEnterDialog'),
-                        style: TextStyle(
+                        style: GoogleFonts.lato(
                             color: Color(
                                 0xff2B2B2B),
                             fontSize: 18,
@@ -2559,7 +2552,7 @@ class _MyHomePageState extends State<MyHomePage>
                 actions: <Widget>[
                   new FlatButton(
                     child: new Text(
-                        AppLocalizations.of(context).translate('cancel')),
+                        AppLocalizations.of(context).translate('cancel'), style: GoogleFonts.lato()),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -2638,7 +2631,7 @@ class _MyHomePageState extends State<MyHomePage>
                   text: TextSpan(
                       text: AppLocalizations.of(context).translate(
                           'commentEnterDialog'),
-                      style: TextStyle(
+                      style: GoogleFonts.lato(
                           color: Color(
                               0xff2B2B2B),
                           fontSize: 18,
@@ -2647,7 +2640,7 @@ class _MyHomePageState extends State<MyHomePage>
                         TextSpan(
                           text: '${dependingController2.text}',
                           style:
-                          TextStyle(color: Color(0xff73D700), fontSize: 18),
+                          GoogleFonts.lato(color: Color(0xff73D700), fontSize: 18),
                         )
                       ]),
                 ),
@@ -2661,7 +2654,7 @@ class _MyHomePageState extends State<MyHomePage>
               actions: <Widget>[
                 new FlatButton(
                   child: new Text(
-                      AppLocalizations.of(context).translate('cancel')),
+                      AppLocalizations.of(context).translate('cancel'), style: GoogleFonts.lato()),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -2726,7 +2719,7 @@ class _MyHomePageState extends State<MyHomePage>
                   text: TextSpan(
                       text: AppLocalizations.of(context).translate(
                           'commentEnterDialog'),
-                      style: TextStyle(
+                      style: GoogleFonts.lato(
                           color: Color(
                               0xff2B2B2B),
                           fontSize: 18,
@@ -2735,7 +2728,7 @@ class _MyHomePageState extends State<MyHomePage>
                         TextSpan(
                           text: '${dependingController3.text}',
                           style:
-                          TextStyle(color: Color(0xffDB002A), fontSize: 18),
+                          GoogleFonts.lato(color: Color(0xffDB002A), fontSize: 18),
                         )
                       ]),
                 ),
@@ -2749,7 +2742,7 @@ class _MyHomePageState extends State<MyHomePage>
               actions: <Widget>[
                 new FlatButton(
                   child: new Text(
-                      AppLocalizations.of(context).translate('cancel')),
+                      AppLocalizations.of(context).translate('cancel'), style: GoogleFonts.lato()),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -2817,7 +2810,7 @@ class _MyHomePageState extends State<MyHomePage>
           return AlertDialog(
             contentPadding: EdgeInsets.only(left: 25, right: 25),
             title: Center(
-                child: Text(AppLocalizations.of(context).translate('info'))),
+                child: Text(AppLocalizations.of(context).translate('info'), style: GoogleFonts.lato())),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
             content: Container(
@@ -2837,7 +2830,7 @@ class _MyHomePageState extends State<MyHomePage>
                       height: 20,
                     ),
                     Text(
-                        helpText
+                        helpText, style: GoogleFonts.lato()
                     )
                   ],
                 ),
@@ -2846,7 +2839,7 @@ class _MyHomePageState extends State<MyHomePage>
             actions: <Widget>[
               new FlatButton(
                 child: new Text(
-                    AppLocalizations.of(context).translate('confirm')),
+                    AppLocalizations.of(context).translate('confirm'), style: GoogleFonts.lato()),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -3047,7 +3040,7 @@ class _MyHomePageState extends State<MyHomePage>
                 // return object of type Dialog
                 return AlertDialog(
                   title: new Text(
-                      AppLocalizations.of(context).translate('drilldownError')),
+                      AppLocalizations.of(context).translate('drilldownError'), style: GoogleFonts.lato()),
                   content: new Text(datumPair.datum.accountLevel >= 3
                       ? AppLocalizations.of(context).translate(
                       'drilldownErrorMoreLevel3')
@@ -3058,7 +3051,7 @@ class _MyHomePageState extends State<MyHomePage>
                     // usually buttons at the bottom of the dialog
                     new FlatButton(
                       child: new Text(
-                          AppLocalizations.of(context).translate('close')),
+                          AppLocalizations.of(context).translate('close'), style: GoogleFonts.lato()),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -3201,19 +3194,19 @@ class _MyHomePageState extends State<MyHomePage>
                 builder: (context) =>
                 new AlertDialog(
                   title: Text(AppLocalizations.of(context).translate(
-                      'areYouSureDialog')),
+                      'areYouSureDialog'), style: GoogleFonts.lato()),
                   content: new Text("${
                       AppLocalizations.of(context).translate(
-                          'confirmLogout')}?"),
+                          'confirmLogout')}?", style: GoogleFonts.lato()),
                   actions: <Widget>[
                     new FlatButton(
                       child: new Text(AppLocalizations.of(context).translate(
-                          'cancel')),
+                          'cancel'), style: GoogleFonts.lato()),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     new FlatButton(
                       child: new Text(AppLocalizations.of(context).translate(
-                          'confirmLogout')),
+                          'confirmLogout'), style: GoogleFonts.lato()),
                       onPressed: () {
                         signOut();
                         Navigator.of(context).pushAndRemoveUntil(
@@ -10211,7 +10204,8 @@ class _MyHomePageState extends State<MyHomePage>
           BottomNavyBarItem(
               title: Text(
                 AppLocalizations.of(context)
-                    .translate('homePageTitle'),
+                    .translate('homePageTitle')
+        , style: GoogleFonts.lato(),
               ),
               icon: Icon(Icons.home),
               activeColor: Color(0xff0957FF)),
@@ -10219,13 +10213,14 @@ class _MyHomePageState extends State<MyHomePage>
               title: Text(
                 AppLocalizations.of(context)
                     .translate('expensesPageTitle'),
+    style: GoogleFonts.lato(),
               ),
               icon: Icon(Icons.attach_money),
               activeColor: Colors.orange),
           BottomNavyBarItem(
             title: Text(
               AppLocalizations.of(context)
-                  .translate('budgetPageTitle'),
+                  .translate('budgetPageTitle'),style: GoogleFonts.lato(),
             ),
             icon: Icon(Icons.account_balance_wallet),
             activeColor: Colors.deepPurple,
@@ -10233,7 +10228,7 @@ class _MyHomePageState extends State<MyHomePage>
           BottomNavyBarItem(
             title: Text(
               AppLocalizations.of(context)
-                  .translate('visualizerPageTitle'),
+                  .translate('visualizerPageTitle'),style: GoogleFonts.lato(),
             ),
             icon: Icon(Icons.bubble_chart),
             activeColor: Colors.red,
@@ -10241,7 +10236,7 @@ class _MyHomePageState extends State<MyHomePage>
           BottomNavyBarItem(
             title: Text(
               AppLocalizations.of(context)
-                  .translate('settingsPageTitle'),
+                  .translate('settingsPageTitle'),style: GoogleFonts.lato(),
             ),
             icon: Icon(Icons.settings),
             activeColor: Colors.green,
