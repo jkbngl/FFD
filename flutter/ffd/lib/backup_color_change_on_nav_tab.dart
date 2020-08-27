@@ -7667,6 +7667,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                               ChartObject sales,
                                                               _) =>
                                                           sales.amount,
+
                                                           labelAccessorFn: (
                                                               ChartObject sales,
                                                               _) =>
@@ -7719,6 +7720,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                           String>(
                                                         // ID used to link series to this renderer.
                                                           customRendererId: 'customTargetLine',
+
                                                           groupingType:
                                                           charts.BarGroupingType
                                                               .grouped)
@@ -7740,9 +7742,21 @@ class _MyHomePageState extends State<MyHomePage>
                                                     // Hide domain axis.
                                                     domainAxis: new charts
                                                         .OrdinalAxisSpec(
+
                                                         renderSpec:
                                                         new charts
                                                             .NoneRenderSpec()),
+                                                    primaryMeasureAxis: new charts.NumericAxisSpec(
+                                                        renderSpec: new charts.GridlineRendererSpec(
+
+                                                          // Tick and Label styling here.
+                                                            labelStyle: new charts.TextStyleSpec(
+                                                                fontSize: 18, // size in Pts.
+                                                                color: charts.MaterialPalette.black),
+
+                                                            // Change the line colors to match text color.
+                                                            lineStyle: new charts.LineStyleSpec(
+                                                                color: charts.MaterialPalette.black))),
                                                     behaviors: [
                                                       charts.ChartTitle(
                                                           AppLocalizations.of(
