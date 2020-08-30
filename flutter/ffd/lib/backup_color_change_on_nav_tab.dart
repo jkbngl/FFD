@@ -5243,8 +5243,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             'noCommentAvailable')}",
                                                                         style:
                                                                         GoogleFonts.lato(
-                                                                          color: Colors
-                                                                              .black,
+                                                                          color: Color(
+                                                                              0xff2B2B2B),
                                                                           fontStyle:
                                                                           FontStyle
                                                                               .italic,
@@ -5286,8 +5286,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             1]
                                                                             .level3}',
                                                                         style: GoogleFonts.lato(
-                                                                            color: Colors
-                                                                                .black,
+                                                                            color: Color(
+                                                                                0xff2B2B2B),
                                                                             fontSize:
                                                                             13),
                                                                         overflow:
@@ -5320,8 +5320,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             1]
                                                                             .costType}',
                                                                         style: GoogleFonts.lato(
-                                                                            color: Colors
-                                                                                .black,
+                                                                            color: Color(
+                                                                                0xff2B2B2B),
                                                                             fontSize:
                                                                             13),
                                                                         overflow:
@@ -5405,8 +5405,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               .translate(
                                                                               'noCommentAvailable')}\n\n",
                                                                           style: GoogleFonts.lato(
-                                                                              color: Colors
-                                                                                  .black,
+                                                                              color: Color(
+                                                                                  0xff2B2B2B),
                                                                               fontSize: 15,
                                                                               fontStyle: FontStyle
                                                                                   .italic),
@@ -7084,8 +7084,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             .translate(
                                                                             'noCommentAvailable')}",
                                                                         style: GoogleFonts.lato(
-                                                                            color: Colors
-                                                                                .black,
+                                                                            color: Color(
+                                                                                0xff2B2B2B),
                                                                             fontStyle: FontStyle
                                                                                 .italic,
                                                                             fontSize:
@@ -7125,8 +7125,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                             1]
                                                                             .level3}}',
                                                                         style: GoogleFonts.lato(
-                                                                            color: Colors
-                                                                                .black,
+                                                                            color: Color(
+                                                                                0xff2B2B2B),
                                                                             fontSize:
                                                                             13),
                                                                         overflow:
@@ -7162,8 +7162,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                 1]
                                                                                 .costType}',
                                                                             style: GoogleFonts.lato(
-                                                                                color: Colors
-                                                                                    .black,
+                                                                                color: Color(
+                                                                                    0xff2B2B2B),
                                                                                 fontSize: 13),
                                                                             overflow: TextOverflow
                                                                                 .ellipsis,
@@ -7245,8 +7245,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                               .translate(
                                                                               'noCommentAvailable')}\n\n",
                                                                           style: GoogleFonts.lato(
-                                                                              color: Colors
-                                                                                  .black,
+                                                                              color: Color(
+                                                                                  0xff2B2B2B),
                                                                               fontSize: 15,
                                                                               fontStyle: FontStyle
                                                                                   .italic),
@@ -7745,7 +7745,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                         renderSpec:
                                                         new charts
                                                             .NoneRenderSpec()),
-
                                                     behaviors: [
                                                       charts.ChartTitle(
                                                           AppLocalizations.of(
@@ -8204,8 +8203,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                       0xff0957FF),
                                                                 ),
                                                               ]),
-                                                          Divider(color: Colors
-                                                              .black87),
+                                                          Divider(color: Color(
+                                                              0xff2B2B2B)),
                                                           Row(
                                                               mainAxisAlignment:
                                                               MainAxisAlignment
@@ -9503,8 +9502,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                             'willBeAddedAsAChildOf')} ',
                                                                                         style:
                                                                                         GoogleFonts.lato(
-                                                                                            color: Colors
-                                                                                                .black,
+                                                                                            color: Color(
+                                                                                                0xff2B2B2B),
                                                                                             fontSize: 18),
                                                                                         children: <
                                                                                             TextSpan>[
