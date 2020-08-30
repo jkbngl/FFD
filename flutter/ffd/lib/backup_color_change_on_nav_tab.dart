@@ -7667,7 +7667,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                               ChartObject sales,
                                                               _) =>
                                                           sales.amount,
-
                                                           labelAccessorFn: (
                                                               ChartObject sales,
                                                               _) =>
@@ -7746,17 +7745,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                         renderSpec:
                                                         new charts
                                                             .NoneRenderSpec()),
-                                                    primaryMeasureAxis: new charts.NumericAxisSpec(
-                                                        renderSpec: new charts.GridlineRendererSpec(
 
-                                                          // Tick and Label styling here.
-                                                            labelStyle: new charts.TextStyleSpec(
-                                                                fontSize: 18, // size in Pts.
-                                                                color: charts.MaterialPalette.black),
-
-                                                            // Change the line colors to match text color.
-                                                            lineStyle: new charts.LineStyleSpec(
-                                                                color: charts.MaterialPalette.black))),
                                                     behaviors: [
                                                       charts.ChartTitle(
                                                           AppLocalizations.of(
