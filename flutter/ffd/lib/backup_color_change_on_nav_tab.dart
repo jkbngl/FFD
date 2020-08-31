@@ -7744,7 +7744,8 @@ class _MyHomePageState extends State<MyHomePage>
 
                                                         renderSpec:
                                                         new charts
-                                                            .NoneRenderSpec()),
+                                                            .NoneRenderSpec(axisLineStyle: new charts.LineStyleSpec(
+                                                        color: Color(0xff2b2b2b2)))),
                                                     behaviors: [
                                                       charts.ChartTitle(
                                                           AppLocalizations.of(
