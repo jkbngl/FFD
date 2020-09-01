@@ -7745,7 +7745,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                         renderSpec:
                                                         new charts
                                                             .NoneRenderSpec(axisLineStyle: new charts.LineStyleSpec(
-                                                        color: Color(0xff2b2b2b2)))),
+                                                        color: charts.ColorUtil.fromDartColor(Color(
+                                                            0xff2B2B2B))))),
                                                     behaviors: [
                                                       charts.ChartTitle(
                                                           AppLocalizations.of(
