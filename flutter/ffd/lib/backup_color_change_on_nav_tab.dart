@@ -3620,6 +3620,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                           2) /*Only first 2 elements not also the overall budget*/
                                                   )
                                                 ],
+
                                                 defaultRenderer:
                                                 new charts.ArcRendererConfig(
                                                     arcRendererDecorators: [
@@ -3634,6 +3635,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     arcWidth: 50
                                                 ),
                                                 animate: (!startingUp),
+
                                                 behaviors: [
                                                   new charts.DatumLegend(
                                                     // Positions for "start" and "end" will be left and right respectively
@@ -3665,7 +3667,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                     entryTextStyle: charts
                                                         .TextStyleSpec(
                                                         fontSize: 11),
-                                                  )
+                                                  ),
                                                 ], // When startingUp truy, dont animate, and when false show animations
                                               ),
                                             ),
@@ -7710,6 +7712,14 @@ class _MyHomePageState extends State<MyHomePage>
                                                             'customTargetLine'),
                                                     ],
                                                     animate: (!startingUp),
+                                                    domainAxis: new charts
+                                                        .OrdinalAxisSpec(
+
+                                                        renderSpec:
+                                                        new charts
+                                                            .NoneRenderSpec(axisLineStyle: new charts.LineStyleSpec(
+                                                            color: charts.ColorUtil.fromDartColor(Color(
+                                                                0xff2B2B2B))))),
                                                     barGroupingType:
                                                     charts.BarGroupingType
                                                         .grouped,
@@ -7739,14 +7749,6 @@ class _MyHomePageState extends State<MyHomePage>
                                                         .BarLabelDecorator<
                                                         String>(),
                                                     // Hide domain axis.
-                                                    domainAxis: new charts
-                                                        .OrdinalAxisSpec(
-
-                                                        renderSpec:
-                                                        new charts
-                                                            .NoneRenderSpec(axisLineStyle: new charts.LineStyleSpec(
-                                                        color: charts.ColorUtil.fromDartColor(Color(
-                                                            0xff2B2B2B))))),
                                                     behaviors: [
                                                       charts.ChartTitle(
                                                           AppLocalizations.of(
