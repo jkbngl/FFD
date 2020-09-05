@@ -2424,6 +2424,7 @@ class _MyHomePageState extends State<MyHomePage>
                                       hintText: AppLocalizations.of(context)
                                           .translate(
                                           'comment')),
+                                  maxLength: 50,
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment
@@ -2548,6 +2549,7 @@ class _MyHomePageState extends State<MyHomePage>
                   decoration: InputDecoration(
                       hintText: AppLocalizations.of(context).translate(
                           'comment')),
+                  maxLength: 50,
                 ),
                 actions: <Widget>[
                   new FlatButton(
@@ -2650,6 +2652,7 @@ class _MyHomePageState extends State<MyHomePage>
                 decoration: InputDecoration(
                     hintText: AppLocalizations.of(context).translate(
                         'comment')),
+                maxLength: 50,
               ),
               actions: <Widget>[
                 new FlatButton(
@@ -2738,6 +2741,7 @@ class _MyHomePageState extends State<MyHomePage>
                 decoration: InputDecoration(
                     hintText: AppLocalizations.of(context).translate(
                         'comment')),
+                maxLength: 50,
               ),
               actions: <Widget>[
                 new FlatButton(
