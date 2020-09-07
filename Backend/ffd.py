@@ -580,6 +580,8 @@ def readAmounts(level_type, cost_type, parent_account, year, month, day, _type, 
 
         cursor.execute(f"select sum(amount) sum, year || '-' ||  LPAD(month::text, 2, '0') level1, -99 level1_fk, -1 level_type, year, month from ffd.{'act' if _type == 'actual' else 'bdg'}_data {where_params} group by year, month order by year, month desc")
 
+        logging.critical(f"select sum(amount) sum, year || '-' ||  LPAD(month::text, 2, '0') level1, -99 level1_fk, -1 level_type, year, month from ffd.{'act' if _type == 'actual' else 'bdg'}_data {where_params} group by year, month order by year desc, month desc")
+
         record = cursor.fetchall()
         # fetch the column names from the cursror
         columnnames = [desc[0] for desc in cursor.description]
@@ -622,7 +624,7 @@ def readAmounts(level_type, cost_type, parent_account, year, month, day, _type, 
         connection = connect()
         cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
-        cursor.execute(f"select sum(amount) sum, year || '-' ||  LPAD(month::text, 2, '0') || '-' ||  LPAD(day::text, 2, '0') level1, -99 level1_fk, -1 level_type, year, month, day from ffd.{'act' if _type == 'actual' else 'bdg'}_data {where_params} group by year, month, day order by year, month, day desc")
+        cursor.execute(f"select sum(amount) sum, year || '-' ||  LPAD(month::text, 2, '0') || '-' ||  LPAD(day::text, 2, '0') level1, -99 level1_fk, -1 level_type, year, month, day from ffd.{'act' if _type == 'actual' else 'bdg'}_data {where_params} group by year, month, day order by year desc, month desc, day desc")
 
         record = cursor.fetchall()
         # fetch the column names from the cursror
