@@ -369,6 +369,8 @@ def readListActualBudget(_type, sort, sortType):
 
     """
 
+    rowsToReturn = 200
+
     headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
 
@@ -383,15 +385,15 @@ def readListActualBudget(_type, sort, sortType):
     
     if _type == 'actual':
         
-        cursor.execute("select  *\
+        cursor.execute(f"select  *\
                         from    ffd.act_data \
                         where   data_date > date_trunc('month', CURRENT_DATE) - INTERVAL '1 year' \
-                        and     user_fk = %s order by %s %s" % (userId, sort, sortType,)) # % instead of komma because of the sort column
+                        and     user_fk = %s order by %s %s limit {rowsToReturn}" % (userId, sort, sortType,)) # % instead of komma because of the sort column
     elif _type == 'budget':
-        cursor.execute("select  *\
+        cursor.execute(f"select  *\
                         from    ffd.bdg_data \
                         where   data_date > date_trunc('month', CURRENT_DATE) - INTERVAL '1 year' \
-                        and     user_fk = %s order by %s %s" % (userId, sort, sortType,))
+                        and     user_fk = %s order by %s %s limit {rowsToReturn}" % (userId, sort, sortType,))
 
     record = cursor.fetchall()
     # fetch the column names from the cursror
