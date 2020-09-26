@@ -33,7 +33,6 @@ class _LoginPageState extends State<LoginPage> {
 
     emailTextFieldController.text = mail;
     passwordTextFieldController.text = password;
-
   }
 
   @override
@@ -47,15 +46,13 @@ class _LoginPageState extends State<LoginPage> {
 
     print("PrefferedLogin in handleAutoLogin: $prefferedLogin");
 
-    if(prefferedLogin == 'google')
-    {
-
+    if (prefferedLogin == 'google') {
       setState(() {
         autoLoggedinInProgress = true;
       });
 
       signInWithGoogle().whenComplete(() {
-        Navigator.of(context).push(
+        Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) {
               return MyHomePage();
@@ -63,14 +60,13 @@ class _LoginPageState extends State<LoginPage> {
           ),
         );
       });
-    } else if(prefferedLogin == 'emailPassword')
-    {
+    } else if (prefferedLogin == 'emailPassword') {
       setState(() {
         autoLoggedinInProgress = true;
       });
 
       signIn(emailTextFieldController.text, passwordTextFieldController.text,
-          saveValues)
+              saveValues)
           .then((result) {
         print("Test in handle: $result");
 
@@ -92,9 +88,10 @@ class _LoginPageState extends State<LoginPage> {
   _showLoadWidget() {
     return Center(
         child: SpinKitFadingCube(
-          //color: Color(0xff0957FF),
-          color: Colors.black,
-          size: 100.0,));
+      //color: Color(0xff0957FF),
+      color: Colors.black,
+      size: 100.0,
+    ));
   }
 
   loginError(e) {
@@ -142,7 +139,6 @@ class _LoginPageState extends State<LoginPage> {
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
 
-
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -155,176 +151,187 @@ class _LoginPageState extends State<LoginPage> {
                             BoxConstraints(minHeight: constraint.maxHeight),
                         child: IntrinsicHeight(
                           child: Stack(children: <Widget>[
-                            Stack(children: <Widget>[Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.max,
+                            Stack(
                               children: <Widget>[
-                                Container(
-                                  color: Colors.white,
-                                  child: Center(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(30.0),
-                                          child: Image(
-                                            image: AssetImage(
-                                                "assets/register_ffd.png"),
-                                            height: 100.0,
-                                          ),
-                                        ),
-                                        Container(
-                                            padding: const EdgeInsets.only(
-                                                left: 30.0,
-                                                top: 20,
-                                                right: 30,
-                                                bottom: 0),
-                                            //color: Colors.blue[600],
-                                            alignment: Alignment.center,
-                                            //child: Text('Submit'),
-                                            child: Stack(
-                                                alignment:
-                                                    const Alignment(1.0, 1.0),
-                                                children: <Widget>[
-                                                  TextFormField(
-                                                    style: TextStyle(height: 2),
-                                                    controller:
-                                                        emailTextFieldController,
-                                                    decoration: InputDecoration(
-                                                        // hintText: 'Enter ur amount',
-                                                        //hintStyle: TextStyle(height: 1.75),
-                                                        labelText:
-                                                            AppLocalizations.of(
-                                                                    context)
-                                                                .translate(
-                                                                    'email'),
-                                                        labelStyle: TextStyle(
-                                                            height: 0.5,
-                                                            color: Color(
-                                                                0xff003680)),
-                                                        //increases the height of cursor
-                                                        icon: Icon(
-                                                          Icons.mail,
-                                                          color:
-                                                              Color(0xff003680),
-                                                        ),
-                                                        //prefixIcon: Icon(Icons.attach_money),
-                                                        //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                                        enabledBorder:
-                                                            new UnderlineInputBorder(
-                                                                borderSide:
-                                                                    new BorderSide(
-                                                                        color: Color(
-                                                                            0xff003680)))),
-                                                  ),
-                                                  new FlatButton(
-                                                      onPressed: () {
-                                                        emailTextFieldController
-                                                            .clear();
-                                                      },
-                                                      child:
-                                                          new Icon(Icons.clear))
-                                                ])),
-                                        Container(
-                                            padding: const EdgeInsets.only(
-                                                left: 30.0,
-                                                top: 0,
-                                                right: 30,
-                                                bottom: 0),
-                                            //color: Colors.blue[600],
-                                            alignment: Alignment.center,
-                                            //child: Text('Submit'),
-                                            child: Stack(
-                                                alignment:
-                                                    const Alignment(1.0, 1.0),
-                                                children: <Widget>[
-                                                  TextFormField(
-                                                    //keyboard with numbers only will appear to the screen
-                                                    style: TextStyle(height: 2),
-                                                    //increases the height of cursor
-                                                    //autofocus: true,
-                                                    obscureText: true,
-                                                    controller:
-                                                        passwordTextFieldController,
-                                                    decoration: InputDecoration(
-                                                        // hintText: 'Enter ur amount',
-                                                        //hintStyle: TextStyle(height: 1.75),
-                                                        labelText:
-                                                            AppLocalizations.of(
-                                                                    context)
-                                                                .translate(
-                                                                    'password'),
-                                                        labelStyle: TextStyle(
-                                                            height: 0.5,
-                                                            color: Color(
-                                                                0xff003680)),
-                                                        //increases the height of cursor
-                                                        icon: Icon(
-                                                          Icons.lock,
-                                                          color:
-                                                              Color(0xff003680),
-                                                        ),
-                                                        //prefixIcon: Icon(Icons.attach_money),
-                                                        //labelStyle: TextStyle(color: Color(0xff0957FF)),
-                                                        enabledBorder:
-                                                            new UnderlineInputBorder(
-                                                                borderSide: new BorderSide(
-                                                                    color: Color(
-                                                                        0xff003680)))),
-                                                  ),
-                                                  new FlatButton(
-                                                      onPressed: () {
-                                                        passwordTextFieldController
-                                                            .clear();
-                                                      },
-                                                      child:
-                                                          new Icon(Icons.clear))
-                                                ])),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(children: <Widget>[
-                                          Container(
-                                            padding: const EdgeInsets.only(
-                                                left: 30.0,
-                                                top: 0,
-                                                right: 5,
-                                                bottom: 0),
-                                            alignment: Alignment.centerLeft,
-                                            child: Switch(
-                                              value: saveValues,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  saveValues = value;
-                                                });
-                                              },
-                                              activeTrackColor:
-                                                  Color(0xffEEEEEE),
-                                              activeColor: Color(0xff0957FF),
+                                Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: <Widget>[
+                                    Container(
+                                      color: Colors.white,
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0),
+                                              child: Image(
+                                                image: AssetImage(
+                                                    "assets/register_ffd.png"),
+                                                height: 100.0,
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            AppLocalizations.of(context)
-                                                .translate('remainSignedIn'),
-                                            style: TextStyle(fontSize: 20),
-                                          )
-                                        ]),
-                                        SizedBox(height: 20),
-                                        _registerButton(),
-                                        SizedBox(height: 10),
-                                        _loginButton(),
-                                        SizedBox(height: 30),
-                                        _signInButton(),
-                                      ],
+                                            Container(
+                                                padding: const EdgeInsets.only(
+                                                    left: 30.0,
+                                                    top: 20,
+                                                    right: 30,
+                                                    bottom: 0),
+                                                //color: Colors.blue[600],
+                                                alignment: Alignment.center,
+                                                //child: Text('Submit'),
+                                                child: Stack(
+                                                    alignment: const Alignment(
+                                                        1.0, 1.0),
+                                                    children: <Widget>[
+                                                      TextFormField(
+                                                        style: TextStyle(
+                                                            height: 2),
+                                                        controller:
+                                                            emailTextFieldController,
+                                                        decoration:
+                                                            InputDecoration(
+                                                                // hintText: 'Enter ur amount',
+                                                                //hintStyle: TextStyle(height: 1.75),
+                                                                labelText: AppLocalizations.of(
+                                                                        context)
+                                                                    .translate(
+                                                                        'email'),
+                                                                labelStyle: TextStyle(
+                                                                    height: 0.5,
+                                                                    color: Color(
+                                                                        0xff003680)),
+                                                                //increases the height of cursor
+                                                                icon: Icon(
+                                                                  Icons.mail,
+                                                                  color: Color(
+                                                                      0xff003680),
+                                                                ),
+                                                                //prefixIcon: Icon(Icons.attach_money),
+                                                                //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                                enabledBorder: new UnderlineInputBorder(
+                                                                    borderSide:
+                                                                        new BorderSide(
+                                                                            color:
+                                                                                Color(0xff003680)))),
+                                                      ),
+                                                      new FlatButton(
+                                                          onPressed: () {
+                                                            emailTextFieldController
+                                                                .clear();
+                                                          },
+                                                          child: new Icon(
+                                                              Icons.clear))
+                                                    ])),
+                                            Container(
+                                                padding: const EdgeInsets.only(
+                                                    left: 30.0,
+                                                    top: 0,
+                                                    right: 30,
+                                                    bottom: 0),
+                                                //color: Colors.blue[600],
+                                                alignment: Alignment.center,
+                                                //child: Text('Submit'),
+                                                child: Stack(
+                                                    alignment: const Alignment(
+                                                        1.0, 1.0),
+                                                    children: <Widget>[
+                                                      TextFormField(
+                                                        //keyboard with numbers only will appear to the screen
+                                                        style: TextStyle(
+                                                            height: 2),
+                                                        //increases the height of cursor
+                                                        //autofocus: true,
+                                                        obscureText: true,
+                                                        controller:
+                                                            passwordTextFieldController,
+                                                        decoration:
+                                                            InputDecoration(
+                                                                // hintText: 'Enter ur amount',
+                                                                //hintStyle: TextStyle(height: 1.75),
+                                                                labelText: AppLocalizations.of(
+                                                                        context)
+                                                                    .translate(
+                                                                        'password'),
+                                                                labelStyle: TextStyle(
+                                                                    height: 0.5,
+                                                                    color: Color(
+                                                                        0xff003680)),
+                                                                //increases the height of cursor
+                                                                icon: Icon(
+                                                                  Icons.lock,
+                                                                  color: Color(
+                                                                      0xff003680),
+                                                                ),
+                                                                //prefixIcon: Icon(Icons.attach_money),
+                                                                //labelStyle: TextStyle(color: Color(0xff0957FF)),
+                                                                enabledBorder: new UnderlineInputBorder(
+                                                                    borderSide:
+                                                                        new BorderSide(
+                                                                            color:
+                                                                                Color(0xff003680)))),
+                                                      ),
+                                                      new FlatButton(
+                                                          onPressed: () {
+                                                            passwordTextFieldController
+                                                                .clear();
+                                                          },
+                                                          child: new Icon(
+                                                              Icons.clear))
+                                                    ])),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Row(children: <Widget>[
+                                              Container(
+                                                padding: const EdgeInsets.only(
+                                                    left: 30.0,
+                                                    top: 0,
+                                                    right: 5,
+                                                    bottom: 0),
+                                                alignment: Alignment.centerLeft,
+                                                child: Switch(
+                                                  value: saveValues,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      saveValues = value;
+                                                    });
+                                                  },
+                                                  activeTrackColor:
+                                                      Color(0xffEEEEEE),
+                                                  activeColor:
+                                                      Color(0xff0957FF),
+                                                ),
+                                              ),
+                                              Text(
+                                                AppLocalizations.of(context)
+                                                    .translate(
+                                                        'remainSignedIn'),
+                                                style: TextStyle(fontSize: 20),
+                                              )
+                                            ]),
+                                            SizedBox(height: 20),
+                                            _registerButton(),
+                                            SizedBox(height: 10),
+                                            _loginButton(),
+                                            SizedBox(height: 30),
+                                            _signInButton(),
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
+                                  ],
+                                )
                               ],
-                            )],), autoLoggedinInProgress ? _showLoadWidget() : Container()
+                            ),
+                            autoLoggedinInProgress
+                                ? _showLoadWidget()
+                                : Container()
                           ]),
                         )));
               },
@@ -340,7 +347,7 @@ class _LoginPageState extends State<LoginPage> {
       splashColor: Colors.grey,
       onPressed: () {
         signInWithGoogle().whenComplete(() {
-          Navigator.of(context).push(
+          Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) {
                 return MyHomePage();
@@ -383,7 +390,7 @@ class _LoginPageState extends State<LoginPage> {
                 saveValues)
             .then((result) {
           if (result == 'SUCCESS') {
-            Navigator.of(context).push(
+            Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (context) {
                   return MyHomePage();
@@ -435,7 +442,7 @@ class _LoginPageState extends State<LoginPage> {
           print("Test in handle: $result");
 
           if (result == 'SUCCESS') {
-            Navigator.of(context).push(
+            Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (context) {
                   return MyHomePage();
