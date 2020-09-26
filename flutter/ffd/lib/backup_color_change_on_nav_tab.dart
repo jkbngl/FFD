@@ -585,11 +585,11 @@ class _MyHomePageState extends State<MyHomePage>
                 text:
                 AppLocalizations.of(context).translate('welcomeText'),
                 style: GoogleFonts.lato(fontSize: 15, color: Color(
-                    0xff2B2B2B), fontStyle: FontStyle.italic),
+                    0xff2B2B2B),),
                 children: <TextSpan>[
                   TextSpan(
                     text: parsedFact['text'],
-                    style: GoogleFonts.lato(fontSize: 15),
+                    style: GoogleFonts.lato(fontSize: 18, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
                   )
                 ],
               ), ),
