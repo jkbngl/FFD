@@ -3399,7 +3399,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 "${homescreenData[0]
                                                                     .amount
                                                                     .toStringAsFixed(
-                                                                    2)}\n ${dailyExpense.toStringAsFixed(0)}/ Ø ${thisMonthAverage.toStringAsFixed(0)}",
+                                                                    2)}\n today: ${dailyExpense.toStringAsFixed(0)}/ Ø ${thisMonthAverage.toStringAsFixed(0)}",
                                                                 style: GoogleFonts.lato(
                                                                     color:
                                                                     Colors
