@@ -735,7 +735,7 @@ class _MyHomePageState extends State<MyHomePage>
         thisMonthAverage += amount['sum'];
       }
 
-      thisMonthAverage /= parseddailyAmount.length;
+      thisMonthAverage /= now.day;
     }
 
     //try {
