@@ -777,7 +777,7 @@ class _MyHomePageState extends State<MyHomePage>
     for (var amounts in parsedBudgetAmounts) {
       if (amounts['level${groupByArgument == 'Accounts'
           ? level_type.toString()
-          : 1}_fk'] > 0 || 1 == 1) {
+          : 1}_fk'] > 0 || groupByArgument != 'Accounts') {
         // Only show budgets with an account assigned
 
         // Check if a corresponding actual exists
