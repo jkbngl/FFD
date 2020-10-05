@@ -827,6 +827,8 @@ class _MyHomePageState extends State<MyHomePage>
       }
     }
 
+    print(visualizerTargetData)
+
     for (ChartObject item in visualizerData) {
       if (item.budgetEntry < 0) {
         item.budgetEntry = visualizerTargetData
