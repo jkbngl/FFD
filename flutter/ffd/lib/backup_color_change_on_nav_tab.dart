@@ -12,6 +12,7 @@ import 'package:slide_to_confirm/slide_to_confirm.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'login_page.dart';
 import 'package:ffd/sign_in.dart';
@@ -865,6 +866,15 @@ class _MyHomePageState extends State<MyHomePage>
 
   loadPreferences() async {
     String uri = 'https://$connectionId/api/ffd/preferences';
+
+    final prefs = await SharedPreferences.getInstance();
+    final String groupBySelection = prefs.get('groupBySelection') ?? '';
+
+    print("FOUND PREFERENCE: $groupBySelection");
+
+    if(groupBySelection.length > 0){
+      groupByArgument = groupBySelection;
+    }
 
     print(uri);
 
@@ -2979,7 +2989,10 @@ class _MyHomePageState extends State<MyHomePage>
     print('Card $position tapped');
   }
 
-  _onSelectionChanged(charts.SelectionModel model) {
+  _onSelectionChanged(charts.SelectionModel model) async {
+
+    final prefs = await SharedPreferences.getInstance();
+
     print("data is currently grouped by: $groupByArgument");
 
     final selectedDatum = model.selectedDatum;
@@ -3004,6 +3017,8 @@ class _MyHomePageState extends State<MyHomePage>
 
       dateTimeVisualizer = newDate;
       groupByArgument = 'Month';
+
+
     }
     else if (groupByArgument == 'Month') {
       print("CLICKED: ${selectedDatum[0].datum.accountName}");
@@ -7977,7 +7992,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                     activeColor: Color(
                                                                                         0xFF0957FF),
                                                                                     onChanged: (
-                                                                                        bool newValue) {
+                                                                                        bool newValue) async {
                                                                                       setLoading();
 
 
@@ -7999,6 +8014,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                             {
                                                                                               groupByArgument =
                                                                                               'Accounts';
+
+
                                                                                             }
                                                                                             break;
 
@@ -8006,6 +8023,8 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                             {
                                                                                               groupByArgument =
                                                                                               'Accounts';
+
+
                                                                                             }
                                                                                             break;
 
@@ -8029,12 +8048,16 @@ class _MyHomePageState extends State<MyHomePage>
                                                                                             break;
                                                                                         }
 
-                                                                                        print(
-                                                                                            "currentlyLoading $currentlyLoading");
+
 
                                                                                         loadAmount(
                                                                                             true);
                                                                                       });
+
+                                                                                      final prefs = await SharedPreferences.getInstance();
+
+                                                                                      await prefs.setString('groupBySelection', groupByArgument);
+                                                                                      print("SET PREFERENCE groupBySelection to $groupByArgument");
 
 
                                                                                       Navigator
