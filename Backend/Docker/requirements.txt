@@ -12,3 +12,4 @@ configparser>=4.0.2
 google-oauth2-tool>=0.0.3
 firebase-admin>=4.0.0
 Flask-SQLAlchemy>=2.4.4
+Flask-GraphQL>=2.0.1
