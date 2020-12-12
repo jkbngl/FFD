@@ -6,6 +6,34 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:dhjihdfjdksfhdfhs
 db = SQLAlchemy(app)
 
 
+def get_filter_by_args(dic_args: dict):
+    filters = []
+    for key, value in dic_args.items():  # type: str, any
+        if key.endswith('___min'):
+            key = key[:-6]
+            filters.append(getattr(model_class, key) > value)
+        elif key.endswith('___max'):
+            key = key[:-6]
+            filters.append(getattr(model_class, key) < value)
+        elif key.endswith('__min'):
+            key = key[:-5]
+            filters.append(getattr(model_class, key) >= value)
+        elif key.endswith('__max'):
+            key = key[:-5]
+            filters.append(getattr(model_class, key) <= value)
+        else:
+            filters.append(getattr(model_class, key) == value)
+    return filters
+
+
+dic_args = {
+    'is_created': 1,
+    'create_time__min': 1588125484029,
+}
+filters = get_filter_by_args(dic_args)
+lst = session.query(model_class).filter(*filters)
+
+
 class ActDataModel(db.Model):
     __tablename__ = 'act_data'
 
