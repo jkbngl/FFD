@@ -216,6 +216,7 @@ String _format = 'yyyy-MMMM';
 
 class _MyHomePageState extends State<MyHomePage>
     with AfterLayoutMixin<MyHomePage> {
+
   Widget chartContainer = Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [Text('Chart Viewer', style: GoogleFonts.lato(),)],
