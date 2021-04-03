@@ -337,7 +337,8 @@ class _MyHomePageState extends State<MyHomePage>
   bool startingUp = false;
 
   // String connectionId = '192.168.0.21:5000';
-  String connectionId = 'financefordummies.ml';
+  //String connectionId = 'financefordummies.ml';
+  String connectionId = '192.168.178.38:8000';
 
   final actualTextFieldController = TextEditingController();
   final budgetTextFieldController = TextEditingController();
@@ -565,7 +566,7 @@ class _MyHomePageState extends State<MyHomePage>
     String language = Localizations.localeOf(context).toString().split('_')[0];
 
     try {
-      String url = 'https://uselessfacts.jsph.pl/random.json?language=${language ==
+      String url = 'http://uselessfacts.jsph.pl/random.json?language=${language ==
           'en' || language == 'de' ? language : 'en'}';
 
       print(url);
@@ -610,7 +611,7 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   syncUserInBackend() async {
-    String uri = 'https://$connectionId/api/ffd/user/';
+    String uri = 'http://$connectionId/api/ffd/user/';
 
     print(uri);
 
@@ -632,7 +633,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   loadList(String type, String sort, String sortType) async {
     String uri =
-        'https://$connectionId/api/ffd/list/?_type=$type&sort=$sort&sortType=$sortType';
+        'http://$connectionId/api/ffd/list/?_type=$type&sort=$sort&sortType=$sortType';
 
     print(uri);
 
@@ -705,7 +706,7 @@ class _MyHomePageState extends State<MyHomePage>
     // Needed to distinguish between actual and budget, so has to be set on runTime
     String _type = '';
     String uri = '';
-    String todaysExpenseUri = 'https://$connectionId/api/ffd/amounts/?level_type=1&cost_type=-1&parent_account=-1&year=${DateTime.now().year}&month=${DateTime.now().month}&day=${DateTime.now().day}&_type=actual&groupBy=Day';
+    String todaysExpenseUri = 'http://$connectionId/api/ffd/amounts/?level_type=1&cost_type=-1&parent_account=-1&year=${DateTime.now().year}&month=${DateTime.now().month}&day=${DateTime.now().day}&_type=actual&groupBy=Day';
 
     ChartObject needsToBeAdded = ChartObject('DUMMY', -99, -69, -69, -69,
         charts.ColorUtil.fromDartColor(Color(0xff003680)));
@@ -743,12 +744,12 @@ class _MyHomePageState extends State<MyHomePage>
     //try {
     _type = 'actual';
     uri =
-    'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&day=$day&_type=$_type&groupBy=$groupByArgument';
+    'http://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&day=$day&_type=$_type&groupBy=$groupByArgument';
     var actualAmounts = await http.read(uri, headers: params);
 
     _type = 'budget';
     uri =
-    'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&day=$day&_type=$_type&groupBy=$groupByArgument';
+    'http://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&day=$day&_type=$_type&groupBy=$groupByArgument';
     var budgetAmounts = await http.read(uri, headers: params);
 
     var parsedActualAmounts = json.decode(actualAmounts);
@@ -866,7 +867,7 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   loadPreferences() async {
-    String uri = 'https://$connectionId/api/ffd/preferences';
+    String uri = 'http://$connectionId/api/ffd/preferences';
 
     final prefs = await SharedPreferences.getInstance();
     final String groupBySelection = prefs.get('groupBySelection') ?? '';
@@ -935,21 +936,21 @@ class _MyHomePageState extends State<MyHomePage>
 
     try {
       var actual = await http.read(
-          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&day=$day&_type=$_type&groupBy=Accounts',
+          'http://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&day=$day&_type=$_type&groupBy=Accounts',
           headers: params);
 
       var actualComparison = await http.read(
-          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$comparisonYear&month=$comparisonMonth&day=$day&_type=$_type&groupBy=Accounts',
+          'http://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$comparisonYear&month=$comparisonMonth&day=$day&_type=$_type&groupBy=Accounts',
           headers: params);
 
       _type = 'budget';
 
       var budget = await http.read(
-          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&day=$day&_type=$_type&groupBy=Accounts',
+          'http://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$year&month=$month&day=$day&_type=$_type&groupBy=Accounts',
           headers: params);
 
       var budgetComparison = await http.read(
-          'https://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$comparisonYear&month=$comparisonMonth&day=$day&_type=$_type&groupBy=Accounts',
+          'http://$connectionId/api/ffd/amounts/?level_type=$level_type&cost_type=$cost_type&parent_account=$parent_account&year=$comparisonYear&month=$comparisonMonth&day=$day&_type=$_type&groupBy=Accounts',
           headers: params);
 
       var parsedActual = json.decode(actual);
@@ -1106,16 +1107,16 @@ class _MyHomePageState extends State<MyHomePage>
     try {
       if (fetch || onStartup) {
         level1AccountsJson = await http.read(
-            'https://$connectionId/api/ffd/accounts/1',
+            'http://$connectionId/api/ffd/accounts/1',
             headers: params);
         level2AccountsJson = await http.read(
-            'https://$connectionId/api/ffd/accounts/2',
+            'http://$connectionId/api/ffd/accounts/2',
             headers: params);
         level3AccountsJson = await http.read(
-            'https://$connectionId/api/ffd/accounts/3',
+            'http://$connectionId/api/ffd/accounts/3',
             headers: params);
         costTypesJson = await http.read(
-            'https://$connectionId/api/ffd/costtypes/',
+            'http://$connectionId/api/ffd/costtypes/',
             headers: params);
 
         var parsedAccountLevel1 = json.decode(level1AccountsJson);
@@ -1438,7 +1439,7 @@ class _MyHomePageState extends State<MyHomePage>
       currentlyLoading = true;
     });
 
-    var url = 'https://$connectionId/api/ffd/';
+    var url = 'http://$connectionId/api/ffd/';
     String _token = token;
 
     // Whenever with the backend is communicated its best to reload the accounts and costtpyes
@@ -1460,8 +1461,8 @@ class _MyHomePageState extends State<MyHomePage>
       'amount': type == 'actual' || type == 'actualschedule'
           ? actualTextFieldController.text
           : budgetTextFieldController.text,
-      'actualcomment': actualCommentTextFieldController.text,
-      'budgetcomment': budgetCommentTextFieldController.text,
+      'actualcomment': actualCommentTextFieldController.text == '' ? '-' : actualCommentTextFieldController.text,
+      'budgetcomment': budgetCommentTextFieldController.text == '' ? '-' : budgetCommentTextFieldController.text,
       'level1':
       type == 'actual' ? level1ActualObject.name : level1BudgetObject.name,
       'level2':
