@@ -132,9 +132,8 @@ def connect():
     except (Exception, psycopg2.Error) as error :
         logging.critical(f"Error while connecting to PostgreSQL {error}")
 
-def userExists():
+def userExists(headerAccesstoken):
     
-    headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
 
     logging.critical('#####################')
@@ -269,7 +268,7 @@ def createDefaultChartOfCostTypes(userId):
         return True
         
         
-def readAccounts(level_type):
+def readAccounts(level_type, headerAccesstoken):
     """
     This function responds to a request for /api/ffd/level_type
     with the complete lists of accounts for the user
@@ -277,7 +276,6 @@ def readAccounts(level_type):
     :return:        list of accounts
     """
 
-    headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
 
     # Mail is ACCESS FORBIDDEN in this case
@@ -310,7 +308,7 @@ def readAccounts(level_type):
 
     return data
 
-def readPreferences():
+def readPreferences(headerAccesstoken):
     """
     This function responds to a request for /api/ffd/Preferences
     with the complete lists of Preferences for the user
@@ -320,7 +318,6 @@ def readPreferences():
     http://192.168.0.21:5000/api/ffd/preferences?user=1
     """
 
-    headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
 
     # Mail is ACCESS FORBIDDEN in this case
@@ -358,7 +355,7 @@ def readPreferences():
 
     return data
 
-def readListActualBudget(_type, sort, sortType):
+def readListActualBudget(_type, sort, sortType, headerAccesstoken):
     """
     This function responds to a request for /api/ffd/Preferences
     with the complete lists of Preferences for the user
@@ -371,7 +368,6 @@ def readListActualBudget(_type, sort, sortType):
 
     rowsToReturn = 200
 
-    headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
 
     # Mail is ACCESS FORBIDDEN in this case
@@ -413,7 +409,7 @@ def readListActualBudget(_type, sort, sortType):
 
     return data
 
-def readAmounts(level_type, cost_type, parent_account, year, month, day, _type, groupBy):
+def readAmounts(level_type, cost_type, parent_account, year, month, day, _type, groupBy, headerAccesstoken):
     
     """
     This function responds to a request for /api/ffd/amounts/?level_type=2&cost_type=-99&parent_account=3&year=2020&month=2&_type=actual
@@ -434,7 +430,6 @@ def readAmounts(level_type, cost_type, parent_account, year, month, day, _type, 
     logging.critical(groupBy)
     logging.critical("####################")
 
-    headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
 
     # When accounts or none passed
@@ -651,7 +646,7 @@ def readAmounts(level_type, cost_type, parent_account, year, month, day, _type, 
         return data
 
 
-def readCosttypes():
+def readCosttypes(headerAccesstoken):
     """
     This function responds to a request for /api/ffd/level_type
     with the complete lists of accounts for the user
@@ -659,7 +654,6 @@ def readCosttypes():
     :return:        list of accounts
     """
 
-    headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
 
     # Mail is ACCESS FORBIDDEN in this case
@@ -697,7 +691,7 @@ def readCosttypes():
     # Create the list of people from our data
     #return [PEOPLE[key] for key in sorted(PEOPLE.keys())]
 
-def send():
+def send(headerAccesstoken, data):
     """
     This function responds to a request for /api/ffd
     it is the entry point for all functionality
@@ -706,9 +700,7 @@ def send():
     :return:        the body send, with the changed status
     """
 
-    data = request.form.to_dict()
     
-    headerAccesstoken = request.headers.get('accesstoken')
     userId, mail, errorMessage = validate(headerAccesstoken)
 
     # Mail is ACCESS FORBIDDEN in this case
