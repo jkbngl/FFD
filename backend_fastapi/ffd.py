@@ -2,7 +2,6 @@ from datetime import datetime
 from datetime import timedelta
 import psycopg2
 import psycopg2.extras
-from flask import request
 import json
 from configparser import *
 import logging
