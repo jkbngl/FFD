@@ -53,7 +53,7 @@ def readPreferences(request: Request):
 
 
 @app.get("/api/ffd/accounts/{level_type}")
-def accounts(leve_typel: int, request: Request):
+def accounts(level_type: int, request: Request):
     headerAccesstoken = request.headers.get('accesstoken')
 
     return ffd.readAccounts(level_type, headerAccesstoken)
